@@ -1,4 +1,4 @@
-import { Typography, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { FC, ReactNode } from "react";
 
 interface StatProps {
