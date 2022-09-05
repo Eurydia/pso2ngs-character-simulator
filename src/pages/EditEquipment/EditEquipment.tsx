@@ -8,6 +8,7 @@ import {
   Stack,
   Divider,
 } from "@mui/material";
+import WeaponForm from "./subcomponents/WeaponForm";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -16,37 +17,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
       <Grid item xs={1}>
         <Card raised>
           <CardContent>
-            <Stack spacing={2} divider={<Divider flexItem />}>
-              <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
-                <Grid item md={2} xs={1}>
-                  <TextField fullWidth label="Weapon" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Enhancement" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Fixa" />
-                </Grid>
-                <Grid item md={2} xs={1}>
-                  <Divider flexItem />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Augment" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Augment" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Augment" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Augment" />
-                </Grid>
-                <Grid item xs={1}>
-                  <TextField fullWidth label="Augment" />
-                </Grid>
-              </Grid>
-            </Stack>
+            <WeaponForm />
           </CardContent>
         </Card>
       </Grid>
