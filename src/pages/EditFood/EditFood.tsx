@@ -27,9 +27,10 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import EffectDisplay from "./subcomponents/ActiveBuffList";
-import RecipeDisplay from "./subcomponents/RecipeDisplay";
+import { Add, BarChart } from "@mui/icons-material";
+import EffectDisplay from "./subcomponents/EffectList";
+import RecipeDisplay from "./subcomponents/IngredientList";
+import DialogIngredientList from "./subcomponents/DialogIngredientList";
 
 interface FoodEditProps {}
 const FoodEdit: FC<FoodEditProps> = () => {
@@ -69,32 +70,10 @@ const FoodEdit: FC<FoodEditProps> = () => {
       <Dialog open={false} fullWidth maxWidth="sm">
         <DialogTitle>Select ingredient(s)</DialogTitle>
         <DialogContent>
-          <List
-            subheader={
-              <ListSubheader>Pick one or more</ListSubheader>
-            }
-          >
-            <ListItem dense>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Checkbox disableRipple />
-                </ListItemIcon>
-                <ListItemText secondary="crispy, meat, anti-cold">
-                  crispy meat
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
-            <ListItem dense>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Checkbox disableRipple />
-                </ListItemIcon>
-                <ListItemText secondary="crispy, meat, anti-cold">
-                  crispy meat
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
-          </List>
+          <Stack paddingY={1}>
+            <TextField fullWidth label="search" size="small" />
+            <DialogIngredientList />
+          </Stack>
         </DialogContent>
         <DialogActions>
           <Button>cancel</Button>
