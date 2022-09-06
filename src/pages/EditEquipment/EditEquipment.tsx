@@ -7,21 +7,37 @@ import {
   TextField,
   Stack,
   Divider,
+  CardHeader,
+  Paper,
+  Typography,
+  Box,
 } from "@mui/material";
 import WeaponForm from "./subcomponents/WeaponForm";
+import UnitForm from "./subcomponents/UnitForm";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
-    <Grid container columns={{ md: 2, xs: 1 }} width={1}>
-      <Grid item xs={1}>
-        <Card raised>
-          <CardContent>
-            <WeaponForm />
-          </CardContent>
-        </Card>
+    <Box>
+      <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
+        <Grid item xs={1}>
+          <Card variant="outlined">
+            <CardHeader title="Weapon" />
+            <CardContent>
+              <WeaponForm />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={1}>
+          <Card variant="outlined">
+            <CardHeader title="Unit #1" />
+            <CardContent>
+              <UnitForm />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

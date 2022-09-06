@@ -9,11 +9,11 @@ import {
 import { FC } from "react";
 import AugmentForm from "../AugmentForm";
 
-interface WeaponFormProps {}
-const WeaponForm: FC<WeaponFormProps> = () => {
+interface UnitFormProps {}
+const UnitForm: FC<UnitFormProps> = () => {
   return (
     <Stack spacing={0.5}>
-      <TextField fullWidth label="Weapon" helperText=" " />
+      <TextField fullWidth label="Unit" helperText=" " />
       <TextField
         fullWidth
         label="Enhancement"
@@ -32,4 +32,4 @@ const WeaponForm: FC<WeaponFormProps> = () => {
   );
 };
 
-export default WeaponForm;
+export default UnitForm;
