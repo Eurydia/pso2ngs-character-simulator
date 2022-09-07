@@ -6,10 +6,11 @@ import {
   CardContent,
   CardHeader,
   Grid,
+  Paper,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import CharacterStats from "./subcomponents/CharacterStats";
+import CharacterStats from "./subcomponents/StatList";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -18,18 +19,21 @@ const Home: FC<HomeProps> = (props) => {
       container
       width={1}
       columns={{ md: 2, xs: 1 }}
-      padding={4}
+      padding={2}
       spacing={4}
     >
       <Grid item md={2} xs={1}>
-        <Card raised>
-          <CardContent>
-            <CharacterStats />
-          </CardContent>
-        </Card>
+        <Paper
+          variant="outlined"
+          sx={{
+            padding: 2,
+          }}
+        >
+          <CharacterStats />
+        </Paper>
       </Grid>
       <Grid item xs={1}>
-        <Card raised>
+        <Card variant="outlined">
           <CardHeader title="Character" />
           <CardContent>
             <Typography>
@@ -44,7 +48,7 @@ const Home: FC<HomeProps> = (props) => {
         </Card>
       </Grid>
       <Grid item xs={1}>
-        <Card raised>
+        <Card variant="outlined">
           <CardHeader title="Equipment" />
           <CardContent>
             <Typography>Weapon, units, and augments.</Typography>
@@ -57,7 +61,7 @@ const Home: FC<HomeProps> = (props) => {
         </Card>
       </Grid>
       <Grid item xs={1}>
-        <Card raised>
+        <Card variant="outlined">
           <CardHeader title="Food" />
           <CardContent>
             <Typography>

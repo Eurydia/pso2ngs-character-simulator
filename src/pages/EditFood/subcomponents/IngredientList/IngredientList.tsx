@@ -1,15 +1,12 @@
 import { FC } from "react";
 import {
   alpha,
-  Box,
   IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Paper,
-  Stack,
   TextField,
   Typography,
   useTheme,
@@ -46,13 +43,19 @@ const IngredientList: FC<IngredientListProps> = (props) => {
 
   return (
     <List
-      subheader={<ListSubheader>Ingredients used 0/10</ListSubheader>}
+      dense
+      disablePadding
+      subheader={
+        <ListSubheader disableGutters disableSticky>
+          0/10 ingredients used
+        </ListSubheader>
+      }
       sx={{
         height: "500px",
         overflowY: "auto",
       }}
     >
-      <ListItem>
+      <ListItem disablePadding>
         <ListItemText
           primaryTypographyProps={{
             fontStyle: "italic",
@@ -62,9 +65,9 @@ const IngredientList: FC<IngredientListProps> = (props) => {
           No item in recipe.
         </ListItemText>
       </ListItem>
-      {/* <IngredientListItem />
       <IngredientListItem />
-      <IngredientListItem /> */}
+      <IngredientListItem />
+      <IngredientListItem />
     </List>
   );
 };

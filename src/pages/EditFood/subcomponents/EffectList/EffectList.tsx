@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  alpha,
   Box,
   List,
   ListItem,
@@ -8,19 +9,18 @@ import {
   ListSubheader,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
+import { KeyboardDoubleArrowUp } from "@mui/icons-material";
 
 interface EffectListItemProps {}
 const EffectListItem: FC<EffectListItemProps> = (props) => {
   return (
-    <ListItem
-      dense
-      disablePadding
-      disableGutters
-      divider
-      alignItems="center"
-    >
-      <ListItemText inset secondary="9 in recipe">
+    <ListItem divider>
+      <ListItemIcon>
+        <KeyboardDoubleArrowUp />
+      </ListItemIcon>
+      <ListItemText secondary="9 in recipe">
         <Stack
           direction="row"
           alignItems="center"
@@ -36,12 +36,28 @@ const EffectListItem: FC<EffectListItemProps> = (props) => {
 
 interface EffectListProps {}
 const EffectList: FC<EffectListProps> = (props) => {
+  const { palette } = useTheme();
+
   return (
     <List
+      dense
+      disablePadding
       subheader={
-        <ListSubheader disableSticky>5 effects active</ListSubheader>
+        <ListSubheader disableSticky disableGutters>
+          5 active effects
+        </ListSubheader>
       }
     >
+      <ListItem disablePadding>
+        <ListItemText
+          primaryTypographyProps={{
+            fontStyle: "italic",
+            color: alpha(palette.text.secondary, 0.6),
+          }}
+        >
+          No active effect.
+        </ListItemText>
+      </ListItem>
       <EffectListItem />
       <EffectListItem />
       <EffectListItem />

@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider, Container } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CharacterEdit from "./pages/EditCharacter";
-import EditEquipment from "./pages/EditEquipment/EditEquipment";
+import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import Home from "./pages/Home";
 
@@ -13,7 +13,7 @@ function App() {
     <ThemeProvider theme={style_overrrides}>
       <CssBaseline />
       <BrowserRouter>
-        <Container maxWidth="lg" sx={{ padding: 2 }}>
+        <Container maxWidth="lg">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

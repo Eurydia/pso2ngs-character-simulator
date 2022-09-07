@@ -30,7 +30,23 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
         </Grid>
         <Grid item xs={1}>
           <Card variant="outlined">
-            <CardHeader title="Unit #1" />
+            <CardHeader title="Unit" />
+            <CardContent>
+              <UnitForm />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={1}>
+          <Card variant="outlined">
+            <CardHeader title="Unit" />
+            <CardContent>
+              <UnitForm />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={1}>
+          <Card variant="outlined">
+            <CardHeader title="Unit" />
             <CardContent>
               <UnitForm />
             </CardContent>
