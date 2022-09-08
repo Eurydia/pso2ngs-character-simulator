@@ -13,20 +13,12 @@ function App() {
     <ThemeProvider theme={style_overrrides}>
       <CssBaseline />
       <BrowserRouter>
-        <Container maxWidth="lg">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/edit-character"
-              element={<CharacterEdit />}
-            />
-            <Route
-              path="/edit-equipment"
-              element={<EditEquipment />}
-            />
-            <Route path="/edit-food" element={<FoodEdit />} />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/edit-character" element={<CharacterEdit />} />
+          <Route path="/edit-equipment" element={<EditEquipment />} />
+          <Route path="/edit-food" element={<FoodEdit />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );

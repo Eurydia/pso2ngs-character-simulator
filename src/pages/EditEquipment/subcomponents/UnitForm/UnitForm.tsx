@@ -6,29 +6,25 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import AugmentForm from "../AugmentForm";
+import EquipmentFormLayout from "../EquipmentFormLayout";
 
 interface UnitFormProps {}
 const UnitForm: FC<UnitFormProps> = () => {
   return (
-    <Stack spacing={0.5}>
-      <TextField fullWidth label="Unit" helperText=" " />
-      <TextField
-        fullWidth
-        label="Enhancement"
-        helperText=" "
-        // <Typography fontSize="inherit">Invalid</Typography>
-      />
-      <TextField
-        fullWidth
-        label="Fixa"
-        helperText={
-          <Typography fontSize="inherit">Optional</Typography>
-        }
-      />
-      <AugmentForm />
-    </Stack>
+    <EquipmentFormLayout
+      equipmentSlot={<TextField fullWidth label="Unit" />}
+      enhancementSlot={
+        <TextField
+          fullWidth
+          label="Enhancement"
+          // <Typography fontSize="inherit">Invalid</Typography>
+        />
+      }
+      fixaSlot={<TextField fullWidth label="Fixa" />}
+      augmentSlot={<AugmentForm />}
+    />
   );
 };
 

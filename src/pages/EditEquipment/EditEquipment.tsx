@@ -1,15 +1,10 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
   Grid,
-  TextField,
-  Stack,
-  Divider,
   CardHeader,
-  Paper,
-  Typography,
+  Container,
   Box,
 } from "@mui/material";
 import WeaponForm from "./subcomponents/WeaponForm";
@@ -18,7 +13,7 @@ import UnitForm from "./subcomponents/UnitForm";
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
-    <Box>
+    <Container maxWidth="lg">
       <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
         <Grid item xs={1}>
           <Card variant="outlined">
@@ -53,7 +48,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           </Card>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 

@@ -1,11 +1,11 @@
 import { FC } from "react";
 import {
-  alpha,
   Box,
   Button,
   Card,
   CardContent,
   CardHeader,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,7 +15,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Add, BarChart } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import EffectDisplay from "./subcomponents/EffectList";
 import RecipeDisplay from "./subcomponents/IngredientList";
 import DialogIngredientList from "./subcomponents/DialogIngredientList";
@@ -23,7 +23,7 @@ import DialogIngredientList from "./subcomponents/DialogIngredientList";
 interface FoodEditProps {}
 const FoodEdit: FC<FoodEditProps> = () => {
   return (
-    <Box>
+    <Container maxWidth="lg">
       <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
         <Grid item xs={1}>
           <Card variant="outlined">
@@ -68,7 +68,7 @@ const FoodEdit: FC<FoodEditProps> = () => {
           <Button>confirm</Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Container>
   );
 };
 

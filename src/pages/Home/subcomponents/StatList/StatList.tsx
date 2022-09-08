@@ -4,7 +4,6 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
@@ -14,11 +13,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { getIcon, toAdd, toPercent } from "./helper";
-import {
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
-} from "@mui/icons-material";
-import { blue, pink } from "@mui/material/colors";
 
 interface StatListItemProps {
   mode: "add" | "percent";
@@ -85,7 +79,7 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
   const def_icon = getIcon(defense, 0);
 
   return (
-    <CustomList subheader="Core stats">
+    <CustomList subheader="Core">
       <StatListItem label="BP" value={bp} mode="add" icon={bp_icon} />
       <StatListItem label="HP" value={hp} mode="add" icon={hp_icon} />
       <StatListItem label="PP" value={pp} mode="add" icon={pp_icon} />

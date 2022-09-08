@@ -5,7 +5,7 @@ interface AugmentFormProps {}
 const AugmentForm: FC<AugmentFormProps> = () => {
   return (
     <Box>
-      <Grid container spacing={1} columns={{ md: 2, xs: 1 }}>
+      <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
         <Grid item xs={1}>
           <TextField fullWidth label="Augment" />
         </Grid>
