@@ -1,12 +1,11 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { FC } from "react";
 
-interface EnhancementFieldProps {
-  value: string | null;
-  onChange: (value: string | null) => void;
-}
-const EnhancementField: FC<EnhancementFieldProps> = (props) => {
-  return <TextField label="Fixa" />;
+interface FixaFieldProps {}
+const FixaField: FC<FixaFieldProps> = (props) => {
+  return (
+    <TextField label="Fixa" InputLabelProps={{ shrink: true }} />
+  );
 };
 
-export default EnhancementField;
+export default FixaField;

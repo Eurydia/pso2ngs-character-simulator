@@ -22,20 +22,17 @@ const Home: FC<HomeProps> = (props) => {
         width={1}
         columns={{ md: 2, xs: 1 }}
         padding={2}
-        spacing={2}
+        spacing={4}
       >
         <Grid item md={2} xs={1}>
-          <Paper
-            variant="outlined"
-            sx={{
-              padding: 2,
-            }}
-          >
-            <CharacterStats />
-          </Paper>
+          <Card raised>
+            <CardContent>
+              <CharacterStats />
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Character" />
             <CardContent>
               <Typography>
@@ -50,7 +47,7 @@ const Home: FC<HomeProps> = (props) => {
           </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Equipment" />
             <CardContent>
               <Typography>Weapon, units, and augments.</Typography>
@@ -63,7 +60,7 @@ const Home: FC<HomeProps> = (props) => {
           </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Food" />
             <CardContent>
               <Typography>

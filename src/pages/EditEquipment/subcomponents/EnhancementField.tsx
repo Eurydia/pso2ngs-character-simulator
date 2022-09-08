@@ -3,14 +3,18 @@ import { ChangeEvent, FC } from "react";
 
 interface EnhancementFieldProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (
+    value_apparent: string,
+    value_interpreted: number,
+  ) => void;
 }
 const EnhancementField: FC<EnhancementFieldProps> = (props) => {
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const value = event.target.value;
-    props.onChange(value);
+    const value_int = parseInt(value);
+    props.onChange(value, value_int);
   };
 
   return (
@@ -18,7 +22,6 @@ const EnhancementField: FC<EnhancementFieldProps> = (props) => {
       fullWidth
       value={props.value}
       onChange={handleChange}
-      variant="filled"
       label="Enhancement"
       type="number"
       inputMode="numeric"

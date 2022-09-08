@@ -10,6 +10,7 @@ import { FC, Fragment } from "react";
 import AugmentForm from "../AugmentForm";
 import EnhancementField from "../EnhancementField";
 import EquipmentFormLayout from "../EquipmentFormLayout";
+import FixaField from "../FixaField";
 
 interface WeaponFormProps {}
 const WeaponForm: FC<WeaponFormProps> = () => {
@@ -19,7 +20,7 @@ const WeaponForm: FC<WeaponFormProps> = () => {
       enhancementSlot={
         <EnhancementField value="0" onChange={() => null} />
       }
-      fixaSlot={<TextField fullWidth label="Fixa" />}
+      fixaSlot={<FixaField />}
       augmentSlot={<AugmentForm />}
     />
   );

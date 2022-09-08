@@ -6,17 +6,20 @@ import {
   CardHeader,
   Container,
   Box,
+  Divider,
+  Stack,
 } from "@mui/material";
 import WeaponForm from "./subcomponents/WeaponForm";
 import UnitForm from "./subcomponents/UnitForm";
+import { purple } from "@mui/material/colors";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
     <Container maxWidth="lg">
-      <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
+      <Grid container columns={{ md: 2, xs: 1 }} spacing={4}>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Weapon" />
             <CardContent>
               <WeaponForm />
@@ -24,7 +27,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Unit" />
             <CardContent>
               <UnitForm />
@@ -32,7 +35,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Unit" />
             <CardContent>
               <UnitForm />
@@ -40,7 +43,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           </Card>
         </Grid>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Unit" />
             <CardContent>
               <UnitForm />

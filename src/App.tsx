@@ -1,4 +1,9 @@
-import { CssBaseline, ThemeProvider, Container } from "@mui/material";
+import {
+  CssBaseline,
+  GlobalStyles,
+  ThemeProvider,
+} from "@mui/material";
+import { purple } from "@mui/material/colors";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CharacterEdit from "./pages/EditCharacter";
@@ -12,6 +17,13 @@ function App() {
   return (
     <ThemeProvider theme={style_overrrides}>
       <CssBaseline />
+      <GlobalStyles
+        styles={{
+          body: {
+            backgroundColor: purple["200"],
+          },
+        }}
+      />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

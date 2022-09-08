@@ -8,7 +8,9 @@ import {
 } from "@mui/material";
 import { FC, Fragment } from "react";
 import AugmentForm from "../AugmentForm";
+import EnhancementField from "../EnhancementField";
 import EquipmentFormLayout from "../EquipmentFormLayout";
+import FixaField from "../FixaField";
 
 interface UnitFormProps {}
 const UnitForm: FC<UnitFormProps> = () => {
@@ -16,13 +18,9 @@ const UnitForm: FC<UnitFormProps> = () => {
     <EquipmentFormLayout
       equipmentSlot={<TextField fullWidth label="Unit" />}
       enhancementSlot={
-        <TextField
-          fullWidth
-          label="Enhancement"
-          // <Typography fontSize="inherit">Invalid</Typography>
-        />
+        <EnhancementField value="0" onChange={() => null} />
       }
-      fixaSlot={<TextField fullWidth label="Fixa" />}
+      fixaSlot={<FixaField />}
       augmentSlot={<AugmentForm />}
     />
   );
