@@ -1,17 +1,7 @@
 import { FC } from "react";
-import {
-  Card,
-  CardContent,
-  Grid,
-  CardHeader,
-  Container,
-  Box,
-  Divider,
-  Stack,
-} from "@mui/material";
-import WeaponForm from "./subcomponents/WeaponForm";
-import UnitForm from "./subcomponents/UnitForm";
-import { purple } from "@mui/material/colors";
+import { Grid, Container } from "@mui/material";
+import FormWeapon from "./subcomponents/FormWeapon";
+import FormUnit from "./subcomponents/FormUnit";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -19,36 +9,16 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
     <Container maxWidth="lg">
       <Grid container columns={{ md: 2, xs: 1 }} spacing={4}>
         <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Weapon" />
-            <CardContent>
-              <WeaponForm />
-            </CardContent>
-          </Card>
+          <FormWeapon />
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Unit" />
-            <CardContent>
-              <UnitForm />
-            </CardContent>
-          </Card>
+          <FormUnit index={1} />
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Unit" />
-            <CardContent>
-              <UnitForm />
-            </CardContent>
-          </Card>
+          <FormUnit index={2} />
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Unit" />
-            <CardContent>
-              <UnitForm />
-            </CardContent>
-          </Card>
+          <FormUnit index={3} />
         </Grid>
       </Grid>
     </Container>

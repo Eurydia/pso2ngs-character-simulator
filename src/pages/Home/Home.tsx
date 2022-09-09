@@ -7,11 +7,11 @@ import {
   CardHeader,
   Container,
   Grid,
-  Paper,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import CharacterStats from "./subcomponents/StatList";
+import ExtraRoundedCard from "../../GlobalComponents/ExtraRoundedCard";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -25,14 +25,15 @@ const Home: FC<HomeProps> = (props) => {
         spacing={4}
       >
         <Grid item md={2} xs={1}>
-          <Card raised>
+          <ExtraRoundedCard raised>
+            <CardHeader title="Overview" />
             <CardContent>
               <CharacterStats />
             </CardContent>
-          </Card>
+          </ExtraRoundedCard>
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
+          <ExtraRoundedCard raised>
             <CardHeader title="Character" />
             <CardContent>
               <Typography>
@@ -44,10 +45,10 @@ const Home: FC<HomeProps> = (props) => {
                 edit
               </Button>
             </CardActions>
-          </Card>
+          </ExtraRoundedCard>
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
+          <ExtraRoundedCard raised>
             <CardHeader title="Equipment" />
             <CardContent>
               <Typography>Weapon, units, and augments.</Typography>
@@ -57,10 +58,10 @@ const Home: FC<HomeProps> = (props) => {
                 edit
               </Button>
             </CardActions>
-          </Card>
+          </ExtraRoundedCard>
         </Grid>
         <Grid item xs={1}>
-          <Card raised>
+          <ExtraRoundedCard raised>
             <CardHeader title="Food" />
             <CardContent>
               <Typography>
@@ -72,7 +73,7 @@ const Home: FC<HomeProps> = (props) => {
                 edit
               </Button>
             </CardActions>
-          </Card>
+          </ExtraRoundedCard>
         </Grid>
       </Grid>
     </Container>
