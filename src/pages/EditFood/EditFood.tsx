@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment, useState } from "react";
 import {
   Box,
   Button,
@@ -22,18 +22,29 @@ import DialogIngredientList from "./subcomponents/DialogIngredientList";
 
 interface FoodEditProps {}
 const FoodEdit: FC<FoodEditProps> = () => {
+  const [dialogState, setDialogState] = useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogState(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogState(false);
+  };
+
   return (
-    <Container maxWidth="lg">
+    <Fragment>
       <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
         <Grid item xs={1}>
-          <Card variant="outlined">
+          <Card raised>
             <CardHeader title="Recipe Editor" />
             <CardContent>
-              <Stack width={1} position="relative">
-                <RecipeDisplay />
+              <RecipeDisplay />
+              <Box width={1} position="relative">
                 <Fab
                   color="primary"
                   size="medium"
+                  onClick={handleDialogOpen}
                   sx={{
                     position: "absolute",
                     bottom: 0,
@@ -42,7 +53,7 @@ const FoodEdit: FC<FoodEditProps> = () => {
                 >
                   <Add />
                 </Fab>
-              </Stack>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -55,7 +66,12 @@ const FoodEdit: FC<FoodEditProps> = () => {
           </Card>
         </Grid>
       </Grid>
-      <Dialog open={false} fullWidth maxWidth="sm">
+      <Dialog
+        open={dialogState}
+        onClose={handleDialogClose}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle>Select ingredient(s)</DialogTitle>
         <DialogContent>
           <Stack paddingY={1}>
@@ -64,11 +80,11 @@ const FoodEdit: FC<FoodEditProps> = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button>cancel</Button>
-          <Button>confirm</Button>
+          <Button onClick={handleDialogClose}>cancel</Button>
+          <Button onClick={handleDialogClose}>confirm</Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </Fragment>
   );
 };
 

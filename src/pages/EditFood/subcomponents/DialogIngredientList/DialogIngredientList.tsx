@@ -14,7 +14,7 @@ const DialogIngredientListItem: FC<DialogIngredientListItemProps> = (
   props,
 ) => {
   return (
-    <ListItem dense>
+    <ListItem disablePadding>
       <ListItemButton>
         <ListItemIcon>
           <Checkbox disableRipple />
@@ -33,6 +33,7 @@ const DialogIngredientList: FC<DialogIngredientListProps> = (
 ) => {
   return (
     <List
+      dense
       subheader={
         <ListSubheader disableSticky>Pick one or more</ListSubheader>
       }

@@ -1,4 +1,5 @@
 import {
+  Container,
   CssBaseline,
   GlobalStyles,
   ThemeProvider,
@@ -25,12 +26,20 @@ function App() {
         }}
       />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/edit-character" element={<CharacterEdit />} />
-          <Route path="/edit-equipment" element={<EditEquipment />} />
-          <Route path="/edit-food" element={<FoodEdit />} />
-        </Routes>
+        <Container maxWidth="lg">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/edit-character"
+              element={<CharacterEdit />}
+            />
+            <Route
+              path="/edit-equipment"
+              element={<EditEquipment />}
+            />
+            <Route path="/edit-food" element={<FoodEdit />} />
+          </Routes>
+        </Container>
       </BrowserRouter>
     </ThemeProvider>
   );
