@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -25,10 +26,12 @@ const Home: FC<HomeProps> = (props) => {
     >
       <Grid item md={2} xs={1}>
         <ExtraRoundedCard raised>
-          <CardHeader title="Overview" />
-          <CardContent>
+          <Typography paddingX={4} paddingY={2}>
+            Overview
+          </Typography>
+          <Box paddingX={4} paddingBottom={2}>
             <CharacterStats />
-          </CardContent>
+          </Box>
         </ExtraRoundedCard>
       </Grid>
       <Grid item xs={1}>
