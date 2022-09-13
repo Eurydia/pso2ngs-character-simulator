@@ -1,16 +1,15 @@
 import {
-  Delete,
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowUp,
   Remove,
 } from "@mui/icons-material";
-import { blue, lightGreen, pink } from "@mui/material/colors";
+import { blue, pink } from "@mui/material/colors";
 
-export const toAdd = (value: number): string => {
+export const parseAdd = (value: number): string => {
   return value.toString();
 };
 
-export const toPercent = (value: number): string => {
+export const parsePercent = (value: number): string => {
   const _value = Math.round(value * 10000) / 100;
 
   const parsed = `${_value}%`;
@@ -43,4 +42,15 @@ export const getIcon = (
   }
 
   return icon;
+};
+
+export const maybeToNumber = (
+  value: number | undefined,
+  fallback: number,
+): number => {
+  if (value === undefined) {
+    return fallback;
+  }
+
+  return value;
 };

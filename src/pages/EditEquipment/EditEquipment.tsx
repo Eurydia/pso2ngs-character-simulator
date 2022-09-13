@@ -1,12 +1,21 @@
 import { FC } from "react";
-import { Grid, Container } from "@mui/material";
+import { Card, CardContent, CardHeader, Grid } from "@mui/material";
 import FormWeapon from "./subcomponents/FormWeapon";
 import FormUnit from "./subcomponents/FormUnit";
+import StatsOverview from "../../GlobalComponents/StatOverview";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
-    <Grid container columns={{ md: 2, xs: 1 }} spacing={4}>
+    <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
+      <Grid item md={2} xs={1}>
+        <Card sx={{ borderRadius: "1.25rem" }}>
+          <CardHeader title="Equipment Overview" />
+          <CardContent>
+            <StatsOverview />
+          </CardContent>
+        </Card>
+      </Grid>
       <Grid item xs={1}>
         <FormWeapon />
       </Grid>
