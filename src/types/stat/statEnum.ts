@@ -1,4 +1,4 @@
-export const enum Stats {
+const enum StatEnum {
   CORE_BP = "coreBP",
   CORE_HP = "coreHP",
   CORE_PP = "corePP",
@@ -33,3 +33,5 @@ export const enum Stats {
   ADV_DEF_DAMAGE_RES = "defDamageResist",
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
 }
+
+export default StatEnum;

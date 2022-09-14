@@ -18,7 +18,7 @@ import {
   parseAdd,
   parsePercent,
 } from "./helper";
-import { Stats } from "../../assets/types";
+import { StatEnum } from "../../types/stat/statEnum";
 
 type StatListItemProps = {
   mode: "add" | "percent";
@@ -360,7 +360,7 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 };
 
 type StatsOverviewProps = Partial<{
-  [K in Stats]: number;
+  [K in StatEnum]: number;
 }>;
 const StatsOverview: FC<StatsOverviewProps> = (props) => {
   const { breakpoints } = useTheme();
