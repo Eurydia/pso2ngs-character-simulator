@@ -1,4 +1,4 @@
-const enum GroupEnums {
+const enum GroupEnum {
   BASIC = "basic",
   FUSED = "fused",
   DUALBLE = "dualble",
@@ -16,4 +16,4 @@ const enum GroupEnums {
   DECOLD = "decold",
 }
 
-export default GroupEnums;
+export default GroupEnum;

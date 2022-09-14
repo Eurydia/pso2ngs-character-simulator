@@ -18,7 +18,7 @@ import {
   parseAdd,
   parsePercent,
 } from "./helper";
-import { StatEnum } from "../../types/stat/statEnum";
+import { StatEnum } from "../../assets/stat/statEnum";
 
 type StatListItemProps = {
   mode: "add" | "percent";
