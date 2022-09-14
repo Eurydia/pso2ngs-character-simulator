@@ -1,282 +1,266 @@
-import {
-  StatTypes,
-  expandPot,
-  makeStat,
-  StatShorthands,
-} from "../../stats";
-import { makeAugmentData } from "../makeData";
-import { AugmentData, AugmentGroups } from "../types";
+import stat, { StatEnum } from "../../stat";
+import augment, { Augment } from "../augment";
+import GroupEnum from "../groupEnum";
 
-const GROUP = AugmentGroups.SOUL;
-const CONFLICT: AugmentGroups[] = [AugmentGroups.SOUL];
+const GROUP = GroupEnum.SOUL;
+const CONFLICT: GroupEnum[] = [GroupEnum.SOUL];
 
-let data: AugmentData[] = [];
+let data: Augment[] = [];
 
 // --------------------------------------
 // alt
 (() => {
-  const bps = [5, 7, 9];
-  const hp = [5, 10, 15];
-  const dmg_res = [1.01, 1.02, 1.025];
+  const data_bp = [5, 7, 9];
+  const data_hp = [5, 10, 15];
+  const data_damage_res = [1.01, 1.02, 1.025];
 
-  bps.forEach((bp, level_index) => {
-    const level = level_index + 1;
-    const stats = [
-      makeStat(StatTypes.BP, bp),
-      makeStat(StatTypes.HP, hp[level_index]),
-      makeStat(StatTypes.DMG_RESIST, dmg_res[level_index]),
-    ];
+  for (let i = 0; i < data_bp.length; i++) {
     data.push(
-      makeAugmentData("alts soul", level, GROUP, CONFLICT, stats),
+      augment("alts soul", i + 1, GROUP, CONFLICT, [
+        stat(StatEnum.CORE_BP, data_bp[i]),
+        stat(StatEnum.CORE_HP, data_hp[i]),
+        stat(StatEnum.ADV_DEF_DAMAGE_RES, data_damage_res[i]),
+      ]),
     );
-  });
+  }
 })();
 
 // --------------------------------------
 // dolz
 (() => {
-  const bps = [5, 6, 7];
-  const pp = [5, 5, 5];
-  const floor_pot = [1.01, 1.02, 1.025];
+  const data_bp = [5, 6, 7];
+  const data_pp = [5, 5, 5];
+  const data_floor = [1.01, 1.02, 1.025];
 
-  bps.forEach((bp, level_index) => {
-    const level = level_index + 1;
-    const stats = [
-      makeStat(StatTypes.BP, bp),
-      makeStat(StatTypes.PP, pp[level_index]),
-      makeStat(StatTypes.FLOOR_POT, floor_pot[level_index]),
-    ];
+  for (let i = 0; i < data_bp.length; i++) {
     data.push(
-      makeAugmentData("dolz soul", level, GROUP, CONFLICT, stats),
+      augment("dolz soul", i + 1, GROUP, CONFLICT, [
+        stat(StatEnum.CORE_BP, data_bp[i]),
+        stat(StatEnum.CORE_HP, data_pp[i]),
+        stat(StatEnum.ADV_OFF_FLOOR, data_floor[i]),
+      ]),
     );
-  });
+  }
 })();
 
 // --------------------------------------
 // form | form machini | form sand
 (() => {
-  const bps = [6, 8, 9];
-  const pot_type = expandPot();
-  const pot = [1.02, 1.02, 1.02];
-  const dmg_res = [1, 1.02, 1.025];
+  const data_bp = [6, 8, 9];
+  const data_weapon_up = [1.02, 1.02, 1.02];
+  const data_damage_res = [1, 1.02, 1.025];
 
-  const names = ["forms", "forms machini", "forms sand"];
-  names.forEach((name, pot_type_index) => {
-    bps.forEach((bp, level_index) => {
-      const level = level_index + 1;
-      const stats = [
-        makeStat(StatTypes.BP, bp),
-        makeStat(pot_type[pot_type_index], pot[level_index]),
-        makeStat(StatTypes.DMG_RESIST, dmg_res[level_index]),
-      ];
+  const data_arr: [string, StatEnum][] = [
+    ["forms", StatEnum.WEAPON_MELEE],
+    ["forms machini", StatEnum.WEAPON_RANGED],
+    ["forms sand", StatEnum.WEAPON_TECHNIQUE],
+  ];
+
+  for (const _data of data_arr) {
+    const [name, stat_type] = _data;
+
+    for (let i = 0; i < data_bp.length; i++) {
       data.push(
-        makeAugmentData(
-          `${name} soul`,
-          level,
-          GROUP,
-          CONFLICT,
-          stats,
-        ),
+        augment(`${name} soul`, i + 1, GROUP, CONFLICT, [
+          stat(StatEnum.CORE_BP, data_bp[i]),
+          stat(stat_type, data_weapon_up[i]),
+          stat(StatEnum.ADV_DEF_DAMAGE_RES, data_damage_res[i]),
+        ]),
       );
-    });
-  });
+    }
+  }
 })();
 
 // --------------------------------------
 // daityl | pettas | nex
 (() => {
-  const bps = [7, 8, 10];
-  const pp = [5, 5, 5];
-  const pot_type = expandPot();
-  const pot = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10];
+  const data_pp = [5, 5, 5];
+  const data_weapon_up = [1.01, 1.02, 1.025];
 
-  const names = ["daityl", "pettas", "nex"];
-  names.forEach((name, pot_type_index) => {
-    bps.forEach((bp, level_index) => {
-      const level = level_index + 1;
-      const stats = [
-        makeStat(StatTypes.BP, bp),
-        makeStat(StatTypes.PP, pp[level_index]),
-        makeStat(pot_type[pot_type_index], pot[level_index]),
-      ];
+  const data_arr: [string, StatEnum][] = [
+    ["daityl", StatEnum.WEAPON_MELEE],
+    ["pettas", StatEnum.WEAPON_RANGED],
+    ["nex", StatEnum.WEAPON_TECHNIQUE],
+  ];
+
+  for (const _data of data_arr) {
+    const [name, stat_type] = _data;
+
+    for (let i = 0; i < data_bp.length; i++) {
       data.push(
-        makeAugmentData(
-          `${name} soul`,
-          level,
-          GROUP,
-          CONFLICT,
-          stats,
-        ),
+        augment(`${name} soul`, i + 1, GROUP, CONFLICT, [
+          stat(StatEnum.CORE_BP, data_bp[i]),
+          stat(StatEnum.CORE_HP, data_pp[i]),
+          stat(stat_type, data_weapon_up[i]),
+        ]),
       );
-    });
-  });
+    }
+  }
 })();
 
 // --------------------------------------
 // dust | ragras | renus
 (() => {
-  const bps = [7, 8, 10];
-  const hp = [15, 15, 15];
-  const pot_type = expandPot();
-  const pot = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10];
+  const data_hp = [15, 15, 15];
+  const data_weapon_up = [1.01, 1.02, 1.025];
 
-  const names = ["dust", "ragras", "renus"];
-  names.forEach((name, pot_type_index) => {
-    bps.forEach((bp, level_index) => {
-      const level = level_index + 1;
-      const stats = [
-        makeStat(StatTypes.BP, bp),
-        makeStat(StatTypes.HP, hp[level_index]),
-        makeStat(pot_type[pot_type_index], pot[level_index]),
-      ];
+  const data_arr: [string, StatEnum][] = [
+    ["dust", StatEnum.WEAPON_MELEE],
+    ["ragras", StatEnum.WEAPON_RANGED],
+    ["renus", StatEnum.WEAPON_TECHNIQUE],
+  ];
+
+  for (const _data of data_arr) {
+    const [name, stat_type] = _data;
+
+    for (let i = 0; i < data_bp.length; i++) {
       data.push(
-        makeAugmentData(
-          `${name} soul`,
-          level,
-          GROUP,
-          CONFLICT,
-          stats,
-        ),
+        augment(`${name} soul`, i, GROUP, CONFLICT, [
+          stat(StatEnum.CORE_BP, data_bp[i]),
+          stat(StatEnum.CORE_HP, data_hp[i]),
+          stat(stat_type, data_weapon_up[i]),
+        ]),
       );
-    });
-  });
+    }
+  }
 })();
 
 // --------------------------------------
 // eradi
 (() => {
-  const bps = [7, 8, 10];
-  const hp = [10, 10, 10];
-  const pp = [4, 4, 4];
-  const pot = [1.01, 1.015, 1.02];
+  const data_bp = [7, 8, 10];
+  const data_hp = [10, 10, 10];
+  const data_pp = [4, 4, 4];
+  const data_weapon_up = [1.01, 1.015, 1.02];
 
-  bps.forEach((bp, level_index) => {
-    const level = level_index + 1;
-    const stats = [
-      makeStat(StatTypes.BP, bp),
-      makeStat(StatTypes.HP, hp[level_index]),
-      makeStat(StatTypes.PP, pp[level_index]),
-      makeStat(StatShorthands.POT, pot[level_index]),
-    ];
+  for (let i = 0; i < data_bp.length; i++) {
     data.push(
-      makeAugmentData("eradi soul", level, GROUP, CONFLICT, stats),
+      augment("eradi soul", i + 1, GROUP, CONFLICT, [
+        stat(StatEnum.CORE_BP, data_bp[i]),
+        stat(StatEnum.CORE_HP, data_hp[i]),
+        stat(StatEnum.CORE_PP, data_pp[i]),
+        stat(StatEnum.WEAPON_MELEE, data_weapon_up[i]),
+        stat(StatEnum.WEAPON_RANGED, data_weapon_up[i]),
+        stat(StatEnum.WEAPON_TECHNIQUE, data_weapon_up[i]),
+      ]),
     );
-  });
+  }
 })();
 
 // --------------------------------------
 // frostyl | crocys | ams
 (() => {
-  const bps = [7, 8, 10];
-  const hp = [10, 10, 10];
-  const pp = [3, 3, 3];
-  const pot_type = expandPot();
-  const pot = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10];
+  const data_hp = [10, 10, 10];
+  const data_pp = [3, 3, 3];
+  const data_weapon_up = [1.01, 1.02, 1.025];
 
-  const names = ["frostyl", "crocys", "ams"];
-  names.forEach((name, pot_type_index) => {
-    bps.forEach((bp, level_index) => {
-      const level = level_index + 1;
-      const stats = [
-        makeStat(StatTypes.BP, bp),
-        makeStat(StatTypes.HP, hp[level_index]),
-        makeStat(StatTypes.PP, pp[level_index]),
-        makeStat(pot_type[pot_type_index], pot[level_index]),
-      ];
+  const data_arr: [string, StatEnum][] = [
+    ["frostyl", StatEnum.WEAPON_MELEE],
+    ["crocys", StatEnum.WEAPON_RANGED],
+    ["ams", StatEnum.WEAPON_TECHNIQUE],
+  ];
+
+  for (const _data of data_arr) {
+    const [name, stat_type] = _data;
+
+    for (let i = 0; i < data_bp.length; i++) {
       data.push(
-        makeAugmentData(
-          `${name} soul`,
-          level,
-          GROUP,
-          CONFLICT,
-          stats,
-        ),
+        augment(`${name} soul`, i + 1, GROUP, CONFLICT, [
+          stat(StatEnum.CORE_BP, data_bp[i]),
+          stat(StatEnum.CORE_HP, data_hp[i]),
+          stat(StatEnum.CORE_PP, data_pp[i]),
+          stat(stat_type, data_weapon_up[i]),
+        ]),
       );
-    });
-  });
+    }
+  }
 })();
 
 // --------------------------------------
 // aglai P | H | X
 data.push(
-  makeAugmentData("aglai soul p", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.PP, 5),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.RNG_POT, 1.025),
+  augment("aglai soul p", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_PP, 5),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("aglai soul h", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 15),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.RNG_POT, 1.025),
+  augment("aglai soul h", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 15),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("aglai soul x", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 10),
-    makeStat(StatTypes.PP, 3),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.RNG_POT, 1.025),
+  augment("aglai soul x", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 10),
+    stat(StatEnum.CORE_PP, 3),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
   ]),
 );
 
 // --------------------------------------
 // euphroy P | H | X
 data.push(
-  makeAugmentData("euphroy soul p", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.PP, 5),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("euphroy soul p", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_PP, 5),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("euphroy soul h", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 15),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("euphroy soul h", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 15),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("euphroy soul x", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 10),
-    makeStat(StatTypes.PP, 3),
-    makeStat(StatTypes.MEL_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("euphroy soul x", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 10),
+    stat(StatEnum.CORE_PP, 3),
+    stat(StatEnum.WEAPON_MELEE, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
 
 // --------------------------------------
 // thali P | H | X
 data.push(
-  makeAugmentData("thali soul p", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.PP, 5),
-    makeStat(StatTypes.RNG_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("thali soul p", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_PP, 5),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("thali soul h", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 15),
-    makeStat(StatTypes.RNG_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("thali soul h", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 15),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
 data.push(
-  makeAugmentData("thali soul x", 0, GROUP, CONFLICT, [
-    makeStat(StatTypes.BP, 11),
-    makeStat(StatTypes.HP, 10),
-    makeStat(StatTypes.PP, 3),
-    makeStat(StatTypes.RNG_POT, 1.025),
-    makeStat(StatTypes.TEC_POT, 1.025),
+  augment("thali soul x", 0, GROUP, CONFLICT, [
+    stat(StatEnum.CORE_BP, 11),
+    stat(StatEnum.CORE_HP, 10),
+    stat(StatEnum.CORE_PP, 3),
+    stat(StatEnum.WEAPON_RANGED, 1.025),
+    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
   ]),
 );
+
 export default data;

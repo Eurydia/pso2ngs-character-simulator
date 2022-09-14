@@ -45,18 +45,18 @@ data.push(
 // combat
 // magnus | lab | resola
 (() => {
-  const data_arr = [
+  const data_arr: [string, StatEnum][] = [
     ["magnus", StatEnum.WEAPON_MELEE],
     ["lab", StatEnum.WEAPON_RANGED],
     ["resola", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data in data_arr) {
+  for (const _data of data_arr) {
     const [name, stat_type] = _data;
     data.push(
       augment(`${name} note`, 0, GROUP, CONFLICT, [
         stat(StatEnum.CORE_BP, 5),
-        stat(stat_type as StatEnum, 1.015),
+        stat(stat_type, 1.015),
       ]),
     );
   }

@@ -26,19 +26,19 @@ let data: Augment[] = [];
 // --------------------------------------
 // might | precicion | technique
 (() => {
-  const data_arr = [
+  const data_arr: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data in data_arr) {
+  for (const _data of data_arr) {
     const [name, stat_type] = _data;
 
     data.push(
       augment(`decold ${name}`, 0, GROUP, CONFLICT, [
         stat(StatEnum.CORE_BP, 9),
-        stat(stat_type as StatEnum, 1.025),
+        stat(stat_type, 1.025),
         stat(StatEnum.HARSH_COLD, 1.025),
       ]),
     );

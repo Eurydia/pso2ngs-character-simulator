@@ -1,5 +1,11 @@
-import { Autocomplete, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  ListItem,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import { FC } from "react";
+import Augments from "../../../../../assets/augments";
 
 interface FieldAugmentProps {
   value?: string | null;
@@ -8,10 +14,16 @@ interface FieldAugmentProps {
 const FieldAugment: FC<FieldAugmentProps> = (props) => {
   return (
     <Autocomplete
-      options={[]}
+      options={Augments}
       renderInput={(params) => (
         <TextField {...params} fullWidth label="Augment" />
       )}
+      renderOption={(props, option, state) => (
+        <MenuItem {...props}>
+          {`${option.name}${option.level}`}
+        </MenuItem>
+      )}
+      groupBy={(option) => option.group}
     />
   );
 };

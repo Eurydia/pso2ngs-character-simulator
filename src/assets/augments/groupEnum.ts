@@ -14,6 +14,8 @@ const enum GroupEnum {
   ADDI = "addi",
   TRIA = "tria",
   DECOLD = "decold",
+  SEZUN = "sezun",
+  SUPER = "super",
 }
 
 export default GroupEnum;

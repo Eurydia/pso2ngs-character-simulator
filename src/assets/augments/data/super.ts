@@ -2,13 +2,13 @@ import stat, { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.FUSED;
-const CONFLICT = [GroupEnum.FUSED, GroupEnum.BASIC];
+const GROUP = GroupEnum.SUPER;
+const CONFLICT = [GroupEnum.SUPER];
 
 let data: Augment[] = [];
 
 // --------------------------------------
-// fused
+// might | precision | technique
 (() => {
   const data_arr: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
@@ -18,10 +18,32 @@ let data: Augment[] = [];
 
   for (const _data of data_arr) {
     const [name, stat_type] = _data;
+
+    data.push(
+      augment(`super ${name}`, 1, GROUP, CONFLICT, [
+        stat(StatEnum.CORE_BP, 8),
+        stat(stat_type, 1.0225),
+      ]),
+    );
+  }
+})();
+
+// --------------------------------------
+// sta | spi
+(() => {
+  const data_arr: [string, StatEnum][] = [
+    ["mel", StatEnum.WEAPON_MELEE],
+    ["ra", StatEnum.WEAPON_RANGED],
+    ["tech", StatEnum.WEAPON_TECHNIQUE],
+  ];
+
+  for (const _data of data_arr) {
+    const [name, stat_type] = _data;
+
     const weapon_up = stat(stat_type, 1.02);
 
     data.push(
-      augment(`sta ${name}`, 0, GROUP, CONFLICT, [
+      augment(`super sta${name}`, 1, GROUP, CONFLICT, [
         stat(StatEnum.CORE_BP, 8),
         stat(StatEnum.CORE_HP, 15),
         weapon_up,
@@ -29,26 +51,10 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`spi ${name}`, 0, GROUP, CONFLICT, [
+      augment(`super spi${name}`, 1, GROUP, CONFLICT, [
         stat(StatEnum.CORE_BP, 8),
         stat(StatEnum.CORE_PP, 5),
         weapon_up,
-      ]),
-    );
-
-    data.push(
-      augment(`deft ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        weapon_up,
-        stat(StatEnum.ADV_OFF_FLOOR, 1.02),
-      ]),
-    );
-
-    data.push(
-      augment(`gua ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        weapon_up,
-        stat(StatEnum.ADV_DEF_DAMAGE_RES, 1.02),
       ]),
     );
   }

@@ -44,20 +44,20 @@ let data: Augment[] = [];
   const data_bp = [4, 5, 6];
   const data_weapon_up = [1.01, 1.015, 1.02];
 
-  const data_arr = [
+  const data_arr: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
     ["precision", StatEnum.WEAPON_RANGED],
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data in data_arr) {
+  for (const _data of data_arr) {
     const [name, stat_type] = _data;
 
     for (let i = 0; i < data_bp.length; i++) {
       data.push(
         augment(name, i + 1, GROUP, CONFLICT, [
           stat(StatEnum.CORE_BP, data_bp[i]),
-          stat(stat_type as StatEnum, data_weapon_up[i]),
+          stat(stat_type, data_weapon_up[i]),
         ]),
       );
     }

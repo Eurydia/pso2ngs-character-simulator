@@ -10,16 +10,16 @@ let data: Augment[] = [];
 // --------------------------------------
 // addi
 (() => {
-  const data_arr = [
+  const data_arr: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data in data_arr) {
+  for (const _data of data_arr) {
     const [name, stat_type] = _data;
 
-    const weapon_up = stat(stat_type as StatEnum, 1.025);
+    const weapon_up = stat(stat_type, 1.025);
 
     data.push(
       augment(`addi sta${name}`, 0, GROUP, CONFLICT, [

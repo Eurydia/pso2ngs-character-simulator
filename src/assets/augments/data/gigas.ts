@@ -14,13 +14,13 @@ let data: Augment[] = [];
   const data_hp = [5, 10, 15];
   const data_weapon_up = [1.015, 1.02, 1.025];
 
-  const data_arr = [
+  const data_arr: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
     ["precision", StatEnum.WEAPON_RANGED],
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data in data_arr) {
+  for (const _data of data_arr) {
     const [name, stat_type] = _data;
 
     for (let i = 0; i < data_bp.length; i++) {
@@ -28,7 +28,7 @@ let data: Augment[] = [];
         augment(`gigas ${name}`, i + 1, GROUP, CONFLICT, [
           stat(StatEnum.CORE_BP, data_bp[i]),
           stat(StatEnum.CORE_HP, data_hp[i]),
-          stat(stat_type as StatEnum, data_weapon_up[i]),
+          stat(stat_type, data_weapon_up[i]),
         ]),
       );
     }

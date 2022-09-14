@@ -1,4 +1,4 @@
-import { AugmentData } from "../types";
+import { Augment } from "../augment";
 import addi from "./addi";
 import basic from "./basic";
 import domina from "./domina";
@@ -14,8 +14,10 @@ import soul from "./soul";
 import tria from "./tria";
 import ward from "./ward";
 import decold from "./decold";
+import sezun from "./sezun";
+import super_ from "./super";
 
-const DATA: AugmentData[] = [
+const DATA: Augment[] = [
   ...addi,
   ...basic,
   ...domina,
@@ -31,5 +33,7 @@ const DATA: AugmentData[] = [
   ...tria,
   ...ward,
   ...decold,
+  ...sezun,
+  ...super_,
 ];
 export default DATA;
