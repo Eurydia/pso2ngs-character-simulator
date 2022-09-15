@@ -9,7 +9,7 @@ import FormLayout from "../FormLayout";
 import FormCard from "../FormCard";
 
 interface FormUnitProps {
-  index: number;
+  index: number | string;
 }
 const FormUnit: FC<FormUnitProps> = (props) => {
   const handleCopy = () => {};
@@ -17,7 +17,7 @@ const FormUnit: FC<FormUnitProps> = (props) => {
   const handleClear = () => {};
   return (
     <FormCard
-      cardTitle={`Unit #${props.index}`}
+      cardTitle={`Unit ${props.index}`}
       cardContent={
         <FormLayout
           equipmentSlot={<FieldUnit />}

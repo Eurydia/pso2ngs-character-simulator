@@ -24,16 +24,6 @@ const Home: FC<HomeProps> = (props) => {
       padding={2}
       spacing={4}
     >
-      <Grid item md={2} xs={1}>
-        <ExtraRoundedCard raised>
-          <Typography paddingX={4} paddingY={2}>
-            Overview
-          </Typography>
-          <Box paddingX={4} paddingBottom={2}>
-            <CharacterStats />
-          </Box>
-        </ExtraRoundedCard>
-      </Grid>
       <Grid item xs={1}>
         <ExtraRoundedCard raised>
           <CardHeader title="Character" />
@@ -51,13 +41,13 @@ const Home: FC<HomeProps> = (props) => {
       </Grid>
       <Grid item xs={1}>
         <ExtraRoundedCard raised>
-          <CardHeader title="Equipment" />
+          <CardHeader title="Equipment Simulator" />
           <CardContent>
             <Typography>Weapon, units, and augments.</Typography>
           </CardContent>
           <CardActions>
             <Button component={Link} to="edit-equipment">
-              edit
+              go to page
             </Button>
           </CardActions>
         </ExtraRoundedCard>

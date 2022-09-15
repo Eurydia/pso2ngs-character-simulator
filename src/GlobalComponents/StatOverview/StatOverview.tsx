@@ -18,7 +18,7 @@ import {
   parseAdd,
   parsePercent,
 } from "./helper";
-import { StatEnum } from "../../assets/stat/statEnum";
+import { StatEnum } from "../../assets/stat";
 
 type StatListItemProps = {
   mode: "add" | "percent";
@@ -143,13 +143,13 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
       <StatListItem
         mode="percent"
         label="Ranged potency"
-        value={_ranged}
+        value={_ranged - 1}
         icon={getIcon(_ranged, 1)}
       />
       <StatListItem
         mode="percent"
         label="Technique potency"
-        value={_technique}
+        value={_technique - 1}
         icon={getIcon(_technique, 1)}
       />
     </CustomList>
@@ -370,8 +370,6 @@ const StatsOverview: FC<StatsOverviewProps> = (props) => {
   return (
     <Box>
       <Stack
-        spacing={{ md: 4, xs: 1 }}
-        direction={{ md: "row", xs: "column" }}
         divider={
           <Divider
             flexItem
@@ -383,62 +381,52 @@ const StatsOverview: FC<StatsOverviewProps> = (props) => {
           />
         }
       >
-        <Stack
-          width={{ md: 0.5, xs: 1 }}
-          divider={<Divider flexItem />}
-        >
-          <CoreStatList
-            bp={props.coreBP}
-            hp={props.coreHP}
-            pp={props.corePP}
-            attack={props.coreAttack}
-            defense={props.coreDefense}
+        <CoreStatList
+          bp={props.coreBP}
+          hp={props.coreHP}
+          pp={props.corePP}
+          attack={props.coreAttack}
+          defense={props.coreDefense}
+        />
+        <PotencyStatList
+          melee={props.weaponMelee}
+          ranged={props.weaponRanged}
+          technique={props.weaponTechnique}
+        />
+        <AilmentStatList
+          burn={props.ailBurn}
+          freeze={props.ailFreeze}
+          blind={props.ailBlind}
+          panic={props.ailPanic}
+          shock={props.ailShock}
+          poison={props.ailPoison}
+          physicalDown={props.ailPhyDown}
+        />
+        <CustomList subheader="Enviroment resistence">
+          <StatListItem
+            mode="percent"
+            label="Harsh environment resistance"
+            value={_envCold}
+            icon={getIcon(_envCold, 0)}
           />
-          <PotencyStatList
-            melee={props.weaponMelee}
-            ranged={props.weaponRanged}
-            technique={props.weaponTechnique}
-          />
-          <AilmentStatList
-            burn={props.ailBurn}
-            freeze={props.ailFreeze}
-            blind={props.ailBlind}
-            panic={props.ailPanic}
-            shock={props.ailShock}
-            poison={props.ailPoison}
-            physicalDown={props.ailPhyDown}
-          />
-          <CustomList subheader="Other">
-            <StatListItem
-              mode="percent"
-              label="Harsh environment resistance"
-              value={_envCold}
-              icon={getIcon(_envCold, 0)}
-            />
-          </CustomList>
-        </Stack>
-        <Stack
-          width={{ md: 0.5, xs: 1 }}
-          divider={<Divider flexItem />}
-        >
-          <PPAdvancedStats
-            usage={props.ppUsage}
-            naturalRecovery={props.ppActiveRecovery}
-            activeRecovery={props.ppNaturalRecovery}
-          />
-          <OffensiveAdvancedStats
-            floorPotency={props.offFloor}
-            damageUp={props.offDamageUp}
-            critChance={props.offCritChance}
-            critDamage={props.offCritDamage}
-            pbGaugeRecovery={props.offPBRecovery}
-          />
-          <DefensiveAdvancedStats
-            healingUp={props.defHealingUp}
-            damageResist={props.defDamageResist}
-            ailmentDuration={props.defAilmentDuration}
-          />
-        </Stack>
+        </CustomList>
+        <PPAdvancedStats
+          usage={props.ppUsage}
+          naturalRecovery={props.ppActiveRecovery}
+          activeRecovery={props.ppNaturalRecovery}
+        />
+        <OffensiveAdvancedStats
+          floorPotency={props.offFloor}
+          damageUp={props.offDamageUp}
+          critChance={props.offCritChance}
+          critDamage={props.offCritDamage}
+          pbGaugeRecovery={props.offPBRecovery}
+        />
+        <DefensiveAdvancedStats
+          healingUp={props.defHealingUp}
+          damageResist={props.defDamageResist}
+          ailmentDuration={props.defAilmentDuration}
+        />
       </Stack>
     </Box>
   );

@@ -40,6 +40,7 @@ const IconButtonTooltip: FC<IconButtonTooltipProps> = (props) => {
 interface FormCardProps {
   cardTitle: ReactNode;
   cardContent: ReactNode;
+
   onCopy: () => void;
   onPaste: () => void;
   onClear: () => void;
@@ -47,8 +48,6 @@ interface FormCardProps {
 const FormCard: FC<FormCardProps> = (props) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLElement | null>(null);
-
-  const [dialogState, setDialogState] = useState(false);
 
   const handleMenuOpen = (
     event: ReactMouseEvent<HTMLButtonElement>,
@@ -58,14 +57,6 @@ const FormCard: FC<FormCardProps> = (props) => {
 
   const handleMenuClose = () => {
     setAnchorElement(null);
-  };
-
-  const handleDialogOpen = () => {
-    setDialogState(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogState(false);
   };
 
   return (
@@ -99,18 +90,6 @@ const FormCard: FC<FormCardProps> = (props) => {
         onPaste={props.onPaste}
         onClear={props.onClear}
       />
-      <Dialog
-        open={dialogState}
-        onClose={handleDialogClose}
-        fullWidth
-        maxWidth="md"
-      >
-        <DialogTitle>{props.cardTitle}'s stats</DialogTitle>
-        <DialogContent></DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>got it!</Button>
-        </DialogActions>
-      </Dialog>
     </Fragment>
   );
 };

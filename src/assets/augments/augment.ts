@@ -9,9 +9,6 @@ export type Augment = {
   stats: Stat[];
 };
 
-/**
- * For now, pretend that all conditions is met.
- */
 class augmentClass {
   name: string;
   level: number;
@@ -47,4 +44,5 @@ const augment = (
 ): Augment => {
   return new augmentClass(name, level, group, conflict, stats);
 };
+
 export default augment;
