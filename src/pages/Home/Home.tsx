@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import CharacterStats from "../../GlobalComponents/StatOverview";
-import ExtraRoundedCard from "../../GlobalComponents/ExtraRoundedCard";
+import CharacterStats from "../../components/StatOverview";
+import ExtraRoundedCard from "../../components/ExtraRoundedCard";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import FormWeapon from "./subcomponents/FormWeapon";
 import FormUnit from "./subcomponents/FormUnit";
-import StatsOverview from "../../GlobalComponents/StatOverview";
+import StatsOverview from "../../components/StatOverview";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
