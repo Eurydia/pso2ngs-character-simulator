@@ -1,72 +1,15 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import {
   Box,
   Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
   Stack,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import {
-  getIcon,
-  maybeToNumber,
-  parseAdd,
-  parsePercent,
-} from "./helper";
 import { StatEnum } from "../../assets/stat";
-
-type StatListItemProps = {
-  mode: "add" | "percent";
-  value: number;
-  label: ReactNode;
-  icon: ReactNode;
-};
-const StatListItem: FC<StatListItemProps> = (props) => {
-  const parsed_value =
-    props.mode === "add"
-      ? parseAdd(props.value)
-      : parsePercent(props.value);
-
-  return (
-    <ListItem dense>
-      <ListItemIcon>{props.icon}</ListItemIcon>
-      <ListItemText>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography>{props.label}</Typography>
-          <Typography>{parsed_value}</Typography>
-        </Stack>
-      </ListItemText>
-    </ListItem>
-  );
-};
-
-interface CustomListProps {
-  children: ReactNode;
-  subheader: string;
-}
-const CustomList: FC<CustomListProps> = (props) => {
-  return (
-    <List
-      disablePadding
-      subheader={
-        <ListSubheader disableGutters disableSticky>
-          {props.subheader}
-        </ListSubheader>
-      }
-    >
-      {props.children}
-    </List>
-  );
-};
+import { getIcon, maybeToNumber } from "./helper";
+import StatList from "./StatList";
+import StatListItem from "./StatListItem";
 
 type CoreStatListProps = Partial<{
   bp: number;
@@ -85,7 +28,7 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
   const _defense = maybeToNumber(defense, 0);
 
   return (
-    <CustomList subheader="Core">
+    <StatList subheader="Core">
       <StatListItem
         mode="add"
         label="BP"
@@ -116,7 +59,7 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
         value={_defense}
         icon={getIcon(_defense, 0)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -133,7 +76,7 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   const _technique = maybeToNumber(technique, 1);
 
   return (
-    <CustomList subheader="Weapon up">
+    <StatList subheader="Weapon up">
       <StatListItem
         mode="percent"
         label="Melee potency"
@@ -152,7 +95,7 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
         value={_technique - 1}
         icon={getIcon(_technique, 1)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -178,7 +121,7 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
   const _physicalDown = maybeToNumber(physicalDown, 1);
 
   return (
-    <CustomList subheader="Ailment resistance">
+    <StatList subheader="Ailment resistance">
       <StatListItem
         mode="percent"
         label="Burn resistance"
@@ -221,7 +164,7 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
         value={_physicalDown}
         icon={getIcon(_physicalDown, 1)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -238,7 +181,7 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   const _naturalRecovery = maybeToNumber(naturalRecovery, 1);
 
   return (
-    <CustomList subheader="Advanced: PP">
+    <StatList subheader="Advanced: PP">
       <StatListItem
         mode="percent"
         label="PP cost"
@@ -257,7 +200,7 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
         value={_naturalRecovery}
         icon={getIcon(_naturalRecovery, 1)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -286,7 +229,7 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   const _pbGaugeRecovery = maybeToNumber(pbGaugeRecovery, 1);
 
   return (
-    <CustomList subheader="Advanced: Offensive ">
+    <StatList subheader="Advanced: Offensive ">
       <StatListItem
         mode="percent"
         label="Damage dealt"
@@ -317,7 +260,7 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
         value={_pbGaugeRecovery}
         icon={getIcon(_pbGaugeRecovery, 1)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -336,7 +279,7 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
   const _ailmentDuration = maybeToNumber(ailmentDuration, 1);
 
   return (
-    <CustomList subheader="Advanced: Defensive">
+    <StatList subheader="Advanced: Defensive">
       <StatListItem
         mode="percent"
         label="Damage resistance"
@@ -355,14 +298,14 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
         value={_ailmentDuration}
         icon={getIcon(_ailmentDuration, 1, true)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
-type StatsOverviewProps = Partial<{
+type StatOverviewProps = Partial<{
   [K in StatEnum]: number;
 }>;
-const StatsOverview: FC<StatsOverviewProps> = (props) => {
+const StatOverview: FC<StatOverviewProps> = (props) => {
   const { breakpoints } = useTheme();
 
   const _envCold = maybeToNumber(props.envCold, 0);
@@ -402,14 +345,14 @@ const StatsOverview: FC<StatsOverviewProps> = (props) => {
           poison={props.ailPoison}
           physicalDown={props.ailPhyDown}
         />
-        <CustomList subheader="Enviroment resistence">
+        <StatList subheader="Enviroment resistence">
           <StatListItem
             mode="percent"
             label="Harsh environment resistance"
             value={_envCold}
             icon={getIcon(_envCold, 0)}
           />
-        </CustomList>
+        </StatList>
         <PPAdvancedStats
           usage={props.ppUsage}
           naturalRecovery={props.ppActiveRecovery}
@@ -432,4 +375,4 @@ const StatsOverview: FC<StatsOverviewProps> = (props) => {
   );
 };
 
-export default StatsOverview;
+export default StatOverview;

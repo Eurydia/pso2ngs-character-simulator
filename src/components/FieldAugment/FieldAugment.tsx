@@ -2,16 +2,27 @@ import { FC, HTMLAttributes } from "react";
 import {
   Autocomplete,
   AutocompleteRenderOptionState,
+  capitalize,
   FilterOptionsState,
   InputAdornment,
+  List,
   ListItem,
   ListItemText,
   MenuItem,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
-import romans, { deromanize, romanize } from "romans";
-import { AssetAugments, Augment } from "../../assets";
+import { romanize } from "romans";
+import {
+  AssetAugments,
+  Augment,
+  StatAdd,
+  StatEnum,
+  StatEnumString,
+  StatSpecial,
+} from "../../assets";
+import { parseValue } from "./helper";
 
 const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
@@ -19,16 +30,48 @@ const renderOption = (
   _: AutocompleteRenderOptionState,
 ) => {
   const label = getOptionLabel(option);
+  const stats = option.stats;
 
   return (
     <MenuItem {...props}>
-      <ListItemText>{label}</ListItemText>
+      <Tooltip
+        followCursor
+        placement="top"
+        title={
+          <List dense disablePadding>
+            {Object.keys(stats).map((stat) => {
+              const stat_label = StatEnumString[stat as StatEnum];
+              const stat_value = stats[stat as StatEnum]!;
+
+              let parsed_value: string = "";
+              if (StatAdd.includes(stat as StatEnum)) {
+                parsed_value = parseValue(stat_value, 0, "add");
+              } else if (StatSpecial.includes(stat as StatEnum)) {
+                parsed_value = parseValue(stat_value, 0, "percent");
+              } else {
+                parsed_value = parseValue(stat_value, 1, "percent");
+              }
+
+              return (
+                <ListItem key={stat} disableGutters>
+                  <ListItemText>
+                    {`${parsed_value} ${stat_label}`}
+                  </ListItemText>
+                </ListItem>
+              );
+            })}
+          </List>
+        }
+      >
+        <ListItemText>{label}</ListItemText>
+      </Tooltip>
     </MenuItem>
   );
 };
 const filterOptions = (
   options: Augment[],
   state: FilterOptionsState<Augment>,
+  size: number = 16,
 ) => {
   const value = state.inputValue;
 
@@ -45,11 +88,22 @@ const filterOptions = (
             (item) => item.name,
             (item) => item.level.toString(),
             (item) => item.group,
+            (item) => (item.level > 0 ? romanize(item.level) : ""),
           ],
         }),
       options,
     )
-    .slice(0, 16)
+    .slice(0, size)
+    .sort((a, b) => {
+      if (
+        a.stats.coreBP !== undefined &&
+        b.stats.coreBP !== undefined
+      ) {
+        return b.stats.coreBP - a.stats.coreBP;
+      } else {
+        return 0;
+      }
+    })
     .sort((a, b) => {
       if (a.group > b.group) {
         return 1;
@@ -61,8 +115,13 @@ const filterOptions = (
     });
 };
 const getOptionLabel = (option: Augment) => {
-  const level = option.level > 0 ? option.level.toString() : "";
-  return `${option.name} ${level}`.trimEnd();
+  const level = option.level > 0 ? romanize(option.level) : "";
+
+  const _words: string[] = [];
+  for (const w of option.name.split(" ")) {
+    _words.push(capitalize(w));
+  }
+  return `${_words.join(" ")} ${level}`.trimEnd();
 };
 
 interface FieldAugmentProps {
@@ -70,6 +129,8 @@ interface FieldAugmentProps {
   onChange?: (value: string | null) => void;
 }
 const FieldAugment: FC<FieldAugmentProps> = (props) => {
+  const size = 16;
+
   return (
     <Autocomplete
       options={AssetAugments}
@@ -86,9 +147,11 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
           }}
         />
       )}
-      filterOptions={filterOptions}
       renderOption={renderOption}
       getOptionLabel={getOptionLabel}
+      filterOptions={(options, state) =>
+        filterOptions(options, state, size)
+      }
       groupBy={(option) => option.group}
     />
   );

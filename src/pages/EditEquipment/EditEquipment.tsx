@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import FormWeapon from "./subcomponents/FormWeapon";
 import FormUnit from "./subcomponents/FormUnit";
-import StatsOverview from "../../components/StatOverview";
+// import StatsOverview from "../../GlobalComponents/StatOverview";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -22,9 +22,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
     <Box>
       <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
-        <Grid item xs={1}>
-          <FormWeapon />
-        </Grid>
+        <Grid item xs={1}></Grid>
         <Grid item xs={1}>
           <FormUnit index="A" />
         </Grid>
@@ -38,7 +36,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
       <Drawer variant="permanent" anchor="right" sx={{ width: 100 }}>
         <Box padding={2}>
           <Typography variant="h5">Overview</Typography>
-          <StatsOverview />
+          {/* <StatsOverview /> */}
         </Box>
       </Drawer>
     </Box>

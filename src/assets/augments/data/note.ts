@@ -167,7 +167,7 @@ data.push(
 );
 // belgan
 data.push(
-  augment("lostral note", 0, GROUP, CONFLICT, [
+  augment("belgan note", 0, GROUP, CONFLICT, [
     stat(StatEnum.CORE_BP, 5),
     stat(StatEnum.CORE_PP, 3),
     stat(StatEnum.WEAPON_MELEE, 1.025),

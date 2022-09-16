@@ -10,7 +10,7 @@ export const parseAdd = (value: number): string => {
 };
 
 export const parsePercent = (value: number): string => {
-  const _value = Math.round(value * 10000) / 100;
+  const _value = (value * 10000).toPrecision(3);
 
   const parsed = `${_value}%`;
   return parsed;

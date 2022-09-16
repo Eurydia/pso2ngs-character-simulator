@@ -34,4 +34,47 @@ const enum StatEnum {
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
 }
 
+export const StatEnumString: { [K in StatEnum]: string } = {
+  coreBP: "bp",
+  coreHP: "hp",
+  corePP: "pp",
+  coreAttack: "attack",
+  coreDefense: "defense",
+  weaponMelee: "MEL potency",
+  weaponRanged: "RNG potency",
+  weaponTechnique: "TEC potency",
+  ailBurn: "burn resistance",
+  ailFreeze: "freeze resistance",
+  ailPanic: "panic resistance",
+  ailBlind: "blind resistance",
+  ailPoison: "poison resistance",
+  ailShock: "shock resistance",
+  ailPhyDown: "physical down resistance",
+  envCold: "harsh enviroment resistance",
+  ppUsage: "pp usage",
+  ppActiveRecovery: "active pp recovery",
+  ppNaturalRecovery: "passive pp recovery",
+  offFloor: "floor potency",
+  offDamageUp: "damage up",
+  offCritChance: "critical chance",
+  offCritDamage: "critical damage",
+  offPBRecovery: "pb gauge recovery",
+  defHealingUp: "healing up",
+  defDamageResist: "damage resistance",
+  defAilmentDuration: "ailment duration",
+};
+
+export const StatAdd: StatEnum[] = [
+  StatEnum.CORE_BP,
+  StatEnum.CORE_HP,
+  StatEnum.CORE_PP,
+  StatEnum.CORE_ATTACK,
+  StatEnum.CORE_DEFENSE,
+];
+
+export const StatSpecial: StatEnum[] = [
+  StatEnum.HARSH_COLD,
+  StatEnum.ADV_OFF_CRIT_CHANCE,
+];
+
 export default StatEnum;
