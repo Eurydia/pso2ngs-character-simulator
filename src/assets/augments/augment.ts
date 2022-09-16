@@ -1,27 +1,28 @@
+import { StatEnum } from "../stat";
 import { Stat } from "../stat/stat";
 import GroupEnum from "./groupEnum";
 
-export type Augment = {
-  name: string;
-  level: number;
-  group: GroupEnum;
-  conflict: GroupEnum[];
-  stats: Stat[];
-};
+// export type Augment = {
+//   name: string;
+//   level: number;
+//   group: GroupEnum;
+//   conflict: GroupEnum[];
+//   stats: Stat[];
+// };
 
-class augmentClass {
+export class Augment {
   name: string;
   level: number;
   group: GroupEnum;
   conflict: GroupEnum[];
-  stats: Stat[];
+  stats: Partial<{ [K in StatEnum]: number }>;
 
   constructor(
     name: string,
     level: number,
     group: GroupEnum,
     conflict: GroupEnum[],
-    stats: Stat[],
+    stats: Partial<{ [K in StatEnum]: number }>,
   ) {
     this.name = name;
     this.level = level;
@@ -42,7 +43,12 @@ const augment = (
   conflict: GroupEnum[],
   stats: Stat[],
 ): Augment => {
-  return new augmentClass(name, level, group, conflict, stats);
+  const _stats: Partial<{ [K in StatEnum]: number }> = {};
+  for (const stat of stats) {
+    _stats[stat.stat_type] = stat.amount;
+  }
+
+  return new Augment(name, level, group, conflict, _stats);
 };
 
 export default augment;

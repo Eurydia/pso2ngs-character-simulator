@@ -4,7 +4,7 @@ import FieldUnit from "./subcomponents/FieldUnit";
 import FieldFixa from "../FieldFixa/FieldFixa";
 import FieldEnhancement from "../FieldEnhancement";
 
-import FormAugment from "../FormAugment";
+import FormAugment from "../../../../components/FormAugment";
 import FormLayout from "../FormLayout";
 import FormCard from "../FormCard";
 

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, Grid, TextField } from "@mui/material";
-import FieldAugment from "./subcomponents/FieldAugment";
+import FieldAugment from "../FieldAugment";
+
 interface AugmentFormProps {}
 const AugmentForm: FC<AugmentFormProps> = () => {
   return (

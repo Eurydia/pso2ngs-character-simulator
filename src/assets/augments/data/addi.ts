@@ -54,7 +54,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`add staspi${name}`, 0, GROUP, CONFLICT, [
+      augment(`addi staspi${name}`, 0, GROUP, CONFLICT, [
         stat(StatEnum.CORE_BP, 10),
         stat(StatEnum.CORE_HP, 10),
         stat(StatEnum.CORE_PP, 3),

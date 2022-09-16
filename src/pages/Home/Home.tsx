@@ -8,11 +8,13 @@ import {
   CardHeader,
   Container,
   Grid,
+  Paper,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import CharacterStats from "../../components/StatOverview";
 import ExtraRoundedCard from "../../components/ExtraRoundedCard";
+import FormAugment from "../../components/FormAugment";
+import FieldAugment from "../../components/FieldAugment";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -24,47 +26,12 @@ const Home: FC<HomeProps> = (props) => {
       padding={2}
       spacing={4}
     >
-      <Grid item xs={1}>
+      <Grid item md={2}>
         <ExtraRoundedCard raised>
-          <CardHeader title="Character" />
           <CardContent>
-            <Typography>
-              Class, level, skill point allocation and more.
-            </Typography>
+            <FormAugment />
+            {/* <FieldAugment /> */}
           </CardContent>
-          <CardActions>
-            <Button component={Link} to="edit-character">
-              edit
-            </Button>
-          </CardActions>
-        </ExtraRoundedCard>
-      </Grid>
-      <Grid item xs={1}>
-        <ExtraRoundedCard raised>
-          <CardHeader title="Equipment Simulator" />
-          <CardContent>
-            <Typography>Weapon, units, and augments.</Typography>
-          </CardContent>
-          <CardActions>
-            <Button component={Link} to="edit-equipment">
-              go to page
-            </Button>
-          </CardActions>
-        </ExtraRoundedCard>
-      </Grid>
-      <Grid item xs={1}>
-        <ExtraRoundedCard raised>
-          <CardHeader title="Food" />
-          <CardContent>
-            <Typography>
-              Cook the perfect meal for your Meteorn.
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button component={Link} to="edit-food">
-              edit
-            </Button>
-          </CardActions>
         </ExtraRoundedCard>
       </Grid>
     </Grid>

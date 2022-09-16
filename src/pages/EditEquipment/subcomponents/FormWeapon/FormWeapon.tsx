@@ -4,7 +4,7 @@ import FieldWeapon from "./subcomponents/FieldWeapon";
 import FieldEnhancement from "../FieldEnhancement";
 import FieldFixa from "../FieldFixa";
 
-import FormAugment from "../FormAugment";
+import FormAugment from "../../../../components/FormAugment";
 import FormCard from "../FormCard/FormCard";
 import FormLayout from "../FormLayout";
 
