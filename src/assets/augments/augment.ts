@@ -14,7 +14,7 @@ export class Augment {
   name: string;
   level: number;
   group: GroupEnum;
-  conflict: GroupEnum[];
+  conflict: Set<GroupEnum>;
   stats: Partial<{ [K in StatEnum]: number }>;
 
   constructor(
@@ -27,12 +27,12 @@ export class Augment {
     this.name = name;
     this.level = level;
     this.group = group;
-    this.conflict = conflict;
+    this.conflict = new Set(conflict);
     this.stats = stats;
   }
 
-  checkConflict(group: GroupEnum): boolean {
-    return this.conflict.includes(group);
+  isConflicting(group: GroupEnum): boolean {
+    return this.conflict.has(group);
   }
 }
 
@@ -50,5 +50,15 @@ const augment = (
 
   return new Augment(name, level, group, conflict, _stats);
 };
+
+// augment = (
+//   name: string,
+//   level: number,
+//   group: GroupEnum,
+//   conflict: GroupEnum[],
+//   stats_obj: Partial<{ [K in StatEnum]: number }>,
+// ): Augment => {
+//   return new Augment(name, level, group, conflict, stats_obj);
+// };
 
 export default augment;

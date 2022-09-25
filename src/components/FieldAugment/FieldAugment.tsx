@@ -1,6 +1,7 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, SyntheticEvent } from "react";
 import {
   Autocomplete,
+  AutocompleteChangeReason,
   AutocompleteRenderOptionState,
   capitalize,
   FilterOptionsState,
@@ -23,6 +24,7 @@ import {
   StatSpecial,
 } from "../../assets";
 import { parseValue } from "./helper";
+import { Error, Warning } from "@mui/icons-material";
 
 const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
@@ -125,24 +127,42 @@ const getOptionLabel = (option: Augment) => {
 };
 
 interface FieldAugmentProps {
-  value?: string | null;
-  onChange?: (value: string | null) => void;
+  error: boolean;
+  value: Augment | null;
+  onChange: (value: Augment | null) => void;
 }
 const FieldAugment: FC<FieldAugmentProps> = (props) => {
   const size = 16;
 
+  const handleChange = (
+    event: SyntheticEvent<Element, Event>,
+    value: Augment | null,
+    reason: AutocompleteChangeReason,
+  ) => {
+    props.onChange(value);
+  };
+
   return (
     <Autocomplete
       options={AssetAugments}
+      value={props.value}
+      onChange={handleChange}
       renderInput={({ InputProps, ...other }) => (
         <TextField
           {...other}
+          error={props.error}
           fullWidth
           label="Augment"
           InputProps={{
             ...InputProps,
             startAdornment: (
-              <InputAdornment position="start">C/</InputAdornment>
+              <InputAdornment position="start">
+                {props.error ? (
+                  <Error color="warning" fontSize="inherit" />
+                ) : (
+                  "C/"
+                )}
+              </InputAdornment>
             ),
           }}
         />

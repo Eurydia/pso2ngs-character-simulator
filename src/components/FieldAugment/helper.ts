@@ -1,3 +1,5 @@
+import { Augment, GroupEnum as AugmentGroup } from "../../assets";
+
 export const parseValue = (
   value: number,
   baseline: number,

@@ -1,11 +1,18 @@
-import stat, { StatEnum } from "../../stat";
+import stat, { Stat, StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.ADDI;
-const CONFLICT: GroupEnum[] = [GroupEnum.ADDI];
-
 let data: Augment[] = [];
+
+const makeAddi = (name: string, level: number, stats: Stat[]) => {
+  return augment(
+    name,
+    level,
+    GroupEnum.ADDI,
+    [GroupEnum.ADDI],
+    stats,
+  );
+};
 
 // --------------------------------------
 // addi
@@ -22,7 +29,7 @@ let data: Augment[] = [];
     const weapon_up = stat(stat_type, 1.025);
 
     data.push(
-      augment(`addi sta${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi sta${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         stat(StatEnum.CORE_HP, 20),
         weapon_up,
@@ -30,7 +37,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`addi spi${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi spi${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         weapon_up,
         stat(StatEnum.ADV_OFF_FLOOR, 1.025),
@@ -38,7 +45,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`addi deft${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi deft${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         stat(StatEnum.CORE_PP, 6),
         weapon_up,
@@ -46,7 +53,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`addi guard${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi guard${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         weapon_up,
         stat(StatEnum.ADV_DEF_DAMAGE_RES, 1.025),
@@ -54,7 +61,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`addi staspi${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi staspi${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         stat(StatEnum.CORE_HP, 10),
         stat(StatEnum.CORE_PP, 3),
@@ -63,7 +70,7 @@ let data: Augment[] = [];
     );
 
     data.push(
-      augment(`addi ward${name}`, 0, GROUP, CONFLICT, [
+      makeAddi(`addi ward${name}`, 0, [
         stat(StatEnum.CORE_BP, 10),
         weapon_up,
         stat(StatEnum.AIL_BLIND, 1.2),
