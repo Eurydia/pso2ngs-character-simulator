@@ -1,4 +1,4 @@
-import stat, { Stat, StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
@@ -21,7 +21,7 @@ const makeAddi = (
 // --------------------------------------
 // double
 (() => {
-  const primary_stats: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
@@ -29,8 +29,8 @@ const makeAddi = (
 
   const primary_stat_value = 1.025;
 
-  for (const primary_stat of primary_stats) {
-    const [name, stat_type] = primary_stat;
+  for (const data_stat of data_stats) {
+    const [name, stat_type] = data_stat;
 
     data.push(
       makeAddi(`addi deft${name}`, 0, {
@@ -87,8 +87,10 @@ const makeAddi = (
   }
 })();
 
+// --------------------------------------
+// triple
 (() => {
-  const primary_stats: [string, [StatEnum, StatEnum]][] = [
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
     ["melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["meltech", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
@@ -96,8 +98,8 @@ const makeAddi = (
 
   const primary_stat_value = 1.03;
 
-  for (const primary_stat of primary_stats) {
-    const [name, [stat_type_a, stat_type_b]] = primary_stat;
+  for (const data_stat of data_stats) {
+    const [name, [stat_type_a, stat_type_b]] = data_stat;
 
     data.push(
       makeAddi(`addi deft${name}`, 0, {
