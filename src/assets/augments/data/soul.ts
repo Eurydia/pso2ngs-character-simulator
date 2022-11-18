@@ -74,9 +74,9 @@ let data: Augment[] = [];
 // --------------------------------------
 // daityl | pettas | nex
 (() => {
-  const data_bp = [7, 8, 10];
-  const data_pp = [5, 5, 5];
-  const data_weapon_up = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10, 11];
+  const data_pp = [5, 5, 5, 5];
+  const data_weapon_up = [1.01, 1.02, 1.025, 1.03];
 
   const data_arr: [string, StatEnum][] = [
     ["daityl", StatEnum.WEAPON_MELEE],
@@ -102,9 +102,9 @@ let data: Augment[] = [];
 // --------------------------------------
 // dust | ragras | renus
 (() => {
-  const data_bp = [7, 8, 10];
-  const data_hp = [15, 15, 15];
-  const data_weapon_up = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10, 11];
+  const data_hp = [15, 15, 15, 15];
+  const data_weapon_up = [1.01, 1.02, 1.025, 1.03];
 
   const data_arr: [string, StatEnum][] = [
     ["dust", StatEnum.WEAPON_MELEE],
@@ -130,10 +130,10 @@ let data: Augment[] = [];
 // --------------------------------------
 // eradi
 (() => {
-  const data_bp = [7, 8, 10];
-  const data_hp = [10, 10, 10];
-  const data_pp = [4, 4, 4];
-  const data_weapon_up = [1.01, 1.015, 1.02];
+  const data_bp = [7, 8, 10, 11];
+  const data_hp = [10, 10, 10, 10];
+  const data_pp = [4, 4, 4, 4];
+  const data_weapon_up = [1.0125, 1.0175, 1.0225, 1.0275];
 
   for (let i = 0; i < data_bp.length; i++) {
     data.push(
@@ -152,10 +152,10 @@ let data: Augment[] = [];
 // --------------------------------------
 // frostyl | crocys | ams
 (() => {
-  const data_bp = [7, 8, 10];
-  const data_hp = [10, 10, 10];
-  const data_pp = [3, 3, 3];
-  const data_weapon_up = [1.01, 1.02, 1.025];
+  const data_bp = [7, 8, 10, 11];
+  const data_hp = [10, 10, 10, 10];
+  const data_pp = [3, 3, 3, 3];
+  const data_weapon_up = [1.01, 1.02, 1.025, 1.03];
 
   const data_arr: [string, StatEnum][] = [
     ["frostyl", StatEnum.WEAPON_MELEE],

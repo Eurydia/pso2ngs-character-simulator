@@ -10,9 +10,9 @@ let data: Augment[] = [];
 // --------------------------------------
 // might | precision | technique
 (() => {
-  const data_bp = [6, 8, 10];
-  const data_hp = [5, 10, 15];
-  const data_weapon_up = [1.015, 1.02, 1.025];
+  const data_bp = [6, 8, 10, 11];
+  const data_hp = [5, 10, 15, 20];
+  const data_weapon_up = [1.015, 1.02, 1.025, 1.03];
 
   const data_arr: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
