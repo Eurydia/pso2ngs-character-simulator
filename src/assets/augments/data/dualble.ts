@@ -2,7 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const makeDualble = (
+const data: Augment[] = [];
+
+const makeAugmentDualble = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -15,8 +17,6 @@ const makeDualble = (
     stats,
   );
 };
-
-let data: Augment[] = [];
 
 // --------------------------------------
 // melra | meltech | ratech
@@ -41,7 +41,7 @@ let data: Augment[] = [];
       const weapon_up_value = data_weapon_up[level_index];
 
       data.push(
-        makeDualble(`${name} dualble`, level_index + 1, {
+        makeAugmentDualble(`${name} dualble`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [weapon_up_a]: weapon_up_value,
           [weapon_up_b]: weapon_up_value,
@@ -54,7 +54,7 @@ let data: Augment[] = [];
 // --------------------------------------
 // triplble
 data.push(
-  makeDualble("triplble", 0, {
+  makeAugmentDualble("triplble", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.WEAPON_MELEE]: 1.02,
     [StatEnum.WEAPON_RANGED]: 1.02,

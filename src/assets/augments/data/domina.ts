@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeDomina = (
+const makeAugmentDomina = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -21,7 +21,7 @@ const makeDomina = (
 // --------------------------------------
 // ael
 data.push(
-  makeDomina("ael domina", 0, {
+  makeAugmentDomina("ael domina", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.CORE_HP]: 5,
     [StatEnum.CORE_PP]: 3,
@@ -34,7 +34,7 @@ data.push(
 // --------------------------------------
 // ret
 data.push(
-  makeDomina("ret domina", 0, {
+  makeAugmentDomina("ret domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_HP]: 15,
     [StatEnum.WEAPON_MELEE]: 1.015,
@@ -46,7 +46,7 @@ data.push(
 // --------------------------------------
 // kvar
 data.push(
-  makeDomina("kvar domina", 0, {
+  makeAugmentDomina("kvar domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_PP]: 5,
     [StatEnum.WEAPON_MELEE]: 1.015,

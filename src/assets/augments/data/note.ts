@@ -1,63 +1,77 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.NOTE;
-const CONFLICT: GroupEnum[] = [GroupEnum.NOTE];
+const data: Augment[] = [];
 
-let data: Augment[] = [];
+const makeAugmentNote = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.NOTE,
+    [GroupEnum.NOTE],
+    stats,
+  );
+};
 
 // --------------------------------------
 // ael
 // exploration
-// a
-data.push(
-  augment("ael note a", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_HP, 5),
-    stat(StatEnum.CORE_PP, 3),
-  ]),
-);
-// b
-data.push(
-  augment("ael note b", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.01),
-    stat(StatEnum.WEAPON_RANGED, 1.01),
-  ]),
-);
-// c
-data.push(
-  augment("ael note c", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.0075),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.0075),
-  ]),
-);
-// d
-data.push(
-  augment("ael note d", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_RANGED, 1.0075),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.0075),
-  ]),
-);
+// a | b | c | d
+(() => {
+  // a
+  data.push(
+    makeAugmentNote("ael note a", 0, {
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 5,
+      [StatEnum.CORE_PP]: 3,
+    }),
+  );
+
+  // b | c | d
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
+    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+  ];
+
+  const weapon_up_value = 1.01;
+
+  for (const data_stat of data_stats) {
+    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+
+    data.push(
+      makeAugmentNote(`ael note ${name}`, 0, {
+        [StatEnum.CORE_BP]: 4,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
+      }),
+    );
+  }
+})();
+
 // combat
 // magnus | lab | resola
 (() => {
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["magnus", StatEnum.WEAPON_MELEE],
     ["lab", StatEnum.WEAPON_RANGED],
     ["resola", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data of data_arr) {
-    const [name, stat_type] = _data;
+  const weapon_up_value = 1.015;
+
+  for (const data_stat of data_stats) {
+    const [name, weapon_up] = data_stat;
     data.push(
-      augment(`${name} note`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 5),
-        stat(stat_type, 1.015),
-      ]),
+      makeAugmentNote(`${name} note`, 0, {
+        [StatEnum.CORE_BP]: 5,
+        [weapon_up]: weapon_up_value,
+      }),
     );
   }
 })();
@@ -65,115 +79,114 @@ data.push(
 // --------------------------------------
 // ret
 // exploration
-// a
-data.push(
-  augment("ret note a", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_HP, 10),
-  ]),
-);
-// b
-data.push(
-  augment("ret note b", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.0075),
-    stat(StatEnum.WEAPON_RANGED, 1.0075),
-  ]),
-);
-// c
-data.push(
-  augment("ret note c", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.0075),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.0075),
-  ]),
-);
-// d
-data.push(
-  augment("ret note d", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_RANGED, 1.0075),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.0075),
-  ]),
-);
+// a | b | c | d
+(() => {
+  // a
+  data.push(
+    makeAugmentNote("ret note a", 0, {
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 10,
+    }),
+  );
+
+  // b | c | d
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
+    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+  ];
+
+  const weapon_up_value = 1.0075;
+
+  for (const data_stat of data_stats) {
+    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+    data.push(
+      makeAugmentNote(`ret note ${name}`, 0, {
+        [StatEnum.CORE_BP]: 4,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
+      }),
+    );
+  }
+})();
+
 // combat
 // alno
 data.push(
-  augment(`alno note`, 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_HP, 10),
-    stat(StatEnum.CORE_PP, 3),
-    stat(StatEnum.ADV_OFF_FLOOR, 1.02),
-  ]),
+  makeAugmentNote(`alno note`, 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.CORE_PP]: 3,
+    [StatEnum.ADV_OFF_FLOOR]: 1.02,
+  }),
 );
 // maqea
 data.push(
-  augment(`maqea note`, 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.WEAPON_MELEE, 1.0125),
-    stat(StatEnum.WEAPON_RANGED, 1.0125),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.0125),
-  ]),
+  makeAugmentNote(`maqea note`, 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.WEAPON_MELEE]: 1.0125,
+    [StatEnum.WEAPON_RANGED]: 1.0125,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.0125,
+  }),
 );
 
 // --------------------------------------
 // kvar
 // exploration
-// a
-data.push(
-  augment("kvar note a", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_HP, 10),
-    stat(StatEnum.CORE_PP, 5),
-  ]),
-);
-// b
-data.push(
-  augment("kvar note b", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.02),
-    stat(StatEnum.WEAPON_RANGED, 1.02),
-    stat(StatEnum.ADV_DEF_DAMAGE_RES, 0.98),
-  ]),
-);
-// c
-data.push(
-  augment("kvar note c", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_MELEE, 1.02),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.02),
-    stat(StatEnum.ADV_DEF_DAMAGE_RES, 0.98),
-  ]),
-);
-// d
-data.push(
-  augment("kvar note d", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 4),
-    stat(StatEnum.WEAPON_RANGED, 1.02),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.02),
-    stat(StatEnum.ADV_DEF_DAMAGE_RES, 0.98),
-  ]),
-);
+// a | b | c | d
+(() => {
+  // a
+  data.push(
+    makeAugmentNote("kvar note a", 0, {
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.CORE_PP]: 5,
+    }),
+  );
+
+  // b | c | d
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
+    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+  ];
+
+  const weapon_up_value = 1.02;
+
+  for (const data_stat of data_stats) {
+    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+
+    data.push(
+      makeAugmentNote(`kvar note ${name}`, 0, {
+        [StatEnum.CORE_BP]: 4,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 0.98,
+      }),
+    );
+  }
+})();
+
 // combat
 // lostral
 data.push(
-  augment("lostral note", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_HP, 10),
-    stat(StatEnum.WEAPON_MELEE, 1.025),
-    stat(StatEnum.WEAPON_RANGED, 1.025),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
-  ]),
+  makeAugmentNote("lostral note", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.WEAPON_MELEE]: 1.025,
+    [StatEnum.WEAPON_RANGED]: 1.025,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+  }),
 );
 // belgan
 data.push(
-  augment("belgan note", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 5),
-    stat(StatEnum.CORE_PP, 3),
-    stat(StatEnum.WEAPON_MELEE, 1.025),
-    stat(StatEnum.WEAPON_RANGED, 1.025),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
-  ]),
+  makeAugmentNote("belgan note", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_PP]: 3,
+    [StatEnum.WEAPON_MELEE]: 1.025,
+    [StatEnum.WEAPON_RANGED]: 1.025,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+  }),
 );
 
 export default data;

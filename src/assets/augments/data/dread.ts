@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeDread = (
+const makeAugmentDread = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -33,7 +33,7 @@ const makeDread = (
     level_index++
   ) {
     data.push(
-      makeDread("dread keeper", level_index + 1, {
+      makeAugmentDread("dread keeper", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_HP]: data_hp[level_index],
         [StatEnum.CORE_PP]: data_pp[level_index],

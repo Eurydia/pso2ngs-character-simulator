@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeDecold = (
+const makeAugmentDecold = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -30,7 +30,7 @@ const makeDecold = (
     level_index++
   ) {
     data.push(
-      makeDecold("decold standard", level_index + 1, {
+      makeAugmentDecold("decold standard", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.HARSH_COLD]: data_cold_res[level_index],
       }),
@@ -41,7 +41,7 @@ const makeDecold = (
 // --------------------------------------
 // might | precicion | technique
 (() => {
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
     ["precision", StatEnum.WEAPON_RANGED],
     ["technique", StatEnum.WEAPON_TECHNIQUE],
@@ -49,11 +49,11 @@ const makeDecold = (
 
   const weapon_up_value = 1.025;
 
-  for (const _data of data_arr) {
-    const [name, weapon_up] = _data;
+  for (const data_stat of data_stats) {
+    const [name, weapon_up] = data_stat;
 
     data.push(
-      makeDecold(`decold ${name}`, 0, {
+      makeAugmentDecold(`decold ${name}`, 0, {
         [StatEnum.CORE_BP]: 9,
         [weapon_up]: weapon_up_value,
         [StatEnum.HARSH_COLD]: 0.25,

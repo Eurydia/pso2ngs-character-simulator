@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeBasic = (
+const makeAugmentBasic = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -30,7 +30,7 @@ const makeBasic = (
     level_index++
   ) {
     data.push(
-      makeBasic("stamina", level_index + 1, {
+      makeAugmentBasic("stamina", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_HP]: data_hp[level_index],
       }),
@@ -50,7 +50,7 @@ const makeBasic = (
     level_index++
   ) {
     data.push(
-      makeBasic("spirit", level_index + 1, {
+      makeAugmentBasic("spirit", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_PP]: data_pp[level_index],
       }),
@@ -64,14 +64,14 @@ const makeBasic = (
   const data_bp = [4, 5, 6, 7];
   const data_weapon_up = [1.01, 1.015, 1.02, 1.03];
 
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
     ["precision", StatEnum.WEAPON_RANGED],
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data of data_arr) {
-    const [name, weapon_up] = _data;
+  for (const data_stat of data_stats) {
+    const [name, weapon_up] = data_stat;
 
     for (
       let level_index = 0;
@@ -79,7 +79,7 @@ const makeBasic = (
       level_index++
     ) {
       data.push(
-        makeBasic(name, level_index + 1, {
+        makeAugmentBasic(name, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [weapon_up]: data_weapon_up[level_index],
         }),
@@ -100,7 +100,7 @@ const makeBasic = (
     level_inedx++
   ) {
     data.push(
-      makeBasic("deftness", level_inedx + 1, {
+      makeAugmentBasic("deftness", level_inedx + 1, {
         [StatEnum.CORE_BP]: data_bp[level_inedx],
         [StatEnum.ADV_OFF_FLOOR]: data_floor[level_inedx],
       }),
@@ -120,7 +120,7 @@ const makeBasic = (
     level_index++
   ) {
     data.push(
-      makeBasic("guard", level_index + 1, {
+      makeAugmentBasic("guard", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
       }),
@@ -144,7 +144,7 @@ const makeBasic = (
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
-      makeBasic("mastery", level_index + 1, {
+      makeAugmentBasic("mastery", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.WEAPON_MELEE]: weapon_up_value,
         [StatEnum.WEAPON_RANGED]: weapon_up_value,

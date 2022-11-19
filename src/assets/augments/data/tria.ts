@@ -1,59 +1,70 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.TRIA;
-const CONFLICT: GroupEnum[] = [GroupEnum.TRIA];
+const data: Augment[] = [];
 
-let data: Augment[] = [];
+const makeAugmentTria = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.TRIA,
+    [GroupEnum.TRIA],
+    stats,
+  );
+};
 
 // --------------------------------------
 (() => {
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data of data_arr) {
-    const [name, stat_type] = _data;
+  const weapon_up_value = 1.0225;
 
-    const weapon_up = stat(stat_type, 1.0225);
+  for (const data_stat of data_stats) {
+    const [name, weapon_up] = data_stat;
 
     // sta
     data.push(
-      augment(`tria staro${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 6),
-        stat(StatEnum.CORE_HP, -5),
-        weapon_up,
-      ]),
+      makeAugmentTria(`tria staro${name}`, 0, {
+        [StatEnum.CORE_BP]: 6,
+        [StatEnum.CORE_HP]: -5,
+        [weapon_up]: weapon_up_value,
+      }),
     );
 
     // spi
     data.push(
-      augment(`tria spiro${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 6),
-        stat(StatEnum.CORE_PP, -3),
-        weapon_up,
-      ]),
+      makeAugmentTria(`tria spiro${name}`, 0, {
+        [StatEnum.CORE_BP]: 6,
+        [StatEnum.CORE_PP]: -3,
+        [weapon_up]: weapon_up_value,
+      }),
     );
 
     // deft
     data.push(
-      augment(`tria deftro${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 6),
-        weapon_up,
-        stat(StatEnum.ADV_OFF_FLOOR, 0.99),
-      ]),
+      makeAugmentTria(`tria deftro${name}`, 0, {
+        [StatEnum.CORE_BP]: 6,
+        [weapon_up]: weapon_up_value,
+        [StatEnum.ADV_OFF_FLOOR]: 0.99,
+      }),
     );
 
     // gua
     data.push(
-      augment(`tria guaro${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 6),
-        weapon_up,
-        stat(StatEnum.ADV_DEF_DAMAGE_RES, 0.99),
-      ]),
+      makeAugmentTria(`tria guaro${name}`, 0, {
+        [StatEnum.CORE_BP]: 6,
+        [weapon_up]: weapon_up_value,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 0.99,
+      }),
     );
   }
 })();

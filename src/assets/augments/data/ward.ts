@@ -1,12 +1,22 @@
-import { Fragment } from "react";
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.WARD;
-const CONFLICT: GroupEnum[] = [GroupEnum.WARD];
+const data: Augment[] = [];
 
-let data: Augment[] = [];
+const makeAugmentWard = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.WARD,
+    [GroupEnum.WARD],
+    stats,
+  );
+};
 
 // --------------------------------------
 // ward
@@ -14,7 +24,7 @@ let data: Augment[] = [];
   const data_bp = [4, 5, 6];
   const data_ail_res = [1.2, 1.25, 1.3];
 
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["burn", StatEnum.AIL_BURN],
     ["freeze", StatEnum.AIL_FREEZE],
     ["shock", StatEnum.AIL_SHOCK],
@@ -24,15 +34,21 @@ let data: Augment[] = [];
     ["pain", StatEnum.AIL_PHYDOWN],
   ];
 
-  for (const _data of data_arr) {
-    const [name, stat_type] = _data;
+  for (const data_stat of data_stats) {
+    const [name, [res_up]] = data_stat;
 
-    for (let i = 0; i < data_bp.length; i++) {
+    for (
+      let level_index = 0;
+      level_index < data_bp.length;
+      level_index++
+    ) {
+      const res_up_value = data_ail_res[level_index];
+
       data.push(
-        augment(`${name} ward`, i + 1, GROUP, CONFLICT, [
-          stat(StatEnum.CORE_BP, data_bp[i]),
-          stat(stat_type, data_ail_res[i]),
-        ]),
+        makeAugmentWard(`${name} ward`, level_index + 1, {
+          [StatEnum.CORE_BP]: data_bp[level_index],
+          [res_up]: res_up_value,
+        }),
       );
     }
   }
@@ -44,18 +60,24 @@ let data: Augment[] = [];
   const data_bp = [6, 8, 10];
   const data_ail_res = [1.2, 1.25, 1.3];
 
-  for (let i = 0; i < data_bp.length; i++) {
+  for (
+    let level_index = 0;
+    level_index < data_bp.length;
+    level_index++
+  ) {
+    const res_up_value = data_ail_res[level_index];
+
     data.push(
-      augment("sovereign ward", i + 1, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, data_bp[i]),
-        stat(StatEnum.AIL_BURN, data_ail_res[i]),
-        stat(StatEnum.AIL_FREEZE, data_ail_res[i]),
-        stat(StatEnum.AIL_SHOCK, data_ail_res[i]),
-        stat(StatEnum.AIL_BLIND, data_ail_res[i]),
-        stat(StatEnum.AIL_PANIC, data_ail_res[i]),
-        stat(StatEnum.AIL_POISON, data_ail_res[i]),
-        stat(StatEnum.AIL_PHYDOWN, data_ail_res[i]),
-      ]),
+      makeAugmentWard("sovereign ward", level_index + 1, {
+        [StatEnum.CORE_BP]: data_bp[level_index],
+        [StatEnum.AIL_BURN]: res_up_value,
+        [StatEnum.AIL_FREEZE]: res_up_value,
+        [StatEnum.AIL_SHOCK]: res_up_value,
+        [StatEnum.AIL_BLIND]: res_up_value,
+        [StatEnum.AIL_PANIC]: res_up_value,
+        [StatEnum.AIL_POISON]: res_up_value,
+        [StatEnum.AIL_PHYDOWN]: res_up_value,
+      }),
     );
   }
 })();

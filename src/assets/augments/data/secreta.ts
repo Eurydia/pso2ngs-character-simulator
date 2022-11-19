@@ -1,11 +1,22 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.SECRETA;
-const CONFLICT: GroupEnum[] = [GroupEnum.SECRETA];
+const data: Augment[] = [];
 
-let data: Augment[] = [];
+const makeAugmentSecreta = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.SECRETA,
+    [GroupEnum.SECRETA],
+    stats,
+  );
+};
 
 // --------------------------------------
 // alt
@@ -16,17 +27,23 @@ let data: Augment[] = [];
   const data_floor = [1.01, 1.015, 1.02];
   const data_damage_res = [0.985, 0.985, 0.985];
 
-  for (let i = 0; i < data_bp.length; i++) {
+  for (
+    let level_index = 0;
+    level_index < data_bp.length;
+    level_index++
+  ) {
+    const weapon_up_value = data_weapon_up[level_index];
+
     data.push(
-      augment("alts secreata", i + 1, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, data_bp[i]),
-        stat(StatEnum.CORE_HP, data_hp[i]),
-        stat(StatEnum.WEAPON_MELEE, data_weapon_up[i]),
-        stat(StatEnum.WEAPON_RANGED, data_weapon_up[i]),
-        stat(StatEnum.WEAPON_TECHNIQUE, data_weapon_up[i]),
-        stat(StatEnum.ADV_OFF_FLOOR, data_floor[i]),
-        stat(StatEnum.ADV_DEF_DAMAGE_RES, data_damage_res[i]),
-      ]),
+      makeAugmentSecreta("alts secreata", level_index + 1, {
+        [StatEnum.CORE_BP]: data_bp[level_index],
+        [StatEnum.CORE_HP]: data_hp[level_index],
+        [StatEnum.WEAPON_MELEE]: weapon_up_value,
+        [StatEnum.WEAPON_RANGED]: weapon_up_value,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
+        [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
+        [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
+      }),
     );
   }
 })();

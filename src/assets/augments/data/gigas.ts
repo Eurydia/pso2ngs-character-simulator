@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeGigas = (
+const makeAugmentGigas = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -25,14 +25,14 @@ const makeGigas = (
   const data_hp = [5, 10, 15, 20];
   const data_weapon_up = [1.015, 1.02, 1.025, 1.03];
 
-  const data_arr: [string, StatEnum][] = [
+  const data_stats: [string, StatEnum][] = [
     ["might", StatEnum.WEAPON_MELEE],
     ["precision", StatEnum.WEAPON_RANGED],
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const _data of data_arr) {
-    const [name, weapon_up] = _data;
+  for (const data_stat of data_stats) {
+    const [name, weapon_up] = data_stat;
 
     for (
       let level_index = 0;
@@ -41,7 +41,7 @@ const makeGigas = (
     ) {
       const weapon_up_value = data_weapon_up[level_index];
       data.push(
-        makeGigas(`gigas ${name}`, level_index + 1, {
+        makeAugmentGigas(`gigas ${name}`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [StatEnum.CORE_HP]: data_hp[level_index],
           [weapon_up]: weapon_up_value,
@@ -54,7 +54,7 @@ const makeGigas = (
 // --------------------------------------
 // aglai
 data.push(
-  makeGigas("gigas aglai", 0, {
+  makeAugmentGigas("gigas aglai", 0, {
     [StatEnum.CORE_BP]: 11,
     [StatEnum.CORE_HP]: 15,
     [StatEnum.WEAPON_MELEE]: 1.025,
@@ -65,7 +65,7 @@ data.push(
 // --------------------------------------
 // euphroy
 data.push(
-  makeGigas("gigas euphroy", 0, {
+  makeAugmentGigas("gigas euphroy", 0, {
     [StatEnum.CORE_BP]: 11,
     [StatEnum.CORE_HP]: 15,
     [StatEnum.WEAPON_MELEE]: 1.025,
@@ -76,7 +76,7 @@ data.push(
 // --------------------------------------
 // thali
 data.push(
-  makeGigas("gigas thali", 0, {
+  makeAugmentGigas("gigas thali", 0, {
     [StatEnum.CORE_BP]: 11,
     [StatEnum.CORE_HP]: 15,
     [StatEnum.WEAPON_RANGED]: 1.025,

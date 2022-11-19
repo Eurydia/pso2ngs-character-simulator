@@ -2,9 +2,9 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-let data: Augment[] = [];
+const data: Augment[] = [];
 
-const makeAddi = (
+const makeAugmentAddi = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -33,13 +33,13 @@ const makeAddi = (
     const [name, weapon_up] = data_stat;
 
     data.push(
-      makeAddi(`addi deft${name}`, 0, {
+      makeAugmentAddi(`addi deft${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
       }),
     );
 
     data.push(
-      makeAddi(`addi gua${name}`, 0, {
+      makeAugmentAddi(`addi gua${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [weapon_up]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.025,
@@ -47,7 +47,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi spi${name}`, 0, {
+      makeAugmentAddi(`addi spi${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_PP]: 6,
         [weapon_up]: weapon_up_value,
@@ -55,7 +55,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi sta${name}`, 0, {
+      makeAugmentAddi(`addi sta${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_HP]: 20,
         [weapon_up]: weapon_up_value,
@@ -63,7 +63,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi staspi${name}`, 0, {
+      makeAugmentAddi(`addi staspi${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 3,
@@ -72,7 +72,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi ward${name}`, 0, {
+      makeAugmentAddi(`addi ward${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [weapon_up]: weapon_up_value,
         [StatEnum.AIL_BLIND]: 1.2,
@@ -102,7 +102,7 @@ const makeAddi = (
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     data.push(
-      makeAddi(`addi deft${name}`, 0, {
+      makeAugmentAddi(`addi deft${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -111,7 +111,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi gua${name}`, 0, {
+      makeAugmentAddi(`addi gua${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -121,7 +121,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi spi${name}`, 0, {
+      makeAugmentAddi(`addi spi${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_PP]: 6,
         [weapon_up_a]: weapon_up_value,
@@ -131,7 +131,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi sta${name}`, 0, {
+      makeAugmentAddi(`addi sta${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_HP]: 20,
         [weapon_up_a]: weapon_up_value,
@@ -141,7 +141,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi staspi${name}`, 0, {
+      makeAugmentAddi(`addi staspi${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 3,
@@ -152,7 +152,7 @@ const makeAddi = (
     );
 
     data.push(
-      makeAddi(`addi ward${name}`, 0, {
+      makeAugmentAddi(`addi ward${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
