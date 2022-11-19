@@ -1,11 +1,22 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.GIGAS;
-const CONFLICT: GroupEnum[] = [GroupEnum.GIGAS];
-
 let data: Augment[] = [];
+
+const makeGigas = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.GIGAS,
+    [GroupEnum.GIGAS],
+    stats,
+  );
+};
 
 // --------------------------------------
 // might | precision | technique
@@ -21,15 +32,20 @@ let data: Augment[] = [];
   ];
 
   for (const _data of data_arr) {
-    const [name, stat_type] = _data;
+    const [name, weapon_up] = _data;
 
-    for (let i = 0; i < data_bp.length; i++) {
+    for (
+      let level_index = 0;
+      level_index < data_bp.length;
+      level_index++
+    ) {
+      const weapon_up_value = data_weapon_up[level_index];
       data.push(
-        augment(`gigas ${name}`, i + 1, GROUP, CONFLICT, [
-          stat(StatEnum.CORE_BP, data_bp[i]),
-          stat(StatEnum.CORE_HP, data_hp[i]),
-          stat(stat_type, data_weapon_up[i]),
-        ]),
+        makeGigas(`gigas ${name}`, level_index + 1, {
+          [StatEnum.CORE_BP]: data_bp[level_index],
+          [StatEnum.CORE_HP]: data_hp[level_index],
+          [weapon_up]: weapon_up_value,
+        }),
       );
     }
   }
@@ -38,33 +54,33 @@ let data: Augment[] = [];
 // --------------------------------------
 // aglai
 data.push(
-  augment("gigas aglai", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 11),
-    stat(StatEnum.CORE_HP, 15),
-    stat(StatEnum.WEAPON_MELEE, 1.025),
-    stat(StatEnum.WEAPON_RANGED, 1.025),
-  ]),
+  makeGigas("gigas aglai", 0, {
+    [StatEnum.CORE_BP]: 11,
+    [StatEnum.CORE_HP]: 15,
+    [StatEnum.WEAPON_MELEE]: 1.025,
+    [StatEnum.WEAPON_RANGED]: 1.025,
+  }),
 );
 
 // --------------------------------------
 // euphroy
 data.push(
-  augment("gigas euphroy", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 11),
-    stat(StatEnum.CORE_HP, 15),
-    stat(StatEnum.WEAPON_MELEE, 1.025),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
-  ]),
+  makeGigas("gigas euphroy", 0, {
+    [StatEnum.CORE_BP]: 11,
+    [StatEnum.CORE_HP]: 15,
+    [StatEnum.WEAPON_MELEE]: 1.025,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+  }),
 );
 
 // --------------------------------------
 // thali
 data.push(
-  augment("gigas thali", 0, GROUP, CONFLICT, [
-    stat(StatEnum.CORE_BP, 11),
-    stat(StatEnum.CORE_HP, 15),
-    stat(StatEnum.WEAPON_RANGED, 1.025),
-    stat(StatEnum.WEAPON_TECHNIQUE, 1.025),
-  ]),
+  makeGigas("gigas thali", 0, {
+    [StatEnum.CORE_BP]: 11,
+    [StatEnum.CORE_HP]: 15,
+    [StatEnum.WEAPON_RANGED]: 1.025,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+  }),
 );
 export default data;
