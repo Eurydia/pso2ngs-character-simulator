@@ -2,6 +2,8 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
+let data: Augment[] = [];
+
 const makeDecold = (
   name: string,
   level: number,
@@ -15,8 +17,6 @@ const makeDecold = (
     stats,
   );
 };
-
-let data: Augment[] = [];
 
 // --------------------------------------
 // standard
@@ -47,13 +47,15 @@ let data: Augment[] = [];
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
+  const weapon_up_value = 1.025;
+
   for (const _data of data_arr) {
-    const [name, stat_type] = _data;
+    const [name, weapon_up] = _data;
 
     data.push(
       makeDecold(`decold ${name}`, 0, {
         [StatEnum.CORE_BP]: 9,
-        [stat_type]: 1.025,
+        [weapon_up]: weapon_up_value,
         [StatEnum.HARSH_COLD]: 0.25,
       }),
     );

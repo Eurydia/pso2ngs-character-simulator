@@ -1,11 +1,22 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
-const GROUP = GroupEnum.FUSED;
-const CONFLICT = [GroupEnum.FUSED, GroupEnum.BASIC];
-
 let data: Augment[] = [];
+
+const makeFused = (
+  name: string,
+  level: number,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Augment => {
+  return augment(
+    name,
+    level,
+    GroupEnum.FUSED,
+    [GroupEnum.BASIC, GroupEnum.FUSED],
+    stats,
+  );
+};
 
 // --------------------------------------
 // fused
@@ -16,40 +27,41 @@ let data: Augment[] = [];
     ["technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
+  const weapon_up_value = 1.02;
+
   for (const _data of data_arr) {
-    const [name, stat_type] = _data;
-    const weapon_up = stat(stat_type, 1.02);
+    const [name, weapon_up] = _data;
 
     data.push(
-      augment(`sta ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        stat(StatEnum.CORE_HP, 15),
-        weapon_up,
-      ]),
+      makeFused(`sta ${name}`, 0, {
+        [StatEnum.CORE_BP]: 8,
+        [StatEnum.CORE_HP]: 15,
+        [weapon_up]: weapon_up_value,
+      }),
     );
 
     data.push(
-      augment(`spi ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        stat(StatEnum.CORE_PP, 5),
-        weapon_up,
-      ]),
+      makeFused(`spi ${name}`, 0, {
+        [StatEnum.CORE_BP]: 8,
+        [StatEnum.CORE_PP]: 5,
+        [weapon_up]: weapon_up_value,
+      }),
     );
 
     data.push(
-      augment(`deft ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        weapon_up,
-        stat(StatEnum.ADV_OFF_FLOOR, 1.02),
-      ]),
+      makeFused(`deft ${name}`, 0, {
+        [StatEnum.CORE_BP]: 8,
+        [weapon_up]: weapon_up_value,
+        [StatEnum.ADV_OFF_FLOOR]: 1.02,
+      }),
     );
 
     data.push(
-      augment(`gua ${name}`, 0, GROUP, CONFLICT, [
-        stat(StatEnum.CORE_BP, 8),
-        weapon_up,
-        stat(StatEnum.ADV_DEF_DAMAGE_RES, 1.02),
-      ]),
+      makeFused(`gua ${name}`, 0, {
+        [StatEnum.CORE_BP]: 8,
+        [weapon_up]: weapon_up_value,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.02,
+      }),
     );
   }
 })();

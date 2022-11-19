@@ -1,4 +1,4 @@
-import stat, { StatEnum } from "../../stat";
+import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
@@ -31,18 +31,20 @@ let data: Augment[] = [];
   ];
 
   for (const data_stat of data_stats) {
-    const [name, [stat_type_a, stat_type_b]] = data_stat;
+    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     for (
       let level_index = 0;
       level_index < data_bp.length;
       level_index++
     ) {
+      const weapon_up_value = data_weapon_up[level_index];
+
       data.push(
         makeDualble(`${name} dualble`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
-          [stat_type_a]: data_weapon_up[level_index],
-          [stat_type_b]: data_weapon_up[level_index],
+          [weapon_up_a]: weapon_up_value,
+          [weapon_up_b]: weapon_up_value,
         }),
       );
     }

@@ -2,6 +2,8 @@ import { StatEnum } from "../../stat";
 import augment, { Augment } from "../augment";
 import GroupEnum from "../groupEnum";
 
+let data: Augment[] = [];
+
 const makeDread = (
   name: string,
   level: number,
@@ -15,8 +17,6 @@ const makeDread = (
     stats,
   );
 };
-
-let data: Augment[] = [];
 
 // --------------------------------------
 // dread keeper

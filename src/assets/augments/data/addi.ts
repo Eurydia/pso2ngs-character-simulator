@@ -27,10 +27,10 @@ const makeAddi = (
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  const primary_stat_value = 1.025;
+  const weapon_up_value = 1.025;
 
   for (const data_stat of data_stats) {
-    const [name, stat_type] = data_stat;
+    const [name, weapon_up] = data_stat;
 
     data.push(
       makeAddi(`addi deft${name}`, 0, {
@@ -41,7 +41,7 @@ const makeAddi = (
     data.push(
       makeAddi(`addi gua${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
-        [stat_type]: primary_stat_value,
+        [weapon_up]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.025,
       }),
     );
@@ -50,7 +50,7 @@ const makeAddi = (
       makeAddi(`addi spi${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_PP]: 6,
-        [stat_type]: primary_stat_value,
+        [weapon_up]: weapon_up_value,
       }),
     );
 
@@ -58,7 +58,7 @@ const makeAddi = (
       makeAddi(`addi sta${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_HP]: 20,
-        [stat_type]: primary_stat_value,
+        [weapon_up]: weapon_up_value,
       }),
     );
 
@@ -67,14 +67,14 @@ const makeAddi = (
         [StatEnum.CORE_BP]: 10,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 3,
-        [stat_type]: primary_stat_value,
+        [weapon_up]: weapon_up_value,
       }),
     );
 
     data.push(
       makeAddi(`addi ward${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
-        [stat_type]: primary_stat_value,
+        [weapon_up]: weapon_up_value,
         [StatEnum.AIL_BLIND]: 1.2,
         [StatEnum.AIL_BURN]: 1.2,
         [StatEnum.AIL_FREEZE]: 1.2,
@@ -96,16 +96,16 @@ const makeAddi = (
     ["ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const primary_stat_value = 1.03;
+  const weapon_up_value = 1.03;
 
   for (const data_stat of data_stats) {
-    const [name, [stat_type_a, stat_type_b]] = data_stat;
+    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     data.push(
       makeAddi(`addi deft${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.0275,
       }),
     );
@@ -113,8 +113,8 @@ const makeAddi = (
     data.push(
       makeAddi(`addi gua${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.025,
         [StatEnum.ADV_OFF_FLOOR]: 1.01,
       }),
@@ -124,8 +124,8 @@ const makeAddi = (
       makeAddi(`addi spi${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_PP]: 6,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.01,
       }),
     );
@@ -134,8 +134,8 @@ const makeAddi = (
       makeAddi(`addi sta${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_HP]: 20,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.01,
       }),
     );
@@ -145,8 +145,8 @@ const makeAddi = (
         [StatEnum.CORE_BP]: 0,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 3,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.01,
       }),
     );
@@ -154,8 +154,8 @@ const makeAddi = (
     data.push(
       makeAddi(`addi ward${name}`, 0, {
         [StatEnum.CORE_BP]: 0,
-        [stat_type_a]: primary_stat_value,
-        [stat_type_b]: primary_stat_value,
+        [weapon_up_a]: weapon_up_value,
+        [weapon_up_b]: weapon_up_value,
         [StatEnum.AIL_BLIND]: 1.2,
         [StatEnum.AIL_BURN]: 1.2,
         [StatEnum.AIL_FREEZE]: 1.2,
