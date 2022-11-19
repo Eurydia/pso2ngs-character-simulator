@@ -35,7 +35,7 @@ const makeAugmentWard = (
   ];
 
   for (const data_stat of data_stats) {
-    const [name, [res_up]] = data_stat;
+    const [name, res_up] = data_stat;
 
     for (
       let level_index = 0;

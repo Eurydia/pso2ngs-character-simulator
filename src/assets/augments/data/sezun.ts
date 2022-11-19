@@ -28,7 +28,7 @@ data.push(
     [StatEnum.WEAPON_MELEE]: 1.15,
     [StatEnum.WEAPON_RANGED]: 1.15,
     [StatEnum.WEAPON_TECHNIQUE]: 1.15,
-    [StatEnum.ADV_OFF_CRIT_CHANCE]: 1.2,
+    [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.2,
     [StatEnum.ADV_DEF_DAMAGE_RES]: 1.25,
   }),
 );
@@ -50,7 +50,7 @@ data.push(
     [StatEnum.WEAPON_MELEE]: 1.05,
     [StatEnum.WEAPON_RANGED]: 1.05,
     [StatEnum.WEAPON_TECHNIQUE]: 1.05,
-    [StatEnum.ADV_OFF_CRIT_CHANCE]: 1.2,
+    [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.2,
     [StatEnum.ADV_DEF_DAMAGE_RES]: 1.25,
   }),
 );

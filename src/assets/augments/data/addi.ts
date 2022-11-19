@@ -35,6 +35,8 @@ const makeAugmentAddi = (
     data.push(
       makeAugmentAddi(`addi deft${name}`, 0, {
         [StatEnum.CORE_BP]: 10,
+        [weapon_up]: weapon_up_value,
+        [StatEnum.ADV_OFF_FLOOR]: 1.025,
       }),
     );
 

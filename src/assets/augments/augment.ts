@@ -2,13 +2,30 @@ import { capitalize as ld_capitalize } from "lodash";
 import { romanize } from "romans";
 import { parseValue } from "../../util";
 import {
-  Stat,
   StatAdd,
+  StatAilmentRes,
   StatEnum,
   StatEnumString,
   StatSpecial,
+  StatWeaponUp,
 } from "../stat";
 import GroupEnum from "./groupEnum";
+
+const formatStat = (stat: StatEnum, value: number): string => {
+  let res: string = "";
+
+  if (StatAdd.has(stat)) {
+    res = parseValue(value, 0, "add");
+  } else {
+    res = parseValue(value, 1, "percent");
+  }
+
+  if (StatSpecial.has(stat)) {
+    res = parseValue(value, 0, "percent");
+  }
+
+  return res;
+};
 
 export class Augment {
   name: string;
@@ -17,8 +34,6 @@ export class Augment {
   conflict: Set<GroupEnum>;
   stats: Partial<{ [K in StatEnum]: number }>;
   is_variant: boolean;
-
-  label: string;
 
   constructor(
     name: string,
@@ -34,52 +49,61 @@ export class Augment {
     this.conflict = new Set(conflict);
     this.stats = stats;
     this.is_variant = is_variant;
-
-    this.label = this.#formattedName();
   }
 
-  #formattedName(): string {
-    const _name = this.name.split(" ").map(ld_capitalize).join(" ");
+  get level_roman(): string {
+    if (this.level > 0) {
+      return romanize(this.level);
+    }
+    return "";
+  }
 
-    let display_name = `${_name}`;
+  get label(): string {
+    const capitalized_name = this.name
+      .split(" ")
+      .map(ld_capitalize)
+      .join(" ");
+
+    let _label = `${capitalized_name}`;
 
     if (this.level > 0) {
-      display_name = `${display_name} ${romanize(this.level)}`;
+      _label = `${_label} ${this.level_roman}`.trimEnd();
     }
 
     if (this.is_variant) {
-      display_name = `* ${display_name}`;
+      _label = `* ${_label}`;
     }
 
-    return display_name;
+    return _label;
+  }
+
+  get formatted_stats(): [string, string][] {
+    const _formatted_stats: [string, string][] = [];
+
+    for (const stat of Object.keys(this.stats)) {
+      if (StatEnumString[stat as StatEnum] === undefined) {
+        continue;
+      }
+
+      const value: number | undefined = this.stats[stat as StatEnum];
+
+      if (value === undefined) {
+        continue;
+      }
+
+      const f_label = StatEnumString[stat as StatEnum]
+        .split(" ")
+        .map(ld_capitalize)
+        .join(" ");
+      const f_value = formatStat(stat as StatEnum, value);
+      _formatted_stats.push([f_label, f_value]);
+    }
+
+    return _formatted_stats;
   }
 
   isConflicting(group: GroupEnum): boolean {
     return this.conflict.has(group);
-  }
-
-  getFormattedStats(): string[] {
-    const formatted_stats: string[] = [];
-
-    for (const stat of Object.keys(this.stats)) {
-      const stat_name = StatEnumString[stat as StatEnum]
-        .split(" ")
-        .map(ld_capitalize)
-        .join(" ");
-      const value = this.stats[stat as StatEnum]!;
-
-      let value_formatted: string = parseValue(value, 1, "percent");
-      if (StatAdd.includes(stat as StatEnum)) {
-        value_formatted = parseValue(value, 0, "add");
-      }
-      if (StatSpecial.includes(stat as StatEnum)) {
-        value_formatted = parseValue(value, 0, "percent");
-      }
-
-      formatted_stats.push(`${value_formatted} ${stat_name}`);
-    }
-
-    return formatted_stats;
   }
 }
 

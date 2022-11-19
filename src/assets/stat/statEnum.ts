@@ -35,46 +35,62 @@ const enum StatEnum {
 }
 
 export const StatEnumString: { [K in StatEnum]: string } = {
-  coreBP: "bp",
-  coreHP: "hp",
-  corePP: "pp",
-  coreAttack: "attack",
-  coreDefense: "defense",
-  weaponMelee: "mel potency",
-  weaponRanged: "rng potency",
-  weaponTechnique: "tec potency",
-  ailBurn: "burn resistance",
-  ailFreeze: "freeze resistance",
-  ailPanic: "panic resistance",
-  ailBlind: "blind resistance",
-  ailPoison: "poison resistance",
-  ailShock: "shock resistance",
-  ailPhyDown: "physical down resistance",
-  envCold: "harsh enviroment resistance",
-  ppUsage: "pp usage",
-  ppActiveRecovery: "active pp recovery",
-  ppNaturalRecovery: "passive pp recovery",
-  offFloor: "floor potency",
-  offDamageUp: "damage up",
-  offCritChance: "critical chance",
-  offCritDamage: "critical damage",
-  offPBRecovery: "pb gauge recovery",
-  defHealingUp: "healing up",
-  defDamageResist: "damage resistance",
-  defAilmentDuration: "ailment duration",
+  [StatEnum.CORE_BP]: "bp",
+  [StatEnum.CORE_HP]: "hp",
+  [StatEnum.CORE_PP]: "pp",
+  [StatEnum.CORE_ATTACK]: "attack",
+  [StatEnum.CORE_DEFENSE]: "defense",
+  [StatEnum.WEAPON_MELEE]: "mel potency",
+  [StatEnum.WEAPON_RANGED]: "rng potency",
+  [StatEnum.WEAPON_TECHNIQUE]: "tec potency",
+  [StatEnum.AIL_BURN]: "burn resistance",
+  [StatEnum.AIL_FREEZE]: "freeze resistance",
+  [StatEnum.AIL_PANIC]: "panic resistance",
+  [StatEnum.AIL_BLIND]: "blind resistance",
+  [StatEnum.AIL_POISON]: "poison resistance",
+  [StatEnum.AIL_SHOCK]: "shock resistance",
+  [StatEnum.AIL_PHYDOWN]: "physical down resistance",
+  [StatEnum.HARSH_COLD]: "harsh enviroment resistance",
+  [StatEnum.ADV_PP_USAGE]: "pp usage",
+  [StatEnum.ADV_PP_ACTIVE_RECOVERY]: "active pp recovery",
+  [StatEnum.ADV_PP_NATURAL_RECOVERY]: "passive pp recovery",
+  [StatEnum.ADV_OFF_FLOOR]: "floor potency",
+  [StatEnum.ADV_OFF_DAMAGE]: "damage up",
+  [StatEnum.ADV_OFF_CRIT_CHANCE]: "critical chance",
+  [StatEnum.ADV_OFF_CRIT_DAMAGE]: "critical damage",
+  [StatEnum.ADV_OFF_PB_RECOVERY]: "pb gauge recovery",
+  [StatEnum.ADV_DEF_HEALING]: "healing up",
+  [StatEnum.ADV_DEF_DAMAGE_RES]: "damage resistance",
+  [StatEnum.ADV_DEF_AILMENT_DURATION]: "ailment duration",
 };
 
-export const StatAdd: StatEnum[] = [
+export const StatAdd: Set<StatEnum> = new Set([
   StatEnum.CORE_BP,
   StatEnum.CORE_HP,
   StatEnum.CORE_PP,
   StatEnum.CORE_ATTACK,
   StatEnum.CORE_DEFENSE,
-];
+]);
 
-export const StatSpecial: StatEnum[] = [
+export const StatSpecial: Set<StatEnum> = new Set([
   StatEnum.HARSH_COLD,
   StatEnum.ADV_OFF_CRIT_CHANCE,
-];
+]);
+
+export const StatWeaponUp: Set<StatEnum> = new Set([
+  StatEnum.WEAPON_MELEE,
+  StatEnum.WEAPON_RANGED,
+  StatEnum.WEAPON_TECHNIQUE,
+]);
+
+export const StatAilmentRes: Set<StatEnum> = new Set([
+  StatEnum.AIL_BURN,
+  StatEnum.AIL_FREEZE,
+  StatEnum.AIL_PANIC,
+  StatEnum.AIL_BLIND,
+  StatEnum.AIL_POISON,
+  StatEnum.AIL_SHOCK,
+  StatEnum.AIL_PHYDOWN,
+]);
 
 export default StatEnum;

@@ -1,16 +1,16 @@
-import { HTMLAttributes } from "react";
+import { Fragment, HTMLAttributes } from "react";
 import {
   AutocompleteRenderOptionState,
-  List,
   FilterOptionsState,
-  ListItem,
   ListItemText,
   MenuItem,
   Tooltip,
+  Grid,
+  Typography,
+  Box,
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 import { Augment } from "../../assets";
-import { romanize } from "romans";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
@@ -23,15 +23,20 @@ export const renderOption = (
         followCursor
         placement="top"
         title={
-          <List dense disablePadding>
-            {option.getFormattedStats().map((v, index) => {
-              return (
-                <ListItem key={`stat-${index}`} disableGutters>
-                  <ListItemText>{v}</ListItemText>
-                </ListItem>
-              );
-            })}
-          </List>
+          <Box padding={1} minWidth={"200px"}>
+            <Grid container columns={{ xs: 1, md: 3 }}>
+              {option.formatted_stats.map(([label, value]) => (
+                <Fragment key={label}>
+                  <Grid item xs={1}>
+                    <Typography>{value}</Typography>
+                  </Grid>
+                  <Grid item xs={1} md={2}>
+                    <Typography>{label}</Typography>
+                  </Grid>
+                </Fragment>
+              ))}
+            </Grid>
+          </Box>
         }
       >
         <ListItemText>{option.label}</ListItemText>
@@ -60,7 +65,7 @@ export const filterOptions = (
             (item) => item.name,
             (item) => item.level.toString(),
             (item) => item.group,
-            (item) => (item.level > 0 ? romanize(item.level) : ""),
+            (item) => item.level_roman,
           ],
         }),
       options,
