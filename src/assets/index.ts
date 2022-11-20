@@ -1,3 +1,7 @@
+export * from "./stat";
+
 export { default as AssetAugments } from "./augments";
 export * from "./augments";
-export * from "./stat";
+
+export { default as AssetWeapons } from "./weapons";
+export * from "./weapons";

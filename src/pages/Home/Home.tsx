@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import ExtraRoundedCard from "../../components/ExtraRoundedCard";
 import FormAugment from "../../components/FormAugment";
 import FieldAugment from "../../components/FieldAugment";
+import FieldWeapon from "../../components/FieldWeapon";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -29,6 +30,7 @@ const Home: FC<HomeProps> = (props) => {
       <Grid item md={2}>
         <ExtraRoundedCard raised>
           <CardContent>
+            <FieldWeapon value={null} onChange={(v) => null} />
             <FormAugment />
             {/* <FieldAugment /> */}
           </CardContent>

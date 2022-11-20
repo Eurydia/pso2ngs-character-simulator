@@ -9,8 +9,6 @@ import { Error } from "@mui/icons-material";
 import { AssetAugments, Augment } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-const RESULT_SIZE = 16;
-
 const AdornmentError: FC = () => {
   return (
     <InputAdornment position="start">
@@ -22,7 +20,6 @@ const AdornmentError: FC = () => {
 const AdornmentOkay: FC = () => {
   return <InputAdornment position="start">C/</InputAdornment>;
 };
-
 interface FieldAugmentProps {
   error: boolean;
   value: Augment | null;
@@ -59,9 +56,7 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
         />
       )}
       renderOption={renderOption}
-      filterOptions={(options, state) =>
-        filterOptions(options, state, RESULT_SIZE)
-      }
+      filterOptions={filterOptions}
       groupBy={(option) => option.group}
     />
   );
