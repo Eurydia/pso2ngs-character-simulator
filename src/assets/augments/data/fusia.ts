@@ -21,7 +21,7 @@ const makeFusia = (
 // --------------------------------------
 // fusia
 data.push(
-  makeFusia("megas fusia", 0, {
+  makeFusia("Megas Fusia", 0, {
     [StatEnum.CORE_BP]: 4,
     [StatEnum.WEAPON_MELEE]: 1.01,
     [StatEnum.WEAPON_RANGED]: 1.01,
