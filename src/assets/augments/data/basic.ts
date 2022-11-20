@@ -30,7 +30,7 @@ const makeAugmentBasic = (
     level_index++
   ) {
     data.push(
-      makeAugmentBasic("stamina", level_index + 1, {
+      makeAugmentBasic("Stamina", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_HP]: data_hp[level_index],
       }),
@@ -50,7 +50,7 @@ const makeAugmentBasic = (
     level_index++
   ) {
     data.push(
-      makeAugmentBasic("spirit", level_index + 1, {
+      makeAugmentBasic("Spirit", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_PP]: data_pp[level_index],
       }),
@@ -65,9 +65,9 @@ const makeAugmentBasic = (
   const data_weapon_up = [1.01, 1.015, 1.02, 1.03];
 
   const data_stats: [string, StatEnum][] = [
-    ["might", StatEnum.WEAPON_MELEE],
-    ["precision", StatEnum.WEAPON_RANGED],
-    ["technique", StatEnum.WEAPON_TECHNIQUE],
+    ["Might", StatEnum.WEAPON_MELEE],
+    ["Precision", StatEnum.WEAPON_RANGED],
+    ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
   for (const data_stat of data_stats) {
@@ -100,7 +100,7 @@ const makeAugmentBasic = (
     level_inedx++
   ) {
     data.push(
-      makeAugmentBasic("deftness", level_inedx + 1, {
+      makeAugmentBasic("Deftness", level_inedx + 1, {
         [StatEnum.CORE_BP]: data_bp[level_inedx],
         [StatEnum.ADV_OFF_FLOOR]: data_floor[level_inedx],
       }),
@@ -120,7 +120,7 @@ const makeAugmentBasic = (
     level_index++
   ) {
     data.push(
-      makeAugmentBasic("guard", level_index + 1, {
+      makeAugmentBasic("Guard", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
       }),
@@ -144,7 +144,7 @@ const makeAugmentBasic = (
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
-      makeAugmentBasic("mastery", level_index + 1, {
+      makeAugmentBasic("Mastery", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.WEAPON_MELEE]: weapon_up_value,
         [StatEnum.WEAPON_RANGED]: weapon_up_value,
