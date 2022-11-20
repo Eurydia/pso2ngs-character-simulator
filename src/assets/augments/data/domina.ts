@@ -21,7 +21,7 @@ const makeAugmentDomina = (
 // --------------------------------------
 // ael
 data.push(
-  makeAugmentDomina("ael domina", 0, {
+  makeAugmentDomina("Ael Domina", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.CORE_HP]: 5,
     [StatEnum.CORE_PP]: 3,
@@ -34,7 +34,7 @@ data.push(
 // --------------------------------------
 // ret
 data.push(
-  makeAugmentDomina("ret domina", 0, {
+  makeAugmentDomina("Ret Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_HP]: 15,
     [StatEnum.WEAPON_MELEE]: 1.015,
@@ -46,7 +46,7 @@ data.push(
 // --------------------------------------
 // kvar
 data.push(
-  makeAugmentDomina("kvar domina", 0, {
+  makeAugmentDomina("Kvar Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_PP]: 5,
     [StatEnum.WEAPON_MELEE]: 1.015,
