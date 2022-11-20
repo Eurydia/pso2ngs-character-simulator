@@ -30,7 +30,7 @@ const makeAugmentDecold = (
     level_index++
   ) {
     data.push(
-      makeAugmentDecold("decold standard", level_index + 1, {
+      makeAugmentDecold("Decold Standard", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.HARSH_COLD]: data_cold_res[level_index],
       }),
@@ -42,9 +42,9 @@ const makeAugmentDecold = (
 // might | precicion | technique
 (() => {
   const data_stats: [string, StatEnum][] = [
-    ["might", StatEnum.WEAPON_MELEE],
-    ["precision", StatEnum.WEAPON_RANGED],
-    ["technique", StatEnum.WEAPON_TECHNIQUE],
+    ["Might", StatEnum.WEAPON_MELEE],
+    ["Precision", StatEnum.WEAPON_RANGED],
+    ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
   const weapon_up_value = 1.025;
@@ -53,7 +53,7 @@ const makeAugmentDecold = (
     const [name, weapon_up] = data_stat;
 
     data.push(
-      makeAugmentDecold(`decold ${name}`, 0, {
+      makeAugmentDecold(`Decold ${name}`, 0, {
         [StatEnum.CORE_BP]: 9,
         [weapon_up]: weapon_up_value,
         [StatEnum.HARSH_COLD]: 0.25,
