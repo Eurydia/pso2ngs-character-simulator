@@ -35,7 +35,7 @@ const makeAugmentSecreta = (
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
-      makeAugmentSecreta("alts secreata", level_index + 1, {
+      makeAugmentSecreta("Alts Secreta", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_HP]: data_hp[level_index],
         [StatEnum.WEAPON_MELEE]: weapon_up_value,
