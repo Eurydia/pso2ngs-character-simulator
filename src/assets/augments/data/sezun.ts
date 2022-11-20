@@ -21,7 +21,7 @@ const makeAugmentSezun = (
 // --------------------------------------
 // lunafiv
 data.push(
-  makeAugmentSezun("sezun lunafiv", 0, {
+  makeAugmentSezun("Sezun Lunafiv", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.15,
     [StatEnum.WEAPON_RANGED]: 1.15,
@@ -34,7 +34,7 @@ data.push(
 // --------------------------------------
 // automfevre
 data.push(
-  makeAugmentSezun("sezun automfevre", 0, {
+  makeAugmentSezun("Sezun Automfevre", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.05,
     [StatEnum.WEAPON_RANGED]: 1.05,
