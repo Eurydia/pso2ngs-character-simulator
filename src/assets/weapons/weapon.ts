@@ -1,9 +1,10 @@
+import { StatObject } from "../../types";
 import { StatEnum } from "../stat";
 import WeaponGroup from "./groupEnum";
 
 export class Weapon {
   name: string;
-  stats: Partial<{ [K in StatEnum]: number }>;
+  stats: StatObject;
   group: WeaponGroup;
 
   #growth_rate: [number, number][];
@@ -11,7 +12,7 @@ export class Weapon {
   constructor(
     name: string,
     group: WeaponGroup,
-    stats: Partial<{ [K in StatEnum]: number }>,
+    stats: StatObject,
     growth_rate: [number, number][],
   ) {
     this.name = name;
@@ -45,7 +46,7 @@ const weapon = (
   name: string,
   group: WeaponGroup,
   growth_rate: [number, number][],
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stats: StatObject,
 ): Weapon => {
   return new Weapon(name, group, stats, growth_rate);
 };

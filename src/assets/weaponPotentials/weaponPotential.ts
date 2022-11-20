@@ -1,20 +1,28 @@
 import { StatObject } from "../../types";
 import { StatEnum } from "../stat";
-import WeaponGroup from "./groupEnum";
 
 export class WeaponPotential {
   name: string;
-  stats: StatObject;
-  stats_inactive: PStatObject;
+  stats: StatObject[];
+  stats_inactive: StatObject[];
+
+  constructor(
+    name: string,
+    stats: StatObject[],
+    stats_inactive: StatObject[],
+  ) {
+    this.name = name;
+    this.stats = stats;
+    this.stats_inactive = stats_inactive;
+  }
 }
 
-const weapon = (
+const weaponPotential = (
   name: string,
-  group: WeaponGroup,
-  growth_rate: [number, number][],
-  stats: StatObject,
-): Weapon => {
-  return new Weapon(name, group, stats, growth_rate);
+  stats: StatObject[],
+  stats_inactive: StatObject[] = [],
+): WeaponPotential => {
+  return new WeaponPotential(name, stats, stats_inactive);
 };
 
-export default weapon;
+export default weaponPotential;

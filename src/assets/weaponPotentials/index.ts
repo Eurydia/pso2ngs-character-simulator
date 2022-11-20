@@ -1,4 +1,3 @@
-export type { Weapon } from "./weaponPotential";
-export { default as GroupEnumWeapon } from "./groupEnum";
+export type { WeaponPotential } from "./weaponPotential";
 
-export { default } from "./data";
+export * as AssetPotentials from "./data";

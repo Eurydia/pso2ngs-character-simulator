@@ -1,3 +1,4 @@
+import { StatObject } from "../../../types";
 import { StatEnum } from "../../stat";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
@@ -15,7 +16,7 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRThree = (
   name: string,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stats: StatObject,
 ): Weapon => {
   return weapon(name, GroupEnum.R_THREE, GROWTH_RATE, stats);
 };
