@@ -1,4 +1,3 @@
-import { capitalize as ld_capitalize } from "lodash";
 import { romanize } from "romans";
 import { parseValue } from "../../util";
 import {
@@ -7,7 +6,7 @@ import {
   StatEnumString,
   StatSpecial,
 } from "../stat";
-import GroupEnum from "./groupEnum";
+import AugmentGroup from "./groupEnum";
 
 const formatStat = (stat: StatEnum, value: number): string => {
   let res: string = "";
@@ -28,15 +27,15 @@ const formatStat = (stat: StatEnum, value: number): string => {
 export class Augment {
   name: string;
   level: number;
-  group: GroupEnum;
-  conflict: Set<GroupEnum>;
+  group: AugmentGroup;
+  conflict: Set<AugmentGroup>;
   stats: Partial<{ [K in StatEnum]: number }>;
 
   constructor(
     name: string,
     level: number,
-    group: GroupEnum,
-    conflict: GroupEnum[],
+    group: AugmentGroup,
+    conflict: AugmentGroup[],
     stats: Partial<{ [K in StatEnum]: number }>,
   ) {
     this.name = name;
@@ -74,7 +73,7 @@ export class Augment {
     return _formatted_stats;
   }
 
-  isConflicting(group: GroupEnum): boolean {
+  isConflicting(group: AugmentGroup): boolean {
     return this.conflict.has(group);
   }
 }
@@ -82,8 +81,8 @@ export class Augment {
 const augment = (
   name: string,
   level: number,
-  group: GroupEnum,
-  conflict: GroupEnum[],
+  group: AugmentGroup,
+  conflict: AugmentGroup[],
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return new Augment(name, level, group, conflict, stats);

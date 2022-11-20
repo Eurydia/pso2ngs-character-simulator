@@ -36,4 +36,5 @@ const DATA: Augment[] = [
   ...sezun,
   ...super_,
 ];
+
 export default DATA;

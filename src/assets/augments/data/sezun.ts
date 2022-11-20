@@ -44,4 +44,10 @@ data.push(
   }),
 );
 
+data.push(
+  makeAugmentSezun("* Inactive Sezun", 0, {
+    [StatEnum.CORE_BP]: 10,
+  }),
+);
+
 export default data;
