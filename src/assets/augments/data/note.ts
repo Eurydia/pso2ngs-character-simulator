@@ -25,7 +25,7 @@ const makeAugmentNote = (
 (() => {
   // a
   data.push(
-    makeAugmentNote("ael note a", 0, {
+    makeAugmentNote("Ael Note A", 0, {
       [StatEnum.CORE_BP]: 5,
       [StatEnum.CORE_HP]: 5,
       [StatEnum.CORE_PP]: 3,
@@ -34,9 +34,9 @@ const makeAugmentNote = (
 
   // b | c | d
   const data_stats: [string, [StatEnum, StatEnum]][] = [
-    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
-    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
-    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
   const weapon_up_value = 1.01;
@@ -45,7 +45,7 @@ const makeAugmentNote = (
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     data.push(
-      makeAugmentNote(`ael note ${name}`, 0, {
+      makeAugmentNote(`Ael Note ${name}`, 0, {
         [StatEnum.CORE_BP]: 4,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -58,17 +58,18 @@ const makeAugmentNote = (
 // magnus | lab | resola
 (() => {
   const data_stats: [string, StatEnum][] = [
-    ["magnus", StatEnum.WEAPON_MELEE],
-    ["lab", StatEnum.WEAPON_RANGED],
-    ["resola", StatEnum.WEAPON_TECHNIQUE],
+    ["Magnus", StatEnum.WEAPON_MELEE],
+    ["Lab", StatEnum.WEAPON_RANGED],
+    ["Resola", StatEnum.WEAPON_TECHNIQUE],
   ];
 
   const weapon_up_value = 1.015;
 
   for (const data_stat of data_stats) {
     const [name, weapon_up] = data_stat;
+
     data.push(
-      makeAugmentNote(`${name} note`, 0, {
+      makeAugmentNote(`${name} Note`, 0, {
         [StatEnum.CORE_BP]: 5,
         [weapon_up]: weapon_up_value,
       }),
@@ -83,7 +84,7 @@ const makeAugmentNote = (
 (() => {
   // a
   data.push(
-    makeAugmentNote("ret note a", 0, {
+    makeAugmentNote("Ret Note A", 0, {
       [StatEnum.CORE_BP]: 5,
       [StatEnum.CORE_HP]: 10,
     }),
@@ -91,17 +92,18 @@ const makeAugmentNote = (
 
   // b | c | d
   const data_stats: [string, [StatEnum, StatEnum]][] = [
-    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
-    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
-    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
   const weapon_up_value = 1.0075;
 
   for (const data_stat of data_stats) {
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+
     data.push(
-      makeAugmentNote(`ret note ${name}`, 0, {
+      makeAugmentNote(`Ret Note ${name}`, 0, {
         [StatEnum.CORE_BP]: 4,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -113,7 +115,7 @@ const makeAugmentNote = (
 // combat
 // alno
 data.push(
-  makeAugmentNote(`alno note`, 0, {
+  makeAugmentNote(`Alno Note`, 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_HP]: 10,
     [StatEnum.CORE_PP]: 3,
@@ -122,7 +124,7 @@ data.push(
 );
 // maqea
 data.push(
-  makeAugmentNote(`maqea note`, 0, {
+  makeAugmentNote(`Maqea Note`, 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.WEAPON_MELEE]: 1.0125,
     [StatEnum.WEAPON_RANGED]: 1.0125,
@@ -137,7 +139,7 @@ data.push(
 (() => {
   // a
   data.push(
-    makeAugmentNote("kvar note a", 0, {
+    makeAugmentNote("Kvar Note A", 0, {
       [StatEnum.CORE_BP]: 5,
       [StatEnum.CORE_HP]: 10,
       [StatEnum.CORE_PP]: 5,
@@ -146,9 +148,9 @@ data.push(
 
   // b | c | d
   const data_stats: [string, [StatEnum, StatEnum]][] = [
-    ["b", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
-    ["c", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
-    ["d", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
   const weapon_up_value = 1.02;
@@ -157,7 +159,7 @@ data.push(
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     data.push(
-      makeAugmentNote(`kvar note ${name}`, 0, {
+      makeAugmentNote(`Kvar Note ${name}`, 0, {
         [StatEnum.CORE_BP]: 4,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -170,7 +172,7 @@ data.push(
 // combat
 // lostral
 data.push(
-  makeAugmentNote("lostral note", 0, {
+  makeAugmentNote("Lostral Note", 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_HP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.025,
@@ -180,7 +182,7 @@ data.push(
 );
 // belgan
 data.push(
-  makeAugmentNote("belgan note", 0, {
+  makeAugmentNote("Belgan Note", 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_PP]: 3,
     [StatEnum.WEAPON_MELEE]: 1.025,
