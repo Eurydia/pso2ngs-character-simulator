@@ -1,21 +1,19 @@
 import { romanize } from "romans";
-import { formatStat, parseValue } from "../../util";
-import { StatEnum, StatEnumString } from "../stat";
+import { StatObject } from "../../types";
 import AugmentGroup from "./groupEnum";
-
 export class Augment {
   name: string;
   level: number;
   group: AugmentGroup;
   conflict: Set<AugmentGroup>;
-  stats: Partial<{ [K in StatEnum]: number }>;
+  stats: StatObject;
 
   constructor(
     name: string,
     level: number,
     group: AugmentGroup,
     conflict: AugmentGroup[],
-    stats: Partial<{ [K in StatEnum]: number }>,
+    stats: StatObject,
   ) {
     this.name = name;
     this.level = level;
@@ -45,7 +43,7 @@ const augment = (
   level: number,
   group: AugmentGroup,
   conflict: AugmentGroup[],
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stats: StatObject,
 ): Augment => {
   return new Augment(name, level, group, conflict, stats);
 };
