@@ -3,11 +3,9 @@ import { romanize } from "romans";
 import { parseValue } from "../../util";
 import {
   StatAdd,
-  StatAilmentRes,
   StatEnum,
   StatEnumString,
   StatSpecial,
-  StatWeaponUp,
 } from "../stat";
 import GroupEnum from "./groupEnum";
 
@@ -56,12 +54,7 @@ export class Augment {
   }
 
   get label(): string {
-    const capitalized_name = this.name
-      .split(" ")
-      .map(ld_capitalize)
-      .join(" ");
-
-    return `${capitalized_name} ${this.level_roman}`.trimEnd();
+    return `${this.name} ${this.level_roman}`.trimEnd();
   }
 
   get formatted_stats(): [string, string][] {
@@ -73,10 +66,7 @@ export class Augment {
         continue;
       }
 
-      const f_label = StatEnumString[stat as StatEnum]
-        .split(" ")
-        .map(ld_capitalize)
-        .join(" ");
+      const f_label = StatEnumString[stat as StatEnum];
       const f_value = formatStat(stat as StatEnum, value);
       _formatted_stats.push([f_label, f_value]);
     }
