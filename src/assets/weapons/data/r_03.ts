@@ -15,49 +15,47 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRThree = (
   name: string,
-  base_attack: number,
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(
-    name,
-    base_attack,
-    GroupEnum.R_THREE,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_THREE, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Theseus Series", 223, {
+  makeWeaponRThree("Theseus Series", {
+    [StatEnum.CORE_ATTACK]: 223,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Trois De Series", 223, {
+  makeWeaponRThree("Trois De Series", {
+    [StatEnum.CORE_ATTACK]: 223,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Gold Primm Sword", 223, {
+  makeWeaponRThree("Gold Primm Sword", {
+    [StatEnum.CORE_ATTACK]: 223,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Glissen Series", 225, {
+  makeWeaponRThree("Glissen Series", {
+    [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
 data.push(
-  makeWeaponRThree("* Inactive Glissen Series", 225, {
+  makeWeaponRThree("* Inactive Glissen Series", {
+    [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),
@@ -65,21 +63,24 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Frostel Series", 225, {
+  makeWeaponRThree("Frostel Series", {
+    [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
 data.push(
-  makeWeaponRThree("* Inactive Frostel Series", 225, {
+  makeWeaponRThree("* Inactive Frostel Series", {
+    [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),
 );
 
 data.push(
-  makeWeaponRThree("Renaissa Series", 224, {
+  makeWeaponRThree("Renaissa Series", {
+    [StatEnum.CORE_ATTACK]: 224,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );

@@ -15,98 +15,103 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRFive = (
   name: string,
-  base_attack: number,
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(
-    name,
-    base_attack,
-    GroupEnum.R_FIVE,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_FIVE, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Quintel Series", 277, {
+  makeWeaponRFive("Quintel Series", {
+    [StatEnum.CORE_ATTACK]: 277,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Gothica Series", 277, {
+  makeWeaponRFive("Gothica Series", {
+    [StatEnum.CORE_ATTACK]: 277,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Fivla Series", 277, {
+  makeWeaponRFive("Fivla Series", {
+    [StatEnum.CORE_ATTACK]: 277,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Greaga Series", 280, {
+  makeWeaponRFive("Greaga Series", {
+    [StatEnum.CORE_ATTACK]: 280,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Kukuhroziat Series", 280, {
+  makeWeaponRFive("Kukuhroziat Series", {
+    [StatEnum.CORE_ATTACK]: 280,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Relik Vigorous Series", 284, {
+  makeWeaponRFive("Relik Vigorous Series", {
+    [StatEnum.CORE_ATTACK]: 284,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Relik Explosive Series", 284, {
+  makeWeaponRFive("Relik Explosive Series", {
+    [StatEnum.CORE_ATTACK]: 284,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Relik Harmonious Series", 284, {
+  makeWeaponRFive("Relik Harmonious Series", {
+    [StatEnum.CORE_ATTACK]: 284,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Relik Imbued Series", 284, {
+  makeWeaponRFive("Relik Imbued Series", {
+    [StatEnum.CORE_ATTACK]: 284,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Cinquem Series", 293, {
+  makeWeaponRFive("Cinquem Series", {
+    [StatEnum.CORE_ATTACK]: 293,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Tempesta Series", 263, {
+  makeWeaponRFive("Tempesta Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
 data.push(
-  makeWeaponRFive("* Inactive Tempesta Series", 263, {
+  makeWeaponRFive("* Inactive Tempesta Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),
@@ -114,14 +119,16 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Lumiere Series", 263, {
+  makeWeaponRFive("Lumiere Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
 data.push(
-  makeWeaponRFive("* Inactive Lumiere Series", 263, {
+  makeWeaponRFive("* Inactive Lumiere Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),
@@ -129,14 +136,16 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Obscura Series", 263, {
+  makeWeaponRFive("Obscura Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
 data.push(
-  makeWeaponRFive("* Inactive Obscura Series", 263, {
+  makeWeaponRFive("* Inactive Obscura Series", {
+    [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),

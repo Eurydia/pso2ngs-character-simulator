@@ -7,7 +7,7 @@ import {
 import { purple } from "@mui/material/colors";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import CharacterEdit from "./pages/EditCharacter";
+import EditCharacter from "./pages/EditCharacter";
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import Home from "./pages/Home";
@@ -31,7 +31,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/edit-character"
-              element={<CharacterEdit />}
+              element={<EditCharacter />}
             />
             <Route
               path="/edit-equipment"

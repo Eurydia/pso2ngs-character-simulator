@@ -1,28 +1,7 @@
 import { romanize } from "romans";
-import { parseValue } from "../../util";
-import {
-  StatAdd,
-  StatEnum,
-  StatEnumString,
-  StatSpecial,
-} from "../stat";
+import { formatStat, parseValue } from "../../util";
+import { StatEnum, StatEnumString } from "../stat";
 import AugmentGroup from "./groupEnum";
-
-const formatStat = (stat: StatEnum, value: number): string => {
-  let res: string = "";
-
-  if (StatAdd.has(stat)) {
-    res = parseValue(value, 0, "add");
-  } else {
-    res = parseValue(value, 1, "percent");
-  }
-
-  if (StatSpecial.has(stat)) {
-    res = parseValue(value, 0, "percent");
-  }
-
-  return res;
-};
 
 export class Augment {
   name: string;
@@ -54,23 +33,6 @@ export class Augment {
 
   get label(): string {
     return `${this.name} ${this.level_roman}`.trimEnd();
-  }
-
-  get formatted_stats(): [string, string][] {
-    const _formatted_stats: [string, string][] = [];
-    for (const stat of Object.keys(this.stats)) {
-      const value: number | undefined = this.stats[stat as StatEnum];
-
-      if (value === undefined) {
-        continue;
-      }
-
-      const f_label = StatEnumString[stat as StatEnum];
-      const f_value = formatStat(stat as StatEnum, value);
-      _formatted_stats.push([f_label, f_value]);
-    }
-
-    return _formatted_stats;
   }
 
   isConflicting(group: AugmentGroup): boolean {

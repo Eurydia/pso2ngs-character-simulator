@@ -1,18 +1,5 @@
 import { FC } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import ExtraRoundedCard from "../../components/ExtraRoundedCard";
+import { CardContent, Grid } from "@mui/material";
 import FormAugment from "../../components/FormAugment";
 import FieldAugment from "../../components/FieldAugment";
 import FieldWeapon from "../../components/FieldWeapon";
@@ -27,15 +14,8 @@ const Home: FC<HomeProps> = (props) => {
       padding={2}
       spacing={4}
     >
-      <Grid item md={2}>
-        <ExtraRoundedCard raised>
-          <CardContent>
-            <FieldWeapon value={null} onChange={(v) => null} />
-            <FormAugment />
-            {/* <FieldAugment /> */}
-          </CardContent>
-        </ExtraRoundedCard>
-      </Grid>
+      <Grid item md={2}></Grid>
+      <Grid item md={1}></Grid>
     </Grid>
   );
 };

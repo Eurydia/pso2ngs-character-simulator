@@ -3,28 +3,37 @@ import WeaponGroup from "./groupEnum";
 
 export class Weapon {
   name: string;
-  base_attack: number;
   stats: Partial<{ [K in StatEnum]: number }>;
   group: WeaponGroup;
+
   #growth_rate: [number, number][];
 
   constructor(
     name: string,
-    base_attack: number,
     group: WeaponGroup,
     stats: Partial<{ [K in StatEnum]: number }>,
     growth_rate: [number, number][],
   ) {
     this.name = name;
-    this.base_attack = base_attack;
     this.group = group;
     this.stats = stats;
 
     this.#growth_rate = growth_rate;
   }
 
-  // get label(): string {}
-  // get formatted_stats(): string[] {}
+  get label(): string {
+    return this.name;
+  }
+
+  get base_attack(): number {
+    const _base_attack: number | undefined =
+      this.stats[StatEnum.CORE_ATTACK];
+
+    if (_base_attack === undefined) {
+      return 0;
+    }
+    return _base_attack;
+  }
   // get bp(): number {}
 
   // getAttack(level: number): number {
@@ -34,12 +43,11 @@ export class Weapon {
 
 const weapon = (
   name: string,
-  base_attack: number,
   group: WeaponGroup,
   growth_rate: [number, number][],
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return new Weapon(name, base_attack, group, stats, growth_rate);
+  return new Weapon(name, group, stats, growth_rate);
 };
 
 export default weapon;

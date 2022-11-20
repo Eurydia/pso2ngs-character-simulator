@@ -26,7 +26,7 @@ const FieldWeapon: FC<FieldWeaponProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField {...params} fullWidth label="Augment" />
+        <TextField {...params} fullWidth label="Weapon" />
       )}
       renderOption={renderOption}
       filterOptions={filterOptions}

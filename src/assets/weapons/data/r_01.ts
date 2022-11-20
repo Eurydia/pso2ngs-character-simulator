@@ -15,21 +15,15 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponROne = (
   name: string,
-  base_attack: number,
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(
-    name,
-    base_attack,
-    GroupEnum.R_ONE,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_ONE, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponROne("Primm Series", 177, {
+  makeWeaponROne("Primm Series", {
+    [StatEnum.CORE_ATTACK]: 177,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );

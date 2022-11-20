@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 import { Augment } from "../../assets";
+import { formatStatObject } from "../../util";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
@@ -25,16 +26,18 @@ export const renderOption = (
         title={
           <Box padding={1} minWidth={"200px"}>
             <Grid container columns={{ xs: 1, md: 3 }}>
-              {option.formatted_stats.map(([label, value]) => (
-                <Fragment key={label}>
-                  <Grid item xs={1}>
-                    <Typography>{value}</Typography>
-                  </Grid>
-                  <Grid item xs={1} md={2}>
-                    <Typography>{label}</Typography>
-                  </Grid>
-                </Fragment>
-              ))}
+              {formatStatObject(option.stats).map(
+                ([label, value]) => (
+                  <Fragment key={label}>
+                    <Grid item xs={1}>
+                      <Typography>{value}</Typography>
+                    </Grid>
+                    <Grid item xs={1} md={2}>
+                      <Typography>{label}</Typography>
+                    </Grid>
+                  </Fragment>
+                ),
+              )}
             </Grid>
           </Box>
         }

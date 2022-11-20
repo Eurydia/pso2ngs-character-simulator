@@ -14,49 +14,47 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRSeven = (
   name: string,
-  base_attack: number,
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(
-    name,
-    base_attack,
-    GroupEnum.R_SEVEN,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_SEVEN, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Kaizaar Mk. I Series", 465, {
+  makeWeaponRSeven("Kaizaar Mk. I Series", {
+    [StatEnum.CORE_ATTACK]: 465,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Crystia Series", 473, {
+  makeWeaponRSeven("Crystia Series", {
+    [StatEnum.CORE_ATTACK]: 473,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Rugged Series", 490, {
+  makeWeaponRSeven("Rugged Series", {
+    [StatEnum.CORE_ATTACK]: 490,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Kaizaar Series", 485, {
+  makeWeaponRSeven("Kaizaar Series", {
+    [StatEnum.CORE_ATTACK]: 485,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Obsidia Series", 488, {
+  makeWeaponRSeven("Obsidia Series", {
+    [StatEnum.CORE_ATTACK]: 488,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
 );
