@@ -25,13 +25,13 @@ const makeAugmentWard = (
   const data_ail_res = [1.2, 1.25, 1.3];
 
   const data_stats: [string, StatEnum][] = [
-    ["burn", StatEnum.AIL_BURN],
-    ["freeze", StatEnum.AIL_FREEZE],
-    ["shock", StatEnum.AIL_SHOCK],
-    ["blind", StatEnum.AIL_BLIND],
-    ["panic", StatEnum.AIL_PANIC],
-    ["poison", StatEnum.AIL_POISON],
-    ["pain", StatEnum.AIL_PHYDOWN],
+    ["Burn", StatEnum.AIL_BURN],
+    ["Freeze", StatEnum.AIL_FREEZE],
+    ["Shock", StatEnum.AIL_SHOCK],
+    ["Blind", StatEnum.AIL_BLIND],
+    ["Panic", StatEnum.AIL_PANIC],
+    ["Poison", StatEnum.AIL_POISON],
+    ["Pain", StatEnum.AIL_PHYDOWN],
   ];
 
   for (const data_stat of data_stats) {
@@ -45,7 +45,7 @@ const makeAugmentWard = (
       const res_up_value = data_ail_res[level_index];
 
       data.push(
-        makeAugmentWard(`${name} ward`, level_index + 1, {
+        makeAugmentWard(`${name} Ward`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [res_up]: res_up_value,
         }),
@@ -68,7 +68,7 @@ const makeAugmentWard = (
     const res_up_value = data_ail_res[level_index];
 
     data.push(
-      makeAugmentWard("sovereign ward", level_index + 1, {
+      makeAugmentWard("Sovereign Ward", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.AIL_BURN]: res_up_value,
         [StatEnum.AIL_FREEZE]: res_up_value,
