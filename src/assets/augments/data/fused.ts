@@ -22,9 +22,9 @@ const makeAugmentFused = (
 // fused
 (() => {
   const data_stats: [string, StatEnum][] = [
-    ["might", StatEnum.WEAPON_MELEE],
-    ["precision", StatEnum.WEAPON_RANGED],
-    ["technique", StatEnum.WEAPON_TECHNIQUE],
+    ["Might", StatEnum.WEAPON_MELEE],
+    ["Precision", StatEnum.WEAPON_RANGED],
+    ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
   const weapon_up_value = 1.02;
@@ -33,7 +33,7 @@ const makeAugmentFused = (
     const [name, weapon_up] = data_stat;
 
     data.push(
-      makeAugmentFused(`sta ${name}`, 0, {
+      makeAugmentFused(`Sta ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_HP]: 15,
         [weapon_up]: weapon_up_value,
@@ -41,7 +41,7 @@ const makeAugmentFused = (
     );
 
     data.push(
-      makeAugmentFused(`spi ${name}`, 0, {
+      makeAugmentFused(`Spi ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_PP]: 5,
         [weapon_up]: weapon_up_value,
@@ -49,7 +49,7 @@ const makeAugmentFused = (
     );
 
     data.push(
-      makeAugmentFused(`deft ${name}`, 0, {
+      makeAugmentFused(`Deft ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [weapon_up]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.02,
@@ -57,7 +57,7 @@ const makeAugmentFused = (
     );
 
     data.push(
-      makeAugmentFused(`gua ${name}`, 0, {
+      makeAugmentFused(`Gua ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [weapon_up]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.02,
