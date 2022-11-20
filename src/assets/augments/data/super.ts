@@ -22,9 +22,9 @@ const makeAugmentSuper = (
 // might | precision | technique
 (() => {
   const data_stats: [string, StatEnum][] = [
-    ["might", StatEnum.WEAPON_MELEE],
-    ["precision", StatEnum.WEAPON_RANGED],
-    ["technique", StatEnum.WEAPON_TECHNIQUE],
+    ["Might", StatEnum.WEAPON_MELEE],
+    ["Precision", StatEnum.WEAPON_RANGED],
+    ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
   const weapon_up_value = 1.0225;
@@ -33,7 +33,7 @@ const makeAugmentSuper = (
     const [name, weapon_up] = data_stat;
 
     data.push(
-      makeAugmentSuper(`super ${name}`, 1, {
+      makeAugmentSuper(`Super ${name}`, 1, {
         [StatEnum.CORE_BP]: 8,
         [weapon_up]: weapon_up_value,
       }),
@@ -56,7 +56,7 @@ const makeAugmentSuper = (
     const [name, weapon_up] = data_stat;
 
     data.push(
-      makeAugmentSuper(`super sta${name}`, 1, {
+      makeAugmentSuper(`Super Sta${name}`, 1, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_HP]: 15,
         [weapon_up]: weapon_up_value,
@@ -64,7 +64,7 @@ const makeAugmentSuper = (
     );
 
     data.push(
-      makeAugmentSuper(`super spi${name}`, 1, {
+      makeAugmentSuper(`Super Spi${name}`, 1, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_PP]: 5,
         [weapon_up]: weapon_up_value,
