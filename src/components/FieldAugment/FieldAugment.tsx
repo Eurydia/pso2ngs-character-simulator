@@ -5,11 +5,23 @@ import {
   AutocompleteChangeReason,
   InputAdornment,
 } from "@mui/material";
-import { Error, Warning } from "@mui/icons-material";
+import { Error } from "@mui/icons-material";
 import { AssetAugments, Augment } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
 const RESULT_SIZE = 16;
+
+const AdornmentError: FC = () => {
+  return (
+    <InputAdornment position="start">
+      <Error color="warning" fontSize="inherit" />
+    </InputAdornment>
+  );
+};
+
+const AdornmentOkay: FC = () => {
+  return <InputAdornment position="start">C/</InputAdornment>;
+};
 
 interface FieldAugmentProps {
   error: boolean;
@@ -38,14 +50,10 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
           label="Augment"
           InputProps={{
             ...InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                {props.error ? (
-                  <Error color="warning" fontSize="inherit" />
-                ) : (
-                  "C/"
-                )}
-              </InputAdornment>
+            startAdornment: props.error ? (
+              <AdornmentError />
+            ) : (
+              <AdornmentOkay />
             ),
           }}
         />

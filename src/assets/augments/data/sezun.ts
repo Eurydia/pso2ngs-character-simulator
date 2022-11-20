@@ -8,7 +8,6 @@ const makeAugmentSezun = (
   name: string,
   level: number,
   stats: Partial<{ [K in StatEnum]: number }>,
-  is_variant: boolean = false,
 ): Augment => {
   return augment(
     name,
@@ -16,7 +15,6 @@ const makeAugmentSezun = (
     GroupEnum.SEZUN,
     [GroupEnum.SEZUN],
     stats,
-    is_variant,
   );
 };
 
@@ -33,15 +31,6 @@ data.push(
   }),
 );
 
-data.push(
-  makeAugmentSezun(
-    "sezun lunafiv",
-    0,
-    { [StatEnum.CORE_BP]: 10 },
-    true,
-  ),
-);
-
 // --------------------------------------
 // automfevre
 data.push(
@@ -53,15 +42,6 @@ data.push(
     [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.2,
     [StatEnum.ADV_DEF_DAMAGE_RES]: 1.25,
   }),
-);
-
-data.push(
-  makeAugmentSezun(
-    "sezun automfevre",
-    0,
-    { [StatEnum.CORE_BP]: 10 },
-    true,
-  ),
 );
 
 export default data;
