@@ -33,7 +33,7 @@ const makeAugmentTria = (
 
     // sta
     data.push(
-      makeAugmentTria(`tria staro${name}`, 0, {
+      makeAugmentTria(`Tria Staro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [StatEnum.CORE_HP]: -5,
         [weapon_up]: weapon_up_value,
@@ -42,7 +42,7 @@ const makeAugmentTria = (
 
     // spi
     data.push(
-      makeAugmentTria(`tria spiro${name}`, 0, {
+      makeAugmentTria(`Tria Spiro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [StatEnum.CORE_PP]: -3,
         [weapon_up]: weapon_up_value,
@@ -51,7 +51,7 @@ const makeAugmentTria = (
 
     // deft
     data.push(
-      makeAugmentTria(`tria deftro${name}`, 0, {
+      makeAugmentTria(`Tria Deftro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [weapon_up]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 0.99,
@@ -60,7 +60,7 @@ const makeAugmentTria = (
 
     // gua
     data.push(
-      makeAugmentTria(`tria guaro${name}`, 0, {
+      makeAugmentTria(`Tria Guaro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [weapon_up]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 0.99,
