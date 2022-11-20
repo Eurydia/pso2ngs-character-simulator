@@ -25,9 +25,9 @@ const makeAugmentDualble = (
   const data_weapon_up = [1.0075, 1.0125, 1.0175];
 
   const data_stats: [string, [StatEnum, StatEnum]][] = [
-    ["melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
-    ["meltech", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
-    ["ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["Melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["Meltech", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+    ["Ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
   for (const data_stat of data_stats) {
@@ -41,7 +41,7 @@ const makeAugmentDualble = (
       const weapon_up_value = data_weapon_up[level_index];
 
       data.push(
-        makeAugmentDualble(`${name} dualble`, level_index + 1, {
+        makeAugmentDualble(`${name} Dualble`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [weapon_up_a]: weapon_up_value,
           [weapon_up_b]: weapon_up_value,
@@ -54,7 +54,7 @@ const makeAugmentDualble = (
 // --------------------------------------
 // triplble
 data.push(
-  makeAugmentDualble("triplble", 0, {
+  makeAugmentDualble("Triplble", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.WEAPON_MELEE]: 1.02,
     [StatEnum.WEAPON_RANGED]: 1.02,
