@@ -1,5 +1,9 @@
 import { StatObject } from "../../../types";
 import { StatEnum } from "../../stat";
+import {
+  AssetPotentials,
+  WeaponPotential,
+} from "../../weaponPotentials";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -14,13 +18,17 @@ const GROWTH_RATE: [number, number][] = [
   [60, 329],
 ];
 
-const makeWeaponRTwo = (name: string, stats: StatObject): Weapon => {
-  return weapon(name, GroupEnum.R_TWO, GROWTH_RATE, stats);
+const makeWeaponRTwo = (
+  name: string,
+  potential: WeaponPotential,
+  stats: StatObject,
+): Weapon => {
+  return weapon(name, GroupEnum.R_TWO, potential, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponRTwo("Tzvia Series", {
+  makeWeaponRTwo("Tzvia Series", AssetPotentials.INDOMITABLE_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
@@ -28,15 +36,19 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRTwo("Silver Primm Sword", {
-    [StatEnum.CORE_ATTACK]: 195,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponRTwo(
+    "Silver Primm Sword",
+    AssetPotentials.RECYCLER_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 195,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRTwo("N-Exp Weapon", {
+  makeWeaponRTwo("N-Exp Weapon", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),

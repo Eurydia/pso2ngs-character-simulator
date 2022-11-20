@@ -1,5 +1,9 @@
 import { StatObject } from "../../../types";
 import { StatEnum } from "../../stat";
+import {
+  AssetPotentials,
+  WeaponPotential,
+} from "../../weaponPotentials";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -15,38 +19,81 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRSeven = (
   name: string,
+  potential: WeaponPotential,
   stats: StatObject,
 ): Weapon => {
-  return weapon(name, GroupEnum.R_SEVEN, GROWTH_RATE, stats);
+  return weapon(
+    name,
+    GroupEnum.R_SEVEN,
+    potential,
+    GROWTH_RATE,
+    stats,
+  );
 };
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Kaizaar Mk. I Series", {
-    [StatEnum.CORE_ATTACK]: 465,
-    [StatEnum.ADV_OFF_FLOOR]: 1.5,
-  }),
+  makeWeaponRSeven(
+    "Kaizaar Mk. I Series",
+    AssetPotentials.TEMPERED_FORM,
+    {
+      [StatEnum.CORE_ATTACK]: 465,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Crystia Series", {
-    [StatEnum.CORE_ATTACK]: 473,
-    [StatEnum.ADV_OFF_FLOOR]: 1.5,
-  }),
+  makeWeaponRSeven(
+    "Crystia Series",
+    AssetPotentials.ABSORPTION_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 473,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Rugged Series", {
-    [StatEnum.CORE_ATTACK]: 490,
-    [StatEnum.ADV_OFF_FLOOR]: 1.5,
-  }),
+  makeWeaponRSeven(
+    "Rugged Pursuit Series",
+    AssetPotentials.PURSUIT_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 490,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Kaizaar Series", {
+  makeWeaponRSeven(
+    "Rugged Citadel Series",
+    AssetPotentials.CITADEL_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 490,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
+);
+
+// -----------------------
+data.push(
+  makeWeaponRSeven(
+    "Rugged Gyrating Series",
+    AssetPotentials.GYRATING_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 490,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
+);
+
+// -----------------------
+data.push(
+  makeWeaponRSeven("Kaizaar Series", AssetPotentials.TEMPERED_FORM, {
     [StatEnum.CORE_ATTACK]: 485,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
@@ -54,10 +101,14 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Obsidia Series", {
-    [StatEnum.CORE_ATTACK]: 488,
-    [StatEnum.ADV_OFF_FLOOR]: 1.5,
-  }),
+  makeWeaponRSeven(
+    "Obsidia Series",
+    AssetPotentials.CORUSCATING_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 488,
+      [StatEnum.ADV_OFF_FLOOR]: 1.5,
+    },
+  ),
 );
 
 export default data;

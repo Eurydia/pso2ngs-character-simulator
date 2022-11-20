@@ -1,5 +1,9 @@
 import { StatObject } from "../../../types";
 import { StatEnum } from "../../stat";
+import {
+  AssetPotentials,
+  WeaponPotential,
+} from "../../weaponPotentials";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -16,38 +20,57 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponRThree = (
   name: string,
+  potential: WeaponPotential,
   stats: StatObject,
 ): Weapon => {
-  return weapon(name, GroupEnum.R_THREE, GROWTH_RATE, stats);
+  return weapon(
+    name,
+    GroupEnum.R_THREE,
+    potential,
+    GROWTH_RATE,
+    stats,
+  );
 };
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Theseus Series", {
-    [StatEnum.CORE_ATTACK]: 223,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponRThree(
+    "Theseus Series",
+    AssetPotentials.DEFENSIVE_FORMATION,
+    {
+      [StatEnum.CORE_ATTACK]: 223,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Trois De Series", {
-    [StatEnum.CORE_ATTACK]: 223,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponRThree(
+    "Trois De Series",
+    AssetPotentials.OFFENSIVE_FORMATION,
+    {
+      [StatEnum.CORE_ATTACK]: 223,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Gold Primm Sword", {
-    [StatEnum.CORE_ATTACK]: 223,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponRThree(
+    "Gold Primm Sword",
+    AssetPotentials.RECYCLER_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 223,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Glissen Series", {
+  makeWeaponRThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
@@ -55,16 +78,20 @@ data.push(
 );
 
 data.push(
-  makeWeaponRThree("* Inactive Glissen Series", {
-    [StatEnum.CORE_ATTACK]: 225,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
+  makeWeaponRThree(
+    "* Inactive Glissen Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 225,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree("Frostel Series", {
+  makeWeaponRThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
@@ -72,15 +99,19 @@ data.push(
 );
 
 data.push(
-  makeWeaponRThree("* Inactive Frostel Series", {
-    [StatEnum.CORE_ATTACK]: 225,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
+  makeWeaponRThree(
+    "* Inactive Frostel Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 225,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    },
+  ),
 );
 
 data.push(
-  makeWeaponRThree("Renaissa Series", {
+  makeWeaponRThree("Renaissa Series", AssetPotentials.DYNAMO_UNIT, {
     [StatEnum.CORE_ATTACK]: 224,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),

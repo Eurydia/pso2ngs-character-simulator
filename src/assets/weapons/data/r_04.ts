@@ -1,5 +1,9 @@
 import { StatObject } from "../../../types";
 import { StatEnum } from "../../stat";
+import {
+  AssetPotentials,
+  WeaponPotential,
+} from "../../weaponPotentials";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -14,13 +18,23 @@ const GROWTH_RATE: [number, number][] = [
   [60, 267],
 ];
 
-const makeWeaponRFour = (name: string, stats: StatObject): Weapon => {
-  return weapon(name, GroupEnum.R_FOUR, GROWTH_RATE, stats);
+const makeWeaponRFour = (
+  name: string,
+  potential: WeaponPotential,
+  stats: StatObject,
+): Weapon => {
+  return weapon(
+    name,
+    GroupEnum.R_FOUR,
+    potential,
+    GROWTH_RATE,
+    stats,
+  );
 };
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Resurgia Series", {
+  makeWeaponRFour("Resurgia Series", AssetPotentials.DYNAMO_UNIT, {
     [StatEnum.CORE_ATTACK]: 240,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -28,7 +42,19 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Cattleya Series", {
+  makeWeaponRFour(
+    "Cattleya Series",
+    AssetPotentials.MUSTERED_MIGHT_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 242,
+      [StatEnum.ADV_OFF_FLOOR]: 1.75,
+    },
+  ),
+);
+
+// -----------------------
+data.push(
+  makeWeaponRFour("Foursis Series", AssetPotentials.BASTION_UNIT, {
     [StatEnum.CORE_ATTACK]: 242,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -36,7 +62,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Foursis Series", {
+  makeWeaponRFour("Vialto Series", AssetPotentials.MEDITATION_UNIT, {
     [StatEnum.CORE_ATTACK]: 242,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -44,15 +70,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Vialto Series", {
-    [StatEnum.CORE_ATTACK]: 242,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
-);
-
-// -----------------------
-data.push(
-  makeWeaponRFour("Straga Series", {
+  makeWeaponRFour("Straga Series", AssetPotentials.BERSERK_UNIT, {
     [StatEnum.CORE_ATTACK]: 243,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -60,15 +78,19 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Evolcoat Series", {
-    [StatEnum.CORE_ATTACK]: 242,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
+  makeWeaponRFour(
+    "Evolcoat Series",
+    AssetPotentials.SOULSPRING_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 242,
+      [StatEnum.ADV_OFF_FLOOR]: 1.75,
+    },
+  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Flamel Series", {
+  makeWeaponRFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 240,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
     [StatEnum.ADV_OFF_DAMAGE]: 1.15,
@@ -76,11 +98,15 @@ data.push(
 );
 
 data.push(
-  makeWeaponRFour("* Inactive Flamel Series", {
-    [StatEnum.CORE_ATTACK]: 240,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
+  makeWeaponRFour(
+    "* Inactive Flamel Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 240,
+      [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    },
+  ),
 );
 
 export default data;
