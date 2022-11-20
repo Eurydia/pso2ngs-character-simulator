@@ -33,7 +33,7 @@ const makeAugmentDread = (
     level_index++
   ) {
     data.push(
-      makeAugmentDread("dread keeper", level_index + 1, {
+      makeAugmentDread("Dread Keeper", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.CORE_HP]: data_hp[level_index],
         [StatEnum.CORE_PP]: data_pp[level_index],
