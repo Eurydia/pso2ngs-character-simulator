@@ -30,11 +30,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path="/edit-character"
+              path="/config-character"
               element={<EditCharacter />}
             />
             <Route
-              path="/edit-equipment"
+              path="/config-equipment"
               element={<EditEquipment />}
             />
             <Route path="/edit-food" element={<FoodEdit />} />

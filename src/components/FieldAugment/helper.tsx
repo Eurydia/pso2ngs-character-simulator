@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 import { Augment } from "../../assets";
-import { formatStatObject } from "../../util";
+import { formatStatObject } from "../../utils";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,

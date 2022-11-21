@@ -10,18 +10,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import FieldWeapon from "../../components/FieldWeapon";
+import { FormWeapon } from "../../components";
 
 interface EditEquipmentProps {}
 const EditEquipment: FC<EditEquipmentProps> = () => {
-  const [overviewPanel, setOverviewPanel] = useState<number | null>(
-    null,
-  );
-
   return (
-    <Paper sx={{ padding: 4 }}>
+    <Paper sx={{ padding: 4, margin: 4 }}>
       <Stack>
-        <FieldWeapon value={null} onChange={(v) => null} />
+        <FormWeapon title="Weapon" />
       </Stack>
     </Paper>
   );

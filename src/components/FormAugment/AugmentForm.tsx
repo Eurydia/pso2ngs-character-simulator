@@ -1,47 +1,23 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Grid } from "@mui/material";
-
 import FieldAugment from "../FieldAugment";
 import { Augment } from "../../assets";
 import { doConflict } from "./helper";
 
-interface AugmentFormProps {}
-const AugmentForm: FC<AugmentFormProps> = () => {
-  const [augments, setAugments] = useState<(Augment | null)[]>([
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
-
-  const [conflicting, setConflicting] = useState<Set<number>>(
-    new Set(),
-  );
-
-  useEffect(() => {
-    setConflicting(doConflict(augments));
-  }, augments);
-
-  const handleAugmentChange = (
-    index: number,
-    new_augment: Augment | null,
-  ) => {
-    setAugments((prev) => {
-      const next = [...prev];
-      next[index] = new_augment;
-      return next;
-    });
-  };
-
+interface AugmentFormProps {
+  values: (Augment | null)[];
+  conflict: Set<number>;
+  onChange: (value: Augment | null, index: number) => void;
+}
+const AugmentForm: FC<AugmentFormProps> = (props) => {
   return (
     <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
-      {augments.map((augment, index) => (
+      {props.values.map((augment, index) => (
         <Grid key={`aug-${index}`} item xs={1}>
           <FieldAugment
-            error={conflicting.has(index)}
+            error={props.conflict.has(index)}
             value={augment}
-            onChange={(aug) => handleAugmentChange(index, aug)}
+            onChange={(aug) => props.onChange(aug, index)}
           />
         </Grid>
       ))}

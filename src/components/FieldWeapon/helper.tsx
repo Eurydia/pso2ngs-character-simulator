@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 import { Weapon } from "../../assets";
-import { formatStatObject } from "../../util";
+import { formatStatObject } from "../../utils";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
@@ -26,6 +26,11 @@ export const renderOption = (
         title={
           <Box padding={1}>
             <Grid container columns={{ xs: 1, md: 2 }}>
+              <Grid item xs={2}>
+                <Typography fontWeight="bold">
+                  {option.potential.name}
+                </Typography>
+              </Grid>
               {formatStatObject(option.stats).map(
                 ([label, value]) => (
                   <Fragment key={label}>
