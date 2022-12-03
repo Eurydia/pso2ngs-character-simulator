@@ -1,5 +1,4 @@
 import { StatObject } from "../../types";
-import { StatEnum } from "../stat";
 
 export class WeaponPotential {
   name: string;

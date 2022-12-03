@@ -1,56 +1,18 @@
-import { Fragment, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import {
   AutocompleteRenderOptionState,
   FilterOptionsState,
-  ListItemText,
-  MenuItem,
-  Tooltip,
-  Grid,
-  Typography,
-  Box,
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
-import { Weapon } from "../../assets";
-import { formatStatObject } from "../../utils";
+import { StatEnum, Weapon } from "../../assets";
+import FieldOption from "./FieldOption";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
   option: Weapon,
   _: AutocompleteRenderOptionState,
 ) => {
-  return (
-    <MenuItem {...props}>
-      <Tooltip
-        followCursor
-        placement="top"
-        title={
-          <Box padding={1}>
-            <Grid container columns={{ xs: 1, md: 2 }}>
-              <Grid item xs={2}>
-                <Typography fontWeight="bold">
-                  {option.potential.name}
-                </Typography>
-              </Grid>
-              {formatStatObject(option.stats).map(
-                ([label, value]) => (
-                  <Fragment key={label}>
-                    <Grid item xs={1}>
-                      <Typography>{value}</Typography>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Typography>{label}</Typography>
-                    </Grid>
-                  </Fragment>
-                ),
-              )}
-            </Grid>
-          </Box>
-        }
-      >
-        <ListItemText>{option.name}</ListItemText>
-      </Tooltip>
-    </MenuItem>
-  );
+  return <FieldOption {...props} option={option} />;
 };
 
 export const filterOptions = (
@@ -75,14 +37,15 @@ export const filterOptions = (
     )
     .slice(0, size)
     .sort((a, b) => {
-      if (
-        a.stats.coreBP !== undefined &&
-        b.stats.coreBP !== undefined
-      ) {
-        return b.stats.coreBP - a.stats.coreBP;
-      } else {
-        return 0;
+      const atk_a: number | undefined = a.stats[StatEnum.CORE_ATTACK];
+      const atk_b: number | undefined = b.stats[StatEnum.CORE_ATTACK];
+
+      if (atk_a !== undefined && atk_b !== undefined) {
+        // sort descending
+        return atk_b - atk_a;
       }
+
+      return 0;
     })
     .sort((a, b) => {
       if (a.group > b.group) {

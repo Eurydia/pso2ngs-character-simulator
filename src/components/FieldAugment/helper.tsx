@@ -1,51 +1,19 @@
-import { Fragment, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import {
   AutocompleteRenderOptionState,
   FilterOptionsState,
-  ListItemText,
-  MenuItem,
-  Tooltip,
-  Grid,
-  Typography,
-  Box,
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
-import { Augment } from "../../assets";
-import { formatStatObject } from "../../utils";
+import { Augment, StatEnum } from "../../assets";
+
+import FieldOption from "./FieldOption";
 
 export const renderOption = (
   props: HTMLAttributes<HTMLLIElement>,
   option: Augment,
   _: AutocompleteRenderOptionState,
 ) => {
-  return (
-    <MenuItem {...props}>
-      <Tooltip
-        followCursor
-        placement="top"
-        title={
-          <Box padding={1} minWidth={"200px"}>
-            <Grid container columns={{ xs: 1, md: 3 }}>
-              {formatStatObject(option.stats).map(
-                ([label, value]) => (
-                  <Fragment key={label}>
-                    <Grid item xs={1}>
-                      <Typography>{value}</Typography>
-                    </Grid>
-                    <Grid item xs={1} md={2}>
-                      <Typography>{label}</Typography>
-                    </Grid>
-                  </Fragment>
-                ),
-              )}
-            </Grid>
-          </Box>
-        }
-      >
-        <ListItemText>{option.label}</ListItemText>
-      </Tooltip>
-    </MenuItem>
-  );
+  return <FieldOption {...props} option={option} />;
 };
 
 export const filterOptions = (
@@ -75,11 +43,12 @@ export const filterOptions = (
     )
     .slice(0, size)
     .sort((a, b) => {
-      if (
-        a.stats.coreBP !== undefined &&
-        b.stats.coreBP !== undefined
-      ) {
-        return b.stats.coreBP - a.stats.coreBP;
+      const bp_a: number | undefined = a.stats[StatEnum.CORE_BP];
+      const bp_b: number | undefined = b.stats[StatEnum.CORE_BP];
+
+      if (bp_a !== undefined && bp_b !== undefined) {
+        // sort descending
+        return bp_b - bp_a;
       } else {
         return 0;
       }
