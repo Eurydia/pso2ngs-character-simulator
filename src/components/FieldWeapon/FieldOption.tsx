@@ -9,7 +9,6 @@ import {
   Box,
 } from "@mui/material";
 import { Weapon } from "../../assets";
-import { formatStatObject } from "../../utils";
 
 interface FieldOptionProps extends HTMLAttributes<HTMLLIElement> {
   option: Weapon;
@@ -30,18 +29,16 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
                   {option.potential.name}
                 </Typography>
               </Grid>
-              {formatStatObject(option.stats).map(
-                ([label, value]) => (
-                  <Fragment key={label}>
-                    <Grid item xs={1}>
-                      <Typography>{value}</Typography>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Typography>{label}</Typography>
-                    </Grid>
-                  </Fragment>
-                ),
-              )}
+              {option.stats.format.map(([label, value]) => (
+                <Fragment key={label}>
+                  <Grid item xs={1}>
+                    <Typography>{value}</Typography>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <Typography>{label}</Typography>
+                  </Grid>
+                </Fragment>
+              ))}
             </Grid>
           </Box>
         }
