@@ -1,6 +1,6 @@
 import { romanize } from "romans";
-import statObject, { StatEnum, StatObject } from "../stat";
 import AugmentGroup from "./groupEnum";
+import statObject, { StatEnum, StatObject } from "../stat";
 export class Augment {
   name: string;
   level: number;

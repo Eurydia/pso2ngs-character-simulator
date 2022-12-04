@@ -25,12 +25,12 @@ const FieldWeapon: FC<FieldWeaponProps> = (props) => {
       options={AssetWeapons}
       value={props.value}
       onChange={handleChange}
+      groupBy={(option) => option.group}
       renderInput={(params) => (
         <TextField {...params} fullWidth label="Weapon" />
       )}
       renderOption={renderOption}
       filterOptions={filterOptions}
-      groupBy={(option) => option.group}
     />
   );
 };
