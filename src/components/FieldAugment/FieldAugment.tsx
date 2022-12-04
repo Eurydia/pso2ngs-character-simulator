@@ -5,23 +5,10 @@ import {
   AutocompleteChangeReason,
   InputAdornment,
 } from "@mui/material";
-import { Error } from "@mui/icons-material";
 import { AssetAugments, Augment } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-const AdornmentError: FC = () => {
-  return (
-    <InputAdornment position="start">
-      <Error color="warning" fontSize="inherit" />
-    </InputAdornment>
-  );
-};
-
-const AdornmentOkay: FC = () => {
-  return <InputAdornment position="start">C/</InputAdornment>;
-};
 interface FieldAugmentProps {
-  error: boolean;
   value: Augment | null;
   onChange: (value: Augment | null) => void;
 }
@@ -39,25 +26,22 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
       options={AssetAugments}
       value={props.value}
       onChange={handleChange}
+      groupBy={(option) => option.group}
       renderInput={({ InputProps, ...other }) => (
         <TextField
           {...other}
-          error={props.error}
           fullWidth
           label="Augment"
           InputProps={{
             ...InputProps,
-            startAdornment: props.error ? (
-              <AdornmentError />
-            ) : (
-              <AdornmentOkay />
+            startAdornment: (
+              <InputAdornment position="start">C/</InputAdornment>
             ),
           }}
         />
       )}
       renderOption={renderOption}
       filterOptions={filterOptions}
-      groupBy={(option) => option.group}
     />
   );
 };
