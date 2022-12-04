@@ -1,27 +1,34 @@
 import { FC } from "react";
-import { Grid } from "@mui/material";
-import FieldAugment from "../FieldAugment";
-import { Augment } from "../../assets";
-import { doConflict } from "./helper";
+import { Stack } from "@mui/material";
 
+import { Augment } from "../../assets";
+
+import FieldAugment from "../FieldAugment";
+import { getConflict } from "./helper";
 interface AugmentFormProps {
   values: (Augment | null)[];
-  conflict: Set<number>;
   onChange: (value: Augment | null, index: number) => void;
+  showConflict?: boolean;
 }
 const AugmentForm: FC<AugmentFormProps> = (props) => {
+  const { showConflict } = props;
+
+  let conflict: Set<number> = new Set();
+  if (showConflict === true) {
+    conflict = getConflict(props.values);
+  }
+
   return (
-    <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
+    <Stack>
       {props.values.map((augment, index) => (
-        <Grid key={`aug-${index}`} item xs={1}>
-          <FieldAugment
-            error={props.conflict.has(index)}
-            value={augment}
-            onChange={(aug) => props.onChange(aug, index)}
-          />
-        </Grid>
+        <FieldAugment
+          key={`aug-${index}`}
+          error={conflict.has(index)}
+          value={augment}
+          onChange={(aug) => props.onChange(aug, index)}
+        />
       ))}
-    </Grid>
+    </Stack>
   );
 };
 

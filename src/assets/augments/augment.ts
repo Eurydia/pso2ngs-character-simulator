@@ -1,5 +1,5 @@
 import { romanize } from "romans";
-import { StatObject } from "../../types";
+import statObject, { StatEnum, StatObject } from "../stat";
 import AugmentGroup from "./groupEnum";
 export class Augment {
   name: string;
@@ -43,9 +43,9 @@ const augment = (
   level: number,
   group: AugmentGroup,
   conflict: AugmentGroup[],
-  stats: StatObject,
+  stats: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
-  return new Augment(name, level, group, conflict, stats);
+  return new Augment(name, level, group, conflict, statObject(stats));
 };
 
 export default augment;

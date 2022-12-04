@@ -1,6 +1,6 @@
 import { Augment } from "../../assets";
 
-export const doConflict = (
+export const getConflict = (
   augments: (Augment | null)[],
 ): Set<number> => {
   const res: Set<number> = new Set();
