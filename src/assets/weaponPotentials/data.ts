@@ -1,8 +1,9 @@
-import { StatObject } from "../../types";
 import { StatEnum } from "../stat";
 import weaponPotential from "./weaponPotential";
 
-const makePotency = (potency_value: number): StatObject => {
+const makePotency = (
+  potency_value: number,
+): Partial<{ [K in StatEnum]: number }> => {
   return {
     [StatEnum.WEAPON_MELEE]: potency_value,
     [StatEnum.WEAPON_RANGED]: potency_value,

@@ -1,4 +1,4 @@
-import { StatObject } from "../../types";
+import statObject, { StatEnum, StatObject } from "../stat";
 
 export class WeaponPotential {
   name: string;
@@ -18,10 +18,14 @@ export class WeaponPotential {
 
 const weaponPotential = (
   name: string,
-  stats: StatObject[],
-  stats_inactive: StatObject[] = [],
+  stats: Partial<{ [K in StatEnum]: number }>[],
+  stats_inactive: Partial<{ [K in StatEnum]: number }>[] = [],
 ): WeaponPotential => {
-  return new WeaponPotential(name, stats, stats_inactive);
+  return new WeaponPotential(
+    name,
+    stats.map(statObject),
+    stats_inactive.map(statObject),
+  );
 };
 
 export default weaponPotential;
