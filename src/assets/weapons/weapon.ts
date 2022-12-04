@@ -1,5 +1,4 @@
-import { StatObject } from "../../types";
-import { StatEnum } from "../stat";
+import statObject, { StatEnum, StatObject } from "../stat";
 import { WeaponPotential } from "../weaponPotentials";
 import WeaponGroup from "./groupEnum";
 
@@ -32,7 +31,7 @@ export class Weapon {
 
   get base_attack(): number {
     const _base_attack: number | undefined =
-      this.stats[StatEnum.CORE_ATTACK];
+      this.stats.stats[StatEnum.CORE_ATTACK];
 
     if (_base_attack === undefined) {
       return 0;
@@ -51,9 +50,15 @@ const weapon = (
   group: WeaponGroup,
   potential: WeaponPotential,
   growth_rate: [number, number][],
-  stats: StatObject,
+  stats: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return new Weapon(name, group, potential, stats, growth_rate);
+  return new Weapon(
+    name,
+    group,
+    potential,
+    statObject(stats),
+    growth_rate,
+  );
 };
 
 export default weapon;
