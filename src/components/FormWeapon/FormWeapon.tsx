@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
 import FieldEnhancement from "../FieldEnhancement";
 import FieldFixa from "../AutocompleteFixa";
-import FieldWeapon from "../FieldWeapon";
+import FieldWeapon from "../AutocompleteWeapon";
 import FormAugment from "../FormAugment";
 
 interface FormWeaponProps {

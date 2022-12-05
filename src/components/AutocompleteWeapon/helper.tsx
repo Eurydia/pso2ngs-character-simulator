@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import FieldOption from "./FieldOption";
+import FieldOption from "./AutocompleteOption";
 
 import { StatEnum, Weapon } from "../../assets";
 

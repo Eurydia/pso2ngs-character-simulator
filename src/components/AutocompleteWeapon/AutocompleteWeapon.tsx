@@ -7,11 +7,11 @@ import {
 import { AssetWeapons, Weapon } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-interface FieldWeaponProps {
+interface AutocompleteWeaponProps {
   value: Weapon | null;
   onChange: (value: Weapon | null) => void;
 }
-const FieldWeapon: FC<FieldWeaponProps> = (props) => {
+const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
     value: Weapon | null,
@@ -35,4 +35,4 @@ const FieldWeapon: FC<FieldWeaponProps> = (props) => {
   );
 };
 
-export default FieldWeapon;
+export default AutocompleteWeapon;
