@@ -14,6 +14,10 @@ export class WeaponPotential {
     this.stats = stats;
     this.stats_inactive = stats_inactive;
   }
+
+  get label(): string {
+    return this.name;
+  }
 }
 
 const weaponPotential = (

@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { Stack } from "@mui/material";
+import { FC, Fragment } from "react";
+
+import FieldAugment from "../FieldAugment";
 
 import { Augment } from "../../assets";
 
-import FieldAugment from "../FieldAugment";
 interface AugmentFormProps {
   values: (Augment | null)[];
   onChange: (value: Augment | null, index: number) => void;
 }
 const AugmentForm: FC<AugmentFormProps> = (props) => {
   return (
-    <Stack>
+    <Fragment>
       {props.values.map((augment, index) => (
         <FieldAugment
           key={`aug-${index}`}
@@ -18,7 +18,7 @@ const AugmentForm: FC<AugmentFormProps> = (props) => {
           onChange={(aug) => props.onChange(aug, index)}
         />
       ))}
-    </Stack>
+    </Fragment>
   );
 };
 

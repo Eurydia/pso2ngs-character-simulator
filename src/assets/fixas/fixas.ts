@@ -18,6 +18,10 @@ export class Fixa {
     this.group = group;
     this.stats = stats;
   }
+
+  get label(): string {
+    return `${this.name} ${this.level}`.trimEnd();
+  }
 }
 
 const fixa = (

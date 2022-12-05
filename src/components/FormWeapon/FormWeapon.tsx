@@ -1,6 +1,7 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
-import { Augment, Weapon } from "../../assets";
+import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
+import FieldFixa from "../FieldFixa";
 import FieldWeapon from "../FieldWeapon";
 import FormAugment from "../FormAugment";
 
@@ -9,6 +10,7 @@ interface FormWeaponProps {
 }
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
+  const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valueAugments, setValueAugments] = useState<
     (Augment | null)[]
   >([null, null, null, null, null]);
@@ -25,13 +27,17 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   };
 
   return (
-    <Stack>
+    <Stack spacing={1}>
       <Typography fontWeight="bold" fontSize="large">
         {props.title}
       </Typography>
       <FieldWeapon value={valueWeapon} onChange={setValueWeapon} />
+      <FieldFixa
+        value={valueFixa}
+        onChange={setValueFixa}
+        mode={GroupEnumFixa.WEAPON}
+      />
       <FormAugment
-        showConflict
         values={valueAugments}
         onChange={handleAugmentChange}
       />

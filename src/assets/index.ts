@@ -5,3 +5,6 @@ export * from "./augments";
 
 export { default as AssetWeapons } from "./weapons";
 export * from "./weapons";
+
+export { default as AssetFixas } from "./fixas";
+export * from "./fixas";
