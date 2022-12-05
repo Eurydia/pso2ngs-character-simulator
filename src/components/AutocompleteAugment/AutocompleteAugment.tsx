@@ -3,16 +3,15 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  InputAdornment,
 } from "@mui/material";
 import { AssetAugments, Augment } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-interface FieldAugmentProps {
+interface AutocompleteAugmentProps {
   value: Augment | null;
   onChange: (value: Augment | null) => void;
 }
-const FieldAugment: FC<FieldAugmentProps> = (props) => {
+const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
     value: Augment | null,
@@ -44,4 +43,4 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
   );
 };
 
-export default FieldAugment;
+export default AutocompleteAugment;
