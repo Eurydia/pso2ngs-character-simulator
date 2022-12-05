@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
 import FieldEnhancement from "../FieldEnhancement";
 import FieldFixa from "../FieldFixa";
@@ -14,11 +14,6 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valueEnhancement, setValueEnhancement] =
     useState<string>("");
-
-  useEffect(() => {
-    console.log(valueEnhancement);
-  }, [valueEnhancement]);
-
   const [valueAugments, setValueAugments] = useState<
     (Augment | null)[]
   >([null, null, null, null, null]);

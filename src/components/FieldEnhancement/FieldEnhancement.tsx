@@ -12,7 +12,7 @@ interface FieldFixaProps {
 }
 const FieldFixa: FC<FieldFixaProps> = (props) => {
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const input_value: string = event.target.value.replace(
       /[^0-9]/,
@@ -40,9 +40,11 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
       onChange={handleChange}
       fullWidth
       label="Enhancement Level"
-      type="number"
       InputProps={{
         startAdornment: "+",
+      }}
+      inputProps={{
+        inputMode: "numeric",
       }}
     />
   );
