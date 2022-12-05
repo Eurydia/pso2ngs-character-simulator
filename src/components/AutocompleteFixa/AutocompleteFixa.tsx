@@ -7,12 +7,12 @@ import {
 import { filterOptions, renderOption } from "./helper";
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
-interface FieldFixaProps {
+interface AutocompleteFixaProps {
   mode: GroupEnumFixa;
   value: Fixa | null;
   onChange: (value: Fixa | null) => void;
 }
-const FieldFixa: FC<FieldFixaProps> = (props) => {
+const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
     value: Fixa | null,
@@ -38,4 +38,4 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
   );
 };
 
-export default FieldFixa;
+export default AutocompleteFixa;

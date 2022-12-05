@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
 import FieldEnhancement from "../FieldEnhancement";
-import FieldFixa from "../FieldFixa";
+import FieldFixa from "../AutocompleteFixa";
 import FieldWeapon from "../FieldWeapon";
 import FormAugment from "../FormAugment";
 
