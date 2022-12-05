@@ -34,9 +34,7 @@ const FieldAugment: FC<FieldAugmentProps> = (props) => {
           label="Augment"
           InputProps={{
             ...InputProps,
-            startAdornment: (
-              <InputAdornment position="start">C/</InputAdornment>
-            ),
+            startAdornment: "C/",
           }}
         />
       )}

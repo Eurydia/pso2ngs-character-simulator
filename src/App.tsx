@@ -26,7 +26,7 @@ function App() {
         }}
       />
       <BrowserRouter>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
