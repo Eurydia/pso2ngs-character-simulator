@@ -39,7 +39,7 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       fullWidth
-      label="Enhancement Level"
+      label="Enhancement"
       InputProps={{
         startAdornment: "+",
       }}

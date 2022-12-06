@@ -16,7 +16,7 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>
-      <Tooltip
+      {/* <Tooltip
         followCursor
         placement="top"
         title={
@@ -35,9 +35,9 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
             </Grid>
           </Box>
         }
-      >
-        <ListItemText>{option.label}</ListItemText>
-      </Tooltip>
+      > */}
+      <ListItemText>{option.label}</ListItemText>
+      {/* </Tooltip> */}
     </MenuItem>
   );
 };
