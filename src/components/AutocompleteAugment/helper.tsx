@@ -1,11 +1,5 @@
-import { HTMLAttributes } from "react";
-import {
-  AutocompleteRenderOptionState,
-  FilterOptionsState,
-} from "@mui/material";
+import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
-
-import FieldOption from "./AutocompleteOption";
 
 import { Augment, StatEnum } from "../../assets";
 

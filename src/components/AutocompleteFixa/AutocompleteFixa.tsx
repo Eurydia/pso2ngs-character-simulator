@@ -4,8 +4,10 @@ import {
   Autocomplete,
   AutocompleteChangeReason,
 } from "@mui/material";
-import { filterOptions, renderOption } from "./helper";
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
+
+import { filterOptions } from "./helper";
+import AutocompleteOption from "./AutocompleteOption";
 
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
@@ -21,18 +23,22 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
     props.onChange(value);
   };
 
+  const options = AssetFixas.filter(
+    (option) => option.group === props.mode,
+  );
+
   return (
     <Autocomplete
-      options={AssetFixas.filter(
-        (option) => option.group === props.mode,
-      )}
+      options={options}
       value={props.value}
       onChange={handleChange}
-      groupBy={(option) => option.group}
+      groupBy={(option) => option.name}
       renderInput={(params) => (
         <TextField {...params} fullWidth label="Fixa" />
       )}
-      renderOption={renderOption}
+      renderOption={(props, option, _) => (
+        <AutocompleteOption {...props} option={option} />
+      )}
       filterOptions={filterOptions}
     />
   );

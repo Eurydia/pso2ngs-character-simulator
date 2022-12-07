@@ -1,11 +1,5 @@
-import { HTMLAttributes } from "react";
-import {
-  AutocompleteRenderOptionState,
-  FilterOptionsState,
-} from "@mui/material";
+import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
-
-import FieldOption from "./AutocompleteOption";
 
 import { Fixa } from "../../assets";
 
@@ -33,14 +27,6 @@ const sortOptions = (options: Fixa[]): Fixa[] => {
       }
       return 0;
     });
-};
-
-export const renderOption = (
-  props: HTMLAttributes<HTMLLIElement>,
-  option: Fixa,
-  _: AutocompleteRenderOptionState,
-) => {
-  return <FieldOption {...props} option={option} />;
 };
 
 export const filterOptions = (
