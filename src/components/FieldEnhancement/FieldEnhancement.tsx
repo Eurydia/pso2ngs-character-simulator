@@ -4,12 +4,12 @@ import { isNaN as ld_isNaN } from "lodash";
 
 import { clampValue } from "./helper";
 
-interface FieldFixaProps {
-  valueMin?: number;
-  valueMax?: number;
+type FieldFixaProps = {
+  valueMin: number | null;
+  valueMax: number | null;
   value: string;
   onChange: (value: string) => void;
-}
+};
 const FieldFixa: FC<FieldFixaProps> = (props) => {
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
