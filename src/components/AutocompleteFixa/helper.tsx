@@ -1,7 +1,7 @@
 import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import { Fixa, AssetFixas } from "../../assets";
+import { Fixa } from "../../assets";
 
 const sortAlphabet = (a: string, b: string): number => {
   if (a > b) {
@@ -33,6 +33,16 @@ const collectTerms = (value: string): string[] => {
   return terms;
 };
 
+const collectOptions = (options: Fixa[], terms: string[]): Fixa[] => {
+  return terms.reduce(
+    (prev, curr) =>
+      matchSorter(prev, curr, {
+        keys: [(item) => item.name, (item) => item.level.toString()],
+      }),
+    options,
+  );
+};
+
 export const filterOptions = (
   options: Fixa[],
   state: FilterOptionsState<Fixa>,
@@ -40,17 +50,11 @@ export const filterOptions = (
 ) => {
   const value: string = state.inputValue;
   const terms: string[] = collectTerms(value);
-  const filtered_options: Fixa[] = sortOptions(
-    terms
-      .reduceRight(
-        (res, term) =>
-          matchSorter(res, term, {
-            keys: [(item) => item.name, (item) => item.label],
-          }),
-        options,
-      )
-      .slice(0, size),
-  );
+  const filtered_options: Fixa[] = collectOptions(
+    options,
+    terms,
+  ).slice(0, size);
+  const sorted_options: Fixa[] = sortOptions(filtered_options);
 
-  return filtered_options;
+  return sorted_options;
 };

@@ -27,7 +27,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       groupBy={(option) => option.group}
-      renderInput={(...params) => (
+      renderInput={(params) => (
         <TextField {...params} fullWidth label="Augment" />
       )}
       renderOption={(props, option, _) => (
