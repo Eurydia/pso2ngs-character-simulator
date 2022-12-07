@@ -7,10 +7,10 @@ import {
 import { AssetWeapons, Weapon } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-interface AutocompleteWeaponProps {
+type AutocompleteWeaponProps = {
   value: Weapon | null;
   onChange: (value: Weapon | null) => void;
-}
+};
 const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
