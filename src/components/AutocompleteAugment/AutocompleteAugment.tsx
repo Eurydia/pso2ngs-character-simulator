@@ -5,7 +5,8 @@ import {
   AutocompleteChangeReason,
 } from "@mui/material";
 import { AssetAugments, Augment } from "../../assets";
-import { filterOptions, renderOption } from "./helper";
+import { filterOptions } from "./helper";
+import AutocompleteOption from "./AutocompleteOption";
 
 type AutocompleteAugmentProps = {
   value: Augment | null;
@@ -26,18 +27,12 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       groupBy={(option) => option.group}
-      renderInput={({ InputProps, ...other }) => (
-        <TextField
-          {...other}
-          fullWidth
-          label="Augment"
-          InputProps={{
-            ...InputProps,
-            startAdornment: "C/",
-          }}
-        />
+      renderInput={(...params) => (
+        <TextField {...params} fullWidth label="Augment" />
       )}
-      renderOption={renderOption}
+      renderOption={(props, option, _) => (
+        <AutocompleteOption {...props} option={option} />
+      )}
       filterOptions={filterOptions}
     />
   );

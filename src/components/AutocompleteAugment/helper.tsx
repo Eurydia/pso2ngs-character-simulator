@@ -36,14 +36,6 @@ const sortOptions = (options: Augment[]): Augment[] => {
     });
 };
 
-export const renderOption = (
-  props: HTMLAttributes<HTMLLIElement>,
-  option: Augment,
-  _: AutocompleteRenderOptionState,
-) => {
-  return <FieldOption {...props} option={option} />;
-};
-
 export const filterOptions = (
   options: Augment[],
   state: FilterOptionsState<Augment>,
