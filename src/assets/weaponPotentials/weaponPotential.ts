@@ -18,6 +18,42 @@ export class WeaponPotential {
   get label(): string {
     return this.name;
   }
+
+  get toDict(): {
+    [K: string]: { stats: StatObject; level: number; label: string };
+  } {
+    const dict: {
+      [K: string]: {
+        stats: StatObject;
+        level: number;
+        label: string;
+      };
+    } = {};
+
+    for (
+      let level_index = 0;
+      level_index < this.stats.length;
+      level_index++
+    ) {
+      const level = level_index + 1;
+      const label = `${this.label} Lv. ${level}`;
+      const stats = this.stats[level_index];
+      dict[label] = { level, label, stats };
+    }
+
+    for (
+      let level_index = 0;
+      level_index < this.stats_inactive.length;
+      level_index++
+    ) {
+      const level = level_index + 1;
+      const label = `${this.label} Lv. ${level} (inactive)`;
+      const stats = this.stats[level_index];
+      dict[label] = { level, label, stats };
+    }
+
+    return dict;
+  }
 }
 
 const weaponPotential = (

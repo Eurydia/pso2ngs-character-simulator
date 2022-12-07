@@ -7,6 +7,7 @@ import FieldEnhancement from "../FieldEnhancement";
 import FieldFixa from "../AutocompleteFixa";
 import FieldWeapon from "../AutocompleteWeapon";
 import FormAugment from "../FormAugment";
+import AutocompleteWeaponPotential from "../SelectWeaponPotential";
 
 interface FormWeaponProps {
   title: string;
@@ -37,6 +38,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         {props.title}
       </Typography>
       <FieldWeapon value={valueWeapon} onChange={setValueWeapon} />
+      <AutocompleteWeaponPotential />
       <FieldEnhancement
         value={valueEnhancement}
         onChange={setValueEnhancement}

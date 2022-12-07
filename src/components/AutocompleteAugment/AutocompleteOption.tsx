@@ -1,17 +1,10 @@
-import { FC, Fragment, HTMLAttributes } from "react";
-import {
-  ListItemText,
-  MenuItem,
-  Tooltip,
-  Grid,
-  Typography,
-  Box,
-} from "@mui/material";
+import { FC, HTMLAttributes } from "react";
+import { ListItemText, MenuItem } from "@mui/material";
 import { Augment } from "../../assets";
 
-interface FieldOptionProps extends HTMLAttributes<HTMLLIElement> {
+type FieldOptionProps = HTMLAttributes<HTMLLIElement> & {
   option: Augment;
-}
+};
 const FieldOption: FC<FieldOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (

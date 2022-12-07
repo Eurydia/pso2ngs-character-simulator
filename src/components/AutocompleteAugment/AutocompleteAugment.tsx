@@ -7,10 +7,10 @@ import {
 import { AssetAugments, Augment } from "../../assets";
 import { filterOptions, renderOption } from "./helper";
 
-interface AutocompleteAugmentProps {
+type AutocompleteAugmentProps = {
   value: Augment | null;
   onChange: (value: Augment | null) => void;
-}
+};
 const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,

@@ -37,19 +37,20 @@ const formatStat = (stat: StatEnum, value: number): string => {
 
 const formatStatObject = (
   object: Partial<{ [K in StatEnum]: number }>,
-): [string, string][] => {
-  const formatted: [string, string][] = [];
+): { label: string; value: string }[] => {
+  const formatted: { label: string; value: string }[] = [];
 
   for (const stat of Object.keys(object)) {
-    const value: number | undefined = object[stat as StatEnum];
+    const value_unformatted: number | undefined =
+      object[stat as StatEnum];
 
-    if (value === undefined) {
+    if (value_unformatted === undefined) {
       continue;
     }
 
-    const f_label = StatEnumString[stat as StatEnum];
-    const f_value = formatStat(stat as StatEnum, value);
-    formatted.push([f_label, f_value]);
+    const label = StatEnumString[stat as StatEnum];
+    const value = formatStat(stat as StatEnum, value_unformatted);
+    formatted.push({ label, value });
   }
 
   return formatted;
@@ -62,7 +63,7 @@ export class StatObject {
     this.stats = stats;
   }
 
-  get format(): [string, string][] {
+  get toFormatted(): { label: string; value: string }[] {
     return formatStatObject(this.stats);
   }
 }
