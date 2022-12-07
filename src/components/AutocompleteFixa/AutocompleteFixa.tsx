@@ -8,6 +8,7 @@ import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
 import { filterOptions } from "./helper";
 import AutocompleteOption from "./AutocompleteOption";
+import { VapingRoomsSharp } from "@mui/icons-material";
 
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
@@ -27,10 +28,16 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
     (option) => option.group === props.mode,
   );
 
+  let value: undefined | Fixa = undefined;
+  if (props.value !== null) {
+    value = props.value;
+  }
+
   return (
     <Autocomplete
+      disableClearable
       options={options}
-      value={props.value}
+      value={value}
       onChange={handleChange}
       groupBy={(option) => option.name}
       renderInput={(params) => (

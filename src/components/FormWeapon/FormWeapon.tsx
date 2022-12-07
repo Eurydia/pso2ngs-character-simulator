@@ -38,7 +38,6 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         {props.title}
       </Typography>
       <FieldWeapon value={valueWeapon} onChange={setValueWeapon} />
-      <AutocompleteWeaponPotential />
       <FieldEnhancement
         value={valueEnhancement}
         onChange={setValueEnhancement}

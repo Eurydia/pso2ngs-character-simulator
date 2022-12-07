@@ -1,32 +1,36 @@
 import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import { Fixa } from "../../assets";
+import { Fixa, AssetFixas } from "../../assets";
+
+const sortAlphabet = (a: string, b: string): number => {
+  if (a > b) {
+    return 1;
+  }
+  if (a < b) {
+    return -1;
+  }
+  return 0;
+};
 
 const sortOptions = (options: Fixa[]): Fixa[] => {
-  return options
-    .sort((a, b) => {
-      const name_a: string = a.label;
-      const name_b: string = b.label;
+  return options.sort((a, b) => sortAlphabet(a.label, b.label));
+};
 
-      if (name_a > name_b) {
-        // sort descending
-        return 1;
-      }
-      if (name_b > name_a) {
-        return -1;
-      }
-      return 0;
-    })
-    .sort((a, b) => {
-      if (a.group > b.group) {
-        return 1;
-      }
-      if (a.group < b.group) {
-        return -1;
-      }
-      return 0;
-    });
+const collectTerms = (value: string): string[] => {
+  const terms: string[] = [];
+
+  for (const item of value.split(" ")) {
+    const item_trimmed = item.trim();
+
+    if (item_trimmed.length <= 0) {
+      continue;
+    }
+
+    terms.push(item_trimmed);
+  }
+
+  return terms;
 };
 
 export const filterOptions = (
@@ -34,22 +38,19 @@ export const filterOptions = (
   state: FilterOptionsState<Fixa>,
   size: number = 16,
 ) => {
-  const value = state.inputValue;
-
-  const terms = value
-    .split(" ")
-    .map((term) => term.trim())
-    .filter((term) => term.length > 0);
-
-  return sortOptions(
+  const value: string = state.inputValue;
+  const terms: string[] = collectTerms(value);
+  const filtered_options: Fixa[] = sortOptions(
     terms
       .reduceRight(
         (res, term) =>
           matchSorter(res, term, {
-            keys: [(item) => item.name, (item) => item.group],
+            keys: [(item) => item.name, (item) => item.label],
           }),
         options,
       )
       .slice(0, size),
   );
+
+  return filtered_options;
 };
