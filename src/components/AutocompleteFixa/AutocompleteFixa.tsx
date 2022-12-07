@@ -7,11 +7,11 @@ import {
 import { filterOptions, renderOption } from "./helper";
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
-interface AutocompleteFixaProps {
+type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
   value: Fixa | null;
   onChange: (value: Fixa | null) => void;
-}
+};
 const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
