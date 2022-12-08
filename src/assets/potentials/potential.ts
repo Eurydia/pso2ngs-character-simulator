@@ -19,7 +19,7 @@ export class Potential {
     return this.name;
   }
 
-  get toDict(): {
+  toDict(): {
     [K: string]: { stats: StatObject; level: number; label: string };
   } {
     const dict: {

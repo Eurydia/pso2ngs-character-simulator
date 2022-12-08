@@ -1,13 +1,14 @@
 import { Grid, Box, Stack, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
-import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
+import { Fixa, GroupEnumFixa, Potential, Weapon } from "../../assets";
 import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
+import SelectPotential from "../SelectPotential";
 
 interface FormWeaponProps {
   title: string;
@@ -15,9 +16,15 @@ interface FormWeaponProps {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
+  const [valuePotential, setValuePotential] = useState<string>("");
   const [valueEnhancement, setValueEnhancement] =
     useState<string>("");
   const [valueAugments, setValueAugments] = useAugment();
+
+  let potential: Potential | null = null;
+  if (valueWeapon !== null) {
+    potential = valueWeapon.potential;
+  }
 
   return (
     <Box>
@@ -39,6 +46,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           value={valueFixa}
           onChange={setValueFixa}
           mode={GroupEnumFixa.WEAPON}
+        />
+        <SelectPotential
+          potential={potential}
+          value={valuePotential}
+          onChange={setValuePotential}
         />
         <Box>
           <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>

@@ -1,16 +1,15 @@
 import { FC } from "react";
-import { HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
-import { Weapon } from "../../assets";
 
-type FieldOptionProps = HTMLAttributes<HTMLLIElement> & {
-  option: Weapon;
+type SelectPotentialOptionProps = {
+  value: string;
+  label: string;
 };
-
-const FieldOption: FC<FieldOptionProps> = (props) => {
-  const { option, ...rest } = props;
+const SelectPotentialOption: FC<SelectPotentialOptionProps> = (
+  props,
+) => {
   return (
-    <MenuItem {...rest}>
+    <MenuItem value={props.value}>
       {/* <Tooltip
         followCursor
         placement="top"
@@ -36,10 +35,10 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
           </Box>
         }
       > */}
-      <ListItemText>{option.name}</ListItemText>
+      <ListItemText>{props.label}</ListItemText>
       {/* </Tooltip> */}
     </MenuItem>
   );
 };
 
-export default FieldOption;
+export default SelectPotentialOption;

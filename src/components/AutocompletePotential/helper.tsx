@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import FieldOption from "./SelectPotentialOption";
+import SelectPotentialOptionProps from "./CustomOption";
 
 import { StatEnum, Potential } from "../../assets";
 

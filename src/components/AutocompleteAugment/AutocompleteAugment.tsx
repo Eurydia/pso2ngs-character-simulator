@@ -8,7 +8,7 @@ import {
 import { AssetAugments, Augment } from "../../assets";
 
 import { filterOptions } from "./helper";
-import AutocompleteOption from "./AutocompleteOption";
+import CustomOption from "./CustomOption";
 
 type AutocompleteAugmentProps = {
   value: Augment | null;
@@ -39,7 +39,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
         />
       )}
       renderOption={(props, option, _) => (
-        <AutocompleteOption {...props} option={option} />
+        <CustomOption {...props} option={option} />
       )}
       filterOptions={filterOptions}
     />

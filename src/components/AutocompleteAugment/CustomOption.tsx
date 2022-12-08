@@ -2,10 +2,10 @@ import { FC, HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 import { Augment } from "../../assets";
 
-type FieldOptionProps = HTMLAttributes<HTMLLIElement> & {
+type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
   option: Augment;
 };
-const FieldOption: FC<FieldOptionProps> = (props) => {
+const CustomOption: FC<CustomOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>
@@ -35,4 +35,4 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
   );
 };
 
-export default FieldOption;
+export default CustomOption;
