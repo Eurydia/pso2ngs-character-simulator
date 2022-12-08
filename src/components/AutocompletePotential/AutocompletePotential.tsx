@@ -1,6 +1,12 @@
-import { ChangeEvent, FC } from "react";
-import { MenuItem, TextField } from "@mui/material";
+import { FC, SyntheticEvent } from "react";
+import {
+  Autocomplete,
+  AutocompleteChangeReason,
+  TextField,
+} from "@mui/material";
+
 import { Potential } from "../../assets";
+
 import CustomOption from "./CustomOption";
 
 type SelectPotentialProps = {
@@ -9,35 +15,41 @@ type SelectPotentialProps = {
   onChange: (value: string) => void;
 };
 const SelectPotential: FC<SelectPotentialProps> = (props) => {
-  let options: { [key: string]: { label: string } } = {};
+  let options: string[] = [];
   if (props.potential !== null) {
-    options = props.potential.toDict();
+    options = Object.keys(props.potential.toDict());
   }
 
-  const disabled = props.potential === null;
-
   const handleChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    event: SyntheticEvent<Element, Event>,
+    value: string | null,
+    reason: AutocompleteChangeReason,
   ) => {
-    const value_input = event.target.value;
-    props.onChange(value_input);
+    if (value === null) {
+      props.onChange("");
+      return;
+    }
+
+    props.onChange(value);
   };
 
   return (
-    <TextField
-      disabled={disabled}
+    <Autocomplete
       value={props.value}
+      options={options}
       onChange={handleChange}
-      select
-      placeholder="Potential"
-      size="small"
-    >
-      {Object.values(options).map(({ label }, index) => (
-        <MenuItem key={`item-${index}`} value={label}>
-          {label}
-        </MenuItem>
-      ))}
-    </TextField>
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          fullWidth
+          placeholder="Potential"
+          size="small"
+        />
+      )}
+      renderOption={(props, option, _) => (
+        <CustomOption {...props} option={option} />
+      )}
+    />
   );
 };
 

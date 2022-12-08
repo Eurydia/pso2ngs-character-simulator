@@ -21,6 +21,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     useState<string>("");
   const [valueAugments, setValueAugments] = useAugment();
 
+  const handleWeaponChange = (new_value: Weapon | null) => {
+    setValueWeapon(new_value);
+    setValuePotential("");
+  };
+
   let potential: Potential | null = null;
   if (valueWeapon !== null) {
     potential = valueWeapon.potential;
@@ -34,13 +39,13 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         </Typography>
         <AutocompleteWeapon
           value={valueWeapon}
-          onChange={setValueWeapon}
+          onChange={handleWeaponChange}
         />
         <FieldEnhancement
-          value={valueEnhancement}
-          onChange={setValueEnhancement}
           valueMin={0}
           valueMax={50}
+          value={valueEnhancement}
+          onChange={setValueEnhancement}
         />
         <AutocompleteFixa
           value={valueFixa}

@@ -1,13 +1,12 @@
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 
-type CustomOptionProps = {
-  value: string;
-  label: string;
+type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
+  option: string;
 };
 const CustomOption: FC<CustomOptionProps> = (props) => {
   return (
-    <MenuItem value={props.value}>
+    <MenuItem {...props}>
       {/* <Tooltip
         followCursor
         placement="top"
@@ -33,7 +32,7 @@ const CustomOption: FC<CustomOptionProps> = (props) => {
           </Box>
         }
       > */}
-      <ListItemText>{props.label}</ListItemText>
+      <ListItemText>{props.option}</ListItemText>
       {/* </Tooltip> */}
     </MenuItem>
   );
