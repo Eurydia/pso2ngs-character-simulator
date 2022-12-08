@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import FieldOption from "./SelectWeaponPotentialOption";
+import FieldOption from "./SelectPotentialOption";
 
 import { StatEnum, WeaponPotential } from "../../assets";
 
@@ -37,33 +37,33 @@ import { StatEnum, WeaponPotential } from "../../assets";
 //     });
 // };
 
-export const renderOption = (
-  props: HTMLAttributes<HTMLLIElement>,
-  option: WeaponPotential,
-  _: AutocompleteRenderOptionState,
-) => {
-  return <FieldOption {...props} option={option} />;
-};
+// export const renderOption = (
+//   props: HTMLAttributes<HTMLLIElement>,
+//   option: WeaponPotential,
+//   _: AutocompleteRenderOptionState,
+// ) => {
+//   return <FieldOption {...props} option={option} />;
+// };
 
-export const filterOptions = (
-  options: WeaponPotential[],
-  state: FilterOptionsState<Weapon>,
-  size: number = 16,
-) => {
-  const value = state.inputValue;
+// export const filterOptions = (
+//   options: WeaponPotential[],
+//   state: FilterOptionsState<Weapon>,
+//   size: number = 16,
+// ) => {
+//   const value = state.inputValue;
 
-  const terms = value
-    .split(" ")
-    .map((term) => term.trim())
-    .filter((term) => term.length > 0);
+//   const terms = value
+//     .split(" ")
+//     .map((term) => term.trim())
+//     .filter((term) => term.length > 0);
 
-  return terms
-    .reduceRight(
-      (res, term) =>
-        matchSorter(res, term, {
-          keys: [(item) => item.name, (item) => item.group],
-        }),
-      options,
-    )
-    .slice(0, size);
-};
+//   return terms
+//     .reduceRight(
+//       (res, term) =>
+//         matchSorter(res, term, {
+//           keys: [(item) => item.name, (item) => item.group],
+//         }),
+//       options,
+//     )
+//     .slice(0, size);
+// };
