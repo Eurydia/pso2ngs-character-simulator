@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { AssetWeapons, Weapon } from "../../assets";
 
-import AutocompleteOption from "./AutocompleteOption";
+import CustomOption from "./CustomOption";
 import { filterOptions } from "./helper";
 
 type AutocompleteWeaponProps = {
@@ -37,7 +37,7 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
         />
       )}
       renderOption={(props, option, _) => (
-        <AutocompleteOption {...props} option={option} />
+        <CustomOption {...props} option={option} />
       )}
       filterOptions={filterOptions}
     />

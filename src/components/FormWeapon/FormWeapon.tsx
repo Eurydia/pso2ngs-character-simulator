@@ -8,7 +8,7 @@ import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
-import SelectPotential from "../SelectPotential";
+import SelectPotential from "../AutocompletePotential";
 
 interface FormWeaponProps {
   title: string;

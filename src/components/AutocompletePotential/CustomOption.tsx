@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 
-type SelectPotentialOptionProps = {
+type CustomOptionProps = {
   value: string;
   label: string;
 };
-const SelectPotentialOption: FC<SelectPotentialOptionProps> = (
-  props,
-) => {
+const CustomOption: FC<CustomOptionProps> = (props) => {
   return (
     <MenuItem value={props.value}>
       {/* <Tooltip
@@ -41,4 +39,4 @@ const SelectPotentialOption: FC<SelectPotentialOptionProps> = (
   );
 };
 
-export default SelectPotentialOption;
+export default CustomOption;

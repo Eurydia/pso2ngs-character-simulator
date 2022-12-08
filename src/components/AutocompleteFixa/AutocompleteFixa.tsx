@@ -8,7 +8,7 @@ import {
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
 import { filterOptions } from "./helper";
-import AutocompleteOption from "./AutocompleteOption";
+import CustomOption from "./CustomOption";
 
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
@@ -43,7 +43,7 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
         />
       )}
       renderOption={(props, option, _) => (
-        <AutocompleteOption {...props} option={option} />
+        <CustomOption {...props} option={option} />
       )}
       filterOptions={filterOptions}
     />

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { MenuItem, TextField } from "@mui/material";
 import { Potential } from "../../assets";
-import SelectPotentialOption from "./CustomOption";
+import CustomOption from "./CustomOption";
 
 type SelectPotentialProps = {
   potential: Potential | null;

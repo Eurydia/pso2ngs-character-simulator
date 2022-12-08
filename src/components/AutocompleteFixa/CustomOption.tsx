@@ -3,10 +3,10 @@ import { HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 import { Fixa } from "../../assets";
 
-type AutocompleteOptionProps = HTMLAttributes<HTMLLIElement> & {
+type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
   option: Fixa;
 };
-const AutocompleteOption: FC<AutocompleteOptionProps> = (props) => {
+const CustomOption: FC<CustomOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>
@@ -36,4 +36,4 @@ const AutocompleteOption: FC<AutocompleteOptionProps> = (props) => {
   );
 };
 
-export default AutocompleteOption;
+export default CustomOption;
