@@ -31,7 +31,7 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
         <TextField
           {...params}
           fullWidth
-          name="weapon-autocomplete-field"
+          name="autocomplete-weapon"
           label="Weapon"
           size="small"
         />

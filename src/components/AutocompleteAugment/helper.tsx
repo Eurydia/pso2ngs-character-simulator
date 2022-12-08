@@ -34,7 +34,10 @@ const collectOptions = (
   options: Augment[],
   terms: string[],
 ): Augment[] => {
-  const fitlered_options = terms.reduceRight(reducer, options);
+  const fitlered_options: Augment[] = terms.reduceRight(
+    reducer,
+    options,
+  );
   return fitlered_options;
 };
 
@@ -43,11 +46,11 @@ export const filterOptions = (
   state: FilterOptionsState<Augment>,
   size: number = 16,
 ) => {
-  const value = state.inputValue;
-  const terms = collectTerms(value);
-  const filtered_options = collectOptions(options, terms).slice(
-    0,
-    size,
-  );
+  const value: string = state.inputValue;
+  const terms: string[] = collectTerms(value);
+  const filtered_options: Augment[] = collectOptions(
+    options,
+    terms,
+  ).slice(0, size);
   return filtered_options;
 };

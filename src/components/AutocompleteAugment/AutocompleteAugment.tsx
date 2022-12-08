@@ -33,8 +33,9 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
         <TextField
           {...params}
           fullWidth
-          size="small"
+          name="autocomplete-augment"
           label="Augment"
+          size="small"
         />
       )}
       renderOption={(props, option, _) => (
