@@ -14,24 +14,25 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
-    const input_value: string = event.target.value.replace(
-      /[^0-9]/,
+    const value_input: string = event.target.value;
+    const value_filtered: string = value_input.replace(
+      /[^0-9\-\+]/,
       "",
     );
+    const value_number: number = parseInt(value_filtered);
 
-    const new_value: number = parseInt(input_value);
-
-    if (ld_isNaN(new_value)) {
+    if (ld_isNaN(value_number)) {
       props.onChange("");
-    } else {
-      props.onChange(
-        clampValue(
-          new_value,
-          props.valueMin,
-          props.valueMax,
-        ).toString(),
-      );
+      return;
     }
+
+    props.onChange(
+      clampValue(
+        value_number,
+        props.valueMin,
+        props.valueMax,
+      ).toString(),
+    );
   };
 
   return (
@@ -40,9 +41,6 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
       onChange={handleChange}
       fullWidth
       label="Enhancement"
-      InputProps={{
-        startAdornment: "+",
-      }}
       inputProps={{
         inputMode: "numeric",
       }}

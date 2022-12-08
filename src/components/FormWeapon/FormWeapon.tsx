@@ -6,7 +6,6 @@ import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
 import FieldEnhancement from "../FieldEnhancement";
 import FieldFixa from "../AutocompleteFixa";
 import FieldWeapon from "../AutocompleteWeapon";
-import FormAugment from "../FormAugment";
 import AutocompleteWeaponPotential from "../SelectWeaponPotential";
 
 interface FormWeaponProps {
@@ -48,10 +47,6 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         value={valueFixa}
         onChange={setValueFixa}
         mode={GroupEnumFixa.WEAPON}
-      />
-      <FormAugment
-        values={valueAugments}
-        onChange={handleAugmentChange}
       />
     </Stack>
   );
