@@ -38,11 +38,8 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
       onChange={handleChange}
       fullWidth
       size="small"
-      // label="Enhancement"
+      inputMode="numeric"
       placeholder="Enhancement"
-      inputProps={{
-        inputMode: "numeric",
-      }}
     />
   );
 };

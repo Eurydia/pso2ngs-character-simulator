@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Fragment, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 import { Weapon } from "../../assets";
 

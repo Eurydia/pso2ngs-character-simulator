@@ -1,5 +1,5 @@
 import { Grid, Box, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
 import { useAugment } from "../../hooks";
@@ -41,7 +41,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           mode={GroupEnumFixa.WEAPON}
         />
         <Box>
-          <Grid container spacing={1} columns={{ md: 2, sm: 1 }}>
+          <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
             {valueAugments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
