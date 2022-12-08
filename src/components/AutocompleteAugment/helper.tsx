@@ -1,33 +1,42 @@
 import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import { Augment, StatEnum } from "../../assets";
+import { Augment } from "../../assets";
 
-const sortOptions = (options: Augment[]): Augment[] => {
-  return options
-    .sort((a, b) => {
-      const bp_a: number | undefined =
-        a.stats.stats[StatEnum.CORE_BP];
+const collectTerms = (value: string): string[] => {
+  const terms: string[] = [];
 
-      const bp_b: number | undefined =
-        b.stats.stats[StatEnum.CORE_BP];
+  for (const item of value.split(" ")) {
+    const item_trimmed = item.trim();
 
-      if (bp_a !== undefined && bp_b !== undefined) {
-        // sort descending
-        return bp_b - bp_a;
-      } else {
-        return 0;
-      }
-    })
-    .sort((a, b) => {
-      if (a.group > b.group) {
-        return 1;
-      }
-      if (a.group < b.group) {
-        return -1;
-      }
-      return 0;
-    });
+    if (item_trimmed.length <= 0) {
+      continue;
+    }
+
+    terms.push(item_trimmed);
+  }
+
+  return terms;
+};
+
+const reducer = (options: Augment[], term: string): Augment[] => {
+  return matchSorter(options, term, {
+    keys: [
+      (item) => item.name,
+      (item) => item.group,
+      (item) => item.level.toString(),
+      (item) => item.level_roman,
+    ],
+  });
+};
+
+const collectOptions = (
+  options: Augment[],
+  terms: string[],
+): Augment[] => {
+  const fitlered_options = terms.reduceRight(reducer, options);
+
+  return fitlered_options;
 };
 
 export const filterOptions = (
@@ -36,26 +45,10 @@ export const filterOptions = (
   size: number = 16,
 ) => {
   const value = state.inputValue;
-
-  const terms = value
-    .split(" ")
-    .map((term) => term.trim())
-    .filter((term) => term.length > 0);
-
-  return sortOptions(
-    terms
-      .reduceRight(
-        (res, term) =>
-          matchSorter(res, term, {
-            keys: [
-              (item) => item.name,
-              (item) => item.level.toString(),
-              (item) => item.group,
-              (item) => item.level_roman,
-            ],
-          }),
-        options,
-      )
-      .slice(0, size),
+  const terms = collectTerms(value);
+  const filtered_options = collectOptions(options, terms).slice(
+    0,
+    size,
   );
+  return filtered_options;
 };

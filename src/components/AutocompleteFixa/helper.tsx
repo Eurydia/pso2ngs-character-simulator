@@ -12,7 +12,6 @@ const sortAlphabet = (a: string, b: string): number => {
   }
   return 0;
 };
-
 const sortOptions = (options: Fixa[]): Fixa[] => {
   return options.sort((a, b) => sortAlphabet(a.label, b.label));
 };
@@ -34,7 +33,7 @@ const collectTerms = (value: string): string[] => {
 };
 
 const collectOptions = (options: Fixa[], terms: string[]): Fixa[] => {
-  return terms.reduce(
+  return terms.reduceRight(
     (prev, curr) =>
       matchSorter(prev, curr, {
         keys: [(item) => item.name, (item) => item.level.toString()],
@@ -54,7 +53,6 @@ export const filterOptions = (
     options,
     terms,
   ).slice(0, size);
-  const sorted_options: Fixa[] = sortOptions(filtered_options);
 
-  return sorted_options;
+  return filtered_options;
 };
