@@ -1,7 +1,8 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Grid, Box, Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 
 import { Augment, Fixa, GroupEnumFixa, Weapon } from "../../assets";
+import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
@@ -16,6 +17,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valueEnhancement, setValueEnhancement] =
     useState<string>("");
+  const [valueAugments, setValueAugments] = useAugment();
 
   return (
     <Box>
@@ -38,6 +40,20 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           onChange={setValueFixa}
           mode={GroupEnumFixa.WEAPON}
         />
+        <Box>
+          <Grid container spacing={1} columns={{ md: 2, sm: 1 }}>
+            {valueAugments.map((aug, index) => (
+              <Grid key={`augment-${index}`} item xs={1}>
+                <AutocompleteAugment
+                  value={aug}
+                  onChange={(new_value) =>
+                    setValueAugments(new_value, index)
+                  }
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Stack>
     </Box>
   );

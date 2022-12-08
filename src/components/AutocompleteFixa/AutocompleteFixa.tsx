@@ -38,7 +38,7 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
           {...params}
           fullWidth
           name="autocomplete-fixa"
-          label="Fixa"
+          placeholder="Fixa"
           size="small"
         />
       )}

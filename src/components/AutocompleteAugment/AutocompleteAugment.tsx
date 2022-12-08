@@ -34,7 +34,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
           {...params}
           fullWidth
           name="autocomplete-augment"
-          label="Augment"
+          placeholder="Augment"
           size="small"
         />
       )}

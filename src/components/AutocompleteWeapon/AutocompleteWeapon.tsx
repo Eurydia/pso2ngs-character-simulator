@@ -32,7 +32,7 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
           {...params}
           fullWidth
           name="autocomplete-weapon"
-          label="Weapon"
+          placeholder="Weapon"
           size="small"
         />
       )}
