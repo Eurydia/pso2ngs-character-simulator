@@ -5,7 +5,9 @@ import {
   AutocompleteChangeReason,
 } from "@mui/material";
 import { AssetWeapons, Weapon } from "../../assets";
-import { filterOptions, renderOption } from "./helper";
+
+import AutocompleteOption from "./AutocompleteOption";
+import { filterOptions } from "./helper";
 
 type AutocompleteWeaponProps = {
   value: Weapon | null;
@@ -25,11 +27,12 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
       options={AssetWeapons}
       value={props.value}
       onChange={handleChange}
-      groupBy={(option) => option.group}
       renderInput={(params) => (
         <TextField {...params} fullWidth label="Weapon" />
       )}
-      renderOption={renderOption}
+      renderOption={(props, option, _) => (
+        <AutocompleteOption {...props} option={option} />
+      )}
       filterOptions={filterOptions}
     />
   );

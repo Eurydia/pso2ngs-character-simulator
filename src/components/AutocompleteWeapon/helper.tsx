@@ -1,46 +1,33 @@
-import { HTMLAttributes } from "react";
-import {
-  AutocompleteRenderOptionState,
-  FilterOptionsState,
-} from "@mui/material";
+import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import FieldOption from "./AutocompleteOption";
+import { Weapon } from "../../assets";
 
-import { StatEnum, Weapon } from "../../assets";
+const collectTerms = (value: string): string[] => {
+  const terms: string[] = [];
 
-const sortOptions = (options: Weapon[]): Weapon[] => {
-  return options
-    .sort((a, b) => {
-      const atk_a: number | undefined =
-        a.stats.stats[StatEnum.CORE_ATTACK];
-      const atk_b: number | undefined =
-        b.stats.stats[StatEnum.CORE_ATTACK];
+  for (const item of value.split(" ")) {
+    const item_trimmed = item.trim();
 
-      if (atk_a !== undefined && atk_b !== undefined) {
-        // sort descending
-        return atk_b - atk_a;
-      }
-
-      return 0;
-    })
-    .sort((a, b) => {
-      if (a.group > b.group) {
-        return 1;
-      }
-      if (a.group < b.group) {
-        return -1;
-      }
-      return 0;
-    });
+    if (item_trimmed.length === 0) {
+      continue;
+    }
+    terms.push(item_trimmed);
+  }
+  return terms;
 };
 
-export const renderOption = (
-  props: HTMLAttributes<HTMLLIElement>,
-  option: Weapon,
-  _: AutocompleteRenderOptionState,
-) => {
-  return <FieldOption {...props} option={option} />;
+const reducer = (options: Weapon[], term: string): Weapon[] => {
+  return matchSorter(options, term, {
+    keys: [(item) => item.name, (item) => item.group],
+  });
+};
+
+const collectOptions = (
+  options: Weapon[],
+  terms: string[],
+): Weapon[] => {
+  return terms.reduceRight(reducer, options);
 };
 
 export const filterOptions = (
@@ -48,22 +35,11 @@ export const filterOptions = (
   state: FilterOptionsState<Weapon>,
   size: number = 16,
 ) => {
-  const value = state.inputValue;
-
-  const terms = value
-    .split(" ")
-    .map((term) => term.trim())
-    .filter((term) => term.length > 0);
-
-  return sortOptions(
-    terms
-      .reduceRight(
-        (res, term) =>
-          matchSorter(res, term, {
-            keys: [(item) => item.name, (item) => item.group],
-          }),
-        options,
-      )
-      .slice(0, size),
-  );
+  const value: string = state.inputValue;
+  const terms: string[] = collectTerms(value);
+  const filtered_options: Weapon[] = collectOptions(
+    options,
+    terms,
+  ).slice(0, size);
+  return filtered_options;
 };

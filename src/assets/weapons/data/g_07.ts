@@ -20,9 +20,14 @@ const makeWeaponRSeven = (
   name: string,
   potential: WeaponPotential,
   stats: Partial<{ [K in StatEnum]: number }>,
+  inactive: boolean = false,
 ): Weapon => {
+  let _name = name;
+  if (inactive) {
+    _name = `${name} (Inactive)`;
+  }
   return weapon(
-    name,
+    _name,
     GroupEnum.R_SEVEN,
     potential,
     GROWTH_RATE,

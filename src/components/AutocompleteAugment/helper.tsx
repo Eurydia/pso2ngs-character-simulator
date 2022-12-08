@@ -9,7 +9,7 @@ const collectTerms = (value: string): string[] => {
   for (const item of value.split(" ")) {
     const item_trimmed = item.trim();
 
-    if (item_trimmed.length <= 0) {
+    if (item_trimmed.length === 0) {
       continue;
     }
 
@@ -35,7 +35,6 @@ const collectOptions = (
   terms: string[],
 ): Augment[] => {
   const fitlered_options = terms.reduceRight(reducer, options);
-
   return fitlered_options;
 };
 

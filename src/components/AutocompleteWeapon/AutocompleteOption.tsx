@@ -3,10 +3,10 @@ import { HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 import { Weapon } from "../../assets";
 
-type FieldOptionProps = HTMLAttributes<HTMLLIElement> & {
+type AutocompleteOptionProps = HTMLAttributes<HTMLLIElement> & {
   option: Weapon;
 };
-const FieldOption: FC<FieldOptionProps> = (props) => {
+const AutocompleteOption: FC<AutocompleteOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>
@@ -35,10 +35,10 @@ const FieldOption: FC<FieldOptionProps> = (props) => {
           </Box>
         }
       > */}
-      <ListItemText>{option.name}</ListItemText>
+      <ListItemText>{option.label}</ListItemText>
       {/* </Tooltip> */}
     </MenuItem>
   );
 };
 
-export default FieldOption;
+export default AutocompleteOption;

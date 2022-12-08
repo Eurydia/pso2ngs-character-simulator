@@ -4,7 +4,9 @@ import {
   Autocomplete,
   AutocompleteChangeReason,
 } from "@mui/material";
+
 import { AssetAugments, Augment } from "../../assets";
+
 import { filterOptions } from "./helper";
 import AutocompleteOption from "./AutocompleteOption";
 

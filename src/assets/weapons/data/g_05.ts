@@ -21,9 +21,14 @@ const makeWeaponRFive = (
   name: string,
   potential: WeaponPotential,
   stats: Partial<{ [K in StatEnum]: number }>,
+  inactive: boolean = false,
 ): Weapon => {
+  let _name = name;
+  if (inactive) {
+    _name = `${name} (Inactive)`;
+  }
   return weapon(
-    name,
+    _name,
     GroupEnum.R_FIVE,
     potential,
     GROWTH_RATE,
@@ -150,13 +155,14 @@ data.push(
 
 data.push(
   makeWeaponRFive(
-    "* Inactive Tempesta Series",
+    "Tempesta Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
+    true,
   ),
 );
 
@@ -171,13 +177,14 @@ data.push(
 
 data.push(
   makeWeaponRFive(
-    "* Inactive Lumiere Series",
+    "Lumiere Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
+    true,
   ),
 );
 
@@ -192,13 +199,14 @@ data.push(
 
 data.push(
   makeWeaponRFive(
-    "* Inactive Obscura Series",
+    "Obscura Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
+    true,
   ),
 );
 
