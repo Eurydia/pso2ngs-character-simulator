@@ -12,6 +12,7 @@ const collectTerms = (value: string): string[] => {
     if (item_trimmed.length === 0) {
       continue;
     }
+
     terms.push(item_trimmed);
   }
   return terms;

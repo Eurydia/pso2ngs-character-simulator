@@ -4,7 +4,10 @@ import { Augment } from "../assets";
 
 export const useAugment = (
   init_state: (Augment | null)[] | undefined,
-) => {
+): [
+  (Augment | null)[],
+  (value: Augment | null, index: number) => void,
+] => {
   let init: (Augment | null)[] | undefined = init_state;
   if (init === undefined) {
     init = [null, null, null, null, null];

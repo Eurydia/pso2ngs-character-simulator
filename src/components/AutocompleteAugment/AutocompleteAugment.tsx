@@ -25,11 +25,17 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
 
   return (
     <Autocomplete
+      size="small"
       options={AssetAugments}
       value={props.value}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField {...params} fullWidth label="Augment" />
+        <TextField
+          {...params}
+          fullWidth
+          size="small"
+          label="Augment"
+        />
       )}
       renderOption={(props, option, _) => (
         <AutocompleteOption {...props} option={option} />
