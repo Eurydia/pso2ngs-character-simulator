@@ -1,5 +1,5 @@
 import { StatEnum } from "../stat";
-import weaponPotential from "./weaponPotential";
+import potential from "./potential";
 
 const makePotency = (
   potency_value: number,
@@ -11,7 +11,7 @@ const makePotency = (
   };
 };
 
-export const RECYCLER_UNIT = weaponPotential("Recycler Unit", [
+export const RECYCLER_UNIT = potential("Recycler Unit", [
   makePotency(1.18),
   makePotency(1.2),
   makePotency(1.23),
@@ -19,7 +19,7 @@ export const RECYCLER_UNIT = weaponPotential("Recycler Unit", [
   makePotency(1.25),
 ]);
 
-export const INDOMITABLE_UNIT = weaponPotential("Indomitable Unit", [
+export const INDOMITABLE_UNIT = potential("Indomitable Unit", [
   {
     ...makePotency(1.18),
     [StatEnum.AIL_BLIND]: 1.1,
@@ -72,7 +72,7 @@ export const INDOMITABLE_UNIT = weaponPotential("Indomitable Unit", [
   },
 ]);
 
-export const DEFENSIVE_FORMATION = weaponPotential(
+export const DEFENSIVE_FORMATION = potential(
   "Defensive Formation",
   [
     { ...makePotency(1.17), [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.15 },
@@ -90,7 +90,7 @@ export const DEFENSIVE_FORMATION = weaponPotential(
   ],
 );
 
-export const OFFENSIVE_FORMATION = weaponPotential(
+export const OFFENSIVE_FORMATION = potential(
   "Offensive Formation",
   [
     { ...makePotency(1.17), [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.15 },
@@ -108,7 +108,7 @@ export const OFFENSIVE_FORMATION = weaponPotential(
   ],
 );
 
-export const VALOROUS_UNIT = weaponPotential("Valorous Unit", [
+export const VALOROUS_UNIT = potential("Valorous Unit", [
   makePotency(1.16),
   makePotency(1.18),
   makePotency(1.21),
@@ -116,7 +116,7 @@ export const VALOROUS_UNIT = weaponPotential("Valorous Unit", [
   makePotency(1.22),
 ]);
 
-export const DYNAMO_UNIT = weaponPotential(
+export const DYNAMO_UNIT = potential(
   "Dynamo Unit",
   [
     { ...makePotency(1.16), [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.15 },
@@ -134,7 +134,7 @@ export const DYNAMO_UNIT = weaponPotential(
   ],
 );
 
-export const MUSTERED_MIGHT_UNIT = weaponPotential(
+export const MUSTERED_MIGHT_UNIT = potential(
   "Mustered Might Unit",
   [
     makePotency(1.2),
@@ -152,7 +152,7 @@ export const MUSTERED_MIGHT_UNIT = weaponPotential(
   ],
 );
 
-export const BASTION_UNIT = weaponPotential(
+export const BASTION_UNIT = potential(
   "Bastion Unit",
   [
     { ...makePotency(1.18), [StatEnum.ADV_DEF_DAMAGE_RES]: 1.4 },
@@ -170,7 +170,7 @@ export const BASTION_UNIT = weaponPotential(
   ],
 );
 
-export const MEDITATION_UNIT = weaponPotential(
+export const MEDITATION_UNIT = potential(
   "Meditation Unit",
   [
     {
@@ -208,7 +208,7 @@ export const MEDITATION_UNIT = weaponPotential(
   ],
 );
 
-export const BERSERK_UNIT = weaponPotential("Berserk Unit", [
+export const BERSERK_UNIT = potential("Berserk Unit", [
   { ...makePotency(1.21), [StatEnum.ADV_DEF_DAMAGE_RES]: 0.9 },
   { ...makePotency(1.23), [StatEnum.ADV_DEF_DAMAGE_RES]: 0.9 },
   { ...makePotency(1.26), [StatEnum.ADV_DEF_DAMAGE_RES]: 0.9 },
@@ -216,7 +216,7 @@ export const BERSERK_UNIT = weaponPotential("Berserk Unit", [
   { ...makePotency(1.31), [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95 },
 ]);
 
-export const SOULSPRING_UNIT = weaponPotential(
+export const SOULSPRING_UNIT = potential(
   "Soulspring Unit",
   [
     { ...makePotency(1.2), [StatEnum.ADV_OFF_PB_RECOVERY]: 1.2 },
@@ -234,7 +234,7 @@ export const SOULSPRING_UNIT = weaponPotential(
   ],
 );
 
-export const FORTRESS_UNIT = weaponPotential(
+export const FORTRESS_UNIT = potential(
   "Fortress Unit",
   [
     { ...makePotency(1.17), [StatEnum.ADV_DEF_DAMAGE_RES]: 1.5 },
@@ -252,18 +252,15 @@ export const FORTRESS_UNIT = weaponPotential(
   ],
 );
 
-export const REINVIGORATING_UNIT = weaponPotential(
-  "Reinvigorating Unit",
-  [
-    makePotency(1.17),
-    makePotency(1.19),
-    makePotency(1.22),
-    makePotency(1.23),
-    makePotency(1.24),
-  ],
-);
+export const REINVIGORATING_UNIT = potential("Reinvigorating Unit", [
+  makePotency(1.17),
+  makePotency(1.19),
+  makePotency(1.22),
+  makePotency(1.23),
+  makePotency(1.24),
+]);
 
-export const FOCUSED_UNIT = weaponPotential(
+export const FOCUSED_UNIT = potential(
   "Focused Unit",
   [
     { ...makePotency(1.15), [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.22 },
@@ -281,7 +278,7 @@ export const FOCUSED_UNIT = weaponPotential(
   ],
 );
 
-export const FIGHTING_SPIRIT_UNIT = weaponPotential(
+export const FIGHTING_SPIRIT_UNIT = potential(
   "Fighting Spirit Unit",
   [
     makePotency(1.18),
@@ -299,7 +296,7 @@ export const FIGHTING_SPIRIT_UNIT = weaponPotential(
   ],
 );
 
-export const VIGOROUS_UNIT = weaponPotential("Vigorous Unit", [
+export const VIGOROUS_UNIT = potential("Vigorous Unit", [
   {
     ...makePotency(1.21),
     [StatEnum.ADV_DEF_DAMAGE_RES]: 1.1,
@@ -327,7 +324,7 @@ export const VIGOROUS_UNIT = weaponPotential("Vigorous Unit", [
   },
 ]);
 
-export const EXPLOSIVE_UNIT = weaponPotential("Explosive Unit", [
+export const EXPLOSIVE_UNIT = potential("Explosive Unit", [
   makePotency(1.15),
   makePotency(1.17),
   makePotency(1.2),
@@ -335,7 +332,7 @@ export const EXPLOSIVE_UNIT = weaponPotential("Explosive Unit", [
   makePotency(1.22),
 ]);
 
-export const HARMONIOUS_UNIT = weaponPotential(
+export const HARMONIOUS_UNIT = potential(
   "Harmonious Unit",
   [
     { ...makePotency(1.12), [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.25 },
@@ -353,7 +350,7 @@ export const HARMONIOUS_UNIT = weaponPotential(
   ],
 );
 
-export const IMBUED_UNIT = weaponPotential(
+export const IMBUED_UNIT = potential(
   "Imbued Unit",
   [
     {
@@ -396,7 +393,7 @@ export const IMBUED_UNIT = weaponPotential(
   ],
 );
 
-export const VIRTUOSO_UNIT = weaponPotential(
+export const VIRTUOSO_UNIT = potential(
   "Virtuoso Unit",
   [
     {
@@ -434,7 +431,7 @@ export const VIRTUOSO_UNIT = weaponPotential(
   ],
 );
 
-export const UNASSAILABLE_UNIT = weaponPotential(
+export const UNASSAILABLE_UNIT = potential(
   "Unassailable Unit",
   [
     makePotency(1.15),
@@ -467,7 +464,7 @@ export const UNASSAILABLE_UNIT = weaponPotential(
   ],
 );
 
-export const ELUSIVE_UNIT = weaponPotential(
+export const ELUSIVE_UNIT = potential(
   "Elusive Unit",
   [
     {
@@ -500,7 +497,7 @@ export const ELUSIVE_UNIT = weaponPotential(
   ],
 );
 
-export const TRAMPLE_UNIT = weaponPotential(
+export const TRAMPLE_UNIT = potential(
   "Trample Unit",
   [
     makePotency(1.21),
@@ -518,7 +515,7 @@ export const TRAMPLE_UNIT = weaponPotential(
   ],
 );
 
-export const STACCATO_UNIT = weaponPotential(
+export const STACCATO_UNIT = potential(
   "Staccato Unit",
   [
     {
@@ -551,7 +548,7 @@ export const STACCATO_UNIT = weaponPotential(
   ],
 );
 
-export const DESPERATION_UNIT = weaponPotential(
+export const DESPERATION_UNIT = potential(
   "Desperation Unit",
   [
     {
@@ -584,7 +581,7 @@ export const DESPERATION_UNIT = weaponPotential(
   ],
 );
 
-export const REVOLUTIONARY_UNIT = weaponPotential(
+export const REVOLUTIONARY_UNIT = potential(
   "Revolutionary Unit",
   [
     {
@@ -622,7 +619,7 @@ export const REVOLUTIONARY_UNIT = weaponPotential(
   ],
 );
 
-export const ILLUSORY_UNIT = weaponPotential(
+export const ILLUSORY_UNIT = potential(
   "Illurosy Unit",
   [
     {
@@ -655,7 +652,7 @@ export const ILLUSORY_UNIT = weaponPotential(
   ],
 );
 
-export const IMPERVIOUS_UNIT = weaponPotential(
+export const IMPERVIOUS_UNIT = potential(
   "Impervious Unit",
   [
     {
@@ -688,14 +685,14 @@ export const IMPERVIOUS_UNIT = weaponPotential(
   ],
 );
 
-export const PURSUIT_UNIT = weaponPotential("Pursuit Unit", [
+export const PURSUIT_UNIT = potential("Pursuit Unit", [
   makePotency(1.12),
   makePotency(1.14),
   makePotency(1.17),
   makePotency(1.19),
 ]);
 
-export const CITADEL_UNIT = weaponPotential(
+export const CITADEL_UNIT = potential(
   "Citadel Unit",
   [
     { ...makePotency(1.18), [StatEnum.ADV_DEF_DAMAGE_RES]: 1.4 },
@@ -711,7 +708,7 @@ export const CITADEL_UNIT = weaponPotential(
   ],
 );
 
-export const GYRATING_UNIT = weaponPotential(
+export const GYRATING_UNIT = potential(
   "Gyrating Unit",
   [
     { ...makePotency(1.18), [StatEnum.ADV_PP_USAGE]: 0.7 },
@@ -727,7 +724,7 @@ export const GYRATING_UNIT = weaponPotential(
   ],
 );
 
-export const TEMPERED_FORM = weaponPotential(
+export const TEMPERED_FORM = potential(
   "Tempered Form",
   [
     {
@@ -779,7 +776,7 @@ export const TEMPERED_FORM = weaponPotential(
   ],
 );
 
-export const CORUSCATING_UNIT = weaponPotential(
+export const CORUSCATING_UNIT = potential(
   "Coruscating Unit",
   [
     {
@@ -815,7 +812,7 @@ export const CORUSCATING_UNIT = weaponPotential(
   ],
 );
 
-export const ABSORPTION_UNIT = weaponPotential("Absorption Unit", [
+export const ABSORPTION_UNIT = potential("Absorption Unit", [
   makePotency(1.19),
   makePotency(1.21),
   makePotency(1.24),

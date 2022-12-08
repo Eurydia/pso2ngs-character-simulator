@@ -7,7 +7,7 @@ import { matchSorter } from "match-sorter";
 
 import FieldOption from "./SelectPotentialOption";
 
-import { StatEnum, WeaponPotential } from "../../assets";
+import { StatEnum, Potential } from "../../assets";
 
 // const sortOptions = (
 //   options: WeaponPotential[],

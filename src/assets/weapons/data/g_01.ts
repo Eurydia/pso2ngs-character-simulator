@@ -1,8 +1,5 @@
 import { StatEnum } from "../../stat";
-import {
-  WeaponPotential,
-  AssetPotentials,
-} from "../../weaponPotentials";
+import { Potential, AssetPotentials } from "../../potentials";
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -19,7 +16,7 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeWeaponROne = (
   name: string,
-  potential: WeaponPotential,
+  potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
   inactive: boolean = false,
 ): Weapon => {

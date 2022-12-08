@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { TextField } from "@mui/material";
-import { WeaponPotential } from "../../assets";
+import { Potential } from "../../assets";
 
 type SelectPotentialProps = {
-  options: WeaponPotential;
+  potential: Potential;
   value: string | null;
   onChange: (value: string | null) => void;
 };

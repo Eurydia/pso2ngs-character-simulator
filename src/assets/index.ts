@@ -9,4 +9,4 @@ export * from "./weapons";
 export { default as AssetFixas } from "./fixas";
 export * from "./fixas";
 
-export * from "./weaponPotentials";
+export * from "./potentials";
