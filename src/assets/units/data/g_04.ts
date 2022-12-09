@@ -1,98 +1,109 @@
-import { StatTypes, makeStat, StatShorthands } from "../../stats";
-import { makeUnitData } from "../makeData";
-import { UnitData } from "../types";
+import { StatEnum } from "../../stat";
+import GroupEnum from "../groupEnum";
+import unit, { Unit } from "../unit";
+
+const data: Unit[] = [];
+
+const GROWTH_RATE: [number, number][] = [
+  [10, 10],
+  [20, 20],
+  [30, 30],
+  [40, 41],
+  [50, 51],
+  [60, 71],
+];
+
+const makeUnitFour = (
+  name: string,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Unit => {
+  return unit(name, GroupEnum.R_FOUR, GROWTH_RATE, stats);
+};
 
 // -------------------------
-const RARITY = 4;
-let units: UnitData[] = [];
-// -------------------------
-
-// -------------------------
-// quad de
-units.push(
-  makeUnitData("qual de armor", RARITY, 10, 8, [
-    makeStat(StatTypes.PP, 6),
-  ]),
-);
-// arga
-units.push(
-  makeUnitData("qual de armor arga", RARITY, 12, 13, [
-    makeStat(StatTypes.PP, 4),
-    makeStat(StatTypes.MEL_POT, 1.01),
-    makeStat(StatTypes.RNG_POT, 1.01),
-  ]),
-);
-// belta
-units.push(
-  makeUnitData("qual de armor belta", RARITY, 12, 13, [
-    makeStat(StatTypes.PP, 4),
-    makeStat(StatTypes.RNG_POT, 1.01),
-    makeStat(StatTypes.TEC_POT, 1.01),
-  ]),
-);
-// sheza
-units.push(
-  makeUnitData("qual de armor sheza", RARITY, 12, 13, [
-    makeStat(StatTypes.PP, 4),
-    makeStat(StatTypes.MEL_POT, 1.01),
-    makeStat(StatTypes.TEC_POT, 1.01),
-  ]),
+data.push(
+  makeUnitFour("Qual De Armor", {
+    [StatEnum.CORE_DEFENSE]: 8,
+    [StatEnum.CORE_PP]: 6,
+  }),
 );
 
-// -------------------------
-// cattleya
-units.push(
-  makeUnitData("cattleya armor", RARITY, 10, 12, [
-    makeStat(StatTypes.HP, 20),
-    makeStat(StatTypes.PP, 2),
-  ]),
+(() => {
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
+    ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+  ];
+  for (const data_stat of data_stats) {
+    const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
+
+    data.push(
+      makeUnitFour(`Qual De Armor ${suffix}`, {
+        [StatEnum.CORE_DEFENSE]: 13,
+        [StatEnum.CORE_PP]: 4,
+        [weapon_up_a]: 1.01,
+        [weapon_up_b]: 1.01,
+      }),
+    );
+  }
+})();
+
+data.push(
+  makeUnitFour("Cattleya Armor", {
+    [StatEnum.CORE_DEFENSE]: 12,
+    [StatEnum.CORE_HP]: 20,
+    [StatEnum.CORE_PP]: 2,
+  }),
 );
 
-// -------------------------
-// vialto
-units.push(
-  makeUnitData("vialto armor", RARITY, 10, 14, [
-    makeStat(StatTypes.HP, 30),
-    makeStat(StatTypes.DMG_RESIST, 1.01),
-  ]),
-);
-// arga
-units.push(
-  makeUnitData("vialto armor arga", RARITY, 12, 16, [
-    makeStat(StatTypes.HP, 25),
-    makeStat(StatTypes.MEL_POT, 1.005),
-    makeStat(StatTypes.RNG_POT, 1.005),
-    makeStat(StatTypes.DMG_RESIST, 1.01),
-  ]),
-);
-// belta
-units.push(
-  makeUnitData("vialto armor belta", RARITY, 12, 16, [
-    makeStat(StatTypes.HP, 25),
-    makeStat(StatTypes.RNG_POT, 1.005),
-    makeStat(StatTypes.TEC_POT, 1.005),
-    makeStat(StatTypes.DMG_RESIST, 1.01),
-  ]),
-);
-// sheza
-units.push(
-  makeUnitData("vialto armor sheza", RARITY, 12, 16, [
-    makeStat(StatTypes.HP, 25),
-    makeStat(StatTypes.MEL_POT, 1.005),
-    makeStat(StatTypes.TEC_POT, 1.005),
-    makeStat(StatTypes.DMG_RESIST, 1.01),
-  ]),
+data.push(
+  makeUnitFour("Vialto Armor", {
+    [StatEnum.CORE_DEFENSE]: 14,
+    [StatEnum.CORE_HP]: 30,
+    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+  }),
 );
 
-// -------------------------
-// geant
-units.push(
-  makeUnitData("geant armor", RARITY, 15, 15, [
-    makeStat(StatTypes.HP, -20),
-    makeStat(StatTypes.PP, 10),
-    makeStat(StatShorthands.POT, 1.02),
-    makeStat(StatShorthands.AILMENT_RES, 0.5),
-  ]),
+(() => {
+  const data_stats: [string, [StatEnum, StatEnum]][] = [
+    ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
+    ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
+    ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
+  ];
+
+  // arga
+  for (const data_stat of data_stats) {
+    const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
+
+    data.push(
+      makeUnitFour(`Vialto Armor ${suffix}`, {
+        [StatEnum.CORE_DEFENSE]: 16,
+        [StatEnum.CORE_HP]: 25,
+        [weapon_up_a]: 1.005,
+        [weapon_up_b]: 1.005,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+      }),
+    );
+  }
+})();
+
+data.push(
+  makeUnitFour("Geant Armor", {
+    [StatEnum.CORE_DEFENSE]: 15,
+    [StatEnum.CORE_HP]: -20,
+    [StatEnum.CORE_PP]: 10,
+    [StatEnum.WEAPON_MELEE]: 1.02,
+    [StatEnum.WEAPON_RANGED]: 1.02,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+    [StatEnum.AIL_BLIND]: 1.02,
+    [StatEnum.AIL_BURN]: 1.02,
+    [StatEnum.AIL_FREEZE]: 1.02,
+    [StatEnum.AIL_PANIC]: 1.02,
+    [StatEnum.AIL_PANIC]: 1.02,
+    [StatEnum.AIL_PHYDOWN]: 1.02,
+    [StatEnum.AIL_POISON]: 1.02,
+    [StatEnum.AIL_SHOCK]: 1.02,
+  }),
 );
 
-export default units;
+export default data;
