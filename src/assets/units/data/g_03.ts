@@ -1,27 +1,38 @@
-import { StatTypes, makeStat } from "../../stats";
-import { makeUnitData } from "../makeData";
-import { UnitData } from "../types";
+import { StatEnum } from "../../stat";
+import GroupEnum from "../groupEnum";
+import unit, { Unit } from "../unit";
+
+const data: Unit[] = [];
+
+const GROWTH_RATE: [number, number][] = [
+  [10, 10],
+  [20, 20],
+  [30, 30],
+  [40, 40],
+  [50, 50],
+  [60, 72],
+];
+
+const makeUnitThree = (
+  name: string,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Unit => {
+  return unit(name, GroupEnum.R_THREE, GROWTH_RATE, stats);
+};
 
 // -------------------------
-const RARITY = 3;
-let units: UnitData[] = [];
-// -------------------------
-
-// -------------------------
-// theseus
-units.push(
-  makeUnitData("theseus armor", RARITY, 5, 10, [
-    makeStat(StatTypes.HP, 10),
-    makeStat(StatTypes.PP, 1),
-  ]),
+data.push(
+  makeUnitThree("Theseus Armor", {
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.CORE_PP]: 1,
+  }),
 );
 
-// -------------------------
-// gold primm
-units.push(
-  makeUnitData("gold primm armor", RARITY, 5, 10, [
-    makeStat(StatTypes.HP, 10),
-    makeStat(StatTypes.PP, 1),
-  ]),
+data.push(
+  makeUnitThree("Gold Primm Armor", {
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.CORE_PP]: 1,
+  }),
 );
-export default units;
+
+export default data;

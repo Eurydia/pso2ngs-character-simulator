@@ -1,33 +1,45 @@
-import { StatTypes, makeStat } from "../../stats";
-import { makeUnitData } from "../makeData";
-import { UnitData } from "../types";
+import { StatEnum } from "../../stat";
+import GroupEnum from "../groupEnum";
+import unit, { Unit } from "../unit";
+
+const data: Unit[] = [];
+
+const GROWTH_RATE: [number, number][] = [
+  [10, 10],
+  [20, 20],
+  [30, 30],
+  [40, 40],
+  [50, 50],
+  [60, 72],
+];
+
+const makeUnitTwo = (
+  name: string,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Unit => {
+  return unit(name, GroupEnum.R_TWO, GROWTH_RATE, stats);
+};
 
 // -------------------------
-const RARITY = 2;
-let units: UnitData[] = [];
-// -------------------------
-
-// -------------------------
-// tzvia
-units.push(
-  makeUnitData("tzvia armor", RARITY, 1, 9, [
-    makeStat(StatTypes.PP, 2),
-  ]),
+data.push(
+  makeUnitTwo("Tzvia Armor", {
+    [StatEnum.CORE_DEFENSE]: 9,
+    [StatEnum.CORE_PP]: 2,
+  }),
 );
 
-// -------------------------
-// silver primm
-units.push(
-  makeUnitData("silver primm armor", RARITY, 1, 9, [
-    makeStat(StatTypes.PP, 2),
-  ]),
+data.push(
+  makeUnitTwo("Silver Primm Armor", {
+    [StatEnum.CORE_DEFENSE]: 9,
+    [StatEnum.CORE_PP]: 2,
+  }),
 );
 
-// -------------------------
-// n-exp
-units.push(
-  makeUnitData("n-exp armor", RARITY, 1, 9, [
-    makeStat(StatTypes.PP, 2),
-  ]),
+data.push(
+  makeUnitTwo("N-EXP Armor", {
+    [StatEnum.CORE_DEFENSE]: 9,
+    [StatEnum.CORE_PP]: 2,
+  }),
 );
-export default units;
+
+export default data;

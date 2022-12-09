@@ -10,6 +10,7 @@ const GROWTH_RATE: [number, number][] = [
   [30, 30],
   [40, 40],
   [50, 50],
+  [60, 72],
 ];
 
 const makeUnitOne = (
@@ -20,11 +21,10 @@ const makeUnitOne = (
 };
 
 // -------------------------
-// primm
 data.push(
   makeUnitOne("Primm Armor", {
-    [StatEnum.CORE_HP]: 10,
     [StatEnum.CORE_DEFENSE]: 8,
+    [StatEnum.CORE_HP]: 10,
   }),
 );
 export default data;
