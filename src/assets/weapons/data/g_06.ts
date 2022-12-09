@@ -18,19 +18,8 @@ const makeWeaponRSix = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
-  inactive: boolean = false,
 ): Weapon => {
-  let _name = name;
-  if (inactive) {
-    _name = `${name} (Inactive)`;
-  }
-  return weapon(
-    _name,
-    GroupEnum.R_SIX,
-    potential,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_SIX, potential, GROWTH_RATE, stats);
 };
 
 // -----------------------
