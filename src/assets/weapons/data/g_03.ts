@@ -18,15 +18,9 @@ const makeWeaponRThree = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
-  inactive: boolean = false,
 ): Weapon => {
-  let _name = name;
-  if (inactive) {
-    _name = `${name} (Inactive)`;
-  }
-
   return weapon(
-    _name,
+    name,
     GroupEnum.R_THREE,
     potential,
     GROWTH_RATE,
@@ -81,14 +75,13 @@ data.push(
 
 data.push(
   makeWeaponRThree(
-    "Glissen Series",
+    "Glissen Series (against enemies not weak to lightning)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
-    true,
   ),
 );
 
@@ -103,14 +96,13 @@ data.push(
 
 data.push(
   makeWeaponRThree(
-    "Frostel Series",
+    "Frostel Series (against enemies not weak to ice)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
-    true,
   ),
 );
 
