@@ -14,7 +14,7 @@ const GROWTH_RATE: [number, number][] = [
   [60, 267],
 ];
 
-const makeWeaponRFour = (
+const makeWeaponFour = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -30,7 +30,7 @@ const makeWeaponRFour = (
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Resurgia Series", AssetPotentials.DYNAMO_UNIT, {
+  makeWeaponFour("Resurgia Series", AssetPotentials.DYNAMO_UNIT, {
     [StatEnum.CORE_ATTACK]: 240,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -38,7 +38,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour(
+  makeWeaponFour(
     "Cattleya Series",
     AssetPotentials.MUSTERED_MIGHT_UNIT,
     {
@@ -50,7 +50,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Foursis Series", AssetPotentials.BASTION_UNIT, {
+  makeWeaponFour("Foursis Series", AssetPotentials.BASTION_UNIT, {
     [StatEnum.CORE_ATTACK]: 242,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -58,7 +58,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Vialto Series", AssetPotentials.MEDITATION_UNIT, {
+  makeWeaponFour("Vialto Series", AssetPotentials.MEDITATION_UNIT, {
     [StatEnum.CORE_ATTACK]: 242,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -66,7 +66,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Straga Series", AssetPotentials.BERSERK_UNIT, {
+  makeWeaponFour("Straga Series", AssetPotentials.BERSERK_UNIT, {
     [StatEnum.CORE_ATTACK]: 243,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -74,19 +74,15 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour(
-    "Evolcoat Series",
-    AssetPotentials.SOULSPRING_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 242,
-      [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    },
-  ),
+  makeWeaponFour("Evolcoat Series", AssetPotentials.SOULSPRING_UNIT, {
+    [StatEnum.CORE_ATTACK]: 242,
+    [StatEnum.ADV_OFF_FLOOR]: 1.75,
+  }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFour(
+  makeWeaponFour(
     "Flamel Series (against enemies weak to fire)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -98,7 +94,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 240,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,

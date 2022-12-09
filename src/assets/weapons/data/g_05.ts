@@ -14,7 +14,7 @@ const GROWTH_RATE: [number, number][] = [
   [60, 238],
 ];
 
-const makeWeaponRFive = (
+const makeWeaponFive = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -30,7 +30,7 @@ const makeWeaponRFive = (
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Quintel Series", AssetPotentials.FORTRESS_UNIT, {
+  makeWeaponFive("Quintel Series", AssetPotentials.FORTRESS_UNIT, {
     [StatEnum.CORE_ATTACK]: 277,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -38,7 +38,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Gothica Series",
     AssetPotentials.REINVIGORATING_UNIT,
     {
@@ -50,7 +50,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Fivla Series", AssetPotentials.FOCUSED_UNIT, {
+  makeWeaponFive("Fivla Series", AssetPotentials.FOCUSED_UNIT, {
     [StatEnum.CORE_ATTACK]: 277,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -58,7 +58,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Greaga Series",
     AssetPotentials.FIGHTING_SPIRIT_UNIT,
     {
@@ -70,7 +70,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Kukuhroziat Series",
     AssetPotentials.UNASSAILABLE_UNIT,
     {
@@ -82,7 +82,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Relik Vigorous Series",
     AssetPotentials.VIGOROUS_UNIT,
     {
@@ -94,7 +94,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Relik Explosive Series",
     AssetPotentials.EXPLOSIVE_UNIT,
     {
@@ -106,7 +106,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Relik Harmonious Series",
     AssetPotentials.HARMONIOUS_UNIT,
     {
@@ -118,19 +118,15 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
-    "Relik Imbued Series",
-    AssetPotentials.IMBUED_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 284,
-      [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    },
-  ),
+  makeWeaponFive("Relik Imbued Series", AssetPotentials.IMBUED_UNIT, {
+    [StatEnum.CORE_ATTACK]: 284,
+    [StatEnum.ADV_OFF_FLOOR]: 1.75,
+  }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Cinquem Series", AssetPotentials.VIRTUOSO_UNIT, {
+  makeWeaponFive("Cinquem Series", AssetPotentials.VIRTUOSO_UNIT, {
     [StatEnum.CORE_ATTACK]: 293,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -138,7 +134,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Tempesta Series (against enemies weak to wind)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -150,7 +146,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
@@ -159,7 +155,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Lumiere Series (against enemies weak to light)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -171,7 +167,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRFive("Lumiere Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponFive("Lumiere Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
@@ -180,7 +176,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive(
+  makeWeaponFive(
     "Obscura Series (against enemies weak to dark)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -192,7 +188,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,

@@ -13,7 +13,7 @@ const GROWTH_RATE: [number, number][] = [
   [50, 186],
 ];
 
-const makeWeaponRSeven = (
+const makeWeaponSeven = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -29,7 +29,7 @@ const makeWeaponRSeven = (
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
+  makeWeaponSeven(
     "Kaizaar Mk. I Series",
     AssetPotentials.TEMPERED_FORM,
     {
@@ -41,19 +41,15 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
-    "Crystia Series",
-    AssetPotentials.ABSORPTION_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 473,
-      [StatEnum.ADV_OFF_FLOOR]: 1.5,
-    },
-  ),
+  makeWeaponSeven("Crystia Series", AssetPotentials.ABSORPTION_UNIT, {
+    [StatEnum.CORE_ATTACK]: 473,
+    [StatEnum.ADV_OFF_FLOOR]: 1.5,
+  }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
+  makeWeaponSeven(
     "Rugged Pursuit Series",
     AssetPotentials.PURSUIT_UNIT,
     {
@@ -65,7 +61,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
+  makeWeaponSeven(
     "Rugged Citadel Series",
     AssetPotentials.CITADEL_UNIT,
     {
@@ -77,7 +73,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
+  makeWeaponSeven(
     "Rugged Gyrating Series",
     AssetPotentials.GYRATING_UNIT,
     {
@@ -89,7 +85,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven("Kaizaar Series", AssetPotentials.TEMPERED_FORM, {
+  makeWeaponSeven("Kaizaar Series", AssetPotentials.TEMPERED_FORM, {
     [StatEnum.CORE_ATTACK]: 485,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
   }),
@@ -97,7 +93,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSeven(
+  makeWeaponSeven(
     "Obsidia Series",
     AssetPotentials.CORUSCATING_UNIT,
     {

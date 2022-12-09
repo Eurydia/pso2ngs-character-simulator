@@ -14,7 +14,7 @@ const GROWTH_RATE: [number, number][] = [
   [60, 183],
 ];
 
-const makeWeaponRSix = (
+const makeWeaponSix = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -24,7 +24,7 @@ const makeWeaponRSix = (
 
 // -----------------------
 data.push(
-  makeWeaponRSix("Evoleclipse Series", AssetPotentials.ELUSIVE_UNIT, {
+  makeWeaponSix("Evoleclipse Series", AssetPotentials.ELUSIVE_UNIT, {
     [StatEnum.CORE_ATTACK]: 346,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -32,7 +32,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix("Sechetyl Series", AssetPotentials.TRAMPLE_UNIT, {
+  makeWeaponSix("Sechetyl Series", AssetPotentials.TRAMPLE_UNIT, {
     [StatEnum.CORE_ATTACK]: 350,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -40,7 +40,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix(
+  makeWeaponSix(
     "Rokz Roughewn Series",
     AssetPotentials.REVOLUTIONARY_UNIT,
     {
@@ -52,7 +52,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix(
+  makeWeaponSix(
     "Rokz Sixiemes Series",
     AssetPotentials.DESPERATION_UNIT,
     {
@@ -64,7 +64,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix("Rokz Curva Series", AssetPotentials.STACCATO_UNIT, {
+  makeWeaponSix("Rokz Curva Series", AssetPotentials.STACCATO_UNIT, {
     [StatEnum.CORE_ATTACK]: 353,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -72,7 +72,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix("Evolorbit Series", AssetPotentials.ILLUSORY_UNIT, {
+  makeWeaponSix("Evolorbit Series", AssetPotentials.ILLUSORY_UNIT, {
     [StatEnum.CORE_ATTACK]: 355,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
@@ -80,7 +80,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRSix("Codeck Series", AssetPotentials.IMPERVIOUS_UNIT, {
+  makeWeaponSix("Codeck Series", AssetPotentials.IMPERVIOUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 351,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),

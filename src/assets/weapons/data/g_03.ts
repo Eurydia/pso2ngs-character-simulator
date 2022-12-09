@@ -14,7 +14,7 @@ const GROWTH_RATE: [number, number][] = [
   [60, 301],
 ];
 
-const makeWeaponRThree = (
+const makeWeaponThree = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
@@ -30,7 +30,7 @@ const makeWeaponRThree = (
 
 // -----------------------
 data.push(
-  makeWeaponRThree(
+  makeWeaponThree(
     "Theseus Series",
     AssetPotentials.DEFENSIVE_FORMATION,
     {
@@ -42,7 +42,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRThree(
+  makeWeaponThree(
     "Trois De Series",
     AssetPotentials.OFFENSIVE_FORMATION,
     {
@@ -54,19 +54,15 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRThree(
-    "Gold Primm Sword",
-    AssetPotentials.RECYCLER_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 223,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    },
-  ),
+  makeWeaponThree("Gold Primm Sword", AssetPotentials.RECYCLER_UNIT, {
+    [StatEnum.CORE_ATTACK]: 223,
+    [StatEnum.ADV_OFF_FLOOR]: 1.7,
+  }),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRThree(
+  makeWeaponThree(
     "Glissen Series (against enemies weak to lightning)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -78,7 +74,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
@@ -87,7 +83,7 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRThree(
+  makeWeaponThree(
     "Frostel Series (against enemies weak to ice)",
     AssetPotentials.VALOROUS_UNIT,
     {
@@ -99,7 +95,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
+  makeWeaponThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE]: 1.1,
@@ -107,7 +103,7 @@ data.push(
 );
 
 data.push(
-  makeWeaponRThree("Renaissa Series", AssetPotentials.DYNAMO_UNIT, {
+  makeWeaponThree("Renaissa Series", AssetPotentials.DYNAMO_UNIT, {
     [StatEnum.CORE_ATTACK]: 224,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
