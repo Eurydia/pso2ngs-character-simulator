@@ -1,17 +1,30 @@
-import { StatTypes, makeStat } from "../../stats";
-import { makeUnitData } from "../makeData";
-import { UnitData } from "../types";
+import { StatEnum } from "../../stat";
+import GroupEnum from "../groupEnum";
+import unit, { Unit } from "../unit";
 
-// -------------------------
-const RARITY = 1;
-let units: UnitData[] = [];
-// -------------------------
+const data: Unit[] = [];
+
+const GROWTH_RATE: [number, number][] = [
+  [10, 10],
+  [20, 20],
+  [30, 30],
+  [40, 40],
+  [50, 50],
+];
+
+const makeUnitOne = (
+  name: string,
+  stats: Partial<{ [K in StatEnum]: number }>,
+): Unit => {
+  return unit(name, GroupEnum.R_ONE, GROWTH_RATE, stats);
+};
 
 // -------------------------
 // primm
-units.push(
-  makeUnitData("primm armor", RARITY, 1, 8, [
-    makeStat(StatTypes.HP, 10),
-  ]),
+data.push(
+  makeUnitOne("Primm Armor", {
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.CORE_DEFENSE]: 8,
+  }),
 );
-export default units;
+export default data;

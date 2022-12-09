@@ -14,28 +14,17 @@ const GROWTH_RATE: [number, number][] = [
   [60, 347],
 ];
 
-const makeWeaponROne = (
+const makeWeaponOne = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
-  inactive: boolean = false,
 ): Weapon => {
-  let _name = name;
-  if (inactive) {
-    _name = `${name} (Inactive)`;
-  }
-  return weapon(
-    _name,
-    GroupEnum.R_ONE,
-    potential,
-    GROWTH_RATE,
-    stats,
-  );
+  return weapon(name, GroupEnum.R_ONE, potential, GROWTH_RATE, stats);
 };
 
 // -----------------------
 data.push(
-  makeWeaponROne("Primm Series", AssetPotentials.RECYCLER_UNIT, {
+  makeWeaponOne("Primm Series", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 177,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
