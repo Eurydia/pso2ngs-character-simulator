@@ -86,23 +86,23 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 240,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
-  }),
-);
-
-data.push(
   makeWeaponRFour(
-    "Flamel Series (against enemies not weak to fire)",
+    "Flamel Series (against enemies weak to fire)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 240,
       [StatEnum.ADV_OFF_FLOOR]: 1.75,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
     },
   ),
+);
+
+data.push(
+  makeWeaponRFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 240,
+    [StatEnum.ADV_OFF_FLOOR]: 1.75,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+  }),
 );
 
 export default data;

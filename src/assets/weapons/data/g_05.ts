@@ -18,14 +18,9 @@ const makeWeaponRFive = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
-  inactive: boolean = false,
 ): Weapon => {
-  let _name = name;
-  if (inactive) {
-    _name = `${name} (Inactive)`;
-  }
   return weapon(
-    _name,
+    name,
     GroupEnum.R_FIVE,
     potential,
     GROWTH_RATE,
@@ -143,68 +138,65 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 263,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
-  }),
-);
-
-data.push(
   makeWeaponRFive(
-    "Tempesta Series",
+    "Tempesta Series (against enemies weak to wind)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
     },
-    true,
   ),
 );
 
+data.push(
+  makeWeaponRFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 263,
+    [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+  }),
+);
+
 // -----------------------
+data.push(
+  makeWeaponRFive(
+    "Lumiere Series (against enemies weak to light)",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 263,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    },
+  ),
+);
+
 data.push(
   makeWeaponRFive("Lumiere Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponRFive(
-    "Lumiere Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-    true,
-  ),
 );
 
 // -----------------------
 data.push(
-  makeWeaponRFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 263,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
-  }),
-);
-
-data.push(
   makeWeaponRFive(
-    "Obscura Series",
+    "Obscura Series (against enemies weak to dark)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
     },
-    true,
   ),
+);
+
+data.push(
+  makeWeaponRFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 263,
+    [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+  }),
 );
 
 export default data;
