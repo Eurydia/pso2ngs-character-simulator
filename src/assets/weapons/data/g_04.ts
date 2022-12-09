@@ -18,14 +18,9 @@ const makeWeaponRFour = (
   name: string,
   potential: Potential,
   stats: Partial<{ [K in StatEnum]: number }>,
-  inactive: boolean = false,
 ): Weapon => {
-  let _name = name;
-  if (inactive) {
-    _name = `${name} (Inactive)`;
-  }
   return weapon(
-    _name,
+    name,
     GroupEnum.R_FOUR,
     potential,
     GROWTH_RATE,
@@ -100,14 +95,13 @@ data.push(
 
 data.push(
   makeWeaponRFour(
-    "Flamel Series",
+    "Flamel Series (against enemies not weak to fire)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 240,
       [StatEnum.ADV_OFF_FLOOR]: 1.75,
       [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
-    true,
   ),
 );
 
