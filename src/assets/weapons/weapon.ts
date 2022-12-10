@@ -1,3 +1,4 @@
+import { calcBonusATK } from "./helper";
 import statObject, { StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
 import WeaponGroup from "./groupEnum";
@@ -38,11 +39,10 @@ export class Weapon {
     }
     return _base_attack;
   }
-  // get bp(): number {}
 
-  // getAttack(level: number): number {
-  //   return this.#attackGetter(this.base_attack, level);
-  // }
+  getAttack(level: number): number {
+    return calcBonusATK(level, this.base_attack, this.#growth_rate);
+  }
 }
 
 const weapon = (
