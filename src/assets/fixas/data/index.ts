@@ -1,7 +1,7 @@
 import { Fixa } from "../fixas";
-import unit from "./g_unit";
-import weapon from "./g_weapon";
+import g_unit from "./g_unit";
+import g_weapon from "./g_weapon";
 
-const DATA: Fixa[] = [...unit, ...weapon];
+const DATA: Fixa[] = [...g_unit, ...g_weapon];
 
 export default DATA;
