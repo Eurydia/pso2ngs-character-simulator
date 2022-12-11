@@ -1,5 +1,6 @@
 import statObject, { StatEnum, StatObject } from "../stat";
 import UnitGroup from "./groupEnum";
+import { calcBonusDEF } from "./helper";
 
 export class Unit {
   name: string;
@@ -23,6 +24,20 @@ export class Unit {
 
   get label(): string {
     return this.name;
+  }
+
+  get base_def(): number {
+    const _base_def: number | undefined =
+      this.stats.stats[StatEnum.CORE_DEFENSE];
+
+    if (_base_def === undefined) {
+      return 0;
+    }
+    return _base_def;
+  }
+
+  getBonusDef(level: number): number {
+    return calcBonusDEF(level, this.base_def, this.#growth_rate);
   }
 }
 
