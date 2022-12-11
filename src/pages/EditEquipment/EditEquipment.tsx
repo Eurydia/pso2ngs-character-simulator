@@ -1,25 +1,31 @@
-import { FC, Fragment, useState } from "react";
+import { FC } from "react";
 import {
   Box,
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Drawer,
   Grid,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import { FormWeapon } from "../../components";
+import { FormWeapon, FormUnit } from "../../components";
 
-interface EditEquipmentProps {}
+type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
   return (
-    <Paper sx={{ padding: 4, margin: 4 }}>
-      <Stack>
-        <FormWeapon title="Weapon" />
-      </Stack>
-    </Paper>
+    <Box>
+      <Paper sx={{ padding: 4, margin: 4 }}>
+        <Stack spacing={2}>
+          <FormWeapon title="Weapon" />
+          <FormUnit title="Unit #1" />
+          <FormUnit title="Unit #2" />
+          <FormUnit title="Unit #3" />
+        </Stack>
+      </Paper>
+    </Box>
   );
 };
 

@@ -13,7 +13,6 @@ const makeFixaUnit = (
 };
 
 // --------------------------------------
-// guard
 (() => {
   const data_value = [1.01, 1.02, 1.03, 1.035, 1.04];
 
@@ -30,8 +29,6 @@ const makeFixaUnit = (
   }
 })();
 
-// --------------------------------------
-// performa
 (() => {
   const data_value = [1.01, 1.02, 1.03, 1.035, 1.04];
 
@@ -48,8 +45,6 @@ const makeFixaUnit = (
   }
 })();
 
-// ---------------------
-// natura
 (() => {
   const data_value = [1.02, 1.03, 1.04, 1.045, 1.05];
 
@@ -66,8 +61,6 @@ const makeFixaUnit = (
   }
 })();
 
-// ---------------------
-// enthusia
 (() => {
   const data_value = [1.02, 1.03, 1.04, 1.045, 1.05];
 
@@ -77,7 +70,7 @@ const makeFixaUnit = (
     level_index++
   ) {
     data.push(
-      makeFixaUnit("Fixa Natura", level_index + 1, {
+      makeFixaUnit("Fixa Enthusia", level_index + 1, {
         [StatEnum.ADV_PP_ACTIVE_RECOVERY]: data_value[level_index],
       }),
     );
