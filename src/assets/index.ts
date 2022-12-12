@@ -1,3 +1,4 @@
+export { S } from "./stat";
 export * from "./stat";
 
 export { default as AssetAugments } from "./augments";

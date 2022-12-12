@@ -77,20 +77,4 @@ export const StatSpecial: Set<StatEnum> = new Set([
   StatEnum.ADV_OFF_CRIT_CHANCE,
 ]);
 
-export const StatWeaponUp: Set<StatEnum> = new Set([
-  StatEnum.WEAPON_MELEE,
-  StatEnum.WEAPON_RANGED,
-  StatEnum.WEAPON_TECHNIQUE,
-]);
-
-export const StatAilmentRes: Set<StatEnum> = new Set([
-  StatEnum.AIL_BURN,
-  StatEnum.AIL_FREEZE,
-  StatEnum.AIL_PANIC,
-  StatEnum.AIL_BLIND,
-  StatEnum.AIL_POISON,
-  StatEnum.AIL_SHOCK,
-  StatEnum.AIL_PHYDOWN,
-]);
-
 export default StatEnum;

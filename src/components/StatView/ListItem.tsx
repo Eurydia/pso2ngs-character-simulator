@@ -6,24 +6,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { parseAdd, parsePercent } from "./helper";
 
 type StatListItemProps = {
-  mode: "add" | "percent";
-  value: number;
+  value: string;
   label: ReactNode;
   icon?: ReactNode;
 };
 const StatListItem: FC<StatListItemProps> = (props) => {
-  const parsed_value =
-    props.mode === "add"
-      ? parseAdd(props.value)
-      : parsePercent(props.value);
-
   let _icon: ReactNode = undefined;
   if (props.icon !== undefined) {
     _icon = <ListItemIcon>{props.icon}</ListItemIcon>;
   }
+
   return (
     <ListItem>
       {_icon}
@@ -34,7 +28,7 @@ const StatListItem: FC<StatListItemProps> = (props) => {
           alignItems="center"
         >
           <Typography>{props.label}</Typography>
-          <Typography>{parsed_value}</Typography>
+          <Typography>{props.value}</Typography>
         </Stack>
       </ListItemText>
     </ListItem>

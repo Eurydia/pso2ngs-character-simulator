@@ -3,97 +3,73 @@ import {
   Box,
   Divider,
   Stack,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { StatEnum } from "../../assets/stat";
-import { getIcon, maybeToNumber } from "./helper";
-import StatList from "./StatList";
-import StatListItem from "./StatListItem";
 
-type CoreStatListProps = Partial<{
+import { StatObject } from "../../assets";
+
+import StatList from "./List";
+import StatListItem from "./ListItem";
+import { getIcon } from "./helper";
+
+type CoreStatListProps = {
   bp: number;
   hp: number;
   pp: number;
   attack: number;
   defense: number;
-}>;
+};
 const CoreStatList: FC<CoreStatListProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
 
-  const _bp = maybeToNumber(bp, 0);
-  const _hp = maybeToNumber(hp, 0);
-  const _pp = maybeToNumber(pp, 0);
-  const _attack = maybeToNumber(attack, 0);
-  const _defense = maybeToNumber(defense, 0);
-
   return (
     <StatList subheader="Core">
+      <StatListItem label="BP" value={bp} icon={getIcon(bp, 0)} />
+      <StatListItem label="HP" value={hp} icon={getIcon(hp, 0)} />
+      <StatListItem label="PP" value={pp} icon={getIcon(pp, 0)} />
       <StatListItem
-        mode="add"
-        label="BP"
-        value={_bp}
-        icon={getIcon(_bp, 0)}
-      />
-      <StatListItem
-        mode="add"
-        label="HP"
-        value={_hp}
-        icon={getIcon(_hp, 0)}
-      />
-      <StatListItem
-        mode="add"
-        label="PP"
-        value={_pp}
-        icon={getIcon(_pp, 0)}
-      />
-      <StatListItem
-        mode="add"
         label="Attack"
-        value={_attack}
-        icon={getIcon(_attack, 0)}
+        value={attack}
+        icon={getIcon(attack, 0)}
       />
       <StatListItem
-        mode="add"
         label="Defense"
-        value={_defense}
-        icon={getIcon(_defense, 0)}
+        value={defense}
+        icon={getIcon(defense, 0)}
       />
     </StatList>
   );
 };
 
-type PotencyStatListProps = Partial<{
+type PotencyStatListProps = {
   melee: number;
   ranged: number;
   technique: number;
-}>;
+};
 const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   const { melee, ranged, technique } = props;
-
-  const _melee = maybeToNumber(melee, 1);
-  const _ranged = maybeToNumber(ranged, 1);
-  const _technique = maybeToNumber(technique, 1);
 
   return (
     <StatList subheader="Weapon up">
       <StatListItem
         mode="percent"
         label="Melee potency"
-        value={_melee - 1}
-        icon={getIcon(_melee, 1)}
+        value={melee}
+        icon={getIcon(melee, 1)}
       />
       <StatListItem
         mode="percent"
         label="Ranged potency"
-        value={_ranged - 1}
-        icon={getIcon(_ranged, 1)}
+        value={ranged}
+        icon={getIcon(ranged, 1)}
       />
       <StatListItem
         mode="percent"
         label="Technique potency"
-        value={_technique - 1}
-        icon={getIcon(_technique, 1)}
+        value={technique}
+        icon={getIcon(technique, 1)}
       />
     </StatList>
   );
@@ -112,13 +88,13 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
   const { burn, freeze, panic, blind, shock, poison, physicalDown } =
     props;
 
-  const _burn = maybeToNumber(burn, 1);
-  const _freeze = maybeToNumber(freeze, 1);
-  const _panic = maybeToNumber(panic, 1);
-  const _blind = maybeToNumber(blind, 1);
-  const _shock = maybeToNumber(shock, 1);
-  const _poison = maybeToNumber(poison, 1);
-  const _physicalDown = maybeToNumber(physicalDown, 1);
+  const _burn = maybeUndefToNumber(burn, 1);
+  const _freeze = maybeUndefToNumber(freeze, 1);
+  const _panic = maybeUndefToNumber(panic, 1);
+  const _blind = maybeUndefToNumber(blind, 1);
+  const _shock = maybeUndefToNumber(shock, 1);
+  const _poison = maybeUndefToNumber(poison, 1);
+  const _physicalDown = maybeUndefToNumber(physicalDown, 1);
 
   return (
     <StatList subheader="Ailment resistance">
@@ -176,9 +152,9 @@ type PPAdvancedStatsProps = Partial<{
 const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
-  const _usage = maybeToNumber(usage, 1);
-  const _activeRecovery = maybeToNumber(activeRecovery, 1);
-  const _naturalRecovery = maybeToNumber(naturalRecovery, 1);
+  const _usage = maybeUndefToNumber(usage, 1);
+  const _activeRecovery = maybeUndefToNumber(activeRecovery, 1);
+  const _naturalRecovery = maybeUndefToNumber(naturalRecovery, 1);
 
   return (
     <StatList subheader="Advanced: PP">
@@ -222,11 +198,11 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
     pbGaugeRecovery,
   } = props;
 
-  const _damageUp = maybeToNumber(damageUp, 1);
-  const _floorPotency = maybeToNumber(floorPotency, 1);
-  const _critChance = maybeToNumber(critChance, 1);
-  const _critDamage = maybeToNumber(critDamage, 1);
-  const _pbGaugeRecovery = maybeToNumber(pbGaugeRecovery, 1);
+  const _damageUp = maybeUndefToNumber(damageUp, 1);
+  const _floorPotency = maybeUndefToNumber(floorPotency, 1);
+  const _critChance = maybeUndefToNumber(critChance, 1);
+  const _critDamage = maybeUndefToNumber(critDamage, 1);
+  const _pbGaugeRecovery = maybeUndefToNumber(pbGaugeRecovery, 1);
 
   return (
     <StatList subheader="Advanced: Offensive ">
@@ -239,13 +215,13 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
       <StatListItem
         mode="percent"
         label="Floor potency"
-        value={_floorPotency - 1}
+        value={_floorPotency}
         icon={getIcon(_floorPotency, 1)}
       />
       <StatListItem
         mode="percent"
         label="Critical chance"
-        value={_critChance - 1}
+        value={_critChance}
         icon={getIcon(_critChance, 1)}
       />
       <StatListItem
@@ -274,9 +250,9 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 ) => {
   const { damageResist, healingUp, ailmentDuration } = props;
 
-  const _damageResist = maybeToNumber(damageResist, 1);
-  const _healingUp = maybeToNumber(healingUp, 1);
-  const _ailmentDuration = maybeToNumber(ailmentDuration, 1);
+  const _damageResist = maybeUndefToNumber(damageResist, 1);
+  const _healingUp = maybeUndefToNumber(healingUp, 1);
+  const _ailmentDuration = maybeUndefToNumber(ailmentDuration, 1);
 
   return (
     <StatList subheader="Advanced: Defensive">
@@ -302,28 +278,33 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
   );
 };
 
-type StatOverviewProps = Partial<{
-  [K in StatEnum]: number;
-}>;
-const StatOverview: FC<StatOverviewProps> = (props) => {
+const CustomDivider = () => {
   const { breakpoints } = useTheme();
 
-  const _envCold = maybeToNumber(props.envCold, 0);
+  return (
+    <Divider
+      flexItem
+      orientation={
+        useMediaQuery(breakpoints.down("sm"))
+          ? "horizontal"
+          : "vertical"
+      }
+    />
+  );
+};
+
+type StatViewProps = {
+  stat: StatObject;
+};
+const StatView: FC<StatViewProps> = (props) => {
+  const _envCold = maybeUndefToNumber(props.envCold, 0);
 
   return (
     <Box>
-      <Stack
-        divider={
-          <Divider
-            flexItem
-            orientation={
-              useMediaQuery(breakpoints.down("sm"))
-                ? "horizontal"
-                : "vertical"
-            }
-          />
-        }
-      >
+      <Stack divider={<CustomDivider />}>
+        <Typography fontWeight="bold" fontSize="large">
+          Stat View
+        </Typography>
         <CoreStatList
           bp={props.coreBP}
           hp={props.coreHP}
@@ -349,7 +330,7 @@ const StatOverview: FC<StatOverviewProps> = (props) => {
           <StatListItem
             mode="percent"
             label="Harsh environment resistance"
-            value={_envCold}
+            value={_envCold + 1}
             icon={getIcon(_envCold, 0)}
           />
         </StatList>
@@ -375,4 +356,4 @@ const StatOverview: FC<StatOverviewProps> = (props) => {
   );
 };
 
-export default StatOverview;
+export default StatView;

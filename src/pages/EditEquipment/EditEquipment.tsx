@@ -11,7 +11,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { FormWeapon, FormUnit } from "../../components";
+import { FormWeapon, FormUnit, StatView } from "../../components";
+import { StatEnum } from "../../assets";
 
 type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -19,6 +20,12 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
     <Box>
       <Paper sx={{ padding: 4, margin: 4 }}>
         <Stack spacing={2}>
+          <StatView
+            {...{
+              [StatEnum.ADV_OFF_FLOOR]: 1.5,
+              [StatEnum.HARSH_COLD]: 0.7,
+            }}
+          />
           <FormWeapon title="Weapon" />
           <FormUnit title="Unit #1" />
           <FormUnit title="Unit #2" />

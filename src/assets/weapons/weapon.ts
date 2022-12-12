@@ -1,7 +1,8 @@
-import { calcBonusATK } from "./helper";
 import statObject, { StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
+
 import WeaponGroup from "./groupEnum";
+import { calcBonusATK } from "./helper";
 
 export class Weapon {
   name: string;
@@ -31,13 +32,7 @@ export class Weapon {
   }
 
   get base_attack(): number {
-    const _base_attack: number | undefined =
-      this.stats.stats[StatEnum.CORE_ATTACK];
-
-    if (_base_attack === undefined) {
-      return 0;
-    }
-    return _base_attack;
+    return this.stats.getStat(StatEnum.CORE_ATTACK);
   }
 
   getAttack(level: number): number {

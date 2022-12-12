@@ -4,35 +4,34 @@ import StatEnum, {
   StatEnumString,
 } from "./statEnum";
 
-const format = (
-  value: number,
-  baseline: number,
-  mode: "add" | "percent",
-): string => {
-  const sign = value > baseline ? "+" : "";
-
-  let parsed_value = value - baseline;
-  if (mode === "add") {
-    return `${sign}${parsed_value}`;
-  } else {
-    return `${sign}${(parsed_value * 100).toPrecision(3)}%`;
-  }
+const formatAdd = (value: number): string => {
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value}`;
 };
 
-const formatStat = (stat: StatEnum, value: number): string => {
-  let res: string = "";
+const formatPercent = (value: number): string => {
+  const sign = value > 1 ? "+" : "";
+  const _value = (value - 1) * 100;
+  const value_parsed = _value.toPrecision(3);
+  return `${sign}${value_parsed}%`;
+};
 
+const formatPercentSpecial = (value: number): string => {
+  const sign = value > 0 ? "+" : "";
+  const value_parsed = value.toPrecision(3);
+  return `${sign}${value_parsed}%`;
+};
+
+export const formatStat = (stat: StatEnum, value: number): string => {
   if (StatAdd.has(stat)) {
-    res = format(value, 0, "add");
-  } else {
-    res = format(value, 1, "percent");
+    return formatAdd(value);
   }
 
   if (StatSpecial.has(stat)) {
-    res = format(value, 0, "percent");
+    return formatPercentSpecial(value);
   }
 
-  return res;
+  return formatPercent(value);
 };
 
 export const formatStatObject = (
