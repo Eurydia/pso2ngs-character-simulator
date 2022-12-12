@@ -9,10 +9,12 @@ const UP_ICON = <KeyboardDoubleArrowUp htmlColor={blue["400"]} />;
 const DOWN_ICON = <KeyboardDoubleArrowDown htmlColor={pink["400"]} />;
 
 export const getIcon = (
-  value: number,
+  value: string,
   baseline: number,
   reversed: boolean = false,
 ) => {
+  const _value = parseFloat(value);
+
   let greater_icon = UP_ICON;
   let lesser_icon = DOWN_ICON;
 
@@ -21,13 +23,13 @@ export const getIcon = (
     lesser_icon = UP_ICON;
   }
 
-  let icon = <Remove />;
-
-  if (value > baseline) {
-    icon = greater_icon;
-  } else if (value < baseline) {
-    icon = lesser_icon;
+  if (_value > baseline) {
+    return greater_icon;
   }
 
-  return icon;
+  if (_value < baseline) {
+    return lesser_icon;
+  }
+
+  return <Remove />;
 };
