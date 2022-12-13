@@ -15,9 +15,10 @@ export class StatObject {
   getStat(stat: StatEnum): number {
     const value: number | undefined = this.stats[stat];
 
-    if (typeof value === "number") {
+    if (value !== undefined) {
       return value;
     }
+
     // fallback
     if (StatAdd.has(stat) || StatSpecial.has(stat)) {
       return 0;
