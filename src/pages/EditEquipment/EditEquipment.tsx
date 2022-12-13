@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { StatEnum } from "../../assets";
+import { stat, StatEnum } from "../../assets";
 
 type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -21,10 +21,10 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
       <Paper sx={{ padding: 4, margin: 4 }}>
         <Stack spacing={2}>
           <StatView
-            {...{
+            stat={stat({
               [StatEnum.ADV_OFF_FLOOR]: 1.5,
               [StatEnum.HARSH_COLD]: 0.7,
-            }}
+            })}
           />
           <FormWeapon title="Weapon" />
           <FormUnit title="Unit #1" />

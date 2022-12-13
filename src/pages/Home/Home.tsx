@@ -1,8 +1,5 @@
 import { FC } from "react";
 import { CardContent, Grid } from "@mui/material";
-import FormAugment from "../../components/FormAugment";
-import FieldAugment from "../../components/AutocompleteAugment";
-import FieldWeapon from "../../components/AutocompleteWeapon";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {

@@ -8,11 +8,7 @@ import { blue, pink } from "@mui/material/colors";
 const UP_ICON = <KeyboardDoubleArrowUp htmlColor={blue["400"]} />;
 const DOWN_ICON = <KeyboardDoubleArrowDown htmlColor={pink["400"]} />;
 
-export const getIcon = (
-  value: string,
-  baseline: number,
-  reversed: boolean = false,
-) => {
+export const getIcon = (value: string, reversed: boolean = false) => {
   const _value = parseFloat(value);
 
   let greater_icon = UP_ICON;
@@ -23,11 +19,11 @@ export const getIcon = (
     lesser_icon = UP_ICON;
   }
 
-  if (_value > baseline) {
+  if (_value > 0) {
     return greater_icon;
   }
 
-  if (_value < baseline) {
+  if (_value < 0) {
     return lesser_icon;
   }
 

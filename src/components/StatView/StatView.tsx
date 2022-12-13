@@ -26,18 +26,18 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
 
   return (
     <StatList subheader="Core">
-      <StatListItem label="BP" value={bp} icon={getIcon(bp, 0)} />
-      <StatListItem label="HP" value={hp} icon={getIcon(hp, 0)} />
-      <StatListItem label="PP" value={pp} icon={getIcon(pp, 0)} />
+      <StatListItem label="BP" value={bp} icon={getIcon(bp)} />
+      <StatListItem label="HP" value={hp} icon={getIcon(hp)} />
+      <StatListItem label="PP" value={pp} icon={getIcon(pp)} />
       <StatListItem
         label="Attack"
         value={attack}
-        icon={getIcon(attack, 0)}
+        icon={getIcon(attack)}
       />
       <StatListItem
         label="Defense"
         value={defense}
-        icon={getIcon(defense, 0)}
+        icon={getIcon(defense)}
       />
     </StatList>
   );
@@ -56,17 +56,17 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
       <StatListItem
         label="Melee potency"
         value={melee}
-        icon={getIcon(melee, 1)}
+        icon={getIcon(melee)}
       />
       <StatListItem
         label="Ranged potency"
         value={ranged}
-        icon={getIcon(ranged, 1)}
+        icon={getIcon(ranged)}
       />
       <StatListItem
         label="Technique potency"
         value={technique}
-        icon={getIcon(technique, 1)}
+        icon={getIcon(technique)}
       />
     </StatList>
   );
@@ -90,37 +90,37 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
       <StatListItem
         label="Burn resistance"
         value={burn}
-        icon={getIcon(burn, 1)}
+        icon={getIcon(burn)}
       />
       <StatListItem
         label="Freeze resistance"
         value={freeze}
-        icon={getIcon(freeze, 1)}
+        icon={getIcon(freeze)}
       />
       <StatListItem
         label="Shock resistance"
         value={shock}
-        icon={getIcon(shock, 1)}
+        icon={getIcon(shock)}
       />
       <StatListItem
         label="Blind resistance"
         value={blind}
-        icon={getIcon(blind, 1)}
+        icon={getIcon(blind)}
       />
       <StatListItem
         label="Panic resistance"
         value={panic}
-        icon={getIcon(panic, 1)}
+        icon={getIcon(panic)}
       />
       <StatListItem
         label="Poison resistance"
         value={poison}
-        icon={getIcon(poison, 1)}
+        icon={getIcon(poison)}
       />
       <StatListItem
         label="Physical down resistance"
         value={physicalDown}
-        icon={getIcon(physicalDown, 1)}
+        icon={getIcon(physicalDown)}
       />
     </StatList>
   );
@@ -139,17 +139,17 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
       <StatListItem
         label="PP cost"
         value={usage}
-        icon={getIcon(usage, 1, true)}
+        icon={getIcon(usage, true)}
       />
       <StatListItem
         label="Active PP recovery"
         value={activeRecovery}
-        icon={getIcon(activeRecovery, 1)}
+        icon={getIcon(activeRecovery)}
       />
       <StatListItem
         label="Natural PP recovery"
         value={naturalRecovery}
-        icon={getIcon(naturalRecovery, 1)}
+        icon={getIcon(naturalRecovery)}
       />
     </StatList>
   );
@@ -178,27 +178,27 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
       <StatListItem
         label="Damage dealt"
         value={damageUp}
-        icon={getIcon(damageUp, 1)}
+        icon={getIcon(damageUp)}
       />
       <StatListItem
         label="Floor potency"
         value={floorPotency}
-        icon={getIcon(floorPotency, 1)}
+        icon={getIcon(floorPotency)}
       />
       <StatListItem
         label="Critical chance"
         value={critChance}
-        icon={getIcon(critChance, 1)}
+        icon={getIcon(critChance)}
       />
       <StatListItem
         label="Critical damage"
         value={critDamage}
-        icon={getIcon(critDamage, 1)}
+        icon={getIcon(critDamage)}
       />
       <StatListItem
         label="PB gauge recovery"
         value={pbGaugeRecovery}
-        icon={getIcon(pbGaugeRecovery, 1)}
+        icon={getIcon(pbGaugeRecovery)}
       />
     </StatList>
   );
@@ -218,17 +218,17 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
       <StatListItem
         label="Damage resistance"
         value={damageResist}
-        icon={getIcon(damageResist, 1)}
+        icon={getIcon(damageResist)}
       />
       <StatListItem
         label="Healing up"
         value={healingUp}
-        icon={getIcon(healingUp, 1)}
+        icon={getIcon(healingUp)}
       />
       <StatListItem
         label="Ailment effect duration"
         value={ailmentDuration}
-        icon={getIcon(ailmentDuration, 1, true)}
+        icon={getIcon(ailmentDuration, true)}
       />
     </StatList>
   );
@@ -287,7 +287,7 @@ const StatView: FC<StatViewProps> = (props) => {
           <StatListItem
             label="Harsh environment resistance"
             value={_envCold}
-            icon={getIcon(_envCold, 0)}
+            icon={getIcon(_envCold)}
           />
         </StatList>
         <PPAdvancedStats
