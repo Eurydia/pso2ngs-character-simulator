@@ -48,7 +48,7 @@ export class Potential {
     ) {
       const level = level_index + 1;
       const label = `${this.label} Lv. ${level} (Inactive)`;
-      const stats = this.stats[level_index];
+      const stats = this.stats_inactive[level_index];
       dict[label] = { level, label, stats };
     }
 

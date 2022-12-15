@@ -56,20 +56,23 @@ const collectPotential = (
     return;
   }
 
-  const potential_lookup = item_weapon.potential.toDict();
-  const potential_current = potential_lookup[item_potential];
+  const potential_dict = item_weapon.potential.toDict();
+  const potential_current = potential_dict[item_potential];
 
   if (potential_current === undefined) {
     return;
   }
 
-  const { level, stats } = potential_current!;
+  const { level, stats } = potential_current;
 
   target.stackStat(StatEnum.CORE_BP, level * 10);
 
-  for (const key of Object.keys(stats)) {
+  const potential_stats = stats.stats;
+
+  for (const key of Object.keys(potential_stats)) {
     const value: number = stats.getStat(key as StatEnum);
     target.stackStat(key as StatEnum, value);
+    console.log(key, value);
   }
 };
 

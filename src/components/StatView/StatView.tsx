@@ -250,6 +250,7 @@ const CustomDivider = () => {
 };
 
 type StatViewProps = {
+  title: string;
   stat: StatObject;
 };
 const StatView: FC<StatViewProps> = (props) => {
@@ -260,7 +261,7 @@ const StatView: FC<StatViewProps> = (props) => {
     <Box>
       <Stack divider={<CustomDivider />}>
         <Typography fontWeight="bold" fontSize="large">
-          Stat View
+          {props.title}
         </Typography>
         <CoreStatList
           bp={stat.getFormattedStat(StatEnum.CORE_BP)}
