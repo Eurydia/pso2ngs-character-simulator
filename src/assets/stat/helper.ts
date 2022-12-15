@@ -18,7 +18,8 @@ const formatPercent = (value: number): string => {
 
 const formatPercentSpecial = (value: number): string => {
   const sign = value > 0 ? "+" : "";
-  const value_parsed = value.toPrecision(3);
+  const _value = value * 100;
+  const value_parsed = _value.toPrecision(3);
   return `${sign}${value_parsed}%`;
 };
 

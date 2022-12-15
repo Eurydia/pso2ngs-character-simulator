@@ -1,7 +1,14 @@
 import { Grid, Box, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-import { Fixa, GroupEnumFixa, Potential, Weapon } from "../../assets";
+import {
+  Fixa,
+  GroupEnumFixa,
+  Potential,
+  statObject,
+  StatObject,
+  Weapon,
+} from "../../assets";
 import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
@@ -9,6 +16,8 @@ import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
+import StatView from "../StatView";
+import { collectStats } from "./helper";
 
 interface FormWeaponProps {
   title: string;
@@ -17,8 +26,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valuePotential, setValuePotential] = useState<string>("");
-  const [valueEnhancement, setValueEnhancement] =
-    useState<string>("");
+  const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
   const handleWeaponChange = (new_value: Weapon | null) => {
@@ -30,6 +38,14 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   if (valueWeapon !== null) {
     potential = valueWeapon.potential;
   }
+
+  const stats_to_display = collectStats(
+    valueWeapon,
+    valueEnhancement,
+    valueFixa,
+    valuePotential,
+    valueAugments,
+  );
 
   return (
     <Box>
@@ -43,19 +59,19 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         />
         <FieldEnhancement
           valueMin={0}
-          valueMax={50}
+          valueMax={60}
           value={valueEnhancement}
           onChange={setValueEnhancement}
-        />
-        <AutocompleteFixa
-          value={valueFixa}
-          onChange={setValueFixa}
-          mode={GroupEnumFixa.WEAPON}
         />
         <SelectPotential
           potential={potential}
           value={valuePotential}
           onChange={setValuePotential}
+        />
+        <AutocompleteFixa
+          value={valueFixa}
+          onChange={setValueFixa}
+          mode={GroupEnumFixa.WEAPON}
         />
         <Box>
           <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
@@ -71,6 +87,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             ))}
           </Grid>
         </Box>
+        <StatView stat={stats_to_display} />
       </Stack>
     </Box>
   );

@@ -1,4 +1,4 @@
-export { default as stat } from "./stat";
+export { default as statObject } from "./stat";
 export * from "./stat";
 
 export { default as AssetAugments } from "./augments";

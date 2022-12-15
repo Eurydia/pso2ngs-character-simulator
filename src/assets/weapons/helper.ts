@@ -31,5 +31,5 @@ export const calcBonusATK = (
       bonus = (level / breakpoint_level) * breakpoint_bonus;
     }
   }
-  return base_atk + Math.round(bonus);
+  return Math.round(bonus);
 };

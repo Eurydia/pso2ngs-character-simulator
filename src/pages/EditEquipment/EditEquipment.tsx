@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Drawer, Paper, Stack } from "@mui/material";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { stat, StatEnum } from "../../assets";
+import { statObject, StatEnum } from "../../assets";
 
 type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
@@ -15,20 +15,6 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           <FormUnit title="Unit #3" />
         </Stack>
       </Paper>
-
-      <Drawer
-        hideBackdrop
-        anchor="right"
-        open={true}
-        variant="permanent"
-      >
-        <StatView
-          stat={stat({
-            [StatEnum.ADV_OFF_FLOOR]: 1.5,
-            [StatEnum.HARSH_COLD]: 0.7,
-          })}
-        />
-      </Drawer>
     </Box>
   );
 };

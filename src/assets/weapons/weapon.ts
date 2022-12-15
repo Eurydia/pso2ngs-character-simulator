@@ -35,7 +35,7 @@ export class Weapon {
     return this.stats.getStat(StatEnum.CORE_ATTACK);
   }
 
-  getAttack(level: number): number {
+  getBonusAttack(level: number): number {
     return calcBonusATK(level, this.base_attack, this.#growth_rate);
   }
 }
