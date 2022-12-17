@@ -64,15 +64,13 @@ const collectPotential = (
   }
 
   const { level, stats } = potential_current;
+  const potential_stats = stats.stats;
 
   target.stackStat(StatEnum.CORE_BP, level * 10);
-
-  const potential_stats = stats.stats;
 
   for (const key of Object.keys(potential_stats)) {
     const value: number = stats.getStat(key as StatEnum);
     target.stackStat(key as StatEnum, value);
-    console.log(key, value);
   }
 };
 
