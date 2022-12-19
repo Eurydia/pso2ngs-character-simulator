@@ -119,7 +119,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
       >
         <Box padding={2} margin={1}>
           <StatView
-            title="Stats For Weapon"
+            title={`Stats For ${props.title}`}
             stat={stats_to_display}
           />
         </Box>
