@@ -15,11 +15,8 @@ interface FormWeaponProps {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueUnit, setValueUnit] = useState<Unit | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
-  const [valueEnhancement, setValueEnhancement] =
-    useState<string>("");
+  const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
-
-  const handleUnitChange = (new_unit: Unit | null) => {};
 
   return (
     <Box>

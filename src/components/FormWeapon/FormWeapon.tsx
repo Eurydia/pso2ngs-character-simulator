@@ -82,6 +82,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           <FieldEnhancement
             valueMin={0}
             valueMax={60}
+            value={valueEnhancement}
             onChange={setValueEnhancement}
           />
           <SelectPotential
