@@ -19,6 +19,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     useState<string>("");
   const [valueAugments, setValueAugments] = useAugment();
 
+  const handleUnitChange = (new_unit: Unit | null) => {};
+
   return (
     <Box>
       <Stack spacing={1}>
