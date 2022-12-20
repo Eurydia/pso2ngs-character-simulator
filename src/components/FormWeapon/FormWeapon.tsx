@@ -6,7 +6,9 @@ import {
   Typography,
   Drawer,
   IconButton,
+  Paper,
 } from "@mui/material";
+import { BarChart } from "@mui/icons-material";
 
 import { Fixa, GroupEnumFixa, Potential, Weapon } from "../../assets";
 import { useAugment } from "../../hooks";
@@ -19,7 +21,6 @@ import SelectPotential from "../AutocompletePotential";
 import StatView from "../StatView";
 
 import { collectStats } from "./helper";
-import { BarChart } from "@mui/icons-material";
 
 interface FormWeaponProps {
   title: string;
@@ -61,7 +62,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   return (
     <Fragment>
-      <Box>
+      <Paper>
         <Stack spacing={1}>
           <Stack
             direction="row"
@@ -110,7 +111,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             </Grid>
           </Box>
         </Stack>
-      </Box>
+      </Paper>
       <Drawer
         open={drawerIsOpen}
         onClose={handleDrawerClose}

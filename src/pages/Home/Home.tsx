@@ -1,16 +1,6 @@
 import { FC } from "react";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { Launch } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Grid } from "@mui/material";
+import CustomCard from "./CustomCard";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -22,28 +12,27 @@ const Home: FC<HomeProps> = (props) => {
       padding={2}
       spacing={4}
     >
-      <Grid item md={2}>
-        <Card>
-          <CardHeader title={"Config Equipment"} />
-          <CardContent>
-            Config your character equipment here.
-          </CardContent>
-          <CardActions>
-            <Button
-              component={Link}
-              to="/config-equipment"
-              variant="contained"
-              disableRipple
-            >
-              <Stack direction="row" spacing={0.5}>
-                <Launch fontSize="small" />
-                <Typography>Edit</Typography>
-              </Stack>
-            </Button>
-          </CardActions>
-        </Card>
+      <Grid item md={1}>
+        <CustomCard
+          title="Equipment"
+          to="/config-equipment"
+          description="Edit your equipment here."
+        />
       </Grid>
-      <Grid item md={1}></Grid>
+      <Grid item md={1}>
+        <CustomCard
+          title="Character"
+          to="/config-character"
+          description="Edit your character here."
+        />
+      </Grid>
+      <Grid item md={1}>
+        <CustomCard
+          title="Food"
+          to="/config-food"
+          description="Edit your food buff here."
+        />
+      </Grid>
     </Grid>
   );
 };
