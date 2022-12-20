@@ -36,7 +36,7 @@ export class Weapon {
   }
 
   getBonusAttack(level: number): number {
-    return calcBonusATK(level, this.base_attack, this.#growth_rate);
+    return calcBonusATK(level, this.#growth_rate);
   }
 }
 

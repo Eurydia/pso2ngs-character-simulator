@@ -1,7 +1,4 @@
-import {
-  round as ld_round,
-  toSafeInteger as ld_toSafeInteger,
-} from "lodash";
+import { round as ld_round } from "lodash";
 import {
   Augment,
   Fixa,

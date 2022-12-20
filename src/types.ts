@@ -1,7 +1,7 @@
 import { Augment, StatEnum, Weapon } from "./assets";
 
-export type SettingsWeapon = {
-  equipment: Weapon | null;
-  augments: (Augment | null)[];
-  enhancement: number;
+export type SummaryEquipment = {
+  equipment: string;
+  fixa: string;
+  augments: string[];
 };

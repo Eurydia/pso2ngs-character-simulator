@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -8,22 +8,31 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-import { BarChart } from "@mui/icons-material";
 
-import { Fixa, GroupEnumFixa, Potential, Weapon } from "../../assets";
+import {
+  Augment,
+  Fixa,
+  GroupEnumFixa,
+  Potential,
+  statObject,
+  StatObject,
+  Weapon,
+} from "../../assets";
 import { useAugment } from "../../hooks";
+import { SummaryEquipment } from "../../types";
 
+import FormBase from "../FormBase";
 import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
-import StatView from "../StatView";
 
 import { collectStats } from "./helper";
 
 interface FormWeaponProps {
   title: string;
+  onChange: (stats: StatObject, summary: SummaryEquipment) => void;
 }
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
@@ -32,100 +41,99 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
-  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
-
   const handleWeaponChange = (new_value: Weapon | null) => {
     setValueWeapon(new_value);
     setValuePotential("");
   };
 
-  const handleDrawerClose = () => {
-    setDrawerIsOpen(false);
-  };
+  useEffect(() => {
+    const next_summary: SummaryEquipment = {
+      equipment: "NONE",
+      fixa: "NONE",
+      augments: [],
+    };
 
-  const handleDrawerOpen = () => {
-    setDrawerIsOpen(!drawerIsOpen);
-  };
+    if (valueWeapon !== null) {
+      next_summary.equipment = valueWeapon.label;
+    }
+
+    if (valueFixa !== null) {
+      next_summary.fixa = valueFixa.label;
+    }
+
+    const summary_augment: string[] = [];
+    for (const augment of valueAugments) {
+      if (augment === null) {
+        continue;
+      }
+      summary_augment.push(augment.label);
+    }
+    next_summary.augments = summary_augment;
+
+    const next_stats: StatObject = collectStats(
+      valueWeapon,
+      valueEnhancement,
+      valueFixa,
+      valuePotential,
+      valueAugments,
+    );
+
+    props.onChange(next_stats, next_summary);
+  }, [
+    valueWeapon,
+    valueFixa,
+    valuePotential,
+    valueEnhancement,
+    valueAugments,
+  ]);
 
   let potential: Potential | null = null;
   if (valueWeapon !== null) {
     potential = valueWeapon.potential;
   }
 
-  const stats_to_display = collectStats(
-    valueWeapon,
-    valueEnhancement,
-    valueFixa,
-    valuePotential,
-    valueAugments,
-  );
-
   return (
-    <Fragment>
-      <Paper>
-        <Stack spacing={1}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignContent="center"
-          >
-            <Typography fontWeight="bold" fontSize="large">
-              {props.title}
-            </Typography>
-            <IconButton onClick={handleDrawerOpen}>
-              <BarChart />
-            </IconButton>
-          </Stack>
-          <AutocompleteWeapon
-            value={valueWeapon}
-            onChange={handleWeaponChange}
-          />
-          <FieldEnhancement
-            valueMin={0}
-            valueMax={60}
-            value={valueEnhancement}
-            onChange={setValueEnhancement}
-          />
-          <SelectPotential
-            potential={potential}
-            value={valuePotential}
-            onChange={setValuePotential}
-          />
-          <AutocompleteFixa
-            value={valueFixa}
-            onChange={setValueFixa}
-            mode={GroupEnumFixa.WEAPON}
-          />
-          <Box>
-            <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
-              {valueAugments.map((aug, index) => (
-                <Grid key={`augment-${index}`} item xs={1}>
-                  <AutocompleteAugment
-                    value={aug}
-                    onChange={(new_value) =>
-                      setValueAugments(new_value, index)
-                    }
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </Stack>
-      </Paper>
-      <Drawer
-        open={drawerIsOpen}
-        onClose={handleDrawerClose}
-        anchor="right"
-        variant="temporary"
-      >
-        <Box padding={2} margin={1}>
-          <StatView
-            title={`Stats For ${props.title}`}
-            stat={stats_to_display}
-          />
+    <FormBase>
+      <Stack spacing={1}>
+        <Typography fontWeight="bold" fontSize="large">
+          {props.title}
+        </Typography>
+        <AutocompleteWeapon
+          value={valueWeapon}
+          onChange={handleWeaponChange}
+        />
+        <FieldEnhancement
+          valueMin={0}
+          valueMax={60}
+          value={valueEnhancement}
+          onChange={setValueEnhancement}
+        />
+        <SelectPotential
+          potential={potential}
+          value={valuePotential}
+          onChange={setValuePotential}
+        />
+        <AutocompleteFixa
+          value={valueFixa}
+          onChange={setValueFixa}
+          mode={GroupEnumFixa.WEAPON}
+        />
+        <Box>
+          <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
+            {valueAugments.map((aug, index) => (
+              <Grid key={`augment-${index}`} item xs={1}>
+                <AutocompleteAugment
+                  value={aug}
+                  onChange={(new_value) =>
+                    setValueAugments(new_value, index)
+                  }
+                />
+              </Grid>
+            ))}
+          </Grid>
         </Box>
-      </Drawer>
-    </Fragment>
+      </Stack>
+    </FormBase>
   );
 };
 

@@ -1,6 +1,5 @@
 export const calcBonusATK = (
   level: number,
-  base_atk: number,
   growth_rate: [number, number][],
 ): number => {
   let bonus = 0;
