@@ -32,13 +32,9 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
         <Grid item xs={1}>
           <Typography>{summaryWeapon.equipment}</Typography>
           <Typography>{summaryWeapon.fixa}</Typography>
-          {summaryWeapon.augments
-            .fill("nope", summaryWeapon.augments.length, 6)
-            .map((value, index) => (
-              <Typography key={`${value}-${index}`}>
-                {value}
-              </Typography>
-            ))}
+          {summaryWeapon.augments.map((value, index) => (
+            <Typography key={`${value}-${index}`}>{value}</Typography>
+          ))}
         </Grid>
         <Grid item xs={1}>
           <FormWeapon title="Weapon" onChange={handleWeaponChange} />

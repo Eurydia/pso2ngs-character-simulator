@@ -64,6 +64,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     const summary_augment: string[] = [];
     for (const augment of valueAugments) {
       if (augment === null) {
+        summary_augment.push("none");
         continue;
       }
       summary_augment.push(augment.label);
