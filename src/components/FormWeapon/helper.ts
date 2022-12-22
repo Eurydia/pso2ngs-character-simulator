@@ -1,18 +1,15 @@
-import {
-  round as ld_round,
-  toSafeInteger as ld_toSafeInteger,
-} from "lodash";
+import { round as ld_round } from "lodash";
 import {
   Augment,
   Fixa,
   StatEnum,
   statObject,
   StatObject,
-  Weapon,
+  WeaponInterface,
 } from "../../assets";
 
 const collectWeapon = (
-  item: Weapon | null,
+  item: WeaponInterface | null,
   target: StatObject,
 ): void => {
   if (item === null) {
@@ -44,7 +41,7 @@ const collectFixa = (
 };
 
 const collectPotential = (
-  item_weapon: Weapon | null,
+  item_weapon: WeaponInterface | null,
   item_potential: string,
   target: StatObject,
 ): void => {
@@ -75,7 +72,7 @@ const collectPotential = (
 };
 
 const collectEnhancement = (
-  item_weapon: Weapon | null,
+  item_weapon: WeaponInterface | null,
   item_enhancement: number,
   target: StatObject,
 ): void => {
@@ -118,7 +115,7 @@ const collectAugments = (
 };
 
 export const collectStats = (
-  item_weapon: Weapon | null,
+  item_weapon: WeaponInterface | null,
   item_enhancement: number,
   item_fixa: Fixa | null,
   item_potential: string,

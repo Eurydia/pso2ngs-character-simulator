@@ -4,16 +4,18 @@ import { Potential } from "../potentials";
 import WeaponGroup from "./groupEnum";
 import { calcBonusATK } from "./helper";
 
-export interface WeaponInterface {
+export type WeaponInterface = {
   label: string;
+  stats: StatObject;
   group: WeaponGroup;
+  potential: Potential;
   base_attack: number;
   getBonusAttack: (level: number) => number;
-}
+};
 
-export class Weapon {
+class Weapon {
   #name: string;
-  #stats: StatObject;
+  stats: StatObject;
   group: WeaponGroup;
   potential: Potential;
 
@@ -27,7 +29,7 @@ export class Weapon {
     growth_rate: [number, number][],
   ) {
     this.#name = name;
-    this.#stats = stats;
+    this.stats = stats;
     this.group = group;
     this.potential = potential;
 
@@ -39,7 +41,7 @@ export class Weapon {
   }
 
   get base_attack(): number {
-    return this.#stats.getStat(StatEnum.CORE_ATTACK);
+    return this.stats.getStat(StatEnum.CORE_ATTACK);
   }
 
   getBonusAttack(level: number): number {

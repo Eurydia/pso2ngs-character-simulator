@@ -78,7 +78,7 @@ const collectAugments = (
       continue;
     }
 
-    const item_stats: StatObject = item_augment.stats;
+    const item_stats: StatObject = item_augment.#stats;
 
     for (const key of Object.keys(item_stats.stats)) {
       const value: number = item_stats.getStat(key as StatEnum);

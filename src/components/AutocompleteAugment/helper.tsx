@@ -22,9 +22,9 @@ const collectTerms = (value: string): string[] => {
 const reducer = (options: Augment[], term: string): Augment[] => {
   return matchSorter(options, term, {
     keys: [
-      (item) => item.name,
+      (item) => item.#name,
       (item) => item.group,
-      (item) => item.level.toString(),
+      (item) => item.#level.toString(),
       (item) => item.level_roman,
     ],
   });
