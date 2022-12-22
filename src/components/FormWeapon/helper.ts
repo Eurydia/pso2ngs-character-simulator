@@ -1,15 +1,15 @@
 import { round as ld_round } from "lodash";
 import {
-  AugmentInterface,
-  FixaInterface,
+  Augment,
+  Fixa,
   StatEnum,
   statObject,
   StatObject,
-  WeaponInterface,
+  Weapon,
 } from "../../assets";
 
 const collectWeapon = (
-  item: WeaponInterface | null,
+  item: Weapon | null,
   target: StatObject,
 ): void => {
   if (item === null) {
@@ -25,7 +25,7 @@ const collectWeapon = (
 };
 
 const collectFixa = (
-  item_fixa: FixaInterface | null,
+  item_fixa: Fixa | null,
   target: StatObject,
 ): void => {
   if (item_fixa === null) {
@@ -41,7 +41,7 @@ const collectFixa = (
 };
 
 const collectPotential = (
-  item_weapon: WeaponInterface | null,
+  item_weapon: Weapon | null,
   item_potential: string,
   target: StatObject,
 ): void => {
@@ -72,7 +72,7 @@ const collectPotential = (
 };
 
 const collectEnhancement = (
-  item_weapon: WeaponInterface | null,
+  item_weapon: Weapon | null,
   item_enhancement: number,
   target: StatObject,
 ): void => {
@@ -97,7 +97,7 @@ const collectEnhancement = (
 };
 
 const collectAugments = (
-  item_augments: (AugmentInterface | null)[],
+  item_augments: (Augment | null)[],
   target: StatObject,
 ): void => {
   for (const item_augment of item_augments) {
@@ -115,11 +115,11 @@ const collectAugments = (
 };
 
 export const collectStats = (
-  item_weapon: WeaponInterface | null,
+  item_weapon: Weapon | null,
   item_enhancement: number,
-  item_fixa: FixaInterface | null,
+  item_fixa: Fixa | null,
   item_potential: string,
-  item_augments: (AugmentInterface | null)[],
+  item_augments: (Augment | null)[],
 ): StatObject => {
   const target: StatObject = statObject({});
   collectWeapon(item_weapon, target);

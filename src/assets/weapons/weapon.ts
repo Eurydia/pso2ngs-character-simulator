@@ -4,16 +4,7 @@ import { Potential } from "../potentials";
 import WeaponGroup from "./groupEnum";
 import { calcBonusATK } from "./helper";
 
-export type WeaponInterface = {
-  label: string;
-  stats: StatObject;
-  group: WeaponGroup;
-  potential: Potential;
-  base_attack: number;
-  getBonusAttack: (level: number) => number;
-};
-
-class Weapon {
+export class Weapon {
   #name: string;
   stats: StatObject;
   group: WeaponGroup;

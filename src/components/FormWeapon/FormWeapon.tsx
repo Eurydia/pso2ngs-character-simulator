@@ -1,20 +1,10 @@
 import { FC, Fragment, useEffect, useState } from "react";
-import {
-  Grid,
-  Box,
-  Stack,
-  Typography,
-  Drawer,
-  IconButton,
-  Paper,
-} from "@mui/material";
+import { Grid, Box, Stack, Typography } from "@mui/material";
 
 import {
-  Augment,
   Fixa,
   GroupEnumFixa,
   Potential,
-  statObject,
   StatObject,
   Weapon,
 } from "../../assets";

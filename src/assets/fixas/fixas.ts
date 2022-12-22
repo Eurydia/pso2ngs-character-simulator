@@ -1,14 +1,6 @@
 import statObject, { StatEnum, StatObject } from "../stat";
 import FixaGroup from "./groupEnum";
 
-export type FixaInterface = {
-  label: string;
-  name: string;
-  level: string;
-  group: FixaGroup;
-  stats: StatObject;
-};
-
 export class Fixa {
   name: string;
   #level: number;

@@ -1,16 +1,7 @@
-import { FC, Fragment, useState } from "react";
-import {
-  Drawer,
-  Grid,
-  Box,
-  Stack,
-  Typography,
-  IconButton,
-  useTheme,
-} from "@mui/material";
-import { BarChart } from "@mui/icons-material";
+import { FC, useState } from "react";
+import { Grid, Box, Stack, Typography } from "@mui/material";
 
-import { FixaInterface, GroupEnumFixa, Unit } from "../../assets";
+import { Fixa, GroupEnumFixa, Unit } from "../../assets";
 import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
@@ -27,9 +18,7 @@ type FormWeaponProps = {
 };
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueUnit, setValueUnit] = useState<Unit | null>(null);
-  const [valueFixa, setValueFixa] = useState<FixaInterface | null>(
-    null,
-  );
+  const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
