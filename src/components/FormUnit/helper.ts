@@ -1,7 +1,7 @@
 import { round as ld_round } from "lodash";
 import {
-  Augment,
-  Fixa,
+  AugmentInterface,
+  FixaInterface,
   StatEnum,
   statObject,
   StatObject,
@@ -22,7 +22,7 @@ const collectUnit = (item: Unit | null, target: StatObject): void => {
 };
 
 const collectFixa = (
-  item_fixa: Fixa | null,
+  item_fixa: FixaInterface | null,
   target: StatObject,
 ): void => {
   if (item_fixa === null) {
@@ -70,7 +70,7 @@ const collectEnhancement = (
 };
 
 const collectAugments = (
-  item_augments: (Augment | null)[],
+  item_augments: (AugmentInterface | null)[],
   target: StatObject,
 ): void => {
   for (const item_augment of item_augments) {
@@ -78,7 +78,7 @@ const collectAugments = (
       continue;
     }
 
-    const item_stats: StatObject = item_augment.#stats;
+    const item_stats: StatObject = item_augment.stats;
 
     for (const key of Object.keys(item_stats.stats)) {
       const value: number = item_stats.getStat(key as StatEnum);
@@ -90,8 +90,8 @@ const collectAugments = (
 export const collectStats = (
   item_unit: Unit | null,
   item_enhancement: number,
-  item_fixa: Fixa | null,
-  item_augments: (Augment | null)[],
+  item_fixa: FixaInterface | null,
+  item_augments: (AugmentInterface | null)[],
 ): StatObject => {
   const target: StatObject = statObject({});
   collectUnit(item_unit, target);

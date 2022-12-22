@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { BarChart } from "@mui/icons-material";
 
-import { Fixa, GroupEnumFixa, Unit } from "../../assets";
+import { FixaInterface, GroupEnumFixa, Unit } from "../../assets";
 import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
@@ -27,7 +27,9 @@ type FormWeaponProps = {
 };
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueUnit, setValueUnit] = useState<Unit | null>(null);
-  const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
+  const [valueFixa, setValueFixa] = useState<FixaInterface | null>(
+    null,
+  );
   const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 

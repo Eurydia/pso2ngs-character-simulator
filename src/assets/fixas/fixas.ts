@@ -1,9 +1,17 @@
 import statObject, { StatEnum, StatObject } from "../stat";
 import FixaGroup from "./groupEnum";
 
+export type FixaInterface = {
+  label: string;
+  name: string;
+  level: string;
+  group: FixaGroup;
+  stats: StatObject;
+};
+
 export class Fixa {
   name: string;
-  level: number;
+  #level: number;
   group: FixaGroup;
   stats: StatObject;
 
@@ -14,9 +22,14 @@ export class Fixa {
     stats: StatObject,
   ) {
     this.name = name;
-    this.level = level;
     this.group = group;
     this.stats = stats;
+
+    this.#level = level;
+  }
+
+  get level(): string {
+    return this.#level.toString();
   }
 
   get label(): string {

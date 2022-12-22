@@ -4,13 +4,15 @@ import statObject, { StatEnum, StatObject } from "../stat";
 
 export type AugmentInterface = {
   label: string;
+  name: string;
+  level: string;
   level_roman: string;
   group: AugmentGroup;
   stats: StatObject;
 };
 
-class Augment {
-  #name: string;
+export class Augment {
+  name: string;
   #level: number;
   #conflict: Set<AugmentGroup>;
   stats: StatObject;
@@ -23,11 +25,16 @@ class Augment {
     conflict: AugmentGroup[],
     stats: StatObject,
   ) {
-    this.#name = name;
-    this.#level = level;
-    this.#conflict = new Set(conflict);
+    this.name = name;
     this.group = group;
     this.stats = stats;
+
+    this.#level = level;
+    this.#conflict = new Set(conflict);
+  }
+
+  get level(): string {
+    return this.#level.toString();
   }
 
   get level_roman(): string {
@@ -38,7 +45,7 @@ class Augment {
   }
 
   get label(): string {
-    return `${this.#name} ${this.level_roman}`.trimEnd();
+    return `${this.name} ${this.level_roman}`.trimEnd();
   }
 
   isConflicting(group: AugmentGroup): boolean {
