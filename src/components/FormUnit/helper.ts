@@ -1,66 +1,61 @@
-import { round as ld_round } from "lodash";
 import {
-  AugmentInterface,
-  FixaInterface,
+  Augment,
+  Fixa,
   StatEnum,
   statObject,
   StatObject,
   Unit,
 } from "../../assets";
 
-const collectUnit = (item: Unit | null, target: StatObject): void => {
-  if (item === null) {
+const collectUnit = (unit: Unit | null, target: StatObject): void => {
+  if (unit === null) {
     return;
   }
 
-  const item_stats: StatObject = item.stats;
+  const unit_stats: StatObject = unit.stats;
+  const keys: StatEnum[] = unit_stats.keys;
 
-  for (const key of Object.keys(item_stats.stats)) {
-    const value: number = item_stats.getStat(key as StatEnum);
-    target.stackStat(key as StatEnum, value);
+  for (const key of keys) {
+    const value: number = unit_stats.getStat(key);
+    target.stackStat(key, value);
   }
 };
 
-const collectFixa = (
-  item_fixa: FixaInterface | null,
-  target: StatObject,
-): void => {
-  if (item_fixa === null) {
+const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
+  if (fixa === null) {
     return;
   }
 
-  const item_stats: StatObject = item_fixa.stats;
+  const fixa_stats: StatObject = fixa.stats;
+  const keys: StatEnum[] = fixa_stats.keys;
 
-  for (const key of Object.keys(item_stats.stats)) {
-    const value: number = item_stats.getStat(key as StatEnum);
-    target.stackStat(key as StatEnum, value);
+  for (const key of keys) {
+    const value: number = fixa_stats.getStat(key);
+    target.stackStat(key, value);
   }
 };
 
 const collectEnhancement = (
-  item_unit: Unit | null,
-  item_enhancement: number,
+  unit: Unit | null,
+  level: number,
   target: StatObject,
 ): void => {
-  if (item_unit === null) {
+  if (unit === null) {
     return;
   }
 
-  const unit_defense_base: number = item_unit.base_def;
-  const unit_defense_bonus: number =
-    item_unit.getBonusDef(item_enhancement);
-  target.stackStat(StatEnum.CORE_ATTACK, unit_defense_bonus);
+  const unit_stats: StatObject = unit.stats;
 
-  const bp_from_def: number = ld_round(
-    (unit_defense_base + unit_defense_bonus) / 2,
+  const def_base: number = unit.base_def;
+  const def_bonus: number = unit.getBonusDef(level);
+  target.stackStat(StatEnum.CORE_DEFENSE, def_bonus);
+
+  const bp_from_def: number = Math.round((def_base + def_bonus) / 2);
+  const bp_from_hp: number = Math.round(
+    unit_stats.getStat(StatEnum.CORE_HP) / 10,
   );
-
-  const bp_from_hp: number = ld_round(
-    item_unit.stats.getStat(StatEnum.CORE_HP) / 10,
-  );
-
-  const bp_from_pp: number = ld_round(
-    item_unit.stats.getStat(StatEnum.CORE_PP),
+  const bp_from_pp: number = Math.round(
+    unit_stats.getStat(StatEnum.CORE_PP),
   );
 
   target.stackStat(
@@ -70,19 +65,20 @@ const collectEnhancement = (
 };
 
 const collectAugments = (
-  item_augments: (AugmentInterface | null)[],
+  augments: (Augment | null)[],
   target: StatObject,
 ): void => {
-  for (const item_augment of item_augments) {
-    if (item_augment === null) {
+  for (const augment of augments) {
+    if (augment === null) {
       continue;
     }
 
-    const item_stats: StatObject = item_augment.stats;
+    const augment_stats: StatObject = augment.stats;
+    const keys: StatEnum[] = augment_stats.keys;
 
-    for (const key of Object.keys(item_stats.stats)) {
-      const value: number = item_stats.getStat(key as StatEnum);
-      target.stackStat(key as StatEnum, value);
+    for (const key of keys) {
+      const value: number = augment_stats.getStat(key);
+      target.stackStat(key, value);
     }
   }
 };
@@ -90,8 +86,8 @@ const collectAugments = (
 export const collectStats = (
   item_unit: Unit | null,
   item_enhancement: number,
-  item_fixa: FixaInterface | null,
-  item_augments: (AugmentInterface | null)[],
+  item_fixa: Fixa | null,
+  item_augments: (Augment | null)[],
 ): StatObject => {
   const target: StatObject = statObject({});
   collectUnit(item_unit, target);

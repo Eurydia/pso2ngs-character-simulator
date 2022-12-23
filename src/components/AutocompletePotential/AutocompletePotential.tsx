@@ -16,6 +16,7 @@ type SelectPotentialProps = {
 };
 const SelectPotential: FC<SelectPotentialProps> = (props) => {
   let options: string[] = [];
+
   if (props.potential !== null) {
     options = Object.keys(props.potential.potentials);
   }

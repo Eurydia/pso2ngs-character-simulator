@@ -33,7 +33,6 @@ export class Augment {
     if (this.#level > 0) {
       return romanize(this.#level);
     }
-
     return "";
   }
 

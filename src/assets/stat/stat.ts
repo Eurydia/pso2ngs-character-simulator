@@ -49,6 +49,10 @@ export class StatObject {
     return 1;
   }
 
+  get keys(): StatEnum[] {
+    return Object.keys(this.stats) as StatEnum[];
+  }
+
   getFormattedStat(stat: StatEnum): string {
     return formatStat(stat, this.getStat(stat));
   }

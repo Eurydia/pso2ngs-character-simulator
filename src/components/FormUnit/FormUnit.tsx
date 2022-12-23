@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Grid, Box, Stack, Typography } from "@mui/material";
+import { Grid, Box, Stack } from "@mui/material";
 
 import { Fixa, GroupEnumFixa, Unit } from "../../assets";
 import { useAugment } from "../../hooks";
