@@ -3,13 +3,15 @@ import { matchSorter } from "match-sorter";
 
 import { Unit } from "../../assets";
 
-const collectTerms = (value: string): string[] => {
+const extractTerms = (value: string): string[] => {
+  const items: string[] = value.split(" ");
+
   const terms: string[] = [];
 
-  for (const item of value.split(" ")) {
+  for (const item of items) {
     const item_trimmed = item.trim();
 
-    if (item_trimmed.length === 0) {
+    if (item_trimmed === "") {
       continue;
     }
 
@@ -18,14 +20,14 @@ const collectTerms = (value: string): string[] => {
   return terms;
 };
 
-const reducer = (options: Unit[], term: string): Unit[] => {
+const termReducer = (options: Unit[], term: string): Unit[] => {
   return matchSorter(options, term, {
-    keys: [(item) => item.name, (item) => item.group],
+    keys: [(item) => item.name, (item) => item.rarity],
   });
 };
 
-const collectOptions = (options: Unit[], terms: string[]): Unit[] => {
-  return terms.reduceRight(reducer, options);
+const sieveOptions = (options: Unit[], terms: string[]): Unit[] => {
+  return terms.reduceRight(termReducer, options);
 };
 
 export const filterOptions = (
@@ -34,10 +36,10 @@ export const filterOptions = (
   size: number = 16,
 ) => {
   const value: string = state.inputValue;
-  const terms: string[] = collectTerms(value);
-  const filtered_options: Unit[] = collectOptions(
-    options,
-    terms,
-  ).slice(0, size);
+  const terms: string[] = extractTerms(value);
+  const filtered_options: Unit[] = sieveOptions(options, terms).slice(
+    0,
+    size,
+  );
   return filtered_options;
 };
