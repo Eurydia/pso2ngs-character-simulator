@@ -1,58 +1,60 @@
 import statObject, { StatEnum, StatObject } from "../stat";
 
+type PotentialItem = {
+  stats: StatObject;
+  level: number;
+  label: string;
+};
+
 export class Potential {
-  name: string;
-  stats: StatObject[];
-  stats_inactive: StatObject[];
+  #name: string;
+  #stats: StatObject[];
+  #stats_inactive: StatObject[];
+
+  potentials: { [Key: string]: PotentialItem };
 
   constructor(
     name: string,
     stats: StatObject[],
     stats_inactive: StatObject[],
   ) {
-    this.name = name;
-    this.stats = stats;
-    this.stats_inactive = stats_inactive;
-  }
+    this.#name = name;
+    this.#stats = stats;
+    this.#stats_inactive = stats_inactive;
 
-  get label(): string {
-    return this.name;
-  }
-
-  toDict(): {
-    [K: string]: { stats: StatObject; level: number; label: string };
-  } {
-    const dict: {
-      [K: string]: {
-        stats: StatObject;
-        level: number;
-        label: string;
-      };
-    } = {};
+    this.potentials = {};
 
     for (
       let level_index = 0;
-      level_index < this.stats.length;
+      level_index < this.#stats.length;
       level_index++
     ) {
       const level = level_index + 1;
-      const label = `${this.label} Lv. ${level}`;
-      const stats = this.stats[level_index];
-      dict[label] = { level, label, stats };
+      const label = `${this.#name} Lv. ${level}`;
+      const stats = this.#stats[level_index];
+      this.potentials[label] = { level, label, stats };
     }
 
     for (
       let level_index = 0;
-      level_index < this.stats_inactive.length;
+      level_index < this.#stats_inactive.length;
       level_index++
     ) {
       const level = level_index + 1;
-      const label = `${this.label} Lv. ${level} (Inactive)`;
-      const stats = this.stats_inactive[level_index];
-      dict[label] = { level, label, stats };
+      const label = `${this.#name} Lv. ${level} (Inactive)`;
+      const stats = this.#stats_inactive[level_index];
+      this.potentials[label] = { level, label, stats };
+    }
+  }
+
+  getPotential(key: string): PotentialItem | null {
+    const item: PotentialItem | undefined = this.potentials[key];
+
+    if (item !== undefined) {
+      return item;
     }
 
-    return dict;
+    return null;
   }
 }
 

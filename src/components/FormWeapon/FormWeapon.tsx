@@ -38,8 +38,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   useEffect(() => {
     const next_summary: SummaryEquipment = {
-      equipment: "NONE",
-      fixa: "NONE",
+      equipment: "-",
+      fixa: "-",
       augments: [],
     };
 

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { statObject, StatEnum, StatObject } from "../../assets";
@@ -28,28 +28,70 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
 
   return (
     <Box marginY={4} marginX={8}>
-      <Grid container columns={1}>
-        <Grid item sm={1} md={2}>
-          <Typography>{summaryWeapon.equipment}</Typography>
-          <Typography>{summaryWeapon.fixa}</Typography>
-          {summaryWeapon.augments.map((value, index) => (
-            <Typography key={`${value}-${index}`}>{value}</Typography>
-          ))}
-        </Grid>
-
-        <Grid item xs={1}>
-          <FormWeapon title="Weapon" onChange={handleWeaponChange} />
-        </Grid>
-        <Grid item xs={1}>
-          <FormUnit title="Unit #1" />
-        </Grid>
-        <Grid item xs={1}>
-          <FormUnit title="Unit #2" />
-        </Grid>
-        <Grid item xs={1}>
-          <FormUnit title="Unit #3" />
-        </Grid>
-      </Grid>
+      <Stack spacing={2}>
+        <Paper>
+          <Box padding={4}>
+            <Grid container columns={{ xs: 1, md: 2 }}>
+              <Grid item xs={1}>
+                <Stack>
+                  <Typography>
+                    Equipment: {summaryWeapon.equipment}
+                  </Typography>
+                  <Typography>Fixa: {summaryWeapon.fixa}</Typography>
+                  {summaryWeapon.augments.map((value, index) => (
+                    <Typography key={`${value}-${index}`}>
+                      {value}
+                    </Typography>
+                  ))}
+                </Stack>
+              </Grid>
+              <Grid item xs={1}>
+                <Stack>
+                  <Typography>
+                    Equipment: {summaryWeapon.equipment}
+                  </Typography>
+                  <Typography>Fixa: {summaryWeapon.fixa}</Typography>
+                  {summaryWeapon.augments.map((value, index) => (
+                    <Typography key={`${value}-${index}`}>
+                      {value}
+                    </Typography>
+                  ))}
+                </Stack>
+              </Grid>
+              <Grid item xs={1}>
+                <Stack>
+                  <Typography>
+                    Equipment: {summaryWeapon.equipment}
+                  </Typography>
+                  <Typography>Fixa: {summaryWeapon.fixa}</Typography>
+                  {summaryWeapon.augments.map((value, index) => (
+                    <Typography key={`${value}-${index}`}>
+                      {value}
+                    </Typography>
+                  ))}
+                </Stack>
+              </Grid>
+              <Grid item xs={1}>
+                <Stack>
+                  <Typography>
+                    Equipment: {summaryWeapon.equipment}
+                  </Typography>
+                  <Typography>Fixa: {summaryWeapon.fixa}</Typography>
+                  {summaryWeapon.augments.map((value, index) => (
+                    <Typography key={`${value}-${index}`}>
+                      {value}
+                    </Typography>
+                  ))}
+                </Stack>
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
+        <FormWeapon title="Weapon" onChange={handleWeaponChange} />
+        <FormUnit title="Unit #1" />
+        <FormUnit title="Unit #2" />
+        <FormUnit title="Unit #3" />
+      </Stack>
     </Box>
   );
 };
