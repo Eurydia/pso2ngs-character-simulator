@@ -1,13 +1,14 @@
-import UnitGroup from "./groupEnum";
-import { calcBonusDEF } from "./helper";
 import statObject, { StatEnum, StatObject } from "../stat";
+
+import UnitGroup from "./groupEnum";
+import { calcBonusDef } from "./helper";
 
 export class Unit {
   name: string;
   stats: StatObject;
-  group: UnitGroup;
 
   #growth_rate: [number, number][];
+  #group: UnitGroup;
 
   constructor(
     name: string,
@@ -16,10 +17,14 @@ export class Unit {
     growth_rate: [number, number][],
   ) {
     this.name = name;
-    this.group = group;
     this.stats = stats;
 
     this.#growth_rate = growth_rate;
+    this.#group = group;
+  }
+
+  get rarity(): string {
+    return this.#group;
   }
 
   get label(): string {
@@ -31,7 +36,7 @@ export class Unit {
   }
 
   getBonusDef(level: number): number {
-    return calcBonusDEF(level, this.base_def, this.#growth_rate);
+    return calcBonusDef(level, this.#growth_rate);
   }
 }
 

@@ -22,7 +22,7 @@ export class Augment {
     this.stats = stats;
 
     this.#level = level;
-    this.#conflict = new Set(conflict);
+    this.#conflict = new Set();
   }
 
   get level(): string {
@@ -33,15 +33,12 @@ export class Augment {
     if (this.#level > 0) {
       return romanize(this.#level);
     }
+
     return "";
   }
 
   get label(): string {
     return `${this.name} ${this.level_roman}`.trimEnd();
-  }
-
-  isConflicting(group: AugmentGroup): boolean {
-    return this.#conflict.has(group);
   }
 }
 
