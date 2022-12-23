@@ -28,18 +28,19 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
 
   return (
     <Box marginY={4} marginX={8}>
-      <Grid container columns={{ sm: 1, md: 1 }}>
-        <Grid item xs={1}>
+      <Grid container columns={1}>
+        <Grid item sm={1} md={2}>
           <Typography>{summaryWeapon.equipment}</Typography>
           <Typography>{summaryWeapon.fixa}</Typography>
           {summaryWeapon.augments.map((value, index) => (
             <Typography key={`${value}-${index}`}>{value}</Typography>
           ))}
         </Grid>
+
         <Grid item xs={1}>
           <FormWeapon title="Weapon" onChange={handleWeaponChange} />
         </Grid>
-        {/* <Grid item xs={1}>
+        <Grid item xs={1}>
           <FormUnit title="Unit #1" />
         </Grid>
         <Grid item xs={1}>
@@ -47,7 +48,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
         </Grid>
         <Grid item xs={1}>
           <FormUnit title="Unit #3" />
-        </Grid> */}
+        </Grid>
       </Grid>
     </Box>
   );
