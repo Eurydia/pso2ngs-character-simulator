@@ -15,9 +15,9 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const value_input: string = event.target.value;
-    const value_number: number = ld_toSafeInteger(value_input);
+    const value_safe: number = ld_toSafeInteger(value_input);
     const value_clamped: number = clampValue(
-      value_number,
+      value_safe,
       props.valueMin,
       props.valueMax,
     );
