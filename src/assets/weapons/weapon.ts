@@ -2,7 +2,7 @@ import statObject, { StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
 
 import WeaponGroup from "./groupEnum";
-import { calcBonusATK } from "./helper";
+import { calcBonusAtk } from "./helper";
 
 export class Weapon {
   #name: string;
@@ -36,7 +36,7 @@ export class Weapon {
   }
 
   getBonusAttack(level: number): number {
-    return calcBonusATK(level, this.#growth_rate);
+    return calcBonusAtk(level, this.#growth_rate);
   }
 }
 
