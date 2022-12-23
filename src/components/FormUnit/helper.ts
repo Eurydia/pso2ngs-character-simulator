@@ -89,7 +89,7 @@ export const collectStats = (
   item_fixa: Fixa | null,
   item_augments: (Augment | null)[],
 ): StatObject => {
-  const target: StatObject = statObject({});
+  const target: StatObject = statObject();
   collectUnit(item_unit, target);
   collectFixa(item_fixa, target);
   collectEnhancement(item_unit, item_enhancement, target);

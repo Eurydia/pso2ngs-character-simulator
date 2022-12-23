@@ -59,7 +59,7 @@ export class StatObject {
 }
 
 const statObject = (
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stats: Partial<{ [K in StatEnum]: number }> = {},
 ): StatObject => {
   return new StatObject(stats);
 };
