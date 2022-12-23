@@ -8,10 +8,9 @@ import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteAugment from "../AutocompleteAugment";
 import AutocompleteUnit from "../AutocompleteUnit";
-
-import FormDrawer from "./FormDrawer";
-import { collectStats } from "./helper";
 import FormBase from "../FormBase";
+
+import { collectStats } from "./helper";
 
 type FormWeaponProps = {
   title: string;
@@ -22,19 +21,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueEnhancement, setValueEnhancement] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
-  const stats_to_display = collectStats(
-    valueUnit,
-    valueEnhancement,
-    valueFixa,
-    valueAugments,
-  );
-
   return (
-    <FormBase>
+    <FormBase title={props.title}>
       <Stack spacing={1}>
-        <Typography fontWeight="bold" fontSize="large">
-          {props.title}
-        </Typography>
         <AutocompleteUnit value={valueUnit} onChange={setValueUnit} />
         <FieldEnhancement
           valueMin={0}

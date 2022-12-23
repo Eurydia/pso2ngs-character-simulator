@@ -1,5 +1,5 @@
-import { FC, Fragment, useEffect, useState } from "react";
-import { Grid, Box, Stack, Typography } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { Grid, Box, Stack } from "@mui/material";
 
 import {
   Fixa,
@@ -84,11 +84,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }
 
   return (
-    <FormBase>
+    <FormBase title={props.title}>
       <Stack spacing={1}>
-        <Typography fontWeight="bold" fontSize="large">
-          {props.title}
-        </Typography>
         <AutocompleteWeapon
           value={valueWeapon}
           onChange={handleWeaponChange}
