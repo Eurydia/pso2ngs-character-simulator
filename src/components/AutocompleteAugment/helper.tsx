@@ -1,15 +1,16 @@
 import { FilterOptionsState } from "@mui/material";
 import { matchSorter } from "match-sorter";
 
-import { AugmentInterface } from "../../assets";
+import { Augment } from "../../assets";
 
-const collectTerms = (value: string): string[] => {
+const extractTerms = (value: string): string[] => {
   const terms: string[] = [];
+  const items: string[] = value.split(" ");
 
-  for (const item of value.split(" ")) {
+  for (const item of items) {
     const item_trimmed = item.trim();
 
-    if (item_trimmed.length === 0) {
+    if (item_trimmed === "") {
       continue;
     }
 
@@ -19,10 +20,10 @@ const collectTerms = (value: string): string[] => {
   return terms;
 };
 
-const reducer = (
-  options: AugmentInterface[],
+const term_reducer = (
+  options: Augment[],
   term: string,
-): AugmentInterface[] => {
+): Augment[] => {
   return matchSorter(options, term, {
     keys: [
       (item) => item.name,
@@ -33,25 +34,25 @@ const reducer = (
   });
 };
 
-const collectOptions = (
-  options: AugmentInterface[],
+const sieveOptions = (
+  options: Augment[],
   terms: string[],
-): AugmentInterface[] => {
-  const fitlered_options: AugmentInterface[] = terms.reduceRight(
-    reducer,
+): Augment[] => {
+  const fitlered_options: Augment[] = terms.reduceRight(
+    term_reducer,
     options,
   );
   return fitlered_options;
 };
 
 export const filterOptions = (
-  options: AugmentInterface[],
-  state: FilterOptionsState<AugmentInterface>,
+  options: Augment[],
+  state: FilterOptionsState<Augment>,
   size: number = 16,
 ) => {
   const value: string = state.inputValue;
-  const terms: string[] = collectTerms(value);
-  const filtered_options: AugmentInterface[] = collectOptions(
+  const terms: string[] = extractTerms(value);
+  const filtered_options: Augment[] = sieveOptions(
     options,
     terms,
   ).slice(0, size);
