@@ -20,10 +20,7 @@ const extractTerms = (value: string): string[] => {
   return terms;
 };
 
-const term_reducer = (
-  options: Augment[],
-  term: string,
-): Augment[] => {
+const termReducer = (options: Augment[], term: string): Augment[] => {
   return matchSorter(options, term, {
     keys: [
       (item) => item.name,
@@ -39,7 +36,7 @@ const sieveOptions = (
   terms: string[],
 ): Augment[] => {
   const fitlered_options: Augment[] = terms.reduceRight(
-    term_reducer,
+    termReducer,
     options,
   );
   return fitlered_options;

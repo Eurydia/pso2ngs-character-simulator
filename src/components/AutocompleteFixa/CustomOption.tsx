@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
+
 import { Fixa } from "../../assets";
 
 type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
