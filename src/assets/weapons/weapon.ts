@@ -5,12 +5,12 @@ import WeaponGroup from "./groupEnum";
 import { calcBonusAtk } from "./helper";
 
 export class Weapon {
-  #name: string;
+  name: string;
   stats: StatObject;
-  group: WeaponGroup;
   potential: Potential;
 
   #growth_rate: [number, number][];
+  #group: WeaponGroup;
 
   constructor(
     name: string,
@@ -19,16 +19,20 @@ export class Weapon {
     stats: StatObject,
     growth_rate: [number, number][],
   ) {
-    this.#name = name;
+    this.name = name;
     this.stats = stats;
-    this.group = group;
     this.potential = potential;
 
+    this.#group = group;
     this.#growth_rate = growth_rate;
   }
 
+  get rarity(): string {
+    return this.#group;
+  }
+
   get label(): string {
-    return this.#name;
+    return this.name;
   }
 
   get base_attack(): number {
