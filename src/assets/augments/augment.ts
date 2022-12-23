@@ -3,9 +3,10 @@ import AugmentGroup from "./groupEnum";
 import statObject, { StatEnum, StatObject } from "../stat";
 
 export class Augment {
-  name: string;
   #level: number;
   #conflict: Set<AugmentGroup>;
+
+  name: string;
   stats: StatObject;
   group: AugmentGroup;
 

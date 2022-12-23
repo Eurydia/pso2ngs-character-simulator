@@ -2,8 +2,9 @@ import statObject, { StatEnum, StatObject } from "../stat";
 import FixaGroup from "./groupEnum";
 
 export class Fixa {
-  name: string;
   #level: number;
+
+  name: string;
   group: FixaGroup;
   stats: StatObject;
 

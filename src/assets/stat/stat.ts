@@ -1,5 +1,5 @@
 import StatEnum, { StatAdd, StatSpecial } from "./statEnum";
-import { formatStat, formatStatObject } from "./helper";
+import { formatStat } from "./helper";
 
 export class StatObject {
   stats: Partial<{ [K in StatEnum]: number }>;
@@ -8,36 +8,42 @@ export class StatObject {
     this.stats = stats;
   }
 
-  get toFormatted(): { label: string; value: string }[] {
-    return formatStatObject(this.stats);
-  }
-
-  stackStat(key: StatEnum, value: number): void {
-    if (StatAdd.has(key) || StatSpecial.has(key)) {
-      if (this.stats[key] === undefined) {
-        this.stats[key] = value;
-        return;
-      }
-      this.stats[key]! += value;
-      return;
-    }
-
+  #stackStatAdd(key: StatEnum, value: number): void {
     if (this.stats[key] === undefined) {
       this.stats[key] = value;
       return;
     }
+
+    this.stats[key]! += value;
+  }
+
+  #stackStatMuliply(key: StatEnum, value: number): void {
+    if (this.stats[key] === undefined) {
+      this.stats[key] = value;
+      return;
+    }
+
     this.stats[key]! *= value;
   }
 
-  getStat(stat: StatEnum): number {
-    const value: number | undefined = this.stats[stat];
+  stackStat(key: StatEnum, value: number): void {
+    if (StatAdd.has(key) || StatSpecial.has(key)) {
+      this.#stackStatAdd(key, value);
+      return;
+    }
+
+    this.#stackStatMuliply(key, value);
+  }
+
+  getStat(key: StatEnum): number {
+    const value: number | undefined = this.stats[key];
 
     if (value !== undefined) {
       return value;
     }
 
     // fallback
-    if (StatAdd.has(stat) || StatSpecial.has(stat)) {
+    if (StatAdd.has(key) || StatSpecial.has(key)) {
       return 0;
     }
     return 1;
