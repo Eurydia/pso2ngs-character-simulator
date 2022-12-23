@@ -53,10 +53,10 @@ const collectPotential = (
     return;
   }
 
-  const potential_dict = item_weapon.potential.toDict();
-  const potential_current = potential_dict[item_potential];
+  const potential_current =
+    item_weapon.potential.getPotential(item_potential);
 
-  if (potential_current === undefined) {
+  if (potential_current === null) {
     return;
   }
 
