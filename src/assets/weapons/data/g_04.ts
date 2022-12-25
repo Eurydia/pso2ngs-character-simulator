@@ -82,23 +82,23 @@ data.push(
 
 // -----------------------
 data.push(
+  makeWeaponFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 240,
+    [StatEnum.ADV_OFF_FLOOR]: 1.75,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+  }),
+);
+
+data.push(
   makeWeaponFour(
-    "Flamel Series (against enemies weak to fire)",
+    "Inactive Flamel Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 240,
       [StatEnum.ADV_OFF_FLOOR]: 1.75,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
   ),
-);
-
-data.push(
-  makeWeaponFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 240,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
 );
 
 export default data;

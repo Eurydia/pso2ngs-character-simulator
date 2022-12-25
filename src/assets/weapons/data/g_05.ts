@@ -134,65 +134,65 @@ data.push(
 
 // -----------------------
 data.push(
-  makeWeaponFive(
-    "Tempesta Series (against enemies weak to wind)",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
-    },
-  ),
-);
-
-data.push(
   makeWeaponFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
-// -----------------------
 data.push(
   makeWeaponFive(
-    "Lumiere Series (against enemies weak to light)",
+    "Inactive Tempesta Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
   ),
 );
 
+// -----------------------
 data.push(
   makeWeaponFive("Lumiere Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
 );
 
-// -----------------------
 data.push(
   makeWeaponFive(
-    "Obscura Series (against enemies weak to dark)",
+    "Inactive Lumiere Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
   ),
 );
 
+// -----------------------
 data.push(
   makeWeaponFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
   }),
+);
+
+data.push(
+  makeWeaponFive(
+    "Inactive Obscura Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 263,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
+    },
+  ),
 );
 
 export default data;

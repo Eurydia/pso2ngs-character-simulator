@@ -62,44 +62,44 @@ data.push(
 
 // -----------------------
 data.push(
+  makeWeaponThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 225,
+    [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+  }),
+);
+
+data.push(
   makeWeaponThree(
-    "Glissen Series (against enemies weak to lightning)",
+    "Inactive Glissen Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
   ),
-);
-
-data.push(
-  makeWeaponThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 225,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
 );
 
 // -----------------------
 data.push(
+  makeWeaponThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
+    [StatEnum.CORE_ATTACK]: 225,
+    [StatEnum.ADV_OFF_FLOOR]: 1.7,
+    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+  }),
+);
+
+data.push(
   makeWeaponThree(
-    "Frostel Series (against enemies weak to ice)",
+    "Inactive Frostel Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
       [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
     },
   ),
-);
-
-data.push(
-  makeWeaponThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 225,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-  }),
 );
 
 data.push(
