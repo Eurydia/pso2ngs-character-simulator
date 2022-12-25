@@ -21,22 +21,18 @@ const makeAugmentSecreta = (
 // --------------------------------------
 // alt
 (() => {
-  const data_bp = [3, 4, 5];
-  const data_hp = [-10, -10, -10];
-  const data_weapon_up = [1.01, 1.015, 1.02];
-  const data_floor = [1.01, 1.015, 1.02];
-  const data_damage_res = [0.985, 0.985, 0.985];
+  const data_bp = [3, 4, 5, 6];
+  const data_hp = [-10, -10, -10, -10];
+  const data_weapon_up = [1.01, 1.015, 1.02, 1.025];
+  const data_floor = [1.01, 1.015, 1.02, 1.025];
+  const data_damage_res = [0.985, 0.985, 0.985, 0.985];
 
-  for (
-    let level_index = 0;
-    level_index < data_bp.length;
-    level_index++
-  ) {
+  data_bp.forEach((bp, level_index) => {
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
       makeAugmentSecreta("Alts Secreta", level_index + 1, {
-        [StatEnum.CORE_BP]: data_bp[level_index],
+        [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
         [StatEnum.WEAPON_MELEE]: weapon_up_value,
         [StatEnum.WEAPON_RANGED]: weapon_up_value,
@@ -45,7 +41,7 @@ const makeAugmentSecreta = (
         [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
       }),
     );
-  }
+  });
 })();
 
 export default data;

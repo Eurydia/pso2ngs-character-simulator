@@ -33,21 +33,17 @@ const makeAugmentDualble = (
   for (const data_stat of data_stats) {
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
-    for (
-      let level_index = 0;
-      level_index < data_bp.length;
-      level_index++
-    ) {
+    data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
 
       data.push(
         makeAugmentDualble(`${name} Dualble`, level_index + 1, {
-          [StatEnum.CORE_BP]: data_bp[level_index],
+          [StatEnum.CORE_BP]: bp,
           [weapon_up_a]: weapon_up_value,
           [weapon_up_b]: weapon_up_value,
         }),
       );
-    }
+    });
   }
 })();
 

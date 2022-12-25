@@ -24,18 +24,14 @@ const makeAugmentDecold = (
   const data_bp = [1, 3, 5];
   const data_cold_res = [0.05, 0.15, 0.25];
 
-  for (
-    let level_index = 0;
-    level_index < data_bp.length;
-    level_index++
-  ) {
+  data_bp.forEach((bp, level_index) => {
     data.push(
       makeAugmentDecold("Decold Standard", level_index + 1, {
-        [StatEnum.CORE_BP]: data_bp[level_index],
+        [StatEnum.CORE_BP]: bp,
         [StatEnum.HARSH_COLD]: data_cold_res[level_index],
       }),
     );
-  }
+  });
 })();
 
 // --------------------------------------

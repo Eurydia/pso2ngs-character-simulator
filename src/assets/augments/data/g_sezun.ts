@@ -45,6 +45,19 @@ data.push(
 );
 
 // --------------------------------------
+// wintafiv
+data.push(
+  makeAugmentSezun("Sezun Wintafiv", 0, {
+    [StatEnum.CORE_BP]: 10,
+    [StatEnum.WEAPON_MELEE]: 1.05,
+    [StatEnum.WEAPON_RANGED]: 1.05,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.05,
+    [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.2,
+    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.25,
+  }),
+);
+
+// --------------------------------------
 // inactive
 data.push(
   makeAugmentSezun("Inactive Sezun", 0, {

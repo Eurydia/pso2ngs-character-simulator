@@ -34,20 +34,17 @@ const makeAugmentGigas = (
   for (const data_stat of data_stats) {
     const [name, weapon_up] = data_stat;
 
-    for (
-      let level_index = 0;
-      level_index < data_bp.length;
-      level_index++
-    ) {
+    data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
+
       data.push(
         makeAugmentGigas(`Gigas ${name}`, level_index + 1, {
-          [StatEnum.CORE_BP]: data_bp[level_index],
+          [StatEnum.CORE_BP]: bp,
           [StatEnum.CORE_HP]: data_hp[level_index],
           [weapon_up]: weapon_up_value,
         }),
       );
-    }
+    });
   }
 })();
 
