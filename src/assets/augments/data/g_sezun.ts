@@ -44,8 +44,10 @@ data.push(
   }),
 );
 
+// --------------------------------------
+// inactive
 data.push(
-  makeAugmentSezun("* Inactive Sezun", 0, {
+  makeAugmentSezun("Inactive Sezun", 0, {
     [StatEnum.CORE_BP]: 10,
   }),
 );
