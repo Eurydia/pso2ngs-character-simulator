@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { statObject, StatEnum, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
 import SummaryItem from "./SummaryItem";
+import Summary from "./Summary";
+import { collectStat } from "./helper";
 
 const default_summary: SummaryEquipment = {
   equipment: null,
@@ -14,18 +16,10 @@ const default_summary: SummaryEquipment = {
 
 type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
-  const [statWeapon, setStatWeapon] = useState<StatObject>(
-    statObject({}),
-  );
-  const [statUnitA, setStatUnitA] = useState<StatObject>(
-    statObject({}),
-  );
-  const [statUnitB, setStatUnitB] = useState<StatObject>(
-    statObject({}),
-  );
-  const [statUnitC, setStatUnitC] = useState<StatObject>(
-    statObject({}),
-  );
+  const [statWeapon, setStatWeapon] = useState(statObject({}));
+  const [statUnitA, setStatUnitA] = useState(statObject({}));
+  const [statUnitB, setStatUnitB] = useState(statObject({}));
+  const [statUnitC, setStatUnitC] = useState(statObject({}));
 
   const [summaryWeapon, setSummaryWeapon] =
     useState<SummaryEquipment>({ ...default_summary });
@@ -39,27 +33,23 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
     ...default_summary,
   });
 
+  const stat: StatObject = useMemo(
+    () => collectStat([statWeapon, statUnitA, statUnitB, statUnitC]),
+    [statWeapon, statUnitA, statUnitB, statUnitC],
+  );
+
   return (
     <Box marginY={4} marginX={8}>
       <Stack spacing={2}>
-        <Paper>
-          <Box padding={2}>
-            <Grid container columns={{ xs: 1, md: 2 }} spacing={2}>
-              <Grid item xs={1}>
-                <SummaryItem {...summaryWeapon} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summaryUnitA} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summaryUnitB} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summaryUnitC} />
-              </Grid>
-            </Grid>
-          </Box>
-        </Paper>
+        <Summary
+          stat={stat}
+          summary={[
+            summaryWeapon,
+            summaryUnitA,
+            summaryUnitB,
+            summaryUnitC,
+          ]}
+        />
         <FormWeapon
           title="Weapon"
           onStatChange={setStatWeapon}

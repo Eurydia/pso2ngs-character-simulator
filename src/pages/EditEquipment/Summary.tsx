@@ -20,7 +20,7 @@ import { StatObject } from "../../assets";
 import { StatView } from "../../components";
 
 type SummaryProps = {
-  items: SummaryEquipment[];
+  summary: SummaryEquipment[];
   stat: StatObject;
 };
 const Summary: FC<SummaryProps> = (props) => {
@@ -55,7 +55,7 @@ const Summary: FC<SummaryProps> = (props) => {
             </Button>
           </Stack>
           <Grid container columns={{ xs: 1, md: 2 }} spacing={2}>
-            {props.items.map((item, index) => (
+            {props.summary.map((item, index) => (
               <Grid key={`item-#${index}`} item xs={1}>
                 <SummaryItem {...item} />
               </Grid>
