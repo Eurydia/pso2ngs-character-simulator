@@ -105,7 +105,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Deft${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_OFF_FLOOR]: 1.0275,
@@ -114,7 +114,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Gua${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.025,
@@ -124,7 +124,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Spi${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [StatEnum.CORE_PP]: 6,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -134,7 +134,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Sta${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [StatEnum.CORE_HP]: 20,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
@@ -144,7 +144,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Staspi${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 3,
         [weapon_up_a]: weapon_up_value,
@@ -155,7 +155,7 @@ const makeAugmentAddi = (
 
     data.push(
       makeAugmentAddi(`Addi Ward${name}`, 0, {
-        [StatEnum.CORE_BP]: 0,
+        [StatEnum.CORE_BP]: 12,
         [weapon_up_a]: weapon_up_value,
         [weapon_up_b]: weapon_up_value,
         [StatEnum.AIL_BLIND]: 1.2,
