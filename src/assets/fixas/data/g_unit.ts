@@ -30,7 +30,7 @@ const makeFixaUnit = (
 })();
 
 (() => {
-  const data_value = [1.01, 1.02, 1.03, 1.035, 1.04];
+  const data_value = [0.99, 0.98, 0.97, 0.965, 0.96];
 
   for (
     let level_index = 0;

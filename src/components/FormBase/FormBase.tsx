@@ -4,6 +4,8 @@ import {
   Button,
   Dialog,
   DialogActions,
+  DialogContent,
+  DialogTitle,
   Paper,
   Stack,
   Typography,
@@ -55,12 +57,13 @@ const FormBase: FC<FormBaseProps> = (props) => {
       </Paper>
       <Dialog
         fullWidth
-        maxWidth="md"
+        maxWidth="sm"
         open={dialogState}
         onClose={handleDialogClose}
       >
-        {props.slotDialog}
-        <DialogActions>
+        <DialogTitle>{`Stats for ${props.title}`}</DialogTitle>
+        <DialogContent>{props.slotDialog}</DialogContent>
+        <DialogActions disableSpacing>
           <Button onClick={handleDialogClose}>okay</Button>
         </DialogActions>
       </Dialog>

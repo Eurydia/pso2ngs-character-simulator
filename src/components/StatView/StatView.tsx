@@ -235,15 +235,22 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 };
 
 type StatViewProps = {
-  title: string;
+  disablePadding?: boolean;
+  title?: string;
   stat: StatObject;
 };
 const StatView: FC<StatViewProps> = (props) => {
-  const { stat } = props;
+  const { stat, disablePadding } = props;
+
+  let padding: number = 4;
+  if (disablePadding) {
+    padding = 0;
+  }
+
   const _envCold = stat.getFormattedStat(StatEnum.HARSH_COLD);
 
   return (
-    <Box padding={2} margin={2}>
+    <Box padding={padding} borderColor="red">
       <Stack>
         <Typography fontWeight="bold" fontSize="large">
           {props.title}
