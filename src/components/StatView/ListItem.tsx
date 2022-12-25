@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 type StatListItemProps = {
-  value: string;
+  value: string | null;
   label: ReactNode;
   icon?: ReactNode;
 };

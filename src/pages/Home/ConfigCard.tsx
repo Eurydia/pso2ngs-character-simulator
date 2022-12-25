@@ -26,7 +26,6 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
             <Grid container columns={{ xs: 1, md: 2 }}>
               <Grid item xs={1}>
                 <Button
-                  disableRipple
                   size="small"
                   variant="contained"
                   startIcon={<Launch fontSize="small" />}

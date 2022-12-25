@@ -15,11 +15,11 @@ import StatListItem from "./ListItem";
 import { getIcon } from "./helper";
 
 type CoreStatListProps = {
-  bp: string;
-  hp: string;
-  pp: string;
-  attack: string;
-  defense: string;
+  bp: string | null;
+  hp: string | null;
+  pp: string | null;
+  attack: string | null;
+  defense: string | null;
 };
 const CoreStatList: FC<CoreStatListProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
@@ -44,9 +44,9 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
 };
 
 type PotencyStatListProps = {
-  melee: string;
-  ranged: string;
-  technique: string;
+  melee: string | null;
+  ranged: string | null;
+  technique: string | null;
 };
 const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   const { melee, ranged, technique } = props;
@@ -73,13 +73,13 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
 };
 
 type AilmentStatListProps = {
-  burn: string;
-  freeze: string;
-  shock: string;
-  blind: string;
-  panic: string;
-  poison: string;
-  physicalDown: string;
+  burn: string | null;
+  freeze: string | null;
+  shock: string | null;
+  blind: string | null;
+  panic: string | null;
+  poison: string | null;
+  physicalDown: string | null;
 };
 const AilmentStatList: FC<AilmentStatListProps> = (props) => {
   const { burn, freeze, panic, blind, shock, poison, physicalDown } =
@@ -127,9 +127,9 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
 };
 
 type PPAdvancedStatsProps = {
-  usage: string;
-  naturalRecovery: string;
-  activeRecovery: string;
+  usage: string | null;
+  naturalRecovery: string | null;
+  activeRecovery: string | null;
 };
 const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
@@ -156,11 +156,11 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
 };
 
 type OffensiveAdancedStatsProps = {
-  floorPotency: string;
-  damageUp: string;
-  critChance: string;
-  critDamage: string;
-  pbGaugeRecovery: string;
+  floorPotency: string | null;
+  damageUp: string | null;
+  critChance: string | null;
+  critDamage: string | null;
+  pbGaugeRecovery: string | null;
 };
 const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   props,
@@ -205,9 +205,9 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
 };
 
 type DefensiveAdancedStatsProps = {
-  healingUp: string;
-  damageResist: string;
-  ailmentDuration: string;
+  healingUp: string | null;
+  damageResist: string | null;
+  ailmentDuration: string | null;
 };
 const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
   props,

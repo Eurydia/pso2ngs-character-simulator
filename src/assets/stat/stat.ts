@@ -53,8 +53,12 @@ export class StatObject {
     return Object.keys(this.stats) as StatEnum[];
   }
 
-  getFormattedStat(stat: StatEnum): string {
-    return formatStat(stat, this.getStat(stat));
+  getFormattedStat(stat: StatEnum): string | null {
+    if (this.keys.includes(stat)) {
+      return formatStat(stat, this.getStat(stat));
+    }
+
+    return null;
   }
 }
 

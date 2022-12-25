@@ -1,5 +1,5 @@
-import { List, ListSubheader } from "@mui/material";
 import { FC, ReactNode } from "react";
+import { List, ListSubheader } from "@mui/material";
 
 interface StatListProps {
   children: ReactNode;
