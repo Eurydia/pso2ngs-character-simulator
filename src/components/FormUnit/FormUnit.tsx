@@ -44,10 +44,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [valueUnit, valueFixa, valueAugments]);
 
   return (
-    <FormBase
-      title={props.title}
-      slotDialog={<StatView disablePadding stat={stat} />}
-    >
+    <FormBase title={props.title} stat={stat}>
       <Stack spacing={1}>
         <AutocompleteUnit value={valueUnit} onChange={setValueUnit} />
         <FieldEnhancement

@@ -60,7 +60,6 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
             </Grid>
           </Box>
         </Paper>
-
         <FormWeapon
           title="Weapon"
           onStatChange={setStatWeapon}

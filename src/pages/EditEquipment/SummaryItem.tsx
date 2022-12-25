@@ -1,11 +1,8 @@
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
+import { SummaryEquipment } from "../../types";
 
-type SummaryItemProps = {
-  equipment: string | null;
-  fixa: string | null;
-  augments: string[];
-};
+type SummaryItemProps = SummaryEquipment;
 const SummaryItem: FC<SummaryItemProps> = (props) => {
   return (
     <Box>

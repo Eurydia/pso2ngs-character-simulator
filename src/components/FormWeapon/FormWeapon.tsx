@@ -74,10 +74,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }
 
   return (
-    <FormBase
-      title={props.title}
-      slotDialog={<StatView disablePadding stat={stat} />}
-    >
+    <FormBase title={props.title} stat={stat}>
       <Stack spacing={1}>
         <AutocompleteWeapon
           value={valueWeapon}

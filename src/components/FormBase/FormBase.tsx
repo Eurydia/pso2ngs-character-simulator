@@ -11,11 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 import { BarChart } from "@mui/icons-material";
+import StatView from "../StatView";
+import { StatObject } from "../../assets";
 
 type FormBaseProps = {
   title: string;
   children: ReactNode | ReactNode[];
-  slotDialog: ReactNode | ReactNode[];
+  stat: StatObject;
 };
 const FormBase: FC<FormBaseProps> = (props) => {
   const [dialogState, setDialogState] = useState<boolean>(false);
@@ -61,7 +63,9 @@ const FormBase: FC<FormBaseProps> = (props) => {
         onClose={handleDialogClose}
       >
         <DialogTitle>{`Stats for ${props.title}`}</DialogTitle>
-        <DialogContent>{props.slotDialog}</DialogContent>
+        <DialogContent>
+          <StatView disablePadding stat={props.stat} />
+        </DialogContent>
         <DialogActions disableSpacing>
           <Button onClick={handleDialogClose}>okay</Button>
         </DialogActions>
