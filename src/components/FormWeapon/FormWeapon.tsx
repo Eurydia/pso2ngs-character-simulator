@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
 import {
   Fixa,
   GroupEnumFixa,
   Potential,
+  statObject,
   StatObject,
   Weapon,
 } from "../../assets";
@@ -23,78 +24,82 @@ import StatView from "../StatView";
 
 interface FormWeaponProps {
   title: string;
-  onChange: (stats: StatObject, summary: SummaryEquipment) => void;
+  onStatChange: (stats: StatObject) => void;
+  onSummaryChange: (summary: SummaryEquipment) => void;
 }
 const FormWeapon: FC<FormWeaponProps> = (props) => {
+  const { onStatChange } = props;
+
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valuePotential, setValuePotential] = useState<string>("");
   const [valueLevel, setValueLevel] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
-  const handleWeaponChange = (new_value: Weapon | null) => {
-    setValueWeapon(new_value);
+  const stat: StatObject = useMemo<StatObject>(
+    () =>
+      collectStats(
+        valueWeapon,
+        valueLevel,
+        valueFixa,
+        valuePotential,
+        valueAugments,
+      ),
+    [
+      valueWeapon,
+      valueLevel,
+      valueFixa,
+      valuePotential,
+      valueAugments,
+    ],
+  );
+
+  useEffect(() => {
+    onStatChange(stat);
+  }, [stat]);
+
+  useEffect(() => {
+    const summary: SummaryEquipment = {
+      augments: [],
+    };
+
+    if (valueWeapon !== null) {
+      summary.equipment = valueWeapon.label;
+    }
+
+    if (valueFixa !== null) {
+      summary.fixa = valueFixa.label;
+    }
+
+    const summary_augment: string[] = [];
+
+    for (const augment of valueAugments) {
+      if (augment === null) {
+        continue;
+      }
+
+      summary_augment.push(augment.label);
+    }
+
+    summary.augments = summary_augment;
+
+    props.onSummaryChange(summary);
+  }, [valueWeapon, valueFixa, valueAugments]);
+
+  const handleWeaponChange = (new_weapon: Weapon | null) => {
+    setValueWeapon(new_weapon);
     setValuePotential("");
   };
-
-  // useEffect(() => {
-  //   const next_summary: SummaryEquipment = {
-  //     equipment: "-",
-  //     fixa: "-",
-  //     augments: [],
-  //   };
-
-  //   if (valueWeapon !== null) {
-  //     next_summary.equipment = valueWeapon.label;
-  //   }
-
-  //   if (valueFixa !== null) {
-  //     next_summary.fixa = valueFixa.label;
-  //   }
-
-  //   const summary_augment: string[] = [];
-  //   for (const augment of valueAugments) {
-  //     if (augment === null) {
-  //       continue;
-  //     }
-  //     summary_augment.push(augment.label);
-  //   }
-  //   next_summary.augments = summary_augment;
-
-  //   const next_stats: StatObject = collectStats(
-  //     valueWeapon,
-  //     valueEnhancement,
-  //     valueFixa,
-  //     valuePotential,
-  //     valueAugments,
-  //   );
-
-  //   props.onChange(next_stats, next_summary);
-  // }, [
-  //   valueWeapon,
-  //   valueFixa,
-  //   valuePotential,
-  //   valueEnhancement,
-  //   valueAugments,
-  // ]);
 
   let potential: Potential | null = null;
   if (valueWeapon !== null) {
     potential = valueWeapon.potential;
   }
 
-  const stats_to_display: StatObject = collectStats(
-    valueWeapon,
-    valueLevel,
-    valueFixa,
-    valuePotential,
-    valueAugments,
-  );
-
   return (
     <FormBase
       title={props.title}
-      slotDialog={<StatView disablePadding stat={stats_to_display} />}
+      slotDialog={<StatView disablePadding stat={stat} />}
     >
       <Stack spacing={1}>
         <AutocompleteWeapon

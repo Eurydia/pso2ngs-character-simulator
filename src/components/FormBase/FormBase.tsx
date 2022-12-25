@@ -31,7 +31,7 @@ const FormBase: FC<FormBaseProps> = (props) => {
   return (
     <Fragment>
       <Paper>
-        <Box padding={2} margin={2}>
+        <Box padding={2}>
           <Stack spacing={1}>
             <Stack
               direction="row"
