@@ -111,17 +111,17 @@ const collectAugments = (
 };
 
 export const collectStats = (
-  item_weapon: Weapon | null,
-  item_enhancement: number,
-  item_fixa: Fixa | null,
-  item_potential: string,
-  item_augments: (Augment | null)[],
+  weapon: Weapon | null,
+  level: number,
+  fixa: Fixa | null,
+  potential: string,
+  augments: (Augment | null)[],
 ): StatObject => {
   const target: StatObject = statObject({});
-  collectWeapon(item_weapon, target);
-  collectFixa(item_fixa, target);
-  collectPotential(item_weapon, item_potential, target);
-  collectEnhancement(item_weapon, item_enhancement, target);
-  collectAugments(item_augments, target);
+  collectWeapon(weapon, target);
+  collectFixa(fixa, target);
+  collectPotential(weapon, potential, target);
+  collectEnhancement(weapon, level, target);
+  collectAugments(augments, target);
   return target;
 };

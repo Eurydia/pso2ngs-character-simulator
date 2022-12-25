@@ -19,6 +19,7 @@ import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
 
 import { collectStats } from "./helper";
+import StatView from "../StatView";
 
 interface FormWeaponProps {
   title: string;
@@ -28,7 +29,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valuePotential, setValuePotential] = useState<string>("");
-  const [valueEnhancement, setValueEnhancement] = useState<number>(0);
+  const [valueLevel, setValueLevel] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
   const handleWeaponChange = (new_value: Weapon | null) => {
@@ -36,55 +37,65 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     setValuePotential("");
   };
 
-  useEffect(() => {
-    const next_summary: SummaryEquipment = {
-      equipment: "-",
-      fixa: "-",
-      augments: [],
-    };
+  // useEffect(() => {
+  //   const next_summary: SummaryEquipment = {
+  //     equipment: "-",
+  //     fixa: "-",
+  //     augments: [],
+  //   };
 
-    if (valueWeapon !== null) {
-      next_summary.equipment = valueWeapon.label;
-    }
+  //   if (valueWeapon !== null) {
+  //     next_summary.equipment = valueWeapon.label;
+  //   }
 
-    if (valueFixa !== null) {
-      next_summary.fixa = valueFixa.label;
-    }
+  //   if (valueFixa !== null) {
+  //     next_summary.fixa = valueFixa.label;
+  //   }
 
-    const summary_augment: string[] = [];
-    for (const augment of valueAugments) {
-      if (augment === null) {
-        summary_augment.push("none");
-        continue;
-      }
-      summary_augment.push(augment.label);
-    }
-    next_summary.augments = summary_augment;
+  //   const summary_augment: string[] = [];
+  //   for (const augment of valueAugments) {
+  //     if (augment === null) {
+  //       continue;
+  //     }
+  //     summary_augment.push(augment.label);
+  //   }
+  //   next_summary.augments = summary_augment;
 
-    const next_stats: StatObject = collectStats(
-      valueWeapon,
-      valueEnhancement,
-      valueFixa,
-      valuePotential,
-      valueAugments,
-    );
+  //   const next_stats: StatObject = collectStats(
+  //     valueWeapon,
+  //     valueEnhancement,
+  //     valueFixa,
+  //     valuePotential,
+  //     valueAugments,
+  //   );
 
-    props.onChange(next_stats, next_summary);
-  }, [
-    valueWeapon,
-    valueFixa,
-    valuePotential,
-    valueEnhancement,
-    valueAugments,
-  ]);
+  //   props.onChange(next_stats, next_summary);
+  // }, [
+  //   valueWeapon,
+  //   valueFixa,
+  //   valuePotential,
+  //   valueEnhancement,
+  //   valueAugments,
+  // ]);
 
   let potential: Potential | null = null;
   if (valueWeapon !== null) {
     potential = valueWeapon.potential;
   }
 
+  const stats_to_display: StatObject = collectStats(
+    valueWeapon,
+    valueLevel,
+    valueFixa,
+    valuePotential,
+    valueAugments,
+  );
+
   return (
-    <FormBase title={props.title}>
+    <FormBase
+      title={props.title}
+      slotDialog={<StatView disablePadding stat={stats_to_display} />}
+    >
       <Stack spacing={1}>
         <AutocompleteWeapon
           value={valueWeapon}
@@ -93,8 +104,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
         <FieldEnhancement
           valueMin={0}
           valueMax={60}
-          value={valueEnhancement}
-          onChange={setValueEnhancement}
+          value={valueLevel}
+          onChange={setValueLevel}
         />
         <SelectPotential
           potential={potential}
