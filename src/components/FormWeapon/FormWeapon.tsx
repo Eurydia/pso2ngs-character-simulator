@@ -5,7 +5,6 @@ import {
   Fixa,
   GroupEnumFixa,
   Potential,
-  statObject,
   StatObject,
   Weapon,
 } from "../../assets";
@@ -18,9 +17,9 @@ import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
+import StatView from "../StatView";
 
 import { collectStat, collectSummary } from "./helper";
-import StatView from "../StatView";
 
 interface FormWeaponProps {
   title: string;
@@ -28,7 +27,7 @@ interface FormWeaponProps {
   onSummaryChange: (summary: SummaryEquipment) => void;
 }
 const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { onStatChange } = props;
+  const { onStatChange, onSummaryChange } = props;
 
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
@@ -59,12 +58,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    const summary: SummaryEquipment = collectSummary(
-      valueWeapon,
-      valueFixa,
-      valueAugments,
+    onSummaryChange(
+      collectSummary(valueWeapon, valueFixa, valueAugments),
     );
-    props.onSummaryChange(summary);
   }, [valueWeapon, valueFixa, valueAugments]);
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {

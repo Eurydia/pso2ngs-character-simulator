@@ -43,7 +43,6 @@ const FormBase: FC<FormBaseProps> = (props) => {
               </Typography>
 
               <Button
-                variant="contained"
                 size="small"
                 startIcon={<BarChart />}
                 onClick={handleDialogOpen}

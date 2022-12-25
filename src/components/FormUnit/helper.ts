@@ -6,6 +6,7 @@ import {
   StatObject,
   Unit,
 } from "../../assets";
+import { SummaryEquipment } from "../../types";
 
 const collectUnit = (unit: Unit | null, target: StatObject): void => {
   if (unit === null) {
@@ -82,7 +83,7 @@ const collectAugments = (
   }
 };
 
-export const collectStats = (
+export const collectStat = (
   unit: Unit | null,
   level: number,
   fixa: Fixa | null,
@@ -94,4 +95,38 @@ export const collectStats = (
   collectEnhancement(unit, level, target);
   collectAugments(augments, target);
   return target;
+};
+
+export const collectSummary = (
+  unit: Unit | null,
+  fixa: Fixa | null,
+  augments: (Augment | null)[],
+): SummaryEquipment => {
+  const summary: SummaryEquipment = {
+    equipment: null,
+    fixa: null,
+    augments: [],
+  };
+
+  if (unit !== null) {
+    summary.equipment = unit.label;
+  }
+
+  if (fixa !== null) {
+    summary.fixa = fixa.label;
+  }
+
+  const summary_augment: string[] = [];
+
+  for (const augment of augments) {
+    if (augment === null) {
+      continue;
+    }
+
+    summary_augment.push(augment.label);
+  }
+
+  summary.augments = summary_augment;
+
+  return summary;
 };

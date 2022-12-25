@@ -1,7 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
-import { Fixa, GroupEnumFixa, Unit } from "../../assets";
+import { Fixa, GroupEnumFixa, StatObject, Unit } from "../../assets";
+import { SummaryEquipment } from "../../types";
 import { useAugment } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
@@ -9,30 +10,43 @@ import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteAugment from "../AutocompleteAugment";
 import AutocompleteUnit from "../AutocompleteUnit";
 import FormBase from "../FormBase";
-
-import { collectStats } from "./helper";
 import StatView from "../StatView";
+
+import { collectStat, collectSummary } from "./helper";
 
 type FormWeaponProps = {
   title: string;
+  onStatChange: (stat: StatObject) => void;
+  onSummaryChange: (summary: SummaryEquipment) => void;
 };
 const FormWeapon: FC<FormWeaponProps> = (props) => {
+  const { onStatChange, onSummaryChange } = props;
+
   const [valueUnit, setValueUnit] = useState<Unit | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valueLevel, setValueLevel] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
-  const stats_to_display = collectStats(
-    valueUnit,
-    valueLevel,
-    valueFixa,
-    valueAugments,
+  const stat = useMemo(
+    () =>
+      collectStat(valueUnit, valueLevel, valueFixa, valueAugments),
+    [valueUnit, valueLevel, valueFixa, valueAugments],
   );
+
+  useEffect(() => {
+    onStatChange(stat);
+  }, [stat]);
+
+  useEffect(() => {
+    onSummaryChange(
+      collectSummary(valueUnit, valueFixa, valueAugments),
+    );
+  }, [valueUnit, valueFixa, valueAugments]);
 
   return (
     <FormBase
       title={props.title}
-      slotDialog={<StatView disablePadding stat={stats_to_display} />}
+      slotDialog={<StatView disablePadding stat={stat} />}
     >
       <Stack spacing={1}>
         <AutocompleteUnit value={valueUnit} onChange={setValueUnit} />
