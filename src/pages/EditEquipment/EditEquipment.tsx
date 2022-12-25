@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { statObject, StatEnum, StatObject } from "../../assets";
+import { statObject, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
 
 type EditEquipmentProps = {};
 const EditEquipment: FC<EditEquipmentProps> = () => {
-  const [valueWeapon, setValueWeapon] = useState<StatObject>(
+  const [statWeapon, setStatWeapon] = useState<StatObject>(
     statObject({}),
   );
 
@@ -22,14 +22,14 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
     stats: StatObject,
     summary: SummaryEquipment,
   ) => {
-    setValueWeapon(stats);
+    setStatWeapon(stats);
     setSummaryWeapon(summary);
   };
 
   return (
     <Box marginY={4} marginX={8}>
       <Stack spacing={2}>
-        <Paper>
+        {/* <Paper>
           <Box padding={4}>
             <Grid container columns={{ xs: 1, md: 2 }}>
               <Grid item xs={1}>
@@ -86,7 +86,11 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
               </Grid>
             </Grid>
           </Box>
+        </Paper> */}
+        <Paper>
+          <StatView title="weapon" stat={statWeapon} />
         </Paper>
+
         <FormWeapon title="Weapon" onChange={handleWeaponChange} />
         <FormUnit title="Unit #1" />
         <FormUnit title="Unit #2" />

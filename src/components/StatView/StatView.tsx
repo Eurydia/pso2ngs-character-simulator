@@ -234,21 +234,6 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
   );
 };
 
-const CustomDivider = () => {
-  const { breakpoints } = useTheme();
-
-  return (
-    <Divider
-      flexItem
-      orientation={
-        useMediaQuery(breakpoints.down("sm"))
-          ? "horizontal"
-          : "vertical"
-      }
-    />
-  );
-};
-
 type StatViewProps = {
   title: string;
   stat: StatObject;
@@ -258,8 +243,8 @@ const StatView: FC<StatViewProps> = (props) => {
   const _envCold = stat.getFormattedStat(StatEnum.HARSH_COLD);
 
   return (
-    <Box>
-      <Stack divider={<CustomDivider />}>
+    <Box padding={2} margin={2}>
+      <Stack>
         <Typography fontWeight="bold" fontSize="large">
           {props.title}
         </Typography>

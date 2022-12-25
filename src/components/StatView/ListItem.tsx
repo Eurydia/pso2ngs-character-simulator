@@ -10,17 +10,16 @@ import {
 type StatListItemProps = {
   value: string | null;
   label: ReactNode;
-  icon?: ReactNode;
+  icon: ReactNode;
 };
 const StatListItem: FC<StatListItemProps> = (props) => {
-  let _icon: ReactNode = undefined;
-  if (props.icon !== undefined) {
-    _icon = <ListItemIcon>{props.icon}</ListItemIcon>;
+  if (props.value === null) {
+    return null;
   }
 
   return (
     <ListItem>
-      {_icon}
+      <ListItemIcon>{props.icon}</ListItemIcon>
       <ListItemText>
         <Stack
           direction="row"
