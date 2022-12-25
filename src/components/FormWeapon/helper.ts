@@ -88,7 +88,6 @@ const collectEnhancement = (
   const floor_potency = weapon_stats.getStat(StatEnum.ADV_OFF_FLOOR);
 
   const bp_from_atk = (floor_potency / 2) * (atk_base + atk_bonus);
-
   target.stackStat(StatEnum.CORE_BP, Math.round(bp_from_atk));
 };
 

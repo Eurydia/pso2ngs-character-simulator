@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Grid } from "@mui/material";
-import CustomCard from "./CustomCard";
+import ConfigCard from "./ConfigCard";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = (props) => {
@@ -13,23 +13,23 @@ const Home: FC<HomeProps> = (props) => {
       spacing={4}
     >
       <Grid item md={1}>
-        <CustomCard
+        <ConfigCard
           title="Equipment"
-          to="/config-equipment"
+          destination="/config-equipment"
           description="Edit your equipment here."
         />
       </Grid>
       <Grid item md={1}>
-        <CustomCard
+        <ConfigCard
           title="Character"
-          to="/config-character"
+          destination="/config-character"
           description="Edit your character here."
         />
       </Grid>
       <Grid item md={1}>
-        <CustomCard
+        <ConfigCard
           title="Food"
-          to="/config-food"
+          destination="/config-food"
           description="Edit your food buff here."
         />
       </Grid>

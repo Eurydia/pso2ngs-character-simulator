@@ -57,7 +57,6 @@ const collectEnhancement = (
   const bp_from_pp: number = Math.round(
     unit_stats.getStat(StatEnum.CORE_PP),
   );
-
   target.stackStat(
     StatEnum.CORE_BP,
     bp_from_def + bp_from_hp + bp_from_pp,
