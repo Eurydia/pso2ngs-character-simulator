@@ -19,7 +19,7 @@ import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
 
-import { collectStats } from "./helper";
+import { collectStat, collectSummary } from "./helper";
 import StatView from "../StatView";
 
 interface FormWeaponProps {
@@ -38,7 +38,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const stat: StatObject = useMemo<StatObject>(
     () =>
-      collectStats(
+      collectStat(
         valueWeapon,
         valueLevel,
         valueFixa,
@@ -59,30 +59,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    const summary: SummaryEquipment = {
-      augments: [],
-    };
-
-    if (valueWeapon !== null) {
-      summary.equipment = valueWeapon.label;
-    }
-
-    if (valueFixa !== null) {
-      summary.fixa = valueFixa.label;
-    }
-
-    const summary_augment: string[] = [];
-
-    for (const augment of valueAugments) {
-      if (augment === null) {
-        continue;
-      }
-
-      summary_augment.push(augment.label);
-    }
-
-    summary.augments = summary_augment;
-
+    const summary: SummaryEquipment = collectSummary(
+      valueWeapon,
+      valueFixa,
+      valueAugments,
+    );
     props.onSummaryChange(summary);
   }, [valueWeapon, valueFixa, valueAugments]);
 

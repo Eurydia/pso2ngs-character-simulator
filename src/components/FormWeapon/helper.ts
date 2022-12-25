@@ -7,6 +7,7 @@ import {
   Weapon,
   Potential,
 } from "../../assets";
+import { SummaryEquipment } from "../../types";
 
 const collectWeapon = (
   weapon: Weapon | null,
@@ -110,7 +111,7 @@ const collectAugments = (
   }
 };
 
-export const collectStats = (
+export const collectStat = (
   weapon: Weapon | null,
   level: number,
   fixa: Fixa | null,
@@ -124,4 +125,38 @@ export const collectStats = (
   collectEnhancement(weapon, level, target);
   collectAugments(augments, target);
   return target;
+};
+
+export const collectSummary = (
+  weapon: Weapon | null,
+  fixa: Fixa | null,
+  augments: (Augment | null)[],
+): SummaryEquipment => {
+  const summary: SummaryEquipment = {
+    equipment: null,
+    fixa: null,
+    augments: [],
+  };
+
+  if (weapon !== null) {
+    summary.equipment = weapon.label;
+  }
+
+  if (fixa !== null) {
+    summary.fixa = fixa.label;
+  }
+
+  const summary_augment: string[] = [];
+
+  for (const augment of augments) {
+    if (augment === null) {
+      continue;
+    }
+
+    summary_augment.push(augment.label);
+  }
+
+  summary.augments = summary_augment;
+
+  return summary;
 };

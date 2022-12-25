@@ -1,5 +1,5 @@
 export type SummaryEquipment = {
-  equipment?: string;
-  fixa?: string;
+  equipment: string | null;
+  fixa: string | null;
   augments: string[];
 };
