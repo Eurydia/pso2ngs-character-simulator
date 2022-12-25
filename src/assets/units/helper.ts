@@ -37,10 +37,13 @@ export const calcBonusDef = (
   level: number,
   growth_rate: [number, number][],
 ): number => {
+  let fallback: number = 0;
+
   for (const entry of growth_rate) {
     const [gr_level, gr_bonus] = entry;
 
     if (level > gr_level) {
+      fallback = gr_bonus;
       continue;
     }
 
@@ -54,5 +57,5 @@ export const calcBonusDef = (
     }
   }
 
-  return 0;
+  return fallback;
 };
