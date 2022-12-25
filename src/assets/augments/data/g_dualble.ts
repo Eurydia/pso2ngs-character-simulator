@@ -21,8 +21,8 @@ const makeAugmentDualble = (
 // --------------------------------------
 // melra | meltech | ratech
 (() => {
-  const data_bp = [4, 5, 6];
-  const data_weapon_up = [1.0075, 1.0125, 1.0175];
+  const data_bp = [4, 5, 6, 7];
+  const data_weapon_up = [1.0075, 1.0125, 1.0175, 1.0275];
 
   const data_stats: [string, [StatEnum, StatEnum]][] = [
     ["Melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
