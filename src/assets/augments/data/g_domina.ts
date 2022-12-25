@@ -56,4 +56,16 @@ data.push(
   }),
 );
 
+// --------------------------------------
+// stira
+data.push(
+  makeAugmentDomina("Stira Domina", 0, {
+    [StatEnum.CORE_BP]: 10,
+    [StatEnum.WEAPON_MELEE]: 1.03,
+    [StatEnum.WEAPON_RANGED]: 1.03,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+    [StatEnum.ADV_DEF_DAMAGE_RES]: 0.98,
+  }),
+);
+
 export default data;
