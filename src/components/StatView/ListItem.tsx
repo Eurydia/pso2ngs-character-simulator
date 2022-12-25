@@ -26,8 +26,8 @@ const StatListItem: FC<StatListItemProps> = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography>{props.label}</Typography>
-          <Typography>{props.value}</Typography>
+          <Typography fontSize="small">{props.label}</Typography>
+          <Typography fontSize="small">{props.value}</Typography>
         </Stack>
       </ListItemText>
     </ListItem>

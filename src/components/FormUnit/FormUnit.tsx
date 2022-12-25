@@ -11,6 +11,7 @@ import AutocompleteUnit from "../AutocompleteUnit";
 import FormBase from "../FormBase";
 
 import { collectStats } from "./helper";
+import StatView from "../StatView";
 
 type FormWeaponProps = {
   title: string;
@@ -18,18 +19,35 @@ type FormWeaponProps = {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [valueUnit, setValueUnit] = useState<Unit | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
-  const [valueEnhancement, setValueEnhancement] = useState<number>(0);
+  const [valueLevel, setValueLevel] = useState<number>(0);
   const [valueAugments, setValueAugments] = useAugment();
 
+  const stats_to_display = collectStats(
+    valueUnit,
+    valueLevel,
+    valueFixa,
+    valueAugments,
+  );
+
   return (
-    <FormBase title={props.title}>
+    <FormBase
+      title={props.title}
+      slotDialog={
+        <Box padding={2} margin={1}>
+          <StatView
+            title={`Stats For ${props.title}`}
+            stat={stats_to_display}
+          />
+        </Box>
+      }
+    >
       <Stack spacing={1}>
         <AutocompleteUnit value={valueUnit} onChange={setValueUnit} />
         <FieldEnhancement
           valueMin={0}
           valueMax={60}
-          value={valueEnhancement}
-          onChange={setValueEnhancement}
+          value={valueLevel}
+          onChange={setValueLevel}
         />
         <AutocompleteFixa
           value={valueFixa}

@@ -22,21 +22,13 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
         <Stack>
           <Typography fontWeight="bold">{props.title}</Typography>
           <Typography paragraph>{props.description}</Typography>
-          <Box>
-            <Grid container columns={{ xs: 1, md: 2 }}>
-              <Grid item xs={1}>
-                <Button
-                  size="small"
-                  variant="contained"
-                  startIcon={<Launch fontSize="small" />}
-                  component={Link}
-                  to={props.destination}
-                >
-                  edit
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+          <Button
+            startIcon={<Launch fontSize="small" />}
+            component={Link}
+            to={props.destination}
+          >
+            edit
+          </Button>
         </Stack>
       </Box>
     </Paper>

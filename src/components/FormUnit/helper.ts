@@ -83,15 +83,15 @@ const collectAugments = (
 };
 
 export const collectStats = (
-  item_unit: Unit | null,
-  item_enhancement: number,
-  item_fixa: Fixa | null,
-  item_augments: (Augment | null)[],
+  unit: Unit | null,
+  level: number,
+  fixa: Fixa | null,
+  augments: (Augment | null)[],
 ): StatObject => {
   const target: StatObject = statObject();
-  collectUnit(item_unit, target);
-  collectFixa(item_fixa, target);
-  collectEnhancement(item_unit, item_enhancement, target);
-  collectAugments(item_augments, target);
+  collectUnit(unit, target);
+  collectFixa(fixa, target);
+  collectEnhancement(unit, level, target);
+  collectAugments(augments, target);
   return target;
 };

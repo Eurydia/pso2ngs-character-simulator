@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { Box, Paper, Stack } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { statObject, StatObject } from "../../assets";
+import { statObject, StatEnum, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
 
 type EditEquipmentProps = {};
@@ -87,10 +87,6 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
             </Grid>
           </Box>
         </Paper> */}
-        <Paper>
-          <StatView title="weapon" stat={statWeapon} />
-        </Paper>
-
         <FormWeapon title="Weapon" onChange={handleWeaponChange} />
         <FormUnit title="Unit #1" />
         <FormUnit title="Unit #2" />
