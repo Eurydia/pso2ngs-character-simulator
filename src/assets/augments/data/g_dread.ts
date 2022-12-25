@@ -21,11 +21,11 @@ const makeAugmentDread = (
 // --------------------------------------
 // dread keeper
 (() => {
-  const data_bp = [7, 7.5, 10];
-  const data_hp = [10, 15, 30];
-  const data_pp = [3, 4, 7];
-  const data_floor = [1.01, 1.015, 1.02];
-  const data_damage_res = [1.01, 1.015, 1.02];
+  const data_bp = [7, 7.5, 10, 11];
+  const data_hp = [10, 15, 30, 50];
+  const data_pp = [3, 4, 7, 10];
+  const data_floor = [1.01, 1.015, 1.02, 1.06];
+  const data_damage_res = [1.01, 1.015, 1.02, 1.03];
 
   for (
     let level_index = 0;
