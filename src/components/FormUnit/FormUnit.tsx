@@ -3,16 +3,15 @@ import { Grid, Box, Stack } from "@mui/material";
 
 import { Fixa, GroupEnumFixa, StatObject, Unit } from "../../assets";
 import { SummaryEquipment } from "../../types";
-import { useAugment } from "../../hooks";
+import { useAugment, useFixa } from "../../hooks";
 
 import FieldEnhancement from "../FieldEnhancement";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteAugment from "../AutocompleteAugment";
 import AutocompleteUnit from "../AutocompleteUnit";
 import FormBase from "../FormBase";
-import StatView from "../StatView";
 
-import { collectStat, collectSummary } from "./helper";
+import { collectStat, createSummary } from "./helper";
 
 type FormWeaponProps = {
   storageKey: string;
@@ -23,15 +22,16 @@ type FormWeaponProps = {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
-  const [valueUnit, setValueUnit] = useState<Unit | null>(null);
-  const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
-  const [valueLevel, setValueLevel] = useState<number>(0);
-  const [valueAugments, setValueAugments] = useAugment(storageKey);
+  const [unit, setUnit] = useState<Unit | null>(null);
+  const [fixa, setFixa] = useFixa(`${storageKey}-fixa`);
+  const [level, setLevel] = useState<number>(0);
+  const [augments, setAugments] = useAugment(
+    `${storageKey}-augments`,
+  );
 
   const stat = useMemo(
-    () =>
-      collectStat(valueUnit, valueLevel, valueFixa, valueAugments),
-    [valueUnit, valueLevel, valueFixa, valueAugments],
+    () => collectStat(unit, level, fixa, augments),
+    [unit, level, fixa, augments],
   );
 
   useEffect(() => {
@@ -39,34 +39,32 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(
-      collectSummary(valueUnit, valueFixa, valueAugments),
-    );
-  }, [valueUnit, valueFixa, valueAugments]);
+    onSummaryChange(createSummary(unit, fixa, augments));
+  }, [unit, fixa, augments]);
 
   return (
     <FormBase title={props.title} stat={stat}>
       <Stack spacing={1}>
-        <AutocompleteUnit value={valueUnit} onChange={setValueUnit} />
+        <AutocompleteUnit value={unit} onChange={setUnit} />
         <FieldEnhancement
           valueMin={0}
           valueMax={60}
-          value={valueLevel}
-          onChange={setValueLevel}
+          value={level}
+          onChange={setLevel}
         />
         <AutocompleteFixa
-          value={valueFixa}
-          onChange={setValueFixa}
+          value={fixa}
+          onChange={setFixa}
           mode={GroupEnumFixa.UNIT}
         />
         <Box>
           <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
-            {valueAugments.map((aug, index) => (
+            {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
                   value={aug}
                   onChange={(new_value) =>
-                    setValueAugments(new_value, index)
+                    setAugments(new_value, index)
                   }
                 />
               </Grid>

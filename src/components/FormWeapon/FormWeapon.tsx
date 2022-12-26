@@ -8,7 +8,7 @@ import {
   StatObject,
   Weapon,
 } from "../../assets";
-import { useAugment } from "../../hooks";
+import { useAugment, useFixa } from "../../hooks";
 import { SummaryEquipment } from "../../types";
 
 import FormBase from "../FormBase";
@@ -19,7 +19,7 @@ import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
 import StatView from "../StatView";
 
-import { collectStat, collectSummary } from "./helper";
+import { collectStat, createSummary } from "./helper";
 
 interface FormWeaponProps {
   storageKey: string;
@@ -30,28 +30,15 @@ interface FormWeaponProps {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
-  const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
-  const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
-  const [valuePotential, setValuePotential] = useState<string>("");
-  const [valueLevel, setValueLevel] = useState<number>(0);
-  const [valueAugments, setValueAugments] = useAugment(storageKey);
+  const [weapon, setWeapon] = useState<Weapon | null>(null);
+  const [fixa, setFixa] = useFixa(`${storageKey}-fixa`);
+  const [potential, setPotential] = useState<string>("");
+  const [level, setLevel] = useState<number>(0);
+  const [augments, setAugments] = useAugment(`${storageKey}-augment`);
 
   const stat: StatObject = useMemo<StatObject>(
-    () =>
-      collectStat(
-        valueWeapon,
-        valueLevel,
-        valueFixa,
-        valuePotential,
-        valueAugments,
-      ),
-    [
-      valueWeapon,
-      valueLevel,
-      valueFixa,
-      valuePotential,
-      valueAugments,
-    ],
+    () => collectStat(weapon, level, fixa, potential, augments),
+    [weapon, level, fixa, potential, augments],
   );
 
   useEffect(() => {
@@ -59,52 +46,45 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(
-      collectSummary(valueWeapon, valueFixa, valueAugments),
-    );
-  }, [valueWeapon, valueFixa, valueAugments]);
+    onSummaryChange(createSummary(weapon, fixa, augments));
+  }, [weapon, fixa, augments]);
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {
-    setValueWeapon(new_weapon);
-    setValuePotential("");
+    setWeapon(new_weapon);
+    setPotential("");
   };
-
-  let potential: Potential | null = null;
-  if (valueWeapon !== null) {
-    potential = valueWeapon.potential;
-  }
 
   return (
     <FormBase title={props.title} stat={stat}>
       <Stack spacing={1}>
         <AutocompleteWeapon
-          value={valueWeapon}
+          value={weapon}
           onChange={handleWeaponChange}
         />
         <FieldEnhancement
           valueMin={0}
           valueMax={60}
-          value={valueLevel}
-          onChange={setValueLevel}
+          value={level}
+          onChange={setLevel}
         />
         <SelectPotential
-          potential={potential}
-          value={valuePotential}
-          onChange={setValuePotential}
+          potential={weapon === null ? null : weapon.potential}
+          value={potential}
+          onChange={setPotential}
         />
         <AutocompleteFixa
-          value={valueFixa}
-          onChange={setValueFixa}
+          value={fixa}
+          onChange={setFixa}
           mode={GroupEnumFixa.WEAPON}
         />
         <Box>
           <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
-            {valueAugments.map((aug, index) => (
+            {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
                   value={aug}
                   onChange={(new_value) =>
-                    setValueAugments(new_value, index)
+                    setAugments(new_value, index)
                   }
                 />
               </Grid>

@@ -127,7 +127,7 @@ export const collectStat = (
   return target;
 };
 
-export const collectSummary = (
+export const createSummary = (
   weapon: Weapon | null,
   fixa: Fixa | null,
   augments: (Augment | null)[],

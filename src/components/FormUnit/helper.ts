@@ -97,7 +97,7 @@ export const collectStat = (
   return target;
 };
 
-export const collectSummary = (
+export const createSummary = (
   unit: Unit | null,
   fixa: Fixa | null,
   augments: (Augment | null)[],
@@ -117,15 +117,12 @@ export const collectSummary = (
   }
 
   const summary_augment: string[] = [];
-
   for (const augment of augments) {
     if (augment === null) {
       continue;
     }
-
     summary_augment.push(augment.label);
   }
-
   summary.augments = summary_augment;
 
   return summary;
