@@ -16,7 +16,12 @@ const saveToLocalStorage = (
   storage_key: string,
   weapon: Weapon | null,
 ): void => {
-  localStorage.setItem(storage_key, JSON.stringify(weapon));
+  let label: string | null = null;
+  if (weapon !== null) {
+    label = weapon.label;
+  }
+
+  localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
 const prepareState = (storage_key: string): Weapon | null => {

@@ -16,7 +16,12 @@ const saveToLocalStorage = (
   storage_key: string,
   fixa: Fixa | null,
 ): void => {
-  localStorage.setItem(storage_key, JSON.stringify(fixa));
+  let label: string | null = null;
+  if (fixa !== null) {
+    label = fixa.label;
+  }
+
+  localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
 const prepareState = (storage_key: string): Fixa | null => {

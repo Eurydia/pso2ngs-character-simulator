@@ -14,9 +14,14 @@ const LOOKUP_TABLE: { [key: string]: Unit } = (() => {
 
 const saveToLocalStorage = (
   storage_key: string,
-  weapon: Unit | null,
+  unit: Unit | null,
 ): void => {
-  localStorage.setItem(storage_key, JSON.stringify(weapon));
+  let label: string | null = null;
+  if (unit !== null) {
+    label = unit.label;
+  }
+
+  localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
 const prepareState = (storage_key: string): Unit | null => {
