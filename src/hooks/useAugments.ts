@@ -4,6 +4,7 @@ import {
 } from "lodash";
 import { useState } from "react";
 import { Augment, AssetAugments } from "../assets";
+import { isValidJSON } from "./utility";
 
 const LOOKUP_TABLE: { [key: string]: Augment } = {};
 for (const augment of AssetAugments) {
@@ -35,6 +36,10 @@ const prepareState = (
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
+    return fallback;
+  }
+
+  if (!isValidJSON(loaded_string)) {
     return fallback;
   }
 

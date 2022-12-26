@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AssetUnits, Unit } from "../assets";
+import { isValidJSON } from "./utility";
 
 const LOOKUP_TABLE: { [key: string]: Unit } = {};
 for (const unit of AssetUnits) {
@@ -16,13 +17,17 @@ const saveToLocalStorage = (
     label = unit.label;
   }
 
-  localStorage.setItem(storage_key, JSON.stringify(unit?.label));
+  localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
 const prepareState = (storage_key: string): Unit | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
+    return null;
+  }
+
+  if (!isValidJSON(loaded_string)) {
     return null;
   }
 

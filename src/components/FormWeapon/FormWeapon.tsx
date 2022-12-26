@@ -2,7 +2,6 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
 import {
-  Fixa,
   GroupEnumFixa,
   Potential,
   StatObject,
@@ -22,7 +21,6 @@ import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
-import StatView from "../StatView";
 
 import { collectStat, createSummary } from "./helper";
 

@@ -1,9 +1,13 @@
 import {
+  AppBar,
   Container,
   CssBaseline,
   GlobalStyles,
+  IconButton,
   ThemeProvider,
+  Toolbar,
 } from "@mui/material";
+import { BarChart } from "@mui/icons-material";
 import { purple } from "@mui/material/colors";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -27,6 +31,13 @@ function App() {
       />
       <BrowserRouter>
         <Container maxWidth="md">
+          <AppBar position="fixed">
+            <Toolbar>
+              <IconButton>
+                <BarChart />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

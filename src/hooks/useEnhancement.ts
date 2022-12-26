@@ -1,5 +1,6 @@
 import { toSafeInteger as ld_toSafeInteger } from "lodash";
 import { useState } from "react";
+import { isValidJSON } from "./utility";
 
 const saveToLocalStorage = (
   storage_key: string,
@@ -9,7 +10,17 @@ const saveToLocalStorage = (
 };
 
 const prepareState = (storage_key: string): number => {
-  return ld_toSafeInteger(localStorage.getItem(storage_key));
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
+  if (loaded_string === null) {
+    return 0;
+  }
+
+  if (!isValidJSON(loaded_string)) {
+    return 0;
+  }
+
+  return ld_toSafeInteger(loaded_string);
 };
 
 export const useEnhancement = (

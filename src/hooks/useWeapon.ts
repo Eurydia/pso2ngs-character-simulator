@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AssetWeapons, Weapon } from "../assets";
+import { isValidJSON } from "./utility";
 
 const LOOKUP_TABLE: { [key: string]: Weapon } = {};
 for (const weapon of AssetWeapons) {
@@ -23,6 +24,10 @@ const prepareState = (storage_key: string): Weapon | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
+    return null;
+  }
+
+  if (!isValidJSON(loaded_string)) {
     return null;
   }
 

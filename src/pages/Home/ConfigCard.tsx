@@ -19,17 +19,15 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
   return (
     <Paper>
       <Box padding={2}>
-        <Stack>
-          <Typography fontWeight="bold">{props.title}</Typography>
-          <Typography paragraph>{props.description}</Typography>
-          <Button
-            startIcon={<Launch fontSize="small" />}
-            component={Link}
-            to={props.destination}
-          >
-            edit
-          </Button>
-        </Stack>
+        <Typography fontWeight="bold">{props.title}</Typography>
+        <Typography paragraph>{props.description}</Typography>
+        <Button
+          startIcon={<Launch fontSize="small" />}
+          component={Link}
+          to={props.destination}
+        >
+          edit
+        </Button>
       </Box>
     </Paper>
   );
