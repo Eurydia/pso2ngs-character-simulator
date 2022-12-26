@@ -17,21 +17,35 @@ const Home: FC<HomeProps> = (props) => {
           <ConfigCard
             title="Equipment"
             destination="/config-equipment"
-            description=""
-          />
-        </Grid>
-        <Grid item md={1}>
-          <ConfigCard
-            title="Character"
-            destination="/config-character"
-            description="Edit your character here."
+            description="It's dangerous to go alone."
           />
         </Grid>
         <Grid item md={1}>
           <ConfigCard
             title="Food"
             destination="/config-food"
-            description="Edit your food buff here."
+            description="Invent the best snack of all time."
+          />
+        </Grid>
+        <Grid item md={1}>
+          <ConfigCard
+            title="Class skills"
+            destination="/config-character"
+            description="Main & sub class, and class skills."
+          />
+        </Grid>
+        <Grid item md={1}>
+          <ConfigCard
+            title="Addon skills"
+            destination="/config-addon"
+            description="Account-wide effects."
+          />
+        </Grid>
+        <Grid item md={1}>
+          <ConfigCard
+            title="External effects"
+            destination="/config-buffs"
+            description="Effects caused by others."
           />
         </Grid>
       </Grid>

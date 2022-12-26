@@ -1,14 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Launch } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 
 type ConfigCardProps = {
   destination: string;
@@ -22,11 +15,15 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
         <Typography fontWeight="bold">{props.title}</Typography>
         <Typography paragraph>{props.description}</Typography>
         <Button
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+          disableElevation
           startIcon={<Launch fontSize="small" />}
           component={Link}
           to={props.destination}
         >
-          edit
+          go
         </Button>
       </Box>
     </Paper>

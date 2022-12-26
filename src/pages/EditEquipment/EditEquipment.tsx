@@ -38,7 +38,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
       <Stack spacing={2}>
         <Summary
           stat={stat}
-          summary={[
+          items={[
             summaryWeapon,
             summaryUnitA,
             summaryUnitB,

@@ -63,7 +63,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }
 
   return (
-    <FormBase title={props.title} stat={stat}>
+    <FormBase
+      title={props.title}
+      dialogTitle={`Stats for ${props.title}`}
+      stat={stat}
+    >
       <Stack spacing={1}>
         <AutocompleteWeapon
           value={weapon}

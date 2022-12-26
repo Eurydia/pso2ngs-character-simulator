@@ -6,17 +6,11 @@ type SummaryItemProps = SummaryEquipment;
 const SummaryItem: FC<SummaryItemProps> = (props) => {
   return (
     <Box>
-      <Typography fontWeight="bold" fontSize="small">
-        {props.equipment}
-      </Typography>
-      <Typography fontSize="small">{props.fixa}</Typography>
-      <Box paddingLeft={2}>
-        {props.augments.map((value, index) => (
-          <Typography key={`${value}-${index}`} fontSize="small">
-            {value}
-          </Typography>
-        ))}
-      </Box>
+      <Typography fontWeight="bold">{props.equipment}</Typography>
+      <Typography>{props.fixa}</Typography>
+      {props.augments.map((value, index) => (
+        <Typography key={`${value}-${index}`}>{value}</Typography>
+      ))}
     </Box>
   );
 };

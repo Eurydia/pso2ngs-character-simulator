@@ -2,27 +2,29 @@ import { FC, Fragment, ReactNode, useState } from "react";
 import {
   Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Paper,
-  Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
-import { BarChart } from "@mui/icons-material";
-import StatView from "../StatView";
+import { Visibility } from "@mui/icons-material";
+
 import { StatObject } from "../../assets";
+
+import StatView from "../StatView";
 
 type FormBaseProps = {
   title: string;
   children: ReactNode | ReactNode[];
+  dialogTitle: string;
   stat: StatObject;
 };
 const FormBase: FC<FormBaseProps> = (props) => {
-  const theme = useTheme();
-
   const [dialogState, setDialogState] = useState<boolean>(false);
 
   const handleDialogOpen = () => {
@@ -35,42 +37,43 @@ const FormBase: FC<FormBaseProps> = (props) => {
 
   return (
     <Fragment>
-      <Paper>
-        <Box padding={2}>
-          <Stack spacing={1}>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography fontWeight="bold" fontSize="large">
-                {props.title}
-              </Typography>
-
-              <Button
-                size="small"
-                color="primary"
-                startIcon={<BarChart />}
-                onClick={handleDialogOpen}
-              >
-                stats
-              </Button>
-            </Stack>
-            {props.children}
-          </Stack>
-        </Box>
-      </Paper>
+      <Card component={Box} padding={2}>
+        <CardActions>
+          <Button
+            disableElevation
+            disableRipple
+            color="primary"
+            variant="contained"
+            startIcon={<Visibility />}
+            onClick={handleDialogOpen}
+          >
+            stats
+          </Button>
+        </CardActions>
+        <CardHeader
+          title={props.title}
+          titleTypographyProps={{
+            fontWeight: "bold",
+            fontSize: "large",
+          }}
+        />
+        <CardContent>{props.children}</CardContent>
+      </Card>
       <Dialog
         fullWidth
         maxWidth="sm"
         open={dialogState}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`Stats for ${props.title}`}</DialogTitle>
+        <DialogTitle>
+          <Typography fontSize="large" fontWeight="bold">
+            {props.dialogTitle}
+          </Typography>
+        </DialogTitle>
         <DialogContent>
-          <StatView disablePadding stat={props.stat} />
+          <StatView stat={props.stat} />
         </DialogContent>
-        <DialogActions disableSpacing>
+        <DialogActions>
           <Button onClick={handleDialogClose}>okay</Button>
         </DialogActions>
       </Dialog>

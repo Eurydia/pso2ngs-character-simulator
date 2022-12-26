@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Button,
   Container,
   CssBaseline,
   GlobalStyles,
@@ -7,14 +8,13 @@ import {
   ThemeProvider,
   Toolbar,
 } from "@mui/material";
-import { BarChart } from "@mui/icons-material";
-import { purple } from "@mui/material/colors";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "@mui/icons-material";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import EditCharacter from "./pages/EditCharacter";
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
-import Home from "./pages/Home";
+import HomePage from "./pages/Home";
 
 import { style_overrrides } from "./theme";
 
@@ -25,21 +25,21 @@ function App() {
       <GlobalStyles
         styles={{
           body: {
-            backgroundColor: purple["200"],
+            backgroundColor: style_overrrides.palette.primary.light,
           },
         }}
       />
       <BrowserRouter>
-        <Container maxWidth="md">
-          <AppBar position="fixed">
-            <Toolbar>
-              <IconButton>
-                <BarChart />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+        <AppBar position="sticky">
+          <Toolbar>
+            <IconButton component={Link} to="/">
+              <Home />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Container maxWidth="lg">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomePage />} />
             <Route
               path="/config-character"
               element={<EditCharacter />}
@@ -48,7 +48,9 @@ function App() {
               path="/config-equipment"
               element={<EditEquipment />}
             />
-            <Route path="/edit-food" element={<FoodEdit />} />
+            <Route path="/config-food" element={<FoodEdit />} />
+            <Route path="/config-addon" element={<FoodEdit />} />
+            <Route path="/config-buffs" element={<FoodEdit />} />
           </Routes>
         </Container>
       </BrowserRouter>

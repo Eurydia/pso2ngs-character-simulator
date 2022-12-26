@@ -235,86 +235,78 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 };
 
 type StatViewProps = {
-  disablePadding?: boolean;
   title?: string;
   stat: StatObject;
 };
 const StatView: FC<StatViewProps> = (props) => {
-  const { stat, disablePadding } = props;
-
-  let padding: number = 4;
-  if (disablePadding) {
-    padding = 0;
-  }
+  const { stat } = props;
 
   const _envCold = stat.getFormattedStat(StatEnum.HARSH_COLD);
 
   return (
-    <Box padding={padding} borderColor="red">
-      <Stack>
-        <Typography fontWeight="bold" fontSize="large">
-          {props.title}
-        </Typography>
-        <CoreStatList
-          bp={stat.getFormattedStat(StatEnum.CORE_BP)}
-          hp={stat.getFormattedStat(StatEnum.CORE_HP)}
-          pp={stat.getFormattedStat(StatEnum.CORE_PP)}
-          attack={stat.getFormattedStat(StatEnum.CORE_ATTACK)}
-          defense={stat.getFormattedStat(StatEnum.CORE_DEFENSE)}
+    <Box>
+      <Typography fontWeight="bold" fontSize="large">
+        {props.title}
+      </Typography>
+      <CoreStatList
+        bp={stat.getFormattedStat(StatEnum.CORE_BP)}
+        hp={stat.getFormattedStat(StatEnum.CORE_HP)}
+        pp={stat.getFormattedStat(StatEnum.CORE_PP)}
+        attack={stat.getFormattedStat(StatEnum.CORE_ATTACK)}
+        defense={stat.getFormattedStat(StatEnum.CORE_DEFENSE)}
+      />
+      <PotencyStatList
+        melee={stat.getFormattedStat(StatEnum.WEAPON_MELEE)}
+        ranged={stat.getFormattedStat(StatEnum.WEAPON_RANGED)}
+        technique={stat.getFormattedStat(StatEnum.WEAPON_TECHNIQUE)}
+      />
+      <AilmentStatList
+        burn={stat.getFormattedStat(StatEnum.AIL_BURN)}
+        freeze={stat.getFormattedStat(StatEnum.AIL_FREEZE)}
+        blind={stat.getFormattedStat(StatEnum.AIL_BLIND)}
+        panic={stat.getFormattedStat(StatEnum.AIL_PANIC)}
+        shock={stat.getFormattedStat(StatEnum.AIL_SHOCK)}
+        poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
+        physicalDown={stat.getFormattedStat(StatEnum.AIL_PHYDOWN)}
+      />
+      <StatList subheader="Enviroment resistence">
+        <StatListItem
+          label="Harsh environment resistance"
+          value={_envCold}
+          icon={getIcon(_envCold)}
         />
-        <PotencyStatList
-          melee={stat.getFormattedStat(StatEnum.WEAPON_MELEE)}
-          ranged={stat.getFormattedStat(StatEnum.WEAPON_RANGED)}
-          technique={stat.getFormattedStat(StatEnum.WEAPON_TECHNIQUE)}
-        />
-        <AilmentStatList
-          burn={stat.getFormattedStat(StatEnum.AIL_BURN)}
-          freeze={stat.getFormattedStat(StatEnum.AIL_FREEZE)}
-          blind={stat.getFormattedStat(StatEnum.AIL_BLIND)}
-          panic={stat.getFormattedStat(StatEnum.AIL_PANIC)}
-          shock={stat.getFormattedStat(StatEnum.AIL_SHOCK)}
-          poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
-          physicalDown={stat.getFormattedStat(StatEnum.AIL_PHYDOWN)}
-        />
-        <StatList subheader="Enviroment resistence">
-          <StatListItem
-            label="Harsh environment resistance"
-            value={_envCold}
-            icon={getIcon(_envCold)}
-          />
-        </StatList>
-        <PPAdvancedStats
-          usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
-          naturalRecovery={stat.getFormattedStat(
-            StatEnum.ADV_PP_NATURAL_RECOVERY,
-          )}
-          activeRecovery={stat.getFormattedStat(
-            StatEnum.ADV_PP_ACTIVE_RECOVERY,
-          )}
-        />
-        <OffensiveAdvancedStats
-          floorPotency={stat.getFormattedStat(StatEnum.ADV_OFF_FLOOR)}
-          damageUp={stat.getFormattedStat(StatEnum.ADV_OFF_DAMAGE)}
-          critChance={stat.getFormattedStat(
-            StatEnum.ADV_OFF_CRIT_CHANCE,
-          )}
-          critDamage={stat.getFormattedStat(
-            StatEnum.ADV_OFF_CRIT_DAMAGE,
-          )}
-          pbGaugeRecovery={stat.getFormattedStat(
-            StatEnum.ADV_OFF_PB_RECOVERY,
-          )}
-        />
-        <DefensiveAdvancedStats
-          healingUp={stat.getFormattedStat(StatEnum.ADV_DEF_HEALING)}
-          damageResist={stat.getFormattedStat(
-            StatEnum.ADV_DEF_DAMAGE_RES,
-          )}
-          ailmentDuration={stat.getFormattedStat(
-            StatEnum.ADV_DEF_AILMENT_DURATION,
-          )}
-        />
-      </Stack>
+      </StatList>
+      <PPAdvancedStats
+        usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
+        naturalRecovery={stat.getFormattedStat(
+          StatEnum.ADV_PP_NATURAL_RECOVERY,
+        )}
+        activeRecovery={stat.getFormattedStat(
+          StatEnum.ADV_PP_ACTIVE_RECOVERY,
+        )}
+      />
+      <OffensiveAdvancedStats
+        floorPotency={stat.getFormattedStat(StatEnum.ADV_OFF_FLOOR)}
+        damageUp={stat.getFormattedStat(StatEnum.ADV_OFF_DAMAGE)}
+        critChance={stat.getFormattedStat(
+          StatEnum.ADV_OFF_CRIT_CHANCE,
+        )}
+        critDamage={stat.getFormattedStat(
+          StatEnum.ADV_OFF_CRIT_DAMAGE,
+        )}
+        pbGaugeRecovery={stat.getFormattedStat(
+          StatEnum.ADV_OFF_PB_RECOVERY,
+        )}
+      />
+      <DefensiveAdvancedStats
+        healingUp={stat.getFormattedStat(StatEnum.ADV_DEF_HEALING)}
+        damageResist={stat.getFormattedStat(
+          StatEnum.ADV_DEF_DAMAGE_RES,
+        )}
+        ailmentDuration={stat.getFormattedStat(
+          StatEnum.ADV_DEF_AILMENT_DURATION,
+        )}
+      />
     </Box>
   );
 };

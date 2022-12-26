@@ -1,83 +1,33 @@
-import { FC, Fragment, useState } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { BarChart } from "@mui/icons-material";
+import { FC } from "react";
+import { Grid } from "@mui/material";
 
 import { SummaryEquipment } from "../../types";
+import { StatObject } from "../../assets";
+import { FormBase } from "../../components";
 
 import SummaryItem from "./SummaryItem";
-import { StatObject } from "../../assets";
-import { StatView } from "../../components";
 
 type SummaryProps = {
-  summary: SummaryEquipment[];
+  items: SummaryEquipment[];
   stat: StatObject;
 };
 const Summary: FC<SummaryProps> = (props) => {
-  const [dialogState, setDialogState] = useState<boolean>(false);
-
-  const handleDialogOpen = () => {
-    setDialogState(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogState(false);
-  };
+  const { stat, items } = props;
 
   return (
-    <Fragment>
-      <Paper>
-        <Box padding={2}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Typography fontWeight="bold" fontSize="large">
-              Summary
-            </Typography>
-            <Button
-              size="small"
-              startIcon={<BarChart />}
-              onClick={handleDialogOpen}
-            >
-              stats
-            </Button>
-          </Stack>
-          <Grid container columns={{ xs: 1, md: 2 }} spacing={2}>
-            {props.summary.map((item, index) => (
-              <Grid key={`item-#${index}`} item xs={1}>
-                <SummaryItem {...item} />
-              </Grid>
-            ))}
+    <FormBase
+      title="Summary"
+      dialogTitle="Stats for Equipment"
+      stat={stat}
+    >
+      <Grid container columns={{ xs: 1, sm: 2, md: 4 }}>
+        {items.map((item, index) => (
+          <Grid key={`item-#${index}`} item xs={1}>
+            <SummaryItem {...item} />
           </Grid>
-        </Box>
-      </Paper>
-      <Dialog
-        fullWidth
-        maxWidth="sm"
-        open={dialogState}
-        onClose={handleDialogClose}
-      >
-        <DialogTitle>Stat Summary</DialogTitle>
-        <DialogContent>
-          <StatView disablePadding stat={props.stat} />
-        </DialogContent>
-        <DialogActions disableSpacing>
-          <Button onClick={handleDialogClose}>okay</Button>
-        </DialogActions>
-      </Dialog>
-    </Fragment>
+        ))}
+      </Grid>
+    </FormBase>
   );
 };
 
