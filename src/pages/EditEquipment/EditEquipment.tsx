@@ -51,21 +51,25 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
           ]}
         />
         <FormWeapon
+          storageKey="equipment-weapon"
           title="Weapon"
           onStatChange={setStatWeapon}
           onSummaryChange={setSummaryWeapon}
         />
         <FormUnit
+          storageKey="equipment-unit-a"
           title="Unit A"
           onStatChange={setStatUnitA}
           onSummaryChange={setSummaryUnitA}
         />
         <FormUnit
+          storageKey="equipment-unit-b"
           title="Unit B"
           onStatChange={setStatUnitB}
           onSummaryChange={setSummaryUnitB}
         />
         <FormUnit
+          storageKey="equipment-unit-c"
           title="Unit C"
           onStatChange={setStatUnitC}
           onSummaryChange={setSummaryUnitC}

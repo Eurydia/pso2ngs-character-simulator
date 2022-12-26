@@ -9,6 +9,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { BarChart } from "@mui/icons-material";
 import StatView from "../StatView";
@@ -20,6 +21,8 @@ type FormBaseProps = {
   stat: StatObject;
 };
 const FormBase: FC<FormBaseProps> = (props) => {
+  const theme = useTheme();
+
   const [dialogState, setDialogState] = useState<boolean>(false);
 
   const handleDialogOpen = () => {
@@ -46,6 +49,7 @@ const FormBase: FC<FormBaseProps> = (props) => {
 
               <Button
                 size="small"
+                color="primary"
                 startIcon={<BarChart />}
                 onClick={handleDialogOpen}
               >

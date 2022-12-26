@@ -22,18 +22,19 @@ import StatView from "../StatView";
 import { collectStat, collectSummary } from "./helper";
 
 interface FormWeaponProps {
+  storageKey: string;
   title: string;
   onStatChange: (stats: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
 }
 const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { onStatChange, onSummaryChange } = props;
+  const { storageKey, onStatChange, onSummaryChange } = props;
 
   const [valueWeapon, setValueWeapon] = useState<Weapon | null>(null);
   const [valueFixa, setValueFixa] = useState<Fixa | null>(null);
   const [valuePotential, setValuePotential] = useState<string>("");
   const [valueLevel, setValueLevel] = useState<number>(0);
-  const [valueAugments, setValueAugments] = useAugment();
+  const [valueAugments, setValueAugments] = useAugment(storageKey);
 
   const stat: StatObject = useMemo<StatObject>(
     () =>
