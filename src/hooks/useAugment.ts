@@ -25,10 +25,8 @@ const saveToLocalStorage = (
     if (augment === null) {
       continue;
     }
-
     labels.push(augment.label);
   }
-
   localStorage.setItem(storage_key, JSON.stringify(labels));
 };
 
@@ -72,9 +70,9 @@ export const useAugment = (
   (Augment | null)[],
   (value: Augment | null, index: number) => void,
 ] => {
-  const [value, _setValue] = useState(() =>
-    prepareState(storage_key, 5),
-  );
+  const key: string = `${storage_key}-augments`;
+
+  const [value, _setValue] = useState(() => prepareState(key, 5));
 
   const setValue = (new_value: Augment | null, index: number) => {
     if (index < 0 || value.length <= index) {
@@ -84,7 +82,7 @@ export const useAugment = (
     _setValue((prev) => {
       const next = [...prev];
       next[index] = new_value;
-      saveToLocalStorage(storage_key, next);
+      saveToLocalStorage(key, next);
       return next;
     });
   };

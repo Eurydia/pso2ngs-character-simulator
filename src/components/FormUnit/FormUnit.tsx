@@ -23,11 +23,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
   const [unit, setUnit] = useState<Unit | null>(null);
-  const [fixa, setFixa] = useFixa(`${storageKey}-fixa`);
+  const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useState<number>(0);
-  const [augments, setAugments] = useAugment(
-    `${storageKey}-augments`,
-  );
+  const [augments, setAugments] = useAugment(storageKey);
 
   const stat = useMemo(
     () => collectStat(unit, level, fixa, augments),

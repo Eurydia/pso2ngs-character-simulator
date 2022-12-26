@@ -8,7 +8,7 @@ import {
   StatObject,
   Weapon,
 } from "../../assets";
-import { useAugment, useFixa } from "../../hooks";
+import { useAugment, useFixa, useWeapon } from "../../hooks";
 import { SummaryEquipment } from "../../types";
 
 import FormBase from "../FormBase";
@@ -30,11 +30,11 @@ interface FormWeaponProps {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
-  const [weapon, setWeapon] = useState<Weapon | null>(null);
-  const [fixa, setFixa] = useFixa(`${storageKey}-fixa`);
+  const [weapon, setWeapon] = useWeapon(storageKey);
+  const [fixa, setFixa] = useFixa(storageKey);
   const [potential, setPotential] = useState<string>("");
   const [level, setLevel] = useState<number>(0);
-  const [augments, setAugments] = useAugment(`${storageKey}-augment`);
+  const [augments, setAugments] = useAugment(storageKey);
 
   const stat: StatObject = useMemo<StatObject>(
     () => collectStat(weapon, level, fixa, potential, augments),

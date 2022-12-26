@@ -37,13 +37,13 @@ const prepareState = (storage_key: string): Fixa | null => {
 export const useFixa = (
   storage_key: string,
 ): [Fixa | null, (new_value: Fixa | null) => void] => {
-  const [value, _setValue] = useState(() =>
-    prepareState(storage_key),
-  );
+  const key: string = `${storage_key}-fixa`;
+
+  const [value, _setValue] = useState(() => prepareState(key));
 
   const setValue = (new_value: Fixa | null) => {
     _setValue(() => {
-      saveToLocalStorage(storage_key, new_value);
+      saveToLocalStorage(key, new_value);
       return new_value;
     });
   };
