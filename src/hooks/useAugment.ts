@@ -13,39 +13,13 @@ const LOOKUP_TABLE: { [key: string]: Augment } = (() => {
   return lookup;
 })();
 
-const lookupAugments = (labels: string[]): Augment[] => {
-  const augments: Augment[] = [];
-
-  for (const label of labels) {
-    const augment: Augment | undefined = LOOKUP_TABLE[label];
-    if (augment === undefined) {
-      continue;
-    }
-    augments.push(augment);
-  }
-
-  return augments;
-};
-
-const extractLabels = (augments: (Augment | null)[]): string[] => {
-  const labels: string[] = [];
-
-  for (const augment of augments) {
-    if (augment === null) {
-      continue;
-    }
-    labels.push(augment.label);
-  }
-  return labels;
-};
-
 export const useAugment = (
   storage_key: string,
 ): [
   (Augment | null)[],
   (value: Augment | null, index: number) => void,
 ] => {
-  const [value, setValueInner] = useState<(Augment | null)[]>(() => {
+  const [value, _setValue] = useState(() => {
     const init: (Augment | null)[] = [null, null, null, null, null];
 
     const data_string: string | null =
@@ -54,18 +28,26 @@ export const useAugment = (
       return init;
     }
 
-    const data_parsed: string[] | any = JSON.parse(data_string);
-    if (!Array.isArray(data_parsed)) {
+    const labels: string[] | any = JSON.parse(data_string);
+    if (!Array.isArray(labels)) {
       return init;
     }
 
-    const data: (Augment | null)[] = lookupAugments(data_parsed);
+    const augments: (Augment | null)[] = [];
 
-    while (data.length < init.length) {
-      data.push(null);
+    for (const label of labels) {
+      const augment: Augment | undefined = LOOKUP_TABLE[label];
+      if (augment === undefined) {
+        continue;
+      }
+      augments.push(augment);
     }
 
-    return data;
+    while (augments.length < init.length) {
+      augments.push(null);
+    }
+
+    return augments;
   });
 
   const setValue = (new_value: Augment | null, index: number) => {
@@ -73,14 +55,19 @@ export const useAugment = (
       return;
     }
 
-    setValueInner((prev) => {
+    _setValue((prev) => {
       const next = [...prev];
       next[index] = new_value;
 
-      localStorage.setItem(
-        storage_key,
-        JSON.stringify(extractLabels(next)),
-      );
+      const labels: string[] = [];
+      for (const augment of next) {
+        if (augment === null) {
+          continue;
+        }
+        labels.push(augment.label);
+      }
+
+      localStorage.setItem(storage_key, JSON.stringify(labels));
 
       return next;
     });
