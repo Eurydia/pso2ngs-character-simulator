@@ -40,12 +40,7 @@ const SelectPotential: FC<SelectPotentialProps> = (props) => {
       options={options}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          fullWidth
-          placeholder="Potential"
-          size="small"
-        />
+        <TextField {...params} fullWidth placeholder="Potential" />
       )}
       renderOption={(props, option, _) => (
         <CustomOption {...props} option={option} />

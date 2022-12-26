@@ -30,7 +30,6 @@ const FieldLevel: FC<FieldLevelProps> = (props) => {
       value={props.value.toString()}
       onChange={handleChange}
       fullWidth
-      size="small"
       inputMode="numeric"
       placeholder="Enhancement"
     />

@@ -34,13 +34,7 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          fullWidth
-          name="autocomplete-fixa"
-          placeholder="Fixa"
-          size="small"
-        />
+        <TextField {...params} fullWidth placeholder="Fixa" />
       )}
       renderOption={(props, option, _) => (
         <CustomOption {...props} option={option} />

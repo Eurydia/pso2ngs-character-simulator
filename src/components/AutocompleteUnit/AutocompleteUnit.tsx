@@ -28,13 +28,7 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          fullWidth
-          name="autocomplete-unit"
-          placeholder="Unit"
-          size="small"
-        />
+        <TextField {...params} fullWidth placeholder="Unit" />
       )}
       renderOption={(props, option, _) => (
         <CustomOption {...props} option={option} />
