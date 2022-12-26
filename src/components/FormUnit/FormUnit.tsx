@@ -3,7 +3,7 @@ import { Grid, Box, Stack } from "@mui/material";
 
 import { Fixa, GroupEnumFixa, StatObject, Unit } from "../../assets";
 import { SummaryEquipment } from "../../types";
-import { useAugment, useFixa } from "../../hooks";
+import { useAugment, useEnhancement, useFixa } from "../../hooks";
 
 import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
@@ -24,7 +24,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const [unit, setUnit] = useState<Unit | null>(null);
   const [fixa, setFixa] = useFixa(storageKey);
-  const [level, setLevel] = useState<number>(0);
+  const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugment(storageKey);
 
   const stat = useMemo(

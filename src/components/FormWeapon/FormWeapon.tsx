@@ -8,7 +8,12 @@ import {
   StatObject,
   Weapon,
 } from "../../assets";
-import { useAugment, useFixa, useWeapon } from "../../hooks";
+import {
+  useAugment,
+  useEnhancement,
+  useFixa,
+  useWeapon,
+} from "../../hooks";
 import { SummaryEquipment } from "../../types";
 
 import FormBase from "../FormBase";
@@ -32,9 +37,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const [weapon, setWeapon] = useWeapon(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
-  const [potential, setPotential] = useState<string>("");
-  const [level, setLevel] = useState<number>(0);
+  const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugment(storageKey);
+  const [potential, setPotential] = useState<string>("");
 
   const stat: StatObject = useMemo<StatObject>(
     () => collectStat(weapon, level, fixa, potential, augments),
