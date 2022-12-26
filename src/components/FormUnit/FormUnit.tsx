@@ -1,9 +1,14 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
-import { Fixa, GroupEnumFixa, StatObject, Unit } from "../../assets";
+import { GroupEnumFixa, StatObject, Unit } from "../../assets";
 import { SummaryEquipment } from "../../types";
-import { useAugment, useEnhancement, useFixa } from "../../hooks";
+import {
+  useAugment,
+  useEnhancement,
+  useFixa,
+  useUnit,
+} from "../../hooks";
 
 import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
@@ -22,7 +27,7 @@ type FormWeaponProps = {
 const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
-  const [unit, setUnit] = useState<Unit | null>(null);
+  const [unit, setUnit] = useUnit(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugment(storageKey);
