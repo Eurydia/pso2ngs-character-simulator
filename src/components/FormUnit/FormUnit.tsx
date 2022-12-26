@@ -5,7 +5,7 @@ import { Fixa, GroupEnumFixa, StatObject, Unit } from "../../assets";
 import { SummaryEquipment } from "../../types";
 import { useAugment, useFixa } from "../../hooks";
 
-import FieldEnhancement from "../FieldEnhancement";
+import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteAugment from "../AutocompleteAugment";
 import AutocompleteUnit from "../AutocompleteUnit";

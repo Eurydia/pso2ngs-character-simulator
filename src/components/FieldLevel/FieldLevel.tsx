@@ -4,13 +4,13 @@ import { toSafeInteger as ld_toSafeInteger } from "lodash";
 
 import { clampValue } from "./helper";
 
-type FieldFixaProps = {
+type FieldLevelProps = {
   valueMin: number | null;
   valueMax: number | null;
   value: number;
   onChange: (value: number) => void;
 };
-const FieldFixa: FC<FieldFixaProps> = (props) => {
+const FieldLevel: FC<FieldLevelProps> = (props) => {
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
@@ -37,4 +37,4 @@ const FieldFixa: FC<FieldFixaProps> = (props) => {
   );
 };
 
-export default FieldFixa;
+export default FieldLevel;

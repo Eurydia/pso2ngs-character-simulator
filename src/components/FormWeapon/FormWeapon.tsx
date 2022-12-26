@@ -12,7 +12,7 @@ import { useAugment, useFixa, useWeapon } from "../../hooks";
 import { SummaryEquipment } from "../../types";
 
 import FormBase from "../FormBase";
-import FieldEnhancement from "../FieldEnhancement";
+import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteWeapon from "../AutocompleteWeapon";
 import AutocompleteAugment from "../AutocompleteAugment";
