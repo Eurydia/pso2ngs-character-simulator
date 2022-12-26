@@ -10,8 +10,8 @@ import {
 
 import { StatEnum, StatObject } from "../../assets";
 
-import StatList from "./List";
-import StatListItem from "./ListItem";
+import Stat from "./Stat";
+import StatItem from "./StatItem";
 import { getIcon } from "./helper";
 
 type CoreStatListProps = {
@@ -25,21 +25,21 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
 
   return (
-    <StatList subheader="Core">
-      <StatListItem label="BP" value={bp} icon={getIcon(bp)} />
-      <StatListItem label="HP" value={hp} icon={getIcon(hp)} />
-      <StatListItem label="PP" value={pp} icon={getIcon(pp)} />
-      <StatListItem
+    <Stat subheader="Core">
+      <StatItem label="BP" value={bp} icon={getIcon(bp)} />
+      <StatItem label="HP" value={hp} icon={getIcon(hp)} />
+      <StatItem label="PP" value={pp} icon={getIcon(pp)} />
+      <StatItem
         label="Attack"
         value={attack}
         icon={getIcon(attack)}
       />
-      <StatListItem
+      <StatItem
         label="Defense"
         value={defense}
         icon={getIcon(defense)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -52,23 +52,23 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   const { melee, ranged, technique } = props;
 
   return (
-    <StatList subheader="Weapon up">
-      <StatListItem
+    <Stat subheader="Weapon up">
+      <StatItem
         label="Melee potency"
         value={melee}
         icon={getIcon(melee)}
       />
-      <StatListItem
+      <StatItem
         label="Ranged potency"
         value={ranged}
         icon={getIcon(ranged)}
       />
-      <StatListItem
+      <StatItem
         label="Technique potency"
         value={technique}
         icon={getIcon(technique)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -86,43 +86,43 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
     props;
 
   return (
-    <StatList subheader="Ailment resistance">
-      <StatListItem
+    <Stat subheader="Ailment resistance">
+      <StatItem
         label="Burn resistance"
         value={burn}
         icon={getIcon(burn)}
       />
-      <StatListItem
+      <StatItem
         label="Freeze resistance"
         value={freeze}
         icon={getIcon(freeze)}
       />
-      <StatListItem
+      <StatItem
         label="Shock resistance"
         value={shock}
         icon={getIcon(shock)}
       />
-      <StatListItem
+      <StatItem
         label="Blind resistance"
         value={blind}
         icon={getIcon(blind)}
       />
-      <StatListItem
+      <StatItem
         label="Panic resistance"
         value={panic}
         icon={getIcon(panic)}
       />
-      <StatListItem
+      <StatItem
         label="Poison resistance"
         value={poison}
         icon={getIcon(poison)}
       />
-      <StatListItem
+      <StatItem
         label="Physical down resistance"
         value={physicalDown}
         icon={getIcon(physicalDown)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -135,23 +135,23 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
   return (
-    <StatList subheader="Advanced: PP">
-      <StatListItem
+    <Stat subheader="Advanced: PP">
+      <StatItem
         label="PP cost"
         value={usage}
         icon={getIcon(usage, true)}
       />
-      <StatListItem
+      <StatItem
         label="Active PP recovery"
         value={activeRecovery}
         icon={getIcon(activeRecovery)}
       />
-      <StatListItem
+      <StatItem
         label="Natural PP recovery"
         value={naturalRecovery}
         icon={getIcon(naturalRecovery)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -174,33 +174,33 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   } = props;
 
   return (
-    <StatList subheader="Advanced: Offensive ">
-      <StatListItem
+    <Stat subheader="Advanced: Offensive ">
+      <StatItem
         label="Damage dealt"
         value={damageUp}
         icon={getIcon(damageUp)}
       />
-      <StatListItem
+      <StatItem
         label="Floor potency"
         value={floorPotency}
         icon={getIcon(floorPotency)}
       />
-      <StatListItem
+      <StatItem
         label="Critical chance"
         value={critChance}
         icon={getIcon(critChance)}
       />
-      <StatListItem
+      <StatItem
         label="Critical damage"
         value={critDamage}
         icon={getIcon(critDamage)}
       />
-      <StatListItem
+      <StatItem
         label="PB gauge recovery"
         value={pbGaugeRecovery}
         icon={getIcon(pbGaugeRecovery)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -214,23 +214,23 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 ) => {
   const { damageResist, healingUp, ailmentDuration } = props;
   return (
-    <StatList subheader="Advanced: Defensive">
-      <StatListItem
+    <Stat subheader="Advanced: Defensive">
+      <StatItem
         label="Damage resistance"
         value={damageResist}
         icon={getIcon(damageResist)}
       />
-      <StatListItem
+      <StatItem
         label="Healing up"
         value={healingUp}
         icon={getIcon(healingUp)}
       />
-      <StatListItem
+      <StatItem
         label="Ailment effect duration"
         value={ailmentDuration}
         icon={getIcon(ailmentDuration, true)}
       />
-    </StatList>
+    </Stat>
   );
 };
 
@@ -269,13 +269,13 @@ const StatView: FC<StatViewProps> = (props) => {
         poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
         physicalDown={stat.getFormattedStat(StatEnum.AIL_PHYDOWN)}
       />
-      <StatList subheader="Enviroment resistence">
-        <StatListItem
+      <Stat subheader="Enviroment resistence">
+        <StatItem
           label="Harsh environment resistance"
           value={_envCold}
           icon={getIcon(_envCold)}
         />
-      </StatList>
+      </Stat>
       <PPAdvancedStats
         usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
         naturalRecovery={stat.getFormattedStat(

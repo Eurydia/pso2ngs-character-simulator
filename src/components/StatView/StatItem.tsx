@@ -7,18 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 
-type StatListItemProps = {
+type StatItemProps = {
   value: string | null;
   label: ReactNode;
   icon: ReactNode;
 };
-const StatListItem: FC<StatListItemProps> = (props) => {
+const StatItem: FC<StatItemProps> = (props) => {
   if (props.value === null) {
     return null;
   }
 
   return (
-    <ListItem>
+    <ListItem dense disableGutters>
       <ListItemIcon>{props.icon}</ListItemIcon>
       <ListItemText>
         <Stack
@@ -26,12 +26,12 @@ const StatListItem: FC<StatListItemProps> = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize="small">{props.label}</Typography>
-          <Typography fontSize="small">{props.value}</Typography>
+          <Typography>{props.label}</Typography>
+          <Typography>{props.value}</Typography>
         </Stack>
       </ListItemText>
     </ListItem>
   );
 };
 
-export default StatListItem;
+export default StatItem;
