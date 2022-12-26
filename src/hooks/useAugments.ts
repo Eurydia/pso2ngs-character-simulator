@@ -5,16 +5,11 @@ import {
 import { useState } from "react";
 import { Augment, AssetAugments } from "../assets";
 
-const LOOKUP_TABLE: { [key: string]: Augment } = (() => {
-  const lookup: { [key: string]: Augment } = {};
-
-  for (const augment of AssetAugments) {
-    const label = augment.label;
-    lookup[label] = augment;
-  }
-
-  return lookup;
-})();
+const LOOKUP_TABLE: { [key: string]: Augment } = {};
+for (const augment of AssetAugments) {
+  const label = augment.label;
+  LOOKUP_TABLE[label] = augment;
+}
 
 const saveToLocalStorage = (
   storage_key: string,
@@ -64,7 +59,7 @@ const prepareState = (
   return augments;
 };
 
-export const useAugment = (
+export const useAugments = (
   storage_key: string,
 ): [
   (Augment | null)[],

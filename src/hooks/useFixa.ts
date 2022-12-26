@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { AssetFixas, Fixa } from "../assets";
 
-const LOOKUP_TABLE: { [key: string]: Fixa } = (() => {
-  const lookup: { [key: string]: Fixa } = {};
-
-  for (const augment of AssetFixas) {
-    const label = augment.label;
-    lookup[label] = augment;
-  }
-
-  return lookup;
-})();
+const LOOKUP_TABLE: { [key: string]: Fixa } = {};
+for (const fixa of AssetFixas) {
+  const label = fixa.label;
+  LOOKUP_TABLE[label] = fixa;
+}
 
 const saveToLocalStorage = (
   storage_key: string,
@@ -31,7 +26,12 @@ const prepareState = (storage_key: string): Fixa | null => {
     return null;
   }
 
-  const fixa: Fixa | undefined = LOOKUP_TABLE[loaded_string];
+  const label: string | null = JSON.parse(loaded_string);
+  if (label === null) {
+    return null;
+  }
+
+  const fixa: Fixa | undefined = LOOKUP_TABLE[label];
   if (fixa === undefined) {
     return null;
   }

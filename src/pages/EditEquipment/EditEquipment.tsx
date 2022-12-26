@@ -1,17 +1,19 @@
 import { FC, useMemo, useState } from "react";
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
-import { FormWeapon, FormUnit, StatView } from "../../components";
-import { statObject, StatEnum, StatObject } from "../../assets";
+import { FormWeapon, FormUnit } from "../../components";
+import { statObject, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
-import SummaryItem from "./SummaryItem";
+
 import Summary from "./Summary";
 import { collectStat } from "./helper";
 
-const default_summary: SummaryEquipment = {
-  equipment: null,
-  fixa: null,
-  augments: [],
+const useSummary = () => {
+  return useState<SummaryEquipment>({
+    equipment: null,
+    fixa: null,
+    augments: [],
+  });
 };
 
 type EditEquipmentProps = {};
@@ -21,17 +23,10 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
   const [statUnitB, setStatUnitB] = useState(statObject({}));
   const [statUnitC, setStatUnitC] = useState(statObject({}));
 
-  const [summaryWeapon, setSummaryWeapon] =
-    useState<SummaryEquipment>({ ...default_summary });
-  const [summaryUnitA, setSummaryUnitA] = useState<SummaryEquipment>({
-    ...default_summary,
-  });
-  const [summaryUnitB, setSummaryUnitB] = useState<SummaryEquipment>({
-    ...default_summary,
-  });
-  const [summaryUnitC, setSummaryUnitC] = useState<SummaryEquipment>({
-    ...default_summary,
-  });
+  const [summaryWeapon, setSummaryWeapon] = useSummary();
+  const [summaryUnitA, setSummaryUnitA] = useSummary();
+  const [summaryUnitB, setSummaryUnitB] = useSummary();
+  const [summaryUnitC, setSummaryUnitC] = useSummary();
 
   const stat: StatObject = useMemo(
     () => collectStat([statWeapon, statUnitA, statUnitB, statUnitC]),

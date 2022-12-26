@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { AssetUnits, Unit } from "../assets";
 
-const LOOKUP_TABLE: { [key: string]: Unit } = (() => {
-  const lookup: { [key: string]: Unit } = {};
-
-  for (const augment of AssetUnits) {
-    const label = augment.label;
-    lookup[label] = augment;
-  }
-
-  return lookup;
-})();
+const LOOKUP_TABLE: { [key: string]: Unit } = {};
+for (const unit of AssetUnits) {
+  const label = unit.label;
+  LOOKUP_TABLE[label] = unit;
+}
 
 const saveToLocalStorage = (
   storage_key: string,
@@ -21,7 +16,7 @@ const saveToLocalStorage = (
     label = unit.label;
   }
 
-  localStorage.setItem(storage_key, JSON.stringify(label));
+  localStorage.setItem(storage_key, JSON.stringify(unit?.label));
 };
 
 const prepareState = (storage_key: string): Unit | null => {
@@ -31,12 +26,17 @@ const prepareState = (storage_key: string): Unit | null => {
     return null;
   }
 
-  const weapon: Unit | undefined = LOOKUP_TABLE[loaded_string];
-  if (weapon === undefined) {
+  const label: string | null = JSON.parse(loaded_string);
+  if (label === null) {
     return null;
   }
 
-  return weapon;
+  const unit: Unit | undefined = LOOKUP_TABLE[label];
+  if (unit === undefined) {
+    return null;
+  }
+
+  return unit;
 };
 
 export const useUnit = (

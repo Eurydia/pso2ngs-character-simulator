@@ -39,11 +39,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugment(storageKey);
-  const [potential, setPotential] = useState<string>("");
+  const [potentialString, setPotentialString] = useState<string>("");
 
   const stat: StatObject = useMemo<StatObject>(
-    () => collectStat(weapon, level, fixa, potential, augments),
-    [weapon, level, fixa, potential, augments],
+    () => collectStat(weapon, level, fixa, potentialString, augments),
+    [weapon, level, fixa, potentialString, augments],
   );
 
   useEffect(() => {
@@ -56,8 +56,13 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {
     setWeapon(new_weapon);
-    setPotential("");
+    setPotentialString("");
   };
+
+  let _potential: Potential | null = null;
+  if (weapon !== null) {
+    _potential = weapon.potential;
+  }
 
   return (
     <FormBase title={props.title} stat={stat}>
@@ -73,9 +78,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           onChange={setLevel}
         />
         <SelectPotential
-          potential={weapon === null ? null : weapon.potential}
-          value={potential}
-          onChange={setPotential}
+          potential={_potential}
+          value={potentialString}
+          onChange={setPotentialString}
         />
         <AutocompleteFixa
           value={fixa}
