@@ -8,7 +8,7 @@ import {
   Weapon,
 } from "../../assets";
 import {
-  useAugment,
+  useAugments,
   useEnhancement,
   useFixa,
   useWeapon,
@@ -36,7 +36,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [weapon, setWeapon] = useWeapon(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
-  const [augments, setAugments] = useAugment(storageKey);
+  const [augments, setAugments] = useAugments(storageKey);
+
   const [potentialString, setPotentialString] = useState<string>("");
 
   const stat: StatObject = useMemo<StatObject>(
@@ -66,7 +67,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     <FormBase
       title={props.title}
       dialogTitle={`Stats for ${props.title}`}
-      stat={stat}
+      dialogStat={stat}
     >
       <Stack spacing={1}>
         <AutocompleteWeapon
@@ -90,7 +91,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           mode={GroupEnumFixa.WEAPON}
         />
         <Box>
-          <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
+          <Grid
+            container
+            spacing={1}
+            columns={{ xs: 1, sm: 1, md: 1, lg: 2 }}
+          >
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment

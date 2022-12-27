@@ -19,10 +19,11 @@ import { StatObject } from "../../assets";
 import StatView from "../StatView";
 
 type FormBaseProps = {
+  showAlert?: boolean;
   title: string;
   children: ReactNode | ReactNode[];
   dialogTitle: string;
-  stat: StatObject;
+  dialogStat: StatObject;
 };
 const FormBase: FC<FormBaseProps> = (props) => {
   const [dialogState, setDialogState] = useState<boolean>(false);
@@ -54,7 +55,7 @@ const FormBase: FC<FormBaseProps> = (props) => {
           title={props.title}
           titleTypographyProps={{
             fontWeight: "bold",
-            fontSize: "large",
+            fontSize: "x-large",
           }}
         />
         <CardContent>{props.children}</CardContent>
@@ -71,7 +72,7 @@ const FormBase: FC<FormBaseProps> = (props) => {
           </Typography>
         </DialogTitle>
         <DialogContent>
-          <StatView stat={props.stat} />
+          <StatView stat={props.dialogStat} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>okay</Button>

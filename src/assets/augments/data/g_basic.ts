@@ -120,7 +120,7 @@ const makeAugmentBasic = (
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
-      makeAugmentBasic("Mastery", level_index + 1, {
+      augment("Mastery", level_index + 1, GroupEnum.BASIC, [], {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.WEAPON_MELEE]: weapon_up_value,
         [StatEnum.WEAPON_RANGED]: weapon_up_value,

@@ -1,10 +1,10 @@
 import { FC, useEffect, useMemo } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
-import { GroupEnumFixa, StatObject, Unit } from "../../assets";
+import { GroupEnumFixa, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
 import {
-  useAugment,
+  useAugments,
   useEnhancement,
   useFixa,
   useUnit,
@@ -30,7 +30,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [unit, setUnit] = useUnit(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
-  const [augments, setAugments] = useAugment(storageKey);
+  const [augments, setAugments] = useAugments(storageKey);
 
   const stat = useMemo(
     () => collectStat(unit, level, fixa, augments),
@@ -49,23 +49,31 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     <FormBase
       title={props.title}
       dialogTitle={`Stats for ${props.title}`}
-      stat={stat}
+      dialogStat={stat}
     >
-      <Stack spacing={1}>
-        <AutocompleteUnit value={unit} onChange={setUnit} />
-        <FieldEnhancement
-          valueMin={0}
-          valueMax={60}
-          value={level}
-          onChange={setLevel}
-        />
-        <AutocompleteFixa
-          value={fixa}
-          onChange={setFixa}
-          mode={GroupEnumFixa.UNIT}
-        />
+      <Stack spacing={2}>
         <Box>
-          <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
+          <Stack spacing={2}>
+            <AutocompleteUnit value={unit} onChange={setUnit} />
+            <FieldEnhancement
+              valueMin={0}
+              valueMax={60}
+              value={level}
+              onChange={setLevel}
+            />
+            <AutocompleteFixa
+              value={fixa}
+              onChange={setFixa}
+              mode={GroupEnumFixa.UNIT}
+            />
+          </Stack>
+        </Box>
+        <Box>
+          <Grid
+            container
+            spacing={1}
+            columns={{ xs: 1, sm: 1, md: 1, lg: 2 }}
+          >
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment

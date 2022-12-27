@@ -11,6 +11,7 @@ import { filterOptions } from "./helper";
 import CustomOption from "./CustomOption";
 
 type AutocompleteAugmentProps = {
+  error?: boolean;
   value: Augment | null;
   onChange: (value: Augment | null) => void;
 };
