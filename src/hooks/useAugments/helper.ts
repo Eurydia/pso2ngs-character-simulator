@@ -63,7 +63,12 @@ export const loadLocalStorage = (
     augments.push(null);
   }
 
-  return augments;
+  let conflict_safe = [...augments];
+  for (let index = 0; index < safe_size; index++) {
+    conflict_safe = removeConflict(index, conflict_safe);
+  }
+
+  return conflict_safe;
 };
 
 export const removeConflict = (
