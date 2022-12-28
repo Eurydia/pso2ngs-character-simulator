@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-import { StatEnum, StatObject } from "../../assets";
+import { StatEnum, statObject, StatObject } from "../../assets";
 
 import Stat from "./Stat";
 import StatItem from "./StatItem";

@@ -76,59 +76,44 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   };
 
   return (
-    <FormBase
-      title={props.cardTitle}
-      dialogTitle={`Stats for ${props.cardTitle}`}
-      dialogStat={stat}
-    >
+    <FormBase title={props.cardTitle} stat={stat}>
       <Stack spacing={3}>
-        <Box>
-          <Stack spacing={1}>
-            <AutocompleteWeapon
-              value={weapon}
-              onChange={handleWeaponChange}
+        <Stack spacing={1}>
+          <AutocompleteWeapon
+            value={weapon}
+            onChange={handleWeaponChange}
+          />
+          <SelectPotential
+            weapon={weapon}
+            value={potentialString}
+            onChange={setPotentialString}
+          />
+          <FieldEnhancement
+            disabled={weapon === null}
+            valueMin={0}
+            valueMax={60}
+            value={level}
+            onChange={setLevel}
+          />
+          <AutocompleteFixa
+            disabled={weapon === null}
+            value={fixa}
+            onChange={setFixa}
+            mode={GroupEnumFixa.WEAPON}
+          />
+        </Stack>
+        <Stack spacing={1}>
+          {augments.map((aug, index) => (
+            <AutocompleteAugment
+              key={`augment-${index}`}
+              disabled={
+                weapon === null || index >= active_augments.length
+              }
+              value={aug}
+              onChange={(new_value) => setAugments(new_value, index)}
             />
-            <SelectPotential
-              weapon={weapon}
-              value={potentialString}
-              onChange={setPotentialString}
-            />
-            <FieldEnhancement
-              disabled={weapon === null}
-              valueMin={0}
-              valueMax={60}
-              value={level}
-              onChange={setLevel}
-            />
-            <AutocompleteFixa
-              disabled={weapon === null}
-              value={fixa}
-              onChange={setFixa}
-              mode={GroupEnumFixa.WEAPON}
-            />
-          </Stack>
-        </Box>
-        <Box>
-          <Grid
-            container
-            spacing={1}
-            columns={{ xs: 1, sm: 1, md: 1, lg: 2 }}
-          >
-            {augments.map((aug, index) => (
-              <Grid key={`augment-${index}`} item xs={1}>
-                <AutocompleteAugment
-                  disabled={
-                    weapon === null || index >= active_augments.length
-                  }
-                  value={aug}
-                  onChange={(new_value) =>
-                    setAugments(new_value, index)
-                  }
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+          ))}
+        </Stack>
       </Stack>
     </FormBase>
   );

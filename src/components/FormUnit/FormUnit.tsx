@@ -18,6 +18,7 @@ import AutocompleteUnit from "../AutocompleteUnit";
 import { getActiveAugmentCount } from "../utility";
 
 import { collectStat, createSummary } from "./helper";
+import StatView from "../StatView";
 
 type FormWeaponProps = {
   storageKey: string;
@@ -57,51 +58,36 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [unit, fixa, augments, active_augments]);
 
   return (
-    <FormBase
-      title={props.title}
-      dialogTitle={`Stats for ${props.title}`}
-      dialogStat={stat}
-    >
+    <FormBase title={props.title} stat={stat}>
       <Stack spacing={3}>
-        <Box>
-          <Stack spacing={1}>
-            <AutocompleteUnit value={unit} onChange={setUnit} />
-            <FieldEnhancement
-              disabled={unit === null}
-              valueMin={0}
-              valueMax={60}
-              value={level}
-              onChange={setLevel}
+        <Stack spacing={1}>
+          <AutocompleteUnit value={unit} onChange={setUnit} />
+          <FieldEnhancement
+            disabled={unit === null}
+            valueMin={0}
+            valueMax={60}
+            value={level}
+            onChange={setLevel}
+          />
+          <AutocompleteFixa
+            disabled={unit === null}
+            value={fixa}
+            onChange={setFixa}
+            mode={GroupEnumFixa.UNIT}
+          />
+        </Stack>
+        <Stack spacing={1}>
+          {augments.map((aug, index) => (
+            <AutocompleteAugment
+              key={`augment-${index}`}
+              disabled={
+                unit === null || index >= active_augments.length
+              }
+              value={aug}
+              onChange={(new_value) => setAugments(new_value, index)}
             />
-            <AutocompleteFixa
-              disabled={unit === null}
-              value={fixa}
-              onChange={setFixa}
-              mode={GroupEnumFixa.UNIT}
-            />
-          </Stack>
-        </Box>
-        <Box>
-          <Grid
-            container
-            spacing={1}
-            columns={{ xs: 1, sm: 1, md: 1, lg: 2 }}
-          >
-            {augments.map((aug, index) => (
-              <Grid key={`augment-${index}`} item xs={1}>
-                <AutocompleteAugment
-                  disabled={
-                    unit === null || index >= active_augments.length
-                  }
-                  value={aug}
-                  onChange={(new_value) =>
-                    setAugments(new_value, index)
-                  }
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+          ))}
+        </Stack>
       </Stack>
     </FormBase>
   );

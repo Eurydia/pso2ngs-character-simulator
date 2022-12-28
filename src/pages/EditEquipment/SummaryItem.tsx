@@ -6,7 +6,7 @@ type SummaryItemProps = SummaryEquipment;
 const SummaryItem: FC<SummaryItemProps> = (props) => {
   return (
     <Box>
-      <Typography fontWeight="bold">{props.equipment}</Typography>
+      <Typography fontWeight="500">{props.equipment}</Typography>
       <Typography>{props.fixa}</Typography>
       {props.augments.map((value, index) => (
         <Typography key={`${value}-${index}`}>{value}</Typography>

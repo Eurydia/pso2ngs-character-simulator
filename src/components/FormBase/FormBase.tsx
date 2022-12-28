@@ -1,45 +1,25 @@
-import { FC, Fragment, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Typography,
+  Grid,
 } from "@mui/material";
-import { Visibility } from "@mui/icons-material";
 
 import { StatObject } from "../../assets";
 
 import StatView from "../StatView";
 
 type FormBaseProps = {
-  showAlert?: boolean;
   title: string;
   children: ReactNode | ReactNode[];
-  dialogTitle: string;
-  dialogStat: StatObject;
+  stat: StatObject;
 };
 const FormBase: FC<FormBaseProps> = (props) => {
-  const [dialogState, setDialogState] = useState<boolean>(false);
-
-  const handleDialogOpen = () => {
-    setDialogState(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogState(false);
-  };
-
   return (
-    <Fragment>
-      <Card component={Box} padding={2}>
-        <CardActions>
+    <Card sx={{ padding: 2 }}>
+      {/* <CardActions>
           <Button
             disableElevation
             disableRipple
@@ -50,35 +30,45 @@ const FormBase: FC<FormBaseProps> = (props) => {
           >
             stats
           </Button>
-        </CardActions>
-        <CardHeader
-          title={props.title}
-          titleTypographyProps={{
-            fontWeight: "bold",
-            fontSize: "x-large",
-          }}
-        />
-        <CardContent>{props.children}</CardContent>
-      </Card>
-      <Dialog
-        fullWidth
-        maxWidth="sm"
-        open={dialogState}
-        onClose={handleDialogClose}
-      >
-        <DialogTitle>
-          <Typography fontSize="large" fontWeight="bold">
-            {props.dialogTitle}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <StatView stat={props.dialogStat} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>okay</Button>
-        </DialogActions>
-      </Dialog>
-    </Fragment>
+        </CardActions> */}
+      <CardHeader
+        title={props.title}
+        titleTypographyProps={{
+          fontWeight: "bold",
+          fontSize: "x-large",
+        }}
+      />
+      <CardContent>
+        <Grid container columnSpacing={3} columns={{ sm: 1, md: 2 }}>
+          <Grid item xs={1}>
+            {props.children}
+          </Grid>
+          <Grid item xs={1}>
+            <Box height="580px" overflow="auto" paddingX={2}>
+              <StatView stat={props.stat} />
+            </Box>
+          </Grid>
+        </Grid>
+      </CardContent>
+      {/* <Dialog
+            fullWidth
+            maxWidth="sm"
+            open={dialogState}
+            onClose={handleDialogClose}
+          >
+            <DialogTitle>
+              <Typography fontSize="large" fontWeight="bold">
+                {props.dialogTitle}
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              <StatView stat={props.dialogStat} />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDialogClose}>okay</Button>
+            </DialogActions>
+          </Dialog> */}
+    </Card>
   );
 };
 

@@ -15,12 +15,8 @@ const Summary: FC<SummaryProps> = (props) => {
   const { stat, items } = props;
 
   return (
-    <FormBase
-      title="Summary"
-      dialogTitle="Stats for Equipment"
-      dialogStat={stat}
-    >
-      <Grid container columns={{ xs: 1, sm: 2, md: 4 }}>
+    <FormBase title="Summary" stat={stat}>
+      <Grid container columns={{ xs: 1, sm: 2 }} spacing={3}>
         {items.map((item, index) => (
           <Grid key={`item-#${index}`} item xs={1}>
             <SummaryItem {...item} />
