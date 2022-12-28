@@ -43,17 +43,16 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const active_augments: number = getActiveAugmentCount(level);
 
-  const stat: StatObject = useMemo<StatObject>(
-    () =>
-      collectStat(
-        weapon,
-        level,
-        fixa,
-        potentialString,
-        augments.slice(0, active_augments),
-      ),
-    [weapon, level, fixa, potentialString, augments],
-  );
+  const stat: StatObject = useMemo<StatObject>(() => {
+    const sliced_augments = augments.slice(0, active_augments);
+    return collectStat(
+      weapon,
+      level,
+      fixa,
+      potentialString,
+      sliced_augments,
+    );
+  }, [weapon, level, fixa, potentialString, augments]);
 
   useEffect(() => {
     onStatChange(stat);

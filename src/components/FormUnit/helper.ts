@@ -22,20 +22,6 @@ const collectUnit = (unit: Unit | null, target: StatObject): void => {
   }
 };
 
-const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
-  if (fixa === null) {
-    return;
-  }
-
-  const fixa_stats: StatObject = fixa.stats;
-  const keys: StatEnum[] = fixa_stats.keys;
-
-  for (const key of keys) {
-    const value: number = fixa_stats.getStat(key);
-    target.stackStat(key, value);
-  }
-};
-
 const collectEnhancement = (
   unit: Unit | null,
   level: number,
@@ -62,6 +48,20 @@ const collectEnhancement = (
     StatEnum.CORE_BP,
     bp_from_def + bp_from_hp + bp_from_pp,
   );
+};
+
+const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
+  if (fixa === null) {
+    return;
+  }
+
+  const fixa_stats: StatObject = fixa.stats;
+  const keys: StatEnum[] = fixa_stats.keys;
+
+  for (const key of keys) {
+    const value: number = fixa_stats.getStat(key);
+    target.stackStat(key, value);
+  }
 };
 
 const collectAugments = (
@@ -91,9 +91,11 @@ export const collectStat = (
 ): StatObject => {
   const target: StatObject = statObject();
   collectUnit(unit, target);
-  collectFixa(fixa, target);
   collectEnhancement(unit, level, target);
-  collectAugments(augments, target);
+  if (unit !== null) {
+    collectFixa(fixa, target);
+    collectAugments(augments, target);
+  }
   return target;
 };
 

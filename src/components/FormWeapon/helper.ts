@@ -26,20 +26,6 @@ const collectWeapon = (
   }
 };
 
-const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
-  if (fixa === null) {
-    return;
-  }
-
-  const fixa_stats: StatObject = fixa.stats;
-  const keys: StatEnum[] = fixa_stats.keys;
-
-  for (const key of keys) {
-    const value: number = fixa_stats.getStat(key);
-    target.stackStat(key, value);
-  }
-};
-
 const collectPotential = (
   weapon: Weapon | null,
   potential_key: string,
@@ -92,6 +78,20 @@ const collectEnhancement = (
   target.stackStat(StatEnum.CORE_BP, Math.round(bp_from_atk));
 };
 
+const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
+  if (fixa === null) {
+    return;
+  }
+
+  const fixa_stats: StatObject = fixa.stats;
+  const keys: StatEnum[] = fixa_stats.keys;
+
+  for (const key of keys) {
+    const value: number = fixa_stats.getStat(key);
+    target.stackStat(key, value);
+  }
+};
+
 const collectAugments = (
   augments: (Augment | null)[],
   target: StatObject,
@@ -120,10 +120,13 @@ export const collectStat = (
 ): StatObject => {
   const target: StatObject = statObject({});
   collectWeapon(weapon, target);
-  collectFixa(fixa, target);
   collectPotential(weapon, potential, target);
   collectEnhancement(weapon, level, target);
-  collectAugments(augments, target);
+
+  if (weapon !== null) {
+    collectAugments(augments, target);
+    collectFixa(fixa, target);
+  }
   return target;
 };
 
