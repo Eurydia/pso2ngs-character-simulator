@@ -4,6 +4,7 @@ import {
   Autocomplete,
   AutocompleteChangeReason,
 } from "@mui/material";
+
 import { AssetWeapons, Weapon } from "../../assets";
 
 import CustomOption from "./CustomOption";
