@@ -5,6 +5,7 @@ import { toSafeInteger as ld_toSafeInteger } from "lodash";
 import { clampValue } from "./helper";
 
 type FieldLevelProps = {
+  disable: boolean;
   valueMin: number | null;
   valueMax: number | null;
   value: number;
@@ -27,6 +28,7 @@ const FieldLevel: FC<FieldLevelProps> = (props) => {
 
   return (
     <TextField
+      disabled={props.disable}
       value={props.value.toString()}
       onChange={handleChange}
       fullWidth

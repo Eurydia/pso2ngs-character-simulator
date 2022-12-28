@@ -89,6 +89,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
               onChange={setPotentialString}
             />
             <FieldEnhancement
+              disable={weapon === null}
               valueMin={0}
               valueMax={60}
               value={level}

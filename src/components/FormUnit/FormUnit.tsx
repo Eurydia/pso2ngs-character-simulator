@@ -67,6 +67,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           <Stack spacing={1}>
             <AutocompleteUnit value={unit} onChange={setUnit} />
             <FieldEnhancement
+              disable={unit === null}
               valueMin={0}
               valueMax={60}
               value={level}
