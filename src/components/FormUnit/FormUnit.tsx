@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
-import { GroupEnumFixa, StatObject } from "../../assets";
+import { Augment, GroupEnumFixa, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
 import {
   useAugments,
@@ -10,14 +10,14 @@ import {
   useUnit,
 } from "../../hooks";
 
+import FormBase from "../FormBase";
 import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
 import AutocompleteAugment from "../AutocompleteAugment";
 import AutocompleteUnit from "../AutocompleteUnit";
-import FormBase from "../FormBase";
+import { getActiveAugmentCount } from "../utility";
 
 import { collectStat, createSummary } from "./helper";
-import { getActiveAugmentCount } from "../utility";
 
 type FormWeaponProps = {
   storageKey: string;
@@ -33,17 +33,19 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
-  const active_augments: number = getActiveAugmentCount(level);
+  const active_augments: (Augment | null)[] = useMemo(() => {
+    if (unit === null) {
+      return [];
+    }
 
-  const stat = useMemo(
-    () =>
-      collectStat(
-        unit,
-        level,
-        fixa,
-        augments.slice(0, active_augments),
-      ),
-    [unit, level, fixa, augments],
+    const active_count: number = getActiveAugmentCount(level);
+
+    return augments.slice(0, active_count);
+  }, [level, augments, unit]);
+
+  const stat: StatObject = useMemo(
+    () => collectStat(unit, level, fixa, active_augments),
+    [unit, level, fixa, active_augments],
   );
 
   useEffect(() => {
@@ -51,10 +53,8 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(
-      createSummary(unit, fixa, augments.slice(0, active_augments)),
-    );
-  }, [unit, fixa, augments]);
+    onSummaryChange(createSummary(unit, fixa, active_augments));
+  }, [unit, fixa, augments, active_augments]);
 
   return (
     <FormBase
@@ -90,7 +90,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
-                  disabled={index >= active_augments}
+                  disabled={
+                    unit === null || index >= active_augments.length
+                  }
                   value={aug}
                   onChange={(new_value) =>
                     setAugments(new_value, index)

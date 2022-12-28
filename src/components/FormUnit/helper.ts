@@ -110,22 +110,22 @@ export const createSummary = (
     augments: [],
   };
 
-  if (unit !== null) {
-    summary.equipment = unit.label;
+  if (unit === null) {
+    return summary;
   }
+
+  summary.equipment = unit.label;
 
   if (fixa !== null) {
     summary.fixa = fixa.label;
   }
 
-  const summary_augment: string[] = [];
   for (const augment of augments) {
     if (augment === null) {
       continue;
     }
-    summary_augment.push(augment.label);
+    summary.augments.push(augment.label);
   }
-  summary.augments = summary_augment;
 
   return summary;
 };

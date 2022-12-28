@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
 import {
+  Augment,
   GroupEnumFixa,
   Potential,
   StatObject,
@@ -41,27 +42,32 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const [potentialString, setPotentialString] = useState<string>("");
 
-  const active_augments: number = getActiveAugmentCount(level);
+  const active_augments: (Augment | null)[] = useMemo(() => {
+    if (weapon === null) {
+      return [];
+    }
+
+    const active_count: number = getActiveAugmentCount(level);
+
+    return augments.slice(0, active_count);
+  }, [level, augments, weapon]);
 
   const stat: StatObject = useMemo<StatObject>(() => {
-    const sliced_augments = augments.slice(0, active_augments);
     return collectStat(
       weapon,
       level,
       fixa,
       potentialString,
-      sliced_augments,
+      active_augments,
     );
-  }, [weapon, level, fixa, potentialString, augments]);
+  }, [weapon, level, fixa, potentialString, active_augments]);
 
   useEffect(() => {
     onStatChange(stat);
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(
-      createSummary(weapon, fixa, augments.slice(0, active_augments)),
-    );
+    onSummaryChange(createSummary(weapon, fixa, active_augments));
   }, [weapon, fixa, augments, active_augments]);
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {
@@ -111,7 +117,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
-                  disabled={index >= active_augments}
+                  disabled={
+                    weapon === null || index >= active_augments.length
+                  }
                   value={aug}
                   onChange={(new_value) =>
                     setAugments(new_value, index)
