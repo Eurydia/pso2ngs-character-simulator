@@ -11,6 +11,7 @@ import { filterOptions } from "./helper";
 import CustomOption from "./CustomOption";
 
 type AutocompleteFixaProps = {
+  disabled: boolean;
   mode: GroupEnumFixa;
   value: Fixa | null;
   onChange: (value: Fixa | null) => void;
@@ -30,6 +31,7 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = (props) => {
 
   return (
     <Autocomplete
+      disabled={props.disabled}
       options={options}
       value={props.value}
       onChange={handleChange}

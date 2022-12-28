@@ -67,13 +67,14 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
           <Stack spacing={1}>
             <AutocompleteUnit value={unit} onChange={setUnit} />
             <FieldEnhancement
-              disable={unit === null}
+              disabled={unit === null}
               valueMin={0}
               valueMax={60}
               value={level}
               onChange={setLevel}
             />
             <AutocompleteFixa
+              disabled={unit === null}
               value={fixa}
               onChange={setFixa}
               mode={GroupEnumFixa.UNIT}
