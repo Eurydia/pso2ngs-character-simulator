@@ -96,6 +96,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
               onChange={setLevel}
             />
             <AutocompleteFixa
+              disabled={weapon === null}
               value={fixa}
               onChange={setFixa}
               mode={GroupEnumFixa.WEAPON}
