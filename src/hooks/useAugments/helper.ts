@@ -14,7 +14,7 @@ for (const augment of AssetAugments) {
   LOOKUP_TABLE[label] = augment;
 }
 
-export const saveLocalStorage = (
+export const saveData = (
   storage_key: string,
   augments: (Augment | null)[],
 ): void => {
@@ -28,7 +28,7 @@ export const saveLocalStorage = (
   localStorage.setItem(storage_key, JSON.stringify(labels));
 };
 
-export const loadLocalStorage = (
+export const retrieveData = (
   storage_key: string,
   size: number,
 ): (Augment | null)[] => {

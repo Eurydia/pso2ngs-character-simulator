@@ -23,10 +23,11 @@ import AutocompleteAugment from "../AutocompleteAugment";
 import SelectPotential from "../AutocompletePotential";
 
 import { collectStat, createSummary } from "./helper";
+import { getActiveAugmentCount } from "../utility";
 
 interface FormWeaponProps {
   storageKey: string;
-  title: string;
+  cardTitle: string;
   onStatChange: (stats: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
 }
@@ -40,8 +41,17 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const [potentialString, setPotentialString] = useState<string>("");
 
+  const active_augments: number = getActiveAugmentCount(level);
+
   const stat: StatObject = useMemo<StatObject>(
-    () => collectStat(weapon, level, fixa, potentialString, augments),
+    () =>
+      collectStat(
+        weapon,
+        level,
+        fixa,
+        potentialString,
+        augments.slice(0, active_augments),
+      ),
     [weapon, level, fixa, potentialString, augments],
   );
 
@@ -50,46 +60,47 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(createSummary(weapon, fixa, augments));
-  }, [weapon, fixa, augments]);
+    onSummaryChange(
+      createSummary(weapon, fixa, augments.slice(0, active_augments)),
+    );
+  }, [weapon, fixa, augments, active_augments]);
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {
     setWeapon(new_weapon);
     setPotentialString("");
   };
 
-  let _potential: Potential | null = null;
-  if (weapon !== null) {
-    _potential = weapon.potential;
-  }
-
   return (
     <FormBase
-      title={props.title}
-      dialogTitle={`Stats for ${props.title}`}
+      title={props.cardTitle}
+      dialogTitle={`Stats for ${props.cardTitle}`}
       dialogStat={stat}
     >
-      <Stack spacing={1}>
-        <AutocompleteWeapon
-          value={weapon}
-          onChange={handleWeaponChange}
-        />
-        <FieldEnhancement
-          valueMin={0}
-          valueMax={60}
-          value={level}
-          onChange={setLevel}
-        />
-        <SelectPotential
-          potential={_potential}
-          value={potentialString}
-          onChange={setPotentialString}
-        />
-        <AutocompleteFixa
-          value={fixa}
-          onChange={setFixa}
-          mode={GroupEnumFixa.WEAPON}
-        />
+      <Stack spacing={3}>
+        <Box>
+          <Stack spacing={1}>
+            <AutocompleteWeapon
+              value={weapon}
+              onChange={handleWeaponChange}
+            />
+            <SelectPotential
+              weapon={weapon}
+              value={potentialString}
+              onChange={setPotentialString}
+            />
+            <FieldEnhancement
+              valueMin={0}
+              valueMax={60}
+              value={level}
+              onChange={setLevel}
+            />
+            <AutocompleteFixa
+              value={fixa}
+              onChange={setFixa}
+              mode={GroupEnumFixa.WEAPON}
+            />
+          </Stack>
+        </Box>
         <Box>
           <Grid
             container
@@ -99,6 +110,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
+                  disabled={index >= active_augments}
                   value={aug}
                   onChange={(new_value) =>
                     setAugments(new_value, index)

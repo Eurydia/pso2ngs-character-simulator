@@ -35,6 +35,14 @@ export class StatObject {
     this.#stackStatMuliply(key, value);
   }
 
+  merge(obj: StatObject): void {
+    const keys = obj.keys;
+    for (const key of keys) {
+      const value: number = obj.getStat(key);
+      this.stackStat(key, value);
+    }
+  }
+
   getStat(key: StatEnum): number {
     const value: number | undefined = this.stats[key];
 

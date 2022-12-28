@@ -17,6 +17,7 @@ import AutocompleteUnit from "../AutocompleteUnit";
 import FormBase from "../FormBase";
 
 import { collectStat, createSummary } from "./helper";
+import { getActiveAugmentCount } from "../utility";
 
 type FormWeaponProps = {
   storageKey: string;
@@ -32,8 +33,16 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
+  const active_augments: number = getActiveAugmentCount(level);
+
   const stat = useMemo(
-    () => collectStat(unit, level, fixa, augments),
+    () =>
+      collectStat(
+        unit,
+        level,
+        fixa,
+        augments.slice(0, active_augments),
+      ),
     [unit, level, fixa, augments],
   );
 
@@ -42,7 +51,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [stat]);
 
   useEffect(() => {
-    onSummaryChange(createSummary(unit, fixa, augments));
+    onSummaryChange(
+      createSummary(unit, fixa, augments.slice(0, active_augments)),
+    );
   }, [unit, fixa, augments]);
 
   return (
@@ -51,9 +62,9 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
       dialogTitle={`Stats for ${props.title}`}
       dialogStat={stat}
     >
-      <Stack spacing={2}>
+      <Stack spacing={3}>
         <Box>
-          <Stack spacing={2}>
+          <Stack spacing={1}>
             <AutocompleteUnit value={unit} onChange={setUnit} />
             <FieldEnhancement
               valueMin={0}
@@ -77,6 +88,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             {augments.map((aug, index) => (
               <Grid key={`augment-${index}`} item xs={1}>
                 <AutocompleteAugment
+                  disabled={index >= active_augments}
                   value={aug}
                   onChange={(new_value) =>
                     setAugments(new_value, index)

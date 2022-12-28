@@ -5,20 +5,21 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Potential } from "../../assets";
+import { Weapon } from "../../assets";
 
 import CustomOption from "./CustomOption";
 
 type SelectPotentialProps = {
-  potential: Potential | null;
+  weapon: Weapon | null;
   value: string;
   onChange: (value: string) => void;
 };
 const SelectPotential: FC<SelectPotentialProps> = (props) => {
-  let options: string[] = [];
+  const { weapon } = props;
 
-  if (props.potential !== null) {
-    options = Object.keys(props.potential.potentials);
+  let options: string[] = [];
+  if (weapon !== null) {
+    options = weapon.potential.keys;
   }
 
   const handleChange = (
@@ -36,6 +37,7 @@ const SelectPotential: FC<SelectPotentialProps> = (props) => {
 
   return (
     <Autocomplete
+      disabled={props.weapon === null}
       value={props.value}
       options={options}
       onChange={handleChange}

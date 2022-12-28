@@ -8,10 +8,7 @@ for (const unit of AssetUnits) {
   LOOKUP_TABLE[label] = unit;
 }
 
-const saveToLocalStorage = (
-  storage_key: string,
-  unit: Unit | null,
-): void => {
+const saveData = (storage_key: string, unit: Unit | null): void => {
   let label: string | null = null;
   if (unit !== null) {
     label = unit.label;
@@ -20,7 +17,7 @@ const saveToLocalStorage = (
   localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
-const prepareState = (storage_key: string): Unit | null => {
+const retrieveData = (storage_key: string): Unit | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
@@ -49,11 +46,11 @@ export const useUnit = (
 ): [Unit | null, (new_value: Unit | null) => void] => {
   const key: string = `${storage_key}-unit`;
 
-  const [value, _setValue] = useState(() => prepareState(key));
+  const [value, _setValue] = useState(() => retrieveData(key));
 
   const setValue = (new_value: Unit | null) => {
     _setValue(() => {
-      saveToLocalStorage(key, new_value);
+      saveData(key, new_value);
       return new_value;
     });
   };

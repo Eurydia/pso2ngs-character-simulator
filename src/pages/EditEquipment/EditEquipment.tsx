@@ -1,15 +1,30 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Box, Stack } from "@mui/material";
 
 import { FormWeapon, FormUnit } from "../../components";
 import { statObject, StatObject } from "../../assets";
-import { useSummaryEquipment } from "../../hooks";
 
 import Summary from "./Summary";
-import { collectStat } from "./helper";
+import { SummaryEquipment } from "../../types";
 
-type EditEquipmentProps = {};
-const EditEquipment: FC<EditEquipmentProps> = () => {
+const useSummaryEquipment = (): [
+  SummaryEquipment,
+  (summary: SummaryEquipment) => void,
+] => {
+  const [value, setValue] = useState<SummaryEquipment>({
+    equipment: null,
+    fixa: null,
+    augments: [],
+  });
+
+  return [value, setValue];
+};
+
+type EditEquipmentProps = {
+  onChange: (stat: StatObject) => void;
+};
+const EditEquipment: FC<EditEquipmentProps> = (props) => {
+  const { onChange } = props;
   const [statWeapon, setStatWeapon] = useState(statObject({}));
   const [statUnitA, setStatUnitA] = useState(statObject({}));
   const [statUnitB, setStatUnitB] = useState(statObject({}));
@@ -20,13 +35,22 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
   const [summaryUnitB, setSummaryUnitB] = useSummaryEquipment();
   const [summaryUnitC, setSummaryUnitC] = useSummaryEquipment();
 
-  const stat: StatObject = useMemo(
-    () => collectStat([statWeapon, statUnitA, statUnitB, statUnitC]),
-    [statWeapon, statUnitA, statUnitB, statUnitC],
-  );
+  const stat: StatObject = useMemo(() => {
+    const result: StatObject = statObject();
+
+    for (const obj of [statWeapon, statUnitA, statUnitB, statUnitC]) {
+      result.merge(obj);
+    }
+
+    return result;
+  }, [statWeapon, statUnitA, statUnitB, statUnitC]);
+
+  useEffect(() => {
+    onChange(stat);
+  }, [stat]);
 
   return (
-    <Box marginY={4} marginX={8}>
+    <Box margin={4}>
       <Stack spacing={2}>
         <Summary
           stat={stat}
@@ -39,7 +63,7 @@ const EditEquipment: FC<EditEquipmentProps> = () => {
         />
         <FormWeapon
           storageKey="equipment-weapon"
-          title="Weapon"
+          cardTitle="Weapon"
           onStatChange={setStatWeapon}
           onSummaryChange={setSummaryWeapon}
         />

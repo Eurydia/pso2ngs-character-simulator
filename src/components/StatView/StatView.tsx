@@ -2,6 +2,7 @@ import { FC } from "react";
 import {
   Box,
   Divider,
+  Grid,
   Stack,
   Typography,
   useMediaQuery,

@@ -2,14 +2,11 @@ import { toSafeInteger as ld_toSafeInteger } from "lodash";
 import { useState } from "react";
 import { isValidJSON } from "./utility";
 
-const saveToLocalStorage = (
-  storage_key: string,
-  level: number,
-): void => {
+const saveData = (storage_key: string, level: number): void => {
   localStorage.setItem(storage_key, JSON.stringify(level));
 };
 
-const prepareState = (storage_key: string): number => {
+const retrieveData = (storage_key: string): number => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
@@ -28,11 +25,11 @@ export const useEnhancement = (
 ): [number, (new_value: number) => void] => {
   const key: string = `${storage_key}-level`;
 
-  const [value, _setValue] = useState(() => prepareState(key));
+  const [value, _setValue] = useState(() => retrieveData(key));
 
   const setValue = (new_value: number) => {
     _setValue(() => {
-      saveToLocalStorage(key, new_value);
+      saveData(key, new_value);
       return new_value;
     });
   };

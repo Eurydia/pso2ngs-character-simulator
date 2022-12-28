@@ -8,10 +8,7 @@ for (const fixa of AssetFixas) {
   LOOKUP_TABLE[label] = fixa;
 }
 
-const saveToLocalStorage = (
-  storage_key: string,
-  fixa: Fixa | null,
-): void => {
+const saveData = (storage_key: string, fixa: Fixa | null): void => {
   let label: string | null = null;
   if (fixa !== null) {
     label = fixa.label;
@@ -20,7 +17,7 @@ const saveToLocalStorage = (
   localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
-const prepareState = (storage_key: string): Fixa | null => {
+const retrieveData = (storage_key: string): Fixa | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
@@ -49,11 +46,11 @@ export const useFixa = (
 ): [Fixa | null, (new_value: Fixa | null) => void] => {
   const key: string = `${storage_key}-fixa`;
 
-  const [value, _setValue] = useState(() => prepareState(key));
+  const [value, _setValue] = useState(() => retrieveData(key));
 
   const setValue = (new_value: Fixa | null) => {
     _setValue(() => {
-      saveToLocalStorage(key, new_value);
+      saveData(key, new_value);
       return new_value;
     });
   };

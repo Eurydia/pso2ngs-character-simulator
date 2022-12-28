@@ -11,7 +11,7 @@ import { filterOptions } from "./helper";
 import CustomOption from "./CustomOption";
 
 type AutocompleteAugmentProps = {
-  error?: boolean;
+  disabled: boolean;
   value: Augment | null;
   onChange: (value: Augment | null) => void;
 };
@@ -26,6 +26,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
 
   return (
     <Autocomplete
+      disabled={props.disabled}
       options={AssetAugments}
       value={props.value}
       onChange={handleChange}

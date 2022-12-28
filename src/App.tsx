@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Button,
   Container,
   CssBaseline,
   GlobalStyles,
@@ -15,10 +14,13 @@ import EditCharacter from "./pages/EditCharacter";
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import HomePage from "./pages/Home";
+import { useStat } from "./hooks/useStat";
 
 import { style_overrrides } from "./theme";
 
 function App() {
+  const [statEquipment, setStatEquipment] = useStat("page-equipment");
+
   return (
     <ThemeProvider theme={style_overrrides}>
       <CssBaseline />
@@ -39,14 +41,17 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/"
+              element={<HomePage stat={statEquipment} />}
+            />
             <Route
               path="/config-character"
               element={<EditCharacter />}
             />
             <Route
               path="/config-equipment"
-              element={<EditEquipment />}
+              element={<EditEquipment onChange={setStatEquipment} />}
             />
             <Route path="/config-food" element={<FoodEdit />} />
             <Route path="/config-addon" element={<FoodEdit />} />

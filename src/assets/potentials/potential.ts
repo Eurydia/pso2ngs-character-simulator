@@ -56,6 +56,10 @@ export class Potential {
 
     return null;
   }
+
+  get keys(): string[] {
+    return Object.keys(this.potentials);
+  }
 }
 
 const potential = (

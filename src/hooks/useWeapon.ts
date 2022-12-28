@@ -8,7 +8,7 @@ for (const weapon of AssetWeapons) {
   LOOKUP_TABLE[label] = weapon;
 }
 
-const saveToLocalStorage = (
+const saveData = (
   storage_key: string,
   weapon: Weapon | null,
 ): void => {
@@ -20,7 +20,7 @@ const saveToLocalStorage = (
   localStorage.setItem(storage_key, JSON.stringify(label));
 };
 
-const prepareState = (storage_key: string): Weapon | null => {
+const retrieveData = (storage_key: string): Weapon | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
@@ -49,11 +49,11 @@ export const useWeapon = (
 ): [Weapon | null, (new_value: Weapon | null) => void] => {
   const key: string = `${storage_key}-weapon`;
 
-  const [value, _setValue] = useState(() => prepareState(key));
+  const [value, _setValue] = useState(() => retrieveData(key));
 
   const setValue = (new_value: Weapon | null) => {
     _setValue(() => {
-      saveToLocalStorage(key, new_value);
+      saveData(key, new_value);
       return new_value;
     });
   };

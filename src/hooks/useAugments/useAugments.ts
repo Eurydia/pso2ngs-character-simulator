@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import { Augment } from "../../assets";
 
-import {
-  loadLocalStorage,
-  removeConflict,
-  saveLocalStorage,
-} from "./helper";
+import { retrieveData, removeConflict, saveData } from "./helper";
 
 export const useAugments = (
   storage_key: string,
@@ -16,7 +12,7 @@ export const useAugments = (
 ] => {
   const key: string = `${storage_key}-augments`;
 
-  const [value, _setValue] = useState(() => loadLocalStorage(key, 5));
+  const [value, _setValue] = useState(() => retrieveData(key, 5));
 
   const setValue = (new_value: Augment | null, index: number) => {
     if (index < 0 || value.length <= index) {
@@ -29,7 +25,7 @@ export const useAugments = (
 
       const checked = removeConflict(index, next);
 
-      saveLocalStorage(key, checked);
+      saveData(key, checked);
       return checked;
     });
   };
