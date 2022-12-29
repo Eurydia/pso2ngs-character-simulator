@@ -17,7 +17,7 @@ const collectWeapon = (
     return;
   }
 
-  const weapon_stats: StatObject = weapon.stats;
+  const weapon_stats: StatObject = weapon.stat;
   const keys: StatEnum[] = weapon_stats.keys;
 
   for (const key of keys) {
@@ -46,7 +46,7 @@ const collectPotential = (
     return;
   }
 
-  const { level, stats: potential_stats } = potential_current;
+  const { level, stat: potential_stats } = potential_current;
   const keys: StatEnum[] = potential_stats.keys;
 
   target.stackStat(StatEnum.CORE_BP, level * 10);
@@ -69,7 +69,7 @@ const collectEnhancement = (
   const atk_bonus: number = weapon.getBonusAttack(level);
   target.stackStat(StatEnum.CORE_ATTACK, atk_bonus);
 
-  const weapon_stats = weapon.stats;
+  const weapon_stats = weapon.stat;
 
   const atk_base: number = weapon.base_attack;
   const floor_potency = weapon_stats.getStat(StatEnum.ADV_OFF_FLOOR);

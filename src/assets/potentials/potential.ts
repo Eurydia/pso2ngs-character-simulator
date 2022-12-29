@@ -1,7 +1,7 @@
 import statObject, { StatEnum, StatObject } from "../stat";
 
 type PotentialItem = {
-  stats: StatObject;
+  stat: StatObject;
   level: number;
   label: string;
 };
@@ -24,27 +24,17 @@ export class Potential {
 
     this.potentials = {};
 
-    for (
-      let level_index = 0;
-      level_index < this.#stats.length;
-      level_index++
-    ) {
+    this.#stats.forEach((stat, level_index) => {
       const level = level_index + 1;
       const label = `${this.#name} Lv. ${level}`;
-      const stats = this.#stats[level_index];
-      this.potentials[label] = { level, label, stats };
-    }
+      this.potentials[label] = { level, label, stat };
+    });
 
-    for (
-      let level_index = 0;
-      level_index < this.#stats_inactive.length;
-      level_index++
-    ) {
+    this.#stats_inactive.forEach((stat, level_index) => {
       const level = level_index + 1;
-      const label = `${this.#name} Lv. ${level} (Inactive)`;
-      const stats = this.#stats_inactive[level_index];
-      this.potentials[label] = { level, label, stats };
-    }
+      const label = `(Inactive) ${this.#name} Lv. ${level}`;
+      this.potentials[label] = { level, label, stat };
+    });
   }
 
   getPotential(key: string): PotentialItem | null {

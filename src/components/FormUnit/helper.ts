@@ -13,7 +13,7 @@ const collectUnit = (unit: Unit | null, target: StatObject): void => {
     return;
   }
 
-  const unit_stats: StatObject = unit.stats;
+  const unit_stats: StatObject = unit.stat;
   const keys: StatEnum[] = unit_stats.keys;
 
   for (const key of keys) {
@@ -31,7 +31,7 @@ const collectEnhancement = (
     return;
   }
 
-  const unit_stats: StatObject = unit.stats;
+  const unit_stats: StatObject = unit.stat;
 
   const def_base: number = unit.base_def;
   const def_bonus: number = unit.getBonusDef(level);

@@ -19,18 +19,6 @@ type FormBaseProps = {
 const FormBase: FC<FormBaseProps> = (props) => {
   return (
     <Card sx={{ padding: 2 }}>
-      {/* <CardActions>
-          <Button
-            disableElevation
-            disableRipple
-            color="primary"
-            variant="contained"
-            startIcon={<Visibility />}
-            onClick={handleDialogOpen}
-          >
-            stats
-          </Button>
-        </CardActions> */}
       <CardHeader
         title={props.title}
         titleTypographyProps={{
@@ -50,24 +38,6 @@ const FormBase: FC<FormBaseProps> = (props) => {
           </Grid>
         </Grid>
       </CardContent>
-      {/* <Dialog
-            fullWidth
-            maxWidth="sm"
-            open={dialogState}
-            onClose={handleDialogClose}
-          >
-            <DialogTitle>
-              <Typography fontSize="large" fontWeight="bold">
-                {props.dialogTitle}
-              </Typography>
-            </DialogTitle>
-            <DialogContent>
-              <StatView stat={props.dialogStat} />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleDialogClose}>okay</Button>
-            </DialogActions>
-          </Dialog> */}
     </Card>
   );
 };

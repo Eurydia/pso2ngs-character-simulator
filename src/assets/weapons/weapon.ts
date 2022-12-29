@@ -6,7 +6,7 @@ import { calcBonusAtk } from "./helper";
 
 export class Weapon {
   name: string;
-  stats: StatObject;
+  stat: StatObject;
   potential: Potential;
 
   #growth_rate: [number, number][];
@@ -20,7 +20,7 @@ export class Weapon {
     growth_rate: [number, number][],
   ) {
     this.name = name;
-    this.stats = stats;
+    this.stat = stats;
     this.potential = potential;
 
     this.#group = group;
@@ -36,7 +36,7 @@ export class Weapon {
   }
 
   get base_attack(): number {
-    return this.stats.getStat(StatEnum.CORE_ATTACK);
+    return this.stat.getStat(StatEnum.CORE_ATTACK);
   }
 
   getBonusAttack(level: number): number {
@@ -49,13 +49,13 @@ const weapon = (
   group: WeaponGroup,
   potential: Potential,
   growth_rate: [number, number][],
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
   return new Weapon(
     name,
     group,
     potential,
-    statObject(stats),
+    statObject(stat),
     growth_rate,
   );
 };

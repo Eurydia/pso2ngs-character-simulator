@@ -71,7 +71,7 @@ data.push(
 
 data.push(
   makeWeaponThree(
-    "Inactive Glissen Series",
+    "Glissen Series (x)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
@@ -92,7 +92,7 @@ data.push(
 
 data.push(
   makeWeaponThree(
-    "Inactive Frostel Series",
+    "Frostel Series (x)",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 225,
