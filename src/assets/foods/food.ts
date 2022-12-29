@@ -1,15 +1,35 @@
-export class Food {
-  attribute: string;
-  category: string;
+import { RegionEnum, CategoryEnum, AttributeEnum } from "./groupEnum";
 
-  constructor(attribute: string, category: string) {
+export class Food {
+  region: RegionEnum;
+  attribute: AttributeEnum;
+  category: CategoryEnum;
+
+  constructor(
+    attribute: AttributeEnum,
+    region: RegionEnum,
+    category: CategoryEnum,
+  ) {
     this.attribute = attribute;
+    this.region = region;
     this.category = category;
+  }
+
+  get label(): string {
+    if (this.region === RegionEnum.KVARIS) {
+      return `${this.attribute} ${this.region} ${this.category}`;
+    }
+
+    return `${this.attribute} ${this.category}`;
   }
 }
 
-const food = (attribute: string, category: string): Food => {
-  return new Food(attribute, category);
+const food = (
+  attribute: AttributeEnum,
+  region: RegionEnum,
+  category: CategoryEnum,
+): Food => {
+  return new Food(attribute, region, category);
 };
 
 export default food;

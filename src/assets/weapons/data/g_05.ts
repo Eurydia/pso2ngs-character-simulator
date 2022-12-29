@@ -1,5 +1,6 @@
 import { StatEnum } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
+
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -143,7 +144,7 @@ data.push(
 
 data.push(
   makeWeaponFive(
-    "Inactive Tempesta Series",
+    "(Inactive) Tempesta Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
@@ -164,7 +165,7 @@ data.push(
 
 data.push(
   makeWeaponFive(
-    "Inactive Lumiere Series",
+    "(Inactive) Lumiere Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,
@@ -185,7 +186,7 @@ data.push(
 
 data.push(
   makeWeaponFive(
-    "Inactive Obscura Series",
+    "(Inactive) Obscura Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 263,

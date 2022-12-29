@@ -18,6 +18,7 @@ import { Add } from "@mui/icons-material";
 import EffectDisplay from "./subcomponents/EffectList";
 import RecipeDisplay from "./subcomponents/IngredientList";
 import DialogIngredientList from "./subcomponents/DialogIngredientList";
+import { AutocompleteFood } from "../../components";
 
 interface FoodEditProps {}
 const FoodEdit: FC<FoodEditProps> = () => {
@@ -32,58 +33,59 @@ const FoodEdit: FC<FoodEditProps> = () => {
   };
 
   return (
-    <Fragment>
-      <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
-        <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Recipe Editor" />
-            <CardContent>
-              <RecipeDisplay />
-              <Box width={1} position="relative">
-                <Fab
-                  color="primary"
-                  size="medium"
-                  onClick={handleDialogOpen}
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: "0.5rem",
-                  }}
-                >
-                  <Add />
-                </Fab>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={1}>
-          <Card variant="outlined">
-            <CardHeader title="Active Buffs" />
-            <CardContent>
-              <EffectDisplay />
-            </CardContent>
-          </Card>
-        </Grid>
+    // <Fragment>
+    <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
+      <Grid item xs={1}>
+        <Card raised>
+          <CardHeader title="Recipe Editor" />
+          <CardContent>
+            <AutocompleteFood value={null} />
+            {/* <RecipeDisplay />
+            <Box width={1} position="relative">
+              <Fab
+                color="primary"
+                size="medium"
+                onClick={handleDialogOpen}
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: "0.5rem",
+                }}
+              >
+                <Add />
+              </Fab>
+            </Box> */}
+          </CardContent>
+        </Card>
       </Grid>
-      <Dialog
-        open={dialogState}
-        onClose={handleDialogClose}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>Select ingredient(s)</DialogTitle>
-        <DialogContent>
-          <Stack paddingY={1}>
-            <TextField fullWidth label="search" size="small" />
-            <DialogIngredientList />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>cancel</Button>
-          <Button onClick={handleDialogClose}>confirm</Button>
-        </DialogActions>
-      </Dialog>
-    </Fragment>
+      <Grid item xs={1}>
+        <Card variant="outlined">
+          <CardHeader title="Active Buffs" />
+          <CardContent>
+            <EffectDisplay />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+    //   {/* <Dialog
+    //     open={dialogState}
+    //     onClose={handleDialogClose}
+    //     fullWidth
+    //     maxWidth="sm"
+    //   >
+    //     <DialogTitle>Select ingredient(s)</DialogTitle>
+    //     <DialogContent>
+    //       <Stack paddingY={1}>
+    //         <TextField fullWidth label="search" size="small" />
+    //         <DialogIngredientList />
+    //       </Stack>
+    //     </DialogContent>
+    //     <DialogActions>
+    //       <Button onClick={handleDialogClose}>cancel</Button>
+    //       <Button onClick={handleDialogClose}>confirm</Button>
+    //     </DialogActions>
+    //   </Dialog>
+    // </Fragment> */}
   );
 };
 

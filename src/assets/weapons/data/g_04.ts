@@ -1,5 +1,6 @@
 import { StatEnum } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
+
 import GroupEnum from "../groupEnum";
 import weapon, { Weapon } from "../weapon";
 
@@ -91,7 +92,7 @@ data.push(
 
 data.push(
   makeWeaponFour(
-    "Inactive Flamel Series",
+    "(Inactive) Flamel Series",
     AssetPotentials.VALOROUS_UNIT,
     {
       [StatEnum.CORE_ATTACK]: 240,
