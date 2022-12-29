@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent } from "react";
 import {
   Autocomplete,
   AutocompleteChangeReason,
@@ -14,41 +14,49 @@ type SelectPotentialProps = {
   value: string;
   onChange: (value: string) => void;
 };
-const SelectPotential: FC<SelectPotentialProps> = (props) => {
-  const { weapon } = props;
+const SelectPotential: FC<SelectPotentialProps> = memo(
+  (props) => {
+    const { weapon } = props;
 
-  let options: string[] = [];
-  if (weapon !== null) {
-    options = weapon.potential.keys;
-  }
-
-  const handleChange = (
-    event: SyntheticEvent<Element, Event>,
-    value: string | null,
-    reason: AutocompleteChangeReason,
-  ) => {
-    if (value === null) {
-      props.onChange("");
-      return;
+    let options: string[] = [];
+    if (weapon !== null) {
+      options = weapon.potential.keys;
     }
 
-    props.onChange(value);
-  };
+    const handleChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: string | null,
+      reason: AutocompleteChangeReason,
+    ) => {
+      if (value === null) {
+        props.onChange("");
+        return;
+      }
 
-  return (
-    <Autocomplete
-      disabled={props.weapon === null}
-      value={props.value}
-      options={options}
-      onChange={handleChange}
-      renderInput={(params) => (
-        <TextField {...params} fullWidth placeholder="Potential" />
-      )}
-      renderOption={(props, option, _) => (
-        <CustomOption {...props} option={option} />
-      )}
-    />
-  );
-};
+      props.onChange(value);
+    };
+
+    return (
+      <Autocomplete
+        disabled={props.weapon === null}
+        value={props.value}
+        options={options}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField {...params} fullWidth placeholder="Potential" />
+        )}
+        renderOption={(props, option, _) => (
+          <CustomOption {...props} option={option} />
+        )}
+      />
+    );
+  },
+  (prev, next) => {
+    return (
+      prev.value === next.value &&
+      prev.weapon?.label === next.weapon?.label
+    );
+  },
+);
 
 export default SelectPotential;

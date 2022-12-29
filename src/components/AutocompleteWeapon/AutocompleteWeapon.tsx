@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent } from "react";
 import {
   TextField,
   Autocomplete,
@@ -14,29 +14,34 @@ type AutocompleteWeaponProps = {
   value: Weapon | null;
   onChange: (value: Weapon | null) => void;
 };
-const AutocompleteWeapon: FC<AutocompleteWeaponProps> = (props) => {
-  const handleChange = (
-    event: SyntheticEvent<Element, Event>,
-    value: Weapon | null,
-    reason: AutocompleteChangeReason,
-  ) => {
-    props.onChange(value);
-  };
+const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
+  (props) => {
+    const handleChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: Weapon | null,
+      reason: AutocompleteChangeReason,
+    ) => {
+      props.onChange(value);
+    };
 
-  return (
-    <Autocomplete
-      options={AssetWeapons}
-      value={props.value}
-      onChange={handleChange}
-      renderInput={(params) => (
-        <TextField {...params} fullWidth placeholder="Weapon" />
-      )}
-      renderOption={(props, option, _) => (
-        <CustomOption {...props} option={option} />
-      )}
-      filterOptions={filterOptions}
-    />
-  );
-};
+    return (
+      <Autocomplete
+        options={AssetWeapons}
+        value={props.value}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField {...params} fullWidth placeholder="Weapon" />
+        )}
+        renderOption={(props, option, _) => (
+          <CustomOption {...props} option={option} />
+        )}
+        filterOptions={filterOptions}
+      />
+    );
+  },
+  (prev, next) => {
+    return prev.value?.label === next.value?.label;
+  },
+);
 
 export default AutocompleteWeapon;
