@@ -5,3 +5,4 @@ export { useUnit } from "./useUnit";
 export { useEnhancement } from "./useEnhancement";
 export { useSummaryEquipment } from "./useSummaryEquipment";
 export { useStatObject } from "./useStatObject";
+export { useFood } from "./useFood";

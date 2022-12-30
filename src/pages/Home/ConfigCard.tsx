@@ -1,19 +1,31 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Launch } from "@mui/icons-material";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Typography,
+} from "@mui/material";
 
 type ConfigCardProps = {
   destination: string;
   title: string;
-  description: string;
+  desc: string;
 };
 const ConfigCard: FC<ConfigCardProps> = (props) => {
   return (
-    <Paper>
-      <Box padding={2}>
-        <Typography fontWeight="bold">{props.title}</Typography>
-        <Typography paragraph>{props.description}</Typography>
+    <Card variant="outlined">
+      <CardHeader
+        title={props.title}
+        titleTypographyProps={{ fontWeight: "bold" }}
+      />
+      <CardContent>
+        <Typography paragraph>{props.desc}</Typography>
+      </CardContent>
+      <CardActions disableSpacing>
         <Button
           disableRipple
           disableFocusRipple
@@ -25,8 +37,8 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
         >
           go
         </Button>
-      </Box>
-    </Paper>
+      </CardActions>
+    </Card>
   );
 };
 

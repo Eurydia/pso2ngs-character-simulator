@@ -24,28 +24,28 @@ const Home: FC<HomeProps> = (props) => {
           <Stack spacing={1}>
             <ConfigCard
               title="Equipment"
+              desc="It's dangerous to go alone."
               destination="/config-equipment"
-              description="It's dangerous to go alone."
             />
             <ConfigCard
               title="Food"
+              desc="Invent the best snack of all time."
               destination="/config-food"
-              description="Invent the best snack of all time."
             />
             <ConfigCard
               title="Class skills"
               destination="/config-character"
-              description="Main & sub class, and class skills."
+              desc="Main & sub class, and class skills."
             />
             <ConfigCard
               title="Addon skills"
+              desc="Account-wide effects."
               destination="/config-addon"
-              description="Account-wide effects."
             />
             <ConfigCard
               title="External effects"
+              desc="Effects caused by others."
               destination="/config-buffs"
-              description="Effects caused by others."
             />
           </Stack>
         </Grid>

@@ -12,7 +12,7 @@ import { filterOptions } from "./helper";
 
 type AutocompleteAugmentProps = {
   value: Food | null;
-  // onChange: (value: Food | null) => void;
+  onChange: (value: Food | null) => void;
 };
 const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
   const handleChange = (
@@ -20,7 +20,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
     value: Food | null,
     reason: AutocompleteChangeReason,
   ) => {
-    // props.onChange(value);
+    props.onChange(value);
   };
 
   return (
@@ -29,7 +29,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       renderInput={(params) => (
-        <TextField {...params} fullWidth placeholder="Augment" />
+        <TextField {...params} fullWidth placeholder="Search" />
       )}
       renderOption={(props, option, _) => (
         <CustomOption {...props} option={option} />

@@ -3,15 +3,16 @@ import { Grid } from "@mui/material";
 
 import { SummaryEquipment } from "../../types";
 import { StatObject } from "../../assets";
-import { FormBase } from "../../components";
 
-import SummaryItem from "./SummaryItem";
+import FormBase from "../FormBase";
 
-type SummaryProps = {
+import Item from "./Item";
+
+type SummaryEquipmentProps = {
   items: SummaryEquipment[];
   stat: StatObject;
 };
-const Summary: FC<SummaryProps> = (props) => {
+const SummaryEquipment: FC<SummaryEquipmentProps> = (props) => {
   const { stat, items } = props;
 
   return (
@@ -19,7 +20,7 @@ const Summary: FC<SummaryProps> = (props) => {
       <Grid container columns={{ xs: 1, sm: 2 }} spacing={3}>
         {items.map((item, index) => (
           <Grid key={`item-#${index}`} item xs={1}>
-            <SummaryItem {...item} />
+            <Item {...item} />
           </Grid>
         ))}
       </Grid>
@@ -27,4 +28,4 @@ const Summary: FC<SummaryProps> = (props) => {
   );
 };
 
-export default Summary;
+export default SummaryEquipment;

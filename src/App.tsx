@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   AppBar,
   Container,
@@ -17,10 +18,24 @@ import HomePage from "./pages/Home";
 import { useStatObject } from "./hooks/useStatObject";
 
 import { style_overrrides } from "./theme";
+import { statObject, StatObject } from "./assets";
 
 function App() {
   const [statEquipment, setStatEquipment] =
     useStatObject("page-equipment");
+
+  const [statFood, setStatFood] = useStatObject("page-food");
+
+  const statTotal = useMemo(() => {
+    const total: StatObject = statObject();
+
+    const items: StatObject[] = [statEquipment, statFood];
+    for (const item of items) {
+      total.merge(item);
+    }
+
+    return total;
+  }, [statEquipment, statFood]);
 
   return (
     <ThemeProvider theme={style_overrrides}>
@@ -42,10 +57,7 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route
-              path="/"
-              element={<HomePage stat={statEquipment} />}
-            />
+            <Route path="/" element={<HomePage stat={statTotal} />} />
             <Route
               path="/config-character"
               element={<EditCharacter />}
@@ -54,9 +66,12 @@ function App() {
               path="/config-equipment"
               element={<EditEquipment onChange={setStatEquipment} />}
             />
-            <Route path="/config-food" element={<FoodEdit />} />
-            <Route path="/config-addon" element={<FoodEdit />} />
-            <Route path="/config-buffs" element={<FoodEdit />} />
+            <Route
+              path="/config-food"
+              element={<FoodEdit onStatChange={setStatFood} />}
+            />
+            <Route path="/config-addon" element={null} />
+            <Route path="/config-buffs" element={null} />
           </Routes>
         </Container>
       </BrowserRouter>

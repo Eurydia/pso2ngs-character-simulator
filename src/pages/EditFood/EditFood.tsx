@@ -1,93 +1,93 @@
-import { FC, Fragment, useState } from "react";
+import { FC } from "react";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Fab,
   Grid,
   Stack,
-  TextField,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import EffectDisplay from "./subcomponents/EffectList";
-import RecipeDisplay from "./subcomponents/IngredientList";
-import DialogIngredientList from "./subcomponents/DialogIngredientList";
-import { AutocompleteFood } from "../../components";
 
-interface FoodEditProps {}
-const FoodEdit: FC<FoodEditProps> = () => {
-  const [dialogState, setDialogState] = useState(false);
+import { useFood } from "../../hooks";
+import { StatObject } from "../../assets";
 
-  const handleDialogOpen = () => {
-    setDialogState(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogState(false);
-  };
+type EditFoodProps = {
+  onStatChange: (stat: StatObject) => void;
+};
+const EditFood: FC<EditFoodProps> = () => {
+  const [items, addItem, removeItem] = useFood("edit-food-items");
 
   return (
-    // <Fragment>
     <Box margin={4}>
-      <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
-        <Grid item xs={1}>
-          <Card raised>
-            <CardHeader title="Recipe Editor" />
-            <CardContent>
-              <AutocompleteFood value={null} />
-              <RecipeDisplay />
-              <Box width={1} position="relative">
-                <Fab
-                  color="primary"
-                  size="medium"
-                  onClick={handleDialogOpen}
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: "0.5rem",
-                  }}
-                >
-                  <Add />
-                </Fab>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={1}>
-          <Card>
-            <CardContent>
-              <EffectDisplay />
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <Stack spacing={2}>
+        <Card>
+          <CardHeader title="Food" />
+          <CardContent>
+            <Grid container columns={{ sm: 1, md: 2 }}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={1}></Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Stack>
     </Box>
-    //   {/* <Dialog
-    //     open={dialogState}
-    //     onClose={handleDialogClose}
-    //     fullWidth
-    //     maxWidth="sm"
-    //   >
-    //     <DialogTitle>Select ingredient(s)</DialogTitle>
-    //     <DialogContent>
-    //       <Stack paddingY={1}>
-    //         <TextField fullWidth label="search" size="small" />
-    //         <DialogIngredientList />
-    //       </Stack>
-    //     </DialogContent>
-    //     <DialogActions>
-    //       <Button onClick={handleDialogClose}>cancel</Button>
-    //       <Button onClick={handleDialogClose}>confirm</Button>
-    //     </DialogActions>
-    //   </Dialog>
-    // </Fragment> */}
   );
+  // return (
+  //   // <Fragment>
+  //   <Box margin={4}>
+  //     <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
+  //       <Grid item xs={1}>
+  //         <Card raised>
+  //           <CardHeader title="Recipe Editor" />
+  //           <CardContent>
+  //             <AutocompleteFood value={null} />
+  //             <RecipeDisplay />
+  //             <Box width={1} position="relative">
+  //               <Fab
+  //                 color="primary"
+  //                 size="medium"
+  //                 onClick={handleDialogOpen}
+  //                 sx={{
+  //                   position: "absolute",
+  //                   bottom: 0,
+  //                   right: "0.5rem",
+  //                 }}
+  //               >
+  //                 <Add />
+  //               </Fab>
+  //             </Box>
+  //           </CardContent>
+  //         </Card>
+  //       </Grid>
+  //       <Grid item xs={1}>
+  //         <Card>
+  //           <CardContent>
+  //             <EffectDisplay />
+  //           </CardContent>
+  //         </Card>
+  //       </Grid>
+  //     </Grid>
+  //   </Box>
+  //   //   {/* <Dialog
+  //   //     open={dialogState}
+  //   //     onClose={handleDialogClose}
+  //   //     fullWidth
+  //   //     maxWidth="sm"
+  //   //   >
+  //   //     <DialogTitle>Select ingredient(s)</DialogTitle>
+  //   //     <DialogContent>
+  //   //       <Stack paddingY={1}>
+  //   //         <TextField fullWidth label="search" size="small" />
+  //   //         <DialogIngredientList />
+  //   //       </Stack>
+  //   //     </DialogContent>
+  //   //     <DialogActions>
+  //   //       <Button onClick={handleDialogClose}>cancel</Button>
+  //   //       <Button onClick={handleDialogClose}>confirm</Button>
+  //   //     </DialogActions>
+  //   //   </Dialog>
+  //   // </Fragment> */}
+  // );
 };
 
-export default FoodEdit;
+export default EditFood;

@@ -5,7 +5,7 @@ import { FormWeapon, FormUnit } from "../../components";
 import { statObject, StatObject } from "../../assets";
 import { useSummaryEquipment, useStatObject } from "../../hooks";
 
-import Summary from "./Summary";
+import { SummaryEquipment } from "../../components";
 
 type EditEquipmentProps = {
   onChange: (stat: StatObject) => void;
@@ -39,7 +39,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   return (
     <Box margin={4}>
       <Stack spacing={2}>
-        <Summary
+        <SummaryEquipment
           stat={stat}
           items={[
             summaryWeapon,

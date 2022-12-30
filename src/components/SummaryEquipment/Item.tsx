@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
+
 import { SummaryEquipment } from "../../types";
 
-type SummaryItemProps = SummaryEquipment;
-const SummaryItem: FC<SummaryItemProps> = (props) => {
+type ItemProps = SummaryEquipment;
+const Item: FC<ItemProps> = (props) => {
   return (
     <Box>
       <Typography fontWeight="500">{props.equipment}</Typography>
@@ -15,4 +16,4 @@ const SummaryItem: FC<SummaryItemProps> = (props) => {
   );
 };
 
-export default SummaryItem;
+export default Item;

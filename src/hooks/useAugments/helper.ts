@@ -45,7 +45,7 @@ export const retrieveData = (
     return fallback;
   }
 
-  const labels: string[] | any = JSON.parse(loaded_string);
+  const labels: string[] | unknown = JSON.parse(loaded_string);
   if (!Array.isArray(labels)) {
     return fallback;
   }

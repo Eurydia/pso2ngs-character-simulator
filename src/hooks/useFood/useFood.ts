@@ -1,29 +1,61 @@
 import { useState } from "react";
 import { Food } from "../../assets";
+import {
+  retrieveData,
+  saveData,
+  sortAlphabetAscending,
+} from "./helper";
 
-export const useFood = (): [
+const FOOD_ITEM_MAX = 10;
+
+export const useFood = (
+  storage_key: string,
+): [
   Food[],
-  (item: Food | null, index: number) => void,
+  (item: Food, index: number) => void,
+  (index: number) => void,
 ] => {
-  const [value, _setValue] = useState<Food[]>([]);
+  const [value, _setValue] = useState<Food[]>(() => {
+    return retrieveData(storage_key);
+  });
 
-  const setValue = (next_value: Food | null, index: number) => {
-    if (index < 0 || value.length <= index) {
+  const addItem = (next_value: Food, index: number) => {
+    if (index < 0 || FOOD_ITEM_MAX <= index) {
       return;
     }
 
     _setValue((prev) => {
       const next = [...prev];
+      next[index] = next_value;
 
-      if (next_value === null) {
-        next.splice(index, 1);
-        return next;
-      }
+      next.sort((a, b) => {
+        return sortAlphabetAscending(a.label, b.label);
+      });
 
-      next[index] = next_value!;
+      saveData(storage_key, next);
+
       return next;
     });
   };
 
-  return [value, setValue];
+  const removeItem = (index: number): void => {
+    if (index < 0 || FOOD_ITEM_MAX <= index) {
+      return;
+    }
+
+    _setValue((prev) => {
+      const next = [...prev];
+      next.splice(index, 1);
+
+      next.sort((a, b) => {
+        return sortAlphabetAscending(a.label, b.label);
+      });
+
+      saveData(storage_key, next);
+
+      return next;
+    });
+  };
+
+  return [value, addItem, removeItem];
 };
