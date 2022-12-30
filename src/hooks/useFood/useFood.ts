@@ -10,23 +10,20 @@ const FOOD_ITEM_MAX = 10;
 
 export const useFood = (
   storage_key: string,
-): [
-  Food[],
-  (item: Food, index: number) => void,
-  (index: number) => void,
-] => {
+): [Food[], (item: Food) => void, (index: number) => void] => {
   const [value, _setValue] = useState<Food[]>(() => {
     return retrieveData(storage_key);
   });
 
-  const addItem = (next_value: Food, index: number) => {
-    if (index < 0 || FOOD_ITEM_MAX <= index) {
-      return;
-    }
-
+  const addItem = (next_value: Food) => {
     _setValue((prev) => {
       const next = [...prev];
-      next[index] = next_value;
+
+      if (next.length >= 10) {
+        next.shift();
+      }
+
+      next.push(next_value);
 
       next.sort((a, b) => {
         return sortAlphabetAscending(a.label, b.label);
@@ -39,12 +36,13 @@ export const useFood = (
   };
 
   const removeItem = (index: number): void => {
-    if (index < 0 || FOOD_ITEM_MAX <= index) {
-      return;
-    }
-
     _setValue((prev) => {
       const next = [...prev];
+
+      if (index < 0 || next.length <= index) {
+        return next;
+      }
+
       next.splice(index, 1);
 
       next.sort((a, b) => {

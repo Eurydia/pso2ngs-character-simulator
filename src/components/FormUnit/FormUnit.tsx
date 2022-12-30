@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { Grid, Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 import { Augment, GroupEnumFixa, StatObject } from "../../assets";
 import { SummaryEquipment } from "../../types";
@@ -18,7 +18,6 @@ import AutocompleteUnit from "../AutocompleteUnit";
 import { getActiveAugmentCount } from "../utility";
 
 import { collectStat, createSummary } from "./helper";
-import StatView from "../StatView";
 
 type FormWeaponProps = {
   storageKey: string;

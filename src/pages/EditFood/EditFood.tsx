@@ -11,6 +11,7 @@ import {
 import { useFood } from "../../hooks";
 import { StatObject } from "../../assets";
 import { AutocompleteFood } from "../../components";
+import FormFood from "../../components/FormFood/FormFood";
 
 type EditFoodProps = {
   onStatChange: (stat: StatObject) => void;
@@ -24,17 +25,7 @@ const EditFood: FC<EditFoodProps> = () => {
         <Card>
           <CardHeader title="Food" />
           <CardContent>
-            <Grid container columns={{ sm: 1, md: 2 }}>
-              <Grid item xs={1}>
-                <AutocompleteFood
-                  value={null}
-                  onChange={(x) => {
-                    return;
-                  }}
-                />
-              </Grid>
-              <Grid item xs={1}></Grid>
-            </Grid>
+            <FormFood />
           </CardContent>
         </Card>
       </Stack>
