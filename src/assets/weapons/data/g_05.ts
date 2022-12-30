@@ -138,20 +138,13 @@ data.push(
   makeWeaponFive("Tempesta Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Tempesta Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-  ),
 );
 
 // -----------------------
@@ -159,20 +152,13 @@ data.push(
   makeWeaponFive("Lumiere Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Lumiere Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-  ),
 );
 
 // -----------------------
@@ -180,20 +166,13 @@ data.push(
   makeWeaponFive("Obscura Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Obscura Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-  ),
 );
 
 export default data;

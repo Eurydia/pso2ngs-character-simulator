@@ -18,7 +18,7 @@ type FormBaseProps = {
 };
 const FormBase: FC<FormBaseProps> = (props) => {
   return (
-    <Card sx={{ padding: 2 }}>
+    <Card>
       <CardHeader
         title={props.title}
         titleTypographyProps={{
@@ -32,7 +32,7 @@ const FormBase: FC<FormBaseProps> = (props) => {
             {props.children}
           </Grid>
           <Grid item xs={1}>
-            <Box height="580px" overflow="auto" paddingX={2}>
+            <Box height="550px" overflow="auto" paddingX={2}>
               <StatView stat={props.stat} />
             </Box>
           </Grid>

@@ -16,11 +16,7 @@ export class Food {
   }
 
   get label(): string {
-    if (this.region === RegionEnum.KVARIS) {
-      return `${this.attribute} ${this.region} ${this.category}`;
-    }
-
-    return `${this.attribute} ${this.category}`;
+    return `${this.attribute} ${this.region} ${this.category}`;
   }
 }
 

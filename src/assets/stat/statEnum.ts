@@ -25,6 +25,12 @@ const enum StatEnum {
 
   ADV_OFF_FLOOR = "offFloor",
   ADV_OFF_DAMAGE = "offDamageUp",
+  ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK = "offDamageUpAgainstWeakFire",
+  ADV_OFF_DAMAGE_AGAINST_ICE_WEAK = "offDamageUpAgainstWeakIce",
+  ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK = "offDamageUpAgainstWeakLightning",
+  ADV_OFF_DAMAGE_AGAINST_WIND_WEAK = "offDamageUpAgainstWeakWind",
+  ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK = "offDamageUpAgainstWeakLight",
+  ADV_OFF_DAMAGE_AGAINST_DARK_WEAK = "offDamageUpAgainstWeakDark",
   ADV_OFF_CRIT_CHANCE = "offCritChance",
   ADV_OFF_CRIT_DAMAGE = "offCritDamage",
   ADV_OFF_PB_RECOVERY = "offPBRecovery",
@@ -56,6 +62,18 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_PP_NATURAL_RECOVERY]: "Natural PP Recovery",
   [StatEnum.ADV_OFF_FLOOR]: "Floor Potency",
   [StatEnum.ADV_OFF_DAMAGE]: "Damage Up",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]:
+    "Damange Up Against Enemies Weak To Fire",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]:
+    "Damange Up Against Enemies Weak To Ice",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]:
+    "Damange Up Against Enemies Weak To Lightning",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]:
+    "Damange Up Against Enemies Weak To Wind",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]:
+    "Damange Up Against Enemies Weak To Light",
+  [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]:
+    "Damange Up Against Enemies Weak To Dark",
   [StatEnum.ADV_OFF_CRIT_CHANCE]: "Critical Chance",
   [StatEnum.ADV_OFF_CRIT_DAMAGE]: "Critical Damage",
   [StatEnum.ADV_OFF_PB_RECOVERY]: "PB Gauge Recovery",

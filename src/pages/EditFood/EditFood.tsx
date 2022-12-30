@@ -34,39 +34,40 @@ const FoodEdit: FC<FoodEditProps> = () => {
 
   return (
     // <Fragment>
-    <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
-      <Grid item xs={1}>
-        <Card raised>
-          <CardHeader title="Recipe Editor" />
-          <CardContent>
-            <AutocompleteFood value={null} />
-            {/* <RecipeDisplay />
-            <Box width={1} position="relative">
-              <Fab
-                color="primary"
-                size="medium"
-                onClick={handleDialogOpen}
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: "0.5rem",
-                }}
-              >
-                <Add />
-              </Fab>
-            </Box> */}
-          </CardContent>
-        </Card>
+    <Box margin={4}>
+      <Grid container spacing={2} columns={{ md: 2, xs: 1 }}>
+        <Grid item xs={1}>
+          <Card raised>
+            <CardHeader title="Recipe Editor" />
+            <CardContent>
+              <AutocompleteFood value={null} />
+              <RecipeDisplay />
+              <Box width={1} position="relative">
+                <Fab
+                  color="primary"
+                  size="medium"
+                  onClick={handleDialogOpen}
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: "0.5rem",
+                  }}
+                >
+                  <Add />
+                </Fab>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={1}>
+          <Card>
+            <CardContent>
+              <EffectDisplay />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item xs={1}>
-        <Card variant="outlined">
-          <CardHeader title="Active Buffs" />
-          <CardContent>
-            <EffectDisplay />
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    </Box>
     //   {/* <Dialog
     //     open={dialogState}
     //     onClose={handleDialogClose}

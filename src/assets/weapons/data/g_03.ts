@@ -66,20 +66,13 @@ data.push(
   makeWeaponThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponThree(
-    "(Inactive) Glissen Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 225,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-  ),
 );
 
 // -----------------------
@@ -87,22 +80,16 @@ data.push(
   makeWeaponThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_DARK_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_FIRE_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_ICE_WEAK]: 1.15,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHTNING_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_LIGHT_WEAK]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_AGAINST_WIND_WEAK]: 1.1,
   }),
 );
 
-data.push(
-  makeWeaponThree(
-    "(Inactive) Frostel Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 225,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE]: 1.1,
-    },
-  ),
-);
-
+// -----------------------
 data.push(
   makeWeaponThree("Renaissa Series", AssetPotentials.DYNAMO_UNIT, {
     [StatEnum.CORE_ATTACK]: 224,
