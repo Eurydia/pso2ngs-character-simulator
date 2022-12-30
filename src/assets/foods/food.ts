@@ -1,31 +1,24 @@
-import { RegionEnum, CategoryEnum, AttributeEnum } from "./groupEnum";
+import { CategoryEnum, AttributeEnum } from "./groupEnum";
 
 export class Food {
-  region: RegionEnum;
   attribute: AttributeEnum;
   category: CategoryEnum;
 
-  constructor(
-    attribute: AttributeEnum,
-    region: RegionEnum,
-    category: CategoryEnum,
-  ) {
+  constructor(attribute: AttributeEnum, category: CategoryEnum) {
     this.attribute = attribute;
-    this.region = region;
     this.category = category;
   }
 
   get label(): string {
-    return `${this.attribute} ${this.region} ${this.category}`;
+    return `${this.attribute} ${this.category}`;
   }
 }
 
 const food = (
   attribute: AttributeEnum,
-  region: RegionEnum,
   category: CategoryEnum,
 ): Food => {
-  return new Food(attribute, region, category);
+  return new Food(attribute, category);
 };
 
 export default food;

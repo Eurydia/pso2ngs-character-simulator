@@ -55,7 +55,7 @@ const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
     return;
   }
 
-  const fixa_stats: StatObject = fixa.stats;
+  const fixa_stats: StatObject = fixa.stat;
   const keys: StatEnum[] = fixa_stats.keys;
 
   for (const key of keys) {

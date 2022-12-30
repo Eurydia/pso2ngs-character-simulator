@@ -52,9 +52,10 @@ type PotencyStatListProps = {
   melee: string | null;
   ranged: string | null;
   technique: string | null;
+  weakpoint: string | null;
 };
 const PotencyStatList: FC<PotencyStatListProps> = (props) => {
-  const { melee, ranged, technique } = props;
+  const { melee, ranged, technique, weakpoint } = props;
 
   return (
     <Stat subheader="Weapon up">
@@ -72,6 +73,11 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
         label={StatEnumString[StatEnum.WEAPON_TECHNIQUE]}
         value={technique}
         icon={getIcon(technique)}
+      />
+      <StatItem
+        label={StatEnumString[StatEnum.WEAPON_WEAKPOINT]}
+        value={weakpoint}
+        icon={getIcon(weakpoint)}
       />
     </Stat>
   );
@@ -162,7 +168,6 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
 
 type OffensiveAdancedStatsProps = {
   floorPotency: string | null;
-  damageUp: string | null;
   damageUpAgainstFire: string | null;
   damageUpAgainstIce: string | null;
   damageUpAgainstLigntning: string | null;
@@ -177,7 +182,6 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   props,
 ) => {
   const {
-    damageUp,
     damageUpAgainstFire,
     damageUpAgainstWind,
     damageUpAgainstDark,
@@ -193,9 +197,9 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   return (
     <Stat subheader="Advanced: Offensive">
       <StatItem
-        label={StatEnumString[StatEnum.ADV_OFF_DAMAGE]}
-        value={damageUp}
-        icon={getIcon(damageUp)}
+        label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
+        value={floorPotency}
+        icon={getIcon(floorPotency)}
       />
       <StatItem
         label={StatEnumString[StatEnum.ADV_OFF_DAMAGE_FIRE]}
@@ -227,11 +231,7 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
         value={damageUpAgainstDark}
         icon={getIcon(damageUpAgainstDark)}
       />
-      <StatItem
-        label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
-        value={floorPotency}
-        icon={getIcon(floorPotency)}
-      />
+
       <StatItem
         label={StatEnumString[StatEnum.ADV_OFF_CRIT_CHANCE]}
         value={critChance}
@@ -306,6 +306,7 @@ const StatView: FC<StatViewProps> = (props) => {
         melee={stat.getFormattedStat(StatEnum.WEAPON_MELEE)}
         ranged={stat.getFormattedStat(StatEnum.WEAPON_RANGED)}
         technique={stat.getFormattedStat(StatEnum.WEAPON_TECHNIQUE)}
+        weakpoint={stat.getFormattedStat(StatEnum.WEAPON_WEAKPOINT)}
       />
       <AilmentStatList
         burn={stat.getFormattedStat(StatEnum.AIL_BURN)}
@@ -334,7 +335,6 @@ const StatView: FC<StatViewProps> = (props) => {
       />
       <OffensiveAdvancedStats
         floorPotency={stat.getFormattedStat(StatEnum.ADV_OFF_FLOOR)}
-        damageUp={stat.getFormattedStat(StatEnum.ADV_OFF_DAMAGE)}
         damageUpAgainstFire={stat.getFormattedStat(
           StatEnum.ADV_OFF_DAMAGE_FIRE,
         )}

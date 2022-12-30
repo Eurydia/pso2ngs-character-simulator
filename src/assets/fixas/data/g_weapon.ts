@@ -7,9 +7,9 @@ const data: Fixa[] = [];
 const makeFixaWeapon = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ) => {
-  return fixa(name, level, GroupEnum.WEAPON, stats);
+  return fixa(name, level, GroupEnum.WEAPON, stat);
 };
 
 // --------------------------------------

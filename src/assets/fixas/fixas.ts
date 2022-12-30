@@ -6,17 +6,17 @@ export class Fixa {
 
   name: string;
   group: FixaGroup;
-  stats: StatObject;
+  stat: StatObject;
 
   constructor(
     name: string,
     level: number,
     group: FixaGroup,
-    stats: StatObject,
+    stat: StatObject,
   ) {
     this.name = name;
     this.group = group;
-    this.stats = stats;
+    this.stat = stat;
 
     this.#level = level;
   }
@@ -34,9 +34,9 @@ const fixa = (
   name: string,
   level: number,
   group: FixaGroup,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Fixa => {
-  return new Fixa(name, level, group, statObject(stats));
+  return new Fixa(name, level, group, statObject(stat));
 };
 
 export default fixa;
