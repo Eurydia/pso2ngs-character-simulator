@@ -1,34 +1,21 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { Box, Stack } from "@mui/material";
 
 import { FormWeapon, FormUnit } from "../../components";
 import { statObject, StatObject } from "../../assets";
+import { useSummaryEquipment, useStatObject } from "../../hooks";
 
 import Summary from "./Summary";
-import { SummaryEquipment } from "../../types";
-
-const useSummaryEquipment = (): [
-  SummaryEquipment,
-  (summary: SummaryEquipment) => void,
-] => {
-  const [value, setValue] = useState<SummaryEquipment>({
-    equipment: null,
-    fixa: null,
-    augments: [],
-  });
-
-  return [value, setValue];
-};
 
 type EditEquipmentProps = {
   onChange: (stat: StatObject) => void;
 };
 const EditEquipment: FC<EditEquipmentProps> = (props) => {
   const { onChange } = props;
-  const [statWeapon, setStatWeapon] = useState(statObject({}));
-  const [statUnitA, setStatUnitA] = useState(statObject({}));
-  const [statUnitB, setStatUnitB] = useState(statObject({}));
-  const [statUnitC, setStatUnitC] = useState(statObject({}));
+  const [statWeapon, setStatWeapon] = useStatObject();
+  const [statUnitA, setStatUnitA] = useStatObject();
+  const [statUnitB, setStatUnitB] = useStatObject();
+  const [statUnitC, setStatUnitC] = useStatObject();
 
   const [summaryWeapon, setSummaryWeapon] = useSummaryEquipment();
   const [summaryUnitA, setSummaryUnitA] = useSummaryEquipment();

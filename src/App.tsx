@@ -14,12 +14,13 @@ import EditCharacter from "./pages/EditCharacter";
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import HomePage from "./pages/Home";
-import { useStat } from "./hooks/useStat";
+import { useStatObject } from "./hooks/useStatObject";
 
 import { style_overrrides } from "./theme";
 
 function App() {
-  const [statEquipment, setStatEquipment] = useStat("page-equipment");
+  const [statEquipment, setStatEquipment] =
+    useStatObject("page-equipment");
 
   return (
     <ThemeProvider theme={style_overrrides}>

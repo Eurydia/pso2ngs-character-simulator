@@ -26,7 +26,7 @@ const retrieveData = (key: string): StatObject => {
   return statObject(obj);
 };
 
-export const useStat = (
+export const useStatObject = (
   key: string | null = null,
 ): [StatObject, (stat: StatObject) => void] => {
   const [value, _setValue] = useState<StatObject>(() => {
