@@ -1,11 +1,24 @@
 import { FC, useEffect, useMemo } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
-import { FormWeapon, FormUnit } from "../../components";
 import { statObject, StatObject } from "../../assets";
 import { useSummaryEquipment, useStatObject } from "../../hooks";
+import { SummaryEquipment } from "../../types";
+import { FormWeapon, FormUnit, FormBase } from "../../components";
 
-import { SummaryEquipment } from "../../components";
+const SummaryItem: FC<SummaryEquipment> = (props) => {
+  const { equipment, fixa, augments } = props;
+
+  return (
+    <Box>
+      <Typography fontWeight="500">{equipment}</Typography>
+      <Typography>{fixa}</Typography>
+      {augments.map((value, index) => (
+        <Typography key={`${value}-${index}`}>{value}</Typography>
+      ))}
+    </Box>
+  );
+};
 
 type EditEquipmentProps = {
   onChange: (stat: StatObject) => void;
@@ -25,8 +38,15 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   const stat: StatObject = useMemo(() => {
     const result: StatObject = statObject();
 
-    for (const obj of [statWeapon, statUnitA, statUnitB, statUnitC]) {
-      result.merge(obj);
+    const items: StatObject[] = [
+      statWeapon,
+      statUnitA,
+      statUnitB,
+      statUnitC,
+    ];
+
+    for (const item of items) {
+      result.merge(item);
     }
 
     return result;
@@ -36,18 +56,27 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     onChange(stat);
   }, [stat]);
 
+  const summaries = [
+    summaryWeapon,
+    summaryUnitA,
+    summaryUnitB,
+    summaryUnitC,
+  ];
+
   return (
     <Box margin={4}>
       <Stack spacing={2}>
-        <SummaryEquipment
-          stat={stat}
-          items={[
-            summaryWeapon,
-            summaryUnitA,
-            summaryUnitB,
-            summaryUnitC,
-          ]}
-        />
+        <FormBase title="Summary" stat={stat}>
+          <Grid container columns={{ sm: 1, md: 2 }}>
+            {summaries.map((summary, index) => {
+              return (
+                <Grid key={`summary-${index}`} item xs={1}>
+                  <SummaryItem {...summary} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </FormBase>
         <FormWeapon
           storageKey="equipment-weapon"
           cardTitle="Weapon"
