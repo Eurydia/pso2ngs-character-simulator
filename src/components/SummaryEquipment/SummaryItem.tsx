@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 
 import { SummaryEquipment } from "../../types";
 
-type ItemProps = SummaryEquipment;
-const Item: FC<ItemProps> = (props) => {
+type SummaryItemProps = SummaryEquipment;
+const SummaryItem: FC<SummaryItemProps> = (props) => {
   return (
     <Box>
       <Typography fontWeight="500">{props.equipment}</Typography>
@@ -16,4 +16,4 @@ const Item: FC<ItemProps> = (props) => {
   );
 };
 
-export default Item;
+export default SummaryItem;

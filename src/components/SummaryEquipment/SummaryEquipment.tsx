@@ -6,7 +6,7 @@ import { StatObject } from "../../assets";
 
 import FormBase from "../FormBase";
 
-import Item from "./Item";
+import SummaryItem from "./SummaryItem";
 
 type SummaryEquipmentProps = {
   items: SummaryEquipment[];
@@ -20,7 +20,7 @@ const SummaryEquipment: FC<SummaryEquipmentProps> = (props) => {
       <Grid container columns={{ xs: 1, sm: 2 }} spacing={3}>
         {items.map((item, index) => (
           <Grid key={`item-#${index}`} item xs={1}>
-            <Item {...item} />
+            <SummaryItem {...item} />
           </Grid>
         ))}
       </Grid>
