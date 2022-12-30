@@ -16,65 +16,49 @@ const makeFixaUnit = (
 (() => {
   const data_value = [1.01, 1.02, 1.03, 1.035, 1.04];
 
-  for (
-    let level_index = 0;
-    level_index < data_value.length;
-    level_index++
-  ) {
+  data_value.forEach((value, level_index) => {
     data.push(
       makeFixaUnit("Fixa Guard", level_index + 1, {
-        [StatEnum.ADV_DEF_DAMAGE_RES]: data_value[level_index],
+        [StatEnum.ADV_DEF_DAMAGE_RES]: value,
       }),
     );
-  }
+  });
 })();
 
 (() => {
   const data_value = [0.99, 0.98, 0.97, 0.965, 0.96];
 
-  for (
-    let level_index = 0;
-    level_index < data_value.length;
-    level_index++
-  ) {
+  data_value.forEach((value, level_index) => {
     data.push(
       makeFixaUnit("Fixa Performa", level_index + 1, {
-        [StatEnum.ADV_PP_USAGE]: data_value[level_index],
+        [StatEnum.ADV_PP_USAGE]: value,
       }),
     );
-  }
+  });
 })();
 
 (() => {
   const data_value = [1.02, 1.03, 1.04, 1.045, 1.05];
 
-  for (
-    let level_index = 0;
-    level_index < data_value.length;
-    level_index++
-  ) {
+  data_value.forEach((value, level_index) => {
     data.push(
       makeFixaUnit("Fixa Natura", level_index + 1, {
-        [StatEnum.ADV_PP_NATURAL_RECOVERY]: data_value[level_index],
+        [StatEnum.ADV_PP_NATURAL_RECOVERY]: value,
       }),
     );
-  }
+  });
 })();
 
 (() => {
   const data_value = [1.02, 1.03, 1.04, 1.045, 1.05];
 
-  for (
-    let level_index = 0;
-    level_index < data_value.length;
-    level_index++
-  ) {
+  data_value.forEach((value, level_index) => {
     data.push(
       makeFixaUnit("Fixa Enthusia", level_index + 1, {
-        [StatEnum.ADV_PP_ACTIVE_RECOVERY]: data_value[level_index],
+        [StatEnum.ADV_PP_ACTIVE_RECOVERY]: value,
       }),
     );
-  }
+  });
 })();
 
 export default data;
