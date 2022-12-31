@@ -3,7 +3,7 @@ import { StatEnum, StatObject, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const g_sezun: Augment[] = [];
+export const g_sezun: Augment[] = [];
 
 const makeAugmentSezun = (
   name: string,
