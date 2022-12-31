@@ -7,7 +7,6 @@ export const enum CategoryEnum {
 
 export const enum AttributeEnum {
   CRISPY = "Crispy",
-  CRISPY_INACTIVE = "(Inactive) Crispy",
   LIGHT = "Light",
   ROBUST = "Robust",
   RICH = "Rich",

@@ -139,31 +139,7 @@ data.push(
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Tempesta Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.15,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
-    },
-  ),
 );
 
 // -----------------------
@@ -172,31 +148,7 @@ data.push(
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Lumiere Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.15,
-      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
-    },
-  ),
 );
 
 // -----------------------
@@ -205,31 +157,7 @@ data.push(
     [StatEnum.CORE_ATTACK]: 263,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
     [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.15,
-    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
-);
-
-data.push(
-  makeWeaponFive(
-    "(Inactive) Obscura Series",
-    AssetPotentials.VALOROUS_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 263,
-      [StatEnum.ADV_OFF_FLOOR]: 1.7,
-      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.15,
-      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
-    },
-  ),
 );
 
 export default data;
