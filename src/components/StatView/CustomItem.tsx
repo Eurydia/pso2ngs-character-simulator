@@ -27,8 +27,8 @@ const CustomItem: FC<CustomItemProps> = memo(
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography>{props.label}</Typography>
-            <Typography>{props.value}</Typography>
+            <Typography fontSize="large">{props.label}</Typography>
+            <Typography fontSize="large">{props.value}</Typography>
           </Stack>
         </ListItemText>
       </ListItem>
