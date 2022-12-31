@@ -1,11 +1,20 @@
+import { ActionContext } from "../context";
+
 import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
 import { formatStat } from "./helper";
 
-export class StatObject {
-  #stat: Partial<{ [K in StatEnum]: number }>;
+type PartialStatObject = Partial<{ [K in StatEnum]: number }>;
 
-  constructor(stat: Partial<{ [K in StatEnum]: number }>) {
+export class StatObject {
+  #stat: PartialStatObject;
+  getContextAware: (context: ActionContext) => PartialStatObject;
+
+  constructor(
+    stat: PartialStatObject,
+    getContextAware: (context: ActionContext) => PartialStatObject,
+  ) {
     this.#stat = stat;
+    this.getContextAware = getContextAware;
   }
 
   #stackStatAdd(key: StatEnum, value: number): void {
@@ -43,8 +52,10 @@ export class StatObject {
     }
   }
 
-  getStat(key: StatEnum): number {
-    const value: number | undefined = this.#stat[key];
+  getStat(key: StatEnum, context: ActionContext = {}): number {
+    const lookup_target = this.getContextAware(context);
+
+    const value: number | undefined = lookup_target[key];
 
     if (value !== undefined) {
       return value;
@@ -57,14 +68,6 @@ export class StatObject {
     return 1;
   }
 
-  toString(): string {
-    return JSON.stringify(this.#stat);
-  }
-
-  get keys(): StatEnum[] {
-    return Object.keys(this.#stat) as StatEnum[];
-  }
-
   getFormattedStat(stat: StatEnum): string | null {
     if (this.keys.includes(stat)) {
       return formatStat(stat, this.getStat(stat));
@@ -72,12 +75,25 @@ export class StatObject {
 
     return null;
   }
+
+  toString(): string {
+    return JSON.stringify(this.#stat);
+  }
+
+  get keys(): StatEnum[] {
+    return Object.keys(this.#stat) as StatEnum[];
+  }
 }
 
-export class ContextAwareStatObject {}
-
 export const statObject = (
-  stat: Partial<{ [K in StatEnum]: number }> = {},
+  stat: PartialStatObject = {},
+  ctxFunction:
+    | ((context: ActionContext) => PartialStatObject)
+    | undefined = undefined,
 ): StatObject => {
-  return new StatObject(stat);
+  if (ctxFunction === undefined) {
+    return new StatObject(stat, (ctx) => stat);
+  }
+
+  return new StatObject(stat, ctxFunction);
 };
