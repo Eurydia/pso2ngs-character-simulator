@@ -2,7 +2,8 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_soul: Augment[] = [];
+
 const makeAugmentSoul = (
   name: string,
   level: number,
@@ -25,7 +26,7 @@ const makeAugmentSoul = (
   const data_damage_res = [1.01, 1.02, 1.025];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_soul.push(
       makeAugmentSoul("Alts Soul", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
@@ -43,7 +44,7 @@ const makeAugmentSoul = (
   const data_floor = [1.01, 1.02, 1.025];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_soul.push(
       makeAugmentSoul("Dolz Soul", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_pp[level_index],
@@ -72,7 +73,7 @@ const makeAugmentSoul = (
     data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
 
-      data.push(
+      g_soul.push(
         makeAugmentSoul(`${name} Soul`, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [weapon_up]: weapon_up_value,
@@ -102,7 +103,7 @@ const makeAugmentSoul = (
     data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
 
-      data.push(
+      g_soul.push(
         makeAugmentSoul(`${name} Soul`, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [StatEnum.CORE_HP]: data_pp[level_index],
@@ -132,7 +133,7 @@ const makeAugmentSoul = (
     data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
 
-      data.push(
+      g_soul.push(
         makeAugmentSoul(`${name} Soul`, level_index, {
           [StatEnum.CORE_BP]: bp,
           [StatEnum.CORE_HP]: data_hp[level_index],
@@ -154,7 +155,7 @@ const makeAugmentSoul = (
   data_bp.forEach((bp, level_index) => {
     const weapon_up_value = data_weapon_up[level_index];
 
-    data.push(
+    g_soul.push(
       makeAugmentSoul("Eradi Soul", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
@@ -187,7 +188,7 @@ const makeAugmentSoul = (
     data_bp.forEach((bp, level_index) => {
       const wepaon_up_value = data_weapon_up[level_index];
 
-      data.push(
+      g_soul.push(
         makeAugmentSoul(`${name} Soul`, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [StatEnum.CORE_HP]: data_hp[level_index],
@@ -214,7 +215,7 @@ const makeAugmentSoul = (
     const [name, [weapon_up_a, weapon_up_b]] = data_stat;
 
     // p
-    data.push(
+    g_soul.push(
       makeAugmentSoul(`${name} Soul P`, 0, {
         [StatEnum.CORE_BP]: 11,
         [StatEnum.CORE_PP]: 5,
@@ -224,7 +225,7 @@ const makeAugmentSoul = (
     );
 
     // h
-    data.push(
+    g_soul.push(
       makeAugmentSoul(`${name} Soul H`, 0, {
         [StatEnum.CORE_BP]: 11,
         [StatEnum.CORE_HP]: 15,
@@ -234,7 +235,7 @@ const makeAugmentSoul = (
     );
 
     // x
-    data.push(
+    g_soul.push(
       makeAugmentSoul(`${name} Soul X`, 0, {
         [StatEnum.CORE_BP]: 11,
         [StatEnum.CORE_HP]: 10,
@@ -268,7 +269,7 @@ const makeAugmentSoul = (
       const wepaon_up_value = data_weapon_up[level_index];
       const ail_res_value = data_ail_res[level_index];
 
-      data.push(
+      g_soul.push(
         makeAugmentSoul(`${name} Soul`, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [StatEnum.CORE_HP]: data_hp[level_index],
@@ -286,5 +287,3 @@ const makeAugmentSoul = (
     });
   }
 })();
-
-export default data;
