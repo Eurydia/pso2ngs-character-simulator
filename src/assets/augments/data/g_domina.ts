@@ -1,6 +1,6 @@
 import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 
@@ -12,8 +12,8 @@ const makeAugmentDomina = (
   return augment(
     name,
     level,
-    GroupEnum.DOMINA,
-    [GroupEnum.DOMINA],
+    GroupEnumAugment.DOMINA,
+    [GroupEnumAugment.DOMINA],
     stats,
   );
 };
