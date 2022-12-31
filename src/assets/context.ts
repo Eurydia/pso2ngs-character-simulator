@@ -16,6 +16,7 @@ type TargetContext = Partial<{
 type TimeContext = Partial<{
   isDayTime: boolean;
   isNightTime: boolean;
+  isDuringSezunEvent: boolean;
 }>;
 
 export type ActionContext = Partial<{
