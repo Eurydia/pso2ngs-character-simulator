@@ -1,20 +1,20 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { StatEnum, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_fused: Augment[] = [];
 
 const makeAugmentFused = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.FUSED,
-    [GroupEnum.BASIC, GroupEnum.FUSED],
-    stats,
+    GroupEnumAugment.FUSED,
+    [GroupEnumAugment.BASIC, GroupEnumAugment.FUSED],
+    (_) => statObject(stat),
   );
 };
 
@@ -32,7 +32,7 @@ const makeAugmentFused = (
   for (const data_stat of data_stats) {
     const [name, weapon_up] = data_stat;
 
-    data.push(
+    g_fused.push(
       makeAugmentFused(`Sta ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_HP]: 15,
@@ -40,7 +40,7 @@ const makeAugmentFused = (
       }),
     );
 
-    data.push(
+    g_fused.push(
       makeAugmentFused(`Spi ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_PP]: 5,
@@ -48,7 +48,7 @@ const makeAugmentFused = (
       }),
     );
 
-    data.push(
+    g_fused.push(
       makeAugmentFused(`Deft ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [weapon_up]: weapon_up_value,
@@ -56,7 +56,7 @@ const makeAugmentFused = (
       }),
     );
 
-    data.push(
+    g_fused.push(
       makeAugmentFused(`Gua ${name}`, 0, {
         [StatEnum.CORE_BP]: 8,
         [weapon_up]: weapon_up_value,
@@ -65,5 +65,3 @@ const makeAugmentFused = (
     );
   }
 })();
-
-export default data;
