@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_dualble: Augment[] = [];
 
 const makeAugmentDualble = (
   name: string,
@@ -36,7 +36,7 @@ const makeAugmentDualble = (
     data_bp.forEach((bp, level_index) => {
       const weapon_up_value = data_weapon_up[level_index];
 
-      data.push(
+      g_dualble.push(
         makeAugmentDualble(`${name} Dualble`, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [weapon_up_a]: weapon_up_value,
@@ -49,7 +49,7 @@ const makeAugmentDualble = (
 
 // --------------------------------------
 // triplble
-data.push(
+g_dualble.push(
   makeAugmentDualble("Triplble", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.WEAPON_MELEE]: 1.02,
@@ -57,5 +57,3 @@ data.push(
     [StatEnum.WEAPON_TECHNIQUE]: 1.02,
   }),
 );
-
-export default data;
