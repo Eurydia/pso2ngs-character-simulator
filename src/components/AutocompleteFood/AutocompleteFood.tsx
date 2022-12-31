@@ -40,13 +40,14 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
       value={props.value}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
-      renderInput={(params) => <TextField {...params} />}
+      renderInput={(params) => (
+        <TextField {...params} placeholder="Search" />
+      )}
       renderOption={(props, option, _) => (
         <CustomOption {...props} option={option} />
       )}
       filterOptions={filterOptions}
       fullWidth
-      placeholder="Search"
     />
   );
 };

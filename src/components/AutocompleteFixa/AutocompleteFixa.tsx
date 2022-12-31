@@ -36,13 +36,14 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
         options={options}
         value={props.value}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField {...params} placeholder="Fixa" />
+        )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
         filterOptions={filterOptions}
         fullWidth
-        placeholder="Fixa"
       />
     );
   },

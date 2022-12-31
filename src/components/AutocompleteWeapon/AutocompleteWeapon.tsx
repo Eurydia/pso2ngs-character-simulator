@@ -29,13 +29,14 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         options={AssetWeapons}
         value={props.value}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField {...params} placeholder="Weapon" />
+        )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
         filterOptions={filterOptions}
         fullWidth
-        placeholder="Weapon"
       />
     );
   },

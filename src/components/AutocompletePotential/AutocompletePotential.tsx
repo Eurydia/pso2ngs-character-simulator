@@ -42,12 +42,13 @@ const SelectPotential: FC<SelectPotentialProps> = memo(
         value={props.value}
         options={options}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField {...params} placeholder="Potential" />
+        )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
         fullWidth
-        placeholder="Potential"
       />
     );
   },
