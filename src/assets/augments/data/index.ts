@@ -17,7 +17,7 @@ import { g_decold } from "./g_decold";
 import { g_sezun } from "./g_sezun";
 import { g_super } from "./g_super";
 
-const DATA: Augment[] = [
+export const AssetAugments: Augment[] = [
   ...g_addi,
   ...g_basic,
   ...g_domina,
@@ -36,5 +36,3 @@ const DATA: Augment[] = [
   ...g_sezun,
   ...g_super,
 ];
-
-export default DATA;
