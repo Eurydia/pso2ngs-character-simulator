@@ -1,5 +1,3 @@
-import { ActionContext } from "../context";
-
 import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
 import { formatStat } from "./helper";
 
@@ -7,14 +5,9 @@ type PartialStatObject = Partial<{ [K in StatEnum]: number }>;
 
 export class StatObject {
   #stat: PartialStatObject;
-  getContextAware: (context: ActionContext) => PartialStatObject;
 
-  constructor(
-    stat: PartialStatObject,
-    getContextAware: (context: ActionContext) => PartialStatObject,
-  ) {
+  constructor(stat: PartialStatObject) {
     this.#stat = stat;
-    this.getContextAware = getContextAware;
   }
 
   #stackStatAdd(key: StatEnum, value: number): void {
@@ -52,10 +45,12 @@ export class StatObject {
     }
   }
 
-  getStat(key: StatEnum, context: ActionContext = {}): number {
-    const lookup_target = this.getContextAware(context);
+  setStat(key: StatEnum, value: number): void {
+    this.#stat[key] = value;
+  }
 
-    const value: number | undefined = lookup_target[key];
+  getStat(key: StatEnum): number {
+    const value: number | undefined = this.#stat[key];
 
     if (value !== undefined) {
       return value;
@@ -87,13 +82,6 @@ export class StatObject {
 
 export const statObject = (
   stat: PartialStatObject = {},
-  ctxFunction:
-    | ((context: ActionContext) => PartialStatObject)
-    | undefined = undefined,
 ): StatObject => {
-  if (ctxFunction === undefined) {
-    return new StatObject(stat, (ctx) => stat);
-  }
-
-  return new StatObject(stat, ctxFunction);
+  return new StatObject(stat);
 };

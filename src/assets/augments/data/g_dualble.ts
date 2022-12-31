@@ -1,4 +1,4 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
@@ -7,14 +7,14 @@ const data: Augment[] = [];
 const makeAugmentDualble = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
     GroupEnumAugment.DUALBLE,
     [GroupEnumAugment.DUALBLE],
-    stats,
+    (_) => statObject(stat),
   );
 };
 

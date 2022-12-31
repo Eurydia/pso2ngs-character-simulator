@@ -1,4 +1,4 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
@@ -8,14 +8,14 @@ const data: Augment[] = [];
 const makeAugmentDecold = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
     GroupEnumAugment.DECOLD,
     [GroupEnumAugment.DECOLD],
-    stats,
+    (_) => statObject(stat),
   );
 };
 

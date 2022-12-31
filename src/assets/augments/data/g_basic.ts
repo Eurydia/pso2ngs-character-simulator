@@ -1,4 +1,4 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
@@ -7,14 +7,14 @@ const data: Augment[] = [];
 const makeAugmentBasic = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ) => {
   return augment(
     name,
     level,
     GroupEnumAugment.BASIC,
     [GroupEnumAugment.FUSED],
-    stats,
+    (_) => statObject(stat),
   );
 };
 
@@ -125,14 +125,16 @@ const makeAugmentBasic = (
         level_index + 1,
         GroupEnumAugment.BASIC,
         [],
-        {
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.WEAPON_MELEE]: weapon_up_value,
-          [StatEnum.WEAPON_RANGED]: weapon_up_value,
-          [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
-          [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
-          [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
-        },
+        (ctx) =>
+          statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.WEAPON_MELEE]: weapon_up_value,
+            [StatEnum.WEAPON_RANGED]: weapon_up_value,
+            [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
+            [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
+            [StatEnum.ADV_DEF_DAMAGE_RES]:
+              data_damage_res[level_index],
+          }),
       ),
     );
   });

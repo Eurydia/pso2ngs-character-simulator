@@ -19,7 +19,6 @@ type TimeContext = Partial<{
 }>;
 
 export type ActionContext = Partial<{
-  isIdle: boolean;
   isAttacking: boolean;
   time: TimeContext;
   target: TargetContext;

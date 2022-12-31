@@ -1,4 +1,4 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
@@ -7,14 +7,14 @@ const data: Augment[] = [];
 const makeAugmentDomina = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
     GroupEnumAugment.DOMINA,
     [GroupEnumAugment.DOMINA],
-    stats,
+    (_) => statObject(stat),
   );
 };
 
