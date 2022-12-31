@@ -3,7 +3,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_decold: Augment[] = [];
 
 const makeAugmentDecold = (
   name: string,
@@ -26,7 +26,7 @@ const makeAugmentDecold = (
   const data_cold_res = [0.05, 0.15, 0.25];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_decold.push(
       makeAugmentDecold("Decold Standard", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.HARSH_COLD]: data_cold_res[level_index],
@@ -49,7 +49,7 @@ const makeAugmentDecold = (
   for (const data_stat of data_stats) {
     const [name, weapon_up] = data_stat;
 
-    data.push(
+    g_decold.push(
       makeAugmentDecold(`Decold ${name}`, 0, {
         [StatEnum.CORE_BP]: 9,
         [weapon_up]: weapon_up_value,
@@ -58,5 +58,3 @@ const makeAugmentDecold = (
     );
   }
 })();
-
-export default data;
