@@ -3,9 +3,7 @@ import { StatEnum, statObject, StatObject } from "../assets";
 import { isValidJSON } from "./utility";
 
 const saveData = (key: string, stat: StatObject): void => {
-  const data = stat.stat;
-
-  localStorage.setItem(key, JSON.stringify(data));
+  localStorage.setItem(key, stat.toString());
 };
 
 const retrieveData = (key: string): StatObject => {

@@ -1,4 +1,4 @@
-const enum StatEnum {
+export const enum StatEnum {
   CORE_BP = "coreBP",
   CORE_HP = "coreHP",
   CORE_PP = "corePP",
@@ -90,5 +90,3 @@ export const StatSpecial: Set<StatEnum> = new Set([
   StatEnum.HARSH_COLD,
   StatEnum.ADV_OFF_CRIT_CHANCE,
 ]);
-
-export default StatEnum;

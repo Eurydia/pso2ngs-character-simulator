@@ -1,29 +1,29 @@
-import StatEnum, { StatAdd, StatSpecial } from "./statEnum";
+import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
 import { formatStat } from "./helper";
 
 export class StatObject {
-  stat: Partial<{ [K in StatEnum]: number }>;
+  #stat: Partial<{ [K in StatEnum]: number }>;
 
   constructor(stat: Partial<{ [K in StatEnum]: number }>) {
-    this.stat = stat;
+    this.#stat = stat;
   }
 
   #stackStatAdd(key: StatEnum, value: number): void {
-    if (this.stat[key] === undefined) {
-      this.stat[key] = value;
+    if (this.#stat[key] === undefined) {
+      this.#stat[key] = value;
       return;
     }
 
-    this.stat[key]! += value;
+    this.#stat[key]! += value;
   }
 
   #stackStatMuliply(key: StatEnum, value: number): void {
-    if (this.stat[key] === undefined) {
-      this.stat[key] = value;
+    if (this.#stat[key] === undefined) {
+      this.#stat[key] = value;
       return;
     }
 
-    this.stat[key]! *= value;
+    this.#stat[key]! *= value;
   }
 
   stackStat(key: StatEnum, value: number): void {
@@ -44,7 +44,7 @@ export class StatObject {
   }
 
   getStat(key: StatEnum): number {
-    const value: number | undefined = this.stat[key];
+    const value: number | undefined = this.#stat[key];
 
     if (value !== undefined) {
       return value;
@@ -57,8 +57,12 @@ export class StatObject {
     return 1;
   }
 
+  toString(): string {
+    return JSON.stringify(this.#stat);
+  }
+
   get keys(): StatEnum[] {
-    return Object.keys(this.stat) as StatEnum[];
+    return Object.keys(this.#stat) as StatEnum[];
   }
 
   getFormattedStat(stat: StatEnum): string | null {
@@ -70,10 +74,10 @@ export class StatObject {
   }
 }
 
-const statObject = (
+export class ContextAwareStatObject {}
+
+export const statObject = (
   stat: Partial<{ [K in StatEnum]: number }> = {},
 ): StatObject => {
   return new StatObject(stat);
 };
-
-export default statObject;
