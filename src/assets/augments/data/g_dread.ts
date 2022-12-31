@@ -1,6 +1,6 @@
 import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 
@@ -12,8 +12,8 @@ const makeAugmentDread = (
   return augment(
     name,
     level,
-    GroupEnum.DREAD,
-    [GroupEnum.DREAD],
+    GroupEnumAugment.DREAD,
+    [GroupEnumAugment.DREAD],
     stats,
   );
 };
