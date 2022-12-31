@@ -1,6 +1,6 @@
 import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 
@@ -12,8 +12,8 @@ const makeAugmentDualble = (
   return augment(
     name,
     level,
-    GroupEnum.DUALBLE,
-    [GroupEnum.DUALBLE],
+    GroupEnumAugment.DUALBLE,
+    [GroupEnumAugment.DUALBLE],
     stats,
   );
 };
