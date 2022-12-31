@@ -1,20 +1,20 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { StatEnum, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 
 const makeAugmentNote = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.NOTE,
-    [GroupEnum.NOTE],
-    stats,
+    GroupEnumAugment.NOTE,
+    [GroupEnumAugment.NOTE],
+    (_) => statObject(stat),
   );
 };
 
