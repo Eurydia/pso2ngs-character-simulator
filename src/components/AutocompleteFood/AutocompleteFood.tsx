@@ -13,7 +13,7 @@ import { filterOptions } from "./helper";
 type AutocompleteAugmentProps = {
   value: Food | null;
   onChange: (value: Food | null) => void;
-  onAdd: () => void;
+  onEnterPress: () => void;
 };
 const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
   const handleChange = (
@@ -30,7 +30,7 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
     const key = event.key;
 
     if (key === "Enter") {
-      props.onAdd();
+      props.onEnterPress();
     }
   };
 

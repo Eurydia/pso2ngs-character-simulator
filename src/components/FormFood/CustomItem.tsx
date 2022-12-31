@@ -1,7 +1,8 @@
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import {
   IconButton,
   ListItem,
+  ListItemSecondaryAction,
   ListItemText,
   Typography,
 } from "@mui/material";
@@ -18,21 +19,18 @@ const CustomItem: FC<CustomItemProps> = (props) => {
   const { item } = props;
 
   return (
-    <ListItem
-      secondaryAction={
-        <Fragment>
-          <IconButton onClick={props.onCopy}>
-            <CopyAll />
-          </IconButton>
-          <IconButton onClick={props.onRemove}>
-            <Delete />
-          </IconButton>
-        </Fragment>
-      }
-    >
+    <ListItem>
       <ListItemText>
         <Typography fontSize="large">{item.label}</Typography>
       </ListItemText>
+      <ListItemSecondaryAction>
+        <IconButton onClick={props.onCopy}>
+          <CopyAll />
+        </IconButton>
+        <IconButton onClick={props.onRemove}>
+          <Delete />
+        </IconButton>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };

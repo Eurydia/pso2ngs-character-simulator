@@ -10,20 +10,24 @@ const FOOD_ITEM_MAX = 10;
 
 export const useFood = (
   storage_key: string,
-): [Food[], (item: Food) => void, (index: number) => void] => {
+): [
+  Food[],
+  (index: number, item: Food) => void,
+  (index: number) => void,
+] => {
   const [value, _setValue] = useState<Food[]>(() => {
     return retrieveData(storage_key);
   });
 
-  const addItem = (next_value: Food) => {
+  const addItem = (index: number, next_value: Food) => {
     _setValue((prev) => {
       const next = [...prev];
 
       if (next.length >= FOOD_ITEM_MAX) {
-        next.shift();
+        next.pop();
       }
 
-      next.push(next_value);
+      next.splice(index, 0, next_value);
 
       next.sort((a, b) => {
         return sortAlphabetAscending(a.label, b.label);

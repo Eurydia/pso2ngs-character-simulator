@@ -20,12 +20,12 @@ const FormFood: FC<FormFoodProps> = (props) => {
       return;
     }
 
-    addItem(selected);
+    addItem(0, selected);
     setSelected(null);
   };
 
-  const handleCopy = (item: Food) => {
-    addItem(item);
+  const handleCopy = (index: number, item: Food) => {
+    addItem(index, item);
   };
 
   const handleRemove = (index: number) => {
@@ -48,7 +48,7 @@ const FormFood: FC<FormFoodProps> = (props) => {
           <AutocompleteFood
             value={selected}
             onChange={setSelected}
-            onAdd={handleAdd}
+            onEnterPress={handleAdd}
           />
         </Stack>
         <List>
@@ -57,7 +57,7 @@ const FormFood: FC<FormFoodProps> = (props) => {
               <CustomItem
                 key={`${item.label}-${index}`}
                 item={item}
-                onCopy={() => handleCopy(item)}
+                onCopy={() => handleCopy(index, item)}
                 onRemove={() => handleRemove(index)}
               />
             );
