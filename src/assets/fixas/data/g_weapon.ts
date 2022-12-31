@@ -19,13 +19,14 @@ const makeFixaWeapon = (
   data_value.forEach((value, level_index) => {
     data.push(
       makeFixaWeapon("Fixa Attack", level_index + 1, {
-        [StatEnum.ADV_OFF_DAMAGE_DARK]: value,
-        [StatEnum.ADV_OFF_DAMAGE_FIRE]: value,
-        [StatEnum.ADV_OFF_DAMAGE_ICE]: value,
-        [StatEnum.ADV_OFF_DAMAGE_LIGHT]: value,
-        [StatEnum.ADV_OFF_DAMAGE_LIGHT]: value,
-        [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: value,
-        [StatEnum.ADV_OFF_DAMAGE_WIND]: value,
+        [StatEnum.ADV_OFF_DAMAGE_UP]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_DARK]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_FIRE]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_ICE]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: value,
+        // [StatEnum.ADV_OFF_DAMAGE_WIND]: value,
       }),
     );
   });

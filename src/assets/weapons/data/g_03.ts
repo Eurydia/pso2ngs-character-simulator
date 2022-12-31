@@ -66,13 +66,32 @@ data.push(
   makeWeaponThree("Glissen Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.15,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
+);
+
+data.push(
+  makeWeaponThree(
+    "(Inactive) Glissen Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 225,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.15,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    },
+  ),
 );
 
 // -----------------------
@@ -80,13 +99,32 @@ data.push(
   makeWeaponThree("Frostel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 225,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
-    [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.15,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
+);
+
+data.push(
+  makeWeaponThree(
+    "(Inactive) Frostel Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 225,
+      [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.15,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    },
+  ),
 );
 
 // -----------------------

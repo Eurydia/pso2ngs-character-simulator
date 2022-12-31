@@ -86,13 +86,32 @@ data.push(
   makeWeaponFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 240,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.15,
-    [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
-    [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.15,
+    // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+    // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
   }),
+);
+
+data.push(
+  makeWeaponFour(
+    "(Inactive) Flamel Series",
+    AssetPotentials.VALOROUS_UNIT,
+    {
+      [StatEnum.CORE_ATTACK]: 240,
+      [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_DARK]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_FIRE]: 1.15,
+      // [StatEnum.ADV_OFF_DAMAGE_ICE]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHTNING]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_LIGHT]: 1.1,
+      // [StatEnum.ADV_OFF_DAMAGE_WIND]: 1.1,
+    },
+  ),
 );
 
 export default data;

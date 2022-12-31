@@ -19,7 +19,7 @@ export const useFood = (
     _setValue((prev) => {
       const next = [...prev];
 
-      if (next.length >= 10) {
+      if (next.length >= FOOD_ITEM_MAX) {
         next.shift();
       }
 
@@ -39,7 +39,7 @@ export const useFood = (
     _setValue((prev) => {
       const next = [...prev];
 
-      if (index < 0 || next.length <= index) {
+      if (index < 0 || FOOD_ITEM_MAX <= index) {
         return next;
       }
 
