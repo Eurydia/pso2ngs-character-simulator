@@ -1,20 +1,20 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { StatEnum, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_tria: Augment[] = [];
 
 const makeAugmentTria = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.TRIA,
-    [GroupEnum.TRIA],
-    stats,
+    GroupEnumAugment.TRIA,
+    [GroupEnumAugment.TRIA],
+    (_) => statObject(stat),
   );
 };
 
@@ -32,7 +32,7 @@ const makeAugmentTria = (
     const [name, weapon_up] = data_stat;
 
     // sta
-    data.push(
+    g_tria.push(
       makeAugmentTria(`Tria Staro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [StatEnum.CORE_HP]: -5,
@@ -41,7 +41,7 @@ const makeAugmentTria = (
     );
 
     // spi
-    data.push(
+    g_tria.push(
       makeAugmentTria(`Tria Spiro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [StatEnum.CORE_PP]: -3,
@@ -50,7 +50,7 @@ const makeAugmentTria = (
     );
 
     // deft
-    data.push(
+    g_tria.push(
       makeAugmentTria(`Tria Deftro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [weapon_up]: weapon_up_value,
@@ -59,7 +59,7 @@ const makeAugmentTria = (
     );
 
     // gua
-    data.push(
+    g_tria.push(
       makeAugmentTria(`Tria Guaro${name}`, 0, {
         [StatEnum.CORE_BP]: 6,
         [weapon_up]: weapon_up_value,
@@ -68,5 +68,3 @@ const makeAugmentTria = (
     );
   }
 })();
-
-export default data;
