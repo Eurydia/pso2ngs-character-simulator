@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_dread: Augment[] = [];
 
 const makeAugmentDread = (
   name: string,
@@ -28,7 +28,7 @@ const makeAugmentDread = (
   const data_damage_res = [1.01, 1.015, 1.02, 1.03];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_dread.push(
       makeAugmentDread("Dread Keeper", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
@@ -39,5 +39,3 @@ const makeAugmentDread = (
     );
   });
 })();
-
-export default data;
