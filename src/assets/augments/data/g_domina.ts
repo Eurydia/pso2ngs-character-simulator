@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_domina: Augment[] = [];
 
 const makeAugmentDomina = (
   name: string,
@@ -20,7 +20,7 @@ const makeAugmentDomina = (
 
 // --------------------------------------
 // ael
-data.push(
+g_domina.push(
   makeAugmentDomina("Ael Domina", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.CORE_HP]: 5,
@@ -33,7 +33,7 @@ data.push(
 
 // --------------------------------------
 // ret
-data.push(
+g_domina.push(
   makeAugmentDomina("Ret Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_HP]: 15,
@@ -45,7 +45,7 @@ data.push(
 
 // --------------------------------------
 // kvar
-data.push(
+g_domina.push(
   makeAugmentDomina("Kvar Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_PP]: 5,
@@ -58,7 +58,7 @@ data.push(
 
 // --------------------------------------
 // stira
-data.push(
+g_domina.push(
   makeAugmentDomina("Stira Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.03,
@@ -67,5 +67,3 @@ data.push(
     [StatEnum.ADV_DEF_DAMAGE_RES]: 0.98,
   }),
 );
-
-export default data;
