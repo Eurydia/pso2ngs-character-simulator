@@ -67,7 +67,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     <Box margin={4}>
       <Stack spacing={2}>
         <FormBase title="Summary" stat={stat}>
-          <Grid container columns={{ sm: 1, md: 2 }}>
+          <Grid container columns={{ xs: 1, sm: 2 }}>
             {summaries.map((summary, index) => {
               return (
                 <Grid key={`summary-${index}`} item xs={1}>

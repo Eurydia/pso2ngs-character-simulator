@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
 
-import Stat from "./Stat";
-import StatItem from "./StatItem";
+import CustomList from "./CustomList";
+import CustomItem from "./CustomItem";
 import { getIcon } from "./helper";
 
 type CoreStatListProps = {
@@ -18,33 +18,33 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
 
   return (
-    <Stat subheader="Core">
-      <StatItem
+    <CustomList subheader="Core">
+      <CustomItem
         label={StatEnumString[StatEnum.CORE_BP]}
         value={bp}
         icon={getIcon(bp)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.CORE_HP]}
         value={hp}
         icon={getIcon(hp)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.CORE_PP]}
         value={pp}
         icon={getIcon(pp)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.CORE_ATTACK]}
         value={attack}
         icon={getIcon(attack)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.CORE_DEFENSE]}
         value={defense}
         icon={getIcon(defense)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -58,28 +58,28 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   const { melee, ranged, technique, weakpoint } = props;
 
   return (
-    <Stat subheader="Weapon up">
-      <StatItem
+    <CustomList subheader="Weapon up">
+      <CustomItem
         label={StatEnumString[StatEnum.WEAPON_MELEE]}
         value={melee}
         icon={getIcon(melee)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.WEAPON_RANGED]}
         value={ranged}
         icon={getIcon(ranged)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.WEAPON_TECHNIQUE]}
         value={technique}
         icon={getIcon(technique)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.WEAPON_WEAKPOINT]}
         value={weakpoint}
         icon={getIcon(weakpoint)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -97,43 +97,43 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
     props;
 
   return (
-    <Stat subheader="Ailment resistance">
-      <StatItem
+    <CustomList subheader="Ailment resistance">
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_BURN]}
         value={burn}
         icon={getIcon(burn)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_FREEZE]}
         value={freeze}
         icon={getIcon(freeze)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_SHOCK]}
         value={shock}
         icon={getIcon(shock)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_BLIND]}
         value={blind}
         icon={getIcon(blind)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_PANIC]}
         value={panic}
         icon={getIcon(panic)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_POISON]}
         value={poison}
         icon={getIcon(poison)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.AIL_PHYDOWN]}
         value={physicalDown}
         icon={getIcon(physicalDown)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -146,23 +146,23 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
   return (
-    <Stat subheader="Advanced: PP">
-      <StatItem
+    <CustomList subheader="Advanced: PP">
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_PP_USAGE]}
         value={usage}
         icon={getIcon(usage, true)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_PP_ACTIVE_RECOVERY]}
         value={activeRecovery}
         icon={getIcon(activeRecovery)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_PP_NATURAL_RECOVERY]}
         value={naturalRecovery}
         icon={getIcon(naturalRecovery)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -185,33 +185,33 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   } = props;
 
   return (
-    <Stat subheader="Advanced: Offensive">
-      <StatItem
+    <CustomList subheader="Advanced: Offensive">
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
         value={floorPotency}
         icon={getIcon(floorPotency)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_DAMAGE_UP]}
         value={damageUp}
         icon={getIcon(damageUp)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_CRIT_CHANCE]}
         value={critChance}
         icon={getIcon(critChance)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_CRIT_DAMAGE]}
         value={critDamage}
         icon={getIcon(critDamage)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_PB_RECOVERY]}
         value={pbGaugeRecovery}
         icon={getIcon(pbGaugeRecovery)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -225,23 +225,23 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
 ) => {
   const { damageResist, healingUp, ailmentDuration } = props;
   return (
-    <Stat subheader="Advanced: Defensive">
-      <StatItem
+    <CustomList subheader="Advanced: Defensive">
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_DEF_DAMAGE_RES]}
         value={damageResist}
         icon={getIcon(damageResist)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_DEF_HEALING]}
         value={healingUp}
         icon={getIcon(healingUp)}
       />
-      <StatItem
+      <CustomItem
         label={StatEnumString[StatEnum.ADV_DEF_AILMENT_DURATION]}
         value={ailmentDuration}
         icon={getIcon(ailmentDuration, true)}
       />
-    </Stat>
+    </CustomList>
   );
 };
 
@@ -281,13 +281,13 @@ const StatView: FC<StatViewProps> = (props) => {
         poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
         physicalDown={stat.getFormattedStat(StatEnum.AIL_PHYDOWN)}
       />
-      <Stat subheader="Enviroment resistence">
-        <StatItem
+      <CustomList subheader="Enviroment resistence">
+        <CustomItem
           label={StatEnumString[StatEnum.HARSH_COLD]}
           value={_envCold}
           icon={getIcon(_envCold)}
         />
-      </Stat>
+      </CustomList>
       <PPAdvancedStats
         usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
         naturalRecovery={stat.getFormattedStat(

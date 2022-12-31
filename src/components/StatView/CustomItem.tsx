@@ -7,19 +7,19 @@ import {
   Typography,
 } from "@mui/material";
 
-type StatItemProps = {
+type CustomItemProps = {
   value: string | null;
   label: ReactNode;
   icon: ReactNode;
 };
-const StatItem: FC<StatItemProps> = memo(
+const CustomItem: FC<CustomItemProps> = memo(
   (props) => {
     if (props.value === null) {
       return null;
     }
 
     return (
-      <ListItem dense disableGutters>
+      <ListItem disablePadding>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>
           <Stack
@@ -39,4 +39,4 @@ const StatItem: FC<StatItemProps> = memo(
   },
 );
 
-export default StatItem;
+export default CustomItem;

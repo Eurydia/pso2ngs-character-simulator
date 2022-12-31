@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import { Food } from "../../assets";
+
 import {
   retrieveData,
   saveData,
@@ -20,6 +22,10 @@ export const useFood = (
   });
 
   const addItem = (index: number, next_value: Food) => {
+    if (index < 0 || FOOD_ITEM_MAX <= index) {
+      return;
+    }
+
     _setValue((prev) => {
       const next = [...prev];
 
@@ -40,12 +46,12 @@ export const useFood = (
   };
 
   const removeItem = (index: number): void => {
+    if (index < 0 || FOOD_ITEM_MAX <= index) {
+      return;
+    }
+
     _setValue((prev) => {
       const next = [...prev];
-
-      if (index < 0 || FOOD_ITEM_MAX <= index) {
-        return next;
-      }
 
       next.splice(index, 1);
 

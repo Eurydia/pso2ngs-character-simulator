@@ -4,28 +4,35 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Grid,
   Stack,
 } from "@mui/material";
 
-import { useFood } from "../../hooks";
+import { useStatObject } from "../../hooks";
 import { StatObject } from "../../assets";
-import { AutocompleteFood } from "../../components";
 import FormFood from "../../components/FormFood/FormFood";
 
 type EditFoodProps = {
   onStatChange: (stat: StatObject) => void;
 };
 const EditFood: FC<EditFoodProps> = () => {
-  const [items, addItem, removeItem] = useFood("edit-food-items");
+  const [stat, setStat] = useStatObject();
 
   return (
     <Box margin={4}>
       <Stack spacing={2}>
         <Card>
-          <CardHeader title="Food" />
+          <CardHeader
+            title="Food"
+            titleTypographyProps={{
+              fontSize: "x-large",
+              fontWeight: "bold",
+            }}
+          />
           <CardContent>
-            <FormFood />
+            <FormFood
+              storage_key="page-food-item"
+              onStatChange={setStat}
+            />
           </CardContent>
         </Card>
       </Stack>

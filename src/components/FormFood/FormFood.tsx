@@ -1,5 +1,12 @@
 import { Add } from "@mui/icons-material";
-import { Box, Button, List, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  List,
+  ListSubheader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { FC, useState } from "react";
 import { Food, StatObject } from "../../assets";
 import { useFood } from "../../hooks";
@@ -51,7 +58,10 @@ const FormFood: FC<FormFoodProps> = (props) => {
             onEnterPress={handleAdd}
           />
         </Stack>
-        <List>
+        <List disablePadding>
+          <ListSubheader disableSticky>
+            <Typography>{`${items.length}/10 items used`}</Typography>
+          </ListSubheader>
           {items.map((item, index) => {
             return (
               <CustomItem
