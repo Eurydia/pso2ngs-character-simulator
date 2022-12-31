@@ -1,34 +1,43 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+const g_sezun: Augment[] = [];
 
 const makeAugmentSezun = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  getStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.SEZUN,
-    [GroupEnum.SEZUN],
-    stats,
+    GroupEnumAugment.SEZUN,
+    [GroupEnumAugment.SEZUN],
+    getStatObject,
   );
 };
 
 // --------------------------------------
+const _getStatObject = (ctx: ActionContext): StatObject => {
+  const stat: StatObject = statObject({ [StatEnum.CORE_BP]: 10 });
 
-data.push(
-  makeAugmentSezun("Sezun augments", 0, {
-    [StatEnum.CORE_BP]: 10,
-    [StatEnum.WEAPON_MELEE]: 1.15,
-    [StatEnum.WEAPON_RANGED]: 1.15,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.15,
-    [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.2,
-    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.25,
-  }),
-);
+  if (ctx.time === undefined) {
+    return stat;
+  }
 
-export default data;
+  if (ctx.time.isDuringSezunEvent) {
+    stat.setStat(StatEnum.WEAPON_MELEE, 1.15);
+    stat.setStat(StatEnum.WEAPON_RANGED, 1.15);
+    stat.setStat(StatEnum.WEAPON_TECHNIQUE, 1.15);
+    stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, 0.2);
+    stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, 1.25);
+  }
+
+  return stat;
+};
+
+g_sezun.push(makeAugmentSezun("Sezun Lunafiv", 0, _getStatObject));
+g_sezun.push(makeAugmentSezun("Sezun Automfevre", 0, _getStatObject));
+g_sezun.push(makeAugmentSezun("Sezun Wintafiv", 0, _getStatObject));
