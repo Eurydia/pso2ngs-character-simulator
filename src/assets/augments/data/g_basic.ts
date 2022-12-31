@@ -1,6 +1,6 @@
 import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 
@@ -12,8 +12,8 @@ const makeAugmentBasic = (
   return augment(
     name,
     level,
-    GroupEnum.BASIC,
-    [GroupEnum.FUSED],
+    GroupEnumAugment.BASIC,
+    [GroupEnumAugment.FUSED],
     stats,
   );
 };
@@ -120,14 +120,20 @@ const makeAugmentBasic = (
     const weapon_up_value = data_weapon_up[level_index];
 
     data.push(
-      augment("Mastery", level_index + 1, GroupEnum.BASIC, [], {
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up_value,
-        [StatEnum.WEAPON_RANGED]: weapon_up_value,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
-        [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
-        [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
-      }),
+      augment(
+        "Mastery",
+        level_index + 1,
+        GroupEnumAugment.BASIC,
+        [],
+        {
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.WEAPON_MELEE]: weapon_up_value,
+          [StatEnum.WEAPON_RANGED]: weapon_up_value,
+          [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
+          [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
+          [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
+        },
+      ),
     );
   });
 })();

@@ -1,20 +1,22 @@
 import { romanize } from "romans";
-import AugmentGroup from "./groupEnum";
-import statObject, { StatEnum, StatObject } from "../stat";
+
+import { statObject, StatEnum, StatObject } from "../stat";
+
+import { GroupEnumAugment } from "./groupEnum";
 
 export class Augment {
   #level: number;
-  #conflict: Set<AugmentGroup>;
+  #conflict: Set<GroupEnumAugment>;
 
   name: string;
   stats: StatObject;
-  group: AugmentGroup;
+  group: GroupEnumAugment;
 
   constructor(
     name: string,
     level: number,
-    group: AugmentGroup,
-    conflict: AugmentGroup[],
+    group: GroupEnumAugment,
+    conflict: GroupEnumAugment[],
     stats: StatObject,
   ) {
     this.name = name;
@@ -40,19 +42,17 @@ export class Augment {
     return `${this.name} ${this.level_roman}`.trimEnd();
   }
 
-  isConflictingWith(group: AugmentGroup): boolean {
+  isConflictingWith(group: GroupEnumAugment): boolean {
     return this.#conflict.has(group);
   }
 }
 
-const augment = (
+export const augment = (
   name: string,
   level: number,
-  group: AugmentGroup,
-  conflict: AugmentGroup[],
+  group: GroupEnumAugment,
+  conflict: GroupEnumAugment[],
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return new Augment(name, level, group, conflict, statObject(stats));
 };
-
-export default augment;

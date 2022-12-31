@@ -1,4 +1,4 @@
-const enum GroupEnum {
+export const enum GroupEnumAugment {
   BASIC = "Basic",
   FUSED = "Fused",
   DUALBLE = "Dualble",
@@ -17,5 +17,3 @@ const enum GroupEnum {
   SEZUN = "Sezun",
   SUPER = "Super",
 }
-
-export default GroupEnum;
