@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_secreta: Augment[] = [];
 
 const makeAugmentSecreta = (
   name: string,
@@ -30,7 +30,7 @@ const makeAugmentSecreta = (
   data_bp.forEach((bp, level_index) => {
     const weapon_up_value = data_weapon_up[level_index];
 
-    data.push(
+    g_secreta.push(
       makeAugmentSecreta("Alts Secreta", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
@@ -43,5 +43,3 @@ const makeAugmentSecreta = (
     );
   });
 })();
-
-export default data;
