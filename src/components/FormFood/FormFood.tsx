@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import { FC, useEffect, useState, useMemo } from "react";
 import {
   Box,
   Button,
@@ -7,18 +7,25 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { FC, useState } from "react";
+import { Add } from "@mui/icons-material";
+
 import { Food, StatObject } from "../../assets";
 import { useFood } from "../../hooks";
+import { SummaryFood } from "../../types";
 
 import AutocompleteFood from "../AutocompleteFood";
+
 import CustomItem from "./CustomItem";
+import { createSummary } from "./helper";
 
 type FormFoodProps = {
   storage_key: string;
   onStatChange: (stat: StatObject) => void;
+  onSummaryChange: (summaries: SummaryFood[]) => void;
 };
 const FormFood: FC<FormFoodProps> = (props) => {
+  const { onStatChange, onSummaryChange } = props;
+
   const [items, addItem, removeItem] = useFood(props.storage_key);
   const [selected, setSelected] = useState<Food | null>(null);
 
@@ -38,6 +45,14 @@ const FormFood: FC<FormFoodProps> = (props) => {
   const handleRemove = (index: number) => {
     removeItem(index);
   };
+
+  const summaries = useMemo(() => {
+    return createSummary(items);
+  }, [items]);
+
+  useEffect(() => {
+    onSummaryChange(summaries);
+  }, [summaries]);
 
   return (
     <Box>

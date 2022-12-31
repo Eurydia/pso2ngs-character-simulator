@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import { Food } from "../../assets";
 
-import {
-  retrieveData,
-  saveData,
-  sortAlphabetAscending,
-} from "./helper";
+import { retrieveData, saveData } from "./helper";
 
 const FOOD_ITEM_MAX = 10;
 
@@ -35,10 +31,6 @@ export const useFood = (
 
       next.splice(index, 0, next_value);
 
-      next.sort((a, b) => {
-        return sortAlphabetAscending(a.label, b.label);
-      });
-
       saveData(storage_key, next);
 
       return next;
@@ -54,10 +46,6 @@ export const useFood = (
       const next = [...prev];
 
       next.splice(index, 1);
-
-      next.sort((a, b) => {
-        return sortAlphabetAscending(a.label, b.label);
-      });
 
       saveData(storage_key, next);
 

@@ -7,21 +7,6 @@ for (const augment of AssetFoods) {
   LOOKUP_TABLE[label] = augment;
 }
 
-export const sortAlphabetAscending = (
-  a: string,
-  b: string,
-): number => {
-  if (a > b) {
-    return 1;
-  }
-
-  if (b > a) {
-    return -1;
-  }
-
-  return 0;
-};
-
 export const saveData = (
   storage_key: string,
   items: Food[],
