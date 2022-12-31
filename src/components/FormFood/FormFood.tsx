@@ -1,9 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { Box, Button, List, Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Food, StatObject } from "../../assets";
 import { useFood } from "../../hooks";
 
 import AutocompleteFood from "../AutocompleteFood";
+import CustomItem from "./CustomItem";
 
 type FormFoodProps = {
   storage_key: string;
@@ -22,25 +24,45 @@ const FormFood: FC<FormFoodProps> = (props) => {
     setSelected(null);
   };
 
+  const handleCopy = (item: Food) => {
+    addItem(item);
+  };
+
+  const handleRemove = (index: number) => {
+    removeItem(index);
+  };
+
   return (
     <Box>
       <Stack spacing={2}>
-        <AutocompleteFood
-          value={selected}
-          onChange={setSelected}
-          onAdd={handleAdd}
-        />
-        <Box>
-          <Stack>
-            {items.map((item, index) => {
-              return (
-                <Typography key={`${item.label}-${index}`}>
-                  {item.label}
-                </Typography>
-              );
-            })}
-          </Stack>
-        </Box>
+        <Stack spacing={1} direction="row">
+          <Button
+            disableRipple
+            disabled={selected === null}
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleAdd}
+          >
+            add
+          </Button>
+          <AutocompleteFood
+            value={selected}
+            onChange={setSelected}
+            onAdd={handleAdd}
+          />
+        </Stack>
+        <List>
+          {items.map((item, index) => {
+            return (
+              <CustomItem
+                key={`${item.label}-${index}`}
+                item={item}
+                onCopy={() => handleCopy(item)}
+                onRemove={() => handleRemove(index)}
+              />
+            );
+          })}
+        </List>
       </Stack>
     </Box>
   );
