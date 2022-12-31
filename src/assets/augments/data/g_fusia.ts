@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_fusia: Augment[] = [];
 
 const makeFusia = (
   name: string,
@@ -20,7 +20,7 @@ const makeFusia = (
 
 // --------------------------------------
 // fusia
-data.push(
+g_fusia.push(
   makeFusia("Megas Fusia", 0, {
     [StatEnum.CORE_BP]: 4,
     [StatEnum.WEAPON_MELEE]: 1.01,
@@ -28,5 +28,3 @@ data.push(
     [StatEnum.WEAPON_TECHNIQUE]: 1.01,
   }),
 );
-
-export default data;
