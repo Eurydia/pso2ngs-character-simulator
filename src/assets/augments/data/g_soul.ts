@@ -1,19 +1,19 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { StatEnum, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
 const data: Augment[] = [];
 const makeAugmentSoul = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.SOUL,
-    [GroupEnum.SOUL],
-    stats,
+    GroupEnumAugment.SOUL,
+    [GroupEnumAugment.SOUL],
+    (_) => statObject(stat),
   );
 };
 
