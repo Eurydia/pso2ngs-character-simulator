@@ -8,10 +8,10 @@ import { GroupEnumAugment } from "./groupEnum";
 export class Augment {
   #level: number;
   #conflict: Set<GroupEnumAugment>;
-  #getStatObject: (ctx: ActionContext) => StatObject;
 
   name: string;
   group: GroupEnumAugment;
+  getStatObject: (ctx: ActionContext) => StatObject;
 
   constructor(
     name: string,
@@ -23,7 +23,7 @@ export class Augment {
     this.name = name;
     this.group = group;
 
-    this.#getStatObject = getStatObject;
+    this.getStatObject = getStatObject;
     this.#level = level;
     this.#conflict = new Set(conflict);
   }
@@ -41,10 +41,6 @@ export class Augment {
 
   get label(): string {
     return `${this.name} ${this.level_roman}`.trimEnd();
-  }
-
-  getStatObject(ctx: ActionContext = {}): StatObject {
-    return this.#getStatObject(ctx);
   }
 
   isConflictingWith(group: GroupEnumAugment): boolean {
