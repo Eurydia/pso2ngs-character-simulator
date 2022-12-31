@@ -1,20 +1,20 @@
-import { StatEnum } from "../../stat";
-import augment, { Augment } from "../augment";
-import GroupEnum from "../groupEnum";
+import { StatEnum, statObject } from "../../stat";
+import { augment, Augment } from "../augment";
+import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_ward: Augment[] = [];
 
 const makeAugmentWard = (
   name: string,
   level: number,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Augment => {
   return augment(
     name,
     level,
-    GroupEnum.WARD,
-    [GroupEnum.WARD],
-    stats,
+    GroupEnumAugment.WARD,
+    [GroupEnumAugment.WARD],
+    (_) => statObject(stat),
   );
 };
 
@@ -44,7 +44,7 @@ const makeAugmentWard = (
     ) {
       const res_up_value = data_ail_res[level_index];
 
-      data.push(
+      g_ward.push(
         makeAugmentWard(`${name} Ward`, level_index + 1, {
           [StatEnum.CORE_BP]: data_bp[level_index],
           [res_up]: res_up_value,
@@ -67,7 +67,7 @@ const makeAugmentWard = (
   ) {
     const res_up_value = data_ail_res[level_index];
 
-    data.push(
+    g_ward.push(
       makeAugmentWard("Sovereign Ward", level_index + 1, {
         [StatEnum.CORE_BP]: data_bp[level_index],
         [StatEnum.AIL_BURN]: res_up_value,
@@ -81,5 +81,3 @@ const makeAugmentWard = (
     );
   }
 })();
-
-export default data;
