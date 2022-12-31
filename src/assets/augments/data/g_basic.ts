@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-const data: Augment[] = [];
+export const g_basic: Augment[] = [];
 
 const makeAugmentBasic = (
   name: string,
@@ -25,7 +25,7 @@ const makeAugmentBasic = (
   const data_hp = [5, 10, 15];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_basic.push(
       makeAugmentBasic("Stamina", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: data_hp[level_index],
@@ -41,7 +41,7 @@ const makeAugmentBasic = (
   const data_pp = [3, 4, 5];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_basic.push(
       makeAugmentBasic("Spirit", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_PP]: data_pp[level_index],
@@ -66,7 +66,7 @@ const makeAugmentBasic = (
     const [name, weapon_up] = data_stat;
 
     data_bp.forEach((bp, level_index) => {
-      data.push(
+      g_basic.push(
         makeAugmentBasic(name, level_index + 1, {
           [StatEnum.CORE_BP]: bp,
           [weapon_up]: data_weapon_up[level_index],
@@ -83,7 +83,7 @@ const makeAugmentBasic = (
   const data_floor = [1.01, 1.015, 1.02, 1.03];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_basic.push(
       makeAugmentBasic("Deftness", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
@@ -99,7 +99,7 @@ const makeAugmentBasic = (
   const data_damage_res = [1.01, 1.015, 1.02, 1.03];
 
   data_bp.forEach((bp, level_index) => {
-    data.push(
+    g_basic.push(
       makeAugmentBasic("Guard", level_index + 1, {
         [StatEnum.CORE_BP]: bp,
         [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
@@ -119,7 +119,7 @@ const makeAugmentBasic = (
   data_bp.forEach((bp, level_index) => {
     const weapon_up_value = data_weapon_up[level_index];
 
-    data.push(
+    g_basic.push(
       augment(
         "Mastery",
         level_index + 1,
@@ -139,5 +139,3 @@ const makeAugmentBasic = (
     );
   });
 })();
-
-export default data;
