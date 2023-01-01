@@ -1,9 +1,9 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
-import GroupEnum from "../groupEnum";
-import weapon, { Weapon } from "../weapon";
+import { GroupEnumWeapon } from "../groupEnum";
+import { weapon, Weapon } from "../weapon";
 
-const data: Weapon[] = [];
+export const g_seven: Weapon[] = [];
 
 const GROWTH_RATE: [number, number][] = [
   [10, 30],
@@ -16,19 +16,19 @@ const GROWTH_RATE: [number, number][] = [
 const makeWeaponSeven = (
   name: string,
   potential: Potential,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
   return weapon(
     name,
-    GroupEnum.R_SEVEN,
+    GroupEnumWeapon.R_SEVEN,
     potential,
     GROWTH_RATE,
-    stats,
+    (_) => statObject(stat),
   );
 };
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven(
     "Kaizaar Mk. I Series",
     AssetPotentials.TEMPERED_FORM,
@@ -40,7 +40,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven("Crystia Series", AssetPotentials.ABSORPTION_UNIT, {
     [StatEnum.CORE_ATTACK]: 473,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
@@ -48,7 +48,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven(
     "Rugged Pursuit Series",
     AssetPotentials.PURSUIT_UNIT,
@@ -60,7 +60,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven(
     "Rugged Citadel Series",
     AssetPotentials.CITADEL_UNIT,
@@ -72,7 +72,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven(
     "Rugged Gyrating Series",
     AssetPotentials.GYRATING_UNIT,
@@ -84,7 +84,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven("Kaizaar Series", AssetPotentials.TEMPERED_FORM, {
     [StatEnum.CORE_ATTACK]: 485,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
@@ -92,7 +92,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_seven.push(
   makeWeaponSeven(
     "Obsidia Series",
     AssetPotentials.CORUSCATING_UNIT,
@@ -102,5 +102,3 @@ data.push(
     },
   ),
 );
-
-export default data;

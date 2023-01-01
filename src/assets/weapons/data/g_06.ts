@@ -3,7 +3,7 @@ import { AssetPotentials, Potential } from "../../potentials";
 import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 
-const data: Weapon[] = [];
+export const g_six: Weapon[] = [];
 
 const GROWTH_RATE: [number, number][] = [
   [10, 10],
@@ -29,7 +29,7 @@ const makeWeaponSix = (
 };
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix("Evoleclipse Series", AssetPotentials.ELUSIVE_UNIT, {
     [StatEnum.CORE_ATTACK]: 346,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -37,7 +37,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix("Sechetyl Series", AssetPotentials.TRAMPLE_UNIT, {
     [StatEnum.CORE_ATTACK]: 350,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -45,7 +45,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix(
     "Rokz Roughewn Series",
     AssetPotentials.REVOLUTIONARY_UNIT,
@@ -57,7 +57,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix(
     "Rokz Sixiemes Series",
     AssetPotentials.DESPERATION_UNIT,
@@ -69,7 +69,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix("Rokz Curva Series", AssetPotentials.STACCATO_UNIT, {
     [StatEnum.CORE_ATTACK]: 353,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -77,7 +77,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix("Evolorbit Series", AssetPotentials.ILLUSORY_UNIT, {
     [StatEnum.CORE_ATTACK]: 355,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -85,11 +85,9 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_six.push(
   makeWeaponSix("Codeck Series", AssetPotentials.IMPERVIOUS_UNIT, {
     [StatEnum.CORE_ATTACK]: 351,
     [StatEnum.ADV_OFF_FLOOR]: 1.75,
   }),
 );
-
-export default data;
