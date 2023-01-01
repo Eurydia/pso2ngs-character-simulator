@@ -1,4 +1,4 @@
-const enum GroupEnum {
+export const enum GroupEnumWeapon {
   R_ONE = "1*",
   R_TWO = "2*",
   R_THREE = "3*",
@@ -7,5 +7,3 @@ const enum GroupEnum {
   R_SIX = "6*",
   R_SEVEN = "7*",
 }
-
-export default GroupEnum;

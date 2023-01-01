@@ -1,7 +1,7 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
-import GroupEnum from "../groupEnum";
-import weapon, { Weapon } from "../weapon";
+import { GroupEnumWeapon } from "../groupEnum";
+import { weapon, Weapon } from "../weapon";
 
 const data: Weapon[] = [];
 
@@ -17,9 +17,15 @@ const GROWTH_RATE: [number, number][] = [
 const makeWeaponSix = (
   name: string,
   potential: Potential,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(name, GroupEnum.R_SIX, potential, GROWTH_RATE, stats);
+  return weapon(
+    name,
+    GroupEnumWeapon.R_SIX,
+    potential,
+    GROWTH_RATE,
+    (_) => statObject(stat),
+  );
 };
 
 // -----------------------

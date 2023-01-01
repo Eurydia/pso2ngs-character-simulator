@@ -1,10 +1,10 @@
 export const calcBonusAtk = (
   level: number,
-  growth_rate: [number, number][],
+  growth_data: [number, number][],
 ): number => {
   let fallback: number = 0;
 
-  for (const entry of growth_rate) {
+  for (const entry of growth_data) {
     const [gr_level, gr_bonus] = entry;
 
     if (level > gr_level) {

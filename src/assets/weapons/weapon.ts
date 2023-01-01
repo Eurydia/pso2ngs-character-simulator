@@ -1,30 +1,31 @@
-import statObject, { StatEnum, StatObject } from "../stat";
+import { statObject, StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
 
-import WeaponGroup from "./groupEnum";
+import { GroupEnumWeapon } from "./groupEnum";
 import { calcBonusAtk } from "./helper";
+import { ActionContext } from "../context";
 
 export class Weapon {
   name: string;
-  stat: StatObject;
   potential: Potential;
+  getStatObject: (ctx: ActionContext) => StatObject;
 
-  #growth_rate: [number, number][];
-  #group: WeaponGroup;
+  #growth_data: [number, number][];
+  #group: GroupEnumWeapon;
 
   constructor(
     name: string,
-    group: WeaponGroup,
+    group: GroupEnumWeapon,
     potential: Potential,
-    stats: StatObject,
     growth_rate: [number, number][],
+    getStatObject: (ctx: ActionContext) => StatObject,
   ) {
     this.name = name;
-    this.stat = stats;
+    this.getStatObject = getStatObject;
     this.potential = potential;
 
     this.#group = group;
-    this.#growth_rate = growth_rate;
+    this.#growth_data = growth_rate;
   }
 
   get rarity(): string {
@@ -36,28 +37,27 @@ export class Weapon {
   }
 
   get base_attack(): number {
-    return this.stat.getStat(StatEnum.CORE_ATTACK);
+    const stat = this.getStatObject({});
+    return stat.getStat(StatEnum.CORE_ATTACK);
   }
 
   getBonusAttack(level: number): number {
-    return calcBonusAtk(level, this.#growth_rate);
+    return calcBonusAtk(level, this.#growth_data);
   }
 }
 
-const weapon = (
+export const weapon = (
   name: string,
-  group: WeaponGroup,
+  group: GroupEnumWeapon,
   potential: Potential,
   growth_rate: [number, number][],
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return new Weapon(
     name,
     group,
     potential,
-    statObject(stat),
     growth_rate,
+    getStatObject,
   );
 };
-
-export default weapon;

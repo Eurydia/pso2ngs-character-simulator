@@ -1,12 +1,13 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject, StatObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
 
-import GroupEnum from "../groupEnum";
-import weapon, { Weapon } from "../weapon";
+import { GroupEnumWeapon } from "../groupEnum";
+import { weapon, Weapon } from "../weapon";
+import { ActionContext } from "../../context";
 
-const data: Weapon[] = [];
+export const g_four: Weapon[] = [];
 
-const GROWTH_RATE: [number, number][] = [
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 20],
   [30, 30],
@@ -18,76 +19,122 @@ const GROWTH_RATE: [number, number][] = [
 const makeWeaponFour = (
   name: string,
   potential: Potential,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  getStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
-    GroupEnum.R_FOUR,
+    GroupEnumWeapon.R_FOUR,
     potential,
-    GROWTH_RATE,
-    stats,
+    GROWTH_DATA,
+    getStatObject,
   );
 };
 
 // -----------------------
-data.push(
-  makeWeaponFour("Resurgia Series", AssetPotentials.DYNAMO_UNIT, {
-    [StatEnum.CORE_ATTACK]: 240,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
-);
-
-// -----------------------
-data.push(
+g_four.push(
   makeWeaponFour(
-    "Cattleya Series",
-    AssetPotentials.MUSTERED_MIGHT_UNIT,
-    {
-      [StatEnum.CORE_ATTACK]: 242,
-      [StatEnum.ADV_OFF_FLOOR]: 1.75,
+    "Resurgia Series",
+    AssetPotentials.DYNAMO_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 240,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
     },
   ),
 );
 
 // -----------------------
-data.push(
-  makeWeaponFour("Foursis Series", AssetPotentials.BASTION_UNIT, {
-    [StatEnum.CORE_ATTACK]: 242,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
+g_four.push(
+  makeWeaponFour(
+    "Cattleya Series",
+    AssetPotentials.MUSTERED_MIGHT_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 242,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
+    },
+  ),
 );
 
 // -----------------------
-data.push(
-  makeWeaponFour("Vialto Series", AssetPotentials.MEDITATION_UNIT, {
-    [StatEnum.CORE_ATTACK]: 242,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
+g_four.push(
+  makeWeaponFour(
+    "Foursis Series",
+    AssetPotentials.BASTION_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 242,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
+    },
+  ),
 );
 
 // -----------------------
-data.push(
-  makeWeaponFour("Straga Series", AssetPotentials.BERSERK_UNIT, {
-    [StatEnum.CORE_ATTACK]: 243,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
+g_four.push(
+  makeWeaponFour(
+    "Vialto Series",
+    AssetPotentials.MEDITATION_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 242,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
+    },
+  ),
 );
 
 // -----------------------
-data.push(
-  makeWeaponFour("Evolcoat Series", AssetPotentials.SOULSPRING_UNIT, {
-    [StatEnum.CORE_ATTACK]: 242,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-  }),
+g_four.push(
+  makeWeaponFour(
+    "Straga Series",
+    AssetPotentials.BERSERK_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 243,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
+    },
+  ),
 );
 
 // -----------------------
-data.push(
-  makeWeaponFour("Flamel Series", AssetPotentials.VALOROUS_UNIT, {
-    [StatEnum.CORE_ATTACK]: 240,
-    [StatEnum.ADV_OFF_FLOOR]: 1.75,
-    [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
-  }),
+g_four.push(
+  makeWeaponFour(
+    "Evolcoat Series",
+    AssetPotentials.SOULSPRING_UNIT,
+    (_) => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 242,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+      });
+    },
+  ),
 );
 
-export default data;
+// -----------------------
+g_four.push(
+  makeWeaponFour(
+    "Flamel Series",
+    AssetPotentials.VALOROUS_UNIT,
+    (ctx) => {
+      const stat = statObject({
+        [StatEnum.CORE_ATTACK]: 240,
+        [StatEnum.ADV_OFF_FLOOR]: 1.75,
+        [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
+      });
+
+      if (ctx.target === undefined) {
+        return stat;
+      }
+
+      if (ctx.target.isWeakToFire) {
+        stat.setStat(StatEnum.ADV_OFF_DAMAGE_UP, 1.15);
+      }
+
+      return stat;
+    },
+  ),
+);

@@ -1,11 +1,12 @@
-import { StatEnum } from "../../stat";
+import { StatEnum, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
-import GroupEnum from "../groupEnum";
-import weapon, { Weapon } from "../weapon";
 
-const data: Weapon[] = [];
+import { GroupEnumWeapon } from "../groupEnum";
+import { weapon, Weapon } from "../weapon";
 
-const GROWTH_RATE: [number, number][] = [
+export const g_two: Weapon[] = [];
+
+const GROWTH_DATA: [number, number][] = [
   [10, 16],
   [20, 33],
   [30, 50],
@@ -17,13 +18,19 @@ const GROWTH_RATE: [number, number][] = [
 const makeWeaponTwo = (
   name: string,
   potential: Potential,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Weapon => {
-  return weapon(name, GroupEnum.R_TWO, potential, GROWTH_RATE, stats);
+  return weapon(
+    name,
+    GroupEnumWeapon.R_TWO,
+    potential,
+    GROWTH_DATA,
+    (_) => statObject(stat),
+  );
 };
 
 // -----------------------
-data.push(
+g_two.push(
   makeWeaponTwo("Tzvia Series", AssetPotentials.INDOMITABLE_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -31,7 +38,7 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_two.push(
   makeWeaponTwo("Silver Primm Sword", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -39,11 +46,9 @@ data.push(
 );
 
 // -----------------------
-data.push(
+g_two.push(
   makeWeaponTwo("N-Exp Weapon", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );
-
-export default data;
