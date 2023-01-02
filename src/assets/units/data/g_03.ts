@@ -1,10 +1,10 @@
-import { StatEnum } from "../../stat";
-import GroupEnum from "../groupEnum";
-import unit, { Unit } from "../unit";
+import { StatEnum, statObject } from "../../stat";
+import { GroupEnumUnit } from "../groupEnum";
+import { unit, Unit } from "../unit";
 
-const data: Unit[] = [];
+export const g_three: Unit[] = [];
 
-const GROWTH_RATE: [number, number][] = [
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 20],
   [30, 30],
@@ -15,13 +15,15 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeUnitThree = (
   name: string,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnum.R_THREE, GROWTH_RATE, stats);
+  return unit(name, GroupEnumUnit.R_THREE, GROWTH_DATA, (_) => {
+    return statObject(stat);
+  });
 };
 
 // -------------------------
-data.push(
+g_three.push(
   makeUnitThree("Theseus Armor", {
     [StatEnum.CORE_DEFENSE]: 9,
     [StatEnum.CORE_HP]: 10,
@@ -29,7 +31,7 @@ data.push(
   }),
 );
 
-data.push(
+g_three.push(
   makeUnitThree("Gold Primm Armor", {
     [StatEnum.CORE_DEFENSE]: 9,
     [StatEnum.CORE_HP]: 10,
@@ -37,7 +39,7 @@ data.push(
   }),
 );
 
-data.push(
+g_three.push(
   makeUnitThree("Renaissa Armor", {
     [StatEnum.CORE_DEFENSE]: 10,
     [StatEnum.CORE_HP]: 10,
@@ -47,5 +49,3 @@ data.push(
     [StatEnum.WEAPON_TECHNIQUE]: 1.01,
   }),
 );
-
-export default data;

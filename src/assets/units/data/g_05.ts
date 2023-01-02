@@ -1,10 +1,10 @@
-import { StatEnum } from "../../stat";
-import GroupEnum from "../groupEnum";
-import unit, { Unit } from "../unit";
+import { StatEnum, statObject } from "../../stat";
+import { GroupEnumUnit } from "../groupEnum";
+import { unit, Unit } from "../unit";
 
-const data: Unit[] = [];
+export const g_five: Unit[] = [];
 
-const GROWTH_RATE: [number, number][] = [
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 20],
   [30, 30],
@@ -17,11 +17,13 @@ const makeUnitFive = (
   name: string,
   stats: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnum.R_FIVE, GROWTH_RATE, stats);
+  return unit(name, GroupEnumUnit.R_FIVE, GROWTH_DATA, (_) => {
+    return statObject(stats);
+  });
 };
 
 // -------------------------
-data.push(
+g_five.push(
   makeUnitFive("Vidal Armor", {
     [StatEnum.CORE_DEFENSE]: 22,
     [StatEnum.CORE_HP]: 45,
@@ -29,7 +31,7 @@ data.push(
   }),
 );
 
-data.push(
+g_five.push(
   makeUnitFive("Vijf Armor", {
     [StatEnum.CORE_DEFENSE]: 17,
     [StatEnum.CORE_HP]: 30,
@@ -47,7 +49,7 @@ data.push(
   for (const data_stat of data_stats) {
     const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
 
-    data.push(
+    g_five.push(
       makeUnitFive(`Vijf Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 18,
         [StatEnum.CORE_HP]: 20,
@@ -59,7 +61,7 @@ data.push(
   }
 })();
 
-data.push(
+g_five.push(
   makeUnitFive("Vios Armor", {
     [StatEnum.CORE_DEFENSE]: 15,
     [StatEnum.CORE_PP]: 8,
@@ -69,14 +71,14 @@ data.push(
   }),
 );
 
-data.push(
+g_five.push(
   makeUnitFive("Vindalun Armor", {
     [StatEnum.CORE_DEFENSE]: 20,
     [StatEnum.CORE_HP]: 70,
   }),
 );
 
-data.push(
+g_five.push(
   makeUnitFive("Viosel Armor", {
     [StatEnum.CORE_DEFENSE]: 10,
     [StatEnum.CORE_PP]: 14,
@@ -90,7 +92,7 @@ data.push(
   }),
 );
 
-data.push(
+g_five.push(
   makeUnitFive("Gres Armor", {
     [StatEnum.CORE_DEFENSE]: 21,
     [StatEnum.CORE_HP]: -40,
@@ -117,7 +119,7 @@ data.push(
   for (const data_stat of data_stats) {
     const [name, weapon_up] = data_stat;
 
-    data.push(
+    g_five.push(
       makeUnitFive(`${name} Armor`, {
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 25,
@@ -129,4 +131,4 @@ data.push(
   }
 })();
 
-export default data;
+export default g_five;

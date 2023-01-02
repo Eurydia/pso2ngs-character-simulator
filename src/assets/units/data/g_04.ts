@@ -1,10 +1,10 @@
-import { StatEnum } from "../../stat";
-import GroupEnum from "../groupEnum";
-import unit, { Unit } from "../unit";
+import { StatEnum, statObject } from "../../stat";
+import { GroupEnumUnit } from "../groupEnum";
+import { unit, Unit } from "../unit";
 
-const data: Unit[] = [];
+export const g_four: Unit[] = [];
 
-const GROWTH_RATE: [number, number][] = [
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 20],
   [30, 30],
@@ -15,13 +15,15 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeUnitFour = (
   name: string,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnum.R_FOUR, GROWTH_RATE, stats);
+  return unit(name, GroupEnumUnit.R_FOUR, GROWTH_DATA, (_) => {
+    return statObject(stat);
+  });
 };
 
 // -------------------------
-data.push(
+g_four.push(
   makeUnitFour("Qual De Armor", {
     [StatEnum.CORE_DEFENSE]: 8,
     [StatEnum.CORE_PP]: 6,
@@ -37,7 +39,7 @@ data.push(
   for (const data_stat of data_stats) {
     const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
 
-    data.push(
+    g_four.push(
       makeUnitFour(`Qual De Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 13,
         [StatEnum.CORE_PP]: 4,
@@ -48,7 +50,7 @@ data.push(
   }
 })();
 
-data.push(
+g_four.push(
   makeUnitFour("Cattleya Armor", {
     [StatEnum.CORE_DEFENSE]: 12,
     [StatEnum.CORE_HP]: 20,
@@ -56,7 +58,7 @@ data.push(
   }),
 );
 
-data.push(
+g_four.push(
   makeUnitFour("Vialto Armor", {
     [StatEnum.CORE_DEFENSE]: 14,
     [StatEnum.CORE_HP]: 30,
@@ -75,7 +77,7 @@ data.push(
   for (const data_stat of data_stats) {
     const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
 
-    data.push(
+    g_four.push(
       makeUnitFour(`Vialto Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 16,
         [StatEnum.CORE_HP]: 25,
@@ -87,7 +89,7 @@ data.push(
   }
 })();
 
-data.push(
+g_four.push(
   makeUnitFour("Geant Armor", {
     [StatEnum.CORE_DEFENSE]: 15,
     [StatEnum.CORE_HP]: -20,
@@ -106,4 +108,4 @@ data.push(
   }),
 );
 
-export default data;
+export default g_four;

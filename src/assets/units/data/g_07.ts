@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_six: Unit[] = [];
+export const g_seven: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -23,7 +23,7 @@ const makeUnitSix = (
 };
 
 // -------------------------
-g_six.push(
+g_seven.push(
   makeUnitSix("Defrozza Armor", {
     [StatEnum.CORE_DEFENSE]: 22,
     [StatEnum.CORE_HP]: 50,
@@ -35,7 +35,7 @@ g_six.push(
   }),
 );
 
-g_six.push(
+g_seven.push(
   makeUnitSix("Defrozzi Armor", {
     [StatEnum.CORE_DEFENSE]: 20,
     [StatEnum.CORE_PP]: 9,
@@ -46,7 +46,7 @@ g_six.push(
   }),
 );
 
-g_six.push(
+g_seven.push(
   makeUnitSix("Sestato Armor", {
     [StatEnum.CORE_DEFENSE]: 21,
     [StatEnum.CORE_HP]: 35,
@@ -67,7 +67,7 @@ g_six.push(
   for (const data_stat of data_stats) {
     const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
 
-    g_six.push(
+    g_seven.push(
       makeUnitSix(`Sestato Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 30,
@@ -80,7 +80,7 @@ g_six.push(
   }
 })();
 
-g_six.push(
+g_seven.push(
   makeUnitSix("Behlgren Armor", {
     [StatEnum.CORE_DEFENSE]: 26,
     [StatEnum.CORE_HP]: -40,

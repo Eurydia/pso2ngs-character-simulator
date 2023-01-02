@@ -1,10 +1,11 @@
-import { StatEnum } from "../../stat";
-import GroupEnum from "../groupEnum";
-import unit, { Unit } from "../unit";
+import { StatEnum, statObject } from "../../stat";
 
-const data: Unit[] = [];
+import { GroupEnumUnit } from "../groupEnum";
+import { unit, Unit } from "../unit";
 
-const GROWTH_RATE: [number, number][] = [
+export const g_one: Unit[] = [];
+
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 20],
   [30, 30],
@@ -15,16 +16,17 @@ const GROWTH_RATE: [number, number][] = [
 
 const makeUnitOne = (
   name: string,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnum.R_ONE, GROWTH_RATE, stats);
+  return unit(name, GroupEnumUnit.R_ONE, GROWTH_DATA, (_) => {
+    return statObject(stat);
+  });
 };
 
 // -------------------------
-data.push(
+g_one.push(
   makeUnitOne("Primm Armor", {
     [StatEnum.CORE_DEFENSE]: 8,
     [StatEnum.CORE_HP]: 10,
   }),
 );
-export default data;

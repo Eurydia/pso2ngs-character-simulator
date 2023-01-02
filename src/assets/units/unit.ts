@@ -1,25 +1,26 @@
-import statObject, { StatEnum, StatObject } from "../stat";
+import { ActionContext } from "../context";
+import { StatEnum, StatObject } from "../stat";
 
-import UnitGroup from "./groupEnum";
+import { GroupEnumUnit } from "./groupEnum";
 import { calcBonusDef } from "./helper";
 
 export class Unit {
   name: string;
-  stat: StatObject;
+  getStatObject: (ctx: ActionContext) => StatObject;
 
-  #growth_rate: [number, number][];
-  #group: UnitGroup;
+  #growth_data: [number, number][];
+  #group: GroupEnumUnit;
 
   constructor(
     name: string,
-    group: UnitGroup,
-    stats: StatObject,
+    group: GroupEnumUnit,
     growth_rate: [number, number][],
+    getStatObject: (ctx: ActionContext) => StatObject,
   ) {
     this.name = name;
-    this.stat = stats;
+    this.getStatObject = getStatObject;
 
-    this.#growth_rate = growth_rate;
+    this.#growth_data = growth_rate;
     this.#group = group;
   }
 
@@ -32,21 +33,21 @@ export class Unit {
   }
 
   get base_def(): number {
-    return this.stat.getStat(StatEnum.CORE_DEFENSE);
+    const stat = this.getStatObject({});
+
+    return stat.getStat(StatEnum.CORE_DEFENSE);
   }
 
   getBonusDef(level: number): number {
-    return calcBonusDef(level, this.#growth_rate);
+    return calcBonusDef(level, this.#growth_data);
   }
 }
 
-const unit = (
+export const unit = (
   name: string,
-  group: UnitGroup,
-  growth_rate: [number, number][],
-  stat: Partial<{ [K in StatEnum]: number }>,
+  group: GroupEnumUnit,
+  growth_data: [number, number][],
+  getStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return new Unit(name, group, statObject(stat), growth_rate);
+  return new Unit(name, group, growth_data, getStatObject);
 };
-
-export default unit;

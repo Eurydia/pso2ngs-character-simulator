@@ -1,4 +1,4 @@
-import { statObject, StatEnum, StatObject } from "../stat";
+import { StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeapon } from "./groupEnum";
