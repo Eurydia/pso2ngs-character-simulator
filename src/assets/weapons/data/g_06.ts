@@ -5,7 +5,7 @@ import { weapon, Weapon } from "../weapon";
 
 export const g_six: Weapon[] = [];
 
-const GROWTH_RATE: [number, number][] = [
+const GROWTH_DATA: [number, number][] = [
   [10, 10],
   [20, 25],
   [30, 55],
@@ -23,7 +23,7 @@ const makeWeaponSix = (
     name,
     GroupEnumWeapon.R_SIX,
     potential,
-    GROWTH_RATE,
+    GROWTH_DATA,
     (_) => statObject(stat),
   );
 };

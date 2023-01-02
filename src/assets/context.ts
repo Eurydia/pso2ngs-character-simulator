@@ -13,14 +13,35 @@ type TargetContext = Partial<{
   isWeakToDark: boolean;
 }>;
 
+type CharacterContext = Partial<{
+  uniqueAugments: number;
+  hasTakenDamage: boolean;
+  hasActiveBarrier: boolean;
+  hasDodgedAttack: boolean;
+  hasCriticallyHit: boolean;
+  isAttacking: boolean;
+  defenseValue: number;
+  attackValue: number;
+  hpValue: number;
+  hpValueCurrent: number;
+  ppValue: number;
+  ppValueCurrent: number;
+}>;
+
 type TimeContext = Partial<{
   isDayTime: boolean;
   isNightTime: boolean;
   isDuringSezunEvent: boolean;
 }>;
 
+type LocationContext = Partial<{
+  kvaris: boolean;
+  geometricLabyrinth: boolean;
+}>;
+
 export type ActionContext = Partial<{
-  isAttacking: boolean;
   time: TimeContext;
   target: TargetContext;
+  character: CharacterContext;
+  location: LocationContext;
 }>;

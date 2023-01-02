@@ -6,4 +6,5 @@ export const enum GroupEnumWeapon {
   R_FIVE = "5*",
   R_SIX = "6*",
   R_SEVEN = "7*",
+  R_EIGHT = "8*",
 }
