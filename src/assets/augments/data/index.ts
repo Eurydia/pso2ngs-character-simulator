@@ -11,7 +11,7 @@ import { G_GIGAS } from "./g_gigas";
 import { G_NOTE } from "./g_note";
 import { G_SECRETA } from "./g_secreta";
 import { G_SOUL } from "./g_soul";
-import { g_tria } from "./g_tria";
+import { G_TRIA } from "./g_tria";
 import { g_ward } from "./g_ward";
 import { G_DECOLD } from "./g_decold";
 import { G_SEZUN } from "./g_sezun";
@@ -30,7 +30,7 @@ export const AssetAugments: Augment[] = [
   ...G_NOTE,
   ...G_SECRETA,
   ...G_SOUL,
-  ...g_tria,
+  ...G_TRIA,
   ...g_ward,
   ...G_DECOLD,
   ...G_SEZUN,
