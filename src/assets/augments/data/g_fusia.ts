@@ -2,9 +2,9 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_fusia: Augment[] = [];
+export const G_FUSIA: Augment[] = [];
 
-const makeFusia = (
+const makeAugmentFusia = (
   name: string,
   level: number,
   stat: Partial<{ [K in StatEnum]: number }>,
@@ -14,14 +14,16 @@ const makeFusia = (
     level,
     GroupEnumAugment.FUSIA,
     [GroupEnumAugment.FUSIA],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // fusia
-g_fusia.push(
-  makeFusia("Megas Fusia", 0, {
+G_FUSIA.push(
+  makeAugmentFusia("Megas Fusia", 0, {
     [StatEnum.CORE_BP]: 4,
     [StatEnum.WEAPON_MELEE]: 1.01,
     [StatEnum.WEAPON_RANGED]: 1.01,
