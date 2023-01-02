@@ -3,7 +3,7 @@ import { AssetPotentials, Potential } from "../../potentials";
 import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 
-export const g_seven: Weapon[] = [];
+export const G_SEVEN: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 30],
@@ -23,12 +23,14 @@ const makeWeaponSeven = (
     GroupEnumWeapon.R_SEVEN,
     potential,
     GROWTH_DATA,
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven(
     "Kaizaar Mk. I Series",
     AssetPotentials.TEMPERED_FORM,
@@ -40,7 +42,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven("Crystia Series", AssetPotentials.ABSORPTION_UNIT, {
     [StatEnum.CORE_ATTACK]: 473,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
@@ -48,7 +50,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Pursuit Series",
     AssetPotentials.PURSUIT_UNIT,
@@ -60,7 +62,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Citadel Series",
     AssetPotentials.CITADEL_UNIT,
@@ -72,7 +74,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Gyrating Series",
     AssetPotentials.GYRATING_UNIT,
@@ -84,7 +86,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven("Kaizaar Series", AssetPotentials.TEMPERED_FORM, {
     [StatEnum.CORE_ATTACK]: 485,
     [StatEnum.ADV_OFF_FLOOR]: 1.5,
@@ -92,7 +94,7 @@ g_seven.push(
 );
 
 // -----------------------
-g_seven.push(
+G_SEVEN.push(
   makeWeaponSeven(
     "Obsidia Series",
     AssetPotentials.CORUSCATING_UNIT,

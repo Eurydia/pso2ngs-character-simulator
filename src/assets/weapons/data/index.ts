@@ -5,7 +5,7 @@ import { G_THREE } from "./g_03";
 import { G_FOUR } from "./g_04";
 import { G_FIVE } from "./g_05";
 import { G_SIX } from "./g_06";
-import { g_seven } from "./g_07";
+import { G_SEVEN } from "./g_07";
 
 export const AssetWeapons: Weapon[] = [
   ...G_ONE,
@@ -14,5 +14,5 @@ export const AssetWeapons: Weapon[] = [
   ...G_FOUR,
   ...G_FIVE,
   ...G_SIX,
-  ...g_seven,
+  ...G_SEVEN,
 ];
