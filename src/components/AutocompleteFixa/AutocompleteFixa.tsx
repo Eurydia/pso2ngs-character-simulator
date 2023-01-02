@@ -10,10 +10,6 @@ import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 import { filterOptions } from "./helper";
 import { CustomOption } from "./CustomOption";
 
-const WEAPON_FIXAS: Fixa[] = AssetFixas.filter((fixa) => {
-  return fixa.group === GroupEnumFixa.WEAPON;
-});
-
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
   disabled: boolean;

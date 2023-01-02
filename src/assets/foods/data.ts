@@ -1,28 +1,29 @@
-import food, { Food } from "./food";
-import { AttributeEnum, CategoryEnum } from "./groupEnum";
+import { food, Food } from "./food";
+import {
+  GroupEnumFoodAttribute,
+  GroupEnumFoodCategory,
+} from "./groupEnum";
 
-const data: Food[] = [];
+export const AssetFoods: Food[] = [];
 
 (() => {
-  const categories: CategoryEnum[] = [
-    CategoryEnum.FRUIT,
-    CategoryEnum.MEAT,
-    CategoryEnum.VEGETABLE,
-    CategoryEnum.SEAFOOD,
+  const categories: GroupEnumFoodCategory[] = [
+    GroupEnumFoodCategory.FRUIT,
+    GroupEnumFoodCategory.MEAT,
+    GroupEnumFoodCategory.VEGETABLE,
+    GroupEnumFoodCategory.SEAFOOD,
   ];
 
-  const attributes: AttributeEnum[] = [
-    AttributeEnum.CRISPY,
-    AttributeEnum.LIGHT,
-    AttributeEnum.RICH,
-    AttributeEnum.ROBUST,
+  const attributes: GroupEnumFoodAttribute[] = [
+    GroupEnumFoodAttribute.CRISPY,
+    GroupEnumFoodAttribute.LIGHT,
+    GroupEnumFoodAttribute.RICH,
+    GroupEnumFoodAttribute.ROBUST,
   ];
 
   categories.forEach((category) => {
     attributes.forEach((attribute) => {
-      data.push(food(attribute, category));
+      AssetFoods.push(food(attribute, category));
     });
   });
 })();
-
-export default data;

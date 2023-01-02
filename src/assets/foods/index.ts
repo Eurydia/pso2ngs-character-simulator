@@ -1,8 +1,6 @@
-export { default as food } from "./food";
-export * from "./food";
-
-export { default } from "./data";
+export type { Food } from "./food";
+export { AssetFoods } from "./data";
 export {
-  AttributeEnum as FoodAttributeEnum,
-  CategoryEnum as FoodCategoryEnum,
+  GroupEnumFoodAttribute,
+  GroupEnumFoodCategory,
 } from "./groupEnum";

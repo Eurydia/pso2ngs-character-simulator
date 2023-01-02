@@ -1,10 +1,16 @@
-import { CategoryEnum, AttributeEnum } from "./groupEnum";
+import {
+  GroupEnumFoodCategory,
+  GroupEnumFoodAttribute,
+} from "./groupEnum";
 
 export class Food {
-  attribute: AttributeEnum;
-  category: CategoryEnum;
+  attribute: GroupEnumFoodAttribute;
+  category: GroupEnumFoodCategory;
 
-  constructor(attribute: AttributeEnum, category: CategoryEnum) {
+  constructor(
+    attribute: GroupEnumFoodAttribute,
+    category: GroupEnumFoodCategory,
+  ) {
     this.attribute = attribute;
     this.category = category;
   }
@@ -14,11 +20,9 @@ export class Food {
   }
 }
 
-const food = (
-  attribute: AttributeEnum,
-  category: CategoryEnum,
+export const food = (
+  attribute: GroupEnumFoodAttribute,
+  category: GroupEnumFoodCategory,
 ): Food => {
   return new Food(attribute, category);
 };
-
-export default food;

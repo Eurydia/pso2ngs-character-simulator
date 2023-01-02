@@ -7,7 +7,7 @@ import {
 
 import { AssetFoods, Food } from "../../assets";
 
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
 
 type AutocompleteAugmentProps = {
@@ -15,7 +15,9 @@ type AutocompleteAugmentProps = {
   onChange: (value: Food | null) => void;
   onEnterPress: () => void;
 };
-const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
+export const AutocompleteFood: FC<AutocompleteAugmentProps> = (
+  props,
+) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
     value: Food | null,
@@ -51,5 +53,3 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = (props) => {
     />
   );
 };
-
-export default AutocompleteAugment;
