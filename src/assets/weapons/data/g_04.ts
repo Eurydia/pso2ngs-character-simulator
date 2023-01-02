@@ -5,7 +5,7 @@ import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 import { ActionContext } from "../../context";
 
-export const g_four: Weapon[] = [];
+export const G_FOUR: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -31,7 +31,7 @@ const makeWeaponFour = (
 };
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Resurgia Series",
     AssetPotentials.DYNAMO_UNIT,
@@ -45,7 +45,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Cattleya Series",
     AssetPotentials.MUSTERED_MIGHT_UNIT,
@@ -59,7 +59,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Foursis Series",
     AssetPotentials.BASTION_UNIT,
@@ -73,7 +73,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Vialto Series",
     AssetPotentials.MEDITATION_UNIT,
@@ -87,7 +87,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Straga Series",
     AssetPotentials.BERSERK_UNIT,
@@ -101,7 +101,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Evolcoat Series",
     AssetPotentials.SOULSPRING_UNIT,
@@ -115,7 +115,7 @@ g_four.push(
 );
 
 // -----------------------
-g_four.push(
+G_FOUR.push(
   makeWeaponFour(
     "Flamel Series",
     AssetPotentials.VALOROUS_UNIT,
