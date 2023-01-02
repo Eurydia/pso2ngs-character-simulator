@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_dualble: Augment[] = [];
+export const G_DUALBLE: Augment[] = [];
 
 const makeAugmentDualble = (
   name: string,
@@ -14,42 +14,49 @@ const makeAugmentDualble = (
     level,
     GroupEnumAugment.DUALBLE,
     [GroupEnumAugment.DUALBLE],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // melra | meltech | ratech
 (() => {
-  const data_bp = [4, 5, 6, 7];
-  const data_weapon_up = [1.0075, 1.0125, 1.0175, 1.0275];
+  const DATA_BP: number[] = [4, 5, 6, 7];
+  const DATA_WEAPON_UP: number[] = [1.0075, 1.0125, 1.0175, 1.0275];
 
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["Melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["Meltech", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["Ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    data_bp.forEach((bp, level_index) => {
-      const weapon_up_value = data_weapon_up[level_index];
+    DATA_BP.forEach((bp, level_index) => {
+      const level: number = level_index + 1;
+      const weapon_up: number = DATA_WEAPON_UP[level_index];
 
-      g_dualble.push(
-        makeAugmentDualble(`${name} Dualble`, level_index + 1, {
+      const dualble_augment: Augment = makeAugmentDualble(
+        `${name} Dualble`,
+        level,
+        {
           [StatEnum.CORE_BP]: bp,
-          [weapon_up_a]: weapon_up_value,
-          [weapon_up_b]: weapon_up_value,
-        }),
+          [stat_weapon_up_a]: weapon_up,
+          [stat_weapon_up_b]: weapon_up,
+        },
       );
+
+      G_DUALBLE.push(dualble_augment);
     });
   }
 })();
 
 // --------------------------------------
 // triplble
-g_dualble.push(
+G_DUALBLE.push(
   makeAugmentDualble("Triplble", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.WEAPON_MELEE]: 1.02,
