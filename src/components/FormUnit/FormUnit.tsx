@@ -1,7 +1,12 @@
 import { FC, useEffect, useMemo } from "react";
 import { Stack } from "@mui/material";
 
-import { Augment, GroupEnumFixa, StatObject } from "../../assets";
+import {
+  ActionContext,
+  Augment,
+  GroupEnumFixa,
+  StatObject,
+} from "../../assets";
 import { SummaryEquipment } from "../../types";
 import {
   useAugments,
@@ -17,7 +22,9 @@ import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { getActiveAugmentCount } from "../utility";
 
-import { collectStat, createSummary } from "./helper";
+import { createStat, createSummary } from "./helper";
+
+const CONTEXT: ActionContext = {};
 
 type FormUnitProps = {
   storageKey: string;
@@ -44,9 +51,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   }, [level, augments, unit]);
 
   const stat: StatObject = useMemo(() => {
-    const context_aware_unit = unit?.getStatObject({});
-
-    return collectStat(unit, level, fixa, active_augments);
+    return createStat(CONTEXT, unit, level, fixa, active_augments);
   }, [unit, level, fixa, active_augments]);
 
   useEffect(() => {

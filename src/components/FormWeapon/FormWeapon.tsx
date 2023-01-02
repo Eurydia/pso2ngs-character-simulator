@@ -23,7 +23,7 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../AutocompletePotential";
 
-import { collectStat, createSummary } from "./helper";
+import { createStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
 
 const CONTEXT: ActionContext = {};
@@ -53,7 +53,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   }, [level, augments, weapon]);
 
   const stat: StatObject = useMemo<StatObject>(() => {
-    return collectStat(
+    return createStat(
       CONTEXT,
       weapon,
       level,

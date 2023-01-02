@@ -75,7 +75,7 @@ const collectAugments = (
   }
 };
 
-export const collectStat = (
+export const createStat = (
   context: ActionContext,
   weapon: Weapon | null,
   level: number,
@@ -83,7 +83,7 @@ export const collectStat = (
   potential_string: string,
   augments: (Augment | null)[],
 ): StatObject => {
-  const result: StatObject = statObject({});
+  const result: StatObject = statObject();
 
   if (weapon === null) {
     return result;

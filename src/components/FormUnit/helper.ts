@@ -1,4 +1,5 @@
 import {
+  ActionContext,
   Augment,
   Fixa,
   StatEnum,
@@ -8,63 +9,57 @@ import {
 } from "../../assets";
 import { SummaryEquipment } from "../../types";
 
-const collectUnit = (unit: Unit | null, target: StatObject): void => {
-  if (unit === null) {
-    return;
-  }
-
-  const unit_stats: StatObject = unit.stat;
-  const keys: StatEnum[] = unit_stats.keys;
-
-  for (const key of keys) {
-    const value: number = unit_stats.getStat(key);
-    target.stackStat(key, value);
-  }
+const collectUnit = (
+  context: ActionContext,
+  unit: Unit,
+  target: StatObject,
+): void => {
+  const stat_unit: StatObject = unit.getStatObject(context);
+  target.merge(stat_unit);
 };
 
 const collectEnhancement = (
-  unit: Unit | null,
+  context: ActionContext,
+  unit: Unit,
   level: number,
   target: StatObject,
 ): void => {
-  if (unit === null) {
-    return;
-  }
+  const stat_unit: StatObject = unit.getStatObject(context);
 
-  const unit_stats: StatObject = unit.stat;
-
-  const def_base: number = unit.base_def;
   const def_bonus: number = unit.getBonusDef(level);
   target.stackStat(StatEnum.CORE_DEFENSE, def_bonus);
 
-  const bp_from_def: number = Math.round((def_base + def_bonus) / 2);
+  const bp_from_def: number = Math.round(
+    (unit.base_def + def_bonus) / 2,
+  );
   const bp_from_hp: number = Math.round(
-    unit_stats.getStat(StatEnum.CORE_HP) / 10,
+    stat_unit.getStat(StatEnum.CORE_HP) / 10,
   );
   const bp_from_pp: number = Math.round(
-    unit_stats.getStat(StatEnum.CORE_PP),
+    stat_unit.getStat(StatEnum.CORE_PP),
   );
+
   target.stackStat(
     StatEnum.CORE_BP,
     bp_from_def + bp_from_hp + bp_from_pp,
   );
 };
 
-const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
+const collectFixa = (
+  context: ActionContext,
+  fixa: Fixa | null,
+  target: StatObject,
+): void => {
   if (fixa === null) {
     return;
   }
 
-  const fixa_stats: StatObject = fixa.stat;
-  const keys: StatEnum[] = fixa_stats.keys;
-
-  for (const key of keys) {
-    const value: number = fixa_stats.getStat(key);
-    target.stackStat(key, value);
-  }
+  const stat_fixa: StatObject = fixa.getStatObject(context);
+  target.merge(stat_fixa);
 };
 
 const collectAugments = (
+  context: ActionContext,
   augments: (Augment | null)[],
   target: StatObject,
 ): void => {
@@ -73,30 +68,29 @@ const collectAugments = (
       continue;
     }
 
-    const augment_stats: StatObject = augment.stats;
-    const keys: StatEnum[] = augment_stats.keys;
-
-    for (const key of keys) {
-      const value: number = augment_stats.getStat(key);
-      target.stackStat(key, value);
-    }
+    const stat_augment: StatObject = augment.getStatObject(context);
+    target.merge(stat_augment);
   }
 };
 
-export const collectStat = (
+export const createStat = (
+  context: ActionContext,
   unit: Unit | null,
   level: number,
   fixa: Fixa | null,
   augments: (Augment | null)[],
 ): StatObject => {
-  const target: StatObject = statObject();
-  collectUnit(unit, target);
-  collectEnhancement(unit, level, target);
-  if (unit !== null) {
-    collectFixa(fixa, target);
-    collectAugments(augments, target);
+  const result: StatObject = statObject();
+  if (unit === null) {
+    return result;
   }
-  return target;
+
+  collectUnit(context, unit, result);
+  collectEnhancement(context, unit, level, result);
+  collectFixa(context, fixa, result);
+  collectAugments(context, augments, result);
+
+  return result;
 };
 
 export const createSummary = (
