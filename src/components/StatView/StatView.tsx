@@ -2,19 +2,20 @@ import { FC } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
+import { Nullable } from "../../types";
 
-import CustomList from "./CustomList";
-import CustomItem from "./CustomItem";
+import { CustomList } from "./CustomList";
+import { CustomItem } from "./CustomItem";
 import { getIcon } from "./helper";
 
-type CoreStatListProps = {
-  bp: string | null;
-  hp: string | null;
-  pp: string | null;
-  attack: string | null;
-  defense: string | null;
-};
-const CoreStatList: FC<CoreStatListProps> = (props) => {
+type CoreGroupProps = Nullable<{
+  bp: string;
+  hp: string;
+  pp: string;
+  attack: string;
+  defense: string;
+}>;
+const CoreGroup: FC<CoreGroupProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
 
   return (
@@ -48,13 +49,13 @@ const CoreStatList: FC<CoreStatListProps> = (props) => {
   );
 };
 
-type PotencyStatListProps = {
-  melee: string | null;
-  ranged: string | null;
-  technique: string | null;
-  weakpoint: string | null;
-};
-const PotencyStatList: FC<PotencyStatListProps> = (props) => {
+type PotencyGroupProps = Nullable<{
+  melee: string;
+  ranged: string;
+  technique: string;
+  weakpoint: string;
+}>;
+const PotencyGroup: FC<PotencyGroupProps> = (props) => {
   const { melee, ranged, technique, weakpoint } = props;
 
   return (
@@ -83,16 +84,16 @@ const PotencyStatList: FC<PotencyStatListProps> = (props) => {
   );
 };
 
-type AilmentStatListProps = {
-  burn: string | null;
-  freeze: string | null;
-  shock: string | null;
-  blind: string | null;
-  panic: string | null;
-  poison: string | null;
-  physicalDown: string | null;
-};
-const AilmentStatList: FC<AilmentStatListProps> = (props) => {
+type AilmentGroupProps = Nullable<{
+  burn: string;
+  freeze: string;
+  shock: string;
+  blind: string;
+  panic: string;
+  poison: string;
+  physicalDown: string;
+}>;
+const AilmentGroup: FC<AilmentGroupProps> = (props) => {
   const { burn, freeze, panic, blind, shock, poison, physicalDown } =
     props;
 
@@ -137,12 +138,12 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
   );
 };
 
-type PPAdvancedStatsProps = {
-  usage: string | null;
-  naturalRecovery: string | null;
-  activeRecovery: string | null;
-};
-const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
+type AdvancedPPGroupProps = Nullable<{
+  usage: string;
+  naturalRecovery: string;
+  activeRecovery: string;
+}>;
+const AdvancedPPGroup: FC<AdvancedPPGroupProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
   return (
@@ -166,14 +167,14 @@ const PPAdvancedStats: FC<PPAdvancedStatsProps> = (props) => {
   );
 };
 
-type OffensiveAdancedStatsProps = {
-  floorPotency: string | null;
-  damageUp: string | null;
-  critChance: string | null;
-  critDamage: string | null;
-  pbGaugeRecovery: string | null;
-};
-const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
+type AdvancedOffensiveGroupProps = Nullable<{
+  floorPotency: string;
+  damageUp: string;
+  critChance: string;
+  critDamage: string;
+  pbGaugeRecovery: string;
+}>;
+const AdvancedOffensiveGroup: FC<AdvancedOffensiveGroupProps> = (
   props,
 ) => {
   const {
@@ -215,12 +216,12 @@ const OffensiveAdvancedStats: FC<OffensiveAdancedStatsProps> = (
   );
 };
 
-type DefensiveAdancedStatsProps = {
-  healingUp: string | null;
-  damageResist: string | null;
-  ailmentDuration: string | null;
-};
-const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
+type AdvancedDefensiveGroupProps = Nullable<{
+  healingUp: string;
+  damageResist: string;
+  ailmentDuration: string;
+}>;
+const AdvancedDefensiveGroup: FC<AdvancedDefensiveGroupProps> = (
   props,
 ) => {
   const { damageResist, healingUp, ailmentDuration } = props;
@@ -245,11 +246,27 @@ const DefensiveAdvancedStats: FC<DefensiveAdancedStatsProps> = (
   );
 };
 
+type EnvironmentGroupProps = Nullable<{
+  harshEnvironment: string;
+}>;
+const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
+  const { harshEnvironment } = props;
+  return (
+    <CustomList subheader="Enviroment resistence">
+      <CustomItem
+        label={StatEnumString[StatEnum.HARSH_COLD]}
+        value={harshEnvironment}
+        icon={getIcon(harshEnvironment)}
+      />
+    </CustomList>
+  );
+};
+
 type StatViewProps = {
-  title?: string;
+  title: string | undefined;
   stat: StatObject;
 };
-const StatView: FC<StatViewProps> = (props) => {
+export const StatView: FC<StatViewProps> = (props) => {
   const { stat } = props;
 
   const _envCold = stat.getFormattedStat(StatEnum.HARSH_COLD);
@@ -259,20 +276,20 @@ const StatView: FC<StatViewProps> = (props) => {
       <Typography fontWeight="bold" fontSize="large">
         {props.title}
       </Typography>
-      <CoreStatList
+      <CoreGroup
         bp={stat.getFormattedStat(StatEnum.CORE_BP)}
         hp={stat.getFormattedStat(StatEnum.CORE_HP)}
         pp={stat.getFormattedStat(StatEnum.CORE_PP)}
         attack={stat.getFormattedStat(StatEnum.CORE_ATTACK)}
         defense={stat.getFormattedStat(StatEnum.CORE_DEFENSE)}
       />
-      <PotencyStatList
+      <PotencyGroup
         melee={stat.getFormattedStat(StatEnum.WEAPON_MELEE)}
         ranged={stat.getFormattedStat(StatEnum.WEAPON_RANGED)}
         technique={stat.getFormattedStat(StatEnum.WEAPON_TECHNIQUE)}
         weakpoint={stat.getFormattedStat(StatEnum.WEAPON_WEAKPOINT)}
       />
-      <AilmentStatList
+      <AilmentGroup
         burn={stat.getFormattedStat(StatEnum.AIL_BURN)}
         freeze={stat.getFormattedStat(StatEnum.AIL_FREEZE)}
         blind={stat.getFormattedStat(StatEnum.AIL_BLIND)}
@@ -281,14 +298,10 @@ const StatView: FC<StatViewProps> = (props) => {
         poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
         physicalDown={stat.getFormattedStat(StatEnum.AIL_DOWN)}
       />
-      <CustomList subheader="Enviroment resistence">
-        <CustomItem
-          label={StatEnumString[StatEnum.HARSH_COLD]}
-          value={_envCold}
-          icon={getIcon(_envCold)}
-        />
-      </CustomList>
-      <PPAdvancedStats
+      <EnvironmentGroup
+        harshEnvironment={stat.getFormattedStat(StatEnum.HARSH_COLD)}
+      />
+      <AdvancedPPGroup
         usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
         naturalRecovery={stat.getFormattedStat(
           StatEnum.ADV_PP_NATURAL_RECOVERY,
@@ -297,7 +310,7 @@ const StatView: FC<StatViewProps> = (props) => {
           StatEnum.ADV_PP_ACTIVE_RECOVERY,
         )}
       />
-      <OffensiveAdvancedStats
+      <AdvancedOffensiveGroup
         floorPotency={stat.getFormattedStat(StatEnum.ADV_OFF_FLOOR)}
         damageUp={stat.getFormattedStat(StatEnum.ADV_OFF_DAMAGE_UP)}
         critChance={stat.getFormattedStat(
@@ -310,7 +323,7 @@ const StatView: FC<StatViewProps> = (props) => {
           StatEnum.ADV_OFF_PB_RECOVERY,
         )}
       />
-      <DefensiveAdvancedStats
+      <AdvancedDefensiveGroup
         healingUp={stat.getFormattedStat(StatEnum.ADV_DEF_HEALING)}
         damageResist={stat.getFormattedStat(
           StatEnum.ADV_DEF_DAMAGE_RES,
@@ -322,5 +335,3 @@ const StatView: FC<StatViewProps> = (props) => {
     </Box>
   );
 };
-
-export default StatView;

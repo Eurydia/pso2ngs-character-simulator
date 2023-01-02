@@ -1,1 +1,1 @@
-export { default } from "./StatView";
+export { StatView } from "./StatView";

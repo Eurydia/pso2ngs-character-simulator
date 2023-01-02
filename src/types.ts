@@ -8,3 +8,5 @@ export type SummaryFood = {
   level: number;
   label: string;
 };
+
+export type Nullable<T> = { [P in keyof T]: T[P] | null };

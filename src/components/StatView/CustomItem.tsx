@@ -12,7 +12,7 @@ type CustomItemProps = {
   label: ReactNode;
   icon: ReactNode;
 };
-const CustomItem: FC<CustomItemProps> = memo(
+export const CustomItem: FC<CustomItemProps> = memo(
   (props) => {
     if (props.value === null) {
       return null;
@@ -38,5 +38,3 @@ const CustomItem: FC<CustomItemProps> = memo(
     return prev.value === next.value;
   },
 );
-
-export default CustomItem;

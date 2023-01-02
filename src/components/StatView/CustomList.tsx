@@ -1,11 +1,11 @@
 import { FC, ReactNode } from "react";
-import { Box, List, ListSubheader, Typography } from "@mui/material";
+import { List, ListSubheader, Typography } from "@mui/material";
 
 type CustomListProps = {
   subheader: string;
   children: ReactNode | ReactNode[];
 };
-const CustomList: FC<CustomListProps> = (props) => {
+export const CustomList: FC<CustomListProps> = (props) => {
   const { children, subheader } = props;
 
   return (
@@ -17,5 +17,3 @@ const CustomList: FC<CustomListProps> = (props) => {
     </List>
   );
 };
-
-export default CustomList;
