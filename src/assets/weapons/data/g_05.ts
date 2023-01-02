@@ -5,7 +5,7 @@ import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 import { ActionContext } from "../../context";
 
-export const g_five: Weapon[] = [];
+export const G_FIVE: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -31,7 +31,7 @@ const makeWeaponFive = (
 };
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Quintel Series",
     AssetPotentials.FORTRESS_UNIT,
@@ -45,7 +45,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Gothica Series",
     AssetPotentials.REINVIGORATING_UNIT,
@@ -59,7 +59,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Fivla Series",
     AssetPotentials.FOCUSED_UNIT,
@@ -73,7 +73,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Greaga Series",
     AssetPotentials.FIGHTING_SPIRIT_UNIT,
@@ -87,7 +87,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Kukuhroziat Series",
     AssetPotentials.UNASSAILABLE_UNIT,
@@ -101,7 +101,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Relik Vigorous Series",
     AssetPotentials.VIGOROUS_UNIT,
@@ -115,7 +115,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Relik Explosive Series",
     AssetPotentials.EXPLOSIVE_UNIT,
@@ -129,7 +129,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Relik Harmonious Series",
     AssetPotentials.HARMONIOUS_UNIT,
@@ -143,7 +143,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Relik Imbued Series",
     AssetPotentials.IMBUED_UNIT,
@@ -157,7 +157,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Cinquem Series",
     AssetPotentials.VIRTUOSO_UNIT,
@@ -171,7 +171,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Tempesta Series",
     AssetPotentials.VALOROUS_UNIT,
@@ -196,7 +196,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Lumiere Series",
     AssetPotentials.VALOROUS_UNIT,
@@ -221,7 +221,7 @@ g_five.push(
 );
 
 // -----------------------
-g_five.push(
+G_FIVE.push(
   makeWeaponFive(
     "Obscura Series",
     AssetPotentials.VALOROUS_UNIT,
