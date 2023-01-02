@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_super: Augment[] = [];
+export const G_SUPER: Augment[] = [];
 
 const makeAugmentSuper = (
   name: string,
@@ -14,60 +14,62 @@ const makeAugmentSuper = (
     level,
     GroupEnumAugment.SUPER,
     [GroupEnumAugment.SUPER],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // might | precision | technique
 (() => {
-  const data_stats: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Might", StatEnum.WEAPON_MELEE],
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  const weapon_up_value = 1.0225;
+  const WEAPON_UP: number = 1.0225;
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
-    g_super.push(
-      makeAugmentSuper(`Super ${name}`, 1, {
-        [StatEnum.CORE_BP]: 8,
-        [weapon_up]: weapon_up_value,
-      }),
-    );
+    const super_augment: Augment = makeAugmentSuper(name, 1, {
+      [StatEnum.CORE_BP]: 8,
+      [stat_weapon_up]: WEAPON_UP,
+    });
+
+    G_SUPER.push(super_augment);
   }
 })();
 
 // --------------------------------------
 // sta | spi
 (() => {
-  const data_stats: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  const weapon_up_value = 1.02;
+  const WEAPON_UP: number = 1.02;
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
-    g_super.push(
+    G_SUPER.push(
       makeAugmentSuper(`Super Sta${name}`, 1, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_HP]: 15,
-        [weapon_up]: weapon_up_value,
+        [stat_weapon_up]: WEAPON_UP,
       }),
     );
 
-    g_super.push(
+    G_SUPER.push(
       makeAugmentSuper(`Super Spi${name}`, 1, {
         [StatEnum.CORE_BP]: 8,
         [StatEnum.CORE_PP]: 5,
-        [weapon_up]: weapon_up_value,
+        [stat_weapon_up]: WEAPON_UP,
       }),
     );
   }
