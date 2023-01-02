@@ -7,92 +7,61 @@ import {
   Weapon,
   Potential,
 } from "../../assets";
+import { ActionContext } from "../../assets";
 import { SummaryEquipment } from "../../types";
 
 const collectWeapon = (
-  weapon: Weapon | null,
-  target: StatObject,
-): void => {
-  if (weapon === null) {
-    return;
-  }
-
-  const weapon_stats: StatObject = weapon.stat;
-  const keys: StatEnum[] = weapon_stats.keys;
-
-  for (const key of keys) {
-    const value: number = weapon_stats.getStat(key);
-    target.stackStat(key, value);
-  }
-};
-
-const collectPotential = (
-  weapon: Weapon | null,
+  context: ActionContext,
+  weapon: Weapon,
   potential_key: string,
   target: StatObject,
 ): void => {
-  if (weapon === null) {
+  const stat_weapon = weapon.getStatObject(context);
+  target.merge(stat_weapon);
+
+  const potential = weapon.potential.getPotential(potential_key);
+
+  if (potential === null) {
     return;
   }
 
-  if (potential_key === "") {
-    return;
-  }
-
-  const potential: Potential = weapon.potential;
-  const potential_current = potential.getPotential(potential_key);
-
-  if (potential_current === null) {
-    return;
-  }
-
-  const { level, stat: potential_stats } = potential_current;
-  const keys: StatEnum[] = potential_stats.keys;
-
-  target.stackStat(StatEnum.CORE_BP, level * 10);
-
-  for (const key of keys) {
-    const value: number = potential_stats.getStat(key);
-    target.stackStat(key, value);
-  }
+  const stat_potential = potential.getStatObject(context);
+  target.merge(stat_potential);
 };
 
 const collectEnhancement = (
-  weapon: Weapon | null,
+  context: ActionContext,
+  weapon: Weapon,
   level: number,
   target: StatObject,
 ): void => {
-  if (weapon === null) {
-    return;
-  }
-
   const atk_bonus: number = weapon.getBonusAttack(level);
   target.stackStat(StatEnum.CORE_ATTACK, atk_bonus);
 
-  const weapon_stats = weapon.stat;
+  const weapon_stats = weapon.getStatObject(context);
 
-  const atk_base: number = weapon.base_attack;
   const floor_potency = weapon_stats.getStat(StatEnum.ADV_OFF_FLOOR);
 
-  const bp_from_atk = (floor_potency / 2) * (atk_base + atk_bonus);
+  const bp_from_atk =
+    (floor_potency / 2) * (weapon.base_attack + atk_bonus);
   target.stackStat(StatEnum.CORE_BP, Math.round(bp_from_atk));
 };
 
-const collectFixa = (fixa: Fixa | null, target: StatObject): void => {
+const collectFixa = (
+  context: ActionContext,
+  fixa: Fixa | null,
+  target: StatObject,
+): void => {
   if (fixa === null) {
     return;
   }
 
-  const fixa_stats: StatObject = fixa.stat;
-  const keys: StatEnum[] = fixa_stats.keys;
-
-  for (const key of keys) {
-    const value: number = fixa_stats.getStat(key);
-    target.stackStat(key, value);
-  }
+  const stat_fixa: StatObject = fixa.getStatObject(context);
+  target.merge(stat_fixa);
 };
 
 const collectAugments = (
+  context: ActionContext,
   augments: (Augment | null)[],
   target: StatObject,
 ): void => {
@@ -101,33 +70,32 @@ const collectAugments = (
       continue;
     }
 
-    const augment_stats: StatObject = augment.stats;
-    const keys = augment_stats.keys;
+    const stat_augment: StatObject = augment.getStatObject(context);
 
-    for (const key of keys) {
-      const value: number = augment_stats.getStat(key);
-      target.stackStat(key, value);
-    }
+    target.merge(stat_augment);
   }
 };
 
 export const collectStat = (
+  context: ActionContext,
   weapon: Weapon | null,
   level: number,
   fixa: Fixa | null,
-  potential: string,
+  potential_key: string,
   augments: (Augment | null)[],
 ): StatObject => {
-  const target: StatObject = statObject({});
-  collectWeapon(weapon, target);
-  collectPotential(weapon, potential, target);
-  collectEnhancement(weapon, level, target);
+  const result: StatObject = statObject({});
 
-  if (weapon !== null) {
-    collectAugments(augments, target);
-    collectFixa(fixa, target);
+  if (weapon === null) {
+    return result;
   }
-  return target;
+
+  collectWeapon(context, weapon, potential_key, result);
+  collectEnhancement(context, weapon, level, result);
+  collectFixa(context, fixa, result);
+  collectAugments(context, augments, result);
+
+  return result;
 };
 
 export const createSummary = (

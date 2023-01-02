@@ -25,12 +25,12 @@ import { SelectPotential } from "../AutocompletePotential";
 import { collectStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
 
-interface FormWeaponProps {
+type FormWeaponProps = {
   storageKey: string;
   cardTitle: string;
   onStatChange: (stats: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
-}
+};
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
@@ -45,9 +45,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     if (weapon === null) {
       return [];
     }
-
     const active_count: number = getActiveAugmentCount(level);
-
     return augments.slice(0, active_count);
   }, [level, augments, weapon]);
 
