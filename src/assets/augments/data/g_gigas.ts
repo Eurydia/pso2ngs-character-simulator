@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_gigas: Augment[] = [];
+export const G_GIGAS: Augment[] = [];
 
 const makeAugmentGigas = (
   name: string,
@@ -14,36 +14,44 @@ const makeAugmentGigas = (
     level,
     GroupEnumAugment.GIGAS,
     [GroupEnumAugment.GIGAS],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // might | precision | technique
 (() => {
-  const data_bp = [6, 8, 10, 11];
-  const data_hp = [5, 10, 15, 20];
-  const data_weapon_up = [1.015, 1.02, 1.025, 1.03];
+  const DATA_BP: number[] = [6, 8, 10, 11];
+  const DATA_HP: number[] = [5, 10, 15, 20];
+  const DATA_WEAPON_UP: number[] = [1.015, 1.02, 1.025, 1.03];
 
-  const data_stats: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Might", StatEnum.WEAPON_MELEE],
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
-    data_bp.forEach((bp, level_index) => {
-      const weapon_up_value = data_weapon_up[level_index];
+    DATA_BP.forEach((bp, level_index) => {
+      const level: number = level_index + 1;
+      const hp: number = DATA_HP[level_index];
+      const weapon_up: number = DATA_WEAPON_UP[level_index];
 
-      g_gigas.push(
-        makeAugmentGigas(`Gigas ${name}`, level_index + 1, {
+      const gigas_augment: Augment = makeAugmentGigas(
+        `Gigas ${name}`,
+        level,
+        {
           [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: data_hp[level_index],
-          [weapon_up]: weapon_up_value,
-        }),
+          [StatEnum.CORE_HP]: hp,
+          [stat_weapon_up]: weapon_up,
+        },
       );
+
+      G_GIGAS.push(gigas_augment);
     });
   }
 })();
@@ -51,24 +59,28 @@ const makeAugmentGigas = (
 // --------------------------------------
 // aglai | euphroy | thali
 (() => {
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["Aglai", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["Euphory", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["Thali", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const weapon_up_value = 1.025;
+  const WEAPON_UP: number = 1.025;
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_gigas.push(
-      makeAugmentGigas(`Gigas ${name}`, 0, {
+    const gigas_augment: Augment = makeAugmentGigas(
+      `Gigas ${name}`,
+      0,
+      {
         [StatEnum.CORE_BP]: 11,
         [StatEnum.CORE_HP]: 15,
-        [weapon_up_a]: weapon_up_value,
-        [weapon_up_b]: weapon_up_value,
-      }),
+        [stat_weapon_up_a]: WEAPON_UP,
+        [stat_weapon_up_b]: WEAPON_UP,
+      },
     );
+
+    G_GIGAS.push(gigas_augment);
   }
 })();
