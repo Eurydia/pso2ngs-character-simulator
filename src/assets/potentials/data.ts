@@ -1263,3 +1263,150 @@ export const ABSORPTION_UNIT = ((): Potential => {
 
   return potential("Absorption Unit", getStatObject_arr);
 })();
+
+export const SOOTHING_UNIT = ((): Potential => {
+  const data_weapon_up = [1.18, 1.2, 1.23, 1.24];
+
+  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
+    [];
+
+  data_weapon_up.forEach((weapon_up, level_index) => {
+    const getStatObject = (_: ActionContext): StatObject => {
+      const level = level_index + 1;
+
+      const stat: StatObject = statObject({
+        [StatEnum.CORE_BP]: level * 10,
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      });
+
+      return stat;
+    };
+
+    getStatObject_arr.push(getStatObject);
+  });
+
+  return potential("Soothing Unit", getStatObject_arr);
+})();
+
+export const BLITZ_UNIT = ((): Potential => {
+  const data_weapon_up = [1.1, 1.12, 1.14, 1.15];
+  const data_crit_chance = [0.15, 0.15, 0.15, 0.15];
+
+  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
+    [];
+
+  data_weapon_up.forEach((weapon_up, level_index) => {
+    const getStatObject = (ctx: ActionContext): StatObject => {
+      const level = level_index + 1;
+      const crit_chance = data_crit_chance[level_index];
+
+      const stat: StatObject = statObject({
+        [StatEnum.CORE_BP]: level * 10,
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      });
+
+      if (ctx.character === undefined) {
+        return stat;
+      }
+
+      if (ctx.character.hasDodgedAttack) {
+        stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+      }
+
+      return stat;
+    };
+
+    getStatObject_arr.push(getStatObject);
+  });
+
+  return potential("Blitz Unit", getStatObject_arr);
+})();
+
+export const INSTANT_DEATH_UNIT = ((): Potential => {
+  const data_weapon_up = [1.13, 1.15, 1.18, 1.19];
+  const data_weapon_up_extra = [1.19, 1.21, 1.24, 1.25];
+  const data_damage_res = [1.05, 1.05, 1.05, 1.05];
+  const data_damage_res_extra = [1.1, 1.1, 1.1, 1.1];
+
+  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
+    [];
+
+  data_weapon_up.forEach((weapon_up, level_index) => {
+    const getStatObject = (ctx: ActionContext): StatObject => {
+      const level = level_index + 1;
+      const damage_res = data_damage_res[level_index];
+      const weapon_up_extra = data_weapon_up_extra[level_index];
+      const damage_res_extra = data_damage_res_extra[level_index];
+
+      const stat: StatObject = statObject({
+        [StatEnum.CORE_BP]: level * 10,
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+      });
+
+      if (ctx.target === undefined) {
+        return stat;
+      }
+
+      if (ctx.target.isDolls) {
+        stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
+        stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
+        stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+        stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res_extra);
+      }
+
+      return stat;
+    };
+
+    getStatObject_arr.push(getStatObject);
+  });
+
+  return potential("Instant Death Unit", getStatObject_arr);
+})();
+
+export const FLAWLESS_UNIT = ((): Potential => {
+  const data_weapon_up = [1.18, 1.2, 1.22, 1.23];
+  const data_pp_usage = [0.8, 0.8, 0.8, 0.8];
+  const data_crit_chance = [0.1, 0.1, 0.1, 0.1];
+
+  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
+    [];
+
+  data_weapon_up.forEach((weapon_up, level_index) => {
+    const getStatObject = (ctx: ActionContext): StatObject => {
+      const level = level_index + 1;
+      const pp_usage = data_pp_usage[level];
+      const crit_chance = data_crit_chance[level];
+
+      const stat: StatObject = statObject({
+        [StatEnum.CORE_BP]: level * 10,
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+        [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
+        [StatEnum.ADV_PP_USAGE]: pp_usage,
+      });
+
+      if (ctx.character === undefined) {
+        return stat;
+      }
+
+      if (ctx.character.hasTakenDamage) {
+        stat.setStat(StatEnum.ADV_PP_USAGE, 1);
+        stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, 0);
+      }
+
+      return stat;
+    };
+
+    getStatObject_arr.push(getStatObject);
+  });
+
+  return potential("Flawless Unit", getStatObject_arr);
+})();

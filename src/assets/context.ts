@@ -1,6 +1,7 @@
 type TargetContext = Partial<{
   isBoss: boolean;
   isNonBoss: boolean;
+  isDolls: boolean;
 
   isBlightMarked: boolean;
   isWeakSpot: boolean;
