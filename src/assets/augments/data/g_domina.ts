@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_domina: Augment[] = [];
+export const G_DOMINA: Augment[] = [];
 
 const makeAugmentDomina = (
   name: string,
@@ -14,13 +14,15 @@ const makeAugmentDomina = (
     level,
     GroupEnumAugment.DOMINA,
     [GroupEnumAugment.DOMINA],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // ael
-g_domina.push(
+G_DOMINA.push(
   makeAugmentDomina("Ael Domina", 0, {
     [StatEnum.CORE_BP]: 8,
     [StatEnum.CORE_HP]: 5,
@@ -33,7 +35,7 @@ g_domina.push(
 
 // --------------------------------------
 // ret
-g_domina.push(
+G_DOMINA.push(
   makeAugmentDomina("Ret Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_HP]: 15,
@@ -45,7 +47,7 @@ g_domina.push(
 
 // --------------------------------------
 // kvar
-g_domina.push(
+G_DOMINA.push(
   makeAugmentDomina("Kvar Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.CORE_PP]: 5,
@@ -58,7 +60,7 @@ g_domina.push(
 
 // --------------------------------------
 // stira
-g_domina.push(
+G_DOMINA.push(
   makeAugmentDomina("Stira Domina", 0, {
     [StatEnum.CORE_BP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.03,

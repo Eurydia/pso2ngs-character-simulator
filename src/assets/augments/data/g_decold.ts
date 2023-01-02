@@ -47,7 +47,7 @@ const makeAugmentDecold = (
 // --------------------------------------
 // might | precicion | technique
 (() => {
-  const DATA_STAT: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Might", StatEnum.WEAPON_MELEE],
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
@@ -56,8 +56,8 @@ const makeAugmentDecold = (
   const WEAPON_UP: number = 1.025;
   const HARSH_COLD: number = 0.25;
 
-  for (const stat of DATA_STAT) {
-    const [name, stat_weapon_up] = stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
     const decold_augment: Augment = makeAugmentDecold(
       `Decold ${name}`,
