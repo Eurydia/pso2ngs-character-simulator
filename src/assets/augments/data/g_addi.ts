@@ -23,7 +23,7 @@ const makeAugmentAddi = (
 // --------------------------------------
 // double
 (() => {
-  const DATA_STAT: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["mel", StatEnum.WEAPON_MELEE],
     ["ra", StatEnum.WEAPON_RANGED],
     ["tech", StatEnum.WEAPON_TECHNIQUE],
@@ -31,8 +31,8 @@ const makeAugmentAddi = (
 
   const WEAPON_UP: number = 1.025;
 
-  for (const stat of DATA_STAT) {
-    const [suffix, stat_weapon_up] = stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, stat_weapon_up] = entry;
 
     G_ADDI.push(
       makeAugmentAddi(`Addi Deft${suffix}`, 0, {
@@ -94,16 +94,16 @@ const makeAugmentAddi = (
 // --------------------------------------
 // triple
 (() => {
-  const DATA_STAT: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["melra", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["meltech", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["ratech", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const WEAPON_UP = 1.03;
+  const WEAPON_UP: number = 1.03;
 
-  for (const stat of DATA_STAT) {
-    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
     G_ADDI.push(
       makeAugmentAddi(`Addi Deft${suffix}`, 0, {

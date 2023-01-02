@@ -31,7 +31,7 @@ const makeAugmentBasic = (
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
 
-    const stamina_augment: Augment = makeAugmentBasic(
+    const basic_augment: Augment = makeAugmentBasic(
       "Stamina",
       level,
       {
@@ -40,7 +40,7 @@ const makeAugmentBasic = (
       },
     );
 
-    G_BASIC.push(stamina_augment);
+    G_BASIC.push(basic_augment);
   });
 })();
 
@@ -54,16 +54,12 @@ const makeAugmentBasic = (
     const level: number = level_index + 1;
     const pp: number = DATA_PP[level_index];
 
-    const spirit_augment: Augment = makeAugmentBasic(
-      "Spirit",
-      level,
-      {
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_PP]: pp,
-      },
-    );
+    const basic_augment: Augment = makeAugmentBasic("Spirit", level, {
+      [StatEnum.CORE_BP]: bp,
+      [StatEnum.CORE_PP]: pp,
+    });
 
-    G_BASIC.push(spirit_augment);
+    G_BASIC.push(basic_augment);
   });
 })();
 
@@ -73,25 +69,25 @@ const makeAugmentBasic = (
   const DATA_BP: number[] = [4, 5, 6, 7];
   const DATA_WEAPON_UP: number[] = [1.01, 1.015, 1.02, 1.03];
 
-  const DATA_STAT: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Might", StatEnum.WEAPON_MELEE],
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const stat of DATA_STAT) {
-    const [name, stat_weapon_up] = stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
 
-      const weapon_augment: Augment = makeAugmentBasic(name, level, {
+      const basic_augment: Augment = makeAugmentBasic(name, level, {
         [StatEnum.CORE_BP]: bp,
         [stat_weapon_up]: weapon_up,
       });
 
-      G_BASIC.push(weapon_augment);
+      G_BASIC.push(basic_augment);
     });
   }
 })();
@@ -106,7 +102,7 @@ const makeAugmentBasic = (
     const level: number = level_index + 1;
     const floor_up: number = DATA_FLOOR_up[level_index];
 
-    const deftness_augment: Augment = makeAugmentBasic(
+    const basic_augment: Augment = makeAugmentBasic(
       "Deftness",
       level,
       {
@@ -115,7 +111,7 @@ const makeAugmentBasic = (
       },
     );
 
-    G_BASIC.push(deftness_augment);
+    G_BASIC.push(basic_augment);
   });
 })();
 
@@ -129,12 +125,12 @@ const makeAugmentBasic = (
     const level: number = level_index + 1;
     const damage_res: number = DATA_DAMAGE_RES[level_index];
 
-    const guard_augment: Augment = makeAugmentBasic("Guard", level, {
+    const basic_augment: Augment = makeAugmentBasic("Guard", level, {
       [StatEnum.CORE_BP]: bp,
       [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
     });
 
-    G_BASIC.push(guard_augment);
+    G_BASIC.push(basic_augment);
   });
 })();
 
@@ -162,7 +158,7 @@ const makeAugmentBasic = (
       });
     };
 
-    const mastery_augment = augment(
+    const basic_augment = augment(
       "Mastery",
       level_index + 1,
       GroupEnumAugment.BASIC,
@@ -170,6 +166,6 @@ const makeAugmentBasic = (
       _getStatObject,
     );
 
-    G_BASIC.push(mastery_augment);
+    G_BASIC.push(basic_augment);
   });
 })();
