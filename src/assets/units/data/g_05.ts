@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_five: Unit[] = [];
+export const G_FIVE: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -23,7 +23,7 @@ const makeUnitFive = (
 };
 
 // -------------------------
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Vidal Armor", {
     [StatEnum.CORE_DEFENSE]: 22,
     [StatEnum.CORE_HP]: 45,
@@ -31,7 +31,7 @@ g_five.push(
   }),
 );
 
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Vijf Armor", {
     [StatEnum.CORE_DEFENSE]: 17,
     [StatEnum.CORE_HP]: 30,
@@ -40,28 +40,28 @@ g_five.push(
 );
 
 (() => {
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  for (const data_stat of data_stats) {
-    const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_five.push(
+    G_FIVE.push(
       makeUnitFive(`Vijf Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 18,
         [StatEnum.CORE_HP]: 20,
         [StatEnum.CORE_PP]: 7,
-        [weapon_up_a]: 1.01,
-        [weapon_up_b]: 1.01,
+        [stat_weapon_up_a]: 1.01,
+        [stat_weapon_up_b]: 1.01,
       }),
     );
   }
 })();
 
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Vios Armor", {
     [StatEnum.CORE_DEFENSE]: 15,
     [StatEnum.CORE_PP]: 8,
@@ -71,14 +71,14 @@ g_five.push(
   }),
 );
 
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Vindalun Armor", {
     [StatEnum.CORE_DEFENSE]: 20,
     [StatEnum.CORE_HP]: 70,
   }),
 );
 
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Viosel Armor", {
     [StatEnum.CORE_DEFENSE]: 10,
     [StatEnum.CORE_PP]: 14,
@@ -92,7 +92,7 @@ g_five.push(
   }),
 );
 
-g_five.push(
+G_FIVE.push(
   makeUnitFive("Gres Armor", {
     [StatEnum.CORE_DEFENSE]: 21,
     [StatEnum.CORE_HP]: -40,
@@ -110,25 +110,23 @@ g_five.push(
 // -------------------------
 // schwarz
 (() => {
-  const data_stats: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Schwarzest", StatEnum.WEAPON_MELEE],
     ["Schwarzgarde", StatEnum.WEAPON_RANGED],
     ["Schwarzrosso", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
-    g_five.push(
+    G_FIVE.push(
       makeUnitFive(`${name} Armor`, {
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 25,
         [StatEnum.CORE_PP]: 3,
-        [weapon_up]: 1.02,
+        [stat_weapon_up]: 1.02,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
       }),
     );
   }
 })();
-
-export default g_five;
