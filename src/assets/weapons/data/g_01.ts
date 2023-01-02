@@ -4,7 +4,7 @@ import { Potential, AssetPotentials } from "../../potentials";
 import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 
-export const g_one: Weapon[] = [];
+export const G_ONE: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 22],
@@ -30,11 +30,9 @@ const makeWeaponOne = (
 };
 
 // -----------------------
-g_one.push(
+G_ONE.push(
   makeWeaponOne("Primm Series", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 177,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
   }),
 );
-
-export default g_one;
