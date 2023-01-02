@@ -32,7 +32,7 @@ const makeWeaponEight = (
 g_eight.push(
   makeWeaponEight(
     "Primm Libra Series",
-    AssetPotentials.TEMPERED_FORM,
+    AssetPotentials.SOOTHING_UNIT,
     (ctx) => {
       const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 436,
@@ -57,7 +57,7 @@ g_eight.push(
 g_eight.push(
   makeWeaponEight(
     "Effulgent Series",
-    AssetPotentials.TEMPERED_FORM,
+    AssetPotentials.BLITZ_UNIT,
     (ctx) => {
       const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 446,
@@ -82,7 +82,7 @@ g_eight.push(
 g_eight.push(
   makeWeaponEight(
     "Tenebrous Series",
-    AssetPotentials.TEMPERED_FORM,
+    AssetPotentials.BLITZ_UNIT,
     (ctx) => {
       const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 448,
@@ -107,7 +107,7 @@ g_eight.push(
 g_eight.push(
   makeWeaponEight(
     "Kouklophis Series",
-    AssetPotentials.ABSORPTION_UNIT,
+    AssetPotentials.INSTANT_DEATH_UNIT,
     (_) => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 520,
@@ -121,7 +121,7 @@ g_eight.push(
 g_eight.push(
   makeWeaponEight(
     "Gunblaze Series",
-    AssetPotentials.ABSORPTION_UNIT,
+    AssetPotentials.FLAWLESS_UNIT,
     (_) => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 526,
