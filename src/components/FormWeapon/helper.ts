@@ -5,7 +5,6 @@ import {
   statObject,
   StatObject,
   Weapon,
-  Potential,
 } from "../../assets";
 import { ActionContext } from "../../assets";
 import { SummaryEquipment } from "../../types";
@@ -13,13 +12,13 @@ import { SummaryEquipment } from "../../types";
 const collectWeapon = (
   context: ActionContext,
   weapon: Weapon,
-  potential_key: string,
+  potential_string: string,
   target: StatObject,
 ): void => {
   const stat_weapon = weapon.getStatObject(context);
   target.merge(stat_weapon);
 
-  const potential = weapon.potential.getPotential(potential_key);
+  const potential = weapon.potential.getPotential(potential_string);
 
   if (potential === null) {
     return;
@@ -81,7 +80,7 @@ export const collectStat = (
   weapon: Weapon | null,
   level: number,
   fixa: Fixa | null,
-  potential_key: string,
+  potential_string: string,
   augments: (Augment | null)[],
 ): StatObject => {
   const result: StatObject = statObject({});
@@ -90,7 +89,7 @@ export const collectStat = (
     return result;
   }
 
-  collectWeapon(context, weapon, potential_key, result);
+  collectWeapon(context, weapon, potential_string, result);
   collectEnhancement(context, weapon, level, result);
   collectFixa(context, fixa, result);
   collectAugments(context, augments, result);

@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Stack } from "@mui/material";
 
 import {
+  ActionContext,
   Augment,
   GroupEnumFixa,
   StatObject,
@@ -24,6 +25,8 @@ import { SelectPotential } from "../AutocompletePotential";
 
 import { collectStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
+
+const CONTEXT: ActionContext = {};
 
 type FormWeaponProps = {
   storageKey: string;
@@ -51,6 +54,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const stat: StatObject = useMemo<StatObject>(() => {
     return collectStat(
+      CONTEXT,
       weapon,
       level,
       fixa,
