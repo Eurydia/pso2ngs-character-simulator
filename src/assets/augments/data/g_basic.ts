@@ -1,8 +1,9 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_basic: Augment[] = [];
+export const G_BASIC: Augment[] = [];
 
 const makeAugmentBasic = (
   name: string,
@@ -14,64 +15,83 @@ const makeAugmentBasic = (
     level,
     GroupEnumAugment.BASIC,
     [GroupEnumAugment.FUSED],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // --------------------------------------
 // stamina
 (() => {
-  const data_bp = [3, 4, 5];
-  const data_hp = [5, 10, 15];
+  const DATA_BP: number[] = [3, 4, 5];
+  const DATA_HP: number[] = [5, 10, 15];
 
-  data_bp.forEach((bp, level_index) => {
-    g_basic.push(
-      makeAugmentBasic("Stamina", level_index + 1, {
+  DATA_BP.forEach((bp, level_index) => {
+    const level: number = level_index + 1;
+    const hp: number = DATA_HP[level_index];
+
+    const stamina_augment: Augment = makeAugmentBasic(
+      "Stamina",
+      level,
+      {
         [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: data_hp[level_index],
-      }),
+        [StatEnum.CORE_HP]: hp,
+      },
     );
+
+    G_BASIC.push(stamina_augment);
   });
 })();
 
 // --------------------------------------
 // spirit
 (() => {
-  const data_bp = [2, 3, 4];
-  const data_pp = [3, 4, 5];
+  const DATA_BP: number[] = [2, 3, 4];
+  const DATA_PP: number[] = [3, 4, 5];
 
-  data_bp.forEach((bp, level_index) => {
-    g_basic.push(
-      makeAugmentBasic("Spirit", level_index + 1, {
+  DATA_BP.forEach((bp, level_index) => {
+    const level: number = level_index + 1;
+    const pp: number = DATA_PP[level_index];
+
+    const spirit_augment: Augment = makeAugmentBasic(
+      "Spirit",
+      level,
+      {
         [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_PP]: data_pp[level_index],
-      }),
+        [StatEnum.CORE_PP]: pp,
+      },
     );
+
+    G_BASIC.push(spirit_augment);
   });
 })();
 
 // --------------------------------------
 // might | precision | technique
 (() => {
-  const data_bp = [4, 5, 6, 7];
-  const data_weapon_up = [1.01, 1.015, 1.02, 1.03];
+  const DATA_BP: number[] = [4, 5, 6, 7];
+  const DATA_WEAPON_UP: number[] = [1.01, 1.015, 1.02, 1.03];
 
-  const data_stats: [string, StatEnum][] = [
+  const DATA_STAT: [string, StatEnum][] = [
     ["Might", StatEnum.WEAPON_MELEE],
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const stat of DATA_STAT) {
+    const [name, stat_weapon_up] = stat;
 
-    data_bp.forEach((bp, level_index) => {
-      g_basic.push(
-        makeAugmentBasic(name, level_index + 1, {
-          [StatEnum.CORE_BP]: bp,
-          [weapon_up]: data_weapon_up[level_index],
-        }),
-      );
+    DATA_BP.forEach((bp, level_index) => {
+      const level: number = level_index + 1;
+      const weapon_up: number = DATA_WEAPON_UP[level_index];
+
+      const weapon_augment: Augment = makeAugmentBasic(name, level, {
+        [StatEnum.CORE_BP]: bp,
+        [stat_weapon_up]: weapon_up,
+      });
+
+      G_BASIC.push(weapon_augment);
     });
   }
 })();
@@ -79,63 +99,77 @@ const makeAugmentBasic = (
 // --------------------------------------
 // deftness
 (() => {
-  const data_bp = [3, 4, 5, 6];
-  const data_floor = [1.01, 1.015, 1.02, 1.03];
+  const DATA_BP: number[] = [3, 4, 5, 6];
+  const DATA_FLOOR_up: number[] = [1.01, 1.015, 1.02, 1.03];
 
-  data_bp.forEach((bp, level_index) => {
-    g_basic.push(
-      makeAugmentBasic("Deftness", level_index + 1, {
+  DATA_BP.forEach((bp, level_index) => {
+    const level: number = level_index + 1;
+    const floor_up: number = DATA_FLOOR_up[level_index];
+
+    const deftness_augment: Augment = makeAugmentBasic(
+      "Deftness",
+      level,
+      {
         [StatEnum.CORE_BP]: bp,
-        [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
-      }),
+        [StatEnum.ADV_OFF_FLOOR]: floor_up,
+      },
     );
+
+    G_BASIC.push(deftness_augment);
   });
 })();
 
 // --------------------------------------
 // guard
 (() => {
-  const data_bp = [2, 3, 4, 5];
-  const data_damage_res = [1.01, 1.015, 1.02, 1.03];
+  const DATA_BP = [2, 3, 4, 5];
+  const DATA_DAMAGE_RES = [1.01, 1.015, 1.02, 1.03];
 
-  data_bp.forEach((bp, level_index) => {
-    g_basic.push(
-      makeAugmentBasic("Guard", level_index + 1, {
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: data_damage_res[level_index],
-      }),
-    );
+  DATA_BP.forEach((bp, level_index) => {
+    const level: number = level_index + 1;
+    const damage_res: number = DATA_DAMAGE_RES[level_index];
+
+    const guard_augment: Augment = makeAugmentBasic("Guard", level, {
+      [StatEnum.CORE_BP]: bp,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+    });
+
+    G_BASIC.push(guard_augment);
   });
 })();
 
 // --------------------------------------
 // mastery
 (() => {
-  const data_bp = [6, 8, 10, 12];
-  const data_weapon_up = [1.01, 1.015, 1.02, 1.025];
-  const data_floor = [1.01, 1.015, 1.02, 1.025];
-  const data_damage_res = [1.01, 1.015, 1.02, 1.025];
+  const DATA_BP = [6, 8, 10, 12];
+  const DATA_WEAPON_UP = [1.01, 1.015, 1.02, 1.025];
+  const DATA_FLOOR_UP = [1.01, 1.015, 1.02, 1.025];
+  const DATA_DAMAGE_RES = [1.01, 1.015, 1.02, 1.025];
 
-  data_bp.forEach((bp, level_index) => {
-    const weapon_up_value = data_weapon_up[level_index];
+  DATA_BP.forEach((bp, level_index) => {
+    const weapon_up = DATA_WEAPON_UP[level_index];
+    const floor_up = DATA_FLOOR_UP[level_index];
+    const damage_res = DATA_DAMAGE_RES[level_index];
 
-    g_basic.push(
-      augment(
-        "Mastery",
-        level_index + 1,
-        GroupEnumAugment.BASIC,
-        [],
-        (ctx) =>
-          statObject({
-            [StatEnum.CORE_BP]: bp,
-            [StatEnum.WEAPON_MELEE]: weapon_up_value,
-            [StatEnum.WEAPON_RANGED]: weapon_up_value,
-            [StatEnum.WEAPON_TECHNIQUE]: weapon_up_value,
-            [StatEnum.ADV_OFF_FLOOR]: data_floor[level_index],
-            [StatEnum.ADV_DEF_DAMAGE_RES]:
-              data_damage_res[level_index],
-          }),
-      ),
+    const _getStatObject = (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: bp,
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+        [StatEnum.ADV_OFF_FLOOR]: floor_up,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+      });
+    };
+
+    const mastery_augment = augment(
+      "Mastery",
+      level_index + 1,
+      GroupEnumAugment.BASIC,
+      [],
+      _getStatObject,
     );
+
+    G_BASIC.push(mastery_augment);
   });
 })();
