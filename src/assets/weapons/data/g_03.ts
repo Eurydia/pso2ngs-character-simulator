@@ -5,7 +5,7 @@ import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 import { ActionContext } from "../../context";
 
-export const g_three: Weapon[] = [];
+export const G_THREE: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -31,7 +31,7 @@ const makeWeaponThree = (
 };
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Theseus Series",
     AssetPotentials.DEFENSIVE_FORMATION,
@@ -45,7 +45,7 @@ g_three.push(
 );
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Trois De Series",
     AssetPotentials.OFFENSIVE_FORMATION,
@@ -59,7 +59,7 @@ g_three.push(
 );
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Gold Primm Sword",
     AssetPotentials.RECYCLER_UNIT,
@@ -73,22 +73,32 @@ g_three.push(
 );
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Glissen Series",
     AssetPotentials.VALOROUS_UNIT,
-    (_) => {
-      return statObject({
+    (ctx) => {
+      const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
-        [StatEnum.ADV_OFF_DAMAGE_UP]: 1.15,
+        [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
+
+      if (ctx.target === undefined) {
+        return stat;
+      }
+
+      if (ctx.target.isWeakToLightning) {
+        stat.setStat(StatEnum.ADV_OFF_DAMAGE_UP, 1.15);
+      }
+
+      return stat;
     },
   ),
 );
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Frostel Series",
     AssetPotentials.VALOROUS_UNIT,
@@ -113,7 +123,7 @@ g_three.push(
 );
 
 // -----------------------
-g_three.push(
+G_THREE.push(
   makeWeaponThree(
     "Renaissa Series",
     AssetPotentials.DYNAMO_UNIT,

@@ -4,7 +4,7 @@ import { AssetPotentials, Potential } from "../../potentials";
 import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 
-export const g_two: Weapon[] = [];
+export const G_TWO: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 16],
@@ -25,12 +25,14 @@ const makeWeaponTwo = (
     GroupEnumWeapon.R_TWO,
     potential,
     GROWTH_DATA,
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
 // -----------------------
-g_two.push(
+G_TWO.push(
   makeWeaponTwo("Tzvia Series", AssetPotentials.INDOMITABLE_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -38,7 +40,7 @@ g_two.push(
 );
 
 // -----------------------
-g_two.push(
+G_TWO.push(
   makeWeaponTwo("Silver Primm Sword", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -46,7 +48,7 @@ g_two.push(
 );
 
 // -----------------------
-g_two.push(
+G_TWO.push(
   makeWeaponTwo("N-Exp Weapon", AssetPotentials.RECYCLER_UNIT, {
     [StatEnum.CORE_ATTACK]: 195,
     [StatEnum.ADV_OFF_FLOOR]: 1.7,

@@ -25,7 +25,9 @@ const makeWeaponOne = (
     GroupEnumWeapon.R_ONE,
     potential,
     GROWTH_DATA,
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
