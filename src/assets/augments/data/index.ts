@@ -1,5 +1,5 @@
 import { Augment } from "../augment";
-import { g_addi } from "./g_addi";
+import { G_ADDI } from "./g_addi";
 import { G_BASIC } from "./g_basic";
 import { g_domina } from "./g_domina";
 import { g_dread } from "./g_dread";
@@ -18,7 +18,7 @@ import { g_sezun } from "./g_sezun";
 import { g_super } from "./g_super";
 
 export const AssetAugments: Augment[] = [
-  ...g_addi,
+  ...G_ADDI,
   ...G_BASIC,
   ...g_domina,
   ...g_dread,
