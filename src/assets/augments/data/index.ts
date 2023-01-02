@@ -14,7 +14,7 @@ import { g_soul } from "./g_soul";
 import { g_tria } from "./g_tria";
 import { g_ward } from "./g_ward";
 import { G_DECOLD } from "./g_decold";
-import { g_sezun } from "./g_sezun";
+import { G_SEZUN } from "./g_sezun";
 import { g_super } from "./g_super";
 
 export const AssetAugments: Augment[] = [
@@ -33,6 +33,6 @@ export const AssetAugments: Augment[] = [
   ...g_tria,
   ...g_ward,
   ...G_DECOLD,
-  ...g_sezun,
+  ...G_SEZUN,
   ...g_super,
 ];
