@@ -4,7 +4,7 @@ import { G_BASIC } from "./g_basic";
 import { G_DOMINA } from "./g_domina";
 import { G_DREAD } from "./g_dread";
 import { G_DUALBLE } from "./g_dualble";
-import { g_exploit } from "./g_exploit";
+import { G_EXPLOIT } from "./g_exploit";
 import { g_fused } from "./g_fused";
 import { g_fusia } from "./g_fusia";
 import { g_gigas } from "./g_gigas";
@@ -23,7 +23,7 @@ export const AssetAugments: Augment[] = [
   ...G_DOMINA,
   ...G_DREAD,
   ...G_DUALBLE,
-  ...g_exploit,
+  ...G_EXPLOIT,
   ...g_fused,
   ...g_fusia,
   ...g_gigas,
