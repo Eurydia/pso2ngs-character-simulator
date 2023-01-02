@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_three: Unit[] = [];
+export const G_THREE: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -23,7 +23,7 @@ const makeUnitThree = (
 };
 
 // -------------------------
-g_three.push(
+G_THREE.push(
   makeUnitThree("Theseus Armor", {
     [StatEnum.CORE_DEFENSE]: 9,
     [StatEnum.CORE_HP]: 10,
@@ -31,7 +31,7 @@ g_three.push(
   }),
 );
 
-g_three.push(
+G_THREE.push(
   makeUnitThree("Gold Primm Armor", {
     [StatEnum.CORE_DEFENSE]: 9,
     [StatEnum.CORE_HP]: 10,
@@ -39,7 +39,7 @@ g_three.push(
   }),
 );
 
-g_three.push(
+G_THREE.push(
   makeUnitThree("Renaissa Armor", {
     [StatEnum.CORE_DEFENSE]: 10,
     [StatEnum.CORE_HP]: 10,
