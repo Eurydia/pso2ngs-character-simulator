@@ -1,3 +1,4 @@
+import { DYNAMO_UNIT } from "./../../potentials/data";
 import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
@@ -9,11 +10,10 @@ const GROWTH_DATA: [number, number][] = [
   [20, 20],
   [30, 30],
   [40, 40],
-  [50, 50],
-  [60, 66],
+  [50, 51],
 ];
 
-const makeUnitSix = (
+const makeUnitSeven = (
   name: string,
   stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
@@ -23,40 +23,6 @@ const makeUnitSix = (
 };
 
 // -------------------------
-g_seven.push(
-  makeUnitSix("Defrozza Armor", {
-    [StatEnum.CORE_DEFENSE]: 22,
-    [StatEnum.CORE_HP]: 50,
-    [StatEnum.WEAPON_MELEE]: 1.01,
-    [StatEnum.WEAPON_RANGED]: 1.01,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.01,
-    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
-    [StatEnum.HARSH_COLD]: 0.2,
-  }),
-);
-
-g_seven.push(
-  makeUnitSix("Defrozzi Armor", {
-    [StatEnum.CORE_DEFENSE]: 20,
-    [StatEnum.CORE_PP]: 9,
-    [StatEnum.WEAPON_MELEE]: 1.02,
-    [StatEnum.WEAPON_RANGED]: 1.02,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-    [StatEnum.HARSH_COLD]: 0.2,
-  }),
-);
-
-g_seven.push(
-  makeUnitSix("Sestato Armor", {
-    [StatEnum.CORE_DEFENSE]: 21,
-    [StatEnum.CORE_HP]: 35,
-    [StatEnum.CORE_PP]: 5,
-    [StatEnum.WEAPON_MELEE]: 1.015,
-    [StatEnum.WEAPON_RANGED]: 1.015,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.015,
-    [StatEnum.HARSH_COLD]: 0.2,
-  }),
-);
 (() => {
   const data_stats: [string, [StatEnum, StatEnum]][] = [
     ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
@@ -68,32 +34,46 @@ g_seven.push(
     const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
 
     g_seven.push(
-      makeUnitSix(`Sestato Armor ${suffix}`, {
-        [StatEnum.CORE_DEFENSE]: 20,
+      makeUnitSeven(`Sestato Armor ${suffix}`, {
+        [StatEnum.CORE_DEFENSE]: 39,
         [StatEnum.CORE_HP]: 30,
         [StatEnum.CORE_PP]: 4,
-        [weapon_up_a]: 1.0225,
-        [weapon_up_b]: 1.0225,
-        [StatEnum.AIL_PHYDOWN]: 1.3,
+        [weapon_up_a]: 1.03,
+        [weapon_up_b]: 1.03,
       }),
     );
   }
 })();
 
+// -------------------------
 g_seven.push(
-  makeUnitSix("Behlgren Armor", {
-    [StatEnum.CORE_DEFENSE]: 26,
-    [StatEnum.CORE_HP]: -40,
-    [StatEnum.CORE_PP]: 13,
-    [StatEnum.WEAPON_MELEE]: 1.0275,
-    [StatEnum.WEAPON_RANGED]: 1.0275,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.0275,
-    [StatEnum.AIL_BLIND]: 0.5,
-    [StatEnum.AIL_BURN]: 0.5,
-    [StatEnum.AIL_FREEZE]: 0.5,
-    [StatEnum.AIL_PANIC]: 0.5,
-    [StatEnum.AIL_PHYDOWN]: 0.5,
-    [StatEnum.AIL_POISON]: 0.5,
-    [StatEnum.AIL_SHOCK]: 0.5,
+  makeUnitSeven("Eptize Armor Vida", {
+    [StatEnum.CORE_DEFENSE]: 40,
+    [StatEnum.CORE_HP]: 55,
+    [StatEnum.WEAPON_MELEE]: 1.03,
+    [StatEnum.WEAPON_RANGED]: 1.03,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+  }),
+);
+
+// -------------------------
+g_seven.push(
+  makeUnitSeven("Eptize Armor Vio", {
+    [StatEnum.CORE_DEFENSE]: 40,
+    [StatEnum.CORE_PP]: 10,
+    [StatEnum.WEAPON_MELEE]: 1.03,
+    [StatEnum.WEAPON_RANGED]: 1.03,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+  }),
+);
+
+// -------------------------
+g_seven.push(
+  makeUnitSeven("Eclaireur Armor", {
+    [StatEnum.CORE_DEFENSE]: 35,
+    [StatEnum.WEAPON_MELEE]: 1.04,
+    [StatEnum.WEAPON_RANGED]: 1.04,
+    [StatEnum.WEAPON_TECHNIQUE]: 1.04,
+    [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95,
   }),
 );
