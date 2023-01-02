@@ -3,7 +3,7 @@ import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_one: Unit[] = [];
+export const G_ONE: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -24,7 +24,7 @@ const makeUnitOne = (
 };
 
 // -------------------------
-g_one.push(
+G_ONE.push(
   makeUnitOne("Primm Armor", {
     [StatEnum.CORE_DEFENSE]: 8,
     [StatEnum.CORE_HP]: 10,
