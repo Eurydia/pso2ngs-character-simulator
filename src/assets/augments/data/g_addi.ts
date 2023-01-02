@@ -14,7 +14,9 @@ const makeAugmentAddi = (
     level,
     GroupEnumAugment.ADDI,
     [GroupEnumAugment.ADDI],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
