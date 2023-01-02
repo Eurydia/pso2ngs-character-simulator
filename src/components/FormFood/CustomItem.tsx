@@ -14,7 +14,7 @@ type CustomItemProps = {
   onCopy: () => void;
   onRemove: () => void;
 };
-const CustomItem: FC<CustomItemProps> = (props) => {
+export const CustomItem: FC<CustomItemProps> = (props) => {
   const { item } = props;
 
   return (
@@ -34,5 +34,3 @@ const CustomItem: FC<CustomItemProps> = (props) => {
     </ListItem>
   );
 };
-
-export default CustomItem;

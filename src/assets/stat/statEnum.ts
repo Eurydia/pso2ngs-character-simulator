@@ -33,6 +33,8 @@ export const enum StatEnum {
   ADV_DEF_HEALING = "defHealingUp",
   ADV_DEF_DAMAGE_RES = "defDamageResist",
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
+
+  HIDDEN_HP_BOOST = "hiddenHPBoost",
 }
 
 export const StatEnumString: { [K in StatEnum]: string } = {
@@ -64,6 +66,8 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_DEF_HEALING]: "Healing Up",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
   [StatEnum.ADV_DEF_AILMENT_DURATION]: "Ailment Duration",
+
+  [StatEnum.HIDDEN_HP_BOOST]: "Hidden HP Boost",
 };
 
 export const StatAdd: Set<StatEnum> = new Set([

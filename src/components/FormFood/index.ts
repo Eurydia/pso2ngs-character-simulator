@@ -1,1 +1,1 @@
-export { default } from "./FormFood";
+export { FormFood } from "./FormFood";

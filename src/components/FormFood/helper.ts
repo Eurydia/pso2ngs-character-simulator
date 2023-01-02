@@ -1,71 +1,86 @@
 import {
-  FoodAttributeEnum,
+  GroupEnumFoodAttribute,
+  GroupEnumFoodCategory,
   Food,
-  FoodCategoryEnum,
+  StatObject,
+  statObject,
 } from "../../assets";
 import { SummaryFood } from "../../types";
 
+const countAttribute = (
+  items: Food[],
+): { [K in GroupEnumFoodAttribute]: number } => {
+  const result: { [K in GroupEnumFoodAttribute]: number } = {
+    [GroupEnumFoodAttribute.CRISPY]: 0,
+    [GroupEnumFoodAttribute.LIGHT]: 0,
+    [GroupEnumFoodAttribute.ROBUST]: 0,
+    [GroupEnumFoodAttribute.RICH]: 0,
+  };
+
+  for (const item of items) {
+    const attr = item.attribute;
+    result[attr] += 1;
+  }
+
+  return result;
+};
+
+const countCategory = (
+  items: Food[],
+): { [K in GroupEnumFoodCategory]: number } => {
+  const result: { [K in GroupEnumFoodCategory]: number } = {
+    [GroupEnumFoodCategory.FRUIT]: 0,
+    [GroupEnumFoodCategory.MEAT]: 0,
+    [GroupEnumFoodCategory.SEAFOOD]: 0,
+    [GroupEnumFoodCategory.VEGETABLE]: 0,
+  };
+
+  for (const item of items) {
+    const cate = item.category;
+    result[cate] += 1;
+  }
+
+  return result;
+};
+
+export const createStat = (items: Food[]): StatObject => {
+  const result = statObject();
+
+  return result;
+};
+
 export const createSummary = (items: Food[]): SummaryFood[] => {
-  const counter_attribute: Partial<{
-    [K in FoodAttributeEnum]: number;
-  }> = {};
-
-  const counter_category: Partial<{
-    [K in FoodCategoryEnum]: number;
-  }> = {};
-
-  for (const item of items) {
-    const attribute = item.attribute;
-
-    if (counter_attribute[attribute] === undefined) {
-      counter_attribute[attribute] = 1;
-      continue;
-    }
-
-    counter_attribute[attribute]! += 1;
-  }
-
-  for (const item of items) {
-    const category = item.category;
-
-    if (counter_category[category] === undefined) {
-      counter_category[category] = 1;
-      continue;
-    }
-
-    counter_category[category]! += 1;
-  }
+  const attr_counter = countAttribute(items);
+  const cate_counter = countCategory(items);
 
   const summaries: SummaryFood[] = [];
 
-  for (const key of Object.keys(counter_attribute)) {
-    const level: number | undefined =
-      counter_attribute[key as FoodAttributeEnum];
+  const attr_keys = Object.keys(
+    attr_counter,
+  ) as GroupEnumFoodAttribute[];
 
-    if (level === undefined) {
-      continue;
-    }
+  for (const attr_key of attr_keys) {
+    const level: number = attr_counter[attr_key];
 
     summaries.push({
-      label: key,
+      label: attr_key,
       level,
     });
   }
 
-  for (const key of Object.keys(counter_category)) {
-    const level: number | undefined =
-      counter_category[key as FoodCategoryEnum];
+  const cate_keys = Object.keys(
+    cate_counter,
+  ) as GroupEnumFoodCategory[];
 
-    if (level === undefined) {
-      continue;
-    }
+  for (const cate_key of cate_keys) {
+    const level: number = cate_counter[cate_key];
 
     if (level < 4) {
       continue;
     }
 
     summaries.push({
-      label: key,
+      label: cate_key,
       level: level - 3,
     });
   }

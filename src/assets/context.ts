@@ -3,9 +3,6 @@ type TargetContext = Partial<{
   isNonBoss: boolean;
   isDolls: boolean;
 
-  isBlightMarked: boolean;
-  isWeakSpot: boolean;
-
   isWeakToLightning: boolean;
   isWeakToIce: boolean;
   isWeakToFire: boolean;
@@ -21,6 +18,8 @@ type CharacterContext = Partial<{
   hasDodgedAttack: boolean;
   hasCriticallyHit: boolean;
   isAttacking: boolean;
+  isAttackingBlightMark: boolean;
+  isAttackingWeakpoint: boolean;
   defenseValue: number;
   attackValue: number;
   hpValue: number;

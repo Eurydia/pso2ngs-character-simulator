@@ -1,4 +1,4 @@
-import StatEnum, { StatAdd, StatSpecial } from "./statEnum";
+import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
 
 const formatAdd = (value: number): string => {
   const sign = value > 0 ? "+" : "";
