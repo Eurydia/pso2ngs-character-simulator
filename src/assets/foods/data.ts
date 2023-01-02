@@ -30,6 +30,29 @@ export const AssetFoods: Food[] = [];
   });
 })();
 
+export const getStatObjectKvaris = (
+  context: ActionContext,
+  level: number,
+): StatObject => {
+  const DATA: number[] = [0.06, 0.12, 0.18, 0.21, 0.24, 0.27, 0.3];
+
+  const stat = statObject();
+
+  if (level < 0 || DATA.length <= level) {
+    return stat;
+  }
+
+  if (context.location === undefined) {
+    return stat;
+  }
+
+  if (context.location.kvaris) {
+    stat.setStat(StatEnum.HARSH_COLD, DATA[level]);
+  }
+
+  return stat;
+};
+
 export const getStatObjectCrispy = (
   context: ActionContext,
   level: number,

@@ -9,14 +9,16 @@ import {
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
-import { Food, StatObject } from "../../assets";
+import { ActionContext, Food, StatObject } from "../../assets";
 import { useFood } from "../../hooks";
 import { SummaryFood } from "../../types";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 
 import { CustomItem } from "./CustomItem";
-import { createSummary } from "./helper";
+import { createStat, createSummary } from "./helper";
+
+const CONTEXT: ActionContext = {};
 
 type FormFoodProps = {
   storage_key: string;
@@ -46,13 +48,21 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     removeItem(index);
   };
 
-  const summaries = useMemo(() => {
+  const stat = useMemo((): StatObject => {
+    return createStat(CONTEXT, items);
+  }, [items]);
+
+  const summaries = useMemo((): SummaryFood[] => {
     return createSummary(items);
   }, [items]);
 
   useEffect(() => {
     onSummaryChange(summaries);
   }, [summaries]);
+
+  useEffect(() => {
+    onStatChange(stat);
+  }, [stat]);
 
   return (
     <Box>
