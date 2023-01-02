@@ -1,9 +1,8 @@
-import { DYNAMO_UNIT } from "./../../potentials/data";
 import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_seven: Unit[] = [];
+export const G_SEVEN: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -24,29 +23,29 @@ const makeUnitSeven = (
 
 // -------------------------
 (() => {
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  for (const data_stat of data_stats) {
-    const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_seven.push(
+    G_SEVEN.push(
       makeUnitSeven(`Sestato Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 39,
         [StatEnum.CORE_HP]: 30,
         [StatEnum.CORE_PP]: 4,
-        [weapon_up_a]: 1.03,
-        [weapon_up_b]: 1.03,
+        [stat_weapon_up_a]: 1.03,
+        [stat_weapon_up_b]: 1.03,
       }),
     );
   }
 })();
 
 // -------------------------
-g_seven.push(
+G_SEVEN.push(
   makeUnitSeven("Eptize Armor Vida", {
     [StatEnum.CORE_DEFENSE]: 40,
     [StatEnum.CORE_HP]: 55,
@@ -57,7 +56,7 @@ g_seven.push(
 );
 
 // -------------------------
-g_seven.push(
+G_SEVEN.push(
   makeUnitSeven("Eptize Armor Vio", {
     [StatEnum.CORE_DEFENSE]: 40,
     [StatEnum.CORE_PP]: 10,
@@ -68,7 +67,7 @@ g_seven.push(
 );
 
 // -------------------------
-g_seven.push(
+G_SEVEN.push(
   makeUnitSeven("Eclaireur Armor", {
     [StatEnum.CORE_DEFENSE]: 35,
     [StatEnum.WEAPON_MELEE]: 1.04,
