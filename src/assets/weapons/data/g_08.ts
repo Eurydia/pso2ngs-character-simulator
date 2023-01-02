@@ -4,7 +4,7 @@ import { GroupEnumWeapon } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 import { ActionContext } from "../../context";
 
-export const g_eight: Weapon[] = [];
+export const G_EIGHT: Weapon[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 30],
@@ -29,7 +29,7 @@ const makeWeaponEight = (
 };
 
 // -----------------------
-g_eight.push(
+G_EIGHT.push(
   makeWeaponEight(
     "Primm Libra Series",
     AssetPotentials.SOOTHING_UNIT,
@@ -54,7 +54,7 @@ g_eight.push(
 );
 
 // -----------------------
-g_eight.push(
+G_EIGHT.push(
   makeWeaponEight(
     "Effulgent Series",
     AssetPotentials.BLITZ_UNIT,
@@ -79,7 +79,7 @@ g_eight.push(
 );
 
 // -----------------------
-g_eight.push(
+G_EIGHT.push(
   makeWeaponEight(
     "Tenebrous Series",
     AssetPotentials.BLITZ_UNIT,
@@ -104,7 +104,7 @@ g_eight.push(
 );
 
 // -----------------------
-g_eight.push(
+G_EIGHT.push(
   makeWeaponEight(
     "Kouklophis Series",
     AssetPotentials.INSTANT_DEATH_UNIT,
@@ -118,7 +118,7 @@ g_eight.push(
 );
 
 // -----------------------
-g_eight.push(
+G_EIGHT.push(
   makeWeaponEight(
     "Gunblaze Series",
     AssetPotentials.FLAWLESS_UNIT,
