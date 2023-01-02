@@ -7,7 +7,7 @@ import { g_five } from "./g_05";
 import { g_six } from "./g_06";
 import { g_seven } from "./g_07";
 
-export const AssetUnit: Unit[] = [
+export const AssetUnits: Unit[] = [
   ...g_one,
   ...g_two,
   ...g_three,

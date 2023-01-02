@@ -16,7 +16,7 @@ export const enum StatEnum {
   AIL_BLIND = "ailBlind",
   AIL_POISON = "ailPoison",
   AIL_SHOCK = "ailShock",
-  AIL_PHYDOWN = "ailPhyDown",
+  AIL_DOWN = "ailDown",
 
   HARSH_COLD = "envCold",
 
@@ -26,12 +26,6 @@ export const enum StatEnum {
 
   ADV_OFF_FLOOR = "offFloor",
   ADV_OFF_DAMAGE_UP = "offDamageUp",
-  // ADV_OFF_DAMAGE_FIRE = "offDamageUpFire",
-  // ADV_OFF_DAMAGE_ICE = "offDamageUpIce",
-  // ADV_OFF_DAMAGE_LIGHTNING = "offDamageUpLightning",
-  // ADV_OFF_DAMAGE_WIND = "offDamageUpWind",
-  // ADV_OFF_DAMAGE_LIGHT = "offDamageUpLight",
-  // ADV_OFF_DAMAGE_DARK = "offDamageUpDark",
   ADV_OFF_CRIT_CHANCE = "offCritChance",
   ADV_OFF_CRIT_DAMAGE = "offCritDamage",
   ADV_OFF_PB_RECOVERY = "offPBRecovery",
@@ -57,7 +51,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.AIL_BLIND]: "Blind Resistance",
   [StatEnum.AIL_POISON]: "Poison Resistance",
   [StatEnum.AIL_SHOCK]: "Shock Resistance",
-  [StatEnum.AIL_PHYDOWN]: "Physical Down Resistance",
+  [StatEnum.AIL_DOWN]: "Physical Down Resistance",
   [StatEnum.HARSH_COLD]: "Harsh Enviroment Resistance",
   [StatEnum.ADV_PP_USAGE]: "PP Usage",
   [StatEnum.ADV_PP_ACTIVE_RECOVERY]: "Active PP Recovery",

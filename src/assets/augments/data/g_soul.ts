@@ -279,7 +279,7 @@ const makeAugmentSoul = (
           [StatEnum.AIL_BURN]: ail_res_value,
           [StatEnum.AIL_FREEZE]: ail_res_value,
           [StatEnum.AIL_PANIC]: ail_res_value,
-          [StatEnum.AIL_PHYDOWN]: ail_res_value,
+          [StatEnum.AIL_DOWN]: ail_res_value,
           [StatEnum.AIL_POISON]: ail_res_value,
           [StatEnum.AIL_SHOCK]: ail_res_value,
         }),

@@ -129,7 +129,7 @@ const AilmentStatList: FC<AilmentStatListProps> = (props) => {
         icon={getIcon(poison)}
       />
       <CustomItem
-        label={StatEnumString[StatEnum.AIL_PHYDOWN]}
+        label={StatEnumString[StatEnum.AIL_DOWN]}
         value={physicalDown}
         icon={getIcon(physicalDown)}
       />
@@ -279,7 +279,7 @@ const StatView: FC<StatViewProps> = (props) => {
         panic={stat.getFormattedStat(StatEnum.AIL_PANIC)}
         shock={stat.getFormattedStat(StatEnum.AIL_SHOCK)}
         poison={stat.getFormattedStat(StatEnum.AIL_POISON)}
-        physicalDown={stat.getFormattedStat(StatEnum.AIL_PHYDOWN)}
+        physicalDown={stat.getFormattedStat(StatEnum.AIL_DOWN)}
       />
       <CustomList subheader="Enviroment resistence">
         <CustomItem

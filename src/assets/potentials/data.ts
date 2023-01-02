@@ -47,7 +47,7 @@ export const INDOMITABLE_UNIT = ((): Potential => {
         [StatEnum.AIL_BURN]: ail_res_up,
         [StatEnum.AIL_FREEZE]: ail_res_up,
         [StatEnum.AIL_PANIC]: ail_res_up,
-        [StatEnum.AIL_PHYDOWN]: ail_res_up,
+        [StatEnum.AIL_DOWN]: ail_res_up,
         [StatEnum.AIL_POISON]: ail_res_up,
         [StatEnum.AIL_SHOCK]: ail_res_up,
       });

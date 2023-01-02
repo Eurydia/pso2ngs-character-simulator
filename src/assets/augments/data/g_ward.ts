@@ -31,7 +31,7 @@ const makeAugmentWard = (
     ["Blind", StatEnum.AIL_BLIND],
     ["Panic", StatEnum.AIL_PANIC],
     ["Poison", StatEnum.AIL_POISON],
-    ["Pain", StatEnum.AIL_PHYDOWN],
+    ["Pain", StatEnum.AIL_DOWN],
   ];
 
   for (const data_stat of data_stats) {
@@ -76,7 +76,7 @@ const makeAugmentWard = (
         [StatEnum.AIL_BLIND]: res_up_value,
         [StatEnum.AIL_PANIC]: res_up_value,
         [StatEnum.AIL_POISON]: res_up_value,
-        [StatEnum.AIL_PHYDOWN]: res_up_value,
+        [StatEnum.AIL_DOWN]: res_up_value,
       }),
     );
   }

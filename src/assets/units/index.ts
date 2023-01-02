@@ -1,4 +1,4 @@
 export type { Unit } from "./unit";
-export { default as groupEnumUnit } from "./groupEnum";
+export { GroupEnumUnit } from "./groupEnum";
 
-export { default } from "./data";
+export { AssetUnits } from "./data";

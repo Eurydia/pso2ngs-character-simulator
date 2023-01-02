@@ -102,7 +102,7 @@ g_four.push(
     [StatEnum.AIL_FREEZE]: 1.02,
     [StatEnum.AIL_PANIC]: 1.02,
     [StatEnum.AIL_PANIC]: 1.02,
-    [StatEnum.AIL_PHYDOWN]: 1.02,
+    [StatEnum.AIL_DOWN]: 1.02,
     [StatEnum.AIL_POISON]: 1.02,
     [StatEnum.AIL_SHOCK]: 1.02,
   }),

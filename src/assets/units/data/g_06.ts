@@ -74,7 +74,7 @@ g_six.push(
         [StatEnum.CORE_PP]: 4,
         [weapon_up_a]: 1.0225,
         [weapon_up_b]: 1.0225,
-        [StatEnum.AIL_PHYDOWN]: 1.3,
+        [StatEnum.AIL_DOWN]: 1.3,
       }),
     );
   }
@@ -92,7 +92,7 @@ g_six.push(
     [StatEnum.AIL_BURN]: 0.5,
     [StatEnum.AIL_FREEZE]: 0.5,
     [StatEnum.AIL_PANIC]: 0.5,
-    [StatEnum.AIL_PHYDOWN]: 0.5,
+    [StatEnum.AIL_DOWN]: 0.5,
     [StatEnum.AIL_POISON]: 0.5,
     [StatEnum.AIL_SHOCK]: 0.5,
   }),
