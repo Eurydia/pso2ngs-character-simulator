@@ -1,1 +1,1 @@
-export { default } from "./AutocompleteUnit";
+export { AutocompleteUnit } from "./AutocompleteUnit";

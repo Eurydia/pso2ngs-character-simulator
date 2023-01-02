@@ -49,7 +49,6 @@ export const AutocompleteFood: FC<AutocompleteAugmentProps> = (
         <CustomOption {...props} option={option} />
       )}
       filterOptions={filterOptions}
-      fullWidth
     />
   );
 };

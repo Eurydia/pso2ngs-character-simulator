@@ -1,1 +1,1 @@
-export { default } from "./AutocompleteFood";
+export { AutocompleteFood } from "./AutocompleteFood";

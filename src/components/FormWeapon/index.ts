@@ -1,1 +1,1 @@
-export { default } from "./FormWeapon";
+export { FormWeapon } from "./FormWeapon";

@@ -1,1 +1,1 @@
-export { default } from "./AutocompletePotential";
+export { AutocompletePotential as SelectPotential } from "./AutocompletePotential";

@@ -1,6 +1,5 @@
-export { default as FormWeapon } from "./FormWeapon";
-export { default as FormUnit } from "./FormUnit";
-export { default as FormBase } from "./FormBase";
-export { default as StatView } from "./StatView";
-export { default as AutocompleteFood } from "./AutocompleteFood";
-export { default as FormFood } from "./FormFood";
+export { FormWeapon } from "./FormWeapon";
+export { FormUnit } from "./FormUnit";
+export { FormBase } from "./FormBase";
+export { StatView } from "./StatView";
+export { FormFood } from "./FormFood";

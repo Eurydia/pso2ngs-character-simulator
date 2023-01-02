@@ -10,22 +10,22 @@ import {
   useUnit,
 } from "../../hooks";
 
-import FormBase from "../FormBase";
-import AutocompleteUnit from "../AutocompleteUnit";
-import FieldEnhancement from "../FieldLevel";
-import AutocompleteFixa from "../AutocompleteFixa";
+import { FormBase } from "../FormBase";
+import { AutocompleteUnit } from "../AutocompleteUnit";
+import { FieldLevel } from "../FieldLevel";
+import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { getActiveAugmentCount } from "../utility";
 
 import { collectStat, createSummary } from "./helper";
 
-type FormWeaponProps = {
+type FormUnitProps = {
   storageKey: string;
   title: string;
   onStatChange: (stat: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
 };
-const FormWeapon: FC<FormWeaponProps> = (props) => {
+export const FormUnit: FC<FormUnitProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
   const [unit, setUnit] = useUnit(storageKey);
@@ -62,7 +62,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
       <Stack spacing={3}>
         <Stack spacing={1}>
           <AutocompleteUnit value={unit} onChange={setUnit} />
-          <FieldEnhancement
+          <FieldLevel
             disabled={unit === null}
             valueMin={0}
             valueMax={60}
@@ -92,5 +92,3 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     </FormBase>
   );
 };
-
-export default FormWeapon;

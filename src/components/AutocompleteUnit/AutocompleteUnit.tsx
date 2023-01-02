@@ -6,14 +6,14 @@ import {
 } from "@mui/material";
 import { AssetUnits, Unit } from "../../assets";
 
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
 
 type AutocompleteWeaponProps = {
   value: Unit | null;
   onChange: (value: Unit | null) => void;
 };
-const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
+export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
   (props) => {
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
@@ -43,5 +43,3 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
     return prev.value?.label === next.value?.label;
   },
 );
-
-export default AutocompleteWeapon;

@@ -25,7 +25,6 @@ const termReducer = (options: Food[], term: string): Food[] => {
     keys: [
       (item) => item.label,
       (item) => item.attribute,
-      (item) => item.region,
       (item) => item.category,
     ],
   });

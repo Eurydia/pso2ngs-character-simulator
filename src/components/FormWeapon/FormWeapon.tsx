@@ -1,10 +1,9 @@
 import { FC, useEffect, useMemo, useState } from "react";
-import { Grid, Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 import {
   Augment,
   GroupEnumFixa,
-  Potential,
   StatObject,
   Weapon,
 } from "../../assets";
@@ -16,12 +15,12 @@ import {
 } from "../../hooks";
 import { SummaryEquipment } from "../../types";
 
-import FormBase from "../FormBase";
-import FieldEnhancement from "../FieldLevel";
-import AutocompleteFixa from "../AutocompleteFixa";
-import AutocompleteWeapon from "../AutocompleteWeapon";
-import AutocompleteAugment from "../AutocompleteAugment";
-import SelectPotential from "../AutocompletePotential";
+import { FormBase } from "../FormBase";
+import { FieldLevel } from "../FieldLevel";
+import { AutocompleteFixa } from "../AutocompleteFixa";
+import { AutocompleteWeapon } from "../AutocompleteWeapon";
+import { AutocompleteAugment } from "../AutocompleteAugment";
+import { SelectPotential } from "../AutocompletePotential";
 
 import { collectStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
@@ -32,7 +31,7 @@ interface FormWeaponProps {
   onStatChange: (stats: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
 }
-const FormWeapon: FC<FormWeaponProps> = (props) => {
+export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
   const [weapon, setWeapon] = useWeapon(storageKey);
@@ -88,7 +87,7 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
             value={potentialString}
             onChange={setPotentialString}
           />
-          <FieldEnhancement
+          <FieldLevel
             disabled={weapon === null}
             valueMin={0}
             valueMax={60}
@@ -118,5 +117,3 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     </FormBase>
   );
 };
-
-export default FormWeapon;

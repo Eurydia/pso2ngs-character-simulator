@@ -1,1 +1,1 @@
-export { default } from "./AutocompleteWeapon";
+export { AutocompleteWeapon } from "./AutocompleteWeapon";

@@ -11,7 +11,7 @@ type FieldLevelProps = {
   value: number;
   onChange: (value: number) => void;
 };
-const FieldLevel: FC<FieldLevelProps> = memo(
+export const FieldLevel: FC<FieldLevelProps> = memo(
   (props) => {
     const handleChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -44,5 +44,3 @@ const FieldLevel: FC<FieldLevelProps> = memo(
     );
   },
 );
-
-export default FieldLevel;

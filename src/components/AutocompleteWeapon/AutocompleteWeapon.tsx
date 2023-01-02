@@ -7,14 +7,14 @@ import {
 
 import { AssetWeapons, Weapon } from "../../assets";
 
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
 
 type AutocompleteWeaponProps = {
   value: Weapon | null;
   onChange: (value: Weapon | null) => void;
 };
-const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
+export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
@@ -44,5 +44,3 @@ const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
     return prev.value?.label === next.value?.label;
   },
 );
-
-export default AutocompleteWeapon;

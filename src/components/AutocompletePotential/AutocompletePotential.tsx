@@ -7,57 +7,55 @@ import {
 
 import { Weapon } from "../../assets";
 
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
 
-type SelectPotentialProps = {
+type AutocompletePotentialProps = {
   weapon: Weapon | null;
   value: string;
   onChange: (value: string) => void;
 };
-const SelectPotential: FC<SelectPotentialProps> = memo(
-  (props) => {
-    const { weapon } = props;
+export const AutocompletePotential: FC<AutocompletePotentialProps> =
+  memo(
+    (props) => {
+      const { weapon } = props;
 
-    let options: string[] = [];
-    if (weapon !== null) {
-      options = weapon.potential.keys;
-    }
-
-    const handleChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: string | null,
-      reason: AutocompleteChangeReason,
-    ) => {
-      if (value === null) {
-        props.onChange("");
-        return;
+      let options: string[] = [];
+      if (weapon !== null) {
+        options = weapon.potential.keys;
       }
 
-      props.onChange(value);
-    };
+      const handleChange = (
+        event: SyntheticEvent<Element, Event>,
+        value: string | null,
+        reason: AutocompleteChangeReason,
+      ) => {
+        if (value === null) {
+          props.onChange("");
+          return;
+        }
 
-    return (
-      <Autocomplete
-        disabled={props.weapon === null}
-        value={props.value}
-        options={options}
-        onChange={handleChange}
-        renderInput={(params) => (
-          <TextField {...params} placeholder="Potential" />
-        )}
-        renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
-        )}
-        fullWidth
-      />
-    );
-  },
-  (prev, next) => {
-    return (
-      prev.value === next.value &&
-      prev.weapon?.label === next.weapon?.label
-    );
-  },
-);
+        props.onChange(value);
+      };
 
-export default SelectPotential;
+      return (
+        <Autocomplete
+          disabled={props.weapon === null}
+          value={props.value}
+          options={options}
+          onChange={handleChange}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="Potential" />
+          )}
+          renderOption={(props, option, _) => (
+            <CustomOption {...props} option={option} />
+          )}
+        />
+      );
+    },
+    (prev, next) => {
+      return (
+        prev.value === next.value &&
+        prev.weapon?.label === next.weapon?.label
+      );
+    },
+  );

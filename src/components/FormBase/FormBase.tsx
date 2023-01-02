@@ -16,7 +16,7 @@ type FormBaseProps = {
   children: ReactNode | ReactNode[];
   stat: StatObject;
 };
-const FormBase: FC<FormBaseProps> = (props) => {
+export const FormBase: FC<FormBaseProps> = (props) => {
   return (
     <Card>
       <CardHeader
@@ -41,5 +41,3 @@ const FormBase: FC<FormBaseProps> = (props) => {
     </Card>
   );
 };
-
-export default FormBase;
