@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
-export const g_note: Augment[] = [];
+export const G_NOTE: Augment[] = [];
 
 const makeAugmentNote = (
   name: string,
@@ -14,7 +14,9 @@ const makeAugmentNote = (
     level,
     GroupEnumAugment.NOTE,
     [GroupEnumAugment.NOTE],
-    (_) => statObject(stat),
+    (_) => {
+      return statObject(stat);
+    },
   );
 };
 
@@ -22,58 +24,62 @@ const makeAugmentNote = (
 // ael
 // exploration
 // a | b | c | d
-(() => {
-  // a
-  g_note.push(
-    makeAugmentNote("Ael Note A", 0, {
-      [StatEnum.CORE_BP]: 5,
-      [StatEnum.CORE_HP]: 5,
-      [StatEnum.CORE_PP]: 3,
-    }),
-  );
+// a
+G_NOTE.push(
+  makeAugmentNote("Ael Note A", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 5,
+    [StatEnum.CORE_PP]: 3,
+  }),
+);
 
+(() => {
   // b | c | d
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const weapon_up_value = 1.01;
+  const WEAPON_UP: number = 1.01;
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_note.push(
-      makeAugmentNote(`Ael Note ${name}`, 0, {
+    const note_augment: Augment = makeAugmentNote(
+      `Ael Note ${suffix}`,
+      0,
+      {
         [StatEnum.CORE_BP]: 4,
-        [weapon_up_a]: weapon_up_value,
-        [weapon_up_b]: weapon_up_value,
-      }),
+        [stat_weapon_up_a]: WEAPON_UP,
+        [stat_weapon_up_b]: WEAPON_UP,
+      },
     );
+
+    G_NOTE.push(note_augment);
   }
 })();
 
 // combat
 // magnus | lab | resola
 (() => {
-  const data_stats: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Magnus", StatEnum.WEAPON_MELEE],
     ["Lab", StatEnum.WEAPON_RANGED],
     ["Resola", StatEnum.WEAPON_TECHNIQUE],
   ];
 
-  const weapon_up_value = 1.015;
+  const WEAPON_UP: number = 1.015;
 
-  for (const data_stat of data_stats) {
-    const [name, weapon_up] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [name, stat_weapon_up] = entry;
 
-    g_note.push(
-      makeAugmentNote(`${name} Note`, 0, {
-        [StatEnum.CORE_BP]: 5,
-        [weapon_up]: weapon_up_value,
-      }),
-    );
+    const note_augment: Augment = makeAugmentNote(`${name} Note`, 0, {
+      [StatEnum.CORE_BP]: 5,
+      [stat_weapon_up]: WEAPON_UP,
+    });
+
+    G_NOTE.push(note_augment);
   }
 })();
 
@@ -81,40 +87,43 @@ const makeAugmentNote = (
 // ret
 // exploration
 // a | b | c | d
+// a
+G_NOTE.push(
+  makeAugmentNote("Ret Note A", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 10,
+  }),
+);
 (() => {
-  // a
-  g_note.push(
-    makeAugmentNote("Ret Note A", 0, {
-      [StatEnum.CORE_BP]: 5,
-      [StatEnum.CORE_HP]: 10,
-    }),
-  );
-
   // b | c | d
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const weapon_up_value = 1.0075;
+  const WEAPON_UP: number = 1.0075;
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_note.push(
-      makeAugmentNote(`Ret Note ${name}`, 0, {
+    const note_augment: Augment = makeAugmentNote(
+      `Ret Note ${suffix}`,
+      0,
+      {
         [StatEnum.CORE_BP]: 4,
-        [weapon_up_a]: weapon_up_value,
-        [weapon_up_b]: weapon_up_value,
-      }),
+        [stat_weapon_up_a]: WEAPON_UP,
+        [stat_weapon_up_b]: WEAPON_UP,
+      },
     );
+
+    G_NOTE.push(note_augment);
   }
 })();
 
 // combat
 // alno
-g_note.push(
+G_NOTE.push(
   makeAugmentNote(`Alno Note`, 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_HP]: 10,
@@ -123,7 +132,7 @@ g_note.push(
   }),
 );
 // maqea
-g_note.push(
+G_NOTE.push(
   makeAugmentNote(`Maqea Note`, 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.WEAPON_MELEE]: 1.0125,
@@ -136,42 +145,45 @@ g_note.push(
 // kvar
 // exploration
 // a | b | c | d
+// a
+G_NOTE.push(
+  makeAugmentNote("Kvar Note A", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 10,
+    [StatEnum.CORE_PP]: 5,
+  }),
+);
 (() => {
-  // a
-  g_note.push(
-    makeAugmentNote("Kvar Note A", 0, {
-      [StatEnum.CORE_BP]: 5,
-      [StatEnum.CORE_HP]: 10,
-      [StatEnum.CORE_PP]: 5,
-    }),
-  );
-
   // b | c | d
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const weapon_up_value = 1.02;
+  const WEAPON_UP: number = 1.02;
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_note.push(
-      makeAugmentNote(`Kvar Note ${name}`, 0, {
+    const note_augment: Augment = makeAugmentNote(
+      `Kvar Note ${suffix}`,
+      0,
+      {
         [StatEnum.CORE_BP]: 4,
-        [weapon_up_a]: weapon_up_value,
-        [weapon_up_b]: weapon_up_value,
+        [stat_weapon_up_a]: WEAPON_UP,
+        [stat_weapon_up_b]: WEAPON_UP,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 0.98,
-      }),
+      },
     );
+
+    G_NOTE.push(note_augment);
   }
 })();
 
 // combat
 // lostral
-g_note.push(
+G_NOTE.push(
   makeAugmentNote("Lostral Note", 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_HP]: 10,
@@ -181,7 +193,7 @@ g_note.push(
   }),
 );
 // belgan
-g_note.push(
+G_NOTE.push(
   makeAugmentNote("Belgan Note", 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_PP]: 3,
@@ -195,33 +207,34 @@ g_note.push(
 // stia
 // exploration
 // a | b | c | d
+// a
+G_NOTE.push(
+  makeAugmentNote("Stia Note A", 0, {
+    [StatEnum.CORE_BP]: 5,
+    [StatEnum.CORE_HP]: 15,
+    [StatEnum.CORE_PP]: 5,
+  }),
+);
 (() => {
-  // a
-  g_note.push(
-    makeAugmentNote("Stia Note A", 0, {
-      [StatEnum.CORE_BP]: 5,
-      [StatEnum.CORE_HP]: 15,
-      [StatEnum.CORE_PP]: 5,
-    }),
-  );
-
   // b | c | d
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["B", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  const weapon_up_value = 1.02;
+  const WEAPON_UP: number = 1.02;
 
-  for (const data_stat of data_stats) {
-    const [name, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [weapon_up_a, weapon_up_b]] = entry;
 
-    g_note.push(
-      makeAugmentNote(`Stia Note ${name}`, 0, {
+    const note_augment: Augment = makeAugmentNote(
+      `Stia Note ${suffix}`,
+      0,
+      {
         [StatEnum.CORE_BP]: 4,
-        [weapon_up_a]: weapon_up_value,
-        [weapon_up_b]: weapon_up_value,
+        [weapon_up_a]: WEAPON_UP,
+        [weapon_up_b]: WEAPON_UP,
         [StatEnum.AIL_BLIND]: 1.1,
         [StatEnum.AIL_BURN]: 1.1,
         [StatEnum.AIL_FREEZE]: 1.1,
@@ -229,15 +242,17 @@ g_note.push(
         [StatEnum.AIL_DOWN]: 1.1,
         [StatEnum.AIL_POISON]: 1.1,
         [StatEnum.AIL_SHOCK]: 1.1,
-      }),
+      },
     );
+
+    G_NOTE.push(note_augment);
   }
 })();
 
 // combat
 // dext
-g_note.push(
-  makeAugmentNote("Dexta  Note", 0, {
+G_NOTE.push(
+  makeAugmentNote("Dexta Note", 0, {
     [StatEnum.CORE_BP]: 5,
     [StatEnum.CORE_HP]: 10,
     [StatEnum.WEAPON_MELEE]: 1.02,
@@ -252,5 +267,3 @@ g_note.push(
     [StatEnum.AIL_SHOCK]: 1.1,
   }),
 );
-
-export default g_note;
