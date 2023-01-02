@@ -1,1 +1,1 @@
-export { default } from "./AutocompleteFixa";
+export { AutocompleteFixa } from "./AutocompleteFixa";

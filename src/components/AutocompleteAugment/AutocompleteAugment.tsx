@@ -8,14 +8,14 @@ import {
 import { AssetAugments, Augment } from "../../assets";
 
 import { filterOptions } from "./helper";
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
 
 type AutocompleteAugmentProps = {
   disabled: boolean;
   value: Augment | null;
   onChange: (value: Augment | null) => void;
 };
-const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
+export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
@@ -49,5 +49,3 @@ const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
     );
   },
 );
-
-export default AutocompleteAugment;

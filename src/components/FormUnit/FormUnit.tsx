@@ -11,10 +11,10 @@ import {
 } from "../../hooks";
 
 import FormBase from "../FormBase";
+import AutocompleteUnit from "../AutocompleteUnit";
 import FieldEnhancement from "../FieldLevel";
 import AutocompleteFixa from "../AutocompleteFixa";
-import AutocompleteAugment from "../AutocompleteAugment";
-import AutocompleteUnit from "../AutocompleteUnit";
+import { AutocompleteAugment } from "../AutocompleteAugment";
 import { getActiveAugmentCount } from "../utility";
 
 import { collectStat, createSummary } from "./helper";
@@ -43,10 +43,11 @@ const FormWeapon: FC<FormWeaponProps> = (props) => {
     return augments.slice(0, active_count);
   }, [level, augments, unit]);
 
-  const stat: StatObject = useMemo(
-    () => collectStat(unit, level, fixa, active_augments),
-    [unit, level, fixa, active_augments],
-  );
+  const stat: StatObject = useMemo(() => {
+    const context_aware_unit = unit?.getStatObject({});
+
+    return collectStat(unit, level, fixa, active_augments);
+  }, [unit, level, fixa, active_augments]);
 
   useEffect(() => {
     onStatChange(stat);

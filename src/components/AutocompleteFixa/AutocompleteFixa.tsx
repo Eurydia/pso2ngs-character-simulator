@@ -8,7 +8,11 @@ import {
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
 import { filterOptions } from "./helper";
-import CustomOption from "./CustomOption";
+import { CustomOption } from "./CustomOption";
+
+const WEAPON_FIXAS: Fixa[] = AssetFixas.filter((fixa) => {
+  return fixa.group === GroupEnumFixa.WEAPON;
+});
 
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
@@ -16,7 +20,7 @@ type AutocompleteFixaProps = {
   value: Fixa | null;
   onChange: (value: Fixa | null) => void;
 };
-const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
+export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
@@ -26,9 +30,9 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
       props.onChange(value);
     };
 
-    const options = AssetFixas.filter(
-      (option) => option.group === props.mode,
-    );
+    const options: Fixa[] = AssetFixas.filter((fixa) => {
+      return fixa.group === props.mode;
+    });
 
     return (
       <Autocomplete
@@ -54,5 +58,3 @@ const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
     );
   },
 );
-
-export default AutocompleteFixa;

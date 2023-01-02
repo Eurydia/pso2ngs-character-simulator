@@ -51,7 +51,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.AIL_BLIND]: "Blind Resistance",
   [StatEnum.AIL_POISON]: "Poison Resistance",
   [StatEnum.AIL_SHOCK]: "Shock Resistance",
-  [StatEnum.AIL_DOWN]: "Physical Down Resistance",
+  [StatEnum.AIL_DOWN]: "Down Resistance",
   [StatEnum.HARSH_COLD]: "Harsh Enviroment Resistance",
   [StatEnum.ADV_PP_USAGE]: "PP Usage",
   [StatEnum.ADV_PP_ACTIVE_RECOVERY]: "Active PP Recovery",

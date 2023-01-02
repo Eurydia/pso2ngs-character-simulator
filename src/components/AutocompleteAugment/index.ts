@@ -1,1 +1,1 @@
-export { default } from "./AutocompleteAugment";
+export { AutocompleteAugment } from "./AutocompleteAugment";
