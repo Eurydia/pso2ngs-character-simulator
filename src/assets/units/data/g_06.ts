@@ -2,7 +2,7 @@ import { StatEnum, statObject } from "../../stat";
 import { GroupEnumUnit } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
-export const g_six: Unit[] = [];
+export const G_SIX: Unit[] = [];
 
 const GROWTH_DATA: [number, number][] = [
   [10, 10],
@@ -23,7 +23,7 @@ const makeUnitSix = (
 };
 
 // -------------------------
-g_six.push(
+G_SIX.push(
   makeUnitSix("Defrozza Armor", {
     [StatEnum.CORE_DEFENSE]: 22,
     [StatEnum.CORE_HP]: 50,
@@ -35,7 +35,7 @@ g_six.push(
   }),
 );
 
-g_six.push(
+G_SIX.push(
   makeUnitSix("Defrozzi Armor", {
     [StatEnum.CORE_DEFENSE]: 20,
     [StatEnum.CORE_PP]: 9,
@@ -46,7 +46,7 @@ g_six.push(
   }),
 );
 
-g_six.push(
+G_SIX.push(
   makeUnitSix("Sestato Armor", {
     [StatEnum.CORE_DEFENSE]: 21,
     [StatEnum.CORE_HP]: 35,
@@ -58,29 +58,29 @@ g_six.push(
   }),
 );
 (() => {
-  const data_stats: [string, [StatEnum, StatEnum]][] = [
+  const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
     ["Arga", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_RANGED]],
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
 
-  for (const data_stat of data_stats) {
-    const [suffix, [weapon_up_a, weapon_up_b]] = data_stat;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
-    g_six.push(
+    G_SIX.push(
       makeUnitSix(`Sestato Armor ${suffix}`, {
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 30,
         [StatEnum.CORE_PP]: 4,
-        [weapon_up_a]: 1.0225,
-        [weapon_up_b]: 1.0225,
+        [stat_weapon_up_a]: 1.0225,
+        [stat_weapon_up_b]: 1.0225,
         [StatEnum.AIL_DOWN]: 1.3,
       }),
     );
   }
 })();
 
-g_six.push(
+G_SIX.push(
   makeUnitSix("Behlgren Armor", {
     [StatEnum.CORE_DEFENSE]: 26,
     [StatEnum.CORE_HP]: -40,
