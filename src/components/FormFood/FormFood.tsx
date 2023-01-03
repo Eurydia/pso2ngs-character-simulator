@@ -20,6 +20,33 @@ import { createStat, createSummary } from "./helper";
 
 const CONTEXT: ActionContext = {};
 
+type CustomListProps = {
+  items: Food[];
+  onCopy: (index: number, item: Food) => void;
+  onRemove: (index: number) => void;
+};
+const CustomList: FC<CustomListProps> = (props) => {
+  const { items, onCopy, onRemove } = props;
+
+  return (
+    <List disablePadding>
+      <ListSubheader disableGutters>
+        <Typography>{`${items.length}/10 items used`}</Typography>
+      </ListSubheader>
+      {items.map((item, index) => {
+        return (
+          <CustomItem
+            key={`${item.label}-${index}`}
+            item={item}
+            onCopy={() => onCopy(index, item)}
+            onRemove={() => onRemove(index)}
+          />
+        );
+      })}
+    </List>
+  );
+};
+
 type FormFoodProps = {
   storage_key: string;
   onStatChange: (stat: StatObject) => void;
@@ -66,36 +93,30 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   return (
     <Box>
       <Stack spacing={2}>
-        <Button
-          disableRipple
-          disabled={selected === null}
-          variant="contained"
-          startIcon={<Add />}
-          onClick={handleAdd}
-          sx={{ display: "inline" }}
-        >
-          add
-        </Button>
-        <AutocompleteFood
-          value={selected}
-          onChange={setSelected}
-          onEnterPress={handleAdd}
+        <Stack direction="row" spacing={1}>
+          <Button
+            disableRipple
+            disableElevation
+            disabled={selected === null}
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleAdd}
+          >
+            add
+          </Button>
+          <Box width={1}>
+            <AutocompleteFood
+              value={selected}
+              onChange={setSelected}
+              onEnterPress={handleAdd}
+            />
+          </Box>
+        </Stack>
+        <CustomList
+          items={items}
+          onCopy={handleCopy}
+          onRemove={handleRemove}
         />
-        <List disablePadding>
-          <ListSubheader disableSticky>
-            <Typography>{`${items.length}/10 items used`}</Typography>
-          </ListSubheader>
-          {items.map((item, index) => {
-            return (
-              <CustomItem
-                key={`${item.label}-${index}`}
-                item={item}
-                onCopy={() => handleCopy(index, item)}
-                onRemove={() => handleRemove(index)}
-              />
-            );
-          })}
-        </List>
       </Stack>
     </Box>
   );

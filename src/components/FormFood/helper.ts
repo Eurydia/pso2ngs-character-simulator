@@ -21,10 +21,10 @@ const countAttribute = (
   items: Food[],
 ): { [K in GroupEnumFoodAttribute]: number } => {
   const result: { [K in GroupEnumFoodAttribute]: number } = {
-    [GroupEnumFoodAttribute.CRISPY]: -1,
-    [GroupEnumFoodAttribute.LIGHT]: -1,
-    [GroupEnumFoodAttribute.ROBUST]: -1,
-    [GroupEnumFoodAttribute.RICH]: -1,
+    [GroupEnumFoodAttribute.CRISPY]: -4,
+    [GroupEnumFoodAttribute.LIGHT]: -4,
+    [GroupEnumFoodAttribute.ROBUST]: -4,
+    [GroupEnumFoodAttribute.RICH]: -4,
   };
 
   for (const item of items) {
@@ -39,10 +39,10 @@ const countCategory = (
   items: Food[],
 ): { [K in GroupEnumFoodCategory]: number } => {
   const result: { [K in GroupEnumFoodCategory]: number } = {
-    [GroupEnumFoodCategory.FRUIT]: -4,
-    [GroupEnumFoodCategory.MEAT]: -4,
-    [GroupEnumFoodCategory.SEAFOOD]: -4,
-    [GroupEnumFoodCategory.VEGETABLE]: -4,
+    [GroupEnumFoodCategory.FRUIT]: -1,
+    [GroupEnumFoodCategory.MEAT]: -1,
+    [GroupEnumFoodCategory.SEAFOOD]: -1,
+    [GroupEnumFoodCategory.VEGETABLE]: -1,
   };
 
   for (const item of items) {

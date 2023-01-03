@@ -26,6 +26,25 @@ const SummaryItem: FC<SummaryFood> = (props) => {
   );
 };
 
+type SummaryProps = { items: SummaryFood[] };
+const Summary: FC<SummaryProps> = (props) => {
+  const { items } = props;
+
+  return (
+    <Box>
+      <Grid container spacing={2} columns={{ sm: 1, md: 2 }}>
+        {items.map((item, index) => {
+          return (
+            <Grid key={`summary-${index}`} item xs={1}>
+              <SummaryItem {...item} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
+  );
+};
+
 type EditFoodProps = {
   onStatChange: (stat: StatObject) => void;
 };
@@ -35,31 +54,13 @@ const EditFood: FC<EditFoodProps> = () => {
 
   return (
     <Box margin={4}>
-      <Stack spacing={3}>
-        <FormBase stat={stat} title="Summary">
-          {summaries.map((summary, index) => {
-            return (
-              <SummaryItem key={`summary-${index}`} {...summary} />
-            );
-          })}
-        </FormBase>
-        <Card>
-          <CardHeader
-            title="Food"
-            titleTypographyProps={{
-              fontSize: "x-large",
-              fontWeight: "bold",
-            }}
-          />
-          <CardContent>
-            <FormFood
-              storage_key="page-food-item"
-              onStatChange={setStat}
-              onSummaryChange={setSummary}
-            />
-          </CardContent>
-        </Card>
-      </Stack>
+      <FormBase stat={stat} title="Food">
+        <FormFood
+          storage_key="page-food-item"
+          onStatChange={setStat}
+          onSummaryChange={setSummary}
+        />
+      </FormBase>
     </Box>
   );
 };
