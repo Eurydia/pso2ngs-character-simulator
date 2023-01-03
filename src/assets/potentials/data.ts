@@ -443,29 +443,25 @@ export const REINVIGORATING_UNIT = ((): Potential => {
 export const FOCUSED_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.15, 1.17, 1.2, 1.21, 1.22];
   const DATA_CRIT_CHANCE: number[] = [0.22, 0.22, 0.22, 0.22, 0.3];
-
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
-      });
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Focused Unit", getStatObject_arr);
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const crit_chance: number = DATA_CRIT_CHANCE[level_index];
+    return statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
+    });
+  };
+  return potential(
+    "Focused Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
