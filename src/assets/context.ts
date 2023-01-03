@@ -2,6 +2,7 @@ type TargetContext = Partial<{
   isBoss: boolean;
   isNonBoss: boolean;
   isDolls: boolean;
+  isDowned: boolean;
 
   isWeakToLightning: boolean;
   isWeakToIce: boolean;

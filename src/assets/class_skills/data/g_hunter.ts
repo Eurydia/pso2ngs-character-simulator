@@ -3,24 +3,29 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { GroupEnumClass } from "../GroupEnum";
 import { characterClass } from "../class_skill";
 
-const SKILLS_MAIN: {
+const SKILL_MAIN: {
   [K: string]: (ctx: ActionContext, level: number) => StatObject;
 } = {};
 
-const SKILLS_SUB: {
+const SKILL_SUB: {
   [K: string]: (ctx: ActionContext, level: number) => StatObject;
 } = {};
 
 // ----------------------------------------------
 // Main class exclusive skills
 
+// War Cry
 (() => {
-  SKILLS_MAIN["War Cry"] = (
+  const SKILL_NAME: string = "War Cry";
+
+  const _getterFunctionMain = (
     ctx: ActionContext,
     level: number,
   ): StatObject => {
     return statObject({ [StatEnum.ADV_OFF_THREAT]: 2 });
   };
+
+  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
 })();
 
 // ----------------------------------------------
@@ -50,7 +55,7 @@ const SKILLS_SUB: {
 
     return stat;
   };
-  SKILLS_MAIN[SKILL_NAME] = _getterFunctionMain;
+  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
 
   const _getterFunctionSub = (
     ctx: ActionContext,
@@ -72,7 +77,56 @@ const SKILLS_SUB: {
 
     return stat;
   };
-  SKILLS_SUB[SKILL_NAME] = _getterFunctionSub;
+  SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
+})();
+
+// Hunter Physique Extra Shield
+(() => {
+  const SKILL_NAME = "Hunter Physique Extra Shield";
+
+  const _getterFunctionMain = (
+    ctx: ActionContext,
+    level: number,
+  ): StatObject => {
+    const DATA_DAMAGE_RES: number[] = [1.3, 1.3, 1.3];
+
+    const stat: StatObject = statObject({});
+    const level_index: number = level - 1;
+
+    if (level_index < 0 || DATA_DAMAGE_RES.length <= level_index) {
+      return stat;
+    }
+
+    stat.setStat(
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      DATA_DAMAGE_RES[level_index],
+    );
+
+    return stat;
+  };
+  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
+
+  const _getterFunctionSub = (
+    ctx: ActionContext,
+    level: number,
+  ): StatObject => {
+    const DATA_DAMAGE_RES: number[] = [1.1, 1.2, 1.3];
+
+    const stat: StatObject = statObject({});
+    const level_index: number = level - 1;
+
+    if (level_index < 0 || DATA_DAMAGE_RES.length <= level_index) {
+      return stat;
+    }
+
+    stat.setStat(
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      DATA_DAMAGE_RES[level_index],
+    );
+
+    return stat;
+  };
+  SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
 })();
 
 // Flash Guard
@@ -102,7 +156,7 @@ const SKILLS_SUB: {
 
     return stat;
   };
-  SKILLS_MAIN[SKILL_NAME] = _getterFunctionMain;
+  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
 
   const _getterFunctionSub = (
     ctx: ActionContext,
@@ -127,11 +181,11 @@ const SKILLS_SUB: {
 
     return stat;
   };
-  SKILLS_SUB[SKILL_NAME] = _getterFunctionSub;
+  SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
 })();
 
 export const G_HUNTER = characterClass(
   GroupEnumClass.HUNTER,
-  SKILLS_MAIN,
-  SKILLS_SUB,
+  SKILL_MAIN,
+  SKILL_SUB,
 );
