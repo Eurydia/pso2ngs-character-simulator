@@ -11,12 +11,11 @@ import { Add } from "@mui/icons-material";
 
 import { ActionContext, Food, StatObject } from "../../assets";
 import { useFood } from "../../hooks";
-import { SummaryFood } from "../../types";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 
 import { CustomItem } from "./CustomItem";
-import { createStat, createSummary } from "./helper";
+import { createStat } from "./helper";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 

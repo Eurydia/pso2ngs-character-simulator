@@ -62,31 +62,31 @@ const collectAttribute = (
 
   const stat_crispy = getStatObjectCrispy(
     ctx,
-    attribute[GroupEnumFoodAttribute.CRISPY] - 1,
+    attribute[GroupEnumFoodAttribute.CRISPY],
   );
   target.merge(stat_crispy);
 
   const stat_light = getStatObjectLight(
     ctx,
-    attribute[GroupEnumFoodAttribute.LIGHT] - 1,
+    attribute[GroupEnumFoodAttribute.LIGHT],
   );
   target.merge(stat_light);
 
   const stat_rich = getStatObjectRich(
     ctx,
-    attribute[GroupEnumFoodAttribute.RICH] - 1,
+    attribute[GroupEnumFoodAttribute.RICH],
   );
   target.merge(stat_rich);
 
   const stat_robust = getStatObjectRich(
     ctx,
-    attribute[GroupEnumFoodAttribute.ROBUST] - 1,
+    attribute[GroupEnumFoodAttribute.ROBUST],
   );
   target.merge(stat_robust);
 
   const stat_kvaris = getStatObjectKvaris(
     ctx,
-    ld_sum(Object.values(attribute)) - 1,
+    ld_sum(Object.values(attribute)),
   );
   target.merge(stat_kvaris);
 };
