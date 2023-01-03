@@ -20,7 +20,7 @@ import { createStat, createSummary } from "./helper";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
-const CONTEXT: ActionContext = {};
+const CONTEXT: ActionContext = { location: { kvaris: true } };
 
 type CustomListProps = {
   items: Food[];

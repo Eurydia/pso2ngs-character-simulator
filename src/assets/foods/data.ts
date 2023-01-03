@@ -38,6 +38,8 @@ export const getStatObjectKvaris = (
     0.06, 0.12, 0.18, 0.21, 0.24, 0.27, 0.3,
   ];
 
+  console.log(level);
+
   const stat = statObject();
 
   if (level < 0 || DATA_HARSH_COLD.length <= level) {
