@@ -70,7 +70,7 @@ const SKILL_SUB: {
 
 // Bad Condition Ward
 (() => {
-  const SKILL_NAME: string = "Bad Condition Ward ";
+  const SKILL_NAME: string = "Bad Condition Ward";
 
   const _getterFunctionMain = (
     ctx: ActionContext,
