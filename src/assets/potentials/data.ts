@@ -32,7 +32,6 @@ export const INDOMITABLE_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const ail_res: number = DATA_AIL_RES[level_index];
-
     return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -65,7 +64,6 @@ export const DEFENSIVE_FORMATION = ((): Potential => {
     const weapon_up: number = DATA_WEPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const def_breakoff: number = DATA_DEF_BREAKOFF[level_index];
-
     const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -169,7 +167,6 @@ export const DYNAMO_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-
     const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -187,7 +184,6 @@ export const DYNAMO_UNIT = ((): Potential => {
 
     return stat;
   };
-
   return potential(
     "Dynamo Formation",
     DATA_WEAPON_UP.length,
@@ -204,7 +200,6 @@ export const MUSTERED_MIGHT_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-
     const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -250,7 +245,6 @@ export const BASTION_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-
     const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -339,7 +333,6 @@ export const BERSERK_UNIT = ((): Potential => {
 export const SOULSPRING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.2, 1.22, 1.25, 1.26, 1.27];
   const DATA_PB_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.4];
-
   const _getterFunction = (
     ctx: ActionContext,
     level_index: number,
@@ -406,49 +399,45 @@ export const FORTRESS_UNIT = ((): Potential => {
 export const REINVIGORATING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.19, 1.22, 1.23, 1.24];
   const DATA_PP: number[] = [10, 10, 10, 10, 15];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pp: number = DATA_PP[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pp: number = DATA_PP[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (
-        ctx.character.hpValue === undefined ||
-        ctx.character.hpValueCurrent === undefined
-      ) {
-        return stat;
-      }
-
-      const hp_current: number = ctx.character.hpValueCurrent;
-      const hp: number = ctx.character.hpValue;
-      const hp_percent: number = hp_current / hp;
-
-      if (hp_percent <= 0.5 && ctx.character.isAttacking) {
-        stat.setStat(StatEnum.CORE_PP, pp);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (
+      ctx.character.hpValue === undefined ||
+      ctx.character.hpValueCurrent === undefined
+    ) {
+      return stat;
+    }
 
-  return potential("Reinvigorating Unit", getStatObject_arr);
+    const hp_current: number = ctx.character.hpValueCurrent;
+    const hp: number = ctx.character.hpValue;
+    const hp_percent: number = hp_current / hp;
+
+    if (hp_percent <= 0.5 && ctx.character.isAttacking) {
+      stat.setStat(StatEnum.CORE_PP, pp);
+    }
+
+    return stat;
+  };
+  return potential(
+    "Reinvigorating Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const FOCUSED_UNIT = ((): Potential => {
