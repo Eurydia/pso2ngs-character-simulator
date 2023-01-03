@@ -1,14 +1,37 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent, ReactNode } from "react";
 import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
+  InputAdornment,
 } from "@mui/material";
+import { PriorityHigh } from "@mui/icons-material";
 
 import { AssetWeapons, Weapon } from "../../assets";
 
 import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
+
+type EndAdornmentProps = {
+  shouldShowWarning: boolean;
+  defaultAdornment: ReactNode | ReactNode[];
+};
+const EndAdornment: FC<EndAdornmentProps> = (props) => {
+  const { shouldShowWarning, defaultAdornment } = props;
+
+  if (shouldShowWarning) {
+    return (
+      <InputAdornment position="end">
+        <PriorityHigh color="warning" />
+        {defaultAdornment}
+      </InputAdornment>
+    );
+  }
+
+  return (
+    <InputAdornment position="end">{defaultAdornment}</InputAdornment>
+  );
+};
 
 type AutocompleteWeaponProps = {
   value: Weapon | null;
@@ -29,14 +52,26 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         options={AssetWeapons}
         value={props.value}
         onChange={handleChange}
-        renderInput={(params) => (
-          <TextField {...params} placeholder="Weapon" />
+        renderInput={({ InputProps, ...rest }) => (
+          <TextField
+            {...rest}
+            fullWidth
+            placeholder="Weapon"
+            InputProps={{
+              ...InputProps,
+              endAdornment: (
+                <EndAdornment
+                  shouldShowWarning={props.value === null}
+                  defaultAdornment={InputProps.endAdornment}
+                />
+              ),
+            }}
+          />
         )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
         filterOptions={filterOptions}
-        fullWidth
       />
     );
   },
