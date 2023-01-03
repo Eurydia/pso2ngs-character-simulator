@@ -21,7 +21,7 @@ import { FieldLevel } from "../FieldLevel";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
-import { SelectPotential } from "../AutocompletePotential";
+import { SelectPotential } from "../SelectPotential";
 
 import { createStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
@@ -43,7 +43,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
-  const [potentialString, setPotentialString] = useState<string>("");
+  const [potentialLevel, setPotentialLevel] = useState<number>(0);
 
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (weapon === null) {
@@ -59,10 +59,10 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       weapon,
       level,
       fixa,
-      potentialString,
+      potentialLevel,
       active_augments,
     );
-  }, [weapon, level, fixa, potentialString, active_augments]);
+  }, [weapon, level, fixa, potentialLevel, active_augments]);
 
   useEffect(() => {
     onStatChange(stat);
@@ -74,8 +74,15 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
 
   const handleWeaponChange = (new_weapon: Weapon | null) => {
     setWeapon(new_weapon);
-    setPotentialString("");
+    setPotentialLevel(0);
   };
+
+  let potential_max_level: number = 0;
+  let potential_name: string = "";
+  if (weapon !== null) {
+    potential_max_level = weapon.potential.keys.length;
+    potential_name = weapon.potential.name;
+  }
 
   return (
     <FormBase
@@ -89,10 +96,12 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             onChange={handleWeaponChange}
           />
           <SelectPotential
-            weapon={weapon}
-            value={potentialString}
-            onChange={setPotentialString}
+            valueMax={potential_max_level}
+            potentialName={potential_name}
+            value={potentialLevel}
+            onChange={setPotentialLevel}
           />
+
           <FieldLevel
             disabled={weapon === null}
             valueMin={0}

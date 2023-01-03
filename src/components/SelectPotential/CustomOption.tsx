@@ -1,13 +1,14 @@
 import { FC, HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 
-type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
-  option: string;
+type CustomOptionProps = {
+  label: string;
+  value: number;
 };
 export const CustomOption: FC<CustomOptionProps> = (props) => {
   return (
-    <MenuItem {...props}>
-      <ListItemText>{props.option}</ListItemText>
+    <MenuItem>
+      <ListItemText>{props.label}</ListItemText>
     </MenuItem>
   );
 };

@@ -1,46 +1,39 @@
+import { StatObject, statObject } from "../stat";
 import { ActionContext } from "../context";
-import { StatObject } from "../stat";
+
+type StatGetterFunction = (
+  ctx: ActionContext,
+  level_index: number,
+) => StatObject;
 
 export class Potential {
-  #name: string;
-  #potentials: { [Key: string]: (ctx: ActionContext) => StatObject };
+  name: string;
+  level_max: number;
+  #getterFunction: StatGetterFunction;
 
   constructor(
     name: string,
-    getStatObject_arr: ((ctx: ActionContext) => StatObject)[],
+    level_max: number,
+    getterFunction: StatGetterFunction,
   ) {
-    this.#name = name;
-    this.#potentials = {};
-
-    getStatObject_arr.forEach((_getStatObject, level_index) => {
-      const level = level_index + 1;
-      const label = `${this.#name} Lv. ${level}`;
-      this.#potentials[label] = _getStatObject;
-    });
+    this.name = name;
+    this.level_max = level_max;
+    this.#getterFunction = getterFunction;
   }
 
-  getPotential(
-    key: string,
-  ): ((ctx: ActionContext) => StatObject) | null {
-    const _getterFunction:
-      | ((ctx: ActionContext) => StatObject)
-      | undefined = this.#potentials[key];
-
-    if (_getterFunction === undefined) {
-      return null;
+  getStatObject(ctx: ActionContext, level: number): StatObject {
+    if (level < 1 || level > this.level_max) {
+      return statObject();
     }
 
-    return _getterFunction;
-  }
-
-  get keys(): string[] {
-    return Object.keys(this.#potentials);
+    return this.#getterFunction(ctx, level - 1);
   }
 }
 
 export const potential = (
   name: string,
-  getStatObject_arr: ((ctx: ActionContext) => StatObject)[],
+  level_max: number,
+  getterFunction: StatGetterFunction,
 ): Potential => {
-  return new Potential(name, getStatObject_arr);
+  return new Potential(name, level_max, getterFunction);
 };
