@@ -826,50 +826,45 @@ export const DESPERATION_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.12, 1.14, 1.17, 1.18, 1.19];
   const DATA_CRIT_CHANCE: number[] = [1.3, 1.3, 1.3, 1.3, 1.3];
   const DATA_PP_BREAKOFF: number[] = [0.5, 0.5, 0.5, 0.5, 0.7];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const crit_chance: number = DATA_CRIT_CHANCE[level_index];
+    const pp_breakpoint: number = DATA_PP_BREAKOFF[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-      const pp_breakpoint: number = DATA_PP_BREAKOFF[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (
-        ctx.character.ppValue === undefined ||
-        ctx.character.ppValueCurrent === undefined
-      ) {
-        return stat;
-      }
-
-      const pp: number = ctx.character.ppValue;
-      const pp_current: number = ctx.character.ppValueCurrent;
-      const pp_percent: number = pp_current / pp;
-
-      if (pp_percent < pp_breakpoint) {
-        stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (
+      ctx.character.ppValue === undefined ||
+      ctx.character.ppValueCurrent === undefined
+    ) {
+      return stat;
+    }
 
-  return potential("Desperation Unit", getStatObject_arr);
+    const pp: number = ctx.character.ppValue;
+    const pp_current: number = ctx.character.ppValueCurrent;
+    const pp_percent: number = pp_current / pp;
+
+    if (pp_percent < pp_breakpoint) {
+      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+    }
+    return stat;
+  };
+  return potential(
+    "Desperation Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const REVOLUTIONARY_UNIT = ((): Potential => {
