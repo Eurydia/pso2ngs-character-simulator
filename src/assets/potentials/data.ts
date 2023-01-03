@@ -725,38 +725,33 @@ export const UNASSAILABLE_UNIT = ((): Potential => {
 export const ELUSIVE_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.16, 1.18, 1.21, 1.22, 1.23];
   const DATA_PP_RECOVERY: number[] = [2, 2, 2, 2, 2.5];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pp_recovery: number = DATA_PP_RECOVERY[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (ctx.character.hasDodgedAttack) {
-        stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Elusive Unit", getStatObject_arr);
+    if (ctx.character.hasDodgedAttack) {
+      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    }
+    return stat;
+  };
+  return potential(
+    "Elusive Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const TRAMPLE_UNIT = ((): Potential => {
