@@ -283,10 +283,11 @@ const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
 };
 
 type StatViewProps = {
+  maxHeight: string;
   stat: StatObject;
 };
 export const StatView: FC<StatViewProps> = (props) => {
-  const { stat } = props;
+  const { stat, maxHeight } = props;
 
   const [isVisible, setVisibility] = useState<boolean>(true);
 
@@ -311,7 +312,7 @@ export const StatView: FC<StatViewProps> = (props) => {
         </Box>
         <Box
           display={isVisible ? "block" : "none"}
-          maxHeight="500px"
+          maxHeight={maxHeight}
           overflow="auto"
           paddingRight={2}
         >

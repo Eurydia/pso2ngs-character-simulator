@@ -19,10 +19,7 @@ export const CustomItem: FC<CustomItemProps> = (props) => {
 
   return (
     <ListItem>
-      <ListItemText
-        primary={item.label}
-        primaryTypographyProps={{ fontSize: "large" }}
-      />
+      <ListItemText primary={item.label} />
       <ListItemSecondaryAction>
         <IconButton onClick={props.onCopy}>
           <CopyAll />

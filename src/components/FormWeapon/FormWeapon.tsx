@@ -80,7 +80,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   return (
     <FormBase
       title={props.cardTitle}
-      slot_secondary={<StatView stat={stat} />}
+      slot_secondary={<StatView stat={stat} maxHeight="550px" />}
     >
       <Stack spacing={3}>
         <Stack spacing={1}>
