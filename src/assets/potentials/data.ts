@@ -4,151 +4,140 @@ import { Potential, potential } from "./potential";
 
 export const RECYCLER_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
-
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Recycler Unit", getStatObject_arr);
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    return statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
+  };
+  return potential(
+    "Recycler Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const INDOMITABLE_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_AIL_RES: number[] = [1.1, 1.1, 1.1, 1.2, 1.4];
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const ail_res: number = DATA_AIL_RES[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const ail_res: number = DATA_AIL_RES[level_index];
-
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.AIL_BLIND]: ail_res,
-        [StatEnum.AIL_BURN]: ail_res,
-        [StatEnum.AIL_FREEZE]: ail_res,
-        [StatEnum.AIL_PANIC]: ail_res,
-        [StatEnum.AIL_DOWN]: ail_res,
-        [StatEnum.AIL_POISON]: ail_res,
-        [StatEnum.AIL_SHOCK]: ail_res,
-      });
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Indomitable Unit", getStatObject_arr);
+    return statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.AIL_BLIND]: ail_res,
+      [StatEnum.AIL_BURN]: ail_res,
+      [StatEnum.AIL_FREEZE]: ail_res,
+      [StatEnum.AIL_PANIC]: ail_res,
+      [StatEnum.AIL_DOWN]: ail_res,
+      [StatEnum.AIL_POISON]: ail_res,
+      [StatEnum.AIL_SHOCK]: ail_res,
+    });
+  };
+  return potential(
+    "Indomitable Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const DEFENSIVE_FORMATION = ((): Potential => {
   const DATA_WEPON_UP: number[] = [1.17, 1.19, 1.22, 1.22, 1.23];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.27];
   const DATA_DEF_BREAKOFF: number[] = [1000, 1000, 1000, 1000, 1200];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEPON_UP[level_index];
+    const crit_chance: number = DATA_CRIT_CHANCE[level_index];
+    const def_breakoff: number = DATA_DEF_BREAKOFF[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  DATA_WEPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-      const def_breakoff: number = DATA_DEF_BREAKOFF[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      const char_def: number | undefined = ctx.character.defenseValue;
-
-      if (char_def === undefined) {
-        return stat;
-      }
-
-      if (char_def >= def_breakoff) {
-        stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    const char_defense: number | undefined =
+      ctx.character.defenseValue;
 
-  return potential("Defensive Formation", getStatObject_arr);
+    if (char_defense === undefined) {
+      return stat;
+    }
+
+    if (char_defense >= def_breakoff) {
+      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+    }
+
+    return stat;
+  };
+  return potential(
+    "Defensive Formation",
+    DATA_WEPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const OFFENSIVE_FORMATION = (() => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.19, 1.22, 1.22, 1.23];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.27];
   const DATA_ATK_BREAKOFF: number[] = [2000, 2000, 2000, 2000, 2400];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const crit_chance: number = DATA_CRIT_CHANCE[level_index];
+    const atk_breakoff: number = DATA_ATK_BREAKOFF[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level = level_index + 1;
-      const bp: number = level * 10;
-      const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-      const atk_breakoff: number = DATA_ATK_BREAKOFF[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      const char_atk: number | undefined = ctx.character.attackValue;
-
-      if (char_atk === undefined) {
-        return stat;
-      }
-
-      if (char_atk >= atk_breakoff) {
-        stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    const char_attack: number | undefined = ctx.character.attackValue;
 
-  return potential("Offensive Formation", getStatObject_arr);
+    if (char_attack === undefined) {
+      return stat;
+    }
+
+    if (char_attack >= atk_breakoff) {
+      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+    }
+
+    return stat;
+  };
+
+  return potential(
+    "Offensive Formation",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const VALOROUS_UNIT = ((): Potential => {
