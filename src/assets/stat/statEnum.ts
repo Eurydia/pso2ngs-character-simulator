@@ -20,6 +20,8 @@ export const enum StatEnum {
 
   HARSH_COLD = "envCold",
 
+  ADV_HP_BOOST = "hiddenHPBoost",
+
   ADV_PP_USAGE = "ppUsage",
   ADV_PP_ACTIVE_RECOVERY = "ppActiveRecovery",
   ADV_PP_NATURAL_RECOVERY = "ppNaturalRecovery",
@@ -29,12 +31,11 @@ export const enum StatEnum {
   ADV_OFF_CRIT_CHANCE = "offCritChance",
   ADV_OFF_CRIT_DAMAGE = "offCritDamage",
   ADV_OFF_PB_RECOVERY = "offPBRecovery",
+  ADV_OFF_THREAT = "offThreat",
 
   ADV_DEF_HEALING = "defHealingUp",
   ADV_DEF_DAMAGE_RES = "defDamageResist",
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
-
-  ADV_HP_BOOST = "hiddenHPBoost",
 }
 
 export const StatEnumString: { [K in StatEnum]: string } = {
@@ -64,6 +65,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_OFF_CRIT_CHANCE]: "Critical Chance",
   [StatEnum.ADV_OFF_CRIT_DAMAGE]: "Critical Damage",
   [StatEnum.ADV_OFF_PB_RECOVERY]: "PB Gauge Recovery",
+  [StatEnum.ADV_OFF_THREAT]: "Threat Level",
   [StatEnum.ADV_DEF_HEALING]: "Healing Up",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
   [StatEnum.ADV_DEF_AILMENT_DURATION]: "Ailment Duration",

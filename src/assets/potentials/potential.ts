@@ -1,40 +1,36 @@
 import { ActionContext } from "../context";
 import { StatObject } from "../stat";
 
-type PotentialItem = {
-  getStatObject: (ctx: ActionContext) => StatObject;
-  label: string;
-};
-
 export class Potential {
   #name: string;
-  #getStatObject_arr: ((ctx: ActionContext) => StatObject)[];
-
-  #potentials: { [Key: string]: PotentialItem };
+  #potentials: { [Key: string]: (ctx: ActionContext) => StatObject };
 
   constructor(
     name: string,
     getStatObject_arr: ((ctx: ActionContext) => StatObject)[],
   ) {
     this.#name = name;
-    this.#getStatObject_arr = getStatObject_arr;
     this.#potentials = {};
 
-    this.#getStatObject_arr.forEach((getStatObject, level_index) => {
+    getStatObject_arr.forEach((_getStatObject, level_index) => {
       const level = level_index + 1;
       const label = `${this.#name} Lv. ${level}`;
-      this.#potentials[label] = { label, getStatObject };
+      this.#potentials[label] = _getStatObject;
     });
   }
 
-  getPotential(key: string): PotentialItem | null {
-    const item: PotentialItem | undefined = this.#potentials[key];
+  getPotential(
+    key: string,
+  ): ((ctx: ActionContext) => StatObject) | null {
+    const _getterFunction:
+      | ((ctx: ActionContext) => StatObject)
+      | undefined = this.#potentials[key];
 
-    if (item === undefined) {
+    if (_getterFunction === undefined) {
       return null;
     }
 
-    return item;
+    return _getterFunction;
   }
 
   get keys(): string[] {

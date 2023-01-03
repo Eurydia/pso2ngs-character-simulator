@@ -18,13 +18,15 @@ const collectWeapon = (
   const stat_weapon = weapon.getStatObject(context);
   target.merge(stat_weapon);
 
-  const potential = weapon.potential.getPotential(potential_string);
+  const _getter_function:
+    | ((ctx: ActionContext) => StatObject)
+    | null = weapon.potential.getPotential(potential_string);
 
-  if (potential === null) {
+  if (_getter_function === null) {
     return;
   }
 
-  const stat_potential = potential.getStatObject(context);
+  const stat_potential = _getter_function(context);
   target.merge(stat_potential);
 };
 
