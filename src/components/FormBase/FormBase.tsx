@@ -31,17 +31,9 @@ export const FormBase: FC<FormBaseProps> = (props) => {
       />
       <CardContent>
         <Layout
-          stat={
-            <Box maxHeight="550px" overflow="auto" paddingX={2}>
-              <Typography fontSize="large" fontWeight="bold">
-                Stat
-              </Typography>
-              <StatView stat={props.stat} />
-            </Box>
-          }
-        >
-          {props.children}
-        </Layout>
+          slot_a={props.children}
+          slot_b={<StatView stat={props.stat} />}
+        />
       </CardContent>
     </Card>
   );
