@@ -142,7 +142,7 @@ const SKILL_SUB: {
       1.22, 1.23, 1.24, 1.25,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_DAMAGE_RES.length <= level_index) {
@@ -167,7 +167,7 @@ const SKILL_SUB: {
       1.12, 1.13, 1.14, 1.15,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_DAMAGE_RES.length <= level_index) {

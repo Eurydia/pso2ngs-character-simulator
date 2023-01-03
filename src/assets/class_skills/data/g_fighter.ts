@@ -95,13 +95,14 @@ const SKILL_SUB: {
     const DATA_PP_USAGE: number[] = [0.75, 0.5, 0.25];
 
     const stat: StatObject = statObject();
-    const level_index = level - 1;
+    const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_PP_USAGE.length <= level_index) {
       return stat;
     }
 
-    stat.setStat(StatEnum.ADV_PP_USAGE, DATA_PP_USAGE[level_index]);
+    const pp_usage: number = DATA_PP_USAGE[level_index];
+    stat.setStat(StatEnum.ADV_PP_USAGE, pp_usage);
 
     return stat;
   };
@@ -124,7 +125,7 @@ const SKILL_SUB: {
       1.06, 1.07, 108, 1.09, 1.1, 1.11, 1.12, 1.13, 1.14, 1.15,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_DAMAMGE_UP.length <= level_index) {
@@ -154,7 +155,7 @@ const SKILL_SUB: {
       1.01, 1.01, 1.01, 1.02, 1.02, 1.03, 1.03, 1.04, 1.04, 1.05,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_DAMAMGE_UP.length <= level_index) {
@@ -190,7 +191,7 @@ const SKILL_SUB: {
       1.54, 1.56, 1.58, 1.6,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
@@ -225,7 +226,7 @@ const SKILL_SUB: {
       1.31, 1.34, 1.37, 1.4,
     ];
 
-    const stat: StatObject = statObject({});
+    const stat: StatObject = statObject();
     const level_index: number = level - 1;
 
     if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
