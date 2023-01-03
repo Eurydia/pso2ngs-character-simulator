@@ -163,7 +163,6 @@ export const VALOROUS_UNIT = ((): Potential => {
 export const DYNAMO_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.16, 1.18, 1.21, 1.21, 1.22];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.25];
-
   const _getterFunction = (
     ctx: ActionContext,
     level_index: number,
@@ -199,51 +198,47 @@ export const DYNAMO_UNIT = ((): Potential => {
 export const MUSTERED_MIGHT_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.15, 1.17, 1.2, 1.21, 1.22];
   const DATA_WEAPON_UP_EXTRA: number[] = [1.2, 1.22, 1.25, 1.26, 1.3];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const weapon_up_extra: number =
-        DATA_WEAPON_UP_EXTRA[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (
-        ctx.character.hpValue === undefined ||
-        ctx.character.hpValueCurrent === undefined
-      ) {
-        return stat;
-      }
-
-      const hp_current: number = ctx.character.hpValueCurrent;
-      const hp: number = ctx.character.hpValue;
-
-      if (hp_current === hp) {
-        stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (
+      ctx.character.hpValue === undefined ||
+      ctx.character.hpValueCurrent === undefined
+    ) {
+      return stat;
+    }
 
-  return potential("Mustered Might Unit", getStatObject_arr);
+    const hp_current: number = ctx.character.hpValueCurrent;
+    const hp: number = ctx.character.hpValue;
+
+    if (hp_current === hp) {
+      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+    }
+
+    return stat;
+  };
+  return potential(
+    "Mustered Might Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const BASTION_UNIT = ((): Potential => {
