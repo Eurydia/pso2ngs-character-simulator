@@ -56,7 +56,7 @@ const Home: FC<HomeProps> = (props) => {
               titleTypographyProps={{ fontWeight: "bold" }}
             />
             <CardContent>
-              <StatView stat={props.stat} />
+              <StatView stat={props.stat} maxHeight="" />
             </CardContent>
           </Card>
         </Grid>

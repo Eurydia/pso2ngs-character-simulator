@@ -26,7 +26,7 @@ function App() {
 
   const [statFood, setStatFood] = useStatObject("page-food");
 
-  const statTotal = useMemo(() => {
+  const stat_total = useMemo(() => {
     const total: StatObject = statObject();
 
     const items: StatObject[] = [statEquipment, statFood];
@@ -57,7 +57,10 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route path="/" element={<HomePage stat={statTotal} />} />
+            <Route
+              path="/"
+              element={<HomePage stat={stat_total} />}
+            />
             <Route
               path="/config-character"
               element={<EditCharacter />}
