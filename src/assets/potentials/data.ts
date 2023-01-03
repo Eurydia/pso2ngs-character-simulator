@@ -469,41 +469,36 @@ export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
   const DATA_WEAPON_UP_EXTRA: number[] = [
     1.18, 1.2, 1.23, 1.24, 1.31,
   ];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const weapon_up_extra: number =
-        DATA_WEAPON_UP_EXTRA[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.target === undefined) {
-        return stat;
-      }
-
-      if (ctx.target.isBoss) {
-        stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
-      }
-
+    if (ctx.target === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (ctx.target.isBoss) {
+      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+    }
 
-  return potential("Fighting Spirit Unit", getStatObject_arr);
+    return stat;
+  };
+  return potential(
+    "Fighting Spirit Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const VIGOROUS_UNIT = ((): Potential => {
