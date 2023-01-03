@@ -52,6 +52,7 @@ export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
         options={AssetUnits}
         value={props.value}
         onChange={handleChange}
+        filterOptions={filterOptions}
         renderInput={({ InputProps, ...rest }) => (
           <TextField
             {...rest}
@@ -72,7 +73,6 @@ export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
-        filterOptions={filterOptions}
       />
     );
   },

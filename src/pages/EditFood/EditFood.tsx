@@ -35,40 +35,31 @@ const EditFood: FC<EditFoodProps> = () => {
 
   return (
     <Box margin={4}>
-      <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
-        <Grid item xs={1}>
-          <Card>
-            <CardHeader
-              title="Food"
-              titleTypographyProps={{
-                fontSize: "x-large",
-                fontWeight: "bold",
-              }}
+      <Stack spacing={3}>
+        <FormBase stat={stat} title="Summary">
+          {summaries.map((summary, index) => {
+            return (
+              <SummaryItem key={`summary-${index}`} {...summary} />
+            );
+          })}
+        </FormBase>
+        <Card>
+          <CardHeader
+            title="Food"
+            titleTypographyProps={{
+              fontSize: "x-large",
+              fontWeight: "bold",
+            }}
+          />
+          <CardContent>
+            <FormFood
+              storage_key="page-food-item"
+              onStatChange={setStat}
+              onSummaryChange={setSummary}
             />
-            <CardContent>
-              <FormFood
-                storage_key="page-food-item"
-                onStatChange={setStat}
-                onSummaryChange={setSummary}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={1}>
-          <FormBase stat={stat} title="Summary">
-            <Stack>
-              {summaries.map((summary, index) => {
-                return (
-                  <SummaryItem
-                    key={`summary-${index}`}
-                    {...summary}
-                  />
-                );
-              })}
-            </Stack>
-          </FormBase>
-        </Grid>
-      </Grid>
+          </CardContent>
+        </Card>
+      </Stack>
     </Box>
   );
 };

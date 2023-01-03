@@ -27,7 +27,7 @@ export const retrieveData = (storage_key: string): Food[] => {
     return [];
   }
 
-  if (isValidJSON(loaded_string)) {
+  if (!isValidJSON(loaded_string)) {
     return [];
   }
 

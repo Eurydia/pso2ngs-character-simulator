@@ -26,16 +26,15 @@ type FormFoodProps = {
   onSummaryChange: (summaries: SummaryFood[]) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { onStatChange, onSummaryChange } = props;
+  const { onStatChange, onSummaryChange, storage_key } = props;
 
-  const [items, addItem, removeItem] = useFood(props.storage_key);
+  const [items, addItem, removeItem] = useFood(storage_key);
   const [selected, setSelected] = useState<Food | null>(null);
 
   const handleAdd = () => {
     if (selected === null) {
       return;
     }
-
     addItem(0, selected);
     setSelected(null);
   };
@@ -67,22 +66,21 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   return (
     <Box>
       <Stack spacing={2}>
-        <Stack spacing={1} direction="row">
-          <Button
-            disableRipple
-            disabled={selected === null}
-            variant="contained"
-            startIcon={<Add />}
-            onClick={handleAdd}
-          >
-            add
-          </Button>
-          <AutocompleteFood
-            value={selected}
-            onChange={setSelected}
-            onEnterPress={handleAdd}
-          />
-        </Stack>
+        <Button
+          disableRipple
+          disabled={selected === null}
+          variant="contained"
+          startIcon={<Add />}
+          onClick={handleAdd}
+          sx={{ display: "inline" }}
+        >
+          add
+        </Button>
+        <AutocompleteFood
+          value={selected}
+          onChange={setSelected}
+          onEnterPress={handleAdd}
+        />
         <List disablePadding>
           <ListSubheader disableSticky>
             <Typography>{`${items.length}/10 items used`}</Typography>

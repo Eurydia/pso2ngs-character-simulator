@@ -44,7 +44,11 @@ export const AutocompletePotential: FC<AutocompletePotentialProps> =
           options={options}
           onChange={handleChange}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Potential" />
+            <TextField
+              {...params}
+              fullWidth
+              placeholder="Potential"
+            />
           )}
           renderOption={(props, option, _) => (
             <CustomOption {...props} option={option} />

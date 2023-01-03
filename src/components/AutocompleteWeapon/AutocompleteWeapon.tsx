@@ -52,10 +52,12 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         options={AssetWeapons}
         value={props.value}
         onChange={handleChange}
+        filterOptions={filterOptions}
         renderInput={({ InputProps, ...rest }) => (
           <TextField
             {...rest}
             fullWidth
+            required
             placeholder="Weapon"
             InputProps={{
               ...InputProps,
@@ -71,7 +73,6 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
-        filterOptions={filterOptions}
       />
     );
   },

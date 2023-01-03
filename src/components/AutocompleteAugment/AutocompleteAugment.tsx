@@ -31,14 +31,13 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
         options={AssetAugments}
         value={props.value}
         onChange={handleChange}
+        filterOptions={filterOptions}
         renderInput={(params) => (
-          <TextField {...params} placeholder="Augment" />
+          <TextField {...params} fullWidth placeholder="Augment" />
         )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />
         )}
-        filterOptions={filterOptions}
-        fullWidth
       />
     );
   },
