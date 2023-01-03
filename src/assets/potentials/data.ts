@@ -607,41 +607,36 @@ export const IMBUED_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.23, 1.26, 1.27, 1.28];
   const DATA_PP_USAGE: number[] = [0.9, 0.9, 0.9, 0.9, 0.85];
   const DATA_PP_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.3];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pp_usage: number = DATA_PP_USAGE[level_index];
+    const pp_recovery: number = DATA_PP_RECOVERY[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.ADV_PP_USAGE]: pp_usage,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pp_usage: number = DATA_PP_USAGE[level_index];
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_PP_USAGE]: pp_usage,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (ctx.character.isAttacking) {
-        stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-        stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Imbued Unit", getStatObject_arr);
+    if (ctx.character.isAttacking) {
+      stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    }
+    return stat;
+  };
+  return potential(
+    "Imbued Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const VIRTUOSO_UNIT = ((): Potential => {
