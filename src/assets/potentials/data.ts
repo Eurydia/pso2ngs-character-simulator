@@ -289,30 +289,28 @@ export const BASTION_UNIT = ((): Potential => {
 export const MEDITATION_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_PP_RECOVERY: number[] = [1.1, 1.1, 1.1, 1.15, 1.2];
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pp_recovery: number = DATA_PP_RECOVERY[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+    return statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
+      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
+    });
+  };
 
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
-        [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
-      });
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Meditation Unit", getStatObject_arr);
+  return potential(
+    "Meditation Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const BERSERK_UNIT = ((): Potential => {
