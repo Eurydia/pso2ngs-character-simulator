@@ -132,7 +132,6 @@ export const OFFENSIVE_FORMATION = (() => {
 
     return stat;
   };
-
   return potential(
     "Offensive Formation",
     DATA_WEAPON_UP.length,
@@ -142,27 +141,23 @@ export const OFFENSIVE_FORMATION = (() => {
 
 export const VALOROUS_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.16, 1.18, 1.21, 1.21, 1.22];
-
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level = level_index + 1;
-      const bp: number = level * 10;
-
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Valorous Unit", getStatObject_arr);
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    return statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
+  };
+  return potential(
+    "Valorous Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const DYNAMO_UNIT = ((): Potential => {
