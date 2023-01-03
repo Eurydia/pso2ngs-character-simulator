@@ -505,33 +505,28 @@ export const VIGOROUS_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.21, 1.23, 1.26, 1.27, 1.28];
   const DATA_DAMAGE_RES: number[] = [1.1, 1.1, 1.1, 1.1, 1.2];
   const DATA_HEALING_UP: number[] = [1.2, 1.2, 1.2, 1.2, 1.25];
-
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const damage_res: number = DATA_DAMAGE_RES[level_index];
-      const healing_up: number = DATA_HEALING_UP[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-        [StatEnum.ADV_DEF_HEALING]: healing_up,
-      });
-
-      return stat;
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Vigorous Unit", getStatObject_arr);
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const damage_res: number = DATA_DAMAGE_RES[level_index];
+    const healing_up: number = DATA_HEALING_UP[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+      [StatEnum.ADV_DEF_HEALING]: healing_up,
+    });
+    return stat;
+  };
+  return potential(
+    "Vigorous Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const EXPLOSIVE_UNIT = ((): Potential => {
