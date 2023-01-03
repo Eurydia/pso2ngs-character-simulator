@@ -340,37 +340,34 @@ export const SOULSPRING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.2, 1.22, 1.25, 1.26, 1.27];
   const DATA_PB_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.4];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pb_recovery: number = DATA_PB_RECOVERY[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pb_recovery: number = DATA_PB_RECOVERY[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (ctx.character.isAttacking) {
-        stat.setStat(StatEnum.ADV_OFF_PB_RECOVERY, pb_recovery);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (ctx.character.isAttacking) {
+      stat.setStat(StatEnum.ADV_OFF_PB_RECOVERY, pb_recovery);
+    }
 
-  return potential("Soulspring Unit", getStatObject_arr);
+    return stat;
+  };
+  return potential(
+    "Soulspring Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const FORTRESS_UNIT = ((): Potential => {
