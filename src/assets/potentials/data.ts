@@ -645,49 +645,41 @@ export const VIRTUOSO_UNIT = ((): Potential => {
   const DATA_EFFECT_MULTIPLIER: number[] = [
     0.01, 0.01, 0.01, 0.01, 0.02,
   ];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const effect_multiplier: number =
+      DATA_EFFECT_MULTIPLIER[level_index];
+    const effect_max: number = DATA_EFFECT_MAX[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const effect_multiplier: number =
-        DATA_EFFECT_MULTIPLIER[level_index];
-      const effect_max: number = DATA_EFFECT_MAX[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (ctx.character.uniqueAugments !== undefined) {
-        const unique_augments: number = ctx.character.uniqueAugments;
-
-        let effect_value: number =
-          unique_augments * effect_multiplier;
-        if (effect_value > effect_max) {
-          effect_value = effect_max;
-        }
-
-        stat.setStat(StatEnum.ADV_DEF_HEALING, effect_value);
-        stat.setStat(StatEnum.ADV_PP_USAGE, 2 - effect_value);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Virtuoso Unit", getStatObject_arr);
+    if (ctx.character.uniqueAugments !== undefined) {
+      const unique_augments: number = ctx.character.uniqueAugments;
+      let effect_value: number = unique_augments * effect_multiplier;
+      if (effect_value > effect_max) {
+        effect_value = effect_max;
+      }
+      stat.setStat(StatEnum.ADV_DEF_HEALING, effect_value);
+      stat.setStat(StatEnum.ADV_PP_USAGE, 2 - effect_value);
+    }
+    return stat;
+  };
+  return potential(
+    "Virtuoso Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const UNASSAILABLE_UNIT = ((): Potential => {
