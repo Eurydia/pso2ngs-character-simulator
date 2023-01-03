@@ -759,41 +759,35 @@ export const TRAMPLE_UNIT = ((): Potential => {
   const DATA_WEAPON_UP_EXTRA: number[] = [
     1.21, 1.23, 1.26, 1.26, 1.31,
   ];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const weapon_up_extra: number =
-        DATA_WEAPON_UP_EXTRA[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.target === undefined) {
-        return stat;
-      }
-
-      if (ctx.target.isNonBoss) {
-        stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
-      }
-
+    if (ctx.target === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Trample Unit", getStatObject_arr);
+    if (ctx.target.isNonBoss) {
+      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+    }
+    return stat;
+  };
+  return potential(
+    "Trample Unit",
+    DATA_WEAON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const STACCATO_UNIT = ((): Potential => {
