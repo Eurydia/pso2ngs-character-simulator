@@ -12,6 +12,8 @@ import { StatObject } from "../../assets";
 
 import { StatView } from "../StatView";
 
+import { Layout } from "./Layout";
+
 type FormBaseProps = {
   title: string;
   children: ReactNode | ReactNode[];
@@ -28,19 +30,18 @@ export const FormBase: FC<FormBaseProps> = (props) => {
         }}
       />
       <CardContent>
-        <Grid container spacing={3} columns={{ sm: 1, md: 2 }}>
-          <Grid item xs={1}>
-            {props.children}
-          </Grid>
-          <Grid item xs={1}>
+        <Layout
+          stat={
             <Box maxHeight="550px" overflow="auto" paddingX={2}>
               <Typography fontSize="large" fontWeight="bold">
                 Stat
               </Typography>
               <StatView stat={props.stat} />
             </Box>
-          </Grid>
-        </Grid>
+          }
+        >
+          {props.children}
+        </Layout>
       </CardContent>
     </Card>
   );
