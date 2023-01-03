@@ -52,10 +52,9 @@ const CustomList: FC<CustomListProps> = (props) => {
 type FormFoodProps = {
   storage_key: string;
   onStatChange: (stat: StatObject) => void;
-  onSummaryChange: (summaries: SummaryFood[]) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { onStatChange, onSummaryChange, storage_key } = props;
+  const { onStatChange, storage_key } = props;
 
   const [items, addItem, removeItem] = useFood(storage_key);
   const [selected, setSelected] = useState<Food | null>(null);
@@ -79,14 +78,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   const stat = useMemo((): StatObject => {
     return createStat(CONTEXT, items);
   }, [items]);
-
-  const summaries = useMemo((): SummaryFood[] => {
-    return createSummary(items);
-  }, [items]);
-
-  useEffect(() => {
-    onSummaryChange(summaries);
-  }, [summaries]);
 
   useEffect(() => {
     onStatChange(stat);

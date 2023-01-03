@@ -135,45 +135,45 @@ export const createStat = (
   return result;
 };
 
-export const createSummary = (items: Food[]): SummaryFood[] => {
-  const attr_counter = countAttribute(items);
-  const cate_counter = countCategory(items);
+// export const createSummary = (items: Food[]): SummaryFood[] => {
+//   const attr_counter = countAttribute(items);
+//   const cate_counter = countCategory(items);
 
-  const summaries: SummaryFood[] = [];
+//   const summaries: SummaryFood[] = [];
 
-  const attr_keys = Object.keys(
-    attr_counter,
-  ) as GroupEnumFoodAttribute[];
+//   const attr_keys = Object.keys(
+//     attr_counter,
+//   ) as GroupEnumFoodAttribute[];
 
-  for (const attr_key of attr_keys) {
-    const level: number = attr_counter[attr_key];
+//   for (const attr_key of attr_keys) {
+//     const level: number = attr_counter[attr_key];
 
-    if (level < 4) {
-      continue;
-    }
+//     if (level < 4) {
+//       continue;
+//     }
 
-    summaries.push({
-      label: attr_key,
-      level,
-    });
-  }
+//     summaries.push({
+//       label: attr_key,
+//       level,
+//     });
+//   }
 
-  const cate_keys = Object.keys(
-    cate_counter,
-  ) as GroupEnumFoodCategory[];
+//   const cate_keys = Object.keys(
+//     cate_counter,
+//   ) as GroupEnumFoodCategory[];
 
-  for (const cate_key of cate_keys) {
-    const level: number = cate_counter[cate_key];
+//   for (const cate_key of cate_keys) {
+//     const level: number = cate_counter[cate_key];
 
-    if (level < 1) {
-      continue;
-    }
+//     if (level < 1) {
+//       continue;
+//     }
 
-    summaries.push({
-      label: cate_key,
-      level,
-    });
-  }
+//     summaries.push({
+//       label: cate_key,
+//       level,
+//     });
+//   }
 
-  return summaries;
-};
+//   return summaries;
+// };
