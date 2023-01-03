@@ -88,7 +88,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   return (
     <Box margin={4}>
       <Stack spacing={2}>
-        <FormBase title="Summary" stat={stat}>
+        <FormBase title="Summary" slot_secondary={stat}>
           <Summary items={summaries} />
         </FormBase>
         <FormWeapon

@@ -145,12 +145,29 @@ const AilmentGroup: FC<AilmentGroupProps> = (props) => {
   );
 };
 
-type AdvancedPPGroupProps = Nullable<{
+type AdvHPGroupProps = Nullable<{
+  boost: string;
+}>;
+const AdvHPGroup: FC<AdvHPGroupProps> = (props) => {
+  const { boost } = props;
+
+  return (
+    <CustomList subheader="Advanced: HP">
+      <CustomItem
+        label={StatEnumString[StatEnum.ADV_HP_BOOST]}
+        value={boost}
+        icon={getIcon(boost)}
+      />
+    </CustomList>
+  );
+};
+
+type AdvPPGroupProps = Nullable<{
   usage: string;
   naturalRecovery: string;
   activeRecovery: string;
 }>;
-const AdvancedPPGroup: FC<AdvancedPPGroupProps> = (props) => {
+const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
   return (
@@ -174,16 +191,14 @@ const AdvancedPPGroup: FC<AdvancedPPGroupProps> = (props) => {
   );
 };
 
-type AdvancedOffensiveGroupProps = Nullable<{
+type AdvOffensiveGroupProps = Nullable<{
   floorPotency: string;
   damageUp: string;
   critChance: string;
   critDamage: string;
   pbGaugeRecovery: string;
 }>;
-const AdvancedOffensiveGroup: FC<AdvancedOffensiveGroupProps> = (
-  props,
-) => {
+const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
   const {
     damageUp,
     floorPotency,
@@ -223,14 +238,12 @@ const AdvancedOffensiveGroup: FC<AdvancedOffensiveGroupProps> = (
   );
 };
 
-type AdvancedDefensiveGroupProps = Nullable<{
+type AdvDefensiveGroupProps = Nullable<{
   healingUp: string;
   damageResist: string;
   ailmentDuration: string;
 }>;
-const AdvancedDefensiveGroup: FC<AdvancedDefensiveGroupProps> = (
-  props,
-) => {
+const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
   const { damageResist, healingUp, ailmentDuration } = props;
   return (
     <CustomList subheader="Advanced: Defensive">
@@ -333,7 +346,10 @@ export const StatView: FC<StatViewProps> = (props) => {
               StatEnum.HARSH_COLD,
             )}
           />
-          <AdvancedPPGroup
+          <AdvHPGroup
+            boost={stat.getFormattedStat(StatEnum.ADV_HP_BOOST)}
+          />
+          <AdvPPGroup
             usage={stat.getFormattedStat(StatEnum.ADV_PP_USAGE)}
             naturalRecovery={stat.getFormattedStat(
               StatEnum.ADV_PP_NATURAL_RECOVERY,
@@ -342,7 +358,7 @@ export const StatView: FC<StatViewProps> = (props) => {
               StatEnum.ADV_PP_ACTIVE_RECOVERY,
             )}
           />
-          <AdvancedOffensiveGroup
+          <AdvOffensiveGroup
             floorPotency={stat.getFormattedStat(
               StatEnum.ADV_OFF_FLOOR,
             )}
@@ -359,7 +375,7 @@ export const StatView: FC<StatViewProps> = (props) => {
               StatEnum.ADV_OFF_PB_RECOVERY,
             )}
           />
-          <AdvancedDefensiveGroup
+          <AdvDefensiveGroup
             healingUp={stat.getFormattedStat(
               StatEnum.ADV_DEF_HEALING,
             )}

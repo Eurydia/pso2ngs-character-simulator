@@ -34,7 +34,7 @@ export const enum StatEnum {
   ADV_DEF_DAMAGE_RES = "defDamageResist",
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
 
-  HIDDEN_HP_BOOST = "hiddenHPBoost",
+  ADV_HP_BOOST = "hiddenHPBoost",
 }
 
 export const StatEnumString: { [K in StatEnum]: string } = {
@@ -55,6 +55,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.AIL_SHOCK]: "Shock Resistance",
   [StatEnum.AIL_DOWN]: "Down Resistance",
   [StatEnum.HARSH_COLD]: "Harsh Enviroment Resistance",
+  [StatEnum.ADV_HP_BOOST]: "HP Boost",
   [StatEnum.ADV_PP_USAGE]: "PP Usage",
   [StatEnum.ADV_PP_ACTIVE_RECOVERY]: "Active PP Recovery",
   [StatEnum.ADV_PP_NATURAL_RECOVERY]: "Natural PP Recovery",
@@ -66,8 +67,6 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_DEF_HEALING]: "Healing Up",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
   [StatEnum.ADV_DEF_AILMENT_DURATION]: "Ailment Duration",
-
-  [StatEnum.HIDDEN_HP_BOOST]: "Hidden HP Boost",
 };
 
 export const StatAdd: Set<StatEnum> = new Set([

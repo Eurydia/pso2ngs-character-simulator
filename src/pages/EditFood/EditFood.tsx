@@ -54,13 +54,11 @@ const EditFood: FC<EditFoodProps> = () => {
 
   return (
     <Box margin={4}>
-      <FormBase stat={stat} title="Food">
-        <FormFood
-          storage_key="page-food-item"
-          onStatChange={setStat}
-          onSummaryChange={setSummary}
-        />
-      </FormBase>
+      <FormFood
+        storage_key="page-food-item"
+        onStatChange={setStat}
+        onSummaryChange={setSummary}
+      />
     </Box>
   );
 };

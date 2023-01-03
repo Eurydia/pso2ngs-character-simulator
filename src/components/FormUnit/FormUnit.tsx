@@ -23,6 +23,7 @@ import { AutocompleteAugment } from "../AutocompleteAugment";
 import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
+import { StatView } from "../StatView";
 
 const CONTEXT: ActionContext = {};
 
@@ -63,7 +64,10 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   }, [unit, fixa, augments, active_augments]);
 
   return (
-    <FormBase title={props.title} stat={stat}>
+    <FormBase
+      title={props.title}
+      slot_secondary={<StatView stat={stat} />}
+    >
       <Stack spacing={3}>
         <Stack spacing={1}>
           <AutocompleteUnit value={unit} onChange={setUnit} />

@@ -1,29 +1,20 @@
 import { FC, ReactNode } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Typography,
-} from "@mui/material";
-
-import { StatObject } from "../../assets";
-
-import { StatView } from "../StatView";
+import { Card, CardContent, CardHeader } from "@mui/material";
 
 import { Layout } from "./Layout";
 
 type FormBaseProps = {
   title: string;
   children: ReactNode | ReactNode[];
-  stat: StatObject;
+  slot_secondary: ReactNode | ReactNode[];
 };
 export const FormBase: FC<FormBaseProps> = (props) => {
+  const { title, children, slot_secondary } = props;
+
   return (
     <Card>
       <CardHeader
-        title={props.title}
+        title={title}
         titleTypographyProps={{
           fontWeight: "bold",
           fontSize: "x-large",
@@ -31,8 +22,8 @@ export const FormBase: FC<FormBaseProps> = (props) => {
       />
       <CardContent>
         <Layout
-          slot_a={props.children}
-          slot_b={<StatView stat={props.stat} />}
+          slot_primary={children}
+          slot_secondary={slot_secondary}
         />
       </CardContent>
     </Card>

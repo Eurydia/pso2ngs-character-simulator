@@ -25,6 +25,7 @@ import { SelectPotential } from "../AutocompletePotential";
 
 import { createStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
+import { StatView } from "../StatView";
 
 const CONTEXT: ActionContext = {};
 
@@ -77,7 +78,10 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   };
 
   return (
-    <FormBase title={props.cardTitle} stat={stat}>
+    <FormBase
+      title={props.cardTitle}
+      slot_secondary={<StatView stat={stat} />}
+    >
       <Stack spacing={3}>
         <Stack spacing={1}>
           <AutocompleteWeapon

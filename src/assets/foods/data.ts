@@ -213,7 +213,7 @@ export const getStatObjectSeafood = (
     return stat;
   }
 
-  stat.setStat(StatEnum.HIDDEN_HP_BOOST, DATA_HP_UP[level]);
+  stat.setStat(StatEnum.ADV_HP_BOOST, DATA_HP_UP[level]);
 
   return stat;
 };

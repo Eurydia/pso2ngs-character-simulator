@@ -2,28 +2,28 @@ import { FC, ReactNode } from "react";
 import { Grid, useTheme, useMediaQuery } from "@mui/material";
 
 type LayoutProps = {
-  slot_a: ReactNode | ReactNode[];
-  slot_b: ReactNode | ReactNode[];
+  slot_primary: ReactNode | ReactNode[];
+  slot_secondary: ReactNode | ReactNode[];
 };
 export const Layout: FC<LayoutProps> = (props) => {
   const theme = useTheme();
-  const { slot_a, slot_b } = props;
+  const { slot_primary, slot_secondary } = props;
 
-  let slot_one: ReactNode | ReactNode[] = slot_a;
-  let slot_two: ReactNode | ReactNode[] = slot_b;
+  let primary: ReactNode | ReactNode[] = slot_primary;
+  let secondary: ReactNode | ReactNode[] = slot_secondary;
 
   if (useMediaQuery(theme.breakpoints.down("md"))) {
-    slot_one = slot_b;
-    slot_two = slot_a;
+    primary = slot_secondary;
+    secondary = slot_primary;
   }
 
   return (
     <Grid container spacing={3} columns={{ sm: 1, md: 2 }}>
       <Grid item xs={1}>
-        {slot_one}
+        {primary}
       </Grid>
       <Grid item xs={1}>
-        {slot_two}
+        {secondary}
       </Grid>
     </Grid>
   );

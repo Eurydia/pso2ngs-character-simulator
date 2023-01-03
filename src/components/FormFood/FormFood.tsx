@@ -17,6 +17,8 @@ import { AutocompleteFood } from "../AutocompleteFood";
 
 import { CustomItem } from "./CustomItem";
 import { createStat, createSummary } from "./helper";
+import { FormBase } from "../FormBase";
+import { StatView } from "../StatView";
 
 const CONTEXT: ActionContext = {};
 
@@ -91,7 +93,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   }, [stat]);
 
   return (
-    <Box>
+    <FormBase title="Food" slot_secondary={<StatView stat={stat} />}>
       <Stack spacing={2}>
         <Stack direction="row" spacing={1}>
           <Button
@@ -118,6 +120,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
           onRemove={handleRemove}
         />
       </Stack>
-    </Box>
+    </FormBase>
   );
 };
