@@ -293,7 +293,7 @@ export const StatView: FC<StatViewProps> = (props) => {
             startIcon={isVisible ? <VisibilityOff /> : <Visibility />}
             onClick={toggleVisibility}
           >
-            Stat
+            {isVisible ? "Hide" : "Show"}
           </Button>
         </Box>
         <Box
