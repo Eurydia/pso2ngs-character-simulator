@@ -12,7 +12,7 @@ export const Layout: FC<LayoutProps> = (props) => {
   let slot_one: ReactNode | ReactNode[] = slot_a;
   let slot_two: ReactNode | ReactNode[] = slot_b;
 
-  if (useMediaQuery(theme.breakpoints.down("sm"))) {
+  if (useMediaQuery(theme.breakpoints.down("md"))) {
     slot_one = slot_b;
     slot_two = slot_a;
   }

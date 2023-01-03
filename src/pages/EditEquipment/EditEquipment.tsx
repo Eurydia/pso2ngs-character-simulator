@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import { statObject, StatObject } from "../../assets";
 import { useSummaryEquipment, useStatObject } from "../../hooks";
@@ -16,6 +16,28 @@ const SummaryItem: FC<SummaryEquipment> = (props) => {
       {augments.map((value, index) => (
         <Typography key={`${value}-${index}`}>{value}</Typography>
       ))}
+    </Box>
+  );
+};
+
+type SummaryProps = { items: SummaryEquipment[] };
+const Summary: FC<SummaryProps> = (props) => {
+  const { items } = props;
+  return (
+    <Box>
+      <Grid container spacing={2} columns={{ sm: 2 }}>
+        {items.map((item, index) => {
+          if (item.equipment === null) {
+            return null;
+          }
+
+          return (
+            <Grid key={`summary-${index}`} item xs={1}>
+              <SummaryItem {...item} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Box>
   );
 };
@@ -67,13 +89,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     <Box margin={4}>
       <Stack spacing={2}>
         <FormBase title="Summary" stat={stat}>
-          <Stack spacing={2}>
-            {summaries.map((summary, index) => {
-              return (
-                <SummaryItem key={`summary-${index}`} {...summary} />
-              );
-            })}
-          </Stack>
+          <Summary items={summaries} />
         </FormBase>
         <FormWeapon
           storageKey="equipment-weapon"
