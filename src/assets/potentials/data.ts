@@ -1034,31 +1034,26 @@ export const CITADEL_UNIT = ((): Potential => {
 export const GYRATING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.25];
   const DATA_PP_USAGE: number[] = [0.7, 0.7, 0.7, 0.7];
-
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (_: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const pp_usage: number = DATA_PP_USAGE[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_PP_USAGE]: pp_usage,
-      });
-
-      return stat;
-    };
-
-    getStatObject_arr.push(getStatObject);
-  });
-
-  return potential("Gyrating Unit", getStatObject_arr);
+  const _getterFunction = (
+    _: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const pp_usage: number = DATA_PP_USAGE[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      [StatEnum.ADV_PP_USAGE]: pp_usage,
+    });
+    return stat;
+  };
+  return potential(
+    "Gyrating Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const TEMPERED_FORM = ((): Potential => {
