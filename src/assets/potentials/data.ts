@@ -688,43 +688,38 @@ export const UNASSAILABLE_UNIT = ((): Potential => {
     1.2, 1.23, 1.26, 1.27, 1.33,
   ];
   const DATA_DAMAGE_RES: number[] = [1.05, 1.05, 1.05, 1.05, 1.1];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
+    const damage_res: number = DATA_DAMAGE_RES[level_index];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
-
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const weapon_up_extra: number =
-        DATA_WEAPON_UP_EXTRA[level_index];
-      const damage_res: number = DATA_DAMAGE_RES[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.location === undefined) {
-        return stat;
-      }
-
-      if (ctx.location.geometricLabyrinth) {
-        stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-        stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
-        stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
-      }
-
+    if (ctx.location === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (ctx.location.geometricLabyrinth) {
+      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
+      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
+    }
 
-  return potential("Unassailable Unit", getStatObject_arr);
+    return stat;
+  };
+  return potential(
+    "Unassailable Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const ELUSIVE_UNIT = ((): Potential => {
