@@ -244,49 +244,46 @@ export const MUSTERED_MIGHT_UNIT = ((): Potential => {
 export const BASTION_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_DAMAGE_RES: number[] = [1.4, 1.4, 1.4, 1.5, 1.5];
+  const _getterFunction = (
+    ctx: ActionContext,
+    level_index: number,
+  ): StatObject => {
+    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const damage_res: number = DATA_DAMAGE_RES[level_index];
 
-  const getStatObject_arr: ((ctx: ActionContext) => StatObject)[] =
-    [];
+    const stat: StatObject = statObject({
+      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.WEAPON_MELEE]: weapon_up,
+      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+    });
 
-  DATA_WEAPON_UP.forEach((weapon_up, level_index) => {
-    const getStatObject = (ctx: ActionContext): StatObject => {
-      const level: number = level_index + 1;
-      const bp: number = level * 10;
-      const damage_res: number = DATA_DAMAGE_RES[level_index];
-
-      const stat: StatObject = statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-
-      if (ctx.character === undefined) {
-        return stat;
-      }
-
-      if (
-        ctx.character.hpValue === undefined ||
-        ctx.character.hpValueCurrent === undefined
-      ) {
-        return stat;
-      }
-
-      const hp_current = ctx.character.hpValueCurrent;
-      const hp = ctx.character.hpValue;
-      const hp_percent = hp_current / hp;
-
-      if (hp_percent >= 0.8) {
-        stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
-      }
-
+    if (ctx.character === undefined) {
       return stat;
-    };
+    }
 
-    getStatObject_arr.push(getStatObject);
-  });
+    if (
+      ctx.character.hpValue === undefined ||
+      ctx.character.hpValueCurrent === undefined
+    ) {
+      return stat;
+    }
 
-  return potential("Bastion Unit", getStatObject_arr);
+    const hp_current = ctx.character.hpValueCurrent;
+    const hp = ctx.character.hpValue;
+    const hp_percent = hp_current / hp;
+
+    if (hp_percent >= 0.8) {
+      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
+    }
+
+    return stat;
+  };
+  return potential(
+    "Bastion Unit",
+    DATA_WEAPON_UP.length,
+    _getterFunction,
+  );
 })();
 
 export const MEDITATION_UNIT = ((): Potential => {
