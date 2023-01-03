@@ -19,7 +19,7 @@ export const CustomItem: FC<CustomItemProps> = memo(
     }
 
     return (
-      <ListItem disablePadding>
+      <ListItem disablePadding dense>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>
           <Stack
@@ -27,8 +27,8 @@ export const CustomItem: FC<CustomItemProps> = memo(
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography fontSize="large">{props.label}</Typography>
-            <Typography fontSize="large">{props.value}</Typography>
+            <Typography>{props.label}</Typography>
+            <Typography>{props.value}</Typography>
           </Stack>
         </ListItemText>
       </ListItem>

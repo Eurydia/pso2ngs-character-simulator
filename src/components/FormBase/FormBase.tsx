@@ -5,11 +5,12 @@ import {
   CardContent,
   CardHeader,
   Grid,
+  Typography,
 } from "@mui/material";
 
 import { StatObject } from "../../assets";
 
-import StatView from "../StatView";
+import { StatView } from "../StatView";
 
 type FormBaseProps = {
   title: string;
@@ -27,12 +28,15 @@ export const FormBase: FC<FormBaseProps> = (props) => {
         }}
       />
       <CardContent>
-        <Grid container columnSpacing={3} columns={{ sm: 1, md: 2 }}>
+        <Grid container spacing={3} columns={{ sm: 1, md: 2 }}>
           <Grid item xs={1}>
             {props.children}
           </Grid>
           <Grid item xs={1}>
-            <Box height="550px" overflow="auto" paddingX={2}>
+            <Box maxHeight="550px" overflow="auto" paddingX={2}>
+              <Typography fontSize="large" fontWeight="bold">
+                Stat
+              </Typography>
               <StatView stat={props.stat} />
             </Box>
           </Grid>

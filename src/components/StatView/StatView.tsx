@@ -263,19 +263,13 @@ const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
 };
 
 type StatViewProps = {
-  title: string | undefined;
   stat: StatObject;
 };
 export const StatView: FC<StatViewProps> = (props) => {
   const { stat } = props;
 
-  const _envCold = stat.getFormattedStat(StatEnum.HARSH_COLD);
-
   return (
     <Box>
-      <Typography fontWeight="bold" fontSize="large">
-        {props.title}
-      </Typography>
       <CoreGroup
         bp={stat.getFormattedStat(StatEnum.CORE_BP)}
         hp={stat.getFormattedStat(StatEnum.CORE_HP)}
