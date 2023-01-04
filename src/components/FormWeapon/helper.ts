@@ -23,12 +23,10 @@ export const createStat = (
     return stat;
   }
 
-  if (fixa === null) {
-    return stat;
+  if (fixa !== null) {
+    const stat_fixa: StatObject = fixa.getStatObject(ctx);
+    stat.merge(stat_fixa);
   }
-
-  const stat_fixa: StatObject = fixa.getStatObject(ctx);
-  stat.merge(stat_fixa);
 
   augments.forEach((augment) => {
     if (augment === null) {
