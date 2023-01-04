@@ -4,9 +4,11 @@ import { StatEnum, StatObject } from "../stat";
 import { GroupEnumUnit } from "./groupEnum";
 import { calcBonusDef } from "./helper";
 
+type getterFunction = (ctx: ActionContext) => StatObject;
+
 export class Unit {
   name: string;
-  getStatObject: (ctx: ActionContext) => StatObject;
+  getStatObject: getterFunction;
 
   #growth_data: [number, number][];
   #group: GroupEnumUnit;
@@ -15,7 +17,7 @@ export class Unit {
     name: string,
     group: GroupEnumUnit,
     growth_rate: [number, number][],
-    getStatObject: (ctx: ActionContext) => StatObject,
+    getStatObject: getterFunction,
   ) {
     this.name = name;
     this.getStatObject = getStatObject;
@@ -47,7 +49,7 @@ export const unit = (
   name: string,
   group: GroupEnumUnit,
   growth_data: [number, number][],
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getStatObject: getterFunction,
 ): Unit => {
   return new Unit(name, group, growth_data, getStatObject);
 };

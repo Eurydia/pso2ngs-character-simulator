@@ -5,10 +5,11 @@ import { GroupEnumWeapon } from "./groupEnum";
 import { calcBonusAtk } from "./helper";
 import { ActionContext } from "../context";
 
+type getterFunction = (ctx: ActionContext) => StatObject;
 export class Weapon {
   name: string;
   potential: Potential;
-  getStatObject: (ctx: ActionContext) => StatObject;
+  getStatObject: getterFunction;
 
   #growth_data: [number, number][];
   #group: GroupEnumWeapon;
@@ -18,7 +19,7 @@ export class Weapon {
     group: GroupEnumWeapon,
     potential: Potential,
     growth_rate: [number, number][],
-    getStatObject: (ctx: ActionContext) => StatObject,
+    getStatObject: getterFunction,
   ) {
     this.name = name;
     this.getStatObject = getStatObject;
@@ -51,7 +52,7 @@ export const weapon = (
   group: GroupEnumWeapon,
   potential: Potential,
   growth_rate: [number, number][],
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getStatObject: getterFunction,
 ): Weapon => {
   return new Weapon(
     name,
