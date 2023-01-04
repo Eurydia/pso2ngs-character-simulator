@@ -1,4 +1,3 @@
-import { sum as ld_sum } from "lodash";
 import {
   GroupEnumFoodAttribute,
   GroupEnumFoodCategory,
@@ -83,10 +82,10 @@ const collectAttribute = (
   );
   target.merge(stat_robust);
 
-  const stat_kvaris = getStatObjectKvaris(
-    ctx,
-    ld_sum(Object.values(attribute)),
-  );
+  const item_sum: number = Object.values(attribute).reduce((a, b) => {
+    return a + b;
+  }, 0);
+  const stat_kvaris = getStatObjectKvaris(ctx, item_sum);
   target.merge(stat_kvaris);
 };
 
