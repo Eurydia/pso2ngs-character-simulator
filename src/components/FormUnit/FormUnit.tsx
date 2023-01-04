@@ -1,6 +1,5 @@
-import { useState, Fragment, FC, useEffect, useMemo } from "react";
+import { Fragment, FC, useEffect, useMemo, useState } from "react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -33,7 +32,7 @@ import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
-import { Visibility } from "@mui/icons-material";
+import { BarChart, Visibility } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
@@ -47,7 +46,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   const { cardTitle, storageKey, onStatChange, onSummaryChange } =
     props;
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const [unit, setUnit] = useUnit(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
@@ -87,8 +86,13 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
       <FormBase
         title={cardTitle}
         slotHeaderAction={
-          <IconButton onClick={handleDialogOpen}>
-            <Visibility />
+          <IconButton
+            size="large"
+            color="primary"
+            disabled={unit === null}
+            onClick={handleDialogOpen}
+          >
+            <BarChart />
           </IconButton>
         }
         slotPrimary={
