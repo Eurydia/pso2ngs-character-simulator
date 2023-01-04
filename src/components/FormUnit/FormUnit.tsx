@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 
 import {
   ActionContext,
@@ -24,6 +24,7 @@ import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
+import { Sync } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
@@ -86,16 +87,20 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
           />
         </Stack>
         <Stack spacing={1}>
-          {augments.map((aug, index) => (
-            <AutocompleteAugment
-              key={`augment-${index}`}
-              disabled={
-                unit === null || index >= active_augments.length
-              }
-              value={aug}
-              onChange={(new_value) => setAugments(new_value, index)}
-            />
-          ))}
+          {augments.map((augment, index) => {
+            const disabled =
+              unit === null || index >= active_augments.length;
+            return (
+              <AutocompleteAugment
+                key={`augment-${index}`}
+                disabled={disabled}
+                value={augment}
+                onChange={(new_value) =>
+                  setAugments(new_value, index)
+                }
+              />
+            );
+          })}
         </Stack>
       </Stack>
     </FormBase>

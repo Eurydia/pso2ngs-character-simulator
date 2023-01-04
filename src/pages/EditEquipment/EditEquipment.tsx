@@ -95,7 +95,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
       <Stack spacing={2}>
         <FormBase
           title="Summary"
-          slot_secondary={<StatView maxHeight="" stat={stat} />}
+          slot_secondary={<StatView maxHeight="500px" stat={stat} />}
         >
           <Summary items={summaries} />
         </FormBase>
