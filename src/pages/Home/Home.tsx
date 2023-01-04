@@ -33,12 +33,12 @@ const Home: FC<HomeProps> = (props) => {
               destination="/config-food"
             />
             <ConfigCard
-              title="Class skills"
+              title="Class & Skill tree"
               destination="/config-character"
-              desc="Main & sub class, and class skills."
+              desc="Character class and skills."
             />
             <ConfigCard
-              title="Addon skills"
+              title="Addons"
               desc="Account-wide effects."
               destination="/config-addon"
             />
