@@ -41,27 +41,27 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
     useWeapon(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
-  const [level, setLevel] = useEnhancement(storageKey);
+  const [weapon_level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (weapon === null) {
       return [];
     }
-    const active_count: number = getActiveAugmentCount(level);
+    const active_count: number = getActiveAugmentCount(weapon_level);
     return augments.slice(0, active_count);
-  }, [level, augments, weapon]);
+  }, [weapon_level, augments, weapon]);
 
   const stat = useMemo((): StatObject => {
     return createStat(
       CONTEXT,
       weapon,
-      level,
-      fixa,
+      weapon_level,
       potentialLevel,
+      fixa,
       active_augments,
     );
-  }, [weapon, level, fixa, potentialLevel, active_augments]);
+  }, [weapon, weapon_level, fixa, potentialLevel, active_augments]);
 
   useEffect(() => {
     onStatChange(stat);
@@ -97,7 +97,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             disabled={weapon === null}
             valueMin={0}
             valueMax={60}
-            value={level}
+            value={weapon_level}
             onChange={setLevel}
           />
           <AutocompleteFixa

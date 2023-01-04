@@ -5,13 +5,13 @@ import { GroupEnumWeaponRarity } from "./groupEnum";
 import { calcBonusAtk } from "./helper";
 import { ActionContext } from "../context";
 
-type getterFunction = (ctx: ActionContext) => StatObject;
+type statGetterFunctionSignature = (ctx: ActionContext) => StatObject;
 export class Weapon {
   name: string;
   rarity: GroupEnumWeaponRarity;
   potential: Potential;
 
-  #getStatObject: getterFunction;
+  #getStatObject: statGetterFunctionSignature;
   #growth_data: [number, number][];
 
   constructor(
@@ -19,7 +19,7 @@ export class Weapon {
     group: GroupEnumWeaponRarity,
     potential: Potential,
     growth_rate: [number, number][],
-    getStatObject: getterFunction,
+    getStatObject: statGetterFunctionSignature,
   ) {
     this.name = name;
     this.rarity = group;
@@ -79,7 +79,7 @@ export const weapon = (
   rarity: GroupEnumWeaponRarity,
   potential: Potential,
   growth_rate: [number, number][],
-  getStatObject: getterFunction,
+  getStatObject: statGetterFunctionSignature,
 ): Weapon => {
   return new Weapon(
     name,
