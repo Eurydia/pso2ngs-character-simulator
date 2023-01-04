@@ -1,5 +1,14 @@
-import { FC, useEffect, useMemo } from "react";
-import { Box, Button, Stack } from "@mui/material";
+import { useState, Fragment, FC, useEffect, useMemo } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Stack,
+} from "@mui/material";
 
 import {
   ActionContext,
@@ -24,31 +33,40 @@ import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
-import { Sync } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
 type FormUnitProps = {
   storageKey: string;
-  title: string;
+  cardTitle: string;
   onStatChange: (stat: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
-  const { storageKey, onStatChange, onSummaryChange } = props;
+  const { cardTitle, storageKey, onStatChange, onSummaryChange } =
+    props;
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [unit, setUnit] = useUnit(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (unit === null) {
       return [];
     }
-
     const active_count: number = getActiveAugmentCount(level);
-
     return augments.slice(0, active_count);
   }, [level, augments, unit]);
 
@@ -65,44 +83,65 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   }, [unit, fixa, augments, active_augments]);
 
   return (
-    <FormBase
-      title={props.title}
-      slotSecondary={<StatView stat={stat} maxHeight="500px" />}
-    >
-      <Stack spacing={3}>
-        <Stack spacing={1}>
-          <AutocompleteUnit value={unit} onChange={setUnit} />
-          <FieldLevel
-            disabled={unit === null}
-            valueMin={0}
-            valueMax={60}
-            value={level}
-            onChange={setLevel}
-          />
-          <AutocompleteFixa
-            disabled={unit === null}
-            value={fixa}
-            onChange={setFixa}
-            mode={GroupEnumFixa.UNIT}
-          />
-        </Stack>
-        <Stack spacing={1}>
-          {augments.map((augment, index) => {
-            const disabled =
-              unit === null || index >= active_augments.length;
-            return (
-              <AutocompleteAugment
-                key={`augment-${index}`}
-                disabled={disabled}
-                value={augment}
-                onChange={(new_value) =>
-                  setAugments(new_value, index)
-                }
-              />
-            );
-          })}
-        </Stack>
-      </Stack>
-    </FormBase>
+    <Fragment>
+      <FormBase
+        title={cardTitle}
+        slotHeaderAction={
+          <IconButton onClick={handleDialogOpen}>
+            <Visibility />
+          </IconButton>
+        }
+        slotPrimary={
+          <Stack spacing={1}>
+            <AutocompleteUnit value={unit} onChange={setUnit} />
+            <FieldLevel
+              disabled={unit === null}
+              valueMin={0}
+              valueMax={60}
+              value={level}
+              onChange={setLevel}
+            />
+            <AutocompleteFixa
+              disabled={unit === null}
+              value={fixa}
+              onChange={setFixa}
+              mode={GroupEnumFixa.UNIT}
+            />
+          </Stack>
+        }
+        slotSecondary={
+          <Stack spacing={1}>
+            {augments.map((augment, index) => {
+              const disabled =
+                unit === null || index >= active_augments.length;
+              return (
+                <AutocompleteAugment
+                  key={`augment-${index}`}
+                  disabled={disabled}
+                  value={augment}
+                  onChange={(new_value) =>
+                    setAugments(new_value, index)
+                  }
+                />
+              );
+            })}
+          </Stack>
+        }
+      />
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>{`Stat for ${cardTitle}`}</DialogTitle>
+        <DialogContent>
+          <StatView stat={stat} maxHeight="" />
+        </DialogContent>
+        <DialogActions disableSpacing>
+          <Button onClick={handleDialogClose}>close</Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
   );
 };

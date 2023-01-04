@@ -107,19 +107,19 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         />
         <FormUnit
           storageKey="equipment-unit-a"
-          title="Unit A"
+          cardTitle="Unit A"
           onStatChange={setStatUnitA}
           onSummaryChange={setSummaryUnitA}
         />
         <FormUnit
           storageKey="equipment-unit-b"
-          title="Unit B"
+          cardTitle="Unit B"
           onStatChange={setStatUnitB}
           onSummaryChange={setSummaryUnitB}
         />
         <FormUnit
           storageKey="equipment-unit-c"
-          title="Unit C"
+          cardTitle="Unit C"
           onStatChange={setStatUnitC}
           onSummaryChange={setSummaryUnitC}
         />

@@ -321,7 +321,7 @@ type StatViewProps = {
   stat: StatObject;
 };
 export const StatView: FC<StatViewProps> = (props) => {
-  const { stat, maxHeight } = props;
+  const { stat } = props;
 
   return (
     <Box>

@@ -150,7 +150,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-        <DialogActions>
+        <DialogActions disableSpacing>
           <Button onClick={handleDialogClose}>close</Button>
         </DialogActions>
       </Dialog>
