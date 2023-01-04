@@ -8,6 +8,7 @@ import {
   IconButton,
   Stack,
 } from "@mui/material";
+import { BarChart } from "@mui/icons-material";
 
 import {
   ActionContext,
@@ -33,7 +34,6 @@ import { SelectPotential } from "../SelectPotential";
 import { createStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
 import { StatView } from "../StatView";
-import { Visibility } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
@@ -95,8 +95,13 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       <FormBase
         title={cardTitle}
         slotHeaderAction={
-          <IconButton onClick={handleDialogOpen}>
-            <Visibility />
+          <IconButton
+            size="large"
+            color="primary"
+            onClick={handleDialogOpen}
+            disabled={weapon === null}
+          >
+            <BarChart />
           </IconButton>
         }
         slotPrimary={
