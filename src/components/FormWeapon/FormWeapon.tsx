@@ -38,12 +38,11 @@ type FormWeaponProps = {
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { storageKey, onStatChange, onSummaryChange } = props;
 
-  const [weapon, setWeapon] = useWeapon(storageKey);
+  const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
+    useWeapon(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
-
-  const [potentialLevel, setPotentialLevel] = useState(0);
 
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (weapon === null) {
@@ -72,11 +71,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     onSummaryChange(createSummary(weapon, fixa, active_augments));
   }, [weapon, fixa, augments, active_augments]);
 
-  const handleWeaponChange = (new_weapon: Weapon | null) => {
-    setWeapon(new_weapon);
-    setPotentialLevel(0);
-  };
-
   let potential_level_max: number = 0;
   let potential_name: string = "";
   if (weapon !== null) {
@@ -91,10 +85,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     >
       <Stack spacing={3}>
         <Stack spacing={1}>
-          <AutocompleteWeapon
-            value={weapon}
-            onChange={handleWeaponChange}
-          />
+          <AutocompleteWeapon value={weapon} onChange={setWeapon} />
           <SelectPotential
             valueMax={potential_level_max}
             potentialName={potential_name}
