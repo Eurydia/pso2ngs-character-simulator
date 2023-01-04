@@ -22,7 +22,7 @@ export const CustomListItem: FC<CustomListItemProps> = (props) => {
 
   return (
     <ListItem>
-      <ListItemText inset primary={label} />
+      <ListItemText primary={label} />
       <ListItemSecondaryAction>
         <IconButton onClick={props.onCopy}>
           <CopyAll />
@@ -44,10 +44,13 @@ export const CustomList: FC<CustomListProps> = (props) => {
   const { items, onCopy, onRemove } = props;
 
   return (
-    <List>
-      <ListSubheader disableGutters>
-        <Typography>{`${items.length}/10 items used`}</Typography>
-      </ListSubheader>
+    <List
+      subheader={
+        <ListSubheader disableGutters>
+          <Typography>{`${items.length}/10 items used`}</Typography>
+        </ListSubheader>
+      }
+    >
       {items.map((item, index) => {
         return (
           <CustomListItem
