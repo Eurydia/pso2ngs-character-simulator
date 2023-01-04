@@ -18,9 +18,11 @@ const collectWeapon = (
   const stat_weapon = weapon.getStatObject(context);
   target.merge(stat_weapon);
 
-  const _getterFunction = weapon.potential.getStatObject;
-
-  const stat_potential = _getterFunction(context, potential_level);
+  const potential = weapon.potential;
+  const stat_potential = potential.getStatObject(
+    context,
+    potential_level,
+  );
   target.merge(stat_potential);
 };
 

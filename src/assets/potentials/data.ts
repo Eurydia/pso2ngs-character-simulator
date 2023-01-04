@@ -1285,4 +1285,3 @@ export const FLAWLESS_UNIT = ((): Potential => {
     _getterFunction,
   );
 })();
-console.log("potentials.ts loaded");

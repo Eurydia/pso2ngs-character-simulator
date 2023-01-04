@@ -29,26 +29,21 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       });
     }
 
-    let _value = "";
-    if (value > 0) {
-      _value = value.toString();
-    }
-
     return (
       <TextField
         select
         fullWidth
         placeholder="Potential"
         disabled={valueMax === 0}
-        value={_value}
+        value={value}
         onChange={handleChange}
       >
+        <MenuItem value={0}>
+          <Typography>No Level</Typography>
+        </MenuItem>
         {options.map(({ label, value }) => {
           return (
-            <MenuItem
-              key={`${potentialName}-${value}`}
-              value={value.toString()}
-            >
+            <MenuItem key={`${potentialName}-${value}`} value={value}>
               <Typography>{label}</Typography>
             </MenuItem>
           );
