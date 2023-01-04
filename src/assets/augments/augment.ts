@@ -5,21 +5,21 @@ import { StatObject } from "../stat";
 
 import { GroupEnumAugment } from "./groupEnum";
 
-type StatGetterFunction = (ctx: ActionContext) => StatObject;
+type getterFunction = (ctx: ActionContext) => StatObject;
 export class Augment {
   #level: number;
   #conflict: Set<GroupEnumAugment>;
 
   name: string;
   group: GroupEnumAugment;
-  getStatObject: StatGetterFunction;
+  getStatObject: getterFunction;
 
   constructor(
     name: string,
     level: number,
     group: GroupEnumAugment,
     conflict: GroupEnumAugment[],
-    getStatObject: StatGetterFunction,
+    getStatObject: getterFunction,
   ) {
     this.name = name;
     this.group = group;
@@ -54,7 +54,7 @@ export const augment = (
   level: number,
   group: GroupEnumAugment,
   conflict: GroupEnumAugment[],
-  getStatObject: StatGetterFunction,
+  getStatObject: getterFunction,
 ): Augment => {
   return new Augment(name, level, group, conflict, getStatObject);
 };

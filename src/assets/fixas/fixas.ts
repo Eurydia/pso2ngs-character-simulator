@@ -2,18 +2,19 @@ import { ActionContext } from "../context";
 import { StatObject } from "../stat";
 import { GroupEnumFixa } from "./groupEnum";
 
+type getterFunction = (ctx: ActionContext) => StatObject;
 export class Fixa {
   #level: number;
 
   name: string;
   group: GroupEnumFixa;
-  getStatObject: (ctx: ActionContext) => StatObject;
+  getStatObject: getterFunction;
 
   constructor(
     name: string,
     level: number,
     group: GroupEnumFixa,
-    getStatObject: (ctx: ActionContext) => StatObject,
+    getStatObject: getterFunction,
   ) {
     this.name = name;
     this.group = group;
@@ -35,7 +36,7 @@ export const fixa = (
   name: string,
   level: number,
   group: GroupEnumFixa,
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getStatObject: getterFunction,
 ): Fixa => {
   return new Fixa(name, level, group, getStatObject);
 };
