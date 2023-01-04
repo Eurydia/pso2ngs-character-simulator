@@ -16,7 +16,7 @@ const makeUnitSeven = (
   name: string,
   stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_SIX, GROWTH_DATA, (_) => {
+  return unit(name, GroupEnumUnitRarity.R_SEVEN, GROWTH_DATA, (_) => {
     return statObject(stat);
   });
 };
