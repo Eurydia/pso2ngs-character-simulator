@@ -1,4 +1,4 @@
-export const enum GroupEnumUnit {
+export const enum GroupEnumUnitRarity {
   R_ONE = "1*",
   R_TWO = "2*",
   R_THREE = "3*",

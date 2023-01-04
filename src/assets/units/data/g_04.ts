@@ -1,5 +1,5 @@
 import { StatEnum, statObject } from "../../stat";
-import { GroupEnumUnit } from "../groupEnum";
+import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
 export const G_FOUR: Unit[] = [];
@@ -17,7 +17,7 @@ const makeUnitFour = (
   name: string,
   stat: Partial<{ [K in StatEnum]: number }>,
 ): Unit => {
-  return unit(name, GroupEnumUnit.R_FOUR, GROWTH_DATA, (_) => {
+  return unit(name, GroupEnumUnitRarity.R_FOUR, GROWTH_DATA, (_) => {
     return statObject(stat);
   });
 };
