@@ -25,7 +25,6 @@ export class Potential {
     if (level < 1 || level > this.level_max) {
       return statObject();
     }
-
     return this.#getterFunction(ctx, level - 1);
   }
 }

@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, memo } from "react";
-import { MenuItem, TextField } from "@mui/material";
+import { MenuItem, TextField, Typography } from "@mui/material";
 
 import { toSafeInteger as ld_toSafeInteger } from "lodash";
 
@@ -21,21 +21,35 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       props.onChange(value);
     };
 
+    const options: { label: string; value: number }[] = [];
+    for (let level = 1; level <= valueMax; level++) {
+      options.push({
+        label: `${potentialName} Lv. ${level}`,
+        value: level,
+      });
+    }
+
+    let _value = "";
+    if (value > 0) {
+      _value = value.toString();
+    }
+
     return (
       <TextField
         select
         fullWidth
         placeholder="Potential"
         disabled={valueMax === 0}
-        value={value}
+        value={_value}
         onChange={handleChange}
       >
-        {Array(valueMax).map((_, level_index) => {
-          const level: number = level_index + 1;
-
+        {options.map(({ label, value }) => {
           return (
-            <MenuItem key={`${potentialName}-${level_index}`}>
-              {`${potentialName} Lv. ${level}`}
+            <MenuItem
+              key={`${potentialName}-${value}`}
+              value={value.toString()}
+            >
+              <Typography>{label}</Typography>
             </MenuItem>
           );
         })}

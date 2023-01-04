@@ -12,21 +12,15 @@ import { SummaryEquipment } from "../../types";
 const collectWeapon = (
   context: ActionContext,
   weapon: Weapon,
-  potential_string: string,
+  potential_level: number,
   target: StatObject,
 ): void => {
   const stat_weapon = weapon.getStatObject(context);
   target.merge(stat_weapon);
 
-  const _getter_function:
-    | ((ctx: ActionContext) => StatObject)
-    | null = weapon.potential.getPotential(potential_string);
+  const _getterFunction = weapon.potential.getStatObject;
 
-  if (_getter_function === null) {
-    return;
-  }
-
-  const stat_potential = _getter_function(context);
+  const stat_potential = _getterFunction(context, potential_level);
   target.merge(stat_potential);
 };
 
@@ -82,7 +76,7 @@ export const createStat = (
   weapon: Weapon | null,
   level: number,
   fixa: Fixa | null,
-  potential_string: string,
+  potential_level: number,
   augments: (Augment | null)[],
 ): StatObject => {
   const result: StatObject = statObject();
@@ -91,7 +85,7 @@ export const createStat = (
     return result;
   }
 
-  collectWeapon(context, weapon, potential_string, result);
+  collectWeapon(context, weapon, potential_level, result);
   collectEnhancement(context, weapon, level, result);
   collectFixa(context, fixa, result);
   collectAugments(context, augments, result);

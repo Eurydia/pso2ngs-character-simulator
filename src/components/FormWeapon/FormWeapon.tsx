@@ -43,7 +43,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const [level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
 
-  const [potentialLevel, setPotentialLevel] = useState<number>(0);
+  const [potentialLevel, setPotentialLevel] = useState(0);
 
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (weapon === null) {
@@ -53,7 +53,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     return augments.slice(0, active_count);
   }, [level, augments, weapon]);
 
-  const stat: StatObject = useMemo<StatObject>(() => {
+  const stat = useMemo((): StatObject => {
     return createStat(
       CONTEXT,
       weapon,
@@ -77,10 +77,10 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     setPotentialLevel(0);
   };
 
-  let potential_max_level: number = 0;
+  let potential_level_max: number = 0;
   let potential_name: string = "";
   if (weapon !== null) {
-    potential_max_level = weapon.potential.keys.length;
+    potential_level_max = weapon.potential.level_max;
     potential_name = weapon.potential.name;
   }
 
@@ -96,7 +96,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             onChange={handleWeaponChange}
           />
           <SelectPotential
-            valueMax={potential_max_level}
+            valueMax={potential_level_max}
             potentialName={potential_name}
             value={potentialLevel}
             onChange={setPotentialLevel}
