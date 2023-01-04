@@ -9,17 +9,16 @@ import { CopyAll, Delete } from "@mui/icons-material";
 
 import { Food } from "../../assets";
 
-type CustomItemProps = {
-  item: Food;
+type CustomItemProps = Food & {
   onCopy: () => void;
   onRemove: () => void;
 };
 export const CustomItem: FC<CustomItemProps> = (props) => {
-  const { item } = props;
+  const { label } = props;
 
   return (
     <ListItem>
-      <ListItemText primary={item.label} />
+      <ListItemText inset primary={label} />
       <ListItemSecondaryAction>
         <IconButton onClick={props.onCopy}>
           <CopyAll />
