@@ -1,5 +1,3 @@
-import { toSafeInteger as ld_toSafeInteger } from "lodash";
-
 import {
   Augment,
   AssetAugments,
@@ -32,8 +30,7 @@ export const retrieveData = (
   storage_key: string,
   size: number,
 ): (Augment | null)[] => {
-  const safe_size: number = ld_toSafeInteger(size);
-  const fallback: null[] = Array(safe_size).fill(null);
+  const fallback: null[] = Array(size).fill(null);
 
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
@@ -59,12 +56,12 @@ export const retrieveData = (
     augments.push(augment);
   }
 
-  while (augments.length < safe_size) {
+  while (augments.length < size) {
     augments.push(null);
   }
 
   let conflict_safe = [...augments];
-  for (let index = 0; index < safe_size; index++) {
+  for (let index = 0; index < size; index++) {
     conflict_safe = removeConflict(index, conflict_safe);
   }
 

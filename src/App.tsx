@@ -21,21 +21,19 @@ import { style_overrrides } from "./theme";
 import { statObject, StatObject } from "./assets";
 
 function App() {
-  const [statEquipment, setStatEquipment] =
-    useStatObject("page-equipment");
-
-  const [statFood, setStatFood] = useStatObject("page-food");
+  const [equipment, setEquipment] = useStatObject("page-equipment");
+  const [food, setFood] = useStatObject("page-food");
 
   const stat_total = useMemo(() => {
     const total: StatObject = statObject();
 
-    const items: StatObject[] = [statEquipment, statFood];
+    const items: StatObject[] = [equipment, food];
     for (const item of items) {
       total.merge(item);
     }
 
     return total;
-  }, [statEquipment, statFood]);
+  }, [equipment, food]);
 
   return (
     <ThemeProvider theme={style_overrrides}>
@@ -67,11 +65,11 @@ function App() {
             />
             <Route
               path="/config-equipment"
-              element={<EditEquipment onChange={setStatEquipment} />}
+              element={<EditEquipment onChange={setEquipment} />}
             />
             <Route
               path="/config-food"
-              element={<FoodEdit onStatChange={setStatFood} />}
+              element={<FoodEdit onStatChange={setFood} />}
             />
             <Route path="/config-addon" element={null} />
             <Route path="/config-buffs" element={null} />

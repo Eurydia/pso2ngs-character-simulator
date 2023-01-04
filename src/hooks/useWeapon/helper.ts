@@ -1,5 +1,3 @@
-import { toSafeInteger as ld_toSafeInteger } from "lodash";
-import { useState } from "react";
 import { AssetWeapons, Weapon } from "../../assets";
 import { isValidJSON } from "../utility";
 
@@ -63,5 +61,13 @@ export const retrievePotentialLevel = (
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
 
-  return ld_toSafeInteger(loaded_string);
+  if (loaded_string === null) {
+    return 0;
+  }
+
+  if (!isValidJSON(loaded_string)) {
+    return 0;
+  }
+
+  return Number.parseInt(loaded_string);
 };

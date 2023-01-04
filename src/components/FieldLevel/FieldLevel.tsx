@@ -1,6 +1,5 @@
 import { FC, ChangeEvent, memo } from "react";
 import { TextField } from "@mui/material";
-import { toSafeInteger as ld_toSafeInteger } from "lodash";
 
 import { clampValue } from "./helper";
 
@@ -17,9 +16,13 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
       const value_input: string = event.target.value;
-      const value_safe: number = ld_toSafeInteger(value_input);
+
+      if (Number.isNaN(value_input)) {
+        return;
+      }
+
       const value_clamped: number = clampValue(
-        value_safe,
+        Number.parseInt(value_input),
         props.valueMin,
         props.valueMax,
       );

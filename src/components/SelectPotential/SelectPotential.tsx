@@ -1,8 +1,6 @@
 import { ChangeEvent, FC, memo } from "react";
 import { MenuItem, TextField, Typography } from "@mui/material";
 
-import { toSafeInteger as ld_toSafeInteger } from "lodash";
-
 type SelectPotentialProps = {
   potentialName: string;
   valueMax: number;
@@ -16,9 +14,11 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
     const handleChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
-      const value: number = ld_toSafeInteger(event.target.value);
-
-      props.onChange(value);
+      const value_input: string = event.target.value;
+      if (Number.isNaN(value_input)) {
+        return;
+      }
+      props.onChange(Number.parseInt(value_input));
     };
 
     const options: { label: string; value: number }[] = [];

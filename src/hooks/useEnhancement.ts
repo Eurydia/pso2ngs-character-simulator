@@ -1,4 +1,3 @@
-import { toSafeInteger as ld_toSafeInteger } from "lodash";
 import { useState } from "react";
 import { isValidJSON } from "./utility";
 
@@ -17,7 +16,7 @@ const retrieveData = (storage_key: string): number => {
     return 0;
   }
 
-  return ld_toSafeInteger(loaded_string);
+  return Number.parseInt(loaded_string);
 };
 
 export const useEnhancement = (

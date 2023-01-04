@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box } from "@mui/material";
+import { Box, Fab } from "@mui/material";
 
 import { StatObject } from "../../assets";
 import { FormFood } from "../../components";
@@ -20,6 +20,7 @@ const EditFood: FC<EditFoodProps> = (props) => {
         onItemAdd={onItemAdd}
         onItemRemove={onItemRemove}
       />
+      <Fab />
     </Box>
   );
 };
