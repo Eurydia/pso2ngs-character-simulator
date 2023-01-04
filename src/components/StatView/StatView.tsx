@@ -25,8 +25,12 @@ type CoreGroupProps = Nullable<{
 const CoreGroup: FC<CoreGroupProps> = (props) => {
   const { bp, hp, pp, attack, defense } = props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Core">
+    <CustomList hidden={hidden} subheader="Core">
       <CustomItem
         label={StatEnumString[StatEnum.CORE_BP]}
         value={bp}
@@ -65,8 +69,12 @@ type PotencyGroupProps = Nullable<{
 const PotencyGroup: FC<PotencyGroupProps> = (props) => {
   const { melee, ranged, technique, weakpoint } = props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Weapon up">
+    <CustomList hidden={hidden} subheader="Weapon up">
       <CustomItem
         label={StatEnumString[StatEnum.WEAPON_MELEE]}
         value={melee}
@@ -104,8 +112,12 @@ const AilmentGroup: FC<AilmentGroupProps> = (props) => {
   const { burn, freeze, panic, blind, shock, poison, physicalDown } =
     props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Ailment resistance">
+    <CustomList hidden={hidden} subheader="Ailment resistance">
       <CustomItem
         label={StatEnumString[StatEnum.AIL_BURN]}
         value={burn}
@@ -151,8 +163,12 @@ type AdvHPGroupProps = Nullable<{
 const AdvHPGroup: FC<AdvHPGroupProps> = (props) => {
   const { boost } = props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Advanced: HP">
+    <CustomList hidden={hidden} subheader="Advanced: HP">
       <CustomItem
         label={StatEnumString[StatEnum.ADV_HP_BOOST]}
         value={boost}
@@ -170,8 +186,12 @@ type AdvPPGroupProps = Nullable<{
 const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
   const { usage, activeRecovery, naturalRecovery } = props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Advanced: PP">
+    <CustomList hidden={hidden} subheader="Advanced: PP">
       <CustomItem
         label={StatEnumString[StatEnum.ADV_PP_USAGE]}
         value={usage}
@@ -196,7 +216,7 @@ type AdvOffensiveGroupProps = Nullable<{
   damageUp: string;
   critChance: string;
   critDamage: string;
-  pbGaugeRecovery: string;
+  pbRecovery: string;
 }>;
 const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
   const {
@@ -204,11 +224,15 @@ const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
     floorPotency,
     critChance,
     critDamage,
-    pbGaugeRecovery,
+    pbRecovery,
   } = props;
 
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Advanced: Offensive">
+    <CustomList hidden={hidden} subheader="Advanced: Offensive">
       <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
         value={floorPotency}
@@ -231,8 +255,8 @@ const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
       />
       <CustomItem
         label={StatEnumString[StatEnum.ADV_OFF_PB_RECOVERY]}
-        value={pbGaugeRecovery}
-        icon={getIcon(pbGaugeRecovery)}
+        value={pbRecovery}
+        icon={getIcon(pbRecovery)}
       />
     </CustomList>
   );
@@ -245,8 +269,13 @@ type AdvDefensiveGroupProps = Nullable<{
 }>;
 const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
   const { damageResist, healingUp, ailmentDuration } = props;
+
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Advanced: Defensive">
+    <CustomList hidden={hidden} subheader="Advanced: Defensive">
       <CustomItem
         label={StatEnumString[StatEnum.ADV_DEF_DAMAGE_RES]}
         value={damageResist}
@@ -271,8 +300,13 @@ type EnvironmentGroupProps = Nullable<{
 }>;
 const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
   const { harshEnvironment } = props;
+
+  const hidden = Object.values(props).every((value) => {
+    return value === null;
+  });
+
   return (
-    <CustomList subheader="Enviroment resistence">
+    <CustomList hidden={hidden} subheader="Enviroment resistence">
       <CustomItem
         label={StatEnumString[StatEnum.HARSH_COLD]}
         value={harshEnvironment}
@@ -372,7 +406,7 @@ export const StatView: FC<StatViewProps> = (props) => {
             critDamage={stat.getFormattedStat(
               StatEnum.ADV_OFF_CRIT_DAMAGE,
             )}
-            pbGaugeRecovery={stat.getFormattedStat(
+            pbRecovery={stat.getFormattedStat(
               StatEnum.ADV_OFF_PB_RECOVERY,
             )}
           />

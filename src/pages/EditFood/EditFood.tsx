@@ -20,7 +20,6 @@ const EditFood: FC<EditFoodProps> = (props) => {
         onItemAdd={onItemAdd}
         onItemRemove={onItemRemove}
       />
-      <Fab />
     </Box>
   );
 };

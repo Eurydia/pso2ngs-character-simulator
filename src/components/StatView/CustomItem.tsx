@@ -14,12 +14,14 @@ type CustomItemProps = {
 };
 export const CustomItem: FC<CustomItemProps> = memo(
   (props) => {
-    if (props.value === null) {
-      return null;
-    }
+    const hidden: boolean = props.value === null;
 
     return (
-      <ListItem disablePadding dense>
+      <ListItem
+        disablePadding
+        dense
+        sx={{ display: hidden ? "none" : "" }}
+      >
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>
           <Stack
