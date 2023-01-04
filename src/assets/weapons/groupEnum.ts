@@ -1,4 +1,4 @@
-export const enum GroupEnumWeapon {
+export const enum GroupEnumWeaponRarity {
   R_ONE = "1*",
   R_TWO = "2*",
   R_THREE = "3*",

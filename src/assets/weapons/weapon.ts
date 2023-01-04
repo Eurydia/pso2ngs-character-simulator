@@ -1,62 +1,89 @@
 import { StatEnum, StatObject } from "../stat";
 import { Potential } from "../potentials";
 
-import { GroupEnumWeapon } from "./groupEnum";
+import { GroupEnumWeaponRarity } from "./groupEnum";
 import { calcBonusAtk } from "./helper";
 import { ActionContext } from "../context";
 
 type getterFunction = (ctx: ActionContext) => StatObject;
 export class Weapon {
   name: string;
+  rarity: GroupEnumWeaponRarity;
   potential: Potential;
-  getStatObject: getterFunction;
 
+  #getStatObject: getterFunction;
   #growth_data: [number, number][];
-  #group: GroupEnumWeapon;
 
   constructor(
     name: string,
-    group: GroupEnumWeapon,
+    group: GroupEnumWeaponRarity,
     potential: Potential,
     growth_rate: [number, number][],
     getStatObject: getterFunction,
   ) {
     this.name = name;
-    this.getStatObject = getStatObject;
+    this.rarity = group;
     this.potential = potential;
 
-    this.#group = group;
+    this.#getStatObject = getStatObject;
     this.#growth_data = growth_rate;
-  }
-
-  get rarity(): string {
-    return this.#group;
   }
 
   get label(): string {
     return this.name;
   }
 
-  get base_attack(): number {
-    const stat = this.getStatObject({});
+  get #damage_adjustment(): number {
+    const stat: StatObject = this.#getStatObject({});
+    return stat.getStat(StatEnum.ADV_OFF_FLOOR);
+  }
+
+  get #base_attack(): number {
+    const stat: StatObject = this.#getStatObject({});
     return stat.getStat(StatEnum.CORE_ATTACK);
   }
 
-  getBonusAttack(level: number): number {
+  #getBonusAttack(level: number): number {
     return calcBonusAtk(level, this.#growth_data);
+  }
+
+  getStatObject(
+    ctx: ActionContext,
+    weapon_level: number,
+    damage_adjustment: number,
+    potential_level: number,
+  ): StatObject {
+    const stat: StatObject = this.#getStatObject(ctx);
+
+    const atk_bonus: number = this.#getBonusAttack(weapon_level);
+    stat.stackStat(StatEnum.CORE_ATTACK, atk_bonus);
+
+    const atk_base: number = this.#base_attack;
+    const bp_from_atk: number =
+      (atk_base + atk_bonus) *
+      ((damage_adjustment * this.#damage_adjustment) / 2);
+    stat.stackStat(StatEnum.CORE_BP, Math.round(bp_from_atk));
+
+    const stat_potential: StatObject = this.potential.getStatObject(
+      ctx,
+      potential_level,
+    );
+    stat.merge(stat_potential);
+
+    return stat;
   }
 }
 
 export const weapon = (
   name: string,
-  group: GroupEnumWeapon,
+  rarity: GroupEnumWeaponRarity,
   potential: Potential,
   growth_rate: [number, number][],
   getStatObject: getterFunction,
 ): Weapon => {
   return new Weapon(
     name,
-    group,
+    rarity,
     potential,
     growth_rate,
     getStatObject,

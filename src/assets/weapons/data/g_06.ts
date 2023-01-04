@@ -1,6 +1,6 @@
 import { StatEnum, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
-import { GroupEnumWeapon } from "../groupEnum";
+import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 
 export const G_SIX: Weapon[] = [];
@@ -21,7 +21,7 @@ const makeWeaponSix = (
 ): Weapon => {
   return weapon(
     name,
-    GroupEnumWeapon.R_SIX,
+    GroupEnumWeaponRarity.R_SIX,
     potential,
     GROWTH_DATA,
     (_) => {

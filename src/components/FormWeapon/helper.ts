@@ -9,90 +9,48 @@ import {
 import { ActionContext } from "../../assets";
 import { SummaryEquipment } from "../../types";
 
-const collectWeapon = (
-  context: ActionContext,
-  weapon: Weapon,
-  potential_level: number,
-  target: StatObject,
-): void => {
-  const stat_weapon = weapon.getStatObject(context);
-  target.merge(stat_weapon);
-
-  const potential = weapon.potential;
-  const stat_potential = potential.getStatObject(
-    context,
-    potential_level,
-  );
-  target.merge(stat_potential);
-};
-
-const collectEnhancement = (
-  context: ActionContext,
-  weapon: Weapon,
-  level: number,
-  target: StatObject,
-): void => {
-  const atk_bonus: number = weapon.getBonusAttack(level);
-  target.stackStat(StatEnum.CORE_ATTACK, atk_bonus);
-
-  const weapon_stats = weapon.getStatObject(context);
-
-  const floor_potency = weapon_stats.getStat(StatEnum.ADV_OFF_FLOOR);
-
-  const bp_from_atk =
-    (floor_potency / 2) * (weapon.base_attack + atk_bonus);
-  target.stackStat(StatEnum.CORE_BP, Math.round(bp_from_atk));
-};
-
-const collectFixa = (
-  context: ActionContext,
-  fixa: Fixa | null,
-  target: StatObject,
-): void => {
-  if (fixa === null) {
-    return;
-  }
-
-  const stat_fixa: StatObject = fixa.getStatObject(context);
-  target.merge(stat_fixa);
-};
-
-const collectAugments = (
-  context: ActionContext,
-  augments: (Augment | null)[],
-  target: StatObject,
-): void => {
-  for (const augment of augments) {
-    if (augment === null) {
-      continue;
-    }
-
-    const stat_augment: StatObject = augment.getStatObject(context);
-
-    target.merge(stat_augment);
-  }
-};
-
 export const createStat = (
-  context: ActionContext,
+  ctx: ActionContext,
   weapon: Weapon | null,
-  level: number,
-  fixa: Fixa | null,
+  weapon_level: number,
   potential_level: number,
+  fixa: Fixa | null,
   augments: (Augment | null)[],
 ): StatObject => {
-  const result: StatObject = statObject();
+  const stat: StatObject = statObject();
 
   if (weapon === null) {
-    return result;
+    return stat;
   }
 
-  collectWeapon(context, weapon, potential_level, result);
-  collectEnhancement(context, weapon, level, result);
-  collectFixa(context, fixa, result);
-  collectAugments(context, augments, result);
+  if (fixa === null) {
+    return stat;
+  }
 
-  return result;
+  const stat_fixa: StatObject = fixa.getStatObject(ctx);
+  stat.merge(stat_fixa);
+
+  augments.forEach((augment) => {
+    if (augment === null) {
+      return;
+    }
+    const stat_augment: StatObject = augment.getStatObject(ctx);
+    stat.merge(stat_augment);
+  });
+
+  const damage_adjustment: number = stat.getStat(
+    StatEnum.ADV_OFF_FLOOR,
+  );
+
+  const stat_weapon: StatObject = weapon.getStatObject(
+    ctx,
+    weapon_level,
+    damage_adjustment,
+    potential_level,
+  );
+  stat.merge(stat_weapon);
+
+  return stat;
 };
 
 export const createSummary = (

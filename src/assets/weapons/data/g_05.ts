@@ -1,7 +1,7 @@
 import { StatEnum, StatObject, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
 
-import { GroupEnumWeapon } from "../groupEnum";
+import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
 import { ActionContext } from "../../context";
 
@@ -23,7 +23,7 @@ const makeWeaponFive = (
 ): Weapon => {
   return weapon(
     name,
-    GroupEnumWeapon.R_FIVE,
+    GroupEnumWeaponRarity.R_FIVE,
     potential,
     GROWTH_DATA,
     getStatObject,
