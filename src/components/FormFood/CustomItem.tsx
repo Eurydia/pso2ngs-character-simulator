@@ -9,7 +9,8 @@ import { CopyAll, Delete } from "@mui/icons-material";
 
 import { Food } from "../../assets";
 
-type CustomItemProps = Food & {
+type CustomItemProps = {
+  label: string;
   onCopy: () => void;
   onRemove: () => void;
 };

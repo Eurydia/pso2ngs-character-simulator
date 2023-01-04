@@ -38,7 +38,7 @@ const CustomList: FC<CustomListProps> = (props) => {
         return (
           <CustomItem
             key={`${item.label}-${index}`}
-            item={item}
+            label={item.label}
             onCopy={() => onCopy(index, item)}
             onRemove={() => onRemove(index)}
           />
