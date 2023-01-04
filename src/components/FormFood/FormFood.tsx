@@ -1,12 +1,5 @@
 import { FC, useEffect, useState, useMemo } from "react";
-import {
-  Box,
-  Button,
-  List,
-  ListSubheader,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 import { ActionContext, Food, StatObject } from "../../assets";
@@ -14,39 +7,12 @@ import { useFood } from "../../hooks";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 
-import { CustomItem } from "./CustomItem";
+import { CustomList } from "./CustomList";
 import { createStat } from "./helper";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 const CONTEXT: ActionContext = { location: { kvaris: true } };
-
-type CustomListProps = {
-  items: Food[];
-  onCopy: (index: number, item: Food) => void;
-  onRemove: (index: number) => void;
-};
-const CustomList: FC<CustomListProps> = (props) => {
-  const { items, onCopy, onRemove } = props;
-
-  return (
-    <List disablePadding>
-      <ListSubheader disableGutters>
-        <Typography>{`${items.length}/10 items used`}</Typography>
-      </ListSubheader>
-      {items.map((item, index) => {
-        return (
-          <CustomItem
-            key={`${item.label}-${index}`}
-            label={item.label}
-            onCopy={() => onCopy(index, item)}
-            onRemove={() => onRemove(index)}
-          />
-        );
-      })}
-    </List>
-  );
-};
 
 type FormFoodProps = {
   storage_key: string;
