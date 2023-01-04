@@ -46,7 +46,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   return (
     <FormBase
       title="Food"
-      slot_secondary={<StatView stat={stat} maxHeight="600px" />}
+      slotSecondary={<StatView stat={stat} maxHeight="600px" />}
     >
       <Stack spacing={2}>
         <Stack direction="row" spacing={1}>

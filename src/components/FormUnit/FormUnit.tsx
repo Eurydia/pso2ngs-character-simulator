@@ -67,7 +67,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   return (
     <FormBase
       title={props.title}
-      slot_secondary={<StatView stat={stat} maxHeight="500px" />}
+      slotSecondary={<StatView stat={stat} maxHeight="500px" />}
     >
       <Stack spacing={3}>
         <Stack spacing={1}>

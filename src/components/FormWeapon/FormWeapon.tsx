@@ -1,12 +1,19 @@
-import { FC, useEffect, useMemo, useState } from "react";
-import { Stack } from "@mui/material";
+import { Fragment, FC, useEffect, useMemo, useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Stack,
+} from "@mui/material";
 
 import {
   ActionContext,
   Augment,
   GroupEnumFixa,
   StatObject,
-  Weapon,
 } from "../../assets";
 import {
   useAugments,
@@ -26,6 +33,7 @@ import { SelectPotential } from "../SelectPotential";
 import { createStat, createSummary } from "./helper";
 import { getActiveAugmentCount } from "../utility";
 import { StatView } from "../StatView";
+import { Visibility } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
@@ -36,13 +44,24 @@ type FormWeaponProps = {
   onSummaryChange: (summary: SummaryEquipment) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { storageKey, onStatChange, onSummaryChange } = props;
+  const { storageKey, onStatChange, onSummaryChange, cardTitle } =
+    props;
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
     useWeapon(storageKey);
   const [fixa, setFixa] = useFixa(storageKey);
   const [weapon_level, setLevel] = useEnhancement(storageKey);
   const [augments, setAugments] = useAugments(storageKey);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
   const active_augments: (Augment | null)[] = useMemo(() => {
     if (weapon === null) {
@@ -71,55 +90,70 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     onSummaryChange(createSummary(weapon, fixa, active_augments));
   }, [weapon, fixa, augments, active_augments]);
 
-  let potential_level_max: number = 0;
-  let potential_name: string = "";
-  if (weapon !== null) {
-    potential_level_max = weapon.potential.level_max;
-    potential_name = weapon.potential.name;
-  }
-
   return (
-    <FormBase
-      title={props.cardTitle}
-      // slot_secondary={<StatView stat={stat} maxHeight="550px" />}
-      slot_secondary={
-        <Stack spacing={1}>
-          {augments.map((aug, index) => (
-            <AutocompleteAugment
-              key={`augment-${index}`}
-              disabled={
-                weapon === null || index >= active_augments.length
-              }
-              value={aug}
-              onChange={(new_value) => setAugments(new_value, index)}
+    <Fragment>
+      <FormBase
+        title={cardTitle}
+        slotHeaderAction={
+          <IconButton onClick={handleDialogOpen}>
+            <Visibility />
+          </IconButton>
+        }
+        slotPrimary={
+          <Stack spacing={1}>
+            <AutocompleteWeapon value={weapon} onChange={setWeapon} />
+            <SelectPotential
+              weapon={weapon}
+              value={potentialLevel}
+              onChange={setPotentialLevel}
             />
-          ))}
-        </Stack>
-      }
-    >
-      <Stack spacing={1}>
-        <AutocompleteWeapon value={weapon} onChange={setWeapon} />
-        <SelectPotential
-          valueMax={potential_level_max}
-          potentialName={potential_name}
-          value={potentialLevel}
-          onChange={setPotentialLevel}
-        />
 
-        <FieldLevel
-          disabled={weapon === null}
-          valueMin={0}
-          valueMax={60}
-          value={weapon_level}
-          onChange={setLevel}
-        />
-        <AutocompleteFixa
-          disabled={weapon === null}
-          value={fixa}
-          onChange={setFixa}
-          mode={GroupEnumFixa.WEAPON}
-        />
-      </Stack>
-    </FormBase>
+            <FieldLevel
+              disabled={weapon === null}
+              valueMin={0}
+              valueMax={60}
+              value={weapon_level}
+              onChange={setLevel}
+            />
+            <AutocompleteFixa
+              disabled={weapon === null}
+              value={fixa}
+              onChange={setFixa}
+              mode={GroupEnumFixa.WEAPON}
+            />
+          </Stack>
+        }
+        slotSecondary={
+          <Stack spacing={1}>
+            {augments.map((aug, index) => (
+              <AutocompleteAugment
+                key={`augment-${index}`}
+                disabled={
+                  weapon === null || index >= active_augments.length
+                }
+                value={aug}
+                onChange={(new_value) =>
+                  setAugments(new_value, index)
+                }
+              />
+            ))}
+          </Stack>
+        }
+      />
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>{`Stat for ${cardTitle}`}</DialogTitle>
+        <DialogContent>
+          <StatView stat={stat} maxHeight="" />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>close</Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
   );
 };
