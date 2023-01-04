@@ -9,7 +9,7 @@ type SelectPotentialProps = {
 };
 export const SelectPotential: FC<SelectPotentialProps> = memo(
   (props) => {
-    const { potentialName, valueMax, value } = props;
+    const { potentialName, valueMax, value, onChange } = props;
 
     const handleChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -18,7 +18,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       if (Number.isNaN(value_input)) {
         return;
       }
-      props.onChange(Number.parseInt(value_input));
+      onChange(Number.parseInt(value_input));
     };
 
     const options: { label: string; value: number }[] = [];
@@ -37,6 +37,10 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
         disabled={valueMax === 0}
         value={value}
         onChange={handleChange}
+        sx={{
+          textDecorationLine:
+            valueMax === 0 ? "line-through" : "none",
+        }}
       >
         <MenuItem value={0}>
           <Typography>No Level</Typography>

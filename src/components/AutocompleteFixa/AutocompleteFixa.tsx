@@ -18,12 +18,14 @@ type AutocompleteFixaProps = {
 };
 export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
+    const { disabled, value, onChange } = props;
+
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
       value: Fixa | null,
       reason: AutocompleteChangeReason,
     ) => {
-      props.onChange(value);
+      onChange(value);
     };
 
     const options: Fixa[] = AssetFixas.filter((fixa) => {
@@ -32,13 +34,20 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
 
     return (
       <Autocomplete
-        disabled={props.disabled}
+        disabled={disabled}
         options={options}
-        value={props.value}
+        value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
         renderInput={(params) => (
-          <TextField {...params} fullWidth placeholder="Fixa" />
+          <TextField
+            {...params}
+            fullWidth
+            placeholder="Fixa"
+            sx={{
+              textDecorationLine: disabled ? "line-through" : "none",
+            }}
+          />
         )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />

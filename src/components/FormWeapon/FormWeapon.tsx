@@ -81,32 +81,8 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   return (
     <FormBase
       title={props.cardTitle}
-      slot_secondary={<StatView stat={stat} maxHeight="550px" />}
-    >
-      <Stack spacing={3}>
-        <Stack spacing={1}>
-          <AutocompleteWeapon value={weapon} onChange={setWeapon} />
-          <SelectPotential
-            valueMax={potential_level_max}
-            potentialName={potential_name}
-            value={potentialLevel}
-            onChange={setPotentialLevel}
-          />
-
-          <FieldLevel
-            disabled={weapon === null}
-            valueMin={0}
-            valueMax={60}
-            value={weapon_level}
-            onChange={setLevel}
-          />
-          <AutocompleteFixa
-            disabled={weapon === null}
-            value={fixa}
-            onChange={setFixa}
-            mode={GroupEnumFixa.WEAPON}
-          />
-        </Stack>
+      // slot_secondary={<StatView stat={stat} maxHeight="550px" />}
+      slot_secondary={
         <Stack spacing={1}>
           {augments.map((aug, index) => (
             <AutocompleteAugment
@@ -119,6 +95,30 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             />
           ))}
         </Stack>
+      }
+    >
+      <Stack spacing={1}>
+        <AutocompleteWeapon value={weapon} onChange={setWeapon} />
+        <SelectPotential
+          valueMax={potential_level_max}
+          potentialName={potential_name}
+          value={potentialLevel}
+          onChange={setPotentialLevel}
+        />
+
+        <FieldLevel
+          disabled={weapon === null}
+          valueMin={0}
+          valueMax={60}
+          value={weapon_level}
+          onChange={setLevel}
+        />
+        <AutocompleteFixa
+          disabled={weapon === null}
+          value={fixa}
+          onChange={setFixa}
+          mode={GroupEnumFixa.WEAPON}
+        />
       </Stack>
     </FormBase>
   );

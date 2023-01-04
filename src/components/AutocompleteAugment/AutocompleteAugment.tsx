@@ -3,6 +3,7 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
+  Typography,
 } from "@mui/material";
 
 import { AssetAugments, Augment } from "../../assets";
@@ -17,23 +18,32 @@ type AutocompleteAugmentProps = {
 };
 export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
+    const { disabled, value, onChange } = props;
+
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
       value: Augment | null,
       reason: AutocompleteChangeReason,
     ) => {
-      props.onChange(value);
+      onChange(value);
     };
 
     return (
       <Autocomplete
-        disabled={props.disabled}
+        disabled={disabled}
         options={AssetAugments}
-        value={props.value}
+        value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
         renderInput={(params) => (
-          <TextField {...params} fullWidth placeholder="Augment" />
+          <TextField
+            {...params}
+            fullWidth
+            placeholder="Augment"
+            sx={{
+              textDecorationLine: disabled ? "line-through" : "none",
+            }}
+          />
         )}
         renderOption={(props, option, _) => (
           <CustomOption {...props} option={option} />

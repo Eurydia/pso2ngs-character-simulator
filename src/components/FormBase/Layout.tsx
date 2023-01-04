@@ -12,10 +12,10 @@ export const Layout: FC<LayoutProps> = (props) => {
   let primary: ReactNode | ReactNode[] = slot_primary;
   let secondary: ReactNode | ReactNode[] = slot_secondary;
 
-  if (useMediaQuery(theme.breakpoints.down("md"))) {
-    primary = slot_secondary;
-    secondary = slot_primary;
-  }
+  // if (useMediaQuery(theme.breakpoints.down("md"))) {
+  //   primary = slot_secondary;
+  //   secondary = slot_primary;
+  // }
 
   return (
     <Grid container spacing={3} columns={{ sm: 1, md: 2 }}>

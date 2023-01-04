@@ -12,7 +12,7 @@ export const FormBase: FC<FormBaseProps> = (props) => {
   const { title, children, slot_secondary } = props;
 
   return (
-    <Card>
+    <Card sx={{ padding: 1 }}>
       <CardHeader
         title={title}
         titleTypographyProps={{

@@ -12,6 +12,8 @@ type FieldLevelProps = {
 };
 export const FieldLevel: FC<FieldLevelProps> = memo(
   (props) => {
+    const { disabled, value, valueMax, valueMin, onChange } = props;
+
     const handleChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
@@ -23,8 +25,8 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
 
       const value_clamped: number = clampValue(
         Number.parseInt(value_input),
-        props.valueMin,
-        props.valueMax,
+        valueMin,
+        valueMax,
       );
 
       props.onChange(value_clamped);
@@ -32,12 +34,17 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
 
     return (
       <TextField
-        disabled={props.disabled}
-        value={props.value.toString()}
+        disabled={disabled}
+        value={value.toString()}
         onChange={handleChange}
         fullWidth
         inputMode="numeric"
         placeholder="Enhancement"
+        sx={{
+          textDecorationLine: props.disabled
+            ? "line-through"
+            : "none",
+        }}
       />
     );
   },
