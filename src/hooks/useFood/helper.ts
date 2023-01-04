@@ -7,7 +7,7 @@ for (const augment of AssetFoods) {
   LOOKUP_TABLE[label] = augment;
 }
 
-export const saveData = (
+export const saveFoods = (
   storage_key: string,
   items: Food[],
 ): void => {
@@ -20,7 +20,7 @@ export const saveData = (
   localStorage.setItem(storage_key, JSON.stringify(labels));
 };
 
-export const retrieveData = (storage_key: string): Food[] => {
+export const retrieveFoods = (storage_key: string): Food[] => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {

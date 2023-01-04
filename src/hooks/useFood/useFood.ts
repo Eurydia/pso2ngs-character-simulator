@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Food } from "../../assets";
 
-import { retrieveData, saveData } from "./helper";
+import { retrieveFoods, saveFoods } from "./helper";
 
 const FOOD_ITEM_MAX = 10;
 
@@ -14,7 +14,7 @@ export const useFood = (
   (index: number) => void,
 ] => {
   const [value, _setValue] = useState<Food[]>(() => {
-    return retrieveData(storage_key);
+    return retrieveFoods(storage_key);
   });
 
   const addItem = (index: number, next_value: Food) => {
@@ -31,7 +31,7 @@ export const useFood = (
 
       next.splice(index, 0, next_value);
 
-      saveData(storage_key, next);
+      saveFoods(storage_key, next);
 
       return next;
     });
@@ -47,7 +47,7 @@ export const useFood = (
 
       next.splice(index, 1);
 
-      saveData(storage_key, next);
+      saveFoods(storage_key, next);
 
       return next;
     });
