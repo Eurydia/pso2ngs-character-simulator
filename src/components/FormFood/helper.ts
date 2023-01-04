@@ -15,7 +15,6 @@ import {
   getStatObjectSeafood,
   getStatObjectKvaris,
 } from "../../assets";
-import { SummaryFood } from "../../types";
 
 const countAttribute = (
   items: Food[],

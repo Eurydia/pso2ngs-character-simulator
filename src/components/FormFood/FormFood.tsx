@@ -53,9 +53,9 @@ export const FormFood: FC<FormFoodProps> = (props) => {
           <Button
             disableRipple
             disableElevation
-            disabled={selected === null}
             variant="contained"
             startIcon={<Add />}
+            disabled={selected === null}
             onClick={handleAdd}
           >
             add
