@@ -1,4 +1,6 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
+
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -15,31 +17,40 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitTwo = (
   name: string,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_TWO, GROWTH_DATA, (_) => {
-    return statObject(stat);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_TWO,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
 G_TWO.push(
-  makeUnitTwo("Tzvia Armor", {
-    [StatEnum.CORE_DEFENSE]: 9,
-    [StatEnum.CORE_PP]: 2,
+  makeUnitTwo("Tzvia Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_PP]: 2,
+    });
   }),
 );
 
 G_TWO.push(
-  makeUnitTwo("Silver Primm Armor", {
-    [StatEnum.CORE_DEFENSE]: 9,
-    [StatEnum.CORE_PP]: 2,
+  makeUnitTwo("Silver Primm Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_PP]: 2,
+    });
   }),
 );
 
 G_TWO.push(
-  makeUnitTwo("N-EXP Armor", {
-    [StatEnum.CORE_DEFENSE]: 9,
-    [StatEnum.CORE_PP]: 2,
+  makeUnitTwo("N-EXP Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_PP]: 2,
+    });
   }),
 );
