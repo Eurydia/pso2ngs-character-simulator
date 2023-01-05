@@ -14,8 +14,10 @@ import {
 import {
   ActionContext,
   Augment,
+  Fixa,
   GroupEnumFixa,
   StatObject,
+  Unit,
 } from "../../assets";
 import { FormDataUnit, FormDataUnitSetter } from "../../types";
 
@@ -26,29 +28,40 @@ import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { getActiveAugmentCount } from "../utility";
 
-import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
 import { BarChart, Sync } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
-type FormUnitProps = FormDataUnit &
-  FormDataUnitSetter & {
-    cardTitle: string;
-    onSync: () => void;
-  };
+type FormUnitProps = {
+  cardTitle: string;
+  stat: StatObject;
+
+  unit: Unit | null;
+  unitLevel: number;
+  fixa: Fixa | null;
+  augments: (Augment | null)[];
+
+  onSync: () => void;
+  onUnitChange: (new_value: Unit | null) => void;
+  onUnitLevelChange: (new_value: number) => void;
+  onFixaChange: (new_value: Fixa | null) => void;
+  onAugmentChange: (new_value: Augment | null, index: number) => void;
+};
 export const FormUnit: FC<FormUnitProps> = (props) => {
   const {
     cardTitle,
-    onSync,
+    stat,
     unit,
-    unit_level,
+    unitLevel,
     fixa,
     augments,
-    setUnit,
-    setUnitLevel,
-    setFixa,
-    setAugments,
+
+    onSync,
+    onUnitChange,
+    onUnitLevelChange,
+    onFixaChange,
+    onAugmentChange,
   } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -61,23 +74,11 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     setDialogOpen(false);
   };
 
-  const active_augments: (Augment | null)[] = useMemo(() => {
-    if (unit === null) {
-      return [];
-    }
-    const active_count: number = getActiveAugmentCount(unit_level);
-    return augments.slice(0, active_count);
-  }, [unit_level, augments, unit]);
-
-  const stat: StatObject = useMemo(() => {
-    return createStat(
-      CONTEXT,
-      unit,
-      unit_level,
-      fixa,
-      active_augments,
-    );
-  }, [unit, unit_level, fixa, active_augments]);
+  let active_augments: (Augment | null)[] = [];
+  if (unit !== null) {
+    const active_count: number = getActiveAugmentCount(unitLevel);
+    active_augments = augments.slice(0, active_count);
+  }
 
   return (
     <Fragment>
@@ -112,18 +113,18 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         }
         slotPrimary={
           <Stack spacing={1}>
-            <AutocompleteUnit value={unit} onChange={setUnit} />
+            <AutocompleteUnit value={unit} onChange={onUnitChange} />
             <FieldLevel
               disabled={unit === null}
               valueMin={0}
               valueMax={60}
-              value={unit_level}
-              onChange={setUnitLevel}
+              value={unitLevel}
+              onChange={onUnitLevelChange}
             />
             <AutocompleteFixa
               disabled={unit === null}
               value={fixa}
-              onChange={setFixa}
+              onChange={onFixaChange}
               mode={GroupEnumFixa.UNIT}
             />
           </Stack>
@@ -139,7 +140,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   disabled={disabled}
                   value={augment}
                   onChange={(new_value) => {
-                    setAugments(new_value, index);
+                    onAugmentChange(new_value, index);
                   }}
                 />
               );
@@ -148,6 +149,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         }
       />
       <Dialog
+        keepMounted
         fullWidth
         maxWidth="sm"
         open={dialogOpen}

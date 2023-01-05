@@ -6,8 +6,9 @@ import {
   StatObject,
   Unit,
 } from "../../assets";
+import { FormDataUnit } from "../../types";
 
-export const createStat = (
+export const createStatSummaryUnit = (
   context: ActionContext,
   unit: Unit | null,
   unit_level: number,
@@ -41,34 +42,3 @@ export const createStat = (
 
   return stat;
 };
-
-// export const createSummary = (
-//   unit: Unit | null,
-//   fixa: Fixa | null,
-//   augments: (Augment | null)[],
-// ): SummaryEquipment => {
-//   const summary: SummaryEquipment = {
-//     equipment: null,
-//     fixa: null,
-//     augments: [],
-//   };
-
-//   if (unit === null) {
-//     return summary;
-//   }
-
-//   summary.equipment = unit.label;
-
-//   if (fixa !== null) {
-//     summary.fixa = fixa.label;
-//   }
-
-//   for (const augment of augments) {
-//     if (augment === null) {
-//       continue;
-//     }
-//     summary.augments.push(augment.label);
-//   }
-
-//   return summary;
-// };

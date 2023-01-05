@@ -20,7 +20,6 @@ export const useFormDataUnit = (
     setUnit(data.unit);
     setUnitLevel(data.unit_level);
     setFixa(data.fixa);
-
     data.augments.forEach((augment, augment_index) => {
       setAugments(augment, augment_index);
     });

@@ -22,14 +22,18 @@ export const unit = (
   const getStatObject = (ctx: ActionContext, unit_level: number) => {
     const stat: StatObject = getterFunction(ctx);
 
+    const defense_base: number = stat.getStat(StatEnum.CORE_DEFENSE);
     const defense_bonus: number = calcBonusDef(
       unit_level,
       growth_data,
     );
-    stat.stackStat(StatEnum.CORE_DEFENSE, defense_bonus);
-    const defense_base: number = stat.getStat(StatEnum.CORE_DEFENSE);
 
-    const bp_from_defense: number = defense_base + defense_bonus / 2;
+    console.log("A", stat.getStat(StatEnum.CORE_DEFENSE));
+    stat.stackStat(StatEnum.CORE_DEFENSE, defense_bonus);
+    console.log("B", stat.getStat(StatEnum.CORE_DEFENSE));
+
+    const bp_from_defense: number =
+      (defense_base + defense_bonus) / 2;
     const bp_from_hp: number = stat.getStat(StatEnum.CORE_HP) / 10;
     const bp_from_pp: number = stat.getStat(StatEnum.CORE_PP);
     stat.stackStat(
@@ -40,11 +44,11 @@ export const unit = (
     return stat;
   };
 
-  const result: Unit = {
-    rarity,
+  const result: Unit = Object.freeze({
     label,
+    rarity,
     getStatObject,
-  };
+  });
 
   return result;
 };
