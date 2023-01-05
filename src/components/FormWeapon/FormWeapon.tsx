@@ -101,12 +101,14 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             placement="top"
             title={<Typography>Open stat</Typography>}
           >
-            <IconButton
-              onClick={handleDialogOpen}
-              disabled={weapon === null}
-            >
-              <BarChart />
-            </IconButton>
+            <span>
+              <IconButton
+                onClick={handleDialogOpen}
+                disabled={weapon === null}
+              >
+                <BarChart />
+              </IconButton>
+            </span>
           </Tooltip>
         }
         slotPrimary={

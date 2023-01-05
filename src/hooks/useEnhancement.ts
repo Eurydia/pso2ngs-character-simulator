@@ -16,7 +16,13 @@ const retrieveData = (storage_key: string): number => {
     return 0;
   }
 
-  return Number.parseInt(loaded_string);
+  const value_parsed: number = Number.parseInt(loaded_string);
+
+  if (Number.isNaN(value_parsed)) {
+    return 0;
+  }
+
+  return value_parsed;
 };
 
 export const useEnhancement = (

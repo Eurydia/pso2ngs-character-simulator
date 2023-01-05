@@ -19,23 +19,30 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
     ) => {
       const value_input: string = event.target.value;
 
-      if (Number.isNaN(value_input)) {
-        return 0;
+      const value_parsed: number = Number.parseInt(value_input);
+      if (Number.isNaN(value_parsed)) {
+        onChange(0);
+        return;
       }
 
       const value_clamped: number = clampValue(
-        Number.parseInt(value_input),
+        value_parsed,
         valueMin,
         valueMax,
       );
 
-      props.onChange(value_clamped);
+      onChange(value_clamped);
     };
+
+    let _value: number = 0;
+    if (!Number.isNaN(value)) {
+      _value = value;
+    }
 
     return (
       <TextField
         disabled={disabled}
-        value={value.toString()}
+        value={_value.toString()}
         onChange={handleChange}
         fullWidth
         inputMode="numeric"
