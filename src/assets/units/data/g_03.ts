@@ -1,4 +1,5 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -15,37 +16,46 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitThree = (
   name: string,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_THREE, GROWTH_DATA, (_) => {
-    return statObject(stat);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_THREE,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
 G_THREE.push(
-  makeUnitThree("Theseus Armor", {
-    [StatEnum.CORE_DEFENSE]: 9,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.CORE_PP]: 1,
+  makeUnitThree("Theseus Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.CORE_PP]: 1,
+    });
   }),
 );
 
 G_THREE.push(
-  makeUnitThree("Gold Primm Armor", {
-    [StatEnum.CORE_DEFENSE]: 9,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.CORE_PP]: 1,
+  makeUnitThree("Gold Primm Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.CORE_PP]: 1,
+    });
   }),
 );
 
 G_THREE.push(
-  makeUnitThree("Renaissa Armor", {
-    [StatEnum.CORE_DEFENSE]: 10,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.CORE_PP]: 2,
-    [StatEnum.WEAPON_MELEE]: 1.01,
-    [StatEnum.WEAPON_RANGED]: 1.01,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.01,
+  makeUnitThree("Renaissa Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 10,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.CORE_PP]: 2,
+      [StatEnum.WEAPON_MELEE]: 1.01,
+      [StatEnum.WEAPON_RANGED]: 1.01,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.01,
+    });
   }),
 );
