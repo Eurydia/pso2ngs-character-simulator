@@ -121,7 +121,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     setUnitFixaC(unitFixaB);
 
     unitAugmentB.forEach((augment, augment_index) => {
-      setUnitAugmentB(augment, augment_index);
+      setUnitAugmentA(augment, augment_index);
       setUnitAugmentC(augment, augment_index);
     });
   };
@@ -136,7 +136,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     setUnitFixaB(unitFixaC);
 
     unitAugmentC.forEach((augment, augment_index) => {
-      setUnitAugmentB(augment, augment_index);
+      setUnitAugmentA(augment, augment_index);
       setUnitAugmentC(augment, augment_index);
     });
   };
