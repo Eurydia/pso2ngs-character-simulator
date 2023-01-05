@@ -1,4 +1,6 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
+
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -15,27 +17,34 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFive = (
   name: string,
-  stats: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_FIVE, GROWTH_DATA, (_) => {
-    return statObject(stats);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_FIVE,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
 G_FIVE.push(
-  makeUnitFive("Vidal Armor", {
-    [StatEnum.CORE_DEFENSE]: 22,
-    [StatEnum.CORE_HP]: 45,
-    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+  makeUnitFive("Vidal Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 22,
+      [StatEnum.CORE_HP]: 45,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+    });
   }),
 );
 
 G_FIVE.push(
-  makeUnitFive("Vijf Armor", {
-    [StatEnum.CORE_DEFENSE]: 17,
-    [StatEnum.CORE_HP]: 30,
-    [StatEnum.CORE_PP]: 4,
+  makeUnitFive("Vijf Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 17,
+      [StatEnum.CORE_HP]: 30,
+      [StatEnum.CORE_PP]: 4,
+    });
   }),
 );
 
@@ -50,60 +59,70 @@ G_FIVE.push(
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
     G_FIVE.push(
-      makeUnitFive(`Vijf Armor ${suffix}`, {
-        [StatEnum.CORE_DEFENSE]: 18,
-        [StatEnum.CORE_HP]: 20,
-        [StatEnum.CORE_PP]: 7,
-        [stat_weapon_up_a]: 1.01,
-        [stat_weapon_up_b]: 1.01,
+      makeUnitFive(`Vijf Armor ${suffix}`, (_) => {
+        return statObject({
+          [StatEnum.CORE_DEFENSE]: 18,
+          [StatEnum.CORE_HP]: 20,
+          [StatEnum.CORE_PP]: 7,
+          [stat_weapon_up_a]: 1.01,
+          [stat_weapon_up_b]: 1.01,
+        });
       }),
     );
   }
 })();
 
 G_FIVE.push(
-  makeUnitFive("Vios Armor", {
-    [StatEnum.CORE_DEFENSE]: 15,
-    [StatEnum.CORE_PP]: 8,
-    [StatEnum.WEAPON_MELEE]: 1.01,
-    [StatEnum.WEAPON_RANGED]: 1.01,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.01,
+  makeUnitFive("Vios Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 15,
+      [StatEnum.CORE_PP]: 8,
+      [StatEnum.WEAPON_MELEE]: 1.01,
+      [StatEnum.WEAPON_RANGED]: 1.01,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.01,
+    });
   }),
 );
 
 G_FIVE.push(
-  makeUnitFive("Vindalun Armor", {
-    [StatEnum.CORE_DEFENSE]: 20,
-    [StatEnum.CORE_HP]: 70,
+  makeUnitFive("Vindalun Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 20,
+      [StatEnum.CORE_HP]: 70,
+    });
   }),
 );
 
 G_FIVE.push(
-  makeUnitFive("Viosel Armor", {
-    [StatEnum.CORE_DEFENSE]: 10,
-    [StatEnum.CORE_PP]: 14,
-    [StatEnum.AIL_BLIND]: 1.2,
-    [StatEnum.AIL_BURN]: 1.2,
-    [StatEnum.AIL_FREEZE]: 1.2,
-    [StatEnum.AIL_PANIC]: 1.2,
-    [StatEnum.AIL_DOWN]: 1.2,
-    [StatEnum.AIL_POISON]: 1.2,
-    [StatEnum.AIL_SHOCK]: 1.2,
+  makeUnitFive("Viosel Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 10,
+      [StatEnum.CORE_PP]: 14,
+      [StatEnum.AIL_BLIND]: 1.2,
+      [StatEnum.AIL_BURN]: 1.2,
+      [StatEnum.AIL_FREEZE]: 1.2,
+      [StatEnum.AIL_PANIC]: 1.2,
+      [StatEnum.AIL_DOWN]: 1.2,
+      [StatEnum.AIL_POISON]: 1.2,
+      [StatEnum.AIL_SHOCK]: 1.2,
+    });
   }),
 );
 
 G_FIVE.push(
-  makeUnitFive("Gres Armor", {
-    [StatEnum.CORE_DEFENSE]: 21,
-    [StatEnum.CORE_HP]: -40,
-    [StatEnum.CORE_PP]: 13,
-    [StatEnum.AIL_BLIND]: 0.5,
-    [StatEnum.AIL_BURN]: 0.5,
-    [StatEnum.AIL_FREEZE]: 0.5,
-    [StatEnum.AIL_PANIC]: 0.5,
-    [StatEnum.AIL_DOWN]: 0.5,
-    [StatEnum.AIL_POISON]: 0.5,
-    [StatEnum.AIL_SHOCK]: 0.5,
+  makeUnitFive("Gres Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 21,
+      [StatEnum.CORE_HP]: -40,
+      [StatEnum.CORE_PP]: 13,
+      [StatEnum.AIL_BLIND]: 0.5,
+      [StatEnum.AIL_BURN]: 0.5,
+      [StatEnum.AIL_FREEZE]: 0.5,
+      [StatEnum.AIL_PANIC]: 0.5,
+      [StatEnum.AIL_DOWN]: 0.5,
+      [StatEnum.AIL_POISON]: 0.5,
+      [StatEnum.AIL_SHOCK]: 0.5,
+    });
   }),
 );
 
@@ -120,12 +139,14 @@ G_FIVE.push(
     const [name, stat_weapon_up] = entry;
 
     G_FIVE.push(
-      makeUnitFive(`${name} Armor`, {
-        [StatEnum.CORE_DEFENSE]: 20,
-        [StatEnum.CORE_HP]: 25,
-        [StatEnum.CORE_PP]: 3,
-        [stat_weapon_up]: 1.02,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+      makeUnitFive(`${name} Armor`, (_) => {
+        return statObject({
+          [StatEnum.CORE_DEFENSE]: 20,
+          [StatEnum.CORE_HP]: 25,
+          [StatEnum.CORE_PP]: 3,
+          [stat_weapon_up]: 1.02,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+        });
       }),
     );
   }
