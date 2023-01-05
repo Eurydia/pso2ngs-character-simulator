@@ -1,3 +1,5 @@
+import { Augment, Fixa, Unit } from "./assets";
+
 export type SummaryEquipment = {
   equipment: string | null;
   fixa: string | null;
@@ -10,3 +12,10 @@ export type SummaryFood = {
 };
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null };
+
+export type FormDataUnit = {
+  unit: Unit | null;
+  unit_level: number;
+  fixa: Fixa | null;
+  augments: (Augment | null)[];
+};

@@ -34,7 +34,7 @@ import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
-import { BarChart, Visibility } from "@mui/icons-material";
+import { BarChart } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
@@ -43,6 +43,7 @@ type FormUnitProps = {
   cardTitle: string;
   onStatChange: (stat: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
+  onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
   const { cardTitle, storageKey, onStatChange, onSummaryChange } =
