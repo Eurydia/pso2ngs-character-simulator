@@ -1,4 +1,5 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -15,18 +16,23 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFour = (
   name: string,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_FOUR, GROWTH_DATA, (_) => {
-    return statObject(stat);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_FOUR,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
 G_FOUR.push(
-  makeUnitFour("Qual De Armor", {
-    [StatEnum.CORE_DEFENSE]: 8,
-    [StatEnum.CORE_PP]: 6,
+  makeUnitFour("Qual De Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 8,
+      [StatEnum.CORE_PP]: 6,
+    });
   }),
 );
 
@@ -40,29 +46,35 @@ G_FOUR.push(
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = ENTRY;
 
     G_FOUR.push(
-      makeUnitFour(`Qual De Armor ${suffix}`, {
-        [StatEnum.CORE_DEFENSE]: 13,
-        [StatEnum.CORE_PP]: 4,
-        [stat_weapon_up_a]: 1.01,
-        [stat_weapon_up_b]: 1.01,
+      makeUnitFour(`Qual De Armor ${suffix}`, (_) => {
+        return statObject({
+          [StatEnum.CORE_DEFENSE]: 13,
+          [StatEnum.CORE_PP]: 4,
+          [stat_weapon_up_a]: 1.01,
+          [stat_weapon_up_b]: 1.01,
+        });
       }),
     );
   }
 })();
 
 G_FOUR.push(
-  makeUnitFour("Cattleya Armor", {
-    [StatEnum.CORE_DEFENSE]: 12,
-    [StatEnum.CORE_HP]: 20,
-    [StatEnum.CORE_PP]: 2,
+  makeUnitFour("Cattleya Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 12,
+      [StatEnum.CORE_HP]: 20,
+      [StatEnum.CORE_PP]: 2,
+    });
   }),
 );
 
 G_FOUR.push(
-  makeUnitFour("Vialto Armor", {
-    [StatEnum.CORE_DEFENSE]: 14,
-    [StatEnum.CORE_HP]: 30,
-    [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+  makeUnitFour("Vialto Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 14,
+      [StatEnum.CORE_HP]: 30,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+    });
   }),
 );
 
@@ -77,32 +89,36 @@ G_FOUR.push(
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
     G_FOUR.push(
-      makeUnitFour(`Vialto Armor ${suffix}`, {
-        [StatEnum.CORE_DEFENSE]: 16,
-        [StatEnum.CORE_HP]: 25,
-        [stat_weapon_up_a]: 1.005,
-        [stat_weapon_up_b]: 1.005,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+      makeUnitFour(`Vialto Armor ${suffix}`, (_) => {
+        return statObject({
+          [StatEnum.CORE_DEFENSE]: 16,
+          [StatEnum.CORE_HP]: 25,
+          [stat_weapon_up_a]: 1.005,
+          [stat_weapon_up_b]: 1.005,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+        });
       }),
     );
   }
 })();
 
 G_FOUR.push(
-  makeUnitFour("Geant Armor", {
-    [StatEnum.CORE_DEFENSE]: 15,
-    [StatEnum.CORE_HP]: -20,
-    [StatEnum.CORE_PP]: 10,
-    [StatEnum.WEAPON_MELEE]: 1.02,
-    [StatEnum.WEAPON_RANGED]: 1.02,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-    [StatEnum.AIL_BLIND]: 1.02,
-    [StatEnum.AIL_BURN]: 1.02,
-    [StatEnum.AIL_FREEZE]: 1.02,
-    [StatEnum.AIL_PANIC]: 1.02,
-    [StatEnum.AIL_PANIC]: 1.02,
-    [StatEnum.AIL_DOWN]: 1.02,
-    [StatEnum.AIL_POISON]: 1.02,
-    [StatEnum.AIL_SHOCK]: 1.02,
+  makeUnitFour("Geant Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 15,
+      [StatEnum.CORE_HP]: -20,
+      [StatEnum.CORE_PP]: 10,
+      [StatEnum.WEAPON_MELEE]: 1.02,
+      [StatEnum.WEAPON_RANGED]: 1.02,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+      [StatEnum.AIL_BLIND]: 1.02,
+      [StatEnum.AIL_BURN]: 1.02,
+      [StatEnum.AIL_FREEZE]: 1.02,
+      [StatEnum.AIL_PANIC]: 1.02,
+      [StatEnum.AIL_PANIC]: 1.02,
+      [StatEnum.AIL_DOWN]: 1.02,
+      [StatEnum.AIL_POISON]: 1.02,
+      [StatEnum.AIL_SHOCK]: 1.02,
+    });
   }),
 );
