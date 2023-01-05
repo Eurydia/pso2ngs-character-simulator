@@ -321,11 +321,11 @@ type StatViewProps = {
   stat: StatObject;
 };
 export const StatView: FC<StatViewProps> = (props) => {
-  const { stat } = props;
+  const { stat, maxHeight } = props;
 
   return (
     <Box>
-      <Stack spacing={1}>
+      <Stack spacing={1} maxHeight={maxHeight} overflow="auto">
         <CoreGroup
           bp={stat.formatStat(StatEnum.CORE_BP)}
           hp={stat.formatStat(StatEnum.CORE_HP)}

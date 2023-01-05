@@ -99,7 +99,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
         slotHeaderAction={
           <Tooltip
             placement="top"
-            title={<Typography>Stat Summary</Typography>}
+            title={<Typography>Open stat</Typography>}
           >
             <IconButton
               onClick={handleDialogOpen}

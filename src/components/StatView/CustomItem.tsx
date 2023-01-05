@@ -18,9 +18,8 @@ export const CustomItem: FC<CustomItemProps> = memo(
 
     return (
       <ListItem
-        disablePadding
         dense
-        sx={{ display: hidden ? "none" : "" }}
+        sx={{ paddingY: 0, display: hidden ? "none" : "" }}
       >
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>

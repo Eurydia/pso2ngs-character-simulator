@@ -3,15 +3,17 @@ import {
   AppBar,
   Container,
   CssBaseline,
+  Fab,
   GlobalStyles,
   IconButton,
   ThemeProvider,
   Toolbar,
+  Tooltip,
+  Typography,
 } from "@mui/material";
-import { Home } from "@mui/icons-material";
+import { Home, Tune } from "@mui/icons-material";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
-import EditCharacter from "./pages/EditCharacter";
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import HomePage from "./pages/Home";
@@ -60,19 +62,25 @@ function App() {
               element={<HomePage stat={stat_total} />}
             />
             <Route
-              path="/config-character"
-              element={<EditCharacter />}
-            />
-            <Route
               path="/config-equipment"
               element={<EditEquipment onChange={setEquipment} />}
+            />
+            <Route
+              path="/config-character"
+              element={<Typography>Coming soon</Typography>}
             />
             <Route
               path="/config-food"
               element={<FoodEdit onStatChange={setFood} />}
             />
-            <Route path="/config-addon" element={null} />
-            <Route path="/config-buffs" element={null} />
+            <Route
+              path="/config-addon"
+              element={<Typography>Coming soon</Typography>}
+            />
+            <Route
+              path="/config-buffs"
+              element={<Typography>Coming soon</Typography>}
+            />
           </Routes>
         </Container>
       </BrowserRouter>

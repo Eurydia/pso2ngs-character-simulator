@@ -90,7 +90,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         slotHeaderAction={
           <Tooltip
             placement="top"
-            title={<Typography>Stat Summary</Typography>}
+            title={<Typography>Open stat</Typography>}
           >
             <IconButton
               disabled={unit === null}
