@@ -1,4 +1,5 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
@@ -16,17 +17,22 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitOne = (
   name: string,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_ONE, GROWTH_DATA, (_) => {
-    return statObject(stat);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_ONE,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
 G_ONE.push(
-  makeUnitOne("Primm Armor", {
-    [StatEnum.CORE_DEFENSE]: 8,
-    [StatEnum.CORE_HP]: 10,
+  makeUnitOne("Primm Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 8,
+      [StatEnum.CORE_HP]: 10,
+    });
   }),
 );
