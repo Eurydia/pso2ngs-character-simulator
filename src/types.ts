@@ -15,7 +15,7 @@ export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
 export type FormDataUnit = {
   unit: Unit | null;
-  unit_level: number;
+  level: number;
   fixa: Fixa | null;
   augments: (Augment | null)[];
 };

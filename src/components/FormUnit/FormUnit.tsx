@@ -43,7 +43,6 @@ type FormUnitProps = {
   cardTitle: string;
   onStatChange: (stat: StatObject) => void;
   onSummaryChange: (summary: SummaryEquipment) => void;
-  onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
   const { cardTitle, storageKey, onStatChange, onSummaryChange } =

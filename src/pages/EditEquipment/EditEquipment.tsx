@@ -1,9 +1,9 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
-import { statObject, StatObject } from "../../assets";
+import { statObject, StatObject, Unit } from "../../assets";
 import { useSummaryEquipment, useStatObject } from "../../hooks";
-import { SummaryEquipment } from "../../types";
+import { FormDataUnit, SummaryEquipment } from "../../types";
 import {
   FormWeapon,
   FormUnit,
@@ -61,6 +61,13 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   const [summaryUnitA, setSummaryUnitA] = useSummaryEquipment();
   const [summaryUnitB, setSummaryUnitB] = useSummaryEquipment();
   const [summaryUnitC, setSummaryUnitC] = useSummaryEquipment();
+
+  // const [formDataUnitA, setFormDataUnitA] = useState<FormDataUnit>(
+  //   () => {
+  //     const unit: Unit | null;
+  //     const data: FormDataUnit = {};
+  //   },
+  // );
 
   const stat: StatObject = useMemo(() => {
     const result: StatObject = statObject();
