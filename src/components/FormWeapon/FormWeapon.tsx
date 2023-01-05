@@ -98,7 +98,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
         title={cardTitle}
         slotHeaderAction={
           <Tooltip
-            arrow
             placement="top"
             title={<Typography>Stat Summary</Typography>}
           >

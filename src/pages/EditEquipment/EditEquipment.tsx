@@ -95,10 +95,10 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
       <Stack spacing={2}>
         <FormBase
           title="Summary"
+          slotHeaderAction={null}
           slotSecondary={<StatView maxHeight="500px" stat={stat} />}
-        >
-          <Summary items={summaries} />
-        </FormBase>
+          slotPrimary={<Summary items={summaries} />}
+        />
         <FormWeapon
           storageKey="equipment-weapon"
           cardTitle="Weapon"

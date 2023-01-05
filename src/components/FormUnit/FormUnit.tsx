@@ -89,7 +89,6 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         title={cardTitle}
         slotHeaderAction={
           <Tooltip
-            arrow
             placement="top"
             title={<Typography>Stat Summary</Typography>}
           >
