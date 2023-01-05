@@ -2,7 +2,11 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import { statObject, StatObject, Unit } from "../../assets";
-import { useSummaryEquipment, useStatObject } from "../../hooks";
+import {
+  useSummaryEquipment,
+  useStatObject,
+  useFormDataUnit,
+} from "../../hooks";
 import { FormDataUnit, SummaryEquipment } from "../../types";
 import {
   FormWeapon,
@@ -62,12 +66,27 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   const [summaryUnitB, setSummaryUnitB] = useSummaryEquipment();
   const [summaryUnitC, setSummaryUnitC] = useSummaryEquipment();
 
-  // const [formDataUnitA, setFormDataUnitA] = useState<FormDataUnit>(
-  //   () => {
-  //     const unit: Unit | null;
-  //     const data: FormDataUnit = {};
-  //   },
-  // );
+  const [formDataUnitA, setFormDataA] =
+    useFormDataUnit("gear-unit-a");
+  const [formDataUnitB, setFormDataB] =
+    useFormDataUnit("gear-unit-b");
+  const [formDataUnitC, setFormDataC] =
+    useFormDataUnit("gear-unit-c");
+
+  const handleSyncUnitA = () => {
+    setFormDataB(formDataUnitA);
+    setFormDataC(formDataUnitA);
+  };
+
+  const handleSyncUnitB = () => {
+    setFormDataA(formDataUnitB);
+    setFormDataC(formDataUnitB);
+  };
+
+  const handleSyncUnitC = () => {
+    setFormDataA(formDataUnitC);
+    setFormDataB(formDataUnitC);
+  };
 
   const stat: StatObject = useMemo(() => {
     const result: StatObject = statObject();
@@ -113,22 +132,19 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
           onSummaryChange={setSummaryWeapon}
         />
         <FormUnit
-          storageKey="equipment-unit-a"
           cardTitle="Unit A"
-          onStatChange={setStatUnitA}
-          onSummaryChange={setSummaryUnitA}
+          onSync={handleSyncUnitA}
+          {...formDataUnitA}
         />
         <FormUnit
-          storageKey="equipment-unit-b"
           cardTitle="Unit B"
-          onStatChange={setStatUnitB}
-          onSummaryChange={setSummaryUnitB}
+          onSync={handleSyncUnitB}
+          {...formDataUnitB}
         />
         <FormUnit
-          storageKey="equipment-unit-c"
           cardTitle="Unit C"
-          onStatChange={setStatUnitC}
-          onSummaryChange={setSummaryUnitC}
+          onSync={handleSyncUnitC}
+          {...formDataUnitC}
         />
       </Stack>
     </Box>

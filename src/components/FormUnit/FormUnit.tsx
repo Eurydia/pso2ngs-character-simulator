@@ -17,13 +17,7 @@ import {
   GroupEnumFixa,
   StatObject,
 } from "../../assets";
-import { SummaryEquipment } from "../../types";
-import {
-  useAugments,
-  useEnhancement,
-  useFixa,
-  useUnit,
-} from "../../hooks";
+import { FormDataUnit, FormDataUnitSetter } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { AutocompleteUnit } from "../AutocompleteUnit";
@@ -34,26 +28,30 @@ import { getActiveAugmentCount } from "../utility";
 
 import { createStat, createSummary } from "./helper";
 import { StatView } from "../StatView";
-import { BarChart } from "@mui/icons-material";
+import { BarChart, Sync } from "@mui/icons-material";
 
 const CONTEXT: ActionContext = {};
 
-type FormUnitProps = {
-  storageKey: string;
-  cardTitle: string;
-  onStatChange: (stat: StatObject) => void;
-  onSummaryChange: (summary: SummaryEquipment) => void;
-};
+type FormUnitProps = FormDataUnit &
+  FormDataUnitSetter & {
+    cardTitle: string;
+    onSync: () => void;
+  };
 export const FormUnit: FC<FormUnitProps> = (props) => {
-  const { cardTitle, storageKey, onStatChange, onSummaryChange } =
-    props;
+  const {
+    cardTitle,
+    onSync,
+    unit,
+    unit_level,
+    fixa,
+    augments,
+    setUnit,
+    setUnitLevel,
+    setFixa,
+    setAugments,
+  } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
-  const [unit, setUnit] = useUnit(storageKey);
-  const [fixa, setFixa] = useFixa(storageKey);
-  const [level, setLevel] = useEnhancement(storageKey);
-  const [augments, setAugments] = useAugments(storageKey);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -67,38 +65,50 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     if (unit === null) {
       return [];
     }
-    const active_count: number = getActiveAugmentCount(level);
+    const active_count: number = getActiveAugmentCount(unit_level);
     return augments.slice(0, active_count);
-  }, [level, augments, unit]);
+  }, [unit_level, augments, unit]);
 
   const stat: StatObject = useMemo(() => {
-    return createStat(CONTEXT, unit, level, fixa, active_augments);
-  }, [unit, level, fixa, active_augments]);
-
-  useEffect(() => {
-    onStatChange(stat);
-  }, [stat]);
-
-  useEffect(() => {
-    onSummaryChange(createSummary(unit, fixa, active_augments));
-  }, [unit, fixa, augments, active_augments]);
+    return createStat(
+      CONTEXT,
+      unit,
+      unit_level,
+      fixa,
+      active_augments,
+    );
+  }, [unit, unit_level, fixa, active_augments]);
 
   return (
     <Fragment>
       <FormBase
         title={cardTitle}
         slotHeaderAction={
-          <Tooltip
-            placement="top"
-            title={<Typography>Open stat</Typography>}
-          >
-            <IconButton
-              disabled={unit === null}
-              onClick={handleDialogOpen}
+          <Fragment>
+            <Tooltip
+              placement="top"
+              title={<Typography>Sync with me</Typography>}
             >
-              <BarChart />
-            </IconButton>
-          </Tooltip>
+              <span>
+                <IconButton onClick={onSync}>
+                  <Sync />
+                </IconButton>
+              </span>
+            </Tooltip>
+            <Tooltip
+              placement="top"
+              title={<Typography>Open stat</Typography>}
+            >
+              <span>
+                <IconButton
+                  disabled={unit === null}
+                  onClick={handleDialogOpen}
+                >
+                  <BarChart />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </Fragment>
         }
         slotPrimary={
           <Stack spacing={1}>
@@ -107,8 +117,8 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
               disabled={unit === null}
               valueMin={0}
               valueMax={60}
-              value={level}
-              onChange={setLevel}
+              value={unit_level}
+              onChange={setUnitLevel}
             />
             <AutocompleteFixa
               disabled={unit === null}
@@ -128,9 +138,9 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   key={`augment-${index}`}
                   disabled={disabled}
                   value={augment}
-                  onChange={(new_value) =>
-                    setAugments(new_value, index)
-                  }
+                  onChange={(new_value) => {
+                    setAugments(new_value, index);
+                  }}
                 />
               );
             })}

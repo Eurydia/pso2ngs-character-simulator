@@ -1,25 +1,30 @@
-import { Augment, Fixa, Unit } from "../../assets";
-import { FormDataUnit } from "../../types";
-import { useAugments } from "../useAugments";
+import { FormDataUnit, FormDataUnitSetter } from "../types";
 
-import { useEnhancement } from "../useEnhancement";
-import { useFixa } from "../useFixa";
-import { useUnit } from "../useUnit";
-
-type FormDataUnitSetter = {
-  onUnitChange: (unit: Unit | null) => void;
-  onFixaChange: (fixa: Fixa | null) => void;
-  onAugmentChange: (augment: Augment | null, index: number) => void;
-  onUnitLevelChange: (level: number) => void;
-};
+import { useUnit } from "./useUnit";
+import { useEnhancement } from "./useEnhancement";
+import { useFixa } from "./useFixa";
+import { useAugments } from "./useAugments";
 
 export const useFormDataUnit = (
   storage_key: string,
-): [FormDataUnit, FormDataUnitSetter] => {
+): [
+  FormDataUnit & FormDataUnitSetter,
+  (data: FormDataUnit) => void,
+] => {
   const [unit, setUnit] = useUnit(storage_key);
   const [fixa, setFixa] = useFixa(storage_key);
   const [unitLevel, setUnitLevel] = useEnhancement(storage_key);
   const [augments, setAugments] = useAugments(storage_key);
+
+  const setData = (data: FormDataUnit) => {
+    setUnit(data.unit);
+    setUnitLevel(data.unit_level);
+    setFixa(data.fixa);
+
+    data.augments.forEach((augment, augment_index) => {
+      setAugments(augment, augment_index);
+    });
+  };
 
   const data: FormDataUnit = {
     unit,
@@ -29,11 +34,11 @@ export const useFormDataUnit = (
   };
 
   const data_setter: FormDataUnitSetter = {
-    onUnitChange: setUnit,
-    onUnitLevelChange: setUnitLevel,
-    onFixaChange: setFixa,
-    onAugmentChange: setAugments,
+    setUnit,
+    setUnitLevel,
+    setFixa,
+    setAugments,
   };
 
-  return [data, data_setter];
+  return [{ ...data, ...data_setter }, setData];
 };

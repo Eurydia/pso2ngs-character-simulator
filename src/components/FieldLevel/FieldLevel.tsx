@@ -20,7 +20,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       const value_input: string = event.target.value;
 
       if (Number.isNaN(value_input)) {
-        return;
+        return 0;
       }
 
       const value_clamped: number = clampValue(
