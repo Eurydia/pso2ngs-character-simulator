@@ -3,11 +3,8 @@ import {
   Augment,
   Fixa,
   Unit,
-  mergeStat,
-  StatEnum,
   statObject,
   StatObject,
-  Unit,
 } from "../../assets";
 
 export const createStatSummaryUnit = (
@@ -23,13 +20,16 @@ export const createStatSummaryUnit = (
     return result;
   }
 
-  const stat_unit: StatObject = Unit(ctx, unit, unit_level);
-
-  result = mergeStat(result, stat_unit);
+  const stat_unit: StatObject = Unit.getStatObject(
+    ctx,
+    unit,
+    unit_level,
+  );
+  result = StatObject.merge(result, stat_unit);
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getStatObject(ctx);
-    result = mergeStat(result, stat_fixa);
+    result = StatObject.merge(result, stat_fixa);
   }
 
   for (const augment of augments) {
@@ -37,7 +37,7 @@ export const createStatSummaryUnit = (
       continue;
     }
     const stat_augment: StatObject = augment.getStatObject(ctx);
-    result = mergeStat(result, stat_augment);
+    result = StatObject.merge(result, stat_augment);
   }
 
   return result;
