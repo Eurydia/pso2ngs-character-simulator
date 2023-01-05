@@ -1,6 +1,7 @@
 import { ActionContext } from "../context";
 import {
   getStat,
+  mergeStat,
   stackStat,
   StatEnum,
   statObject,
@@ -25,6 +26,7 @@ export const getUnitStatObject = (
   let result: StatObject = statObject();
 
   const stat_unit: StatObject = unit.getterFunction(ctx);
+  result = mergeStat(result, stat_unit);
 
   const unit_defense_base: number = getStat(
     stat_unit,
@@ -35,15 +37,14 @@ export const getUnitStatObject = (
     unit_level,
     unit.growth_data,
   );
-
-  const unit_defense_total: number =
-    unit_defense_base + unit_defense_bonus;
   result = stackStat(
     result,
     StatEnum.CORE_DEFENSE,
-    unit_defense_total,
+    unit_defense_bonus,
   );
 
+  const unit_defense_total: number =
+    unit_defense_base + unit_defense_bonus;
   result = stackStat(
     result,
     StatEnum.CORE_BP,

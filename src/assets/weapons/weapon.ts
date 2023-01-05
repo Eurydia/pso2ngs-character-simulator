@@ -1,4 +1,11 @@
-import { StatEnum, statObject, StatObject } from "../stat";
+import {
+  getStat,
+  mergeStat,
+  stackStat,
+  StatEnum,
+  statObject,
+  StatObject,
+} from "../stat";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeaponRarity } from "./groupEnum";
@@ -90,31 +97,47 @@ export const getWeaponStatObject = (
 ): StatObject => {
   let result: StatObject = statObject();
 
-  const stat: StatObject = weapon.getterFunction(ctx);
+  const stat_weapon: StatObject = weapon.getterFunction(ctx);
+  result = mergeStat(result, stat_weapon);
 
-  const attack_bonus: number = calcBonusAtk(
+  const weapon_attack_bonus: number = calcBonusAtk(
     weapon_level,
     weapon.growth_rate,
   );
-  stat.stackStat(StatEnum.CORE_ATTACK, attack_bonus);
+  result = stackStat(
+    result,
+    StatEnum.CORE_ATTACK,
+    weapon_attack_bonus,
+  );
 
-  const attack_base: number = stat.getStat(StatEnum.CORE_ATTACK);
+  const weapon_attack_base: number = getStat(
+    stat_weapon,
+    StatEnum.CORE_ATTACK,
+  );
 
-  const damage_adjustment_base: number = stat.getStat(
+  const weapon_attack_total =
+    weapon_attack_base + weapon_attack_bonus;
+
+  const weapon_damage_adjustment: number = getStat(
+    stat_weapon,
     StatEnum.ADV_OFF_FLOOR,
   );
-  const bp_from_attack: number =
-    (attack_base + attack_bonus) *
-    ((damage_adjustment * damage_adjustment_base) / 2);
-  stat.stackStat(StatEnum.CORE_BP, Math.round(bp_from_attack));
+
+  const damage_adjustment_total: number =
+    damage_adjustment * weapon_damage_adjustment;
+  result = stackStat(
+    result,
+    StatEnum.CORE_BP,
+    Math.round(weapon_attack_total * (damage_adjustment_total / 2)),
+  );
 
   const stat_potential: StatObject = weapon.potential.getStatObject(
     ctx,
     potential_level,
   );
-  stat.merge(stat_potential);
+  result = mergeStat(result, stat_potential);
 
-  return stat;
+  return result;
 };
 
 export const weapon = (
