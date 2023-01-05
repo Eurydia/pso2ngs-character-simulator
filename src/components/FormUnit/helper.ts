@@ -24,11 +24,11 @@ export const createStat = (
     context,
     unit_level,
   );
-  stat.merge(stat_unit);
+  stat.mergeStat(stat_unit);
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getStatObject(context);
-    stat.merge(stat_fixa);
+    stat.mergeStat(stat_fixa);
   }
 
   augments.forEach((augment) => {
@@ -36,7 +36,7 @@ export const createStat = (
       return;
     }
     const stat_augment: StatObject = augment.getStatObject(context);
-    stat.merge(stat_augment);
+    stat.mergeStat(stat_augment);
   });
 
   return stat;

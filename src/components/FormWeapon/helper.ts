@@ -25,7 +25,7 @@ export const createStat = (
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getStatObject(ctx);
-    stat.merge(stat_fixa);
+    stat.mergeStat(stat_fixa);
   }
 
   augments.forEach((augment) => {
@@ -33,7 +33,7 @@ export const createStat = (
       return;
     }
     const stat_augment: StatObject = augment.getStatObject(ctx);
-    stat.merge(stat_augment);
+    stat.mergeStat(stat_augment);
   });
 
   const damage_adjustment: number = stat.getStat(
@@ -46,7 +46,7 @@ export const createStat = (
     damage_adjustment,
     potential_level,
   );
-  stat.merge(stat_weapon);
+  stat.mergeStat(stat_weapon);
 
   return stat;
 };

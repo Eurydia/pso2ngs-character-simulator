@@ -55,80 +55,86 @@ const collectAttribute = (
   ctx: ActionContext,
   items: Food[],
   target: StatObject,
-): void => {
+): StatObject => {
+  let _result: StatObject = target;
   const attribute = countAttribute(items);
 
   const stat_crispy = getStatObjectCrispy(
     ctx,
     attribute[GroupEnumFoodAttribute.CRISPY],
   );
-  target.merge(stat_crispy);
+  _result = _result.mergeStat(stat_crispy);
 
   const stat_light = getStatObjectLight(
     ctx,
     attribute[GroupEnumFoodAttribute.LIGHT],
   );
-  target.merge(stat_light);
+  _result = _result.mergeStat(stat_light);
 
   const stat_rich = getStatObjectRich(
     ctx,
     attribute[GroupEnumFoodAttribute.RICH],
   );
-  target.merge(stat_rich);
+  _result = _result.mergeStat(stat_rich);
 
   const stat_robust = getStatObjectRich(
     ctx,
     attribute[GroupEnumFoodAttribute.ROBUST],
   );
-  target.merge(stat_robust);
+  _result = _result.mergeStat(stat_robust);
 
   const item_sum: number = Object.values(attribute).reduce((a, b) => {
     return a + b;
   }, 0);
   const stat_kvaris = getStatObjectKvaris(ctx, item_sum);
-  target.merge(stat_kvaris);
+  _result = _result.mergeStat(stat_kvaris);
+
+  return _result;
 };
 
 const collectCategory = (
   ctx: ActionContext,
   items: Food[],
   target: StatObject,
-): void => {
+): StatObject => {
+  let _result = target;
   const category = countCategory(items);
 
   const stat_meat = getStatObjectMeat(
     ctx,
     category[GroupEnumFoodCategory.MEAT] - 4,
   );
-  target.merge(stat_meat);
+  _result = _result.mergeStat(stat_meat);
 
   const stat_fruit = getStatObjectFruit(
     ctx,
     category[GroupEnumFoodCategory.FRUIT] - 4,
   );
-  target.merge(stat_fruit);
+  _result = _result.mergeStat(stat_fruit);
 
   const stat_vegetable = getStatObjectVegetable(
     ctx,
     category[GroupEnumFoodCategory.VEGETABLE] - 4,
   );
-  target.merge(stat_vegetable);
+  _result = _result.mergeStat(stat_vegetable);
 
   const stat_seafood = getStatObjectSeafood(
     ctx,
     category[GroupEnumFoodCategory.SEAFOOD] - 3,
   );
-  target.merge(stat_seafood);
+  _result = _result.mergeStat(stat_seafood);
+
+  return _result;
 };
 
 export const createStat = (
   ctx: ActionContext,
   items: Food[],
 ): StatObject => {
-  const result = statObject();
+  let result = statObject();
 
-  collectAttribute(ctx, items, result);
-  collectCategory(ctx, items, result);
+  result = collectAttribute(ctx, items, result);
+  result = collectCategory(ctx, items, result);
 
   return result;
 };

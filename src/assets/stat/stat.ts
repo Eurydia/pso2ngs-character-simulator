@@ -42,7 +42,7 @@ export class StatObject {
     return this.#stackStatMuliply(key, value);
   }
 
-  merge(obj: StatObject): StatObject {
+  mergeStat(obj: StatObject): StatObject {
     let result = new StatObject({});
 
     const keys = obj.keys;

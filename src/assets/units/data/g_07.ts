@@ -1,4 +1,5 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -14,11 +15,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitSeven = (
   name: string,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
-  return unit(name, GroupEnumUnitRarity.R_SEVEN, GROWTH_DATA, (_) => {
-    return statObject(stat);
-  });
+  return unit(
+    name,
+    GroupEnumUnitRarity.R_SEVEN,
+    GROWTH_DATA,
+    getterFunction,
+  );
 };
 
 // -------------------------
@@ -33,12 +37,14 @@ const makeUnitSeven = (
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
     G_SEVEN.push(
-      makeUnitSeven(`Sestato Armor ${suffix}`, {
-        [StatEnum.CORE_DEFENSE]: 39,
-        [StatEnum.CORE_HP]: 30,
-        [StatEnum.CORE_PP]: 4,
-        [stat_weapon_up_a]: 1.03,
-        [stat_weapon_up_b]: 1.03,
+      makeUnitSeven(`Efitus Armor ${suffix}`, (_) => {
+        return statObject({
+          [StatEnum.CORE_DEFENSE]: 39,
+          [StatEnum.CORE_HP]: 30,
+          [StatEnum.CORE_PP]: 4,
+          [stat_weapon_up_a]: 1.03,
+          [stat_weapon_up_b]: 1.03,
+        });
       }),
     );
   }
@@ -46,33 +52,39 @@ const makeUnitSeven = (
 
 // -------------------------
 G_SEVEN.push(
-  makeUnitSeven("Eptize Armor Vida", {
-    [StatEnum.CORE_DEFENSE]: 40,
-    [StatEnum.CORE_HP]: 55,
-    [StatEnum.WEAPON_MELEE]: 1.03,
-    [StatEnum.WEAPON_RANGED]: 1.03,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+  makeUnitSeven("Eptize Armor Vida", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 40,
+      [StatEnum.CORE_HP]: 55,
+      [StatEnum.WEAPON_MELEE]: 1.03,
+      [StatEnum.WEAPON_RANGED]: 1.03,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+    });
   }),
 );
 
 // -------------------------
 G_SEVEN.push(
-  makeUnitSeven("Eptize Armor Vio", {
-    [StatEnum.CORE_DEFENSE]: 40,
-    [StatEnum.CORE_PP]: 10,
-    [StatEnum.WEAPON_MELEE]: 1.03,
-    [StatEnum.WEAPON_RANGED]: 1.03,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+  makeUnitSeven("Eptize Armor Vio", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 40,
+      [StatEnum.CORE_PP]: 10,
+      [StatEnum.WEAPON_MELEE]: 1.03,
+      [StatEnum.WEAPON_RANGED]: 1.03,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.03,
+    });
   }),
 );
 
 // -------------------------
 G_SEVEN.push(
-  makeUnitSeven("Eclaireur Armor", {
-    [StatEnum.CORE_DEFENSE]: 35,
-    [StatEnum.WEAPON_MELEE]: 1.04,
-    [StatEnum.WEAPON_RANGED]: 1.04,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.04,
-    [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95,
+  makeUnitSeven("Eclaireur Armor", (_) => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 35,
+      [StatEnum.WEAPON_MELEE]: 1.04,
+      [StatEnum.WEAPON_RANGED]: 1.04,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.04,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95,
+    });
   }),
 );

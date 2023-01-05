@@ -2,11 +2,11 @@ import {
   ActionContext,
   Augment,
   Fixa,
+  StatEnum,
   statObject,
   StatObject,
   Unit,
 } from "../../assets";
-import { FormDataUnit } from "../../types";
 
 export const createStatSummaryUnit = (
   context: ActionContext,
@@ -15,7 +15,7 @@ export const createStatSummaryUnit = (
   fixa: Fixa | null,
   augments: (Augment | null)[],
 ): StatObject => {
-  const stat: StatObject = statObject();
+  let stat: StatObject = statObject();
 
   if (unit === null) {
     return stat;
@@ -25,11 +25,12 @@ export const createStatSummaryUnit = (
     context,
     unit_level,
   );
-  stat.merge(stat_unit);
+
+  stat = stat.mergeStat(stat_unit);
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getStatObject(context);
-    stat.merge(stat_fixa);
+    stat = stat.mergeStat(stat_fixa);
   }
 
   augments.forEach((augment) => {
@@ -37,7 +38,7 @@ export const createStatSummaryUnit = (
       return;
     }
     const stat_augment: StatObject = augment.getStatObject(context);
-    stat.merge(stat_augment);
+    stat = stat.mergeStat(stat_augment);
   });
 
   return stat;

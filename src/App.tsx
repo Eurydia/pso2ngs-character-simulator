@@ -27,11 +27,11 @@ function App() {
   const [food, setFood] = useStatObject("page-food");
 
   const stat_total = useMemo(() => {
-    const total: StatObject = statObject();
+    let total: StatObject = statObject();
 
     const items: StatObject[] = [equipment, food];
     for (const item of items) {
-      total.merge(item);
+      total = total.mergeStat(item);
     }
 
     return total;
