@@ -1,4 +1,4 @@
-import { StatEnum, StatObject } from "../stat";
+import { StatEnum, statObject, StatObject } from "../stat";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeaponRarity } from "./groupEnum";
@@ -73,16 +73,48 @@ import { ActionContext } from "../context";
 //   }
 // }
 
-export type Weapon = {
+export type Weapon = Readonly<{
   label: string;
   rarity: GroupEnumWeaponRarity;
+  growth_rate: [number, number][];
   potential: Potential;
-  getStatObject: (
-    ctx: ActionContext,
-    weapon_level: number,
-    damage_adjustment: number,
-    potential_level: number,
-  ) => StatObject;
+  getterFunction: (ctx: ActionContext) => StatObject;
+}>;
+
+export const getWeaponStatObject = (
+  ctx: ActionContext,
+  weapon: Weapon,
+  weapon_level: number,
+  potential_level: number,
+  damage_adjustment: number,
+): StatObject => {
+  let result: StatObject = statObject();
+
+  const stat: StatObject = weapon.getterFunction(ctx);
+
+  const attack_bonus: number = calcBonusAtk(
+    weapon_level,
+    weapon.growth_rate,
+  );
+  stat.stackStat(StatEnum.CORE_ATTACK, attack_bonus);
+
+  const attack_base: number = stat.getStat(StatEnum.CORE_ATTACK);
+
+  const damage_adjustment_base: number = stat.getStat(
+    StatEnum.ADV_OFF_FLOOR,
+  );
+  const bp_from_attack: number =
+    (attack_base + attack_bonus) *
+    ((damage_adjustment * damage_adjustment_base) / 2);
+  stat.stackStat(StatEnum.CORE_BP, Math.round(bp_from_attack));
+
+  const stat_potential: StatObject = weapon.potential.getStatObject(
+    ctx,
+    potential_level,
+  );
+  stat.merge(stat_potential);
+
+  return stat;
 };
 
 export const weapon = (
@@ -92,38 +124,12 @@ export const weapon = (
   growth_rate: [number, number][],
   getterFunction: (ctx: ActionContext) => StatObject,
 ): Weapon => {
-  const getStatObject = (
-    ctx: ActionContext,
-    weapon_level: number,
-    damage_adjustment: number,
-    potential_level: number,
-  ) => {
-    const stat: StatObject = getterFunction(ctx);
-
-    const attack_bonus: number = calcBonusAtk(
-      weapon_level,
-      growth_rate,
-    );
-    stat.stackStat(StatEnum.CORE_ATTACK, attack_bonus);
-
-    const attack_base: number = stat.getStat(StatEnum.CORE_ATTACK);
-
-    const damage_adjustment_base: number = stat.getStat(
-      StatEnum.ADV_OFF_FLOOR,
-    );
-    const bp_from_attack: number =
-      (attack_base + attack_bonus) *
-      ((damage_adjustment * damage_adjustment_base) / 2);
-    stat.stackStat(StatEnum.CORE_BP, Math.round(bp_from_attack));
-
-    return stat;
-  };
-
   const result: Weapon = {
     label,
     rarity,
     potential,
-    getStatObject,
+    growth_rate,
+    getterFunction,
   };
 
   return result;

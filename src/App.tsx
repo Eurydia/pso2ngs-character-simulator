@@ -20,7 +20,7 @@ import HomePage from "./pages/Home";
 import { useStatObject } from "./hooks/useStatObject";
 
 import { style_overrrides } from "./theme";
-import { statObject, StatObject } from "./assets";
+import { mergeStat, statObject, StatObject } from "./assets";
 
 function App() {
   const [equipment, setEquipment] = useStatObject("page-equipment");
@@ -31,7 +31,7 @@ function App() {
 
     const items: StatObject[] = [equipment, food];
     for (const item of items) {
-      total = total.mergeStat(item);
+      total = mergeStat(total, item);
     }
 
     return total;

@@ -1,6 +1,8 @@
 import {
   Augment,
   Fixa,
+  getStat,
+  mergeStat,
   StatEnum,
   statObject,
   StatObject,
@@ -17,38 +19,39 @@ export const createStat = (
   fixa: Fixa | null,
   augments: (Augment | null)[],
 ): StatObject => {
-  const stat: StatObject = statObject();
+  let result: StatObject = statObject();
 
   if (weapon === null) {
-    return stat;
+    return result;
   }
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getStatObject(ctx);
-    stat.mergeStat(stat_fixa);
+    result = mergeStat(result, stat_fixa);
   }
 
-  augments.forEach((augment) => {
+  for (const augment of augments) {
     if (augment === null) {
-      return;
+      continue;
     }
     const stat_augment: StatObject = augment.getStatObject(ctx);
-    stat.mergeStat(stat_augment);
-  });
+    result = mergeStat(result, stat_augment);
+  }
 
-  const damage_adjustment: number = stat.getStat(
+  const damage_adjustment: number = getStat(
+    result,
     StatEnum.ADV_OFF_FLOOR,
   );
 
-  const stat_weapon: StatObject = weapon.getStatObject(
+  const stat_weapon: StatObject = weapon.getterFunction(
     ctx,
     weapon_level,
     damage_adjustment,
     potential_level,
   );
-  stat.mergeStat(stat_weapon);
+  result = mergeStat(result, stat_weapon);
 
-  return stat;
+  return result;
 };
 
 export const createSummary = (

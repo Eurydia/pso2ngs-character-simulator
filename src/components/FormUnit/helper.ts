@@ -7,40 +7,40 @@ import {
   Unit,
 } from "../../assets";
 
-export const createStat = (
-  context: ActionContext,
-  unit: Unit | null,
-  unit_level: number,
-  fixa: Fixa | null,
-  augments: (Augment | null)[],
-): StatObject => {
-  const stat: StatObject = statObject();
+// export const createStat = (
+//   context: ActionContext,
+//   unit: Unit | null,
+//   unit_level: number,
+//   fixa: Fixa | null,
+//   augments: (Augment | null)[],
+// ): StatObject => {
+//   const stat: StatObject = statObject();
 
-  if (unit === null) {
-    return stat;
-  }
+//   if (unit === null) {
+//     return stat;
+//   }
 
-  const stat_unit: StatObject = unit.getStatObject(
-    context,
-    unit_level,
-  );
-  stat.mergeStat(stat_unit);
+//   const stat_unit: StatObject = unit.getterFunction(
+//     context,
+//     unit_level,
+//   );
+//   stat.mergeStat(stat_unit);
 
-  if (fixa !== null) {
-    const stat_fixa: StatObject = fixa.getStatObject(context);
-    stat.mergeStat(stat_fixa);
-  }
+//   if (fixa !== null) {
+//     const stat_fixa: StatObject = fixa.getStatObject(context);
+//     stat.mergeStat(stat_fixa);
+//   }
 
-  augments.forEach((augment) => {
-    if (augment === null) {
-      return;
-    }
-    const stat_augment: StatObject = augment.getStatObject(context);
-    stat.mergeStat(stat_augment);
-  });
+//   augments.forEach((augment) => {
+//     if (augment === null) {
+//       return;
+//     }
+//     const stat_augment: StatObject = augment.getStatObject(context);
+//     stat.mergeStat(stat_augment);
+//   });
 
-  return stat;
-};
+//   return stat;
+// };
 
 // export const createSummary = (
 //   unit: Unit | null,

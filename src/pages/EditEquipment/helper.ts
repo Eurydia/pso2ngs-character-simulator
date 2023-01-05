@@ -2,6 +2,8 @@ import {
   ActionContext,
   Augment,
   Fixa,
+  getUnitStatObject,
+  mergeStat,
   StatEnum,
   statObject,
   StatObject,
@@ -9,37 +11,38 @@ import {
 } from "../../assets";
 
 export const createStatSummaryUnit = (
-  context: ActionContext,
+  ctx: ActionContext,
   unit: Unit | null,
   unit_level: number,
   fixa: Fixa | null,
   augments: (Augment | null)[],
 ): StatObject => {
-  let stat: StatObject = statObject();
+  let result: StatObject = statObject();
 
   if (unit === null) {
-    return stat;
+    return result;
   }
 
-  const stat_unit: StatObject = unit.getStatObject(
-    context,
+  const stat_unit: StatObject = getUnitStatObject(
+    ctx,
+    unit,
     unit_level,
   );
 
-  stat = stat.mergeStat(stat_unit);
+  result = mergeStat(result, stat_unit);
 
   if (fixa !== null) {
-    const stat_fixa: StatObject = fixa.getStatObject(context);
-    stat = stat.mergeStat(stat_fixa);
+    const stat_fixa: StatObject = fixa.getStatObject(ctx);
+    result = mergeStat(result, stat_fixa);
   }
 
-  augments.forEach((augment) => {
+  for (const augment of augments) {
     if (augment === null) {
-      return;
+      continue;
     }
-    const stat_augment: StatObject = augment.getStatObject(context);
-    stat = stat.mergeStat(stat_augment);
-  });
+    const stat_augment: StatObject = augment.getStatObject(ctx);
+    result = mergeStat(result, stat_augment);
+  }
 
-  return stat;
+  return result;
 };
