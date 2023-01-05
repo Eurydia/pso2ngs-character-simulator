@@ -77,13 +77,14 @@ export const setStat = (
 export const formatStat = (
   data: StatObject,
   key: StatEnum,
-  value: number,
 ): string | null => {
   const keys: StatEnum[] = getKeys(data);
 
   if (!keys.includes(key)) {
     return null;
   }
+
+  const value: number = data[key]!;
 
   if (StatAdd.has(key)) {
     return formatStatAdd(value);
