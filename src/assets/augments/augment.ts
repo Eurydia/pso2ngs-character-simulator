@@ -1,9 +1,8 @@
-import { romanize } from "romans";
-
 import { ActionContext } from "../context";
 import { StatObject } from "../stat";
 
 import { GroupEnumAugment } from "./groupEnum";
+import { toRoman } from "./helper";
 
 export type Augment = {
   name: string;
@@ -11,37 +10,38 @@ export type Augment = {
   level_roman: string;
   label: string;
   group: GroupEnumAugment;
-  getStatObject: (ctx: ActionContext) => StatObject;
-  isConflictingWith: (group: GroupEnumAugment) => boolean;
+  conflict: GroupEnumAugment[];
+  getterFunction: (ctx: ActionContext) => StatObject;
+};
+
+export const Augment = {
+  isConflicting: (
+    augment: Augment,
+    group: GroupEnumAugment,
+  ): boolean => {
+    return augment.conflict.includes(group);
+  },
 };
 
 export const augment = (
   name: string,
-  level: number,
+  augment_level: number,
   group: GroupEnumAugment,
   conflict: GroupEnumAugment[],
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getterFunction: (ctx: ActionContext) => StatObject,
 ): Augment => {
-  let level_roman: string = "";
-  if (level > 0) {
-    level_roman = romanize(level);
-  }
-
+  const level = augment_level.toString();
+  const level_roman = toRoman(augment_level);
   const label = `${name} ${level_roman}`.trimEnd();
-
-  const _conflict: Set<GroupEnumAugment> = new Set(conflict);
-  const isConflictingWith = (group: GroupEnumAugment): boolean => {
-    return _conflict.has(group);
-  };
 
   const result: Augment = {
     name,
     label,
-    level: level.toString(),
+    level,
     level_roman,
     group,
-    getStatObject: getStatObject,
-    isConflictingWith: isConflictingWith,
+    conflict,
+    getterFunction,
   };
 
   return result;

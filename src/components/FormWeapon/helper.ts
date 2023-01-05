@@ -34,7 +34,7 @@ export const createStat = (
     if (augment === null) {
       continue;
     }
-    const stat_augment: StatObject = augment.getStatObject(ctx);
+    const stat_augment: StatObject = augment.getterFunction(ctx);
     result = mergeStat(result, stat_augment);
   }
 

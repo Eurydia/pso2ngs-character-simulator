@@ -109,7 +109,7 @@ export const removeConflict = (
       continue;
     }
 
-    if (next_augment.isConflictingWith(prev_augment.group)) {
+    if (next_augment.conflict(prev_augment.group)) {
       result[index] = null;
       continue;
     }
