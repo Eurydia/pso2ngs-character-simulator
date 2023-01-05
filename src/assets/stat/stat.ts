@@ -1,52 +1,65 @@
 import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
 import { formatStat } from "./helper";
 
-type PartialStatObject = Partial<{ [K in StatEnum]: number }>;
+type StatObjectPartial = Partial<{ [K in StatEnum]: number }>;
 
 export class StatObject {
-  #data: PartialStatObject;
+  #data: StatObjectPartial;
 
-  constructor(data: PartialStatObject) {
+  constructor(data: StatObjectPartial) {
     this.#data = data;
   }
 
-  #stackStatAdd(key: StatEnum, value: number): void {
-    if (this.#data[key] === undefined) {
-      this.#data[key] = value;
-      return;
+  #stackStatAdd(key: StatEnum, value: number): StatObject {
+    const next_data: StatObjectPartial = { ...this.#data };
+
+    if (next_data[key] === undefined) {
+      next_data[key] = value;
+      return new StatObject(next_data);
     }
 
     this.#data[key]! += value;
+    return new StatObject(next_data);
   }
 
-  #stackStatMuliply(key: StatEnum, value: number): void {
-    if (this.#data[key] === undefined) {
-      this.#data[key] = value;
-      return;
+  #stackStatMuliply(key: StatEnum, value: number): StatObject {
+    const next_data: StatObjectPartial = { ...this.#data };
+
+    if (next_data[key] === undefined) {
+      next_data[key] = value;
+      return new StatObject(next_data);
     }
 
-    this.#data[key]! *= value;
+    next_data[key]! *= value;
+    return new StatObject(next_data);
   }
 
-  stackStat(key: StatEnum, value: number): void {
+  stackStat(key: StatEnum, value: number): StatObject {
     if (StatAdd.has(key) || StatSpecial.has(key)) {
-      this.#stackStatAdd(key, value);
-      return;
+      return this.#stackStatAdd(key, value);
     }
 
-    this.#stackStatMuliply(key, value);
+    return this.#stackStatMuliply(key, value);
   }
 
-  merge(obj: StatObject): void {
+  merge(obj: StatObject): StatObject {
+    let result = new StatObject({});
+
     const keys = obj.keys;
     for (const key of keys) {
       const value: number = obj.getStat(key);
-      this.stackStat(key, value);
+      result = this.stackStat(key, value);
     }
+
+    return result;
   }
 
-  setStat(key: StatEnum, value: number): void {
-    this.#data[key] = value;
+  setStat(key: StatEnum, value: number): StatObject {
+    const next_data: StatObjectPartial = { ...this.#data };
+
+    next_data[key] = value;
+
+    return new StatObject(next_data);
   }
 
   getStat(key: StatEnum): number {
@@ -81,7 +94,7 @@ export class StatObject {
 }
 
 export const statObject = (
-  data: PartialStatObject = {},
+  data: StatObjectPartial = {},
 ): StatObject => {
   return new StatObject(data);
 };
