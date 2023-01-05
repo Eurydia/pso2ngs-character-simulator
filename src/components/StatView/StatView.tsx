@@ -1,12 +1,7 @@
 import { FC } from "react";
 import { Box, Stack } from "@mui/material";
 
-import {
-  StatEnum,
-  StatEnumString,
-  StatObject,
-  formatStat,
-} from "../../assets";
+import { StatEnum, StatEnumString, StatObject } from "../../assets";
 import { Nullable } from "../../types";
 
 import { CustomList } from "./CustomList";

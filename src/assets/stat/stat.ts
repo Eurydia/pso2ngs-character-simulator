@@ -5,8 +5,6 @@ import {
   formatStatPercentSpecial,
 } from "./helper";
 
-Number;
-
 export type StatObject = Partial<{ [K in StatEnum]: number }>;
 
 export const StatObject = {

@@ -2,7 +2,7 @@ import {
   ActionContext,
   Augment,
   Fixa,
-  getUnitStatObject,
+  Unit,
   mergeStat,
   StatEnum,
   statObject,
@@ -23,11 +23,7 @@ export const createStatSummaryUnit = (
     return result;
   }
 
-  const stat_unit: StatObject = getUnitStatObject(
-    ctx,
-    unit,
-    unit_level,
-  );
+  const stat_unit: StatObject = Unit(ctx, unit, unit_level);
 
   result = mergeStat(result, stat_unit);
 
