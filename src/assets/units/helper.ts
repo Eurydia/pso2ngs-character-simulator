@@ -1,4 +1,4 @@
-export const calcBonusDefense = (
+export const calcDefenseBonus = (
   level: number,
   growth_rate: [number, number][],
 ): number => {

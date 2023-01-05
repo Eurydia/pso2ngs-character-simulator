@@ -1,16 +1,9 @@
-import {
-  getStat,
-  mergeStat,
-  stackStat,
-  StatEnum,
-  statObject,
-  StatObject,
-} from "../stat";
+import { StatEnum, statObject, StatObject } from "../stat";
+import { ActionContext } from "../context";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeaponRarity } from "./groupEnum";
-import { calcBonusAtk } from "./helper";
-import { ActionContext } from "../context";
+import { calcAttackBonus } from "./helper";
 
 // type statGetterFunction = (ctx: ActionContext) => StatObject;
 // export class Weapon {
@@ -88,57 +81,77 @@ export type Weapon = Readonly<{
   getterFunction: (ctx: ActionContext) => StatObject;
 }>;
 
-export const getWeaponStatObject = (
-  ctx: ActionContext,
-  weapon: Weapon,
-  weapon_level: number,
-  potential_level: number,
-  damage_adjustment: number,
-): StatObject => {
-  let result: StatObject = statObject();
+export const Weapon = {
+  getAttackBase: (weapon: Weapon): number => {
+    const stat: StatObject = weapon.getterFunction({});
+    return StatObject.getStat(stat, StatEnum.CORE_ATTACK);
+  },
 
-  const stat_weapon: StatObject = weapon.getterFunction(ctx);
-  result = mergeStat(result, stat_weapon);
+  getAttackBonus: (weapon: Weapon, weapon_level: number): number => {
+    return calcAttackBonus(weapon_level, weapon.growth_rate);
+  },
 
-  const weapon_attack_bonus: number = calcBonusAtk(
-    weapon_level,
-    weapon.growth_rate,
-  );
-  result = stackStat(
-    result,
-    StatEnum.CORE_ATTACK,
-    weapon_attack_bonus,
-  );
+  getAttack: (weapon: Weapon, weapon_level: number): number => {
+    const attack_base: number = Weapon.getAttackBase(weapon);
+    const attack_bonus: number = Weapon.getAttackBonus(
+      weapon,
+      weapon_level,
+    );
+    return attack_base + attack_bonus;
+  },
 
-  const weapon_attack_base: number = getStat(
-    stat_weapon,
-    StatEnum.CORE_ATTACK,
-  );
+  getStatObject: (
+    ctx: ActionContext,
+    weapon: Weapon,
+    weapon_level: number,
+    damage_adjustment: number,
+    potential_level: number,
+  ): StatObject => {
+    let result: StatObject = statObject();
 
-  const weapon_attack_total =
-    weapon_attack_base + weapon_attack_bonus;
+    const stat_weapon: StatObject = weapon.getterFunction(ctx);
+    result = StatObject.merge(result, stat_weapon);
 
-  const weapon_damage_adjustment: number = getStat(
-    stat_weapon,
-    StatEnum.ADV_OFF_FLOOR,
-  );
+    const attack_bonus: number = Weapon.getAttackBonus(
+      weapon,
+      weapon_level,
+    );
+    result = StatObject.stack(
+      result,
+      StatEnum.CORE_ATTACK,
+      attack_bonus,
+    );
 
-  const damage_adjustment_total: number =
-    damage_adjustment * weapon_damage_adjustment;
-  result = stackStat(
-    result,
-    StatEnum.CORE_BP,
-    Math.round(weapon_attack_total * (damage_adjustment_total / 2)),
-  );
+    const floor_base: number = StatObject.getStat(
+      stat_weapon,
+      StatEnum.ADV_OFF_FLOOR,
+    );
+    const floor_adjustment: number = floor_base * damage_adjustment;
+    result = StatObject.stack(
+      result,
+      StatEnum.CORE_BP,
+      Weapon.getAttack(weapon, weapon_level) * (floor_adjustment / 2),
+    );
 
-  const stat_potential: StatObject = weapon.potential.getStatObject(
-    ctx,
-    potential_level,
-  );
-  result = mergeStat(result, stat_potential);
+    const stat_potential: StatObject = weapon.potential.getStatObject(
+      ctx,
+      potential_level,
+    );
+    result = StatObject.merge(result, stat_potential);
 
-  return result;
+    return result;
+  },
 };
+// export const getWeaponStatObject = (
+//   ctx: ActionContext,
+//   weapon: Weapon,
+//   weapon_level: number,
+//   potential_level: number,
+//   damage_adjustment: number,
+// ): StatObject => {
+
+//   return result;
+// };
 
 export const weapon = (
   label: string,

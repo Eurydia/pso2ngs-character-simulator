@@ -2,7 +2,7 @@ import { ActionContext } from "../context";
 import { StatEnum, statObject, StatObject } from "../stat";
 
 import { GroupEnumUnitRarity } from "./groupEnum";
-import { calcBonusDefense } from "./helper";
+import { calcDefenseBonus } from "./helper";
 
 export type Unit = Readonly<{
   label: string;
@@ -18,7 +18,7 @@ export const Unit = {
   },
 
   getDefenseBonus: (unit: Unit, unit_level: number): number => {
-    return calcBonusDefense(unit_level, unit.growth_data);
+    return calcDefenseBonus(unit_level, unit.growth_data);
   },
 
   getDefense: (unit: Unit, unit_level: number): number => {
