@@ -5,56 +5,43 @@ import { StatObject } from "../stat";
 
 import { GroupEnumAugment } from "./groupEnum";
 
-type getterFunction = (ctx: ActionContext) => StatObject;
-export class Augment {
-  #level: number;
-  #conflict: Set<GroupEnumAugment>;
-
+export type Augment = {
   name: string;
-  group: GroupEnumAugment;
-  getStatObject: getterFunction;
-
-  constructor(
-    name: string,
-    level: number,
-    group: GroupEnumAugment,
-    conflict: GroupEnumAugment[],
-    getStatObject: getterFunction,
-  ) {
-    this.name = name;
-    this.group = group;
-
-    this.getStatObject = getStatObject;
-    this.#level = level;
-    this.#conflict = new Set(conflict);
-  }
-
-  get level(): string {
-    return this.#level.toString();
-  }
-
-  get level_roman(): string {
-    if (this.#level > 0) {
-      return romanize(this.#level);
-    }
-    return "";
-  }
-
-  get label(): string {
-    return `${this.name} ${this.level_roman}`.trimEnd();
-  }
-
-  isConflictingWith(group: GroupEnumAugment): boolean {
-    return this.#conflict.has(group);
-  }
-}
+  level: string;
+  level_roman: string;
+  label: string;
+  getStatObject: (ctx: ActionContext) => StatObject;
+  isConflictingWith: (group: GroupEnumAugment) => boolean;
+};
 
 export const augment = (
   name: string,
   level: number,
   group: GroupEnumAugment,
   conflict: GroupEnumAugment[],
-  getStatObject: getterFunction,
+  getStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
-  return new Augment(name, level, group, conflict, getStatObject);
+  let level_roman: string = "";
+
+  if (level > 0) {
+    level_roman = romanize(level);
+  }
+
+  const label = `${name} ${level_roman}`.trimEnd();
+
+  const _conflict: Set<GroupEnumAugment> = new Set(conflict);
+  const isConflictingWith = (group: GroupEnumAugment): boolean => {
+    return _conflict.has(group);
+  };
+
+  const result: Augment = {
+    name,
+    label,
+    level: level.toString(),
+    level_roman,
+    getStatObject: getStatObject,
+    isConflictingWith: isConflictingWith,
+  };
+
+  return result;
 };
