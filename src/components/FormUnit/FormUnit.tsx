@@ -7,6 +7,8 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import {
@@ -86,14 +88,18 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
       <FormBase
         title={cardTitle}
         slotHeaderAction={
-          <IconButton
-            size="large"
-            color="primary"
-            disabled={unit === null}
-            onClick={handleDialogOpen}
+          <Tooltip
+            arrow
+            placement="top"
+            title={<Typography>Stat Summary</Typography>}
           >
-            <BarChart />
-          </IconButton>
+            <IconButton
+              disabled={unit === null}
+              onClick={handleDialogOpen}
+            >
+              <BarChart />
+            </IconButton>
+          </Tooltip>
         }
         slotPrimary={
           <Stack spacing={1}>

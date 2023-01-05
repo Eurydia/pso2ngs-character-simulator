@@ -7,6 +7,8 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { BarChart } from "@mui/icons-material";
 
@@ -95,14 +97,18 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       <FormBase
         title={cardTitle}
         slotHeaderAction={
-          <IconButton
-            size="large"
-            color="primary"
-            onClick={handleDialogOpen}
-            disabled={weapon === null}
+          <Tooltip
+            arrow
+            placement="top"
+            title={<Typography>Stat Summary</Typography>}
           >
-            <BarChart />
-          </IconButton>
+            <IconButton
+              onClick={handleDialogOpen}
+              disabled={weapon === null}
+            >
+              <BarChart />
+            </IconButton>
+          </Tooltip>
         }
         slotPrimary={
           <Stack spacing={1}>
