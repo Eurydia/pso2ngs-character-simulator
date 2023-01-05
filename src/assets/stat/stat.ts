@@ -4,28 +4,28 @@ import { formatStat } from "./helper";
 type PartialStatObject = Partial<{ [K in StatEnum]: number }>;
 
 export class StatObject {
-  #stat: PartialStatObject;
+  #data: PartialStatObject;
 
-  constructor(stat: PartialStatObject) {
-    this.#stat = stat;
+  constructor(data: PartialStatObject) {
+    this.#data = data;
   }
 
   #stackStatAdd(key: StatEnum, value: number): void {
-    if (this.#stat[key] === undefined) {
-      this.#stat[key] = value;
+    if (this.#data[key] === undefined) {
+      this.#data[key] = value;
       return;
     }
 
-    this.#stat[key]! += value;
+    this.#data[key]! += value;
   }
 
   #stackStatMuliply(key: StatEnum, value: number): void {
-    if (this.#stat[key] === undefined) {
-      this.#stat[key] = value;
+    if (this.#data[key] === undefined) {
+      this.#data[key] = value;
       return;
     }
 
-    this.#stat[key]! *= value;
+    this.#data[key]! *= value;
   }
 
   stackStat(key: StatEnum, value: number): void {
@@ -46,11 +46,11 @@ export class StatObject {
   }
 
   setStat(key: StatEnum, value: number): void {
-    this.#stat[key] = value;
+    this.#data[key] = value;
   }
 
   getStat(key: StatEnum): number {
-    const value: number | undefined = this.#stat[key];
+    const value: number | undefined = this.#data[key];
 
     if (value !== undefined) {
       return value;
@@ -63,7 +63,7 @@ export class StatObject {
     return 1;
   }
 
-  getFormattedStat(stat: StatEnum): string | null {
+  formatStat(stat: StatEnum): string | null {
     if (this.keys.includes(stat)) {
       return formatStat(stat, this.getStat(stat));
     }
@@ -72,16 +72,16 @@ export class StatObject {
   }
 
   toString(): string {
-    return JSON.stringify(this.#stat);
+    return JSON.stringify(this.#data);
   }
 
   get keys(): StatEnum[] {
-    return Object.keys(this.#stat) as StatEnum[];
+    return Object.keys(this.#data) as StatEnum[];
   }
 }
 
 export const statObject = (
-  stat: PartialStatObject = {},
+  data: PartialStatObject = {},
 ): StatObject => {
-  return new StatObject(stat);
+  return new StatObject(data);
 };

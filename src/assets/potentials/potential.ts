@@ -1,38 +1,36 @@
 import { StatObject, statObject } from "../stat";
 import { ActionContext } from "../context";
 
-type getterFunction = (
-  ctx: ActionContext,
-  level_index: number,
-) => StatObject;
-
-export class Potential {
+export type Potential = {
   name: string;
   level_max: number;
-  #getterFunction: getterFunction;
-
-  constructor(
-    name: string,
-    level_max: number,
-    getterFunction: getterFunction,
-  ) {
-    this.name = name;
-    this.level_max = level_max;
-    this.#getterFunction = getterFunction;
-  }
-
-  getStatObject(ctx: ActionContext, level: number): StatObject {
-    if (level < 1 || level > this.level_max) {
-      return statObject();
-    }
-    return this.#getterFunction(ctx, level - 1);
-  }
-}
+  getStatObject: (ctx: ActionContext, level: number) => StatObject;
+};
 
 export const potential = (
   name: string,
   level_max: number,
-  getterFunction: getterFunction,
+  getterFunction: (
+    ctx: ActionContext,
+    level_index: number,
+  ) => StatObject,
 ): Potential => {
-  return new Potential(name, level_max, getterFunction);
+  const getStatObject = (
+    ctx: ActionContext,
+    level: number,
+  ): StatObject => {
+    if (level < 1 || level > level_max) {
+      return statObject();
+    }
+    const level_index: number = level - 1;
+    return getterFunction(ctx, level_index);
+  };
+
+  const result: Potential = {
+    name,
+    level_max,
+    getStatObject,
+  };
+
+  return result;
 };

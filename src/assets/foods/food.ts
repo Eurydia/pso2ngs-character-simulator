@@ -3,26 +3,23 @@ import {
   GroupEnumFoodAttribute,
 } from "./groupEnum";
 
-export class Food {
+export type Food = {
+  label: string;
   attribute: GroupEnumFoodAttribute;
   category: GroupEnumFoodCategory;
-
-  constructor(
-    attribute: GroupEnumFoodAttribute,
-    category: GroupEnumFoodCategory,
-  ) {
-    this.attribute = attribute;
-    this.category = category;
-  }
-
-  get label(): string {
-    return `${this.attribute} ${this.category}`;
-  }
-}
+};
 
 export const food = (
   attribute: GroupEnumFoodAttribute,
   category: GroupEnumFoodCategory,
 ): Food => {
-  return new Food(attribute, category);
+  const label: string = `${attribute} ${category}`;
+
+  const result: Food = {
+    attribute,
+    category,
+    label,
+  };
+
+  return result;
 };

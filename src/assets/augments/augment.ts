@@ -10,6 +10,7 @@ export type Augment = {
   level: string;
   level_roman: string;
   label: string;
+  group: GroupEnumAugment;
   getStatObject: (ctx: ActionContext) => StatObject;
   isConflictingWith: (group: GroupEnumAugment) => boolean;
 };
@@ -22,7 +23,6 @@ export const augment = (
   getStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
   let level_roman: string = "";
-
   if (level > 0) {
     level_roman = romanize(level);
   }
@@ -39,6 +39,7 @@ export const augment = (
     label,
     level: level.toString(),
     level_roman,
+    group,
     getStatObject: getStatObject,
     isConflictingWith: isConflictingWith,
   };
