@@ -1,100 +1,127 @@
 import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
-import { formatStat } from "./helper";
+import {
+  formatStatAdd,
+  formatStatPercent,
+  formatStatPercentSpecial,
+} from "./helper";
 
-type StatObjectPartial = Partial<{ [K in StatEnum]: number }>;
+// export class StatObject {
+//   #data: StatObjectPartial;
 
-export class StatObject {
-  #data: StatObjectPartial;
+//   constructor(data: StatObjectPartial) {
+//     this.#data = data;
+//   }
 
-  constructor(data: StatObjectPartial) {
-    this.#data = data;
+//   mergeStat(obj: StatObject): StatObject {
+//     let result = new StatObject({});
+
+//     const keys = obj.keys;
+//     for (const key of keys) {
+//       const value: number = obj.getStat(key);
+//       result = this.stackStat(key, value);
+//     }
+
+//     return result;
+//   }
+
+// }
+
+export type StatObject = Partial<{ [K in StatEnum]: number }>;
+
+export const getKeys = (data: StatObject): StatEnum[] => {
+  return Object.keys(data) as StatEnum[];
+};
+
+export const getStat = (data: StatObject, key: StatEnum): number => {
+  const keys = getKeys(data);
+  if (keys.includes(key)) {
+    return data[key]!;
   }
 
-  #stackStatAdd(key: StatEnum, value: number): StatObject {
-    const next_data: StatObjectPartial = { ...this.#data };
+  if (StatAdd.has(key) || StatSpecial.has(key)) {
+    return 0;
+  }
+  return 1;
+};
 
+export const stackStat = (
+  data: StatObject,
+  key: StatEnum,
+  value: number,
+): StatObject => {
+  const next_data: StatObject = { ...data };
+
+  if (StatAdd.has(key) || StatSpecial.has(key)) {
     if (next_data[key] === undefined) {
       next_data[key] = value;
-      return new StatObject(next_data);
+      return next_data;
     }
 
-    this.#data[key]! += value;
-    return new StatObject(next_data);
+    next_data[key]! += value;
+    return next_data;
   }
 
-  #stackStatMuliply(key: StatEnum, value: number): StatObject {
-    const next_data: StatObjectPartial = { ...this.#data };
-
-    if (next_data[key] === undefined) {
-      next_data[key] = value;
-      return new StatObject(next_data);
-    }
-
-    next_data[key]! *= value;
-    return new StatObject(next_data);
-  }
-
-  stackStat(key: StatEnum, value: number): StatObject {
-    if (StatAdd.has(key) || StatSpecial.has(key)) {
-      return this.#stackStatAdd(key, value);
-    }
-
-    return this.#stackStatMuliply(key, value);
-  }
-
-  mergeStat(obj: StatObject): StatObject {
-    let result = new StatObject({});
-
-    const keys = obj.keys;
-    for (const key of keys) {
-      const value: number = obj.getStat(key);
-      result = this.stackStat(key, value);
-    }
-
-    return result;
-  }
-
-  setStat(key: StatEnum, value: number): StatObject {
-    const next_data: StatObjectPartial = { ...this.#data };
-
+  if (next_data[key] === undefined) {
     next_data[key] = value;
-
-    return new StatObject(next_data);
+    return next_data;
   }
 
-  getStat(key: StatEnum): number {
-    const value: number | undefined = this.#data[key];
+  next_data[key]! *= value;
+  return next_data;
+};
 
-    if (value !== undefined) {
-      return value;
-    }
+export const mergeStat = (
+  primary: StatObject,
+  secondary: StatObject,
+): StatObject => {
+  let result = { ...primary };
 
-    // fallback
-    if (StatAdd.has(key) || StatSpecial.has(key)) {
-      return 0;
-    }
-    return 1;
+  const keys = getKeys(secondary);
+  for (const key of keys) {
+    result = stackStat(result, key, secondary[key]!);
   }
 
-  formatStat(stat: StatEnum): string | null {
-    if (this.keys.includes(stat)) {
-      return formatStat(stat, this.getStat(stat));
-    }
+  return result;
+};
 
+export const setStat = (
+  data: StatObject,
+  key: StatEnum,
+  value: number,
+): StatObject => {
+  const next_data: StatObject = { ...data };
+
+  next_data[key] = value;
+
+  return next_data;
+};
+
+export const formatStat = (
+  data: StatObject,
+  key: StatEnum,
+  value: number,
+): string | null => {
+  const keys: StatEnum[] = getKeys(data);
+
+  if (!keys.includes(key)) {
     return null;
   }
 
-  toString(): string {
-    return JSON.stringify(this.#data);
+  if (StatAdd.has(key)) {
+    return formatStatAdd(value);
   }
 
-  get keys(): StatEnum[] {
-    return Object.keys(this.#data) as StatEnum[];
+  if (StatSpecial.has(key)) {
+    return formatStatPercentSpecial(value);
   }
-}
 
-export const statObject = (
-  data: StatObjectPartial = {},
-): StatObject => {
-  return new StatObject(data);
+  return formatStatPercent(value);
+};
+
+export const toString = (data: StatObject): string => {
+  return JSON.stringify(data);
+};
+
+export const statObject = (data: StatObject = {}): StatObject => {
+  return data;
 };
