@@ -43,14 +43,16 @@ const retrieveAugments = (
 };
 
 export const useAugments = (
-  storage_key: string,
+  key_augment: string,
 ): [
   (Augment | null)[],
   (value: Augment | null, index: number) => void,
 ] => {
-  const key: string = `${storage_key}-augments`;
   const [value, _setValue] = useState(() => {
-    return retrieveAugments(key, Augment.getAugmentSlot(9999));
+    return retrieveAugments(
+      key_augment,
+      Augment.getAugmentSlot(9999),
+    );
   });
 
   const setValue = (
@@ -64,7 +66,7 @@ export const useAugments = (
       let next = [...prev];
       next[augment_index] = new_value;
       next = Augment.removeConflict(augment_index, next);
-      saveAugments(key, next);
+      saveAugments(key_augment, next);
       return next;
     });
   };

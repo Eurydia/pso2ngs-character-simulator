@@ -1,3 +1,3 @@
-export type { Fixa } from "./fixa";
+export { Fixa } from "./fixa";
 export { GroupEnumFixa } from "./groupEnum";
 export { AssetFixas } from "./data";

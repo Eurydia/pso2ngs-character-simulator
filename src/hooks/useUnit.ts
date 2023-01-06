@@ -26,16 +26,15 @@ const retrieveUnit = (storage_key: string): Unit | null => {
 };
 
 export const useUnit = (
-  storage_key: string,
+  key_unit: string,
 ): [Unit | null, (new_value: Unit | null) => void] => {
-  const KEY_UNIT: string = `${storage_key}-unit`;
   const [value, _setter] = useState<Unit | null>(() => {
-    return retrieveUnit(KEY_UNIT);
+    return retrieveUnit(key_unit);
   });
 
   const setValue = (new_value: Unit | null) => {
     _setter(() => {
-      saveUnit(KEY_UNIT, new_value);
+      saveUnit(key_unit, new_value);
       return new_value;
     });
   };
