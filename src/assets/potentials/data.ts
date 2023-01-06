@@ -1296,14 +1296,14 @@ export const FLAWLESS_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.22, 1.23];
   const DATA_PP_USAGE: number[] = [0.8, 0.8, 0.8, 0.8];
   const DATA_CRIT_CHANCE: number[] = [0.1, 0.1, 0.1, 0.1];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_usage: number = DATA_PP_USAGE[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1317,14 +1317,14 @@ export const FLAWLESS_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasTakenDamage) {
-      stat.setStat(StatEnum.ADV_PP_USAGE, 1);
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, 0);
+      stat = StatObject.setStat(stat, StatEnum.ADV_PP_USAGE, 1);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        0,
+      );
     }
     return stat;
   };
-  return potential(
-    "Flawless Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Flawless Unit", DATA_WEAPON_UP.length, _getter);
 })();
