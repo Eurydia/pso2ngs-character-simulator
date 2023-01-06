@@ -1,14 +1,14 @@
-import { FC, useEffect, useMemo, useState } from "react";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { FC } from "react";
+import { Box, Stack } from "@mui/material";
 
 import { statObject, StatObject } from "../../assets";
 import {
   useSummaryEquipment,
-  useStatObject,
   useUnit,
   useEnhancement,
   useFixa,
   useAugments,
+  useWeapon,
 } from "../../hooks";
 import {
   FormWeapon,
@@ -17,7 +17,10 @@ import {
   StatView,
 } from "../../components";
 
-import { createStatSummaryUnit } from "./helper";
+import {
+  createStatSummaryUnit,
+  createStatSummaryWeapon,
+} from "./helper";
 
 // const SummaryItem: FC<SummaryEquipment> = (props) => {
 //   const { equipment, fixa, augments } = props;
@@ -60,22 +63,18 @@ type EditEquipmentProps = {
 };
 const EditEquipment: FC<EditEquipmentProps> = (props) => {
   const { onChange } = props;
-  const [statWeapon, setStatWeapon] = useStatObject();
-  const [statUnitA, setStatUnitA] = useStatObject();
-  const [statUnitB, setStatUnitB] = useStatObject();
-  const [statUnitC, setStatUnitC] = useStatObject();
 
   const [summaryWeapon, setSummaryWeapon] = useSummaryEquipment();
   const [summaryUnitA, setSummaryUnitA] = useSummaryEquipment();
   const [summaryUnitB, setSummaryUnitB] = useSummaryEquipment();
   const [summaryUnitC, setSummaryUnitC] = useSummaryEquipment();
 
-  // const [formDataUnitA, setFormDataA] =
-  //   useFormDataUnit("gear-unit-a");
-  // const [formDataUnitB, setFormDataB] =
-  //   useFormDataUnit("gear-unit-b");
-  // const [formDataUnitC, setFormDataC] =
-  //   useFormDataUnit("gear-unit-c");
+  const KEY_WEAPON = "equipment-weapon";
+  const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
+    useWeapon(KEY_WEAPON);
+  const [fixa, setFixa] = useFixa(KEY_WEAPON);
+  const [weaponLevel, setWeaponLevel] = useEnhancement(KEY_WEAPON);
+  const [augments, setAugments] = useAugments(KEY_WEAPON);
 
   const KEY_UNIT_A: string = "equipment-unit-a";
   const [unitA, setUnitA] = useUnit(KEY_UNIT_A);
@@ -140,34 +139,14 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     });
   };
 
-  // const stat: StatObject = useMemo(() => {
-  //   const result: StatObject = statObject();
-
-  //   const items: StatObject[] = [
-  //     statWeapon,
-  //     statUnitA,
-  //     statUnitB,
-  //     statUnitC,
-  //   ];
-
-  //   for (const item of items) {
-  //     result.merge(item);
-  //   }
-
-  //   return result;
-  // }, [statWeapon, statUnitA, statUnitB, statUnitC]);
-
-  // useEffect(() => {
-  //   onChange(stat);
-  // }, [stat]);
-
-  // const summaries = [
-  //   summaryWeapon,
-  //   summaryUnitA,
-  //   summaryUnitB,
-  //   summaryUnitC,
-  // ];
-
+  const statSummaryWeapon = createStatSummaryWeapon(
+    {},
+    weapon,
+    weaponLevel,
+    potentialLevel,
+    fixa,
+    augments,
+  );
   const statSummaryUnitA = createStatSummaryUnit(
     {},
     unitA,
@@ -202,9 +181,18 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
           }
         />
         <FormWeapon
-          storageKey="equipment-weapon"
           cardTitle="Weapon"
-          onStatChange={setStatWeapon}
+          stat={statSummaryWeapon}
+          weapon={weapon}
+          weaponLevel={weaponLevel}
+          potentialLevel={potentialLevel}
+          fixa={fixa}
+          augments={augments}
+          onWeaponChange={setWeapon}
+          onWeaponLevelChange={setWeaponLevel}
+          onPotentialLevelChange={setPotentialLevel}
+          onFixaChange={setFixa}
+          onAugmentChange={setAugments}
           // onSummaryChange={setSummaryWeapon}
         />
         <FormUnit

@@ -1,4 +1,4 @@
-import { Fragment, FC, useEffect, useMemo, useState } from "react";
+import { Fragment, FC, useState } from "react";
 import {
   Button,
   Dialog,
@@ -10,9 +10,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { BarChart, Sync } from "@mui/icons-material";
 
 import {
-  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
@@ -27,9 +27,6 @@ import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 
 import { StatView } from "../StatView";
-import { BarChart, Sync } from "@mui/icons-material";
-
-const CONTEXT: ActionContext = {};
 
 type FormUnitProps = {
   cardTitle: string;
