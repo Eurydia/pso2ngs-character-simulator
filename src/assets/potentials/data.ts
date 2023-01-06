@@ -942,13 +942,13 @@ export const REVOLUTIONARY_UNIT = ((): Potential => {
 export const ILLUSORY_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_RECOVERY_UP: number[] = [2, 2, 2, 2, 2.5];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const recovery_up: number = DATA_RECOVERY_UP[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -960,15 +960,15 @@ export const ILLUSORY_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasDodgedAttack) {
-      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, recovery_up);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_PP_NATURAL_RECOVERY,
+        recovery_up,
+      );
     }
     return stat;
   };
-  return potential(
-    "Illurosy Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Illurosy Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const IMPERVIOUS_UNIT = ((): Potential => {
