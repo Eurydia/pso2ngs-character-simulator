@@ -16,19 +16,19 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFour = (
   name: string,
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_FOUR,
     GROWTH_DATA,
-    getterFunction,
+    getAwareStatObject,
   );
 };
 
 // -------------------------
 G_FOUR.push(
-  makeUnitFour("Qual De Armor", (_) => {
+  makeUnitFour("Qual De Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 8,
       [StatEnum.CORE_PP]: 6,
@@ -44,22 +44,24 @@ G_FOUR.push(
   ];
   for (const ENTRY of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = ENTRY;
-
-    G_FOUR.push(
-      makeUnitFour(`Qual De Armor ${suffix}`, (_) => {
-        return statObject({
-          [StatEnum.CORE_DEFENSE]: 13,
-          [StatEnum.CORE_PP]: 4,
-          [stat_weapon_up_a]: 1.01,
-          [stat_weapon_up_b]: 1.01,
-        });
-      }),
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 13,
+        [StatEnum.CORE_PP]: 4,
+        [stat_weapon_up_a]: 1.01,
+        [stat_weapon_up_b]: 1.01,
+      });
+    };
+    const unit_four: Unit = makeUnitFour(
+      `Qual De Armor ${suffix}`,
+      _getter,
     );
+    G_FOUR.push(unit_four);
   }
 })();
 
 G_FOUR.push(
-  makeUnitFour("Cattleya Armor", (_) => {
+  makeUnitFour("Cattleya Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 12,
       [StatEnum.CORE_HP]: 20,
@@ -69,7 +71,7 @@ G_FOUR.push(
 );
 
 G_FOUR.push(
-  makeUnitFour("Vialto Armor", (_) => {
+  makeUnitFour("Vialto Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 14,
       [StatEnum.CORE_HP]: 30,
@@ -87,23 +89,25 @@ G_FOUR.push(
 
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-
-    G_FOUR.push(
-      makeUnitFour(`Vialto Armor ${suffix}`, (_) => {
-        return statObject({
-          [StatEnum.CORE_DEFENSE]: 16,
-          [StatEnum.CORE_HP]: 25,
-          [stat_weapon_up_a]: 1.005,
-          [stat_weapon_up_b]: 1.005,
-          [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
-        });
-      }),
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 16,
+        [StatEnum.CORE_HP]: 25,
+        [stat_weapon_up_a]: 1.005,
+        [stat_weapon_up_b]: 1.005,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+      });
+    };
+    const unit_four: Unit = makeUnitFour(
+      `Vialto Armor ${suffix}`,
+      _getter,
     );
+    G_FOUR.push(unit_four);
   }
 })();
 
 G_FOUR.push(
-  makeUnitFour("Geant Armor", (_) => {
+  makeUnitFour("Geant Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 15,
       [StatEnum.CORE_HP]: -20,
