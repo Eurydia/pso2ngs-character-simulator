@@ -19,14 +19,14 @@ const GROWTH_DATA: [number, number][] = [
 const makeWeaponFour = (
   name: string,
   potential: Potential,
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_FOUR,
     potential,
     GROWTH_DATA,
-    getStatObject,
+    getAwareStatObject,
   );
 };
 
@@ -35,7 +35,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Resurgia Series",
     AssetPotentials.DYNAMO_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 240,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -49,7 +49,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Cattleya Series",
     AssetPotentials.MUSTERED_MIGHT_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -63,7 +63,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Foursis Series",
     AssetPotentials.BASTION_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -77,7 +77,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Vialto Series",
     AssetPotentials.MEDITATION_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -91,7 +91,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Straga Series",
     AssetPotentials.BERSERK_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 243,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -105,7 +105,7 @@ G_FOUR.push(
   makeWeaponFour(
     "Evolcoat Series",
     AssetPotentials.SOULSPRING_UNIT,
-    (_) => {
+    (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -119,8 +119,8 @@ G_FOUR.push(
   makeWeaponFour(
     "Flamel Series",
     AssetPotentials.VALOROUS_UNIT,
-    (ctx) => {
-      const stat = statObject({
+    (ctx: ActionContext): StatObject => {
+      let stat = statObject({
         [StatEnum.CORE_ATTACK]: 240,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
@@ -131,9 +131,12 @@ G_FOUR.push(
       }
 
       if (ctx.target.isWeakToFire) {
-        stat.setStat(StatEnum.ADV_OFF_DAMAGE_UP, 1.15);
+        stat = StatObject.setStat(
+          stat,
+          StatEnum.ADV_OFF_DAMAGE_UP,
+          1.15,
+        );
       }
-
       return stat;
     },
   ),
