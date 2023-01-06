@@ -22,7 +22,7 @@ export const RECYCLER_UNIT = ((): Potential => {
 export const INDOMITABLE_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_AIL_RES: number[] = [1.1, 1.1, 1.1, 1.2, 1.4];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -45,7 +45,7 @@ export const INDOMITABLE_UNIT = ((): Potential => {
   return potential(
     "Indomitable Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
@@ -53,14 +53,14 @@ export const DEFENSIVE_FORMATION = ((): Potential => {
   const DATA_WEPON_UP: number[] = [1.17, 1.19, 1.22, 1.22, 1.23];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.27];
   const DATA_DEF_BREAKOFF: number[] = [1000, 1000, 1000, 1000, 1200];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const def_breakoff: number = DATA_DEF_BREAKOFF[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -79,15 +79,18 @@ export const DEFENSIVE_FORMATION = ((): Potential => {
     }
 
     if (char_defense >= def_breakoff) {
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance,
+      );
     }
-
     return stat;
   };
   return potential(
     "Defensive Formation",
     DATA_WEPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
