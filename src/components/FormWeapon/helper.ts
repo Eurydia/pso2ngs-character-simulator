@@ -23,7 +23,7 @@ export const createStat = (
   }
 
   if (fixa !== null) {
-    const stat_fixa: StatObject = fixa.getStatObject(ctx);
+    const stat_fixa: StatObject = fixa.getAwareStatObject(ctx);
     result = mergeStat(result, stat_fixa);
   }
 

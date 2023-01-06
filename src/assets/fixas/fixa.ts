@@ -7,22 +7,24 @@ export type Fixa = {
   level: string;
   label: string;
   group: GroupEnumFixa;
-  getStatObject: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext) => StatObject;
 };
 
 export const fixa = (
   name: string,
-  level: number,
+  fixa_level: number,
   group: GroupEnumFixa,
-  getStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Fixa => {
+  const level = fixa_level.toString();
   const label = `${name} ${level}`.trimEnd();
+
   const result: Fixa = {
     name,
-    level: level.toString(),
+    level,
     label,
     group,
-    getStatObject: getStatObject,
+    getAwareStatObject,
   };
 
   return result;

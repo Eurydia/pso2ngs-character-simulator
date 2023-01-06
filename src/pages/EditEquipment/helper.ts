@@ -28,7 +28,7 @@ export const createStatSummaryUnit = (
   result = StatObject.merge(result, stat_unit);
 
   if (fixa !== null) {
-    const stat_fixa: StatObject = fixa.getStatObject(ctx);
+    const stat_fixa: StatObject = fixa.getAwareStatObject(ctx);
     result = StatObject.merge(result, stat_fixa);
   }
 
