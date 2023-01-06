@@ -194,34 +194,26 @@ export const getStatObjectAttribute = (
 ): StatObject => {
   let result: StatObject = statObject();
 
-  const stat_crispy = getAwareStatObjectCrispy(
-    ctx,
-    data[GroupEnumFoodAttribute.CRISPY],
-  );
+  const count_crispy: number = data[GroupEnumFoodAttribute.CRISPY];
+  const stat_crispy = getAwareStatObjectCrispy(ctx, count_crispy);
   result = StatObject.merge(result, stat_crispy);
 
-  const stat_light = getAwareStatObjectLight(
-    ctx,
-    data[GroupEnumFoodAttribute.LIGHT],
-  );
+  const count_light: number = data[GroupEnumFoodAttribute.LIGHT];
+  const stat_light = getAwareStatObjectLight(ctx, count_light);
   result = StatObject.merge(result, stat_light);
 
-  const stat_rich = getAwareStatObjectRich(
-    ctx,
-    data[GroupEnumFoodAttribute.RICH],
-  );
+  const count_rich: number = data[GroupEnumFoodAttribute.RICH];
+  const stat_rich = getAwareStatObjectRich(ctx, count_rich);
   result = StatObject.merge(result, stat_rich);
 
-  const stat_robust = getAwareStatObjectRich(
-    ctx,
-    data[GroupEnumFoodAttribute.ROBUST],
-  );
+  const count_robust: number = data[GroupEnumFoodAttribute.ROBUST];
+  const stat_robust = getAwareStatObjectRich(ctx, count_robust);
   result = StatObject.merge(result, stat_robust);
 
-  const data_sum: number = Object.values(data).reduce((a, b) => {
+  const count_kvaris: number = Object.values(data).reduce((a, b) => {
     return a + b;
   }, 0);
-  const stat_kvaris = getAwareStatObjectKvaris(ctx, data_sum);
+  const stat_kvaris = getAwareStatObjectKvaris(ctx, count_kvaris);
   result = StatObject.merge(result, stat_kvaris);
 
   return result;
@@ -233,28 +225,23 @@ export const getStatObjectCategory = (
 ): StatObject => {
   let result = statObject();
 
-  const stat_meat = getAwareStatObjectMeat(
-    ctx,
-    data[GroupEnumFoodCategory.MEAT] - 4,
-  );
+  const count_meat = data[GroupEnumFoodCategory.MEAT];
+  const stat_meat = getAwareStatObjectMeat(ctx, count_meat);
   result = StatObject.merge(result, stat_meat);
 
-  const stat_fruit = getAwareStatObjectFruit(
-    ctx,
-    data[GroupEnumFoodCategory.FRUIT] - 4,
-  );
+  const count_fruit = data[GroupEnumFoodCategory.FRUIT];
+  const stat_fruit = getAwareStatObjectFruit(ctx, count_fruit);
   result = StatObject.merge(result, stat_fruit);
 
+  const count_vegetable = data[GroupEnumFoodCategory.VEGETABLE];
   const stat_vegetable = getAwareStatObjectVegetable(
     ctx,
-    data[GroupEnumFoodCategory.VEGETABLE] - 4,
+    count_vegetable,
   );
   result = StatObject.merge(result, stat_vegetable);
 
-  const stat_seafood = getAwareStatObjectSeafood(
-    ctx,
-    data[GroupEnumFoodCategory.SEAFOOD] - 3,
-  );
+  const count_seafood = data[GroupEnumFoodCategory.SEAFOOD];
+  const stat_seafood = getAwareStatObjectSeafood(ctx, count_seafood);
   result = StatObject.merge(result, stat_seafood);
 
   return result;
