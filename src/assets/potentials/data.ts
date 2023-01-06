@@ -195,13 +195,13 @@ export const DYNAMO_UNIT = ((): Potential => {
 export const MUSTERED_MIGHT_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.15, 1.17, 1.2, 1.21, 1.22];
   const DATA_WEAPON_UP_EXTRA: number[] = [1.2, 1.22, 1.25, 1.26, 1.3];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -223,9 +223,21 @@ export const MUSTERED_MIGHT_UNIT = ((): Potential => {
     const hp: number = ctx.character.hpValue;
 
     if (hp_current === hp) {
-      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_MELEE,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_RANGED,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_TECHNIQUE,
+        weapon_up_extra,
+      );
     }
 
     return stat;
@@ -233,7 +245,7 @@ export const MUSTERED_MIGHT_UNIT = ((): Potential => {
   return potential(
     "Mustered Might Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
