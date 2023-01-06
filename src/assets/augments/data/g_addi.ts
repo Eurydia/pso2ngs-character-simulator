@@ -34,7 +34,7 @@ const makeAugmentAddi = (
     const [suffix, stat_weapon_up] = entry;
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Deft${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Deft${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [stat_weapon_up]: WEAPON_UP,
@@ -44,7 +44,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Gua${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Gua${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [stat_weapon_up]: WEAPON_UP,
@@ -54,7 +54,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Spi${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Spi${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [StatEnum.CORE_PP]: 6,
@@ -64,7 +64,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Sta${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Sta${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [StatEnum.CORE_HP]: 20,
@@ -74,7 +74,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Staspi${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Staspi${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [StatEnum.CORE_HP]: 10,
@@ -85,7 +85,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Ward${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Ward${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 10,
           [stat_weapon_up]: WEAPON_UP,
@@ -117,7 +117,7 @@ const makeAugmentAddi = (
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Deft${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Deft${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [stat_weapon_up_a]: WEAPON_UP,
@@ -128,7 +128,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Gua${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Gua${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [stat_weapon_up_a]: WEAPON_UP,
@@ -140,7 +140,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Spi${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Spi${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [StatEnum.CORE_PP]: 6,
@@ -152,7 +152,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Sta${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Sta${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [StatEnum.CORE_HP]: 20,
@@ -164,7 +164,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Staspi${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Staspi${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [StatEnum.CORE_HP]: 10,
@@ -177,7 +177,7 @@ const makeAugmentAddi = (
     );
 
     G_ADDI.push(
-      makeAugmentAddi(`Addi Ward${suffix}`, 0, (_) => {
+      makeAugmentAddi(`Addi Ward${suffix}`, 0, (_): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: 12,
           [stat_weapon_up_a]: WEAPON_UP,
