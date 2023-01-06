@@ -11,7 +11,7 @@ export type Augment = {
   label: string;
   group: GroupEnumAugment;
   conflict: GroupEnumAugment[];
-  getterFunction: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext) => StatObject;
 };
 
 export const Augment = {
@@ -28,7 +28,7 @@ export const augment = (
   augment_level: number,
   group: GroupEnumAugment,
   conflict: GroupEnumAugment[],
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
   const level = augment_level.toString();
   const level_roman = toRoman(augment_level);
@@ -41,7 +41,7 @@ export const augment = (
     level_roman,
     group,
     conflict,
-    getterFunction,
+    getAwareStatObject,
   };
 
   return result;

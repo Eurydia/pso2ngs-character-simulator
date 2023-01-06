@@ -36,7 +36,7 @@ export const createStatSummaryUnit = (
     if (augment === null) {
       continue;
     }
-    const stat_augment: StatObject = augment.getterFunction(ctx);
+    const stat_augment: StatObject = augment.getAwareStatObject(ctx);
     result = StatObject.merge(result, stat_augment);
   }
 

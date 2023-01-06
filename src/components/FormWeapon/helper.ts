@@ -1,15 +1,12 @@
 import {
   Augment,
   Fixa,
-  getStat,
-  mergeStat,
   StatEnum,
   statObject,
   StatObject,
   Weapon,
 } from "../../assets";
 import { ActionContext } from "../../assets";
-import { SummaryEquipment } from "../../types";
 
 export const createStat = (
   ctx: ActionContext,
@@ -34,7 +31,7 @@ export const createStat = (
     if (augment === null) {
       continue;
     }
-    const stat_augment: StatObject = augment.getterFunction(ctx);
+    const stat_augment: StatObject = augment.getAwareStatObject(ctx);
     result = mergeStat(result, stat_augment);
   }
 
