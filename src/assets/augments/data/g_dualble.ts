@@ -34,7 +34,7 @@ const makeAugmentDualble = (
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext) => {
+      const _getter = (_: ActionContext): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: bp,
           [stat_weapon_up_a]: weapon_up,
@@ -54,12 +54,16 @@ const makeAugmentDualble = (
 // --------------------------------------
 // triplble
 G_DUALBLE.push(
-  makeAugmentDualble("Triplble", 0, (_) => {
-    return statObject({
-      [StatEnum.CORE_BP]: 8,
-      [StatEnum.WEAPON_MELEE]: 1.02,
-      [StatEnum.WEAPON_RANGED]: 1.02,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-    });
-  }),
+  makeAugmentDualble(
+    "Triplble",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 8,
+        [StatEnum.WEAPON_MELEE]: 1.02,
+        [StatEnum.WEAPON_RANGED]: 1.02,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+      });
+    },
+  ),
 );
