@@ -315,7 +315,7 @@ export const MEDITATION_UNIT = ((): Potential => {
 export const BERSERK_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.21, 1.23, 1.26, 1.27, 1.31];
   const DATA_DAMAGE_RES: number[] = [0.9, 0.9, 0.9, 0.92, 0.95];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -329,11 +329,7 @@ export const BERSERK_UNIT = ((): Potential => {
       [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
     });
   };
-  return potential(
-    "Berserk Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Berserk Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const SOULSPRING_UNIT = ((): Potential => {
