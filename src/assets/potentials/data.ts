@@ -645,7 +645,7 @@ export const VIRTUOSO_UNIT = ((): Potential => {
   const DATA_EFFECT_MULTIPLIER: number[] = [
     0.01, 0.01, 0.01, 0.01, 0.02,
   ];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -653,7 +653,7 @@ export const VIRTUOSO_UNIT = ((): Potential => {
     const effect_multiplier: number =
       DATA_EFFECT_MULTIPLIER[level_index];
     const effect_max: number = DATA_EFFECT_MAX[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -670,16 +670,20 @@ export const VIRTUOSO_UNIT = ((): Potential => {
       if (effect_value > effect_max) {
         effect_value = effect_max;
       }
-      stat.setStat(StatEnum.ADV_DEF_HEALING, effect_value);
-      stat.setStat(StatEnum.ADV_PP_USAGE, 2 - effect_value);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_DEF_HEALING,
+        effect_value,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_PP_USAGE,
+        2 - effect_value,
+      );
     }
     return stat;
   };
-  return potential(
-    "Virtuoso Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Virtuoso Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const UNASSAILABLE_UNIT = ((): Potential => {
