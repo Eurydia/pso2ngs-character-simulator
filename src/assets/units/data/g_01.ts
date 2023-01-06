@@ -17,19 +17,19 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitOne = (
   name: string,
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_ONE,
     GROWTH_DATA,
-    getterFunction,
+    getAwareStatObject,
   );
 };
 
 // -------------------------
 G_ONE.push(
-  makeUnitOne("Primm Armor", (_) => {
+  makeUnitOne("Primm Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 8,
       [StatEnum.CORE_HP]: 10,
