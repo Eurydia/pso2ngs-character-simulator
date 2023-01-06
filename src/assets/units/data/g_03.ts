@@ -28,7 +28,7 @@ const makeUnitThree = (
 
 // -------------------------
 G_THREE.push(
-  makeUnitThree("Theseus Armor", (_) => {
+  makeUnitThree("Theseus Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 9,
       [StatEnum.CORE_HP]: 10,
@@ -38,17 +38,20 @@ G_THREE.push(
 );
 
 G_THREE.push(
-  makeUnitThree("Gold Primm Armor", (_) => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 9,
-      [StatEnum.CORE_HP]: 10,
-      [StatEnum.CORE_PP]: 1,
-    });
-  }),
+  makeUnitThree(
+    "Gold Primm Armor",
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 9,
+        [StatEnum.CORE_HP]: 10,
+        [StatEnum.CORE_PP]: 1,
+      });
+    },
+  ),
 );
 
 G_THREE.push(
-  makeUnitThree("Renaissa Armor", (_) => {
+  makeUnitThree("Renaissa Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 10,
       [StatEnum.CORE_HP]: 10,
