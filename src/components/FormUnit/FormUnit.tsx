@@ -50,6 +50,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   const {
     cardTitle,
     stat,
+
     unit,
     unitLevel,
     fixa,

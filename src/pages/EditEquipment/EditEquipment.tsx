@@ -10,7 +10,6 @@ import {
   useFixa,
   useAugments,
 } from "../../hooks";
-import { SummaryEquipment } from "../../types";
 import {
   FormWeapon,
   FormUnit,
@@ -20,41 +19,41 @@ import {
 
 import { createStatSummaryUnit } from "./helper";
 
-const SummaryItem: FC<SummaryEquipment> = (props) => {
-  const { equipment, fixa, augments } = props;
+// const SummaryItem: FC<SummaryEquipment> = (props) => {
+//   const { equipment, fixa, augments } = props;
 
-  return (
-    <Box>
-      <Typography fontWeight="bold">{equipment}</Typography>
-      <Typography>{fixa}</Typography>
-      {augments.map((value, index) => (
-        <Typography key={`${value}-${index}`}>{value}</Typography>
-      ))}
-    </Box>
-  );
-};
+//   return (
+//     <Box>
+//       <Typography fontWeight="bold">{equipment}</Typography>
+//       <Typography>{fixa}</Typography>
+//       {augments.map((value, index) => (
+//         <Typography key={`${value}-${index}`}>{value}</Typography>
+//       ))}
+//     </Box>
+//   );
+// };
 
-type SummaryProps = { items: SummaryEquipment[] };
-const Summary: FC<SummaryProps> = (props) => {
-  const { items } = props;
-  return (
-    <Box>
-      <Grid container spacing={2} columns={{ sm: 2 }}>
-        {items.map((item, index) => {
-          if (item.equipment === null) {
-            return null;
-          }
+// type SummaryProps = { items: SummaryEquipment[] };
+// const Summary: FC<SummaryProps> = (props) => {
+//   const { items } = props;
+//   return (
+//     <Box>
+//       <Grid container spacing={2} columns={{ sm: 2 }}>
+//         {items.map((item, index) => {
+//           if (item.equipment === null) {
+//             return null;
+//           }
 
-          return (
-            <Grid key={`summary-${index}`} item xs={1}>
-              <SummaryItem {...item} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Box>
-  );
-};
+//           return (
+//             <Grid key={`summary-${index}`} item xs={1}>
+//               <SummaryItem {...item} />
+//             </Grid>
+//           );
+//         })}
+//       </Grid>
+//     </Box>
+//   );
+// };
 
 type EditEquipmentProps = {
   onChange: (stat: StatObject) => void;
@@ -197,16 +196,16 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         <FormBase
           title="Summary"
           slotHeaderAction={null}
+          slotPrimary={null}
           slotSecondary={
             <StatView maxHeight="400px" stat={statObject()} />
           }
-          slotPrimary={<Summary items={[]} />}
         />
         <FormWeapon
           storageKey="equipment-weapon"
           cardTitle="Weapon"
           onStatChange={setStatWeapon}
-          onSummaryChange={setSummaryWeapon}
+          // onSummaryChange={setSummaryWeapon}
         />
         <FormUnit
           cardTitle="Unit A"

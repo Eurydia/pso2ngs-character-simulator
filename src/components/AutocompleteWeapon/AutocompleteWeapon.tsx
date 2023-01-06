@@ -18,7 +18,6 @@ type EndAdornmentProps = {
 };
 const EndAdornment: FC<EndAdornmentProps> = (props) => {
   const { shouldShowWarning, defaultAdornment } = props;
-
   if (shouldShowWarning) {
     return (
       <InputAdornment position="end">
@@ -27,7 +26,6 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
       </InputAdornment>
     );
   }
-
   return (
     <InputAdornment position="end">{defaultAdornment}</InputAdornment>
   );

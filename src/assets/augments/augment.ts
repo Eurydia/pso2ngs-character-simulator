@@ -5,14 +5,14 @@ import { GroupEnumAugment } from "./groupEnum";
 
 const LOOKUP_AUGMENT: { [key: string]: Augment } = {};
 
+const ROMAN_LOOKUP: { [key: number]: string } = {
+  1: "I",
+  2: "II",
+  3: "III",
+  4: "IV",
+  5: "V",
+};
 const _toRoman = (num: number): string => {
-  const ROMAN_LOOKUP: { [key: number]: string } = {
-    1: "I",
-    2: "II",
-    3: "III",
-    4: "IV",
-    5: "V",
-  };
   if (num < 1) {
     return "";
   }
@@ -43,13 +43,6 @@ export type Augment = {
 };
 
 export const Augment = {
-  // isConflicting: (
-  //   augment: Augment,
-  //   group: GroupEnumAugment,
-  // ): boolean => {
-  //   return augment.conflict.includes(group);
-  // },
-
   toString: (items: (Augment | null)[]): string => {
     const labels: string[] = [];
     for (const item of items) {
