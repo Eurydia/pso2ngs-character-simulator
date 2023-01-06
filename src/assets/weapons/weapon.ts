@@ -65,10 +65,8 @@ export const Weapon = {
       Weapon.getAttack(weapon, weapon_level) * (floor_adjustment / 2),
     );
 
-    const stat_potential: StatObject = weapon.potential.getStatObject(
-      ctx,
-      potential_level,
-    );
+    const stat_potential: StatObject =
+      weapon.potential.getAwareStatObject(ctx, potential_level);
     result = StatObject.merge(result, stat_potential);
 
     return result;
