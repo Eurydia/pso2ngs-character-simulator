@@ -1,5 +1,5 @@
 import { StatEnum, statObject } from "../../stat";
-import { fixa, Fixa } from "../fixas";
+import { fixa, Fixa } from "../fixa";
 import { GroupEnumFixa } from "../groupEnum";
 
 export const G_WEAPON: Fixa[] = [];

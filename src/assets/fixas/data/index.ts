@@ -1,4 +1,4 @@
-import { Fixa } from "../fixas";
+import { Fixa } from "../fixa";
 import { G_UNIT } from "./g_unit";
 import { G_WEAPON } from "./g_weapon";
 
