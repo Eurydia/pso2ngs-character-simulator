@@ -1090,7 +1090,7 @@ export const TEMPERED_FORM = ((): Potential => {
   const DATA_CRIT_CHANCE: number[] = [0.1, 0.1, 0.1, 0.1];
   const DATA_PP_USAGE: number[] = [0.9, 0.9, 0.9, 0.9];
   const DATA_PB_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -1098,7 +1098,7 @@ export const TEMPERED_FORM = ((): Potential => {
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const pp_usage: number = DATA_PP_USAGE[level_index];
     const pb_recovery: number = DATA_PB_RECOVERY[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1112,15 +1112,15 @@ export const TEMPERED_FORM = ((): Potential => {
     }
 
     if (ctx.character.isAttacking) {
-      stat.setStat(StatEnum.ADV_OFF_PB_RECOVERY, pb_recovery);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_PB_RECOVERY,
+        pb_recovery,
+      );
     }
     return stat;
   };
-  return potential(
-    "Tempered Form",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Tempered Form", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const CORUSCATING_UNIT = ((): Potential => {
