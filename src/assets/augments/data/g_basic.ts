@@ -27,7 +27,7 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: hp,
@@ -50,7 +50,7 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const pp: number = DATA_PP[level_index];
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_PP]: pp,
@@ -80,7 +80,7 @@ const makeAugmentBasic = (
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext) => {
+      const _getter = (_: ActionContext): StatObject => {
         return statObject({
           [StatEnum.CORE_BP]: bp,
           [stat_weapon_up]: weapon_up,
@@ -104,7 +104,7 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const floor_up: number = DATA_FLOOR_up[level_index];
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.ADV_OFF_FLOOR]: floor_up,
@@ -127,7 +127,7 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
