@@ -1,4 +1,5 @@
-import { StatEnum, statObject } from "../../stat";
+import { ActionContext } from "../../context";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { augment, Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
@@ -7,16 +8,14 @@ export const G_NOTE: Augment[] = [];
 const makeAugmentNote = (
   name: string,
   level: number,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
   return augment(
     name,
     level,
     GroupEnumAugment.NOTE,
     [GroupEnumAugment.NOTE],
-    (_) => {
-      return statObject(stat);
-    },
+    getAwareStatObject,
   );
 };
 
@@ -26,10 +25,12 @@ const makeAugmentNote = (
 // a | b | c | d
 // a
 G_NOTE.push(
-  makeAugmentNote("Ael Note A", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 5,
-    [StatEnum.CORE_PP]: 3,
+  makeAugmentNote("Ael Note A", 0, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 5,
+      [StatEnum.CORE_PP]: 3,
+    });
   }),
 );
 
@@ -40,22 +41,21 @@ G_NOTE.push(
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   const WEAPON_UP: number = 1.01;
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-
-    const note_augment: Augment = makeAugmentNote(
-      `Ael Note ${suffix}`,
-      0,
-      {
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
         [StatEnum.CORE_BP]: 4,
         [stat_weapon_up_a]: WEAPON_UP,
         [stat_weapon_up_b]: WEAPON_UP,
-      },
+      });
+    };
+    const note_augment: Augment = makeAugmentNote(
+      `Ael Note ${suffix}`,
+      0,
+      _getter,
     );
-
     G_NOTE.push(note_augment);
   }
 })();
@@ -74,10 +74,16 @@ G_NOTE.push(
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
 
-    const note_augment: Augment = makeAugmentNote(`${name} Note`, 0, {
-      [StatEnum.CORE_BP]: 5,
-      [stat_weapon_up]: WEAPON_UP,
-    });
+    const note_augment: Augment = makeAugmentNote(
+      `${name} Note`,
+      0,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: 5,
+          [stat_weapon_up]: WEAPON_UP,
+        });
+      },
+    );
 
     G_NOTE.push(note_augment);
   }
@@ -89,9 +95,11 @@ G_NOTE.push(
 // a | b | c | d
 // a
 G_NOTE.push(
-  makeAugmentNote("Ret Note A", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 10,
+  makeAugmentNote("Ret Note A", 0, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 10,
+    });
   }),
 );
 (() => {
@@ -101,22 +109,21 @@ G_NOTE.push(
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   const WEAPON_UP: number = 1.0075;
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-
-    const note_augment: Augment = makeAugmentNote(
-      `Ret Note ${suffix}`,
-      0,
-      {
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
         [StatEnum.CORE_BP]: 4,
         [stat_weapon_up_a]: WEAPON_UP,
         [stat_weapon_up_b]: WEAPON_UP,
-      },
+      });
+    };
+    const note_augment: Augment = makeAugmentNote(
+      `Ret Note ${suffix}`,
+      0,
+      _getter,
     );
-
     G_NOTE.push(note_augment);
   }
 })();
@@ -124,20 +131,24 @@ G_NOTE.push(
 // combat
 // alno
 G_NOTE.push(
-  makeAugmentNote(`Alno Note`, 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.CORE_PP]: 3,
-    [StatEnum.ADV_OFF_FLOOR]: 1.02,
+  makeAugmentNote(`Alno Note`, 0, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.CORE_PP]: 3,
+      [StatEnum.ADV_OFF_FLOOR]: 1.02,
+    });
   }),
 );
 // maqea
 G_NOTE.push(
-  makeAugmentNote(`Maqea Note`, 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.WEAPON_MELEE]: 1.0125,
-    [StatEnum.WEAPON_RANGED]: 1.0125,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.0125,
+  makeAugmentNote(`Maqea Note`, 0, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.WEAPON_MELEE]: 1.0125,
+      [StatEnum.WEAPON_RANGED]: 1.0125,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.0125,
+    });
   }),
 );
 
@@ -147,11 +158,17 @@ G_NOTE.push(
 // a | b | c | d
 // a
 G_NOTE.push(
-  makeAugmentNote("Kvar Note A", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.CORE_PP]: 5,
-  }),
+  makeAugmentNote(
+    "Kvar Note A",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 5,
+        [StatEnum.CORE_HP]: 10,
+        [StatEnum.CORE_PP]: 5,
+      });
+    },
+  ),
 );
 (() => {
   // b | c | d
@@ -160,23 +177,22 @@ G_NOTE.push(
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   const WEAPON_UP: number = 1.02;
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-
-    const note_augment: Augment = makeAugmentNote(
-      `Kvar Note ${suffix}`,
-      0,
-      {
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
         [StatEnum.CORE_BP]: 4,
         [stat_weapon_up_a]: WEAPON_UP,
         [stat_weapon_up_b]: WEAPON_UP,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 0.98,
-      },
+      });
+    };
+    const note_augment: Augment = makeAugmentNote(
+      `Kvar Note ${suffix}`,
+      0,
+      _getter,
     );
-
     G_NOTE.push(note_augment);
   }
 })();
@@ -184,23 +200,35 @@ G_NOTE.push(
 // combat
 // lostral
 G_NOTE.push(
-  makeAugmentNote("Lostral Note", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.WEAPON_MELEE]: 1.025,
-    [StatEnum.WEAPON_RANGED]: 1.025,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
-  }),
+  makeAugmentNote(
+    "Lostral Note",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 5,
+        [StatEnum.CORE_HP]: 10,
+        [StatEnum.WEAPON_MELEE]: 1.025,
+        [StatEnum.WEAPON_RANGED]: 1.025,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+      });
+    },
+  ),
 );
 // belgan
 G_NOTE.push(
-  makeAugmentNote("Belgan Note", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_PP]: 3,
-    [StatEnum.WEAPON_MELEE]: 1.025,
-    [StatEnum.WEAPON_RANGED]: 1.025,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.025,
-  }),
+  makeAugmentNote(
+    "Belgan Note",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 5,
+        [StatEnum.CORE_PP]: 3,
+        [StatEnum.WEAPON_MELEE]: 1.025,
+        [StatEnum.WEAPON_RANGED]: 1.025,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.025,
+      });
+    },
+  ),
 );
 
 // --------------------------------------
@@ -209,11 +237,17 @@ G_NOTE.push(
 // a | b | c | d
 // a
 G_NOTE.push(
-  makeAugmentNote("Stia Note A", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 15,
-    [StatEnum.CORE_PP]: 5,
-  }),
+  makeAugmentNote(
+    "Stia Note A",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 5,
+        [StatEnum.CORE_HP]: 15,
+        [StatEnum.CORE_PP]: 5,
+      });
+    },
+  ),
 );
 (() => {
   // b | c | d
@@ -222,16 +256,11 @@ G_NOTE.push(
     ["C", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
     ["D", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   const WEAPON_UP: number = 1.02;
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [weapon_up_a, weapon_up_b]] = entry;
-
-    const note_augment: Augment = makeAugmentNote(
-      `Stia Note ${suffix}`,
-      0,
-      {
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
         [StatEnum.CORE_BP]: 4,
         [weapon_up_a]: WEAPON_UP,
         [weapon_up_b]: WEAPON_UP,
@@ -242,9 +271,13 @@ G_NOTE.push(
         [StatEnum.AIL_DOWN]: 1.1,
         [StatEnum.AIL_POISON]: 1.1,
         [StatEnum.AIL_SHOCK]: 1.1,
-      },
+      });
+    };
+    const note_augment: Augment = makeAugmentNote(
+      `Stia Note ${suffix}`,
+      0,
+      _getter,
     );
-
     G_NOTE.push(note_augment);
   }
 })();
@@ -252,18 +285,20 @@ G_NOTE.push(
 // combat
 // dext
 G_NOTE.push(
-  makeAugmentNote("Dexta Note", 0, {
-    [StatEnum.CORE_BP]: 5,
-    [StatEnum.CORE_HP]: 10,
-    [StatEnum.WEAPON_MELEE]: 1.02,
-    [StatEnum.WEAPON_RANGED]: 1.02,
-    [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-    [StatEnum.AIL_BLIND]: 1.1,
-    [StatEnum.AIL_BURN]: 1.1,
-    [StatEnum.AIL_FREEZE]: 1.1,
-    [StatEnum.AIL_PANIC]: 1.1,
-    [StatEnum.AIL_DOWN]: 1.1,
-    [StatEnum.AIL_POISON]: 1.1,
-    [StatEnum.AIL_SHOCK]: 1.1,
+  makeAugmentNote("Dexta Note", 0, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_BP]: 5,
+      [StatEnum.CORE_HP]: 10,
+      [StatEnum.WEAPON_MELEE]: 1.02,
+      [StatEnum.WEAPON_RANGED]: 1.02,
+      [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+      [StatEnum.AIL_BLIND]: 1.1,
+      [StatEnum.AIL_BURN]: 1.1,
+      [StatEnum.AIL_FREEZE]: 1.1,
+      [StatEnum.AIL_PANIC]: 1.1,
+      [StatEnum.AIL_DOWN]: 1.1,
+      [StatEnum.AIL_POISON]: 1.1,
+      [StatEnum.AIL_SHOCK]: 1.1,
+    });
   }),
 );
