@@ -778,13 +778,13 @@ export const TRAMPLE_UNIT = ((): Potential => {
   const DATA_WEAPON_UP_EXTRA: number[] = [
     1.21, 1.23, 1.26, 1.26, 1.31,
   ];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -796,17 +796,25 @@ export const TRAMPLE_UNIT = ((): Potential => {
     }
 
     if (ctx.target.isNonBoss) {
-      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_MELEE,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_RANGED,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_TECHNIQUE,
+        weapon_up_extra,
+      );
     }
     return stat;
   };
-  return potential(
-    "Trample Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Trample Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const STACCATO_UNIT = ((): Potential => {
