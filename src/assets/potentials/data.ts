@@ -98,7 +98,7 @@ export const OFFENSIVE_FORMATION = (() => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.19, 1.22, 1.22, 1.23];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.27];
   const DATA_ATK_BREAKOFF: number[] = [2000, 2000, 2000, 2000, 2400];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -106,7 +106,7 @@ export const OFFENSIVE_FORMATION = (() => {
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const atk_breakoff: number = DATA_ATK_BREAKOFF[level_index];
 
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -124,15 +124,18 @@ export const OFFENSIVE_FORMATION = (() => {
     }
 
     if (char_attack >= atk_breakoff) {
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance,
+      );
     }
-
     return stat;
   };
   return potential(
     "Offensive Formation",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
