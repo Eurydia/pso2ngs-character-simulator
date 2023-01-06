@@ -294,13 +294,12 @@ export const BASTION_UNIT = ((): Potential => {
 export const MEDITATION_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const DATA_PP_RECOVERY: number[] = [1.1, 1.1, 1.1, 1.15, 1.2];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-
     return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -310,11 +309,7 @@ export const MEDITATION_UNIT = ((): Potential => {
       [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
     });
   };
-  return potential(
-    "Meditation Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Meditation Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const BERSERK_UNIT = ((): Potential => {
