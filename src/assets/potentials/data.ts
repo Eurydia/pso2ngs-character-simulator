@@ -1018,24 +1018,19 @@ export const IMPERVIOUS_UNIT = ((): Potential => {
 
 export const PURSUIT_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.12, 1.14, 1.17, 1.19];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
-    const stat: StatObject = statObject({
+    return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-    return stat;
   };
-  return potential(
-    "Pursuit Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Pursuit Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const CITADEL_UNIT = ((): Potential => {
