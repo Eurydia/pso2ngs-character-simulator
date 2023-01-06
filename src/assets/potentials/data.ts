@@ -4,7 +4,7 @@ import { Potential, potential } from "./potential";
 
 export const RECYCLER_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -16,11 +16,7 @@ export const RECYCLER_UNIT = ((): Potential => {
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
   };
-  return potential(
-    "Recycler Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Recycler Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const INDOMITABLE_UNIT = ((): Potential => {
