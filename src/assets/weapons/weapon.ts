@@ -5,6 +5,8 @@ import { Potential } from "../potentials";
 import { GroupEnumWeaponRarity } from "./groupEnum";
 import { calcAttackBonus } from "./helper";
 
+const LOOKUP_WEAPON: { [key: string]: Weapon } = {};
+
 export type Weapon = Readonly<{
   label: string;
   rarity: GroupEnumWeaponRarity;
@@ -14,6 +16,20 @@ export type Weapon = Readonly<{
 }>;
 
 export const Weapon = {
+  toString: (weapon: Weapon | null): string => {
+    if (weapon === null) {
+      return JSON.stringify(null);
+    }
+    return weapon.label;
+  },
+
+  fromLabel: (label: string): Weapon | null => {
+    if (label in LOOKUP_WEAPON) {
+      return LOOKUP_WEAPON[label];
+    }
+    return null;
+  },
+
   getAttackBase: (weapon: Weapon): number => {
     const stat: StatObject = weapon.getAwareStatObject({});
     return StatObject.getStat(stat, StatEnum.CORE_ATTACK);
@@ -90,6 +106,8 @@ export const weapon = (
     growth_rate,
     getAwareStatObject,
   };
+
+  LOOKUP_WEAPON[label] = result;
 
   return result;
 };

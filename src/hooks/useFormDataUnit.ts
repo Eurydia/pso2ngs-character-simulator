@@ -1,7 +1,7 @@
 import { FormDataUnit, FormDataUnitSetter } from "../types";
 
 import { useUnit } from "./useUnit";
-import { useEnhancement } from "./useEnhancement";
+import { useLevel } from "./useEnhancement";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
 
@@ -13,7 +13,7 @@ export const useFormDataUnit = (
 ] => {
   const [unit, setUnit] = useUnit(storage_key);
   const [fixa, setFixa] = useFixa(storage_key);
-  const [unitLevel, setUnitLevel] = useEnhancement(storage_key);
+  const [unitLevel, setUnitLevel] = useLevel(storage_key);
   const [augments, setAugments] = useAugments(storage_key);
 
   const setData = (data: FormDataUnit) => {

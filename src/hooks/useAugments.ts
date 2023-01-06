@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Augment } from "../assets";
 import { isValidJSON } from "./utility";
 
-const saveData = (
+const saveAugments = (
   storage_key: string,
   augments: (Augment | null)[],
 ): void => {
@@ -11,7 +11,7 @@ const saveData = (
   localStorage.setItem(storage_key, string_data);
 };
 
-const retrieveData = (
+const retrieveAugments = (
   storage_key: string,
   size: number,
 ): (Augment | null)[] => {
@@ -50,7 +50,7 @@ export const useAugments = (
 ] => {
   const key: string = `${storage_key}-augments`;
   const [value, _setValue] = useState(() => {
-    return retrieveData(key, Augment.getAugmentSlot(9999));
+    return retrieveAugments(key, Augment.getAugmentSlot(9999));
   });
 
   const setValue = (
@@ -64,7 +64,7 @@ export const useAugments = (
       let next = [...prev];
       next[augment_index] = new_value;
       next = Augment.removeConflict(augment_index, next);
-      saveData(key, next);
+      saveAugments(key, next);
       return next;
     });
   };
