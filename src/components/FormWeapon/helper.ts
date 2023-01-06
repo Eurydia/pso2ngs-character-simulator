@@ -40,7 +40,7 @@ export const createStat = (
     StatEnum.ADV_OFF_FLOOR,
   );
 
-  const stat_weapon: StatObject = weapon.getterFunction(
+  const stat_weapon: StatObject = weapon.getAwareStatObject(
     ctx,
     weapon_level,
     damage_adjustment,

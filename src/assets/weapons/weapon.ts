@@ -10,12 +10,12 @@ export type Weapon = Readonly<{
   rarity: GroupEnumWeaponRarity;
   growth_rate: [number, number][];
   potential: Potential;
-  getterFunction: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext) => StatObject;
 }>;
 
 export const Weapon = {
   getAttackBase: (weapon: Weapon): number => {
-    const stat: StatObject = weapon.getterFunction({});
+    const stat: StatObject = weapon.getAwareStatObject({});
     return StatObject.getStat(stat, StatEnum.CORE_ATTACK);
   },
 
@@ -41,7 +41,7 @@ export const Weapon = {
   ): StatObject => {
     let result: StatObject = statObject();
 
-    const stat_weapon: StatObject = weapon.getterFunction(ctx);
+    const stat_weapon: StatObject = weapon.getAwareStatObject(ctx);
     result = StatObject.merge(result, stat_weapon);
 
     const attack_bonus: number = Weapon.getAttackBonus(
@@ -78,14 +78,14 @@ export const weapon = (
   rarity: GroupEnumWeaponRarity,
   potential: Potential,
   growth_rate: [number, number][],
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   const result: Weapon = {
     label,
     rarity,
     potential,
     growth_rate,
-    getterFunction,
+    getAwareStatObject,
   };
 
   return result;
