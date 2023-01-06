@@ -16,6 +16,7 @@ export const Potential = {
     potential: Potential,
     potential_level: number,
   ): StatObject => {
+    console.log(potential_level);
     if (
       potential_level < 1 ||
       potential_level > potential.level_max

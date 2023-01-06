@@ -1,4 +1,4 @@
-import { Fragment, FC, useEffect, useMemo, useState } from "react";
+import { Fragment, FC, useState } from "react";
 import {
   Button,
   Dialog,
@@ -28,8 +28,6 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
-
-const CONTEXT: ActionContext = {};
 
 type FormWeaponProps = {
   stat: StatObject;

@@ -1,2 +1,2 @@
-export type { Potential } from "./potential";
+export { Potential } from "./potential";
 export * as AssetPotentials from "./data";

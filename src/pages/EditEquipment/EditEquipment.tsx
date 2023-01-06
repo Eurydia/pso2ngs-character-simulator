@@ -193,7 +193,6 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
           onPotentialLevelChange={setPotentialLevel}
           onFixaChange={setFixa}
           onAugmentChange={setAugments}
-          // onSummaryChange={setSummaryWeapon}
         />
         <FormUnit
           cardTitle="Unit A"
