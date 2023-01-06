@@ -400,13 +400,13 @@ export const FORTRESS_UNIT = ((): Potential => {
 export const REINVIGORATING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.19, 1.22, 1.23, 1.24];
   const DATA_PP: number[] = [10, 10, 10, 10, 15];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp: number = DATA_PP[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -429,15 +429,14 @@ export const REINVIGORATING_UNIT = ((): Potential => {
     const hp_percent: number = hp_current / hp;
 
     if (hp_percent <= 0.5 && ctx.character.isAttacking) {
-      stat.setStat(StatEnum.CORE_PP, pp);
+      stat = StatObject.setStat(stat, StatEnum.CORE_PP, pp);
     }
-
     return stat;
   };
   return potential(
     "Reinvigorating Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
