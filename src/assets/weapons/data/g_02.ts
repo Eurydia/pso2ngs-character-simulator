@@ -1,8 +1,9 @@
-import { StatEnum, statObject } from "../../stat";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
 
 import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
+import { ActionContext } from "../../context";
 
 export const G_TWO: Weapon[] = [];
 
@@ -18,39 +19,55 @@ const GROWTH_DATA: [number, number][] = [
 const makeWeaponTwo = (
   name: string,
   potential: Potential,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_TWO,
     potential,
     GROWTH_DATA,
-    (_) => {
-      return statObject(stat);
-    },
+    getAwareStatObject,
   );
 };
 
 // -----------------------
 G_TWO.push(
-  makeWeaponTwo("Tzvia Series", AssetPotentials.INDOMITABLE_UNIT, {
-    [StatEnum.CORE_ATTACK]: 195,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponTwo(
+    "Tzvia Series",
+    AssetPotentials.INDOMITABLE_UNIT,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 195,
+        [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      });
+    },
+  ),
 );
 
 // -----------------------
 G_TWO.push(
-  makeWeaponTwo("Silver Primm Sword", AssetPotentials.RECYCLER_UNIT, {
-    [StatEnum.CORE_ATTACK]: 195,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponTwo(
+    "Silver Primm Sword",
+    AssetPotentials.RECYCLER_UNIT,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 195,
+        [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      });
+    },
+  ),
 );
 
 // -----------------------
 G_TWO.push(
-  makeWeaponTwo("N-Exp Weapon", AssetPotentials.RECYCLER_UNIT, {
-    [StatEnum.CORE_ATTACK]: 195,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponTwo(
+    "N-Exp Weapon",
+    AssetPotentials.RECYCLER_UNIT,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 195,
+        [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      });
+    },
+  ),
 );
