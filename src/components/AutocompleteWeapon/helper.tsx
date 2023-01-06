@@ -23,7 +23,7 @@ const extractTerms = (value: string): string[] => {
 
 const termReducer = (options: Weapon[], term: string): Weapon[] => {
   return matchSorter(options, term, {
-    keys: [(item) => item.name, (item) => item.rarity],
+    keys: [(item) => item.label, (item) => item.rarity],
   });
 };
 
