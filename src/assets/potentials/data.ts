@@ -335,13 +335,13 @@ export const BERSERK_UNIT = ((): Potential => {
 export const SOULSPRING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.2, 1.22, 1.25, 1.26, 1.27];
   const DATA_PB_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.4];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pb_recovery: number = DATA_PB_RECOVERY[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -353,16 +353,15 @@ export const SOULSPRING_UNIT = ((): Potential => {
     }
 
     if (ctx.character.isAttacking) {
-      stat.setStat(StatEnum.ADV_OFF_PB_RECOVERY, pb_recovery);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_PB_RECOVERY,
+        pb_recovery,
+      );
     }
-
     return stat;
   };
-  return potential(
-    "Soulspring Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Soulspring Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const FORTRESS_UNIT = ((): Potential => {
