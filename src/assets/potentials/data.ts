@@ -555,7 +555,7 @@ export const HARMONIOUS_UNIT = ((): Potential => {
     0.25, 0.25, 0.25, 0.25, 0.3,
   ];
   const DATA_HP_BREAKOFF: number[] = [0.8, 0.8, 0.8, 0.8, 0.5];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -564,7 +564,7 @@ export const HARMONIOUS_UNIT = ((): Potential => {
     const crit_chance_extra: number =
       DATA_CRIT_CHANCE_EXTRA[level_index];
     const hp_breakpoint: number = DATA_HP_BREAKOFF[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -588,16 +588,15 @@ export const HARMONIOUS_UNIT = ((): Potential => {
     const hp_percent: number = hp_current / hp;
 
     if (hp_percent >= hp_breakpoint) {
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance_extra);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance_extra,
+      );
     }
-
     return stat;
   };
-  return potential(
-    "Harmonious Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Harmonious Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const IMBUED_UNIT = ((): Potential => {
