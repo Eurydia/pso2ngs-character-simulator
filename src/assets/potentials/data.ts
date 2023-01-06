@@ -1240,7 +1240,7 @@ export const INSTANT_DEATH_UNIT = ((): Potential => {
   const DATA_DAMAGE_RES: number[] = [1.05, 1.05, 1.05, 1.05];
   const DATA_WEAPON_UP_EXTRA: number[] = [1.19, 1.21, 1.24, 1.25];
   const DATA_DAMAGE_RES_EXTRA: number[] = [1.1, 1.1, 1.1, 1.1];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -1249,7 +1249,7 @@ export const INSTANT_DEATH_UNIT = ((): Potential => {
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
     const damage_res_extra: number =
       DATA_DAMAGE_RES_EXTRA[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1262,17 +1262,33 @@ export const INSTANT_DEATH_UNIT = ((): Potential => {
     }
 
     if (ctx.target.isDolls) {
-      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
-      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res_extra);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_MELEE,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_RANGED,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_TECHNIQUE,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+        damage_res_extra,
+      );
     }
     return stat;
   };
   return potential(
     "Instant Death Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
