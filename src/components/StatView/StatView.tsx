@@ -320,53 +320,85 @@ export const StatView: FC<StatViewProps> = (props) => {
     <Box>
       <Stack spacing={1} maxHeight={maxHeight} overflow="auto">
         <CoreGroup
-          bp={formatStat(stat, StatEnum.CORE_BP)}
-          hp={formatStat(stat, StatEnum.CORE_HP)}
-          pp={formatStat(stat, StatEnum.CORE_PP)}
-          attack={formatStat(stat, StatEnum.CORE_ATTACK)}
-          defense={formatStat(stat, StatEnum.CORE_DEFENSE)}
+          bp={StatObject.format(stat, StatEnum.CORE_BP)}
+          hp={StatObject.format(stat, StatEnum.CORE_HP)}
+          pp={StatObject.format(stat, StatEnum.CORE_PP)}
+          attack={StatObject.format(stat, StatEnum.CORE_ATTACK)}
+          defense={StatObject.format(stat, StatEnum.CORE_DEFENSE)}
         />
         <PotencyGroup
-          melee={formatStat(stat, StatEnum.WEAPON_MELEE)}
-          ranged={formatStat(stat, StatEnum.WEAPON_RANGED)}
-          technique={formatStat(stat, StatEnum.WEAPON_TECHNIQUE)}
-          weakpoint={formatStat(stat, StatEnum.WEAPON_WEAKPOINT)}
+          melee={StatObject.format(stat, StatEnum.WEAPON_MELEE)}
+          ranged={StatObject.format(stat, StatEnum.WEAPON_RANGED)}
+          technique={StatObject.format(
+            stat,
+            StatEnum.WEAPON_TECHNIQUE,
+          )}
+          weakpoint={StatObject.format(
+            stat,
+            StatEnum.WEAPON_WEAKPOINT,
+          )}
         />
         <AilmentGroup
-          burn={formatStat(stat, StatEnum.AIL_BURN)}
-          freeze={formatStat(stat, StatEnum.AIL_FREEZE)}
-          blind={formatStat(stat, StatEnum.AIL_BLIND)}
-          panic={formatStat(stat, StatEnum.AIL_PANIC)}
-          shock={formatStat(stat, StatEnum.AIL_SHOCK)}
-          poison={formatStat(stat, StatEnum.AIL_POISON)}
-          physicalDown={formatStat(stat, StatEnum.AIL_DOWN)}
+          burn={StatObject.format(stat, StatEnum.AIL_BURN)}
+          freeze={StatObject.format(stat, StatEnum.AIL_FREEZE)}
+          blind={StatObject.format(stat, StatEnum.AIL_BLIND)}
+          panic={StatObject.format(stat, StatEnum.AIL_PANIC)}
+          shock={StatObject.format(stat, StatEnum.AIL_SHOCK)}
+          poison={StatObject.format(stat, StatEnum.AIL_POISON)}
+          physicalDown={StatObject.format(stat, StatEnum.AIL_DOWN)}
         />
         <EnvironmentGroup
-          harshEnvironment={formatStat(stat, StatEnum.HARSH_COLD)}
+          harshEnvironment={StatObject.format(
+            stat,
+            StatEnum.HARSH_COLD,
+          )}
         />
-        <AdvHPGroup boost={formatStat(stat, StatEnum.ADV_HP_BOOST)} />
+        <AdvHPGroup
+          boost={StatObject.format(stat, StatEnum.ADV_HP_BOOST)}
+        />
         <AdvPPGroup
-          usage={formatStat(stat, StatEnum.ADV_PP_USAGE)}
-          naturalRecovery={formatStat(
+          usage={StatObject.format(stat, StatEnum.ADV_PP_USAGE)}
+          naturalRecovery={StatObject.format(
             stat,
             StatEnum.ADV_PP_NATURAL_RECOVERY,
           )}
-          activeRecovery={formatStat(
+          activeRecovery={StatObject.format(
             stat,
             StatEnum.ADV_PP_ACTIVE_RECOVERY,
           )}
         />
         <AdvOffensiveGroup
-          floorPotency={formatStat(stat, StatEnum.ADV_OFF_FLOOR)}
-          damageUp={formatStat(stat, StatEnum.ADV_OFF_DAMAGE_UP)}
-          critChance={formatStat(stat, StatEnum.ADV_OFF_CRIT_CHANCE)}
-          critDamage={formatStat(stat, StatEnum.ADV_OFF_CRIT_DAMAGE)}
-          pbRecovery={formatStat(stat, StatEnum.ADV_OFF_PB_RECOVERY)}
+          floorPotency={StatObject.format(
+            stat,
+            StatEnum.ADV_OFF_FLOOR,
+          )}
+          damageUp={StatObject.format(
+            stat,
+            StatEnum.ADV_OFF_DAMAGE_UP,
+          )}
+          critChance={StatObject.format(
+            stat,
+            StatEnum.ADV_OFF_CRIT_CHANCE,
+          )}
+          critDamage={StatObject.format(
+            stat,
+            StatEnum.ADV_OFF_CRIT_DAMAGE,
+          )}
+          pbRecovery={StatObject.format(
+            stat,
+            StatEnum.ADV_OFF_PB_RECOVERY,
+          )}
         />
         <AdvDefensiveGroup
-          healingUp={formatStat(stat, StatEnum.ADV_DEF_HEALING)}
-          damageResist={formatStat(stat, StatEnum.ADV_DEF_DAMAGE_RES)}
-          ailmentDuration={formatStat(
+          healingUp={StatObject.format(
+            stat,
+            StatEnum.ADV_DEF_HEALING,
+          )}
+          damageResist={StatObject.format(
+            stat,
+            StatEnum.ADV_DEF_DAMAGE_RES,
+          )}
+          ailmentDuration={StatObject.format(
             stat,
             StatEnum.ADV_DEF_AILMENT_DURATION,
           )}

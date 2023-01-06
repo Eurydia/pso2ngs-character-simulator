@@ -24,7 +24,7 @@ export const createStat = (
 
   if (fixa !== null) {
     const stat_fixa: StatObject = fixa.getAwareStatObject(ctx);
-    result = mergeStat(result, stat_fixa);
+    result = StatObject.merge(result, stat_fixa);
   }
 
   for (const augment of augments) {
@@ -32,52 +32,53 @@ export const createStat = (
       continue;
     }
     const stat_augment: StatObject = augment.getAwareStatObject(ctx);
-    result = mergeStat(result, stat_augment);
+    result = StatObject.merge(result, stat_augment);
   }
 
-  const damage_adjustment: number = getStat(
+  const damage_adjustment: number = StatObject.getStat(
     result,
     StatEnum.ADV_OFF_FLOOR,
   );
 
-  const stat_weapon: StatObject = weapon.getAwareStatObject(
+  const stat_weapon: StatObject = Weapon.getStatObject(
     ctx,
+    weapon,
     weapon_level,
     damage_adjustment,
     potential_level,
   );
-  result = mergeStat(result, stat_weapon);
+  result = StatObject.merge(result, stat_weapon);
 
   return result;
 };
 
-export const createSummary = (
-  weapon: Weapon | null,
-  fixa: Fixa | null,
-  augments: (Augment | null)[],
-): SummaryEquipment => {
-  const summary: SummaryEquipment = {
-    equipment: null,
-    fixa: null,
-    augments: [],
-  };
+// export const createSummary = (
+//   weapon: Weapon | null,
+//   fixa: Fixa | null,
+//   augments: (Augment | null)[],
+// ): SummaryEquipment => {
+//   const summary: SummaryEquipment = {
+//     equipment: null,
+//     fixa: null,
+//     augments: [],
+//   };
 
-  if (weapon === null) {
-    return summary;
-  }
+//   if (weapon === null) {
+//     return summary;
+//   }
 
-  summary.equipment = weapon.label;
+//   summary.equipment = weapon.label;
 
-  if (fixa !== null) {
-    summary.fixa = fixa.label;
-  }
+//   if (fixa !== null) {
+//     summary.fixa = fixa.label;
+//   }
 
-  for (const augment of augments) {
-    if (augment === null) {
-      continue;
-    }
-    summary.augments.push(augment.label);
-  }
+//   for (const augment of augments) {
+//     if (augment === null) {
+//       continue;
+//     }
+//     summary.augments.push(augment.label);
+//   }
 
-  return summary;
-};
+//   return summary;
+// };

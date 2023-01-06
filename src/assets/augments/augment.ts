@@ -5,15 +5,15 @@ import { GroupEnumAugment } from "./groupEnum";
 
 const LOOKUP_AUGMENT: { [key: string]: Augment } = {};
 
-const ROMAN_LOOKUP: { [key: number]: string } = {
-  1: "I",
-  2: "II",
-  3: "III",
-  4: "IV",
-  5: "V",
-};
 const _toRoman = (num: number): string => {
-  if (num < 0) {
+  const ROMAN_LOOKUP: { [key: number]: string } = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+  };
+  if (num < 1) {
     return "";
   }
   return ROMAN_LOOKUP[num];

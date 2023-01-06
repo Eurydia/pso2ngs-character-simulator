@@ -19,14 +19,12 @@ import {
   StatObject,
   Unit,
 } from "../../assets";
-import { FormDataUnit, FormDataUnitSetter } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { AutocompleteUnit } from "../AutocompleteUnit";
 import { FieldLevel } from "../FieldLevel";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
-import { getActiveAugmentCount } from "../utility";
 
 import { StatView } from "../StatView";
 import { BarChart, Sync } from "@mui/icons-material";
@@ -76,7 +74,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
 
   let active_augments: (Augment | null)[] = [];
   if (unit !== null) {
-    const active_count: number = getActiveAugmentCount(unitLevel);
+    const active_count: number = Augment.getAugmentSlot(unitLevel);
     active_augments = augments.slice(0, active_count);
   }
 

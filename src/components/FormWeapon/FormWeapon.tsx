@@ -24,7 +24,6 @@ import {
   useFixa,
   useWeapon,
 } from "../../hooks";
-import { SummaryEquipment } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { FieldLevel } from "../FieldLevel";
@@ -33,8 +32,7 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 
-import { createStat, createSummary } from "./helper";
-import { getActiveAugmentCount } from "../utility";
+import { createStat } from "./helper";
 import { StatView } from "../StatView";
 
 const CONTEXT: ActionContext = {};
@@ -43,11 +41,9 @@ type FormWeaponProps = {
   storageKey: string;
   cardTitle: string;
   onStatChange: (stats: StatObject) => void;
-  onSummaryChange: (summary: SummaryEquipment) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { storageKey, onStatChange, onSummaryChange, cardTitle } =
-    props;
+  const { storageKey, onStatChange, cardTitle } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -69,7 +65,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     if (weapon === null) {
       return [];
     }
-    const active_count: number = getActiveAugmentCount(weapon_level);
+    const active_count: number = Augment.getAugmentSlot(weapon_level);
     return augments.slice(0, active_count);
   }, [weapon_level, augments, weapon]);
 
@@ -87,10 +83,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   useEffect(() => {
     onStatChange(stat);
   }, [stat]);
-
-  useEffect(() => {
-    onSummaryChange(createSummary(weapon, fixa, active_augments));
-  }, [weapon, fixa, augments, active_augments]);
 
   return (
     <Fragment>

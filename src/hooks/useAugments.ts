@@ -39,7 +39,6 @@ const retrieveData = (
   for (let index = 0; index < size; index++) {
     result = Augment.removeConflict(index, result);
   }
-
   return result;
 };
 
