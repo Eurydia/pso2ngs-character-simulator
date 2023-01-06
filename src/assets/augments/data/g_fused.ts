@@ -32,43 +32,59 @@ const makeAugmentFused = (
     const [name, stat_weapon_up] = entry;
 
     G_FUSED.push(
-      makeAugmentFused(`Sta ${name}`, 0, (_) => {
-        return statObject({
-          [StatEnum.CORE_BP]: 8,
-          [StatEnum.CORE_HP]: 15,
-          [stat_weapon_up]: WEAPON_UP,
-        });
-      }),
+      makeAugmentFused(
+        `Sta ${name}`,
+        0,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: 8,
+            [StatEnum.CORE_HP]: 15,
+            [stat_weapon_up]: WEAPON_UP,
+          });
+        },
+      ),
     );
 
     G_FUSED.push(
-      makeAugmentFused(`Spi ${name}`, 0, (_) => {
-        return statObject({
-          [StatEnum.CORE_BP]: 8,
-          [StatEnum.CORE_PP]: 5,
-          [stat_weapon_up]: WEAPON_UP,
-        });
-      }),
+      makeAugmentFused(
+        `Spi ${name}`,
+        0,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: 8,
+            [StatEnum.CORE_PP]: 5,
+            [stat_weapon_up]: WEAPON_UP,
+          });
+        },
+      ),
     );
 
     G_FUSED.push(
-      makeAugmentFused(`Deft ${name}`, 0, (_) => {
-        return statObject({
-          [StatEnum.CORE_BP]: 8,
-          [stat_weapon_up]: WEAPON_UP,
-          [StatEnum.ADV_OFF_FLOOR]: 1.02,
-        });
-      }),
+      makeAugmentFused(
+        `Deft ${name}`,
+        0,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: 8,
+            [stat_weapon_up]: WEAPON_UP,
+            [StatEnum.ADV_OFF_FLOOR]: 1.02,
+          });
+        },
+      ),
     );
 
     G_FUSED.push(
-      makeAugmentFused(`Gua ${name}`, 0, (_) => {
-        return statObject({
-          [StatEnum.CORE_BP]: 8,
-          [stat_weapon_up]: WEAPON_UP,
-          [StatEnum.ADV_DEF_DAMAGE_RES]: 1.02,
-        });
-      }),
+      makeAugmentFused(
+        `Gua ${name}`,
+        0,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: 8,
+            [stat_weapon_up]: WEAPON_UP,
+            [StatEnum.ADV_DEF_DAMAGE_RES]: 1.02,
+          });
+        },
+      ),
     );
   }
 })();
