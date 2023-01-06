@@ -28,7 +28,7 @@ const makeAugmentDecold = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const harsh_cold: number = DATA_HARSH_COLD[level_index];
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.HARSH_COLD]: harsh_cold,
@@ -53,7 +53,7 @@ const makeAugmentDecold = (
   ];
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
-    const _getter = (_: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: 9,
         [stat_weapon_up]: 1.025,
