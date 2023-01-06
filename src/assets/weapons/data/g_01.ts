@@ -1,8 +1,9 @@
-import { StatEnum, statObject } from "../../stat";
+import { StatEnum, StatObject, statObject } from "../../stat";
 import { Potential, AssetPotentials } from "../../potentials";
 
 import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
+import { ActionContext } from "../../context";
 
 export const G_ONE: Weapon[] = [];
 
@@ -18,23 +19,27 @@ const GROWTH_DATA: [number, number][] = [
 const makeWeaponOne = (
   name: string,
   potential: Potential,
-  stat: Partial<{ [K in StatEnum]: number }>,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_ONE,
     potential,
     GROWTH_DATA,
-    (_) => {
-      return statObject(stat);
-    },
+    getAwareStatObject,
   );
 };
 
 // -----------------------
 G_ONE.push(
-  makeWeaponOne("Primm Series", AssetPotentials.RECYCLER_UNIT, {
-    [StatEnum.CORE_ATTACK]: 177,
-    [StatEnum.ADV_OFF_FLOOR]: 1.7,
-  }),
+  makeWeaponOne(
+    "Primm Series",
+    AssetPotentials.RECYCLER_UNIT,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_ATTACK]: 177,
+        [StatEnum.ADV_OFF_FLOOR]: 1.7,
+      });
+    },
+  ),
 );
