@@ -443,7 +443,7 @@ export const REINVIGORATING_UNIT = ((): Potential => {
 export const FOCUSED_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.15, 1.17, 1.2, 1.21, 1.22];
   const DATA_CRIT_CHANCE: number[] = [0.22, 0.22, 0.22, 0.22, 0.3];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -457,11 +457,7 @@ export const FOCUSED_UNIT = ((): Potential => {
       [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
     });
   };
-  return potential(
-    "Focused Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Focused Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
@@ -469,13 +465,13 @@ export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
   const DATA_WEAPON_UP_EXTRA: number[] = [
     1.18, 1.2, 1.23, 1.24, 1.31,
   ];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -487,17 +483,28 @@ export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
     }
 
     if (ctx.target.isBoss) {
-      stat.setStat(StatEnum.WEAPON_MELEE, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_RANGED, weapon_up_extra);
-      stat.setStat(StatEnum.WEAPON_TECHNIQUE, weapon_up_extra);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_MELEE,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_RANGED,
+        weapon_up_extra,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.WEAPON_TECHNIQUE,
+        weapon_up_extra,
+      );
     }
-
     return stat;
   };
   return potential(
     "Fighting Spirit Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
