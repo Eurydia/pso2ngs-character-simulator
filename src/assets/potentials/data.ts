@@ -975,14 +975,14 @@ export const IMPERVIOUS_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.19, 1.21, 1.24, 1.25, 1.26];
   const DATA_DAMAGE_RES: number[] = [1.4, 1.4, 1.4, 1.4, 1.4];
   const DATA_HP_BREAKOFF: number[] = [1, 1, 1, 1, 0.9];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
     const hp_breakoff: number = DATA_HP_BREAKOFF[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1000,20 +1000,20 @@ export const IMPERVIOUS_UNIT = ((): Potential => {
       return stat;
     }
 
-    const hp: number = ctx.character.hpValue;
     const hp_current: number = ctx.character.hpValueCurrent;
+    const hp: number = ctx.character.hpValue;
     const hp_percent: number = hp_current / hp;
 
     if (hp_percent >= hp_breakoff) {
-      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+        damage_res,
+      );
     }
     return stat;
   };
-  return potential(
-    "Impervious Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Impervious Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const PURSUIT_UNIT = ((): Potential => {
