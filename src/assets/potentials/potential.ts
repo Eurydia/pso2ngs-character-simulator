@@ -22,7 +22,6 @@ export const Potential = {
     ) {
       return statObject();
     }
-
     const level_index: number = potential_level - 1;
     return potential.getAwareStatObject(ctx, level_index);
   },

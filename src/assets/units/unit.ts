@@ -8,12 +8,12 @@ export type Unit = Readonly<{
   label: string;
   rarity: GroupEnumUnitRarity;
   growth_data: [number, number][];
-  getterFunction: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext) => StatObject;
 }>;
 
 export const Unit = {
   getDefenseBase: (unit: Unit): number => {
-    const stat_unit = unit.getterFunction({});
+    const stat_unit = unit.getAwareStatObject({});
     return StatObject.getStat(stat_unit, StatEnum.CORE_DEFENSE);
   },
 
@@ -34,7 +34,7 @@ export const Unit = {
   ): StatObject => {
     let result: StatObject = statObject();
 
-    const stat_unit: StatObject = unit.getterFunction(ctx);
+    const stat_unit: StatObject = unit.getAwareStatObject(ctx);
     result = StatObject.merge(result, stat_unit);
 
     const defense_bonus: number = Unit.getDefenseBonus(
@@ -77,13 +77,13 @@ export const unit = (
   label: string,
   rarity: GroupEnumUnitRarity,
   growth_data: [number, number][],
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   const result: Unit = {
     label,
     rarity,
     growth_data,
-    getterFunction,
+    getAwareStatObject,
   };
 
   return result;
