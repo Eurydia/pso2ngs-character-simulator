@@ -1206,13 +1206,13 @@ export const SOOTHING_UNIT = ((): Potential => {
 export const BLITZ_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.1, 1.12, 1.14, 1.15];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.15];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1224,15 +1224,15 @@ export const BLITZ_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasDodgedAttack) {
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance,
+      );
     }
     return stat;
   };
-  return potential(
-    "Blitz Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Blitz Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const INSTANT_DEATH_UNIT = ((): Potential => {
