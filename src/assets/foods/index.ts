@@ -1,5 +1,5 @@
-export type { Food } from "./food";
-export * from "./data";
+export * from "./food";
+export { AssetFoods } from "./data";
 export {
   GroupEnumFoodAttribute,
   GroupEnumFoodCategory,
