@@ -1128,7 +1128,7 @@ export const CORUSCATING_UNIT = ((): Potential => {
   const DATA_CRIT_CHANCE: number[] = [0.1, 0.1, 0.1, 0.1];
   const DATA_PP_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2];
   const DATA_DAMAGE_RES: number[] = [1.2, 1.2, 1.2, 1.2];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -1136,7 +1136,7 @@ export const CORUSCATING_UNIT = ((): Potential => {
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const pp_usage: number = DATA_PP_RECOVERY[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1149,60 +1149,58 @@ export const CORUSCATING_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasCriticallyHit) {
-      stat.setStat(StatEnum.ADV_PP_USAGE, pp_usage);
-      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_PP_USAGE,
+        pp_usage,
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+        damage_res,
+      );
     }
     return stat;
   };
   return potential(
     "Coruscating Unit",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
 export const ABSORPTION_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.19, 1.21, 1.24, 1.25];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
-    const stat: StatObject = statObject({
+    return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-    return stat;
   };
-  return potential(
-    "Absorption Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Absorption Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const SOOTHING_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
-    const stat: StatObject = statObject({
+    return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-    return stat;
   };
-  return potential(
-    "Soothing Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Soothing Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const BLITZ_UNIT = ((): Potential => {
