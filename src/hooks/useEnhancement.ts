@@ -21,7 +21,7 @@ const retrieveData = (storage_key: string): number => {
   return parsed_string;
 };
 
-export const useLevel = (
+export const useEnhancement = (
   storage_key: string,
 ): [number, (new_value: number) => void] => {
   const [value, _setValue] = useState(() => {

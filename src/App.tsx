@@ -3,46 +3,40 @@ import {
   AppBar,
   Container,
   CssBaseline,
-  Fab,
   GlobalStyles,
   IconButton,
   ThemeProvider,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
-import { Home, Tune } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import EditEquipment from "./pages/EditEquipment";
 import FoodEdit from "./pages/EditFood";
 import HomePage from "./pages/Home";
-import { useStatObject } from "./hooks/useStatObject";
 
-import { style_overrrides } from "./theme";
+import { useStatObject } from "./hooks";
+import { style_overrides } from "./theme";
 import { statObject, StatObject } from "./assets";
 
 function App() {
   const [equipment, setEquipment] = useStatObject("page-equipment");
   const [food, setFood] = useStatObject("page-food");
 
-  const stat_total = useMemo(() => {
-    let total: StatObject = statObject();
-    const items: StatObject[] = [equipment, food];
-    for (const item of items) {
-      total = StatObject.merge(total, item);
-    }
-
-    return total;
-  }, [equipment, food]);
+  let total: StatObject = statObject();
+  const items: StatObject[] = [equipment, food];
+  for (const item of items) {
+    total = StatObject.merge(total, item);
+  }
 
   return (
-    <ThemeProvider theme={style_overrrides}>
+    <ThemeProvider theme={style_overrides}>
       <CssBaseline />
       <GlobalStyles
         styles={{
           body: {
-            backgroundColor: style_overrrides.palette.primary.light,
+            backgroundColor: style_overrides.palette.primary.light,
           },
         }}
       />
@@ -56,13 +50,10 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route
-              path="/"
-              element={<HomePage stat={stat_total} />}
-            />
+            <Route path="/" element={<HomePage stat={total} />} />
             <Route
               path="/config-equipment"
-              element={<EditEquipment onChange={setEquipment} />}
+              element={<EditEquipment onStatChange={setEquipment} />}
             />
             <Route
               path="/config-character"

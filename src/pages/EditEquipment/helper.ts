@@ -9,7 +9,7 @@ import {
   StatEnum,
 } from "../../assets";
 
-export const createStatSummaryUnit = (
+export const createStatUnit = (
   ctx: ActionContext,
   unit: Unit | null,
   unit_level: number,
@@ -17,7 +17,6 @@ export const createStatSummaryUnit = (
   augments: (Augment | null)[],
 ): StatObject => {
   let result: StatObject = statObject();
-
   if (unit === null) {
     return result;
   }
@@ -41,11 +40,10 @@ export const createStatSummaryUnit = (
     const stat_augment: StatObject = augment.getAwareStatObject(ctx);
     result = StatObject.merge(result, stat_augment);
   }
-
   return result;
 };
 
-export const createStatSummaryWeapon = (
+export const createStatWeapon = (
   ctx: ActionContext,
   weapon: Weapon | null,
   weapon_level: number,
@@ -81,6 +79,5 @@ export const createStatSummaryWeapon = (
     damage_adjustment,
     potential_level,
   );
-
   return StatObject.merge(result, stat_weapon);
 };

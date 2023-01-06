@@ -1,9 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 
 import { statObject, StatObject } from "../../assets";
 import {
-  useSummaryEquipment,
   useUnit,
   useEnhancement,
   useFixa,
@@ -17,10 +16,7 @@ import {
   StatView,
 } from "../../components";
 
-import {
-  createStatSummaryUnit,
-  createStatSummaryWeapon,
-} from "./helper";
+import { createStatUnit, createStatWeapon } from "./helper";
 
 // const SummaryItem: FC<SummaryEquipment> = (props) => {
 //   const { equipment, fixa, augments } = props;
@@ -59,40 +55,49 @@ import {
 // };
 
 type EditEquipmentProps = {
-  onChange: (stat: StatObject) => void;
+  onStatChange: (stat: StatObject | (() => StatObject)) => void;
 };
 const EditEquipment: FC<EditEquipmentProps> = (props) => {
-  const { onChange } = props;
+  const { onStatChange } = props;
 
-  const [summaryWeapon, setSummaryWeapon] = useSummaryEquipment();
-  const [summaryUnitA, setSummaryUnitA] = useSummaryEquipment();
-  const [summaryUnitB, setSummaryUnitB] = useSummaryEquipment();
-  const [summaryUnitC, setSummaryUnitC] = useSummaryEquipment();
-
-  const KEY_WEAPON = "equipment-weapon";
+  const KEY_WEAPON = "eq-w";
   const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
-    useWeapon(KEY_WEAPON);
-  const [fixa, setFixa] = useFixa(KEY_WEAPON);
-  const [weaponLevel, setWeaponLevel] = useEnhancement(KEY_WEAPON);
-  const [augments, setAugments] = useAugments(KEY_WEAPON);
+    useWeapon(KEY_WEAPON, `${KEY_WEAPON}-pl`);
+  const [weaponLevel, setWeaponLevel] = useEnhancement(
+    `${KEY_WEAPON}-l`,
+  );
+  const [fixa, setFixa] = useFixa(`${KEY_WEAPON}-f`);
+  const [augments, setAugments] = useAugments(`${KEY_WEAPON}-a`);
 
-  const KEY_UNIT_A: string = "equipment-unit-a";
+  const KEY_UNIT_A: string = "eq-ua";
   const [unitA, setUnitA] = useUnit(KEY_UNIT_A);
-  const [unitLevelA, setUnitLevelA] = useEnhancement(KEY_UNIT_A);
-  const [unitFixaA, setUnitFixaA] = useFixa(KEY_UNIT_A);
-  const [unitAugmentA, setUnitAugmentA] = useAugments(KEY_UNIT_A);
+  const [unitLevelA, setUnitLevelA] = useEnhancement(
+    `${KEY_UNIT_A}-l`,
+  );
+  const [unitFixaA, setUnitFixaA] = useFixa(`${KEY_UNIT_A}-f`);
+  const [unitAugmentA, setUnitAugmentA] = useAugments(
+    `${KEY_UNIT_A}-a`,
+  );
 
-  const KEY_UNIT_B: string = "equipment-unit-b";
+  const KEY_UNIT_B: string = "eq-ub";
   const [unitB, setUnitB] = useUnit(KEY_UNIT_B);
-  const [unitLevelB, setUnitLevelB] = useEnhancement(KEY_UNIT_B);
-  const [unitFixaB, setUnitFixaB] = useFixa(KEY_UNIT_B);
-  const [unitAugmentB, setUnitAugmentB] = useAugments(KEY_UNIT_B);
+  const [unitLevelB, setUnitLevelB] = useEnhancement(
+    `${KEY_UNIT_B}-l`,
+  );
+  const [unitFixaB, setUnitFixaB] = useFixa(`${KEY_UNIT_B}-f`);
+  const [unitAugmentB, setUnitAugmentB] = useAugments(
+    `${KEY_UNIT_B}-a`,
+  );
 
-  const KEY_UNIT_C: string = "equipment-unit-c";
+  const KEY_UNIT_C: string = "eq-uc";
   const [unitC, setUnitC] = useUnit(KEY_UNIT_C);
-  const [unitLevelC, setUnitLevelC] = useEnhancement(KEY_UNIT_C);
-  const [unitFixaC, setUnitFixaC] = useFixa(KEY_UNIT_C);
-  const [unitAugmentC, setUnitAugmentC] = useAugments(KEY_UNIT_C);
+  const [unitLevelC, setUnitLevelC] = useEnhancement(
+    `${KEY_UNIT_C}-l`,
+  );
+  const [unitFixaC, setUnitFixaC] = useFixa(`${KEY_UNIT_C}-f`);
+  const [unitAugmentC, setUnitAugmentC] = useAugments(
+    `${KEY_UNIT_C}-a`,
+  );
 
   const handleSyncUnitA = () => {
     setUnitB(unitA);
@@ -139,7 +144,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     });
   };
 
-  const statSummaryWeapon = createStatSummaryWeapon(
+  const stat_weapon = createStatWeapon(
     {},
     weapon,
     weaponLevel,
@@ -147,27 +152,36 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     fixa,
     augments,
   );
-  const statSummaryUnitA = createStatSummaryUnit(
+  const stat_unit_a = createStatUnit(
     {},
     unitA,
     unitLevelA,
     unitFixaA,
     unitAugmentA,
   );
-  const statSummaryUnitB = createStatSummaryUnit(
+  const stat_unit_b = createStatUnit(
     {},
     unitB,
     unitLevelB,
     unitFixaB,
     unitAugmentB,
   );
-  const statSummaryUnitC = createStatSummaryUnit(
+  const stat_unit_c = createStatUnit(
     {},
     unitC,
     unitLevelC,
     unitFixaC,
     unitAugmentC,
   );
+
+  useEffect(() => {
+    onStatChange(() => {
+      let stat_total = StatObject.merge(stat_unit_a, stat_unit_b);
+      stat_total = StatObject.merge(stat_total, stat_unit_c);
+      stat_total = StatObject.merge(stat_total, stat_weapon);
+      return stat_total;
+    });
+  }, [stat_unit_a, stat_unit_b, stat_unit_c, stat_weapon]);
 
   return (
     <Box margin={4}>
@@ -182,7 +196,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         />
         <FormWeapon
           cardTitle="Weapon"
-          stat={statSummaryWeapon}
+          stat={stat_weapon}
           weapon={weapon}
           weaponLevel={weaponLevel}
           potentialLevel={potentialLevel}
@@ -196,7 +210,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         />
         <FormUnit
           cardTitle="Unit A"
-          stat={statSummaryUnitA}
+          stat={stat_unit_a}
           onSync={handleSyncUnitA}
           unit={unitA}
           unitLevel={unitLevelA}
@@ -209,7 +223,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         />
         <FormUnit
           cardTitle="Unit B"
-          stat={statSummaryUnitB}
+          stat={stat_unit_b}
           onSync={handleSyncUnitB}
           unit={unitB}
           unitLevel={unitLevelB}
@@ -222,7 +236,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
         />
         <FormUnit
           cardTitle="Unit C"
-          stat={statSummaryUnitC}
+          stat={stat_unit_c}
           onSync={handleSyncUnitC}
           unit={unitC}
           unitLevel={unitLevelC}

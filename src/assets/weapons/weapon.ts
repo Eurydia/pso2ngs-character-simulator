@@ -78,7 +78,10 @@ export const Weapon = {
     result = StatObject.stack(
       result,
       StatEnum.CORE_BP,
-      Weapon.getAttack(weapon, weapon_level) * (floor_adjustment / 2),
+      Math.round(
+        Weapon.getAttack(weapon, weapon_level) *
+          (floor_adjustment / 2),
+      ),
     );
 
     const stat_potential: StatObject = Potential.getStateObject(
