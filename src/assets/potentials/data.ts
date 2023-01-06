@@ -141,7 +141,7 @@ export const OFFENSIVE_FORMATION = (() => {
 
 export const VALOROUS_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.16, 1.18, 1.21, 1.21, 1.22];
-  const _getterFunction = (
+  const _getter = (
     _: ActionContext,
     level_index: number,
   ): StatObject => {
@@ -153,23 +153,19 @@ export const VALOROUS_UNIT = ((): Potential => {
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
   };
-  return potential(
-    "Valorous Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Valorous Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const DYNAMO_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.16, 1.18, 1.21, 1.21, 1.22];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.25];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -181,15 +177,18 @@ export const DYNAMO_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasDodgedAttack) {
-      stat.setStat(StatEnum.ADV_OFF_CRIT_CHANCE, crit_chance);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance,
+      );
     }
-
     return stat;
   };
   return potential(
     "Dynamo Formation",
     DATA_WEAPON_UP.length,
-    _getterFunction,
+    _getter,
   );
 })();
 
