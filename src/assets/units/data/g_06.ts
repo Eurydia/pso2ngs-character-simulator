@@ -16,19 +16,19 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitSix = (
   name: string,
-  getterFunction: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_SIX,
     GROWTH_DATA,
-    getterFunction,
+    getAwareStatObject,
   );
 };
 
 // -------------------------
 G_SIX.push(
-  makeUnitSix("Defrozza Armor", (_) => {
+  makeUnitSix("Defrozza Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 22,
       [StatEnum.CORE_HP]: 50,
@@ -42,7 +42,7 @@ G_SIX.push(
 );
 
 G_SIX.push(
-  makeUnitSix("Defrozzi Armor", (_) => {
+  makeUnitSix("Defrozzi Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 20,
       [StatEnum.CORE_PP]: 9,
@@ -55,7 +55,7 @@ G_SIX.push(
 );
 
 G_SIX.push(
-  makeUnitSix("Sestato Armor", (_) => {
+  makeUnitSix("Sestato Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 21,
       [StatEnum.CORE_HP]: 35,
@@ -73,27 +73,28 @@ G_SIX.push(
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-
-    G_SIX.push(
-      makeUnitSix(`Sestato Armor ${suffix}`, (_) => {
-        return statObject({
-          [StatEnum.CORE_DEFENSE]: 20,
-          [StatEnum.CORE_HP]: 30,
-          [StatEnum.CORE_PP]: 4,
-          [stat_weapon_up_a]: 1.0225,
-          [stat_weapon_up_b]: 1.0225,
-          [StatEnum.AIL_DOWN]: 1.3,
-        });
-      }),
+    const _getter = (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 20,
+        [StatEnum.CORE_HP]: 30,
+        [StatEnum.CORE_PP]: 4,
+        [stat_weapon_up_a]: 1.0225,
+        [stat_weapon_up_b]: 1.0225,
+        [StatEnum.AIL_DOWN]: 1.3,
+      });
+    };
+    const unit_six: Unit = makeUnitSix(
+      `Sestato Armor ${suffix}`,
+      _getter,
     );
+    G_SIX.push(unit_six);
   }
 })();
 
 G_SIX.push(
-  makeUnitSix("Behlgren Armor", (_) => {
+  makeUnitSix("Behlgren Armor", (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 26,
       [StatEnum.CORE_HP]: -40,
