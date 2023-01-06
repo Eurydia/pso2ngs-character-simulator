@@ -3,7 +3,6 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  Typography,
 } from "@mui/material";
 
 import { AssetAugments, Augment } from "../../assets";

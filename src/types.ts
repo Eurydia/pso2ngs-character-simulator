@@ -1,4 +1,4 @@
-import { Augment, Fixa, Unit } from "./assets";
+import { Augment, Fixa, StatEnum, Unit } from "./assets";
 
 // export type SummaryEquipment = {
 //   equipment: string | null;
