@@ -1036,13 +1036,13 @@ export const PURSUIT_UNIT = ((): Potential => {
 export const CITADEL_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.25];
   const DATA_DAMAGE_RES: number[] = [1.4, 1.4, 1.4, 1.4];
-  const _getterFunction = (
+  const _getter = (
     ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const stat: StatObject = statObject({
+    let stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1054,15 +1054,15 @@ export const CITADEL_UNIT = ((): Potential => {
     }
 
     if (ctx.character.hasActiveBarrier) {
-      stat.setStat(StatEnum.ADV_DEF_DAMAGE_RES, damage_res);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+        damage_res,
+      );
     }
     return stat;
   };
-  return potential(
-    "Citadel Unit",
-    DATA_WEAPON_UP.length,
-    _getterFunction,
-  );
+  return potential("Citadel Unit", DATA_WEAPON_UP.length, _getter);
 })();
 
 export const GYRATING_UNIT = ((): Potential => {
