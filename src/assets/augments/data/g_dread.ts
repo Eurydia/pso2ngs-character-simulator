@@ -33,7 +33,7 @@ const makeAugmentDread = (
     const pp: number = DATA_PP[level_index];
     const floor_up: number = DATA_FLOOR_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const _getter = (ctx: ActionContext) => {
+    const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_BP]: bp,
         [StatEnum.CORE_HP]: hp,
