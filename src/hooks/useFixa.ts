@@ -4,11 +4,6 @@ import { Fixa } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const saveFixa = (storage_key: string, fixa: Fixa | null): void => {
-  const string_data: string | null = Fixa.toString(fixa);
-  localStorage.setItem(storage_key, JSON.stringify(string_data));
-};
-
 const retrieveFixa = (storage_key: string): Fixa | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
@@ -31,14 +26,12 @@ export const useFixa = (
   const [value, setValue] = useState(() => retrieveFixa(storage_key));
 
   useEffect(() => {
-    saveFixa(storage_key, value);
+    const string_data: string | null = Fixa.toString(value);
+    localStorage.setItem(storage_key, string_data);
   }, [value]);
 
   const setter = (new_value: Fixa | null) => {
-    setValue(() => {
-      saveFixa(storage_key, new_value);
-      return new_value;
-    });
+    setValue(new_value);
   };
 
   return [value, setter];

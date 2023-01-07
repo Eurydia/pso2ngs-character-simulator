@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react";
-import { json } from "react-router-dom";
 
 import { Food } from "../assets";
-import { isValidJSON } from "./utility";
 
-export const saveFoods = (
-  storage_key: string,
-  items: Food[],
-): void => {
-  const data_string: string = Food.toString(items);
-  localStorage.setItem(storage_key, JSON.stringify(data_string));
-};
+import { isValidJSON } from "./utility";
 
 const retrieveFoods = (storage_key: string): Food[] => {
   const loaded_string: string | null =
@@ -40,7 +32,8 @@ export const useFood = (
   });
 
   useEffect(() => {
-    saveFoods(storage_key, value);
+    const data_string: string = Food.toString(value);
+    localStorage.setItem(storage_key, data_string);
   }, [value]);
 
   const addItem = (index: number, next_value: Food) => {

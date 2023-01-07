@@ -4,14 +4,6 @@ import { Weapon } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const saveWeapon = (
-  storage_key: string,
-  weapon: Weapon | null,
-): void => {
-  const data_string: string | null = Weapon.toString(weapon);
-  localStorage.setItem(storage_key, JSON.stringify(data_string));
-};
-
 const retrieveWeapon = (storage_key: string): Weapon | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
@@ -26,13 +18,6 @@ const retrieveWeapon = (storage_key: string): Weapon | null => {
     return null;
   }
   return Weapon.fromLabel(label);
-};
-
-const savePotentialLevel = (
-  storage_key: string,
-  level: number,
-): void => {
-  localStorage.setItem(storage_key, JSON.stringify(level));
 };
 
 export const retrievePotentialLevel = (
@@ -70,11 +55,18 @@ export const useWeapon = (
   });
 
   useEffect(() => {
-    saveWeapon(storage_key_weapon, weapon);
+    const data_string: string | null = Weapon.toString(weapon);
+    localStorage.setItem(
+      storage_key_weapon,
+      JSON.stringify(data_string),
+    );
   }, [weapon]);
 
   useEffect(() => {
-    savePotentialLevel(storage_key_potential_level, potentialLevel);
+    localStorage.setItem(
+      storage_key_potential_level,
+      JSON.stringify(potentialLevel),
+    );
   }, [potentialLevel]);
 
   const setWeapon = (new_value: Weapon | null) => {

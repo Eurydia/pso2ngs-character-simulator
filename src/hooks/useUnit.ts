@@ -4,11 +4,6 @@ import { Unit } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const saveUnit = (storage_key: string, unit: Unit | null): void => {
-  const data_string: string | null = Unit.toString(unit);
-  localStorage.setItem(storage_key, JSON.stringify(data_string));
-};
-
 const retrieveUnit = (storage_key: string): Unit | null => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
@@ -33,7 +28,8 @@ export const useUnit = (
   });
 
   useEffect(() => {
-    saveUnit(storage_key, value);
+    const data_string: string | null = Unit.toString(value);
+    localStorage.setItem(storage_key, JSON.stringify(data_string));
   }, [value]);
 
   const setter = (new_value: Unit | null) => {
