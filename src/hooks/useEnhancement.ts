@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { isValidJSON } from "./utility";
 
 const saveLevel = (storage_key: string, level: number): void => {
@@ -24,16 +25,17 @@ const retrieveData = (storage_key: string): number => {
 export const useEnhancement = (
   storage_key: string,
 ): [number, (new_value: number) => void] => {
-  const [value, _setValue] = useState(() => {
+  const [value, setValue] = useState(() => {
     return retrieveData(storage_key);
   });
 
-  const setValue = (new_value: number) => {
-    _setValue(() => {
-      saveLevel(storage_key, new_value);
-      return new_value;
-    });
+  useEffect(() => {
+    saveLevel(storage_key, value);
+  }, [value]);
+
+  const setter = (new_value: number) => {
+    setValue(new_value);
   };
 
-  return [value, setValue];
+  return [value, setter];
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Weapon } from "../assets";
 
@@ -54,8 +54,8 @@ export const retrievePotentialLevel = (
 };
 
 export const useWeapon = (
-  key_weapon: string,
-  key_potential_level: string,
+  storage_key_weapon: string,
+  storage_key_potential_level: string,
 ): [
   Weapon | null,
   number,
@@ -63,21 +63,29 @@ export const useWeapon = (
   (new_level: number) => void,
 ] => {
   const [weapon, _setWeapon] = useState(() => {
-    return retrieveWeapon(key_weapon);
+    return retrieveWeapon(storage_key_weapon);
   });
   const [potentialLevel, _setPotentialLevel] = useState(() => {
-    return retrievePotentialLevel(key_potential_level);
+    return retrievePotentialLevel(storage_key_potential_level);
   });
+
+  useEffect(() => {
+    saveWeapon(storage_key_weapon, weapon);
+  }, [weapon]);
+
+  useEffect(() => {
+    savePotentialLevel(storage_key_potential_level, potentialLevel);
+  }, [potentialLevel]);
 
   const setWeapon = (new_value: Weapon | null) => {
     _setWeapon(new_value);
-    saveWeapon(key_weapon, new_value);
+    saveWeapon(storage_key_weapon, new_value);
     setPotentialLevel(0);
   };
 
   const setPotentialLevel = (new_level: number) => {
     _setPotentialLevel(new_level);
-    savePotentialLevel(key_potential_level, new_level);
+    savePotentialLevel(storage_key_potential_level, new_level);
   };
 
   return [weapon, potentialLevel, setWeapon, setPotentialLevel];

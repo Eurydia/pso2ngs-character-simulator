@@ -32,10 +32,9 @@ export const Food = {
     const result: Food[] = [];
     for (const label of labels) {
       const item: Food | undefined = LOOKUP_FOODS[label];
-      if (item === undefined) {
-        continue;
+      if (item !== undefined) {
+        result.push(item);
       }
-      result.push(item);
     }
     return result;
   },
@@ -100,6 +99,8 @@ export const food = (
     category,
     label,
   };
+
+  LOOKUP_FOODS[label] = result;
 
   return result;
 };

@@ -17,30 +17,25 @@ import { style_overrides } from "./theme";
 import { statObject, StatObject } from "./assets";
 
 const STORAGE_KEY_EQUIPMENT: string = "p-eq";
-
-const isValidJSON = (data: string): boolean => {
-  try {
-    JSON.parse(data);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
+const STORAGE_KEY_FOOD: string = "p-f";
 
 const retrieveStat = (key: string): StatObject => {
   const loaded_string: string | null = localStorage.getItem(key);
   if (loaded_string === null) {
     return statObject();
   }
-  if (!isValidJSON(loaded_string)) {
+  try {
+    return JSON.parse(loaded_string);
+  } catch (e) {
     return statObject();
   }
-  const obj: StatObject = JSON.parse(loaded_string);
-  return statObject(obj);
 };
 
 function App() {
-  const equipment = retrieveStat(STORAGE_KEY_EQUIPMENT);
+  const stat_equipment = retrieveStat(STORAGE_KEY_EQUIPMENT);
+  const stat_food = retrieveStat(STORAGE_KEY_FOOD);
+
+  let stat_total = StatObject.merge(stat_equipment, stat_food);
 
   return (
     <ThemeProvider theme={style_overrides}>
@@ -62,7 +57,10 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route path="/" element={<PageHome stat={equipment} />} />
+            <Route
+              path="/"
+              element={<PageHome stat={stat_total} />}
+            />
             <Route
               path="/config-equipment"
               element={
@@ -78,7 +76,12 @@ function App() {
             />
             <Route
               path="/config-food"
-              element={<PageEditFood ctx={{}} />}
+              element={
+                <PageEditFood
+                  storageKey={STORAGE_KEY_FOOD}
+                  ctx={{}}
+                />
+              }
             />
             <Route
               path="/config-addon"

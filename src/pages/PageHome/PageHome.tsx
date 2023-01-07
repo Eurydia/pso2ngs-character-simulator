@@ -17,6 +17,8 @@ type PageHomeProps = {
   stat: StatObject;
 };
 export const PageHome: FC<PageHomeProps> = (props) => {
+  const { stat } = props;
+
   return (
     <Box margin={4}>
       <Grid container columns={{ xs: 1, md: 2 }} spacing={1}>
@@ -56,7 +58,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
               titleTypographyProps={{ fontWeight: "bold" }}
             />
             <CardContent>
-              <StatView stat={props.stat} maxHeight="" />
+              <StatView stat={stat} maxHeight="" />
             </CardContent>
           </Card>
         </Grid>

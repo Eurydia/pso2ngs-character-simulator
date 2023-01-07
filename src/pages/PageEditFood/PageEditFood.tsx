@@ -1,24 +1,31 @@
-import { FC } from "react";
+import { FC, useMemo, useEffect } from "react";
 import { Box } from "@mui/material";
 
-import { ActionContext, Food } from "../../assets";
+import { ActionContext, Food, StatObject } from "../../assets";
 import { FormFood } from "../../components";
 import { useFood } from "../../hooks";
 
 type PageEditFoodProps = {
+  storageKey: string;
   ctx: ActionContext;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
-  const { ctx } = props;
+  const { ctx, storageKey } = props;
 
-  const [items, onItemAdd, onItemRemove] = useFood("page-food-item");
+  const [items, onItemAdd, onItemRemove] = useFood(`${storageKey}-i`);
 
-  const stat = Food.getStatObject(ctx, items);
+  const stat_total = useMemo(() => {
+    return Food.getStatObject(ctx, items);
+  }, [items, ctx]);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, StatObject.toString(stat_total));
+  }, [stat_total]);
 
   return (
     <Box margin={4}>
       <FormFood
-        stat={stat}
+        stat={stat_total}
         items={items}
         onItemAdd={onItemAdd}
         onItemRemove={onItemRemove}

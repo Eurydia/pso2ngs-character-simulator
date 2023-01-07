@@ -67,10 +67,10 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [weapon, setWeapon] = useFormWeapon("eq-w");
-  const [unitA, setUnitA] = useFormUnit("eq-ua");
-  const [unitB, setUnitB] = useFormUnit("eq-ub");
-  const [unitC, setUnitC] = useFormUnit("eq-uc");
+  const [weapon, setWeapon] = useFormWeapon(`${storageKey}-eq-w`);
+  const [unitA, setUnitA] = useFormUnit(`${storageKey}-eq-ua`);
+  const [unitB, setUnitB] = useFormUnit(`${storageKey}-eq-ub`);
+  const [unitC, setUnitC] = useFormUnit(`${storageKey}-eq-uc`);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);

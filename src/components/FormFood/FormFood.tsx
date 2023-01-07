@@ -28,11 +28,9 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     onItemAdd(0, selected);
     setSelected(null);
   };
-
   const handleCopy = (index: number, item: Food) => {
     onItemAdd(index, item);
   };
-
   const handleRemove = (index: number) => {
     onItemRemove(index);
   };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Fixa } from "../assets";
 
@@ -26,16 +26,20 @@ const retrieveFixa = (storage_key: string): Fixa | null => {
 };
 
 export const useFixa = (
-  key_fixa: string,
+  storage_key: string,
 ): [Fixa | null, (new_value: Fixa | null) => void] => {
-  const [value, _setValue] = useState(() => retrieveFixa(key_fixa));
+  const [value, setValue] = useState(() => retrieveFixa(storage_key));
 
-  const setValue = (new_value: Fixa | null) => {
-    _setValue(() => {
-      saveFixa(key_fixa, new_value);
+  useEffect(() => {
+    saveFixa(storage_key, value);
+  }, [value]);
+
+  const setter = (new_value: Fixa | null) => {
+    setValue(() => {
+      saveFixa(storage_key, new_value);
       return new_value;
     });
   };
 
-  return [value, setValue];
+  return [value, setter];
 };

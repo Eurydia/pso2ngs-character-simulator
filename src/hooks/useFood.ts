@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { json } from "react-router-dom";
 
 import { Food } from "../assets";
 import { isValidJSON } from "./utility";
@@ -34,20 +35,24 @@ export const useFood = (
   (index: number, item: Food) => void,
   (index: number) => void,
 ] => {
-  const [value, _setValue] = useState<Food[]>(() => {
+  const [value, setValue] = useState(() => {
     return retrieveFoods(storage_key);
   });
+
+  useEffect(() => {
+    saveFoods(storage_key, value);
+  }, [value]);
+
   const addItem = (index: number, next_value: Food) => {
     if (index < 0 || Food.MAX_ITEM <= index) {
       return;
     }
-    _setValue((prev) => {
+    setValue((prev) => {
       const next = [...prev];
       if (next.length >= Food.MAX_ITEM) {
         next.pop();
       }
       next.splice(index, 0, next_value);
-      saveFoods(storage_key, next);
       return next;
     });
   };
@@ -55,10 +60,9 @@ export const useFood = (
     if (index < 0 || Food.MAX_ITEM <= index) {
       return;
     }
-    _setValue((prev) => {
+    setValue((prev) => {
       const next = [...prev];
       next.splice(index, 1);
-      saveFoods(storage_key, next);
       return next;
     });
   };

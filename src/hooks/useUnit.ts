@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Unit } from "../assets";
 
@@ -26,18 +26,19 @@ const retrieveUnit = (storage_key: string): Unit | null => {
 };
 
 export const useUnit = (
-  key_unit: string,
+  storage_key: string,
 ): [Unit | null, (new_value: Unit | null) => void] => {
-  const [value, _setter] = useState<Unit | null>(() => {
-    return retrieveUnit(key_unit);
+  const [value, setValue] = useState<Unit | null>(() => {
+    return retrieveUnit(storage_key);
   });
 
-  const setValue = (new_value: Unit | null) => {
-    _setter(() => {
-      saveUnit(key_unit, new_value);
-      return new_value;
-    });
+  useEffect(() => {
+    saveUnit(storage_key, value);
+  }, [value]);
+
+  const setter = (new_value: Unit | null) => {
+    setValue(new_value);
   };
 
-  return [value, setValue];
+  return [value, setter];
 };

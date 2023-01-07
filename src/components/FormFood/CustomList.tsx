@@ -17,17 +17,16 @@ type CustomListItemProps = {
   onCopy: () => void;
   onRemove: () => void;
 };
-export const CustomListItem: FC<CustomListItemProps> = (props) => {
-  const { label } = props;
-
+const CustomListItem: FC<CustomListItemProps> = (props) => {
+  const { label, onCopy, onRemove } = props;
   return (
     <ListItem>
       <ListItemText primary={label} />
       <ListItemSecondaryAction>
-        <IconButton onClick={props.onCopy}>
+        <IconButton onClick={onCopy}>
           <CopyAll />
         </IconButton>
-        <IconButton onClick={props.onRemove}>
+        <IconButton onClick={onRemove}>
           <Delete />
         </IconButton>
       </ListItemSecondaryAction>

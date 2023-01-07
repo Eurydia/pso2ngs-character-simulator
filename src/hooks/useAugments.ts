@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Augment } from "../assets";
 import { isValidJSON } from "./utility";
@@ -48,28 +48,31 @@ export const useAugments = (
   (Augment | null)[],
   (value: Augment | null, index: number) => void,
 ] => {
-  const [value, _setValue] = useState(() => {
+  const [value, setValue] = useState(() => {
     return retrieveAugments(
       key_augment,
       Augment.getAugmentSlot(9999),
     );
   });
 
-  const setValue = (
+  useEffect(() => {
+    saveAugments(key_augment, value);
+  }, [value]);
+
+  const setter = (
     new_value: Augment | null,
     augment_index: number,
   ) => {
     if (augment_index < 0 || value.length <= augment_index) {
       return;
     }
-    _setValue((prev) => {
+    setValue((prev) => {
       let next = [...prev];
       next[augment_index] = new_value;
       next = Augment.removeConflict(augment_index, next);
-      saveAugments(key_augment, next);
       return next;
     });
   };
 
-  return [value, setValue];
+  return [value, setter];
 };
