@@ -13,7 +13,6 @@ import {
 import { BarChart } from "@mui/icons-material";
 
 import {
-  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
@@ -28,40 +27,30 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
+import { FormDataWeapon } from "../../types";
 
 type FormWeaponProps = {
   stat: StatObject;
   cardTitle: string;
 
-  weapon: Weapon | null;
-  weaponLevel: number;
-  potentialLevel: number;
-  fixa: Fixa | null;
-  augments: (Augment | null)[];
-
-  onWeaponChange: (new_value: Weapon | null) => void;
-  onWeaponLevelChange: (new_value: number) => void;
-  onPotentialLevelChange: (new_value: number) => void;
-  onFixaChange: (new_value: Fixa | null) => void;
-  onAugmentChange: (new_value: Augment | null, index: number) => void;
+  formValue: FormDataWeapon;
+  onFormValueChange: (
+    value:
+      | FormDataWeapon
+      | ((prev: FormDataWeapon) => FormDataWeapon),
+  ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const {
     cardTitle,
     stat,
 
-    weapon,
-    weaponLevel,
-    potentialLevel,
-    fixa,
-    augments,
-
-    onWeaponChange,
-    onWeaponLevelChange,
-    onPotentialLevelChange,
-    onFixaChange,
-    onAugmentChange,
+    formValue,
+    onFormValueChange,
   } = props;
+
+  const { weapon, weapon_level, potential_level, fixa, augments } =
+    formValue;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -73,9 +62,52 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     setDialogOpen(false);
   };
 
+  const handleWeaponChange = (value: Weapon | null) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.weapon = value;
+      return next;
+    });
+  };
+
+  const handleWeaponLevelChange = (value: number) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.weapon_level = value;
+      return next;
+    });
+  };
+
+  const handlePotentialLevelChange = (value: number) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.potential_level = value;
+      return next;
+    });
+  };
+
+  const handleFixaChange = (value: Fixa | null) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.fixa = value;
+      return next;
+    });
+  };
+
+  const handleAugmentChange = (
+    value: Augment | null,
+    index: number,
+  ) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.augments[index] = value;
+      return next;
+    });
+  };
+
   let active_augments: (Augment | null)[] = [];
   if (weapon !== null) {
-    const active_count: number = Augment.getAugmentSlot(weaponLevel);
+    const active_count: number = Augment.getAugmentSlot(weapon_level);
     active_augments = augments.slice(0, active_count);
   }
 
@@ -102,40 +134,40 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
           <Stack spacing={1}>
             <AutocompleteWeapon
               value={weapon}
-              onChange={onWeaponChange}
+              onChange={handleWeaponChange}
             />
             <SelectPotential
               weapon={weapon}
-              value={potentialLevel}
-              onChange={onPotentialLevelChange}
+              value={potential_level}
+              onChange={handlePotentialLevelChange}
             />
 
             <FieldLevel
               disabled={weapon === null}
               valueMin={0}
               valueMax={60}
-              value={weaponLevel}
-              onChange={onWeaponLevelChange}
+              value={weapon_level}
+              onChange={handleWeaponLevelChange}
             />
             <AutocompleteFixa
               disabled={weapon === null}
               value={fixa}
-              onChange={onFixaChange}
+              onChange={handleFixaChange}
               mode={GroupEnumFixa.WEAPON}
             />
           </Stack>
         }
         slotSecondary={
           <Stack spacing={1}>
-            {augments.map((aug, index) => (
+            {augments.map((augment, index) => (
               <AutocompleteAugment
                 key={`augment-${index}`}
                 disabled={
                   weapon === null || index >= active_augments.length
                 }
-                value={aug}
-                onChange={(new_value) => {
-                  onAugmentChange(new_value, index);
+                value={augment}
+                onChange={(value) => {
+                  handleAugmentChange(value, index);
                 }}
               />
             ))}

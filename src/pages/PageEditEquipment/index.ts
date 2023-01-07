@@ -1,4 +1,1 @@
-export {
-  PageEditEquipment,
-  equipmentAtom,
-} from "./PageEditEquipment";
+export { PageEditEquipment } from "./PageEditEquipment";

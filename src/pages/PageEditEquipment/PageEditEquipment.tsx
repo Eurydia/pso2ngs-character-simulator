@@ -1,15 +1,9 @@
-import { FC, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { FC, useEffect, useMemo } from "react";
+import { Box, Fab, Stack } from "@mui/material";
 import { atom, useSetAtom } from "jotai";
 
-import { ActionContext, statObject, StatObject } from "../../assets";
-import {
-  useUnit,
-  useEnhancement,
-  useFixa,
-  useAugments,
-  useWeapon,
-} from "../../hooks";
+import { ActionContext, StatObject } from "../../assets";
+import { useFormUnit, useFormWeapon } from "../../hooks";
 import {
   FormWeapon,
   FormUnit,
@@ -17,9 +11,7 @@ import {
   StatView,
 } from "../../components";
 
-import { createStatUnit, createStatWeapon } from "./helper";
-
-export const equipmentAtom = atom(statObject());
+import { FormDataUnit, FormDataWeapon } from "../../types";
 
 // const SummaryItem: FC<SummaryEquipment> = (props) => {
 //   const { equipment, fixa, augments } = props;
@@ -59,200 +51,118 @@ export const equipmentAtom = atom(statObject());
 
 type PageEditEquipmentProps = {
   ctx: ActionContext;
+  stat: StatObject;
+  onStatChange: (value: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { ctx } = props;
+  const { ctx, stat, onStatChange } = props;
 
-  const setEquipmentStat = useSetAtom(equipmentAtom);
+  const [weapon, setWeapon] = useFormWeapon("eq-w");
+  const [unitA, setUnitA] = useFormUnit("eq-ua");
+  const [unitB, setUnitB] = useFormUnit("eq-ub");
+  const [unitC, setUnitC] = useFormUnit("eq-uc");
 
-  const KEY_WEAPON = "eq-w";
-  const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
-    useWeapon(KEY_WEAPON, `${KEY_WEAPON}-pl`);
-  const [weaponLevel, setWeaponLevel] = useEnhancement(
-    `${KEY_WEAPON}-l`,
-  );
-  const [fixa, setFixa] = useFixa(`${KEY_WEAPON}-f`);
-  const [augments, setAugments] = useAugments(`${KEY_WEAPON}-a`);
+  const stat_weapon = FormDataWeapon.getStatObject(ctx, weapon);
+  const stat_unit_a = FormDataUnit.getStatObject(ctx, unitA);
+  const stat_unit_b = FormDataUnit.getStatObject(ctx, unitB);
+  const stat_unit_c = FormDataUnit.getStatObject(ctx, unitC);
 
-  const KEY_UNIT_A: string = "eq-ua";
-  const [unitA, setUnitA] = useUnit(KEY_UNIT_A);
-  const [unitLevelA, setUnitLevelA] = useEnhancement(
-    `${KEY_UNIT_A}-l`,
-  );
-  const [unitFixaA, setUnitFixaA] = useFixa(`${KEY_UNIT_A}-f`);
-  const [unitAugmentA, setUnitAugmentA] = useAugments(
-    `${KEY_UNIT_A}-a`,
-  );
+  const handleStatChange = () => {
+    let result = StatObject.merge(stat_weapon, stat_unit_a);
+    result = StatObject.merge(result, stat_unit_b);
+    result = StatObject.merge(result, stat_unit_c);
+    onStatChange(result);
+  };
 
-  const KEY_UNIT_B: string = "eq-ub";
-  const [unitB, setUnitB] = useUnit(KEY_UNIT_B);
-  const [unitLevelB, setUnitLevelB] = useEnhancement(
-    `${KEY_UNIT_B}-l`,
-  );
-  const [unitFixaB, setUnitFixaB] = useFixa(`${KEY_UNIT_B}-f`);
-  const [unitAugmentB, setUnitAugmentB] = useAugments(
-    `${KEY_UNIT_B}-a`,
-  );
+  const handleWeaponChange = (
+    data: FormDataWeapon | ((prev: FormDataWeapon) => FormDataWeapon),
+  ) => {
+    setWeapon(data);
+    handleStatChange();
+  };
 
-  const KEY_UNIT_C: string = "eq-uc";
-  const [unitC, setUnitC] = useUnit(KEY_UNIT_C);
-  const [unitLevelC, setUnitLevelC] = useEnhancement(
-    `${KEY_UNIT_C}-l`,
-  );
-  const [unitFixaC, setUnitFixaC] = useFixa(`${KEY_UNIT_C}-f`);
-  const [unitAugmentC, setUnitAugmentC] = useAugments(
-    `${KEY_UNIT_C}-a`,
-  );
+  const handleUnitChangeA = (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ): void => {
+    setUnitA(data);
+    handleStatChange();
+  };
+
+  const handleUnitChangeB = (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ): void => {
+    setUnitB(data);
+    handleStatChange();
+  };
+
+  const handleUnitChangeC = (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ): void => {
+    setUnitC(data);
+    handleStatChange();
+  };
 
   const handleSyncUnitA = () => {
-    setUnitB(unitA);
-    setUnitC(unitA);
-
-    setUnitLevelB(unitLevelA);
-    setUnitLevelC(unitLevelA);
-
-    setUnitFixaB(unitFixaA);
-    setUnitFixaC(unitFixaA);
-
-    unitAugmentA.forEach((augment, augment_index) => {
-      setUnitAugmentB(augment, augment_index);
-      setUnitAugmentC(augment, augment_index);
-    });
+    handleUnitChangeB(unitA);
+    handleUnitChangeC(unitA);
   };
 
   const handleSyncUnitB = () => {
-    setUnitA(unitB);
-    setUnitC(unitB);
-
-    setUnitLevelA(unitLevelB);
-    setUnitLevelC(unitLevelB);
-
-    setUnitFixaA(unitFixaB);
-    setUnitFixaC(unitFixaB);
-
-    unitAugmentB.forEach((augment, augment_index) => {
-      setUnitAugmentA(augment, augment_index);
-      setUnitAugmentC(augment, augment_index);
-    });
+    handleUnitChangeA(unitB);
+    handleUnitChangeC(unitB);
   };
 
   const handleSyncUnitC = () => {
-    setUnitA(unitC);
-    setUnitB(unitC);
-
-    setUnitLevelA(unitLevelC);
-    setUnitLevelB(unitLevelC);
-
-    setUnitFixaA(unitFixaC);
-    setUnitFixaB(unitFixaC);
-
-    unitAugmentC.forEach((augment, augment_index) => {
-      setUnitAugmentA(augment, augment_index);
-      setUnitAugmentC(augment, augment_index);
-    });
+    handleUnitChangeA(unitC);
+    handleUnitChangeB(unitC);
   };
-
-  const stat_weapon = createStatWeapon(
-    ctx,
-    weapon,
-    weaponLevel,
-    potentialLevel,
-    fixa,
-    augments,
-  );
-  const stat_unit_a = createStatUnit(
-    ctx,
-    unitA,
-    unitLevelA,
-    unitFixaA,
-    unitAugmentA,
-  );
-  const stat_unit_b = createStatUnit(
-    ctx,
-    unitB,
-    unitLevelB,
-    unitFixaB,
-    unitAugmentB,
-  );
-  const stat_unit_c = createStatUnit(
-    ctx,
-    unitC,
-    unitLevelC,
-    unitFixaC,
-    unitAugmentC,
-  );
-
-  useEffect(() => {
-    let stat_total = StatObject.merge(stat_unit_a, stat_unit_b);
-    stat_total = StatObject.merge(stat_total, stat_unit_c);
-    setEquipmentStat(StatObject.merge(stat_total, stat_weapon));
-  }, []);
 
   return (
     <Box margin={4}>
+      <Fab
+        sx={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+        }}
+      >
+        x
+      </Fab>
       <Stack spacing={2}>
         <FormBase
           title="Summary"
           slotHeaderAction={null}
           slotPrimary={null}
-          slotSecondary={
-            <StatView maxHeight="400px" stat={statObject()} />
-          }
+          slotSecondary={<StatView maxHeight="400px" stat={stat} />}
         />
         <FormWeapon
           cardTitle="Weapon"
           stat={stat_weapon}
-          weapon={weapon}
-          weaponLevel={weaponLevel}
-          potentialLevel={potentialLevel}
-          fixa={fixa}
-          augments={augments}
-          onWeaponChange={setWeapon}
-          onWeaponLevelChange={setWeaponLevel}
-          onPotentialLevelChange={setPotentialLevel}
-          onFixaChange={setFixa}
-          onAugmentChange={setAugments}
+          formValue={weapon}
+          onFormValueChange={handleWeaponChange}
         />
         <FormUnit
           cardTitle="Unit A"
           stat={stat_unit_a}
+          formValue={unitA}
+          onFormValueChange={handleUnitChangeA}
           onSync={handleSyncUnitA}
-          unit={unitA}
-          unitLevel={unitLevelA}
-          fixa={unitFixaA}
-          augments={unitAugmentA}
-          onUnitChange={setUnitA}
-          onUnitLevelChange={setUnitLevelA}
-          onFixaChange={setUnitFixaA}
-          onAugmentChange={setUnitAugmentA}
         />
         <FormUnit
           cardTitle="Unit B"
           stat={stat_unit_b}
+          formValue={unitB}
+          onFormValueChange={handleUnitChangeB}
           onSync={handleSyncUnitB}
-          unit={unitB}
-          unitLevel={unitLevelB}
-          fixa={unitFixaB}
-          augments={unitAugmentB}
-          onUnitChange={setUnitB}
-          onUnitLevelChange={setUnitLevelB}
-          onFixaChange={setUnitFixaB}
-          onAugmentChange={setUnitAugmentB}
         />
         <FormUnit
           cardTitle="Unit C"
           stat={stat_unit_c}
+          formValue={unitC}
+          onFormValueChange={handleUnitChangeC}
           onSync={handleSyncUnitC}
-          unit={unitC}
-          unitLevel={unitLevelC}
-          fixa={unitFixaC}
-          augments={unitAugmentC}
-          onUnitChange={setUnitC}
-          onUnitLevelChange={setUnitLevelC}
-          onFixaChange={setUnitFixaC}
-          onAugmentChange={setUnitAugmentC}
         />
       </Stack>
     </Box>

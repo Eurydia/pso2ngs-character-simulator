@@ -27,38 +27,22 @@ import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 
 import { StatView } from "../StatView";
+import { FormDataUnit } from "../../types";
 
 type FormUnitProps = {
+  formValue: FormDataUnit;
+  onFormValueChange: (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ) => void;
   cardTitle: string;
   stat: StatObject;
-
-  unit: Unit | null;
-  unitLevel: number;
-  fixa: Fixa | null;
-  augments: (Augment | null)[];
-
   onSync: () => void;
-  onUnitChange: (new_value: Unit | null) => void;
-  onUnitLevelChange: (new_value: number) => void;
-  onFixaChange: (new_value: Fixa | null) => void;
-  onAugmentChange: (new_value: Augment | null, index: number) => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
-  const {
-    cardTitle,
-    stat,
+  const { cardTitle, stat, formValue, onFormValueChange, onSync } =
+    props;
 
-    unit,
-    unitLevel,
-    fixa,
-    augments,
-
-    onSync,
-    onUnitChange,
-    onUnitLevelChange,
-    onFixaChange,
-    onAugmentChange,
-  } = props;
+  const { unit, unit_level, fixa, augments } = formValue;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
@@ -70,9 +54,44 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     setDialogOpen(false);
   };
 
+  const handleUnitChange = (value: Unit | null) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.unit = value;
+      return next;
+    });
+  };
+
+  const handleUnitLevelChange = (value: number) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.unit_level = value;
+      return next;
+    });
+  };
+
+  const handleFixaChange = (value: Fixa | null) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.fixa = value;
+      return next;
+    });
+  };
+
+  const handleAugmentChange = (
+    value: Augment | null,
+    index: number,
+  ) => {
+    onFormValueChange((prev) => {
+      const next = { ...prev };
+      next.augments[index] = value;
+      return next;
+    });
+  };
+
   let active_augments: (Augment | null)[] = [];
   if (unit !== null) {
-    const active_count: number = Augment.getAugmentSlot(unitLevel);
+    const active_count: number = Augment.getAugmentSlot(unit_level);
     active_augments = augments.slice(0, active_count);
   }
 
@@ -109,18 +128,21 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         }
         slotPrimary={
           <Stack spacing={1}>
-            <AutocompleteUnit value={unit} onChange={onUnitChange} />
+            <AutocompleteUnit
+              value={unit}
+              onChange={handleUnitChange}
+            />
             <FieldLevel
               disabled={unit === null}
               valueMin={0}
               valueMax={60}
-              value={unitLevel}
-              onChange={onUnitLevelChange}
+              value={unit_level}
+              onChange={handleUnitLevelChange}
             />
             <AutocompleteFixa
               disabled={unit === null}
               value={fixa}
-              onChange={onFixaChange}
+              onChange={handleFixaChange}
               mode={GroupEnumFixa.UNIT}
             />
           </Stack>
@@ -135,8 +157,8 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   key={`augment-${index}`}
                   disabled={disabled}
                   value={augment}
-                  onChange={(new_value) => {
-                    onAugmentChange(new_value, index);
+                  onChange={(value) => {
+                    handleAugmentChange(value, index);
                   }}
                 />
               );
