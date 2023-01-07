@@ -20,16 +20,9 @@ export const useFormUnit = (
   const [fixa, setFixa] = useFixa(`${form_key}-f`);
   const [augments, setAugment] = useAugments(`${form_key}-a`);
 
-  const [data, setData] = useState<FormDataUnit>({
-    unit: null,
-    unit_level: 0,
-    fixa: null,
-    augments: [],
+  const [data, setData] = useState<FormDataUnit>(() => {
+    return { unit, unit_level: unitLevel, fixa, augments };
   });
-
-  useEffect(() => {
-    setData({ unit, unit_level: unitLevel, fixa, augments });
-  }, []);
 
   useEffect(() => {
     setUnit(data.unit);

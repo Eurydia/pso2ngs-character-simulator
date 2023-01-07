@@ -22,6 +22,12 @@ import {
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
+export type SummaryEquipment = {
+  equipment: string | null;
+  fixa: string | null;
+  augments: string[];
+};
+
 export type FormDataUnit = {
   unit: Unit | null;
   unit_level: number;
@@ -30,6 +36,31 @@ export type FormDataUnit = {
 };
 
 export const FormDataUnit = {
+  getSummaryObject: (data: FormDataUnit): SummaryEquipment => {
+    const { unit, fixa, augments } = data;
+    const result: SummaryEquipment = {
+      equipment: null,
+      fixa: null,
+      augments: [],
+    };
+
+    if (unit !== null) {
+      result.equipment = unit.label;
+    }
+
+    if (fixa !== null) {
+      result.fixa = fixa.label;
+    }
+
+    for (const augment of augments) {
+      if (augment !== null) {
+        result.augments.push(augment.label);
+      }
+    }
+
+    return result;
+  },
+
   getStatObject: (
     ctx: ActionContext,
     data: FormDataUnit,
@@ -74,6 +105,31 @@ export type FormDataWeapon = {
 };
 
 export const FormDataWeapon = {
+  getSummaryObject: (data: FormDataWeapon): SummaryEquipment => {
+    const { weapon, fixa, augments } = data;
+    const result: SummaryEquipment = {
+      equipment: null,
+      fixa: null,
+      augments: [],
+    };
+
+    if (weapon !== null) {
+      result.equipment = weapon.label;
+    }
+
+    if (fixa !== null) {
+      result.fixa = fixa.label;
+    }
+
+    for (const augment of augments) {
+      if (augment !== null) {
+        result.augments.push(augment.label);
+      }
+    }
+
+    return result;
+  },
+
   getStatObject: (
     ctx: ActionContext,
     data: FormDataWeapon,

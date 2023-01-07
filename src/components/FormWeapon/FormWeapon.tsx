@@ -180,7 +180,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`Stat for ${cardTitle}`}</DialogTitle>
+        <DialogTitle>{`${cardTitle} summary`}</DialogTitle>
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>

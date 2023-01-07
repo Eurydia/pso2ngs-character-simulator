@@ -23,23 +23,15 @@ export const useFormWeapon = (
   const [fixa, setFixa] = useFixa(`${form_key}-f`);
   const [augments, setAugment] = useAugments(`${form_key}-a`);
 
-  const [data, setData] = useState<FormDataWeapon>({
-    weapon: null,
-    weapon_level: 0,
-    potential_level: 0,
-    fixa: null,
-    augments: [],
-  });
-
-  useEffect(() => {
-    setData({
+  const [data, setData] = useState<FormDataWeapon>(() => {
+    return {
       weapon,
       weapon_level: weaponLevel,
       potential_level: potentiaLevel,
       fixa,
       augments,
-    });
-  }, []);
+    };
+  });
 
   useEffect(() => {
     setWeapon(data.weapon);

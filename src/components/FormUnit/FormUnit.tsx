@@ -173,7 +173,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`Stat for ${cardTitle}`}</DialogTitle>
+        <DialogTitle>{`${cardTitle} summary`}</DialogTitle>
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
