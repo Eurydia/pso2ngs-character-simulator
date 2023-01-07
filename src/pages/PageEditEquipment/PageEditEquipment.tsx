@@ -9,9 +9,10 @@ import {
   Fab,
   Grid,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import { BarChart } from "@mui/icons-material";
+import { Assignment } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { useFormUnit, useFormWeapon } from "../../hooks";
@@ -46,7 +47,7 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
       <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
         {items.map((item, index) => {
           return (
-            <Grid key={`item-${index}`} xs={1}>
+            <Grid key={`item-${index}`} item xs={1}>
               <SummaryItem {...item} />
             </Grid>
           );
@@ -141,23 +142,29 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   return (
     <Fragment>
-      <Box margin={4}>
+      <Tooltip
+        placement="top"
+        title={<Typography>Open summary</Typography>}
+      >
         <Fab
           onClick={handleDialogOpen}
-          disabled={
-            weapon.weapon === null &&
-            unitA.unit === null &&
-            unitB.unit === null &&
-            unitC.unit === null
-          }
           sx={{
+            display:
+              weapon.weapon === null &&
+              unitA.unit === null &&
+              unitB.unit === null &&
+              unitC.unit === null
+                ? "none"
+                : "flex",
             position: "fixed",
             bottom: "24px",
             right: "24px",
           }}
         >
-          <BarChart />
+          <Assignment />
         </Fab>
+      </Tooltip>
+      <Box margin={4}>
         <Stack spacing={2}>
           <FormWeapon
             cardTitle="Weapon"

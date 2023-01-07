@@ -47,10 +47,10 @@ export const useWeapon = (
   (new_value: Weapon | null) => void,
   (new_level: number) => void,
 ] => {
-  const [weapon, _setWeapon] = useState(() => {
+  const [weapon, setWeapon] = useState(() => {
     return retrieveWeapon(storage_key_weapon);
   });
-  const [potentialLevel, _setPotentialLevel] = useState(() => {
+  const [potentialLevel, setPotentialLevel] = useState(() => {
     return retrievePotentialLevel(storage_key_potential_level);
   });
 
@@ -69,16 +69,14 @@ export const useWeapon = (
     );
   }, [potentialLevel]);
 
-  const setWeapon = (new_value: Weapon | null) => {
-    _setWeapon(new_value);
-    saveWeapon(storage_key_weapon, new_value);
-    setPotentialLevel(0);
+  const setterWeapon = (new_value: Weapon | null) => {
+    setWeapon(new_value);
+    setterPotentialLevel(0);
   };
 
-  const setPotentialLevel = (new_level: number) => {
-    _setPotentialLevel(new_level);
-    savePotentialLevel(storage_key_potential_level, new_level);
+  const setterPotentialLevel = (new_level: number) => {
+    setPotentialLevel(new_level);
   };
 
-  return [weapon, potentialLevel, setWeapon, setPotentialLevel];
+  return [weapon, potentialLevel, setterWeapon, setterPotentialLevel];
 };

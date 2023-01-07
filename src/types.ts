@@ -44,9 +44,10 @@ export const FormDataUnit = {
       augments: [],
     };
 
-    if (unit !== null) {
-      result.equipment = unit.label;
+    if (unit === null) {
+      return result;
     }
+    result.equipment = unit.label;
 
     if (fixa !== null) {
       result.fixa = fixa.label;
@@ -113,9 +114,10 @@ export const FormDataWeapon = {
       augments: [],
     };
 
-    if (weapon !== null) {
-      result.equipment = weapon.label;
+    if (weapon === null) {
+      return result;
     }
+    result.equipment = weapon.label;
 
     if (fixa !== null) {
       result.fixa = fixa.label;
