@@ -1,0 +1,1 @@
+export { PageEditFood } from "./PageEditFood";

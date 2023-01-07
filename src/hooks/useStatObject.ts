@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { statObject, StatObject } from "../assets";
 import { isValidJSON } from "./utility";
 
@@ -20,20 +20,22 @@ const retrieveData = (key: string): StatObject => {
 
 export const useStatObject = (
   key_stat_object: string | null = null,
-): [StatObject, (stat: StatObject) => void] => {
-  const [value, _setValue] = useState<StatObject>(() => {
+): [
+  StatObject,
+  (stat: StatObject | ((prev: StatObject) => StatObject)) => void,
+] => {
+  const [value, setValue] = useState<StatObject>(() => {
     if (key_stat_object === null) {
       return statObject();
     }
     return retrieveData(key_stat_object);
   });
 
-  const setValue = (stat: StatObject) => {
-    _setValue(stat);
+  useEffect(() => {
     if (key_stat_object === null) {
       return;
     }
-    saveData(key_stat_object, stat);
-  };
+    saveData(key_stat_object, value);
+  }, [value]);
   return [value, setValue];
 };

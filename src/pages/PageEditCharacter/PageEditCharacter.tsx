@@ -7,8 +7,8 @@ import {
   TextField,
 } from "@mui/material";
 
-interface CharacterEditProps {}
-const CharacterEdit: FC<CharacterEditProps> = () => {
+type PageEditCharacterProps = {};
+export const PageEditCharacter: FC<PageEditCharacterProps> = () => {
   return (
     <Box>
       <Card>
@@ -29,5 +29,3 @@ const CharacterEdit: FC<CharacterEditProps> = () => {
     </Box>
   );
 };
-
-export default CharacterEdit;

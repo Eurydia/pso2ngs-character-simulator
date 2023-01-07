@@ -3,7 +3,6 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  Box,
 } from "@mui/material";
 
 import { AssetFoods, Food } from "../../assets";

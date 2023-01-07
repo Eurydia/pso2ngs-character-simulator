@@ -1,7 +1,8 @@
 import { FC, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
+import { atom, useSetAtom } from "jotai";
 
-import { statObject, StatObject } from "../../assets";
+import { ActionContext, statObject, StatObject } from "../../assets";
 import {
   useUnit,
   useEnhancement,
@@ -17,6 +18,8 @@ import {
 } from "../../components";
 
 import { createStatUnit, createStatWeapon } from "./helper";
+
+export const equipmentAtom = atom(statObject());
 
 // const SummaryItem: FC<SummaryEquipment> = (props) => {
 //   const { equipment, fixa, augments } = props;
@@ -54,11 +57,15 @@ import { createStatUnit, createStatWeapon } from "./helper";
 //   );
 // };
 
-type EditEquipmentProps = {
-  onStatChange: (stat: StatObject | (() => StatObject)) => void;
+type PageEditEquipmentProps = {
+  ctx: ActionContext;
 };
-const EditEquipment: FC<EditEquipmentProps> = (props) => {
-  const { onStatChange } = props;
+export const PageEditEquipment: FC<PageEditEquipmentProps> = (
+  props,
+) => {
+  const { ctx } = props;
+
+  const setEquipmentStat = useSetAtom(equipmentAtom);
 
   const KEY_WEAPON = "eq-w";
   const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
@@ -101,11 +108,12 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
 
   const handleSyncUnitA = () => {
     setUnitB(unitA);
-    setUnitLevelB(unitLevelA);
-    setUnitFixaB(unitFixaA);
-
     setUnitC(unitA);
+
+    setUnitLevelB(unitLevelA);
     setUnitLevelC(unitLevelA);
+
+    setUnitFixaB(unitFixaA);
     setUnitFixaC(unitFixaA);
 
     unitAugmentA.forEach((augment, augment_index) => {
@@ -116,11 +124,12 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
 
   const handleSyncUnitB = () => {
     setUnitA(unitB);
-    setUnitLevelA(unitLevelB);
-    setUnitFixaA(unitFixaB);
-
     setUnitC(unitB);
+
+    setUnitLevelA(unitLevelB);
     setUnitLevelC(unitLevelB);
+
+    setUnitFixaA(unitFixaB);
     setUnitFixaC(unitFixaB);
 
     unitAugmentB.forEach((augment, augment_index) => {
@@ -131,11 +140,12 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
 
   const handleSyncUnitC = () => {
     setUnitA(unitC);
-    setUnitLevelA(unitLevelC);
-    setUnitFixaA(unitFixaC);
-
     setUnitB(unitC);
+
+    setUnitLevelA(unitLevelC);
     setUnitLevelB(unitLevelC);
+
+    setUnitFixaA(unitFixaC);
     setUnitFixaB(unitFixaC);
 
     unitAugmentC.forEach((augment, augment_index) => {
@@ -145,7 +155,7 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   };
 
   const stat_weapon = createStatWeapon(
-    {},
+    ctx,
     weapon,
     weaponLevel,
     potentialLevel,
@@ -153,21 +163,21 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     augments,
   );
   const stat_unit_a = createStatUnit(
-    {},
+    ctx,
     unitA,
     unitLevelA,
     unitFixaA,
     unitAugmentA,
   );
   const stat_unit_b = createStatUnit(
-    {},
+    ctx,
     unitB,
     unitLevelB,
     unitFixaB,
     unitAugmentB,
   );
   const stat_unit_c = createStatUnit(
-    {},
+    ctx,
     unitC,
     unitLevelC,
     unitFixaC,
@@ -175,13 +185,10 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
   );
 
   useEffect(() => {
-    onStatChange(() => {
-      let stat_total = StatObject.merge(stat_unit_a, stat_unit_b);
-      stat_total = StatObject.merge(stat_total, stat_unit_c);
-      stat_total = StatObject.merge(stat_total, stat_weapon);
-      return stat_total;
-    });
-  }, [stat_unit_a, stat_unit_b, stat_unit_c, stat_weapon]);
+    let stat_total = StatObject.merge(stat_unit_a, stat_unit_b);
+    stat_total = StatObject.merge(stat_total, stat_unit_c);
+    setEquipmentStat(StatObject.merge(stat_total, stat_weapon));
+  }, []);
 
   return (
     <Box margin={4}>
@@ -251,5 +258,3 @@ const EditEquipment: FC<EditEquipmentProps> = (props) => {
     </Box>
   );
 };
-
-export default EditEquipment;

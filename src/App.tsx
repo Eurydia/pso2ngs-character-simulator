@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   AppBar,
   Container,
@@ -11,24 +10,20 @@ import {
 } from "@mui/material";
 import { Home } from "@mui/icons-material";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { useAtomValue } from "jotai";
 
-import EditEquipment from "./pages/EditEquipment";
-import FoodEdit from "./pages/EditFood";
-import HomePage from "./pages/Home";
+import {
+  PageEditEquipment,
+  equipmentAtom,
+  PageEditFood,
+  PageHome,
+} from "./pages";
 
-import { useStatObject } from "./hooks";
 import { style_overrides } from "./theme";
-import { statObject, StatObject } from "./assets";
 
 function App() {
-  const [equipment, setEquipment] = useStatObject("page-equipment");
-  const [food, setFood] = useStatObject("page-food");
-
-  let total: StatObject = statObject();
-  const items: StatObject[] = [equipment, food];
-  for (const item of items) {
-    total = StatObject.merge(total, item);
-  }
+  const equipment = useAtomValue(equipmentAtom);
+  // const [food, setFood] = useState<StatObject>(statObject());
 
   return (
     <ThemeProvider theme={style_overrides}>
@@ -50,10 +45,10 @@ function App() {
         </AppBar>
         <Container maxWidth="lg">
           <Routes>
-            <Route path="/" element={<HomePage stat={total} />} />
+            <Route path="/" element={<PageHome stat={equipment} />} />
             <Route
               path="/config-equipment"
-              element={<EditEquipment onStatChange={setEquipment} />}
+              element={<PageEditEquipment ctx={{}} />}
             />
             <Route
               path="/config-character"
@@ -61,7 +56,7 @@ function App() {
             />
             <Route
               path="/config-food"
-              element={<FoodEdit onStatChange={setFood} />}
+              element={<PageEditFood ctx={{}} />}
             />
             <Route
               path="/config-addon"

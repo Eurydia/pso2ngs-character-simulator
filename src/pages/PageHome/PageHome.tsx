@@ -13,10 +13,10 @@ import { StatObject } from "../../assets";
 
 import ConfigCard from "./ConfigCard";
 
-type HomeProps = {
+type PageHomeProps = {
   stat: StatObject;
 };
-const Home: FC<HomeProps> = (props) => {
+export const PageHome: FC<PageHomeProps> = (props) => {
   return (
     <Box margin={4}>
       <Grid container columns={{ xs: 1, md: 2 }} spacing={1}>
@@ -64,4 +64,3 @@ const Home: FC<HomeProps> = (props) => {
     </Box>
   );
 };
-export default Home;

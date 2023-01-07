@@ -1,21 +1,24 @@
 import { FC } from "react";
-import { Box, Fab } from "@mui/material";
+import { Box } from "@mui/material";
 
-import { StatObject } from "../../assets";
+import { ActionContext, Food } from "../../assets";
 import { FormFood } from "../../components";
 import { useFood } from "../../hooks";
 
-type EditFoodProps = {
-  onStatChange: (stat: StatObject) => void;
+type PageEditFoodProps = {
+  ctx: ActionContext;
 };
-const EditFood: FC<EditFoodProps> = (props) => {
-  const { onStatChange } = props;
+export const PageEditFood: FC<PageEditFoodProps> = (props) => {
+  const { ctx } = props;
 
   const [items, onItemAdd, onItemRemove] = useFood("page-food-item");
+
+  const stat = Food.getStatObject(ctx, items);
 
   return (
     <Box margin={4}>
       <FormFood
+        stat={stat}
         items={items}
         onItemAdd={onItemAdd}
         onItemRemove={onItemRemove}
@@ -23,5 +26,3 @@ const EditFood: FC<EditFoodProps> = (props) => {
     </Box>
   );
 };
-
-export default EditFood;
