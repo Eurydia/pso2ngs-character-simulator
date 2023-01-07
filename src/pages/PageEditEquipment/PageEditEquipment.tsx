@@ -11,21 +11,19 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { BarChart } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-
 import {
   FormDataUnit,
   FormDataWeapon,
   SummaryEquipment,
 } from "../../types";
-import { BarChart } from "@mui/icons-material";
 
 const SummaryItem: FC<SummaryEquipment> = (props) => {
   const { equipment, fixa, augments } = props;
-
   return (
     <Box>
       <Typography fontWeight="bold">{equipment}</Typography>
