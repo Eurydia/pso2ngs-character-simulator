@@ -13,7 +13,7 @@ const collectAttribute = (
   target: StatObject,
 ): StatObject => {
   let _result: StatObject = target;
-  const attribute = Food.summarize(items);
+  const attribute = Food.countOccurence(items);
 
   const stat_crispy = getAwareStatObjectCrispy(
     ctx,
@@ -54,7 +54,7 @@ const collectCategory = (
   target: StatObject,
 ): StatObject => {
   let _result = target;
-  const category = Food.summarize(items);
+  const category = Food.countOccurence(items);
 
   const stat_meat = getAwareStatObjectMeat(
     ctx,

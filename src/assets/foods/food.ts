@@ -9,6 +9,8 @@ import {
   getStatObjectCategory,
 } from "./helper";
 
+const LOOKUP_FOODS: { [K: string]: Food } = {};
+
 export type Food = {
   label: string;
   attribute: GroupEnumFoodAttribute;
@@ -16,7 +18,29 @@ export type Food = {
 };
 
 export const Food = {
-  summarize: (
+  MAX_ITEM: 10,
+
+  toString(items: Food[]): string {
+    const labels: string[] = [];
+    for (const item of items) {
+      labels.push(item.label);
+    }
+    return JSON.stringify(labels);
+  },
+
+  fromLabels(labels: string[]): Food[] {
+    const result: Food[] = [];
+    for (const label of labels) {
+      const item: Food | undefined = LOOKUP_FOODS[label];
+      if (item === undefined) {
+        continue;
+      }
+      result.push(item);
+    }
+    return result;
+  },
+
+  countOccurence: (
     items: Food[],
   ): {
     [K in GroupEnumFoodAttribute | GroupEnumFoodCategory]: number;
@@ -37,7 +61,6 @@ export const Food = {
     for (const item of items) {
       const attr = item.attribute;
       result[attr] += 1;
-
       const cate = item.category;
       result[cate] += 1;
     }
@@ -59,9 +82,9 @@ export const Food = {
   },
 
   getStatObject: (ctx: ActionContext, items: Food[]): StatObject => {
-    const summary = Food.summarize(items);
-    const stat_attribute = Food.getStatObjectAttribute(ctx, summary);
-    const stat_category = Food.getStatObjectCategory(ctx, summary);
+    const counter = Food.countOccurence(items);
+    const stat_attribute = Food.getStatObjectAttribute(ctx, counter);
+    const stat_category = Food.getStatObjectCategory(ctx, counter);
     return StatObject.merge(stat_attribute, stat_category);
   },
 };
