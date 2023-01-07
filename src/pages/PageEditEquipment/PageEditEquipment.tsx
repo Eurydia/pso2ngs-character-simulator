@@ -2,6 +2,7 @@ import { FC, Fragment, useMemo, useState } from "react";
 import {
   Box,
   Button,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -142,59 +143,61 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   return (
     <Fragment>
-      <Tooltip
-        placement="top"
-        title={<Typography>Open summary</Typography>}
-      >
-        <Fab
-          onClick={handleDialogOpen}
-          sx={{
-            display:
-              weapon.weapon === null &&
-              unitA.unit === null &&
-              unitB.unit === null &&
-              unitC.unit === null
-                ? "none"
-                : "flex",
-            position: "fixed",
-            bottom: "24px",
-            right: "24px",
-          }}
+      <Container maxWidth="lg">
+        <Tooltip
+          placement="top"
+          title={<Typography>Open summary</Typography>}
         >
-          <Assignment />
-        </Fab>
-      </Tooltip>
-      <Box margin={4}>
-        <Stack spacing={2}>
-          <FormWeapon
-            cardTitle="Weapon"
-            stat={stat_weapon}
-            formValue={weapon}
-            onFormValueChange={handleWeaponChange}
-          />
-          <FormUnit
-            cardTitle="Unit A"
-            stat={stat_unit_a}
-            formValue={unitA}
-            onFormValueChange={handleUnitChangeA}
-            onSync={handleSyncUnitA}
-          />
-          <FormUnit
-            cardTitle="Unit B"
-            stat={stat_unit_b}
-            formValue={unitB}
-            onFormValueChange={handleUnitChangeB}
-            onSync={handleSyncUnitB}
-          />
-          <FormUnit
-            cardTitle="Unit C"
-            stat={stat_unit_c}
-            formValue={unitC}
-            onFormValueChange={handleUnitChangeC}
-            onSync={handleSyncUnitC}
-          />
-        </Stack>
-      </Box>
+          <Fab
+            onClick={handleDialogOpen}
+            sx={{
+              display:
+                weapon.weapon === null &&
+                unitA.unit === null &&
+                unitB.unit === null &&
+                unitC.unit === null
+                  ? "none"
+                  : "flex",
+              position: "fixed",
+              bottom: "24px",
+              right: "24px",
+            }}
+          >
+            <Assignment />
+          </Fab>
+        </Tooltip>
+        <Box margin={4}>
+          <Stack spacing={2}>
+            <FormWeapon
+              cardTitle="Weapon"
+              stat={stat_weapon}
+              formValue={weapon}
+              onFormValueChange={handleWeaponChange}
+            />
+            <FormUnit
+              cardTitle="Unit A"
+              stat={stat_unit_a}
+              formValue={unitA}
+              onFormValueChange={handleUnitChangeA}
+              onSync={handleSyncUnitA}
+            />
+            <FormUnit
+              cardTitle="Unit B"
+              stat={stat_unit_b}
+              formValue={unitB}
+              onFormValueChange={handleUnitChangeB}
+              onSync={handleSyncUnitB}
+            />
+            <FormUnit
+              cardTitle="Unit C"
+              stat={stat_unit_c}
+              formValue={unitC}
+              onFormValueChange={handleUnitChangeC}
+              onSync={handleSyncUnitC}
+            />
+          </Stack>
+        </Box>
+      </Container>
       <Dialog
         fullWidth
         maxWidth="sm"

@@ -1,8 +1,23 @@
-import { FC, useState, useMemo } from "react";
-import { Box, Button, Stack } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { FC, useState, useMemo, Fragment } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { Add, BarChart } from "@mui/icons-material";
 
-import { ActionContext, Food, StatObject } from "../../assets";
+import { Food, StatObject } from "../../assets";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 
@@ -21,6 +36,16 @@ export const FormFood: FC<FormFoodProps> = (props) => {
 
   const [selected, setSelected] = useState<Food | null>(null);
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
   const handleAdd = () => {
     if (selected === null) {
       return;
@@ -36,38 +61,73 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   };
 
   return (
-    <FormBase
-      title="Food"
-      slotHeaderAction={null}
-      slotPrimary={
-        <Stack spacing={2}>
-          <Stack direction="row" spacing={1}>
-            <Button
-              disableRipple
-              disableElevation
-              variant="contained"
-              startIcon={<Add />}
-              disabled={selected === null}
-              onClick={handleAdd}
+    <Fragment>
+      <Card variant="outlined" sx={{ padding: 1 }}>
+        <CardHeader
+          title="Food"
+          titleTypographyProps={{
+            fontSize: "x-large",
+            fontWeight: "bold",
+          }}
+          action={
+            <Tooltip
+              placement="top"
+              title={<Typography>Open summary</Typography>}
             >
-              add
-            </Button>
-            <Box width={1}>
-              <AutocompleteFood
-                value={selected}
-                onChange={setSelected}
-                onEnterPress={handleAdd}
-              />
-            </Box>
+              <span>
+                <IconButton
+                  disabled={items.length === 0}
+                  onClick={handleDialogOpen}
+                >
+                  <BarChart />
+                </IconButton>
+              </span>
+            </Tooltip>
+          }
+        />
+        <CardContent>
+          <Stack spacing={3}>
+            <Stack direction="row" spacing={1}>
+              <Box width={1}>
+                <AutocompleteFood
+                  value={selected}
+                  onChange={setSelected}
+                  onEnterPress={handleAdd}
+                />
+              </Box>
+              <Button
+                disableRipple
+                disableElevation
+                variant="contained"
+                startIcon={<Add />}
+                disabled={selected === null}
+                onClick={handleAdd}
+              >
+                add
+              </Button>
+            </Stack>
+            <CustomList
+              items={items}
+              onCopy={handleCopy}
+              onRemove={handleRemove}
+            />
           </Stack>
-          <CustomList
-            items={items}
-            onCopy={handleCopy}
-            onRemove={handleRemove}
-          />
-        </Stack>
-      }
-      slotSecondary={<StatView stat={stat} maxHeight="600px" />}
-    />
+        </CardContent>
+      </Card>
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>Stat summary</DialogTitle>
+        <DialogContent>
+          <StatView stat={stat} maxHeight="" />
+        </DialogContent>
+        <DialogActions disableSpacing>
+          <Button onClick={handleDialogClose}>close</Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
   );
 };

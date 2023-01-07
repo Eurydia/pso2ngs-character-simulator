@@ -10,12 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 
-type ConfigCardProps = {
+type CustomCardProps = {
   destination: string;
   title: string;
   desc: string;
 };
-const ConfigCard: FC<ConfigCardProps> = (props) => {
+export const CustomCard: FC<CustomCardProps> = (props) => {
   return (
     <Card variant="outlined">
       <CardHeader
@@ -42,4 +42,4 @@ const ConfigCard: FC<ConfigCardProps> = (props) => {
   );
 };
 
-export default ConfigCard;
+export default CustomCard;

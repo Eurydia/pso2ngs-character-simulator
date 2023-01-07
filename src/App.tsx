@@ -55,44 +55,36 @@ function App() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Container maxWidth="lg">
-          <Routes>
-            <Route
-              path="/"
-              element={<PageHome stat={stat_total} />}
-            />
-            <Route
-              path="/config-equipment"
-              element={
-                <PageEditEquipment
-                  storageKey={STORAGE_KEY_EQUIPMENT}
-                  ctx={{}}
-                />
-              }
-            />
-            <Route
-              path="/config-character"
-              element={<Typography>Coming soon</Typography>}
-            />
-            <Route
-              path="/config-food"
-              element={
-                <PageEditFood
-                  storageKey={STORAGE_KEY_FOOD}
-                  ctx={{}}
-                />
-              }
-            />
-            <Route
-              path="/config-addon"
-              element={<Typography>Coming soon</Typography>}
-            />
-            <Route
-              path="/config-buffs"
-              element={<Typography>Coming soon</Typography>}
-            />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route path="/" element={<PageHome stat={stat_total} />} />
+          <Route
+            path="/config-equipment"
+            element={
+              <PageEditEquipment
+                storageKey={STORAGE_KEY_EQUIPMENT}
+                ctx={{}}
+              />
+            }
+          />
+          <Route
+            path="/config-character"
+            element={<Typography>Coming soon</Typography>}
+          />
+          <Route
+            path="/config-food"
+            element={
+              <PageEditFood storageKey={STORAGE_KEY_FOOD} ctx={{}} />
+            }
+          />
+          <Route
+            path="/config-addon"
+            element={<Typography>Coming soon</Typography>}
+          />
+          <Route
+            path="/config-buffs"
+            element={<Typography>Coming soon</Typography>}
+          />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
