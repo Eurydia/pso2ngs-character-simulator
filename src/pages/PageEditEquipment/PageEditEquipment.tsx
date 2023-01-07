@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -35,14 +35,35 @@ const SummaryItem: FC<SummaryEquipment> = (props) => {
   );
 };
 
+type SummaryViewProps = {
+  items: SummaryEquipment[];
+};
+const SummaryView: FC<SummaryViewProps> = (props) => {
+  const { items } = props;
+
+  return (
+    <Box>
+      <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
+        {items.map((item, index) => {
+          return (
+            <Grid key={`item-${index}`} xs={1}>
+              <SummaryItem {...item} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
+  );
+};
+
 type PageEditEquipmentProps = {
-  stat: StatObject;
+  storageKey: string;
   ctx: ActionContext;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { ctx, stat } = props;
+  const { ctx, storageKey } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -108,6 +129,16 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const stat_unit_b = FormDataUnit.getStatObject(ctx, unitB);
   const stat_unit_c = FormDataUnit.getStatObject(ctx, unitC);
 
+  const stat_total = useMemo(() => {
+    let result = StatObject.merge(stat_weapon, stat_unit_a);
+    result = StatObject.merge(result, stat_unit_b);
+    result = StatObject.merge(result, stat_unit_c);
+
+    localStorage.setItem(storageKey, StatObject.toString(result));
+
+    return result;
+  }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
+
   return (
     <Fragment>
       <Box margin={4}>
@@ -166,21 +197,15 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         <DialogTitle>Equipment summary</DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
-            <Grid container spacing={1} columns={{ xs: 1, sm: 2 }}>
-              <Grid item xs={1}>
-                <SummaryItem {...summary_weapon} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summary_unit_a} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summary_unit_b} />
-              </Grid>
-              <Grid item xs={1}>
-                <SummaryItem {...summary_unit_c} />
-              </Grid>
-            </Grid>
-            <StatView stat={stat} maxHeight="" />
+            <SummaryView
+              items={[
+                summary_weapon,
+                summary_unit_a,
+                summary_unit_b,
+                summary_unit_c,
+              ]}
+            />
+            <StatView stat={stat_total} maxHeight="" />
           </Stack>
         </DialogContent>
         <DialogActions disableSpacing>

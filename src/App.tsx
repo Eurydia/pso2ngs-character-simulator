@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import {
   AppBar,
   Container,
@@ -9,13 +11,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Home } from "@mui/icons-material";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import { PageEditEquipment, PageEditFood, PageHome } from "./pages";
-
 import { style_overrides } from "./theme";
-import { useEffect, useState } from "react";
 import { statObject, StatObject } from "./assets";
+
+const STORAGE_KEY_EQUIPMENT: string = "p-eq";
 
 const isValidJSON = (data: string): boolean => {
   try {
@@ -24,10 +25,6 @@ const isValidJSON = (data: string): boolean => {
   } catch (e) {
     return false;
   }
-};
-
-const saveStat = (key: string, stat: StatObject): void => {
-  localStorage.setItem(key, StatObject.toString(stat));
 };
 
 const retrieveStat = (key: string): StatObject => {
@@ -43,14 +40,7 @@ const retrieveStat = (key: string): StatObject => {
 };
 
 function App() {
-  const [equipment, setEquipment] = useState<StatObject>(() => {
-    return retrieveStat("p-eq");
-  });
-
-  const handleEquipmentChange = (value: StatObject) => {
-    setEquipment(value);
-    saveStat("p-eq", value);
-  };
+  const equipment = retrieveStat(STORAGE_KEY_EQUIPMENT);
 
   return (
     <ThemeProvider theme={style_overrides}>
@@ -77,9 +67,8 @@ function App() {
               path="/config-equipment"
               element={
                 <PageEditEquipment
+                  storageKey={STORAGE_KEY_EQUIPMENT}
                   ctx={{}}
-                  stat={equipment}
-                  onStatChange={handleEquipmentChange}
                 />
               }
             />
