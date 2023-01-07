@@ -14,7 +14,7 @@ export const FormBase: FC<FormBaseProps> = (props) => {
     props;
 
   return (
-    <Card sx={{ padding: 1 }}>
+    <Card variant="outlined" sx={{ padding: 1 }}>
       <CardHeader
         action={slotHeaderAction}
         title={title}

@@ -17,7 +17,7 @@ type CustomCardProps = {
 };
 export const CustomCard: FC<CustomCardProps> = (props) => {
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{ padding: 1 }}>
       <CardHeader
         title={props.title}
         titleTypographyProps={{ fontWeight: "bold" }}
