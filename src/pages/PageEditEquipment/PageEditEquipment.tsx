@@ -60,12 +60,12 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 
 type PageEditEquipmentProps = {
   storageKey: string;
-  ctx: ActionContext;
+  context: ActionContext;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { ctx, storageKey } = props;
+  const { context: ctx, storageKey } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 

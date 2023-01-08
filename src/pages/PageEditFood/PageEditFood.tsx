@@ -7,10 +7,10 @@ import { FormFood } from "../../components";
 
 type PageEditFoodProps = {
   storageKey: string;
-  ctx: ActionContext;
+  context: ActionContext;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
-  const { ctx, storageKey } = props;
+  const { context: ctx, storageKey } = props;
 
   const [items, onItemAdd, onItemRemove] = useFood(`${storageKey}-i`);
 

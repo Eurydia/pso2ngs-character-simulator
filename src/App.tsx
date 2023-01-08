@@ -15,9 +15,11 @@ import { Home } from "@mui/icons-material";
 import { PageEditEquipment, PageEditFood, PageHome } from "./pages";
 import { style_overrides } from "./theme";
 import { statObject, StatObject } from "./assets";
+import { useFormActionContext } from "./hooks";
 
 const STORAGE_KEY_EQUIPMENT: string = "p-eq";
 const STORAGE_KEY_FOOD: string = "p-f";
+const STORAGE_KEY_CONTEXT: string = "p-c";
 
 const retrieveStat = (key: string): StatObject => {
   const loaded_string: string | null = localStorage.getItem(key);
@@ -32,6 +34,10 @@ const retrieveStat = (key: string): StatObject => {
 };
 
 function App() {
+  const [context, setContext] = useFormActionContext(
+    STORAGE_KEY_CONTEXT,
+  );
+
   const stat_equipment = retrieveStat(STORAGE_KEY_EQUIPMENT);
   const stat_food = retrieveStat(STORAGE_KEY_FOOD);
 
@@ -56,13 +62,22 @@ function App() {
           </Toolbar>
         </AppBar>
         <Routes>
-          <Route path="/" element={<PageHome stat={stat_total} />} />
+          <Route
+            path="/"
+            element={
+              <PageHome
+                stat={stat_total}
+                context={context}
+                onContextChange={setContext}
+              />
+            }
+          />
           <Route
             path="/config-equipment"
             element={
               <PageEditEquipment
+                context={context}
                 storageKey={STORAGE_KEY_EQUIPMENT}
-                ctx={{}}
               />
             }
           />
@@ -73,7 +88,10 @@ function App() {
           <Route
             path="/config-food"
             element={
-              <PageEditFood storageKey={STORAGE_KEY_FOOD} ctx={{}} />
+              <PageEditFood
+                context={context}
+                storageKey={STORAGE_KEY_FOOD}
+              />
             }
           />
           <Route
