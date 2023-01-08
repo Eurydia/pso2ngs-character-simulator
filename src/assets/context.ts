@@ -1,6 +1,5 @@
 export type TargetContext = {
   isBoss: boolean;
-  isNonBoss: boolean;
   isDolls: boolean;
   isDowned: boolean;
 
@@ -31,7 +30,6 @@ export type CharacterContext = {
 
 export type TimeContext = {
   isDayTime: boolean;
-  isNightTime: boolean;
   isDuringSezunEvent: boolean;
 };
 

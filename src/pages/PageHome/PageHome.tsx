@@ -80,7 +80,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 }}
               />
               <CardContent>
-                <StatView stat={stat} maxHeight="" />
+                <StatView stat={stat} maxHeight="600px" />
               </CardContent>
             </Card>
           </Grid>

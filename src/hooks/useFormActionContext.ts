@@ -6,13 +6,11 @@ const retrieveData = (storage_key: string): ActionContext => {
   const result: ActionContext = {
     time: {
       isDayTime: true,
-      isNightTime: false,
       isDuringSezunEvent: false,
     },
 
     target: {
       isBoss: false,
-      isNonBoss: false,
       isDolls: false,
       isDowned: false,
 

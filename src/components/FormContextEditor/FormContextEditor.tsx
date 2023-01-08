@@ -3,14 +3,18 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Divider,
   FormControl,
   FormLabel,
+  Grid,
   Stack,
+  Typography,
 } from "@mui/material";
 import { FC } from "react";
 import {
   ActionContext,
   LocationContext,
+  TargetContext,
   TimeContext,
 } from "../../assets";
 import { CustomSwitch } from "./CustomSwitch";
@@ -23,38 +27,19 @@ type ContextEditorTimeProps = {
 };
 const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
   const { value, onValueChange } = props;
-  const { isDayTime, isDuringSezunEvent, isNightTime } = value;
+  const { isDayTime, isDuringSezunEvent } = value;
 
   const handleDayTimeChange = () => {
     onValueChange((prev) => {
       const next = { ...prev };
-      next.time = { ...next.time, isDayTime: !next.time.isDayTime };
-      if (next.time.isDayTime) {
-        next.time.isNightTime = false;
-      }
-      return next;
-    });
-  };
-  const handleNightTimeChange = () => {
-    onValueChange((prev) => {
-      const next = { ...prev };
-      next.time = {
-        ...next.time,
-        isNightTime: !next.time.isNightTime,
-      };
-      if (next.time.isNightTime) {
-        next.time.isDayTime = false;
-      }
+      next.time.isDayTime = !prev.time.isDayTime;
       return next;
     });
   };
   const handleSezunChange = () => {
     onValueChange((prev) => {
       const next = { ...prev };
-      next.time = {
-        ...next.time,
-        isDuringSezunEvent: !next.time.isDuringSezunEvent,
-      };
+      next.time.isDuringSezunEvent = !prev.time.isDuringSezunEvent;
       return next;
     });
   };
@@ -62,23 +47,21 @@ const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
     <FormControl>
       <FormLabel>Time</FormLabel>
       <CustomSwitch
-        slotLabel="Is daytime"
-        slotTooltip=""
-        checked={isDayTime}
-        onClick={handleDayTimeChange}
-      />
-      <CustomSwitch
-        slotLabel="Is nighttime"
-        slotTooltip=""
-        checked={isNightTime}
-        onClick={handleNightTimeChange}
-      />
-      <CustomSwitch
-        slotLabel="Is during Sezun"
+        slotLabel="Sezun event"
         slotTooltip=""
         checked={isDuringSezunEvent}
         onClick={handleSezunChange}
       />
+      <Stack spacing={1} alignItems="center" direction="row">
+        <Typography>Night time</Typography>
+        <CustomSwitch
+          slotLabel=""
+          slotTooltip=""
+          checked={isDayTime}
+          onClick={handleDayTimeChange}
+        />
+        <Typography>Day time</Typography>
+      </Stack>
     </FormControl>
   );
 };
@@ -98,10 +81,7 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   const handleKvarisChange = () => {
     onValueChange((prev) => {
       const next = { ...prev };
-      next.location = {
-        ...next.location,
-        kvaris: !next.location.kvaris,
-      };
+      next.location.kvaris = !prev.location.kvaris;
       if (next.location.kvaris) {
         next.location.geometricLabyrinth = false;
       }
@@ -111,10 +91,8 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   const handleGeoChange = () => {
     onValueChange((prev) => {
       const next = { ...prev };
-      next.location = {
-        ...next.location,
-        geometricLabyrinth: !next.location.geometricLabyrinth,
-      };
+      next.location.geometricLabyrinth =
+        !prev.location.geometricLabyrinth;
       if (next.location.geometricLabyrinth) {
         next.location.kvaris = false;
       }
@@ -125,17 +103,179 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
     <FormControl>
       <FormLabel>Location</FormLabel>
       <CustomSwitch
-        slotLabel="In Kvaris"
+        slotLabel="in Kvaris region"
         slotTooltip=""
         checked={kvaris}
         onClick={handleKvarisChange}
       />
       <CustomSwitch
-        slotLabel="In Geometric Labyrinth"
+        slotLabel="in Geometric Labyrinth"
         slotTooltip=""
         checked={geometricLabyrinth}
         onClick={handleGeoChange}
       />
+    </FormControl>
+  );
+};
+
+type ContextEditorTargetProps = {
+  value: TargetContext;
+  onValueChange: (
+    value: ActionContext | ((prev: ActionContext) => ActionContext),
+  ) => void;
+};
+const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
+  const { value, onValueChange } = props;
+  const {
+    isBoss,
+    isDolls,
+    isDowned,
+    isWeakToDark,
+    isWeakToFire,
+    isWeakToIce,
+    isWeakToLight,
+    isWeakToLightning,
+    isWeakToWind,
+  } = value;
+
+  const handleBossChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isBoss = !prev.target.isBoss;
+      return next;
+    });
+  };
+  const handleDollsChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isDolls = !prev.target.isDolls;
+      return next;
+    });
+  };
+  const handleDownedChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isDowned = !prev.target.isDowned;
+      return next;
+    });
+  };
+  const handleWeakFireChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToFire = !prev.target.isWeakToFire;
+      return next;
+    });
+  };
+  const handleWeakDarkChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToDark = !prev.target.isWeakToDark;
+      return next;
+    });
+  };
+  const handleWeakIceChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToIce = !prev.target.isWeakToIce;
+      return next;
+    });
+  };
+  const handleWeakWindChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToWind = !prev.target.isWeakToWind;
+      return next;
+    });
+  };
+  const handleWeakLightningChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToLightning = !prev.target.isWeakToLightning;
+      return next;
+    });
+  };
+  const handleWeakLightChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.target.isWeakToLight = !prev.target.isWeakToLight;
+      return next;
+    });
+  };
+  return (
+    <FormControl>
+      <FormLabel>Target</FormLabel>
+      <Stack spacing={1} direction="row" alignItems="center">
+        <Typography>Non-boss enemy</Typography>
+        <CustomSwitch
+          slotLabel=""
+          slotTooltip=""
+          checked={isBoss}
+          onClick={handleBossChange}
+        />
+        <Typography>Boss enemy</Typography>
+      </Stack>
+      <CustomSwitch
+        slotLabel="is DOLLS"
+        slotTooltip=""
+        checked={isDolls}
+        onClick={handleDollsChange}
+      />
+      <CustomSwitch
+        slotLabel="is downed"
+        slotTooltip=""
+        checked={isDowned}
+        onClick={handleDownedChange}
+      />
+      <Grid container columns={{ xs: 1, sm: 2 }}>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to FIRE"
+            slotTooltip=""
+            checked={isWeakToFire}
+            onClick={handleWeakFireChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to ICE"
+            slotTooltip=""
+            checked={isWeakToIce}
+            onClick={handleWeakIceChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to LIGHTNING"
+            slotTooltip=""
+            checked={isWeakToLightning}
+            onClick={handleWeakLightningChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to WIND"
+            slotTooltip=""
+            checked={isWeakToWind}
+            onClick={handleWeakWindChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to LIGHT"
+            slotTooltip=""
+            checked={isWeakToLight}
+            onClick={handleWeakLightChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <CustomSwitch
+            slotLabel="is weak to DARK"
+            slotTooltip=""
+            checked={isWeakToDark}
+            onClick={handleWeakDarkChange}
+          />
+        </Grid>
+      </Grid>
     </FormControl>
   );
 };
@@ -163,13 +303,17 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
       />
       <CardContent>
         <Box>
-          <Stack spacing={2}>
+          <Stack spacing={2} divider={<Divider flexItem />}>
             <ContextEditorTime
               value={time}
               onValueChange={onFormDataChange}
             />
             <ContextEditorLocation
               value={location}
+              onValueChange={onFormDataChange}
+            />
+            <ContextEditorTarget
+              value={target}
               onValueChange={onFormDataChange}
             />
           </Stack>
