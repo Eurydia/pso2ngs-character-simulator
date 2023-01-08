@@ -10,12 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 
-type CustomCardProps = {
+type LinkCardProps = {
   destination: string;
   title: string;
   desc: string;
 };
-export const CustomCard: FC<CustomCardProps> = (props) => {
+export const LinkCard: FC<LinkCardProps> = (props) => {
   return (
     <Card variant="outlined" sx={{ padding: 1 }}>
       <CardHeader
@@ -41,5 +41,3 @@ export const CustomCard: FC<CustomCardProps> = (props) => {
     </Card>
   );
 };
-
-export default CustomCard;

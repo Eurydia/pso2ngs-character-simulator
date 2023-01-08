@@ -9,60 +9,79 @@ import {
   Stack,
 } from "@mui/material";
 
-import { StatView } from "../../components";
-import { StatObject } from "../../assets";
+import { FormContextEditor, StatView } from "../../components";
+import { ActionContext, StatObject } from "../../assets";
 
-import { CustomCard } from "./CustomCard";
+import { LinkCard } from "./LinkCard";
 
 type PageHomeProps = {
   stat: StatObject;
+  context: ActionContext;
+  onContextChange: (
+    value: ActionContext | ((prev: ActionContext) => ActionContext),
+  ) => void;
 };
 export const PageHome: FC<PageHomeProps> = (props) => {
-  const { stat } = props;
+  const { stat, context, onContextChange } = props;
 
   return (
     <Container maxWidth="lg">
       <Box margin={4}>
-        <Grid container columns={{ xs: 1, md: 2 }} spacing={1}>
+        <Grid container columns={{ xs: 1, md: 2 }} spacing={2}>
           <Grid item xs={1}>
-            <Stack spacing={1}>
-              <CustomCard
-                title="Equipment"
-                desc="It's dangerous to go alone."
-                destination="/config-equipment"
-              />
-              <CustomCard
-                title="Food"
-                desc="Invent the best snack of all time."
-                destination="/config-food"
-              />
-              <CustomCard
-                title="Class & Skill tree"
-                destination="/config-character"
-                desc="Character class and skills."
-              />
-              <CustomCard
-                title="Addons"
-                desc="Account-wide effects."
-                destination="/config-addon"
-              />
-              <CustomCard
-                title="External effects"
-                desc="Effects caused by others."
-                destination="/config-buffs"
-              />
-            </Stack>
+            <FormContextEditor
+              formValue={context}
+              onFormValueChange={onContextChange}
+            />
           </Grid>
           <Grid item xs={1}>
-            <Card>
+            <Card variant="outlined" sx={{ padding: 1 }}>
               <CardHeader
                 title="Overview"
-                titleTypographyProps={{ fontWeight: "bold" }}
+                titleTypographyProps={{
+                  fontWeight: "bold",
+                  fontSize: "x-large",
+                }}
               />
               <CardContent>
                 <StatView stat={stat} maxHeight="" />
               </CardContent>
             </Card>
+          </Grid>
+          <Grid item xs={1}>
+            <LinkCard
+              title="Equipment"
+              desc="It's dangerous to go alone."
+              destination="/config-equipment"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <LinkCard
+              title="Food"
+              desc="Invent the best snack of all time."
+              destination="/config-food"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <LinkCard
+              title="Class & Skill tree"
+              destination="/config-character"
+              desc="Character class and skills."
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <LinkCard
+              title="Addons"
+              desc="Account-wide effects."
+              destination="/config-addon"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <LinkCard
+              title="External effects"
+              desc="Effects caused by others."
+              destination="/config-buffs"
+            />
           </Grid>
         </Grid>
       </Box>
