@@ -26,7 +26,11 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
     onFormValueChange(({ time, ...rest }) => {
       return {
         ...rest,
-        time: { ...time, isNightTime: false, isDayTime: true },
+        time: {
+          ...time,
+          isNightTime: !(time && time.isNightTime),
+          isDayTime: !(time && time.isDayTime),
+        },
       };
     });
   };
@@ -34,7 +38,11 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
     onFormValueChange(({ time, ...rest }) => {
       return {
         ...rest,
-        time: { ...time, isNightTime: true, isDayTime: false },
+        time: {
+          ...time,
+          isNightTime: !(time && time.isNightTime),
+          isDayTime: !(time && time.isDayTime),
+        },
       };
     });
   };
@@ -42,21 +50,21 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
     onFormValueChange(({ time, ...rest }) => {
       return {
         ...rest,
-        time: { ...time, isDuringSezunEvent: true },
+        time: {
+          ...time,
+          isDuringSezunEvent: !(time && time.isDuringSezunEvent),
+        },
       };
     });
   };
 
   return (
-    <Card>
+    <Card variant="outlined" sx={{ padding: 1 }}>
       <CardHeader
         title="Context"
         titleTypographyProps={{
           fontWeight: "bold",
           fontSize: "x-large",
-        }}
-        sx={{
-          padding: 1,
         }}
       />
       <CardContent>

@@ -16,7 +16,6 @@ import {
 import { Assignment } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
-import { useFormUnit, useFormWeapon } from "../../hooks";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import {
   FormDataUnit,
@@ -59,20 +58,50 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 };
 
 type PageEditEquipmentProps = {
-  storageKey: string;
   context: ActionContext;
+  weapon: FormDataWeapon;
+  unitA: FormDataUnit;
+  unitB: FormDataUnit;
+  unitC: FormDataUnit;
+
+  onWeaponChange: (
+    data: FormDataWeapon | ((prev: FormDataWeapon) => FormDataWeapon),
+  ) => void;
+  onUnitChangeA: (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ) => void;
+  onUnitChangeB: (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ) => void;
+  onUnitChangeC: (
+    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
+  ) => void;
+
+  onUnitSyncA: () => void;
+  onUnitSyncB: () => void;
+  onUnitSyncC: () => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { context: ctx, storageKey } = props;
+  const {
+    context,
+
+    weapon,
+    unitA,
+    unitB,
+    unitC,
+    onWeaponChange,
+    onUnitChangeA,
+    onUnitChangeB,
+    onUnitChangeC,
+
+    onUnitSyncA,
+    onUnitSyncB,
+    onUnitSyncC,
+  } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const [weapon, setWeapon] = useFormWeapon(`${storageKey}-eq-w`);
-  const [unitA, setUnitA] = useFormUnit(`${storageKey}-eq-ua`);
-  const [unitB, setUnitB] = useFormUnit(`${storageKey}-eq-ub`);
-  const [unitC, setUnitC] = useFormUnit(`${storageKey}-eq-uc`);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -82,64 +111,19 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setDialogOpen(false);
   };
 
-  const handleWeaponChange = (
-    data: FormDataWeapon | ((prev: FormDataWeapon) => FormDataWeapon),
-  ) => {
-    setWeapon(data);
-  };
-
-  const handleUnitChangeA = (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ): void => {
-    setUnitA(data);
-  };
-
-  const handleUnitChangeB = (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ): void => {
-    setUnitB(data);
-  };
-
-  const handleUnitChangeC = (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ): void => {
-    setUnitC(data);
-  };
-
-  const handleSyncUnitA = () => {
-    handleUnitChangeB(unitA);
-    handleUnitChangeC(unitA);
-  };
-
-  const handleSyncUnitB = () => {
-    handleUnitChangeA(unitB);
-    handleUnitChangeC(unitB);
-  };
-
-  const handleSyncUnitC = () => {
-    handleUnitChangeA(unitC);
-    handleUnitChangeB(unitC);
-  };
-
   const summary_weapon = FormDataWeapon.getSummaryObject(weapon);
   const summary_unit_a = FormDataUnit.getSummaryObject(unitA);
   const summary_unit_b = FormDataUnit.getSummaryObject(unitB);
   const summary_unit_c = FormDataUnit.getSummaryObject(unitC);
 
-  const stat_weapon = FormDataWeapon.getStatObject(ctx, weapon);
-  const stat_unit_a = FormDataUnit.getStatObject(ctx, unitA);
-  const stat_unit_b = FormDataUnit.getStatObject(ctx, unitB);
-  const stat_unit_c = FormDataUnit.getStatObject(ctx, unitC);
+  const stat_weapon = FormDataWeapon.getStatObject(context, weapon);
+  const stat_unit_a = FormDataUnit.getStatObject(context, unitA);
+  const stat_unit_b = FormDataUnit.getStatObject(context, unitB);
+  const stat_unit_c = FormDataUnit.getStatObject(context, unitC);
 
-  const stat_total = useMemo(() => {
-    let result = StatObject.merge(stat_weapon, stat_unit_a);
-    result = StatObject.merge(result, stat_unit_b);
-    result = StatObject.merge(result, stat_unit_c);
-
-    localStorage.setItem(storageKey, StatObject.toString(result));
-
-    return result;
-  }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
+  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
+  stat_total = StatObject.merge(stat_total, stat_unit_b);
+  stat_total = StatObject.merge(stat_total, stat_unit_c);
 
   return (
     <Fragment>
@@ -172,28 +156,28 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
               cardTitle="Weapon"
               stat={stat_weapon}
               formValue={weapon}
-              onFormValueChange={handleWeaponChange}
+              onFormValueChange={onWeaponChange}
             />
             <FormUnit
               cardTitle="Unit A"
               stat={stat_unit_a}
               formValue={unitA}
-              onFormValueChange={handleUnitChangeA}
-              onSync={handleSyncUnitA}
+              onFormValueChange={onUnitChangeA}
+              onSync={onUnitSyncA}
             />
             <FormUnit
               cardTitle="Unit B"
               stat={stat_unit_b}
               formValue={unitB}
-              onFormValueChange={handleUnitChangeB}
-              onSync={handleSyncUnitB}
+              onFormValueChange={onUnitChangeB}
+              onSync={onUnitSyncB}
             />
             <FormUnit
               cardTitle="Unit C"
               stat={stat_unit_c}
               formValue={unitC}
-              onFormValueChange={handleUnitChangeC}
-              onSync={handleSyncUnitC}
+              onFormValueChange={onUnitChangeC}
+              onSync={onUnitSyncC}
             />
           </Stack>
         </Box>
