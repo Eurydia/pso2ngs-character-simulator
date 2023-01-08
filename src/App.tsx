@@ -12,7 +12,7 @@ import { Home } from "@mui/icons-material";
 
 import { style_overrides } from "./theme";
 import { PageEditEquipment, PageEditFood, PageHome } from "./pages";
-import { Food, statObject, StatObject } from "./assets";
+import { Food, StatObject } from "./assets";
 import {
   useFood,
   useFormActionContext,
@@ -24,18 +24,6 @@ import { FormDataUnit, FormDataWeapon } from "./types";
 const STORAGE_KEY_EQUIPMENT: string = "p-eq";
 const STORAGE_KEY_FOOD: string = "p-f";
 const STORAGE_KEY_CONTEXT: string = "p-c";
-
-const retrieveStat = (key: string): StatObject => {
-  const loaded_string: string | null = localStorage.getItem(key);
-  if (loaded_string === null) {
-    return statObject();
-  }
-  try {
-    return JSON.parse(loaded_string);
-  } catch (e) {
-    return statObject();
-  }
-};
 
 function App() {
   const [context, setContext] = useFormActionContext(

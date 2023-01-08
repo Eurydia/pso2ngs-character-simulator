@@ -27,27 +27,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
   return (
     <Container maxWidth="lg">
       <Box margin={4}>
-        <Grid container columns={{ xs: 1, md: 2 }} spacing={2}>
-          <Grid item xs={1}>
-            <FormContextEditor
-              formValue={context}
-              onFormValueChange={onContextChange}
-            />
-          </Grid>
-          <Grid item xs={1}>
-            <Card variant="outlined" sx={{ padding: 1 }}>
-              <CardHeader
-                title="Overview"
-                titleTypographyProps={{
-                  fontWeight: "bold",
-                  fontSize: "x-large",
-                }}
-              />
-              <CardContent>
-                <StatView stat={stat} maxHeight="" />
-              </CardContent>
-            </Card>
-          </Grid>
+        <Grid container spacing={2} columns={{ xs: 1, md: 2 }}>
           <Grid item xs={1}>
             <LinkCard
               title="Equipment"
@@ -82,6 +62,27 @@ export const PageHome: FC<PageHomeProps> = (props) => {
               desc="Effects caused by others."
               destination="/config-buffs"
             />
+          </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={1}>
+            <FormContextEditor
+              formValue={context}
+              onFormValueChange={onContextChange}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <Card variant="outlined" sx={{ padding: 1 }}>
+              <CardHeader
+                title="Overview"
+                titleTypographyProps={{
+                  fontWeight: "bold",
+                  fontSize: "x-large",
+                }}
+              />
+              <CardContent>
+                <StatView stat={stat} maxHeight="" />
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </Box>
