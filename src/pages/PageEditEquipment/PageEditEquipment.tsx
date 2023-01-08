@@ -1,4 +1,4 @@
-import { FC, Fragment, useMemo, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import {
   Box,
   Button,
@@ -76,10 +76,6 @@ type PageEditEquipmentProps = {
   onUnitChangeC: (
     data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
   ) => void;
-
-  onUnitSyncA: () => void;
-  onUnitSyncB: () => void;
-  onUnitSyncC: () => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
@@ -95,10 +91,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     onUnitChangeA,
     onUnitChangeB,
     onUnitChangeC,
-
-    onUnitSyncA,
-    onUnitSyncB,
-    onUnitSyncC,
   } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -109,6 +101,21 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleUnitSyncA = () => {
+    onUnitChangeB(unitA);
+    onUnitChangeC(unitA);
+  };
+
+  const handleUnitSyncB = () => {
+    onUnitChangeA(unitB);
+    onUnitChangeC(unitB);
+  };
+
+  const handleUnitSyncC = () => {
+    onUnitChangeA(unitC);
+    onUnitChangeB(unitC);
   };
 
   const summary_weapon = FormDataWeapon.getSummaryObject(weapon);
@@ -163,21 +170,21 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
               stat={stat_unit_a}
               formValue={unitA}
               onFormValueChange={onUnitChangeA}
-              onSync={onUnitSyncA}
+              onSync={handleUnitSyncA}
             />
             <FormUnit
               cardTitle="Unit B"
               stat={stat_unit_b}
               formValue={unitB}
               onFormValueChange={onUnitChangeB}
-              onSync={onUnitSyncB}
+              onSync={handleUnitSyncB}
             />
             <FormUnit
               cardTitle="Unit C"
               stat={stat_unit_c}
               formValue={unitC}
               onFormValueChange={onUnitChangeC}
-              onSync={onUnitSyncC}
+              onSync={handleUnitSyncC}
             />
           </Stack>
         </Box>

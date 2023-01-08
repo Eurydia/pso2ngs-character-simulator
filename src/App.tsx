@@ -1,8 +1,6 @@
-import { useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import {
   AppBar,
-  Container,
   CssBaseline,
   GlobalStyles,
   IconButton,
@@ -12,10 +10,11 @@ import {
 } from "@mui/material";
 import { Home } from "@mui/icons-material";
 
-import { PageEditEquipment, PageEditFood, PageHome } from "./pages";
 import { style_overrides } from "./theme";
-import { statObject, StatObject, Weapon } from "./assets";
+import { PageEditEquipment, PageEditFood, PageHome } from "./pages";
+import { Food, statObject, StatObject } from "./assets";
 import {
+  useFood,
   useFormActionContext,
   useFormUnit,
   useFormWeapon,
@@ -39,6 +38,9 @@ const retrieveStat = (key: string): StatObject => {
 };
 
 function App() {
+  const [context, setContext] = useFormActionContext(
+    STORAGE_KEY_CONTEXT,
+  );
   const [weapon, setWeapon] = useFormWeapon(
     `${STORAGE_KEY_EQUIPMENT}-eq-w`,
   );
@@ -52,37 +54,20 @@ function App() {
     `${STORAGE_KEY_EQUIPMENT}-eq-uc`,
   );
 
-  const [context, setContext] = useFormActionContext(
-    STORAGE_KEY_CONTEXT,
+  const [foodItems, foodItemAdd, foodItemRemove] = useFood(
+    `${STORAGE_KEY_FOOD}-i`,
   );
 
-  const handleUnitSyncA = () => {
-    setUnitB(unitA);
-    setUnitC(unitA);
-  };
+  const stat_weapon = FormDataWeapon.getStatObject(context, weapon);
+  const stat_unit_a = FormDataUnit.getStatObject(context, unitA);
+  const stat_unit_b = FormDataUnit.getStatObject(context, unitB);
+  const stat_unit_c = FormDataUnit.getStatObject(context, unitC);
 
-  const handleUnitSyncB = () => {
-    setUnitA(unitB);
-    setUnitC(unitB);
-  };
+  let stat_equipment = StatObject.merge(stat_weapon, stat_unit_a);
+  stat_equipment = StatObject.merge(stat_equipment, stat_unit_b);
+  stat_equipment = StatObject.merge(stat_equipment, stat_unit_c);
 
-  const handleUnitSyncC = () => {
-    setUnitA(unitC);
-    setUnitB(unitC);
-  };
-
-  const stat_equipment: StatObject = useMemo(() => {
-    const stat_weapon = FormDataWeapon.getStatObject(context, weapon);
-    const stat_unitA = FormDataUnit.getStatObject(context, unitA);
-    const stat_unitB = FormDataUnit.getStatObject(context, unitB);
-    const stat_unitC = FormDataUnit.getStatObject(context, unitC);
-
-    let result = StatObject.merge(stat_weapon, stat_unitA);
-    result = StatObject.merge(result, stat_unitB);
-    return StatObject.merge(result, stat_unitC);
-  }, [weapon, unitA, unitB, unitC, context]);
-
-  const stat_food = retrieveStat(STORAGE_KEY_FOOD);
+  const stat_food = Food.getStatObject(context, foodItems);
 
   let stat_total = StatObject.merge(stat_equipment, stat_food);
 
@@ -128,9 +113,6 @@ function App() {
                 onUnitChangeA={setUnitA}
                 onUnitChangeB={setUnitB}
                 onUnitChangeC={setUnitC}
-                onUnitSyncA={handleUnitSyncA}
-                onUnitSyncB={handleUnitSyncB}
-                onUnitSyncC={handleUnitSyncC}
               />
             }
           />
@@ -143,7 +125,9 @@ function App() {
             element={
               <PageEditFood
                 context={context}
-                storageKey={STORAGE_KEY_FOOD}
+                values={foodItems}
+                onValueAdd={foodItemAdd}
+                onValueRemove={foodItemRemove}
               />
             }
           />

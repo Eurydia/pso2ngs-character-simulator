@@ -1,35 +1,30 @@
-import { FC, useMemo, useEffect } from "react";
+import { FC } from "react";
 import { Box, Container } from "@mui/material";
 
-import { ActionContext, Food, StatObject } from "../../assets";
-import { useFood } from "../../hooks";
+import { ActionContext, Food } from "../../assets";
 import { FormFood } from "../../components";
 
 type PageEditFoodProps = {
-  storageKey: string;
   context: ActionContext;
+  values: Food[];
+  onValueAdd: (index: number, item: Food) => void;
+  onValueRemove: (index: number) => void;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
-  const { context: ctx, storageKey } = props;
+  const { context, values, onValueAdd, onValueRemove } = props;
 
-  const [items, onItemAdd, onItemRemove] = useFood(`${storageKey}-i`);
+  // const [items, onItemAdd, onItemRemove] = useFood(`${storageKey}-i`);
 
-  const stat_total = useMemo(() => {
-    return Food.getStatObject(ctx, items);
-  }, [items, ctx]);
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, StatObject.toString(stat_total));
-  }, [stat_total]);
+  const stat_total = Food.getStatObject(context, values);
 
   return (
     <Container maxWidth="md">
       <Box margin={4}>
         <FormFood
           stat={stat_total}
-          items={items}
-          onItemAdd={onItemAdd}
-          onItemRemove={onItemRemove}
+          items={values}
+          onItemAdd={onValueAdd}
+          onItemRemove={onValueRemove}
         />
       </Box>
     </Container>
