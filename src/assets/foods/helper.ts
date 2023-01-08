@@ -20,14 +20,9 @@ const getAwareStatObjectKvaris = (
     return stat;
   }
 
-  if (ctx.location === undefined) {
-    return stat;
-  }
-
   if (!ctx.location.kvaris) {
     return stat;
   }
-
   const harsh_cold: number = DATA_HARSH_COLD[level_index];
   return statObject({ [StatEnum.HARSH_COLD]: harsh_cold });
 };
@@ -44,10 +39,6 @@ const getAwareStatObjectCrispy = (
   const level_index: number = level - 4;
 
   if (level_index < 0 || DATA_DAMAGE_UP.length <= level_index) {
-    return stat;
-  }
-
-  if (ctx.character === undefined) {
     return stat;
   }
 
@@ -210,9 +201,8 @@ export const getStatObjectAttribute = (
   const stat_robust = getAwareStatObjectRich(ctx, count_robust);
   result = StatObject.merge(result, stat_robust);
 
-  const count_kvaris: number = Object.values(data).reduce((a, b) => {
-    return a + b;
-  }, 0);
+  const count_kvaris: number =
+    count_crispy + count_light + count_rich + count_rich;
   const stat_kvaris = getAwareStatObjectKvaris(ctx, count_kvaris);
   result = StatObject.merge(result, stat_kvaris);
 

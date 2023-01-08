@@ -1,4 +1,4 @@
-type TargetContext = Partial<{
+export type TargetContext = {
   isBoss: boolean;
   isNonBoss: boolean;
   isDolls: boolean;
@@ -10,9 +10,9 @@ type TargetContext = Partial<{
   isWeakToWind: boolean;
   isWeakToLight: boolean;
   isWeakToDark: boolean;
-}>;
+};
 
-type CharacterContext = Partial<{
+export type CharacterContext = {
   uniqueAugments: number;
   hasTakenDamage: boolean;
   hasActiveBarrier: boolean;
@@ -27,22 +27,22 @@ type CharacterContext = Partial<{
   hpValueCurrent: number;
   ppValue: number;
   ppValueCurrent: number;
-}>;
+};
 
-type TimeContext = Partial<{
+export type TimeContext = {
   isDayTime: boolean;
   isNightTime: boolean;
   isDuringSezunEvent: boolean;
-}>;
+};
 
-type LocationContext = Partial<{
+export type LocationContext = {
   kvaris: boolean;
   geometricLabyrinth: boolean;
-}>;
+};
 
-export type ActionContext = Partial<{
+export type ActionContext = {
   time: TimeContext;
   target: TargetContext;
   character: CharacterContext;
   location: LocationContext;
-}>;
+};

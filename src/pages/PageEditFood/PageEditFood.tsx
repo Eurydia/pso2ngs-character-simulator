@@ -13,8 +13,6 @@ type PageEditFoodProps = {
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   const { context, values, onValueAdd, onValueRemove } = props;
 
-  // const [items, onItemAdd, onItemRemove] = useFood(`${storageKey}-i`);
-
   const stat_total = Food.getStatObject(context, values);
 
   return (

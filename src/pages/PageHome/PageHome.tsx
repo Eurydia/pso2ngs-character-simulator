@@ -66,8 +66,8 @@ export const PageHome: FC<PageHomeProps> = (props) => {
           <Grid item xs={1} />
           <Grid item xs={1}>
             <FormContextEditor
-              formValue={context}
-              onFormValueChange={onContextChange}
+              formData={context}
+              onFormDataChange={onContextChange}
             />
           </Grid>
           <Grid item xs={1}>
