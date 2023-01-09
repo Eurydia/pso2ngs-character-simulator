@@ -59,33 +59,22 @@ export const DEFENSIVE_FORMATION = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const def_breakoff: number = DATA_DEF_BREAKOFF[level_index];
-    let stat: StatObject = statObject({
+    const defense_breakoff: number = DATA_DEF_BREAKOFF[level_index];
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { defenseValue } = ctx.character;
+    if (defenseValue < defense_breakoff) {
       return stat;
     }
-
-    const char_defense: number | undefined =
-      ctx.character.defenseValue;
-
-    if (char_defense === undefined) {
-      return stat;
-    }
-
-    if (char_defense >= def_breakoff) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance,
+    );
   };
   return potential(
     "Defensive Formation",
@@ -104,33 +93,22 @@ export const OFFENSIVE_FORMATION = (() => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const atk_breakoff: number = DATA_ATK_BREAKOFF[level_index];
-
-    let stat: StatObject = statObject({
+    const attack_breakoff: number = DATA_ATK_BREAKOFF[level_index];
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { attackValue } = ctx.character;
+    if (attackValue < attack_breakoff) {
       return stat;
     }
-
-    const char_attack: number | undefined = ctx.character.attackValue;
-
-    if (char_attack === undefined) {
-      return stat;
-    }
-
-    if (char_attack >= atk_breakoff) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance,
+    );
   };
   return potential(
     "Offensive Formation",
@@ -165,25 +143,20 @@ export const DYNAMO_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
-
-    if (ctx.character.hasDodgedAttack) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance,
+    );
   };
   return potential(
     "Dynamo Formation",
@@ -201,45 +174,22 @@ export const MUSTERED_MIGHT_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { hpValue, hpValueCurrent } = ctx.character;
+    if (hpValueCurrent < hpValue) {
       return stat;
     }
-
-    if (
-      ctx.character.hpValue === undefined ||
-      ctx.character.hpValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const hp_current: number = ctx.character.hpValueCurrent;
-    const hp: number = ctx.character.hpValue;
-
-    if (hp_current === hp) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_MELEE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_RANGED,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_TECHNIQUE,
-        weapon_up_extra,
-      );
-    }
-    return stat;
+    const stat_up: StatObject = statObject({
+      [StatEnum.WEAPON_MELEE]: weapon_up_extra,
+      [StatEnum.WEAPON_RANGED]: weapon_up_extra,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up_extra,
+    });
+    return StatObject.merge(stat, stat_up);
   };
   return potential(
     "Mustered Might Unit",
@@ -257,36 +207,22 @@ export const BASTION_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { hpValue, hpValueCurrent } = ctx.character;
+    const hp_percent: number = hpValueCurrent / hpValue;
+    if (hp_percent < 0.8) {
       return stat;
     }
-
-    if (
-      ctx.character.hpValue === undefined ||
-      ctx.character.hpValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const hp_current = ctx.character.hpValueCurrent;
-    const hp = ctx.character.hpValue;
-    const hp_percent = hp_current / hp;
-
-    if (hp_percent >= 0.8) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      damage_res,
+    );
   };
   return potential("Bastion Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -341,25 +277,20 @@ export const SOULSPRING_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pb_recovery: number = DATA_PB_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.isAttacking) {
       return stat;
     }
-
-    if (ctx.character.isAttacking) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_PB_RECOVERY,
-        pb_recovery,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_PB_RECOVERY,
+      pb_recovery,
+    );
   };
   return potential("Soulspring Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -373,26 +304,20 @@ export const FORTRESS_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasActiveBarrier) {
       return stat;
     }
-
-    if (ctx.character.hasActiveBarrier) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      damage_res,
+    );
   };
   return potential("Fortress Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -406,32 +331,12 @@ export const REINVIGORATING_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp: number = DATA_PP[level_index];
-    let stat: StatObject = statObject({
+    return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
-      return stat;
-    }
-
-    if (
-      ctx.character.hpValue === undefined ||
-      ctx.character.hpValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const hp_current: number = ctx.character.hpValueCurrent;
-    const hp: number = ctx.character.hpValue;
-    const hp_percent: number = hp_current / hp;
-
-    if (hp_percent <= 0.5 && ctx.character.isAttacking) {
-      stat = StatObject.setStat(stat, StatEnum.CORE_PP, pp);
-    }
-    return stat;
   };
   return potential(
     "Reinvigorating Unit",
@@ -471,35 +376,23 @@ export const FIGHTING_SPIRIT_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
-      [StatEnum.WEAPON_MELEE]: weapon_up,
-      [StatEnum.WEAPON_RANGED]: weapon_up,
-      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.target === undefined) {
-      return stat;
+    if (!ctx.target.isBoss) {
+      const stat_up: StatObject = statObject({
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      });
+      return StatObject.merge(stat, stat_up);
     }
-
-    if (ctx.target.isBoss) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_MELEE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_RANGED,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_TECHNIQUE,
-        weapon_up_extra,
-      );
-    }
-    return stat;
+    const stat_up_extra: StatObject = statObject({
+      [StatEnum.WEAPON_MELEE]: weapon_up_extra,
+      [StatEnum.WEAPON_RANGED]: weapon_up_extra,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up_extra,
+    });
+    return StatObject.merge(stat, stat_up_extra);
   };
   return potential(
     "Fighting Spirit Unit",
@@ -571,30 +464,16 @@ export const HARMONIOUS_UNIT = ((): Potential => {
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
       [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
     });
-
-    if (ctx.character === undefined) {
+    const { hpValue, hpValueCurrent } = ctx.character;
+    const hp_percent: number = hpValueCurrent / hpValue;
+    if (hp_percent < hp_breakpoint) {
       return stat;
     }
-
-    if (
-      ctx.character.hpValue === undefined ||
-      ctx.character.hpValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const hp_current: number = ctx.character.hpValueCurrent;
-    const hp: number = ctx.character.hpValue;
-    const hp_percent: number = hp_current / hp;
-
-    if (hp_percent >= hp_breakpoint) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance_extra,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance_extra,
+    );
   };
   return potential("Harmonious Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -604,37 +483,20 @@ export const IMBUED_UNIT = ((): Potential => {
   const DATA_PP_USAGE: number[] = [0.9, 0.9, 0.9, 0.9, 0.85];
   const DATA_PP_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.3];
   const _getter = (
-    ctx: ActionContext,
+    _: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_usage: number = DATA_PP_USAGE[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    return statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
       [StatEnum.ADV_PP_USAGE]: pp_usage,
+      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
     });
-
-    if (ctx.character === undefined) {
-      return stat;
-    }
-
-    if (ctx.character.isAttacking) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_ACTIVE_RECOVERY,
-        pp_recovery,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_NATURAL_RECOVERY,
-        pp_recovery,
-      );
-    }
-    return stat;
   };
   return potential("Imbued Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -653,35 +515,22 @@ export const VIRTUOSO_UNIT = ((): Potential => {
     const effect_multiplier: number =
       DATA_EFFECT_MULTIPLIER[level_index];
     const effect_max: number = DATA_EFFECT_MAX[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
-      return stat;
+    const { uniqueAugments } = ctx.character;
+    let effect_value: number = uniqueAugments * effect_multiplier;
+    if (effect_value > effect_max) {
+      effect_value = effect_max;
     }
-
-    if (ctx.character.uniqueAugments !== undefined) {
-      const unique_augments: number = ctx.character.uniqueAugments;
-      let effect_value: number = unique_augments * effect_multiplier;
-      if (effect_value > effect_max) {
-        effect_value = effect_max;
-      }
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_HEALING,
-        effect_value,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_USAGE,
-        2 - effect_value,
-      );
-    }
-    return stat;
+    const stat_up: StatObject = statObject({
+      [StatEnum.ADV_DEF_HEALING]: effect_value,
+      [StatEnum.ADV_PP_USAGE]: 2 - effect_value,
+    });
+    return StatObject.merge(stat, stat_up);
   };
   return potential("Virtuoso Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -699,40 +548,22 @@ export const UNASSAILABLE_UNIT = ((): Potential => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.location === undefined) {
+    if (!ctx.location.geometricLabyrinth) {
       return stat;
     }
-
-    if (ctx.location.geometricLabyrinth) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_MELEE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_RANGED,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_TECHNIQUE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-    return stat;
+    const stat_up: StatObject = statObject({
+      [StatEnum.WEAPON_MELEE]: weapon_up_extra,
+      [StatEnum.WEAPON_RANGED]: weapon_up_extra,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up_extra,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+    });
+    return StatObject.merge(stat, stat_up);
   };
   return potential(
     "Unassailable Unit",
@@ -750,25 +581,20 @@ export const ELUSIVE_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
-
-    if (ctx.character.hasDodgedAttack) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_NATURAL_RECOVERY,
-        pp_recovery,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_PP_NATURAL_RECOVERY,
+      pp_recovery,
+    );
   };
   return potential("Elusive Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -784,35 +610,23 @@ export const TRAMPLE_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
-      [StatEnum.WEAPON_MELEE]: weapon_up,
-      [StatEnum.WEAPON_RANGED]: weapon_up,
-      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.target === undefined) {
-      return stat;
+    if (ctx.target.isBoss) {
+      const stat_up: StatObject = statObject({
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      });
+      return StatObject.merge(stat, stat_up);
     }
-
-    if (ctx.target.isNonBoss) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_MELEE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_RANGED,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_TECHNIQUE,
-        weapon_up_extra,
-      );
-    }
-    return stat;
+    const stat_up_extra: StatObject = statObject({
+      [StatEnum.WEAPON_MELEE]: weapon_up_extra,
+      [StatEnum.WEAPON_RANGED]: weapon_up_extra,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up_extra,
+    });
+    return StatObject.merge(stat, stat_up_extra);
   };
   return potential("Trample Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -826,25 +640,20 @@ export const STACCATO_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.isAttacking) {
       return stat;
     }
-
-    if (ctx.character.isAttacking) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_ACTIVE_RECOVERY,
-        pp_recovery,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_PP_ACTIVE_RECOVERY,
+      pp_recovery,
+    );
   };
   return potential("Staccato Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -860,36 +669,22 @@ export const DESPERATION_UNIT = ((): Potential => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const pp_breakpoint: number = DATA_PP_BREAKOFF[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { ppValue, ppValueCurrent } = ctx.character;
+    const pp_percent: number = ppValueCurrent / ppValue;
+    if (pp_percent >= pp_breakpoint) {
       return stat;
     }
-
-    if (
-      ctx.character.ppValue === undefined ||
-      ctx.character.ppValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const pp: number = ctx.character.ppValue;
-    const pp_current: number = ctx.character.ppValueCurrent;
-    const pp_percent: number = pp_current / pp;
-
-    if (pp_percent < pp_breakpoint) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance,
+    );
   };
   return potential(
     "Desperation Unit",
@@ -907,30 +702,20 @@ export const REVOLUTIONARY_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasTakenDamage) {
       return stat;
     }
-
-    if (ctx.character.hasTakenDamage) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_ACTIVE_RECOVERY,
-        pp_recovery,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_NATURAL_RECOVERY,
-        pp_recovery,
-      );
-    }
-    return stat;
+    const stat_up: StatObject = statObject({
+      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
+      [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
+    });
+    return StatObject.merge(stat, stat_up);
   };
   return potential(
     "Revolutionary Unit",
@@ -948,25 +733,20 @@ export const ILLUSORY_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const recovery_up: number = DATA_RECOVERY_UP[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
-
-    if (ctx.character.hasDodgedAttack) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_NATURAL_RECOVERY,
-        recovery_up,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_PP_NATURAL_RECOVERY,
+      recovery_up,
+    );
   };
   return potential("Illurosy Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -982,36 +762,22 @@ export const IMPERVIOUS_UNIT = ((): Potential => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
     const hp_breakoff: number = DATA_HP_BREAKOFF[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    const { hpValue, hpValueCurrent } = ctx.character;
+    const hp_percent: number = hpValueCurrent / hpValue;
+    if (hp_percent < hp_breakoff) {
       return stat;
     }
-
-    if (
-      ctx.character.hpValue === undefined ||
-      ctx.character.hpValueCurrent === undefined
-    ) {
-      return stat;
-    }
-
-    const hp_current: number = ctx.character.hpValueCurrent;
-    const hp: number = ctx.character.hpValue;
-    const hp_percent: number = hp_current / hp;
-
-    if (hp_percent >= hp_breakoff) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      damage_res,
+    );
   };
   return potential("Impervious Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -1042,25 +808,20 @@ export const CITADEL_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasActiveBarrier) {
       return stat;
     }
-
-    if (ctx.character.hasActiveBarrier) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_DEF_DAMAGE_RES,
+      damage_res,
+    );
   };
   return potential("Citadel Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -1098,7 +859,7 @@ export const TEMPERED_FORM = ((): Potential => {
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const pp_usage: number = DATA_PP_USAGE[level_index];
     const pb_recovery: number = DATA_PB_RECOVERY[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
@@ -1106,19 +867,14 @@ export const TEMPERED_FORM = ((): Potential => {
       [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
       [StatEnum.ADV_PP_USAGE]: pp_usage,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.isAttacking) {
       return stat;
     }
-
-    if (ctx.character.isAttacking) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_PB_RECOVERY,
-        pb_recovery,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_PB_RECOVERY,
+      pb_recovery,
+    );
   };
   return potential("Tempered Form", DATA_WEAPON_UP.length, _getter);
 })();
@@ -1136,31 +892,21 @@ export const CORUSCATING_UNIT = ((): Potential => {
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
     const pp_usage: number = DATA_PP_RECOVERY[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
       [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasCriticallyHit) {
       return stat;
     }
-
-    if (ctx.character.hasCriticallyHit) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_PP_USAGE,
-        pp_usage,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res,
-      );
-    }
-    return stat;
+    const stat_up: StatObject = statObject({
+      [StatEnum.ADV_PP_USAGE]: pp_usage,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+    });
+    return StatObject.merge(stat, stat_up);
   };
   return potential(
     "Coruscating Unit",
@@ -1212,25 +958,20 @@ export const BLITZ_UNIT = ((): Potential => {
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
-
-    if (ctx.character.hasDodgedAttack) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        crit_chance,
-      );
-    }
-    return stat;
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_OFF_CRIT_CHANCE,
+      crit_chance,
+    );
   };
   return potential("Blitz Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -1249,41 +990,25 @@ export const INSTANT_DEATH_UNIT = ((): Potential => {
     const weapon_up_extra: number = DATA_WEAPON_UP_EXTRA[level_index];
     const damage_res_extra: number =
       DATA_DAMAGE_RES_EXTRA[level_index];
-    let stat: StatObject = statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
-      [StatEnum.WEAPON_MELEE]: weapon_up,
-      [StatEnum.WEAPON_RANGED]: weapon_up,
-      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
     });
-
-    if (ctx.target === undefined) {
-      return stat;
+    if (!ctx.target.isDolls) {
+      const stat_up: StatObject = statObject({
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+      });
+      return StatObject.merge(stat, stat_up);
     }
-
-    if (ctx.target.isDolls) {
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_MELEE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_RANGED,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.WEAPON_TECHNIQUE,
-        weapon_up_extra,
-      );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_DEF_DAMAGE_RES,
-        damage_res_extra,
-      );
-    }
-    return stat;
+    const stat_up_extra: StatObject = statObject({
+      [StatEnum.WEAPON_MELEE]: weapon_up_extra,
+      [StatEnum.WEAPON_RANGED]: weapon_up_extra,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up_extra,
+      [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res_extra,
+    });
+    return StatObject.merge(stat, stat_up_extra);
   };
   return potential(
     "Instant Death Unit",
@@ -1311,20 +1036,11 @@ export const FLAWLESS_UNIT = ((): Potential => {
       [StatEnum.ADV_OFF_CRIT_CHANCE]: crit_chance,
       [StatEnum.ADV_PP_USAGE]: pp_usage,
     });
-
-    if (ctx.character === undefined) {
+    if (!ctx.character.hasTakenDamage) {
       return stat;
     }
-
-    if (ctx.character.hasTakenDamage) {
-      stat = StatObject.setStat(stat, StatEnum.ADV_PP_USAGE, 1);
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_OFF_CRIT_CHANCE,
-        0,
-      );
-    }
-    return stat;
+    stat = StatObject.setStat(stat, StatEnum.ADV_PP_USAGE, 1);
+    return StatObject.setStat(stat, StatEnum.ADV_OFF_CRIT_CHANCE, 0);
   };
   return potential("Flawless Unit", DATA_WEAPON_UP.length, _getter);
 })();
