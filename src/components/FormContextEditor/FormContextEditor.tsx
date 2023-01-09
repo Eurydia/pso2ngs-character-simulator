@@ -13,6 +13,7 @@ import {
 import { FC } from "react";
 import {
   ActionContext,
+  CharacterContext,
   LocationContext,
   TargetContext,
   TimeContext,
@@ -280,6 +281,108 @@ const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
   );
 };
 
+type ContextEditorCharacterProps = {
+  value: CharacterContext;
+  onValueChange: (
+    value: ActionContext | ((prev: ActionContext) => ActionContext),
+  ) => void;
+};
+const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
+  props,
+) => {
+  const { value, onValueChange } = props;
+  const {
+    isAttacking,
+    isAttackingBlight,
+    isAttackingWeakPoint,
+    hasActiveBarrier,
+    hasCriticallyHit,
+    hasTakenDamage,
+    hasDodgedAttack,
+  } = value;
+
+  const handleAttackChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.isAttacking = !prev.character.isAttacking;
+      return next;
+    });
+  };
+  const handleAttackBlightChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.isAttackingBlight =
+        !prev.character.isAttackingBlight;
+      if (next.character.isAttackingBlight) {
+        next.character.isAttacking = true;
+      }
+      return next;
+    });
+  };
+  const handleAttackWeakPointChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.isAttackingWeakPoint =
+        !prev.character.isAttackingWeakPoint;
+      if (next.character.isAttackingWeakPoint) {
+        next.character.isAttacking = true;
+      }
+      return next;
+    });
+  };
+  const handleDodgedChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.hasDodgedAttack =
+        !prev.character.hasDodgedAttack;
+      return next;
+    });
+  };
+  const handleDamagedChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.hasTakenDamage = !prev.character.hasTakenDamage;
+      return next;
+    });
+  };
+
+  return (
+    <FormControl>
+      <FormLabel>Character</FormLabel>
+      <CustomSwitch
+        slotLabel="is in combat"
+        slotTooltip=""
+        checked={isAttacking}
+        onClick={handleAttackChange}
+      />
+      <CustomSwitch
+        slotLabel="is attacking blight mark"
+        slotTooltip=""
+        checked={isAttackingBlight}
+        onClick={handleAttackBlightChange}
+      />
+      <CustomSwitch
+        slotLabel="is attacking weak point"
+        slotTooltip=""
+        checked={isAttackingWeakPoint}
+        onClick={handleAttackWeakPointChange}
+      />
+      <CustomSwitch
+        slotLabel="has taken damage"
+        slotTooltip=""
+        checked={hasTakenDamage}
+        onClick={handleDamagedChange}
+      />
+      <CustomSwitch
+        slotLabel="has dodged an attack "
+        slotTooltip=""
+        checked={hasDodgedAttack}
+        onClick={handleDodgedChange}
+      />
+    </FormControl>
+  );
+};
+
 type FormContextEditorProps = {
   formData: ActionContext;
   onFormDataChange: (
@@ -314,6 +417,10 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
             />
             <ContextEditorTarget
               value={target}
+              onValueChange={onFormDataChange}
+            />
+            <ContextEditorCharacter
+              value={character}
               onValueChange={onFormDataChange}
             />
           </Stack>

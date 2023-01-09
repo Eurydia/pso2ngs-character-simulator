@@ -12,14 +12,15 @@ export type TargetContext = {
 };
 
 export type CharacterContext = {
-  uniqueAugments: number;
   hasTakenDamage: boolean;
   hasActiveBarrier: boolean;
   hasDodgedAttack: boolean;
   hasCriticallyHit: boolean;
   isAttacking: boolean;
-  isAttackingBlightMark: boolean;
-  isAttackingWeakpoint: boolean;
+  isAttackingBlight: boolean;
+  isAttackingWeakPoint: boolean;
+
+  uniqueAugments: number;
   defenseValue: number;
   attackValue: number;
   hpValue: number;

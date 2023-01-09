@@ -42,7 +42,7 @@ const getAwareStatObjectCrispy = (
     return stat;
   }
 
-  if (!ctx.character.isAttackingWeakpoint) {
+  if (!ctx.character.isAttackingWeakPoint) {
     return stat;
   }
 

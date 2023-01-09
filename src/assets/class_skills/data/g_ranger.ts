@@ -52,7 +52,7 @@ const SKILL_SUB: {
       return stat;
     }
 
-    if (ctx.character.isAttackingBlightMark) {
+    if (ctx.character.isAttackingBlight) {
       const weapon_up: number = DATA_WEAPON_UP[level_index];
       stat.setStat(StatEnum.WEAPON_MELEE, weapon_up);
       stat.setStat(StatEnum.WEAPON_RANGED, weapon_up);
