@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const HUNTER_MELEE_WEAPON_UP = addonSkill(
-  "Melee Weapon Potency Up",
+  "Melee Weapon Potency Up (Hunter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_WEAPON_UP: number[] = [
       1.0025, 1.005, 1.0075, 1.01, 1.0125, 1.015, 1.0175, 1.02,
@@ -20,7 +20,7 @@ export const HUNTER_MELEE_WEAPON_UP = addonSkill(
 );
 
 export const HUNTER_BURN_RES_UP = addonSkill(
-  "Burn Resistance Up",
+  "Burn Resistance Up (Hunter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
