@@ -1,7 +1,7 @@
 import { ActionContext } from "../../context";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addonSkill } from "../addon";
+import { addonSkill } from "../addon_skill";
 
 export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
   "Critical Hit Potency Up",

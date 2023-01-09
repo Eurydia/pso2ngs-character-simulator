@@ -1,7 +1,7 @@
 import { ActionContext } from "../../context";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addonSkill } from "../addon";
+import { addonSkill } from "../addon_skill";
 
 export const TECHTER_NATURAL_PB_RECOVERY = addonSkill(
   "Natural PB Gauge Accumulation Up",
