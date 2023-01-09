@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const GUNNER_ACTIVE_PB_RECOVERY = addonSkill(
-  "Offensive PB Gauge Accumulation Up",
+  "Offensive PB Gauge Accumulation Up (Gunner)",
   (ctx: ActionContext, level_index: number): StatObject => {
     const DATA_PB_RECOVERY: number[] = [
       1.01, 1.02, 1.03, 1.04, 1.05, 1.06, 1.07, 1.08, 1.09, 1.1, 1.11,
@@ -24,7 +24,7 @@ export const GUNNER_ACTIVE_PB_RECOVERY = addonSkill(
 );
 
 export const GUNNNER_ACTIVE_PP_RECOVERY = addonSkill(
-  "Offensive PP Recovery Up",
+  "Offensive PP Recovery Up (Gunner)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_PP_RECOVERY: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
@@ -41,7 +41,7 @@ export const GUNNNER_ACTIVE_PP_RECOVERY = addonSkill(
 );
 
 export const GUNNER_BLIND_RES_UP = addonSkill(
-  "Blind Resistance Up",
+  "Blind Resistance Up (Gunner)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
