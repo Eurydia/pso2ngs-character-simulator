@@ -33,9 +33,9 @@ const retrieveData = (storage_key: string): ActionContext => {
       isAttackingWeakPoint: false,
       defenseValue: 0,
       attackValue: 0,
-      hpValue: 0,
+      hpValue: -1,
       hpValueCurrent: 0,
-      ppValue: 0,
+      ppValue: -1,
       ppValueCurrent: 0,
     },
 

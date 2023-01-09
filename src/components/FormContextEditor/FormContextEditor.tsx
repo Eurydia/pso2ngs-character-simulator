@@ -330,6 +330,17 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
       return next;
     });
   };
+  const handleCriticallyHitChange = () => {
+    onValueChange((prev) => {
+      const next = { ...prev };
+      next.character.hasCriticallyHit =
+        !prev.character.hasCriticallyHit;
+      if (next.character.hasCriticallyHit) {
+        next.character.isAttacking = true;
+      }
+      return next;
+    });
+  };
   const handleDodgedChange = () => {
     onValueChange((prev) => {
       const next = { ...prev };
@@ -368,13 +379,19 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
         onClick={handleAttackWeakPointChange}
       />
       <CustomSwitch
+        slotLabel="has critically hit"
+        slotTooltip=""
+        checked={hasCriticallyHit}
+        onClick={handleCriticallyHitChange}
+      />
+      <CustomSwitch
         slotLabel="has taken damage"
         slotTooltip=""
         checked={hasTakenDamage}
         onClick={handleDamagedChange}
       />
       <CustomSwitch
-        slotLabel="has dodged an attack "
+        slotLabel="has dodged an attack"
         slotTooltip=""
         checked={hasDodgedAttack}
         onClick={handleDodgedChange}
