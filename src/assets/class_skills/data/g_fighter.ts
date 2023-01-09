@@ -3,13 +3,13 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { GroupEnumClass } from "../GroupEnum";
 import { characterClass } from "../class_skill";
 
-// const SKILL_MAIN: {
-//   [K: string]: (ctx: ActionContext, level: number) => StatObject;
-// } = {};
+const SKILL_MAIN: {
+  [K: string]: (ctx: ActionContext, level: number) => StatObject;
+} = {};
 
-// const SKILL_SUB: {
-//   [K: string]: (ctx: ActionContext, level: number) => StatObject;
-// } = {};
+const SKILL_SUB: {
+  [K: string]: (ctx: ActionContext, level: number) => StatObject;
+} = {};
 
 // // ----------------------------------------------
 // // Main class exclusive skills
@@ -255,8 +255,7 @@ import { characterClass } from "../class_skill";
 
 export const G_FIGHTER = characterClass(
   GroupEnumClass.FIGHTER,
-  [],
-  [],
-  // SKILL_MAIN,
-  // SKILL_SUB,
+
+  SKILL_MAIN,
+  SKILL_SUB,
 );
