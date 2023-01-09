@@ -125,19 +125,14 @@ G_FOUR.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToFire) {
         return stat;
       }
-
-      if (ctx.target.isWeakToFire) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
