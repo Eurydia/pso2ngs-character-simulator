@@ -106,7 +106,7 @@ const getAwareStatObjectRobust = (
   }
 
   const healing_up: number = DATA_HEALING_UP[level_index];
-  return statObject({ [StatEnum.ADV_DEF_HEALING]: healing_up });
+  return statObject({ [StatEnum.ADV_DEF_HEALING_UP]: healing_up });
 };
 
 const getAwareStatObjectMeat = (

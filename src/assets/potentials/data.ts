@@ -418,7 +418,7 @@ export const VIGOROUS_UNIT = ((): Potential => {
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
       [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      [StatEnum.ADV_DEF_HEALING]: healing_up,
+      [StatEnum.ADV_DEF_HEALING_UP]: healing_up,
     });
   };
   return potential("Vigorous Unit", DATA_WEAPON_UP.length, _getter);
@@ -527,7 +527,7 @@ export const VIRTUOSO_UNIT = ((): Potential => {
       effect_value = effect_max;
     }
     const stat_up: StatObject = statObject({
-      [StatEnum.ADV_DEF_HEALING]: effect_value,
+      [StatEnum.ADV_DEF_HEALING_UP]: effect_value,
       [StatEnum.ADV_PP_USAGE]: 2 - effect_value,
     });
     return StatObject.merge(stat, stat_up);

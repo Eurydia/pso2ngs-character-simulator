@@ -275,7 +275,7 @@ const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
         icon={getIcon(damageResist)}
       />
       <CustomItem
-        label={StatEnumString[StatEnum.ADV_DEF_HEALING]}
+        label={StatEnumString[StatEnum.ADV_DEF_HEALING_UP]}
         value={healingUp}
         icon={getIcon(healingUp)}
       />
@@ -392,7 +392,7 @@ export const StatView: FC<StatViewProps> = (props) => {
         <AdvDefensiveGroup
           healingUp={StatObject.format(
             stat,
-            StatEnum.ADV_DEF_HEALING,
+            StatEnum.ADV_DEF_HEALING_UP,
           )}
           damageResist={StatObject.format(
             stat,

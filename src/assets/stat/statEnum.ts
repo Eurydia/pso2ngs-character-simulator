@@ -34,7 +34,7 @@ export const enum StatEnum {
   ADV_OFF_PB_DAMAGE_UP = "offPBDamageUp",
   ADV_OFF_THREAT = "offThreat",
 
-  ADV_DEF_HEALING = "defHealingUp",
+  ADV_DEF_HEALING_UP = "defHealingUp",
   ADV_DEF_DAMAGE_RES = "defDamageResist",
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
 }
@@ -68,7 +68,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_OFF_PB_RECOVERY]: "PB Gauge Recovery",
   [StatEnum.ADV_OFF_PB_DAMAGE_UP]: "PB Damage Up",
   [StatEnum.ADV_OFF_THREAT]: "Threat Level",
-  [StatEnum.ADV_DEF_HEALING]: "Healing Up",
+  [StatEnum.ADV_DEF_HEALING_UP]: "Healing Up",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
   [StatEnum.ADV_DEF_AILMENT_DURATION]: "Ailment Duration",
 };
