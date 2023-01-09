@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
-  "Critical Hit Potency Up",
+  "Critical Hit Potency Up (Fighter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_CRIT_DAMAGE_UP: number[] = [
       0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05,
@@ -24,7 +24,7 @@ export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
 );
 
 export const FIGHTER_FREEZE_RES_UP = addonSkill(
-  "Freeze Resistance Up",
+  "Freeze Resistance Up (Fighter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
