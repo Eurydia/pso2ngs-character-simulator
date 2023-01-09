@@ -1,7 +1,7 @@
 import { ActionContext } from "../context";
 import { StatObject } from "../stat";
 
-export type Addon = {
+export type AddonSkill = {
   name: string;
   getAwareStatObject: (
     ctx: ActionContext,
@@ -9,16 +9,16 @@ export type Addon = {
   ) => StatObject;
 };
 
-export const Addon = {};
+export const AddonSkill = {};
 
-export const addon = (
+export const addonSkill = (
   name: string,
   getAwareStatObject: (
     ctx: ActionContext,
     level_index: number,
   ) => StatObject,
-): Addon => {
-  const result: Addon = {
+): AddonSkill => {
+  const result: AddonSkill = {
     name,
     getAwareStatObject,
   };

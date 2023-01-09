@@ -1,10 +1,10 @@
 import { ActionContext } from "../../context";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addon } from "../addon";
+import { addonSkill } from "../addon";
 
-export const RANGER_RANGED_WEAPON_UP = addon(
-  "Ranged Weapon Potency Up",
+export const HUNTER_MELEE_WEAPON_UP = addonSkill(
+  "Melee Weapon Potency Up",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_WEAPON_UP: number[] = [
       1.0025, 1.005, 1.0075, 1.01, 1.0125, 1.015, 1.0175, 1.02,
@@ -15,14 +15,12 @@ export const RANGER_RANGED_WEAPON_UP = addon(
       return statObject();
     }
     const weapon_up: number = DATA_WEAPON_UP[level_index];
-    return statObject({
-      [StatEnum.WEAPON_RANGED]: weapon_up,
-    });
+    return statObject({ [StatEnum.WEAPON_MELEE]: weapon_up });
   },
 );
 
-export const RANGER_SHOCK_RES_UP = addon(
-  "Freeze Resistance Up",
+export const HUNTER_BURN_RES_UP = addonSkill(
+  "Burn Resistance Up",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
@@ -32,23 +30,6 @@ export const RANGER_SHOCK_RES_UP = addon(
       return statObject();
     }
     const ail_res: number = DATA_AIL_RES[level_index];
-    return statObject({ [StatEnum.AIL_SHOCK]: ail_res });
-  },
-);
-
-export const RANGER_PB_DAMAGE_UP = addon(
-  "Photon Blast Potency Up",
-  (_: ActionContext, level_index: number): StatObject => {
-    const DATA_PB_DAMAGE_UP: number[] = [
-      1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
-      1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.01,
-    ];
-    if (level_index < 0 || level_index >= DATA_PB_DAMAGE_UP.length) {
-      return statObject();
-    }
-    const pb_damage_up: number = DATA_PB_DAMAGE_UP[level_index];
-    return statObject({
-      [StatEnum.ADV_OFF_PB_DAMAGE_UP]: pb_damage_up,
-    });
+    return statObject({ [StatEnum.AIL_BURN]: ail_res });
   },
 );
