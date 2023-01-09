@@ -39,19 +39,14 @@ G_EIGHT.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToIce) {
         return stat;
       }
-
-      if (ctx.target.isWeakToIce) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
@@ -67,19 +62,14 @@ G_EIGHT.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToFire) {
         return stat;
       }
-
-      if (ctx.target.isWeakToFire) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
@@ -95,19 +85,14 @@ G_EIGHT.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToIce) {
         return stat;
       }
-
-      if (ctx.target.isWeakToIce) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
