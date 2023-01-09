@@ -181,19 +181,14 @@ G_FIVE.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToWind) {
         return stat;
       }
-
-      if (ctx.target.isWeakToWind) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
@@ -209,19 +204,14 @@ G_FIVE.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToLight) {
         return stat;
       }
-
-      if (ctx.target.isWeakToLight) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
@@ -237,19 +227,14 @@ G_FIVE.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
+      if (!ctx.target.isWeakToDark) {
         return stat;
       }
-
-      if (ctx.target.isWeakToDark) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
-      }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
