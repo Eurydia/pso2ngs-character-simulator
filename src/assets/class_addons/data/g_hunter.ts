@@ -3,7 +3,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 
 import { addon } from "../addon";
 
-export const ADDON_HUNTER_MELEE_WEAPON_UP = addon(
+export const HUNTER_MELEE_WEAPON_UP = addon(
   "Melee Weapon Potency Up",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_WEAPON_UP: number[] = [
@@ -19,7 +19,7 @@ export const ADDON_HUNTER_MELEE_WEAPON_UP = addon(
   },
 );
 
-export const ADDON_HUNTER_BURN_RES_UP = addon(
+export const HUNTER_BURN_RES_UP = addon(
   "Burn Resistance Up",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [

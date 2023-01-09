@@ -31,6 +31,7 @@ export const enum StatEnum {
   ADV_OFF_CRIT_CHANCE = "offCritChance",
   ADV_OFF_CRIT_DAMAGE = "offCritDamage",
   ADV_OFF_PB_RECOVERY = "offPBRecovery",
+  ADV_OFF_PB_DAMAGE_UP = "offPBDamageUp",
   ADV_OFF_THREAT = "offThreat",
 
   ADV_DEF_HEALING = "defHealingUp",
@@ -65,6 +66,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_OFF_CRIT_CHANCE]: "Critical Chance",
   [StatEnum.ADV_OFF_CRIT_DAMAGE]: "Critical Damage",
   [StatEnum.ADV_OFF_PB_RECOVERY]: "PB Gauge Recovery",
+  [StatEnum.ADV_OFF_PB_DAMAGE_UP]: "PB Damage Up",
   [StatEnum.ADV_OFF_THREAT]: "Threat Level",
   [StatEnum.ADV_DEF_HEALING]: "Healing Up",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
