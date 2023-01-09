@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const WAKER_PP_UP = addonSkill(
-  "PP Up",
+  "PP Up (Waker)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_PP: number[] = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
@@ -21,7 +21,7 @@ export const WAKER_PP_UP = addonSkill(
 );
 
 export const WAKER_SHOCK_RES_UP = addonSkill(
-  "Shock Resistance Up",
+  "Shock Resistance Up (Waker)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
