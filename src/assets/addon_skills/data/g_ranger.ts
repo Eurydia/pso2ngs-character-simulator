@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const RANGER_RANGED_WEAPON_UP = addonSkill(
-  "Ranged Weapon Potency Up",
+  "Ranged Weapon Potency Up (Ranger)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_WEAPON_UP: number[] = [
       1.0025, 1.005, 1.0075, 1.01, 1.0125, 1.015, 1.0175, 1.02,
@@ -22,7 +22,7 @@ export const RANGER_RANGED_WEAPON_UP = addonSkill(
 );
 
 export const RANGER_PB_DAMAGE_UP = addonSkill(
-  "Photon Blast Potency Up",
+  "Photon Blast Potency Up (Ranger)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_PB_DAMAGE_UP: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
@@ -39,7 +39,7 @@ export const RANGER_PB_DAMAGE_UP = addonSkill(
 );
 
 export const RANGER_SHOCK_RES_UP = addonSkill(
-  "Freeze Resistance Up",
+  "Freeze Resistance Up (Ranger)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
