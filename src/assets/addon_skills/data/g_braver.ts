@@ -4,7 +4,7 @@ import { StatEnum, statObject, StatObject } from "../../stat";
 import { addonSkill } from "../addon_skill";
 
 export const BRAVER_CRIT_CHANCE_UP = addonSkill(
-  "Critical Hit Rate Up",
+  "Critical Hit Rate Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_CRIT_CHANCE: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
@@ -21,7 +21,7 @@ export const BRAVER_CRIT_CHANCE_UP = addonSkill(
 );
 
 export const BRAVER_HEALING_UP = addonSkill(
-  "Restasigne Heal Amount Up",
+  "Restasigne Heal Amount Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_HEALING_UP: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
@@ -38,7 +38,7 @@ export const BRAVER_HEALING_UP = addonSkill(
 );
 
 export const BRAVER_BURN_RES_UP = addonSkill(
-  "Burn Resistance Up",
+  "Burn Resistance Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
