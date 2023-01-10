@@ -12,15 +12,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { HomeRounded } from "@mui/icons-material";
 
 import { FormContextEditor, StatView } from "../../components";
-
-import { useActionContext, useFormWeapon } from "../../hooks";
 import { StatObject, statObject } from "../../assets";
+import { useActionContext } from "../../hooks";
+
 import { PageEditEquipment } from "../PageEditEquipment";
-import { HomeRounded } from "@mui/icons-material";
-import { LinkCard } from "./LinkCard";
 import { PageEditFood } from "../PageEditFood";
+
+import { LinkCard } from "./LinkCard";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
@@ -30,7 +31,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
   const [statEquipment, setStatEquipment] = useState(statObject());
   const [statFood, setStatFood] = useState(statObject());
 
-  const [formWeapon, setFormWeapon] = useFormWeapon("app");
+  let stat_total = StatObject.merge(statEquipment, statFood);
 
   return (
     <Fragment>
@@ -114,7 +115,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                   }}
                 />
                 <CardContent>
-                  <StatView stat={statEquipment} maxHeight="600px" />
+                  <StatView stat={stat_total} maxHeight="600px" />
                 </CardContent>
               </Card>
             </Grid>
@@ -125,7 +126,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
         isVisible={page === 1}
         context={appContext}
         storageKey="p-equipment"
-        onChange={setStatEquipment}
+        onStatChange={setStatEquipment}
       />
       <PageEditFood
         isVisible={page === 2}

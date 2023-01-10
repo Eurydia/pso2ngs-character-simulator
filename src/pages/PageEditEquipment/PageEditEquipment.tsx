@@ -58,12 +58,12 @@ type PageEditEquipmentProps = {
   isVisible: boolean;
   context: ActionContext;
   storageKey: string;
-  onChange: (stat: StatObject) => void;
+  onStatChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { storageKey, context, onChange, isVisible } = props;
+  const { storageKey, context, onStatChange, isVisible } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -83,29 +83,61 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   stat_total = StatObject.merge(stat_total, stat_unit_b);
   stat_total = StatObject.merge(stat_total, stat_unit_c);
 
+  useEffect(() => {
+    onStatChange(stat_total);
+  }, [context]);
+
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
-
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
 
-  const handleWeaponChange = () => {};
+  const handleWeaponChange = (
+    getter: (prev: DataWeapon) => DataWeapon,
+  ) => {
+    setFormWeapon(getter);
+    onStatChange(stat_total);
+  };
+
+  const handleUnitChangeA = (
+    getter: (prev: DataUnit) => DataUnit,
+  ) => {
+    setFormUnitA(getter);
+    onStatChange(stat_total);
+  };
+
+  const handleUnitChangeB = (
+    getter: (prev: DataUnit) => DataUnit,
+  ) => {
+    setFormUnitB(getter);
+    onStatChange(stat_total);
+  };
+
+  const handleUnitChangeC = (
+    getter: (prev: DataUnit) => DataUnit,
+  ) => {
+    setFormUnitC(getter);
+    onStatChange(stat_total);
+  };
 
   const handleUnitSyncA = () => {
     setFormUnitB(formUnitA);
     setFormUnitC(formUnitA);
+    onStatChange(stat_total);
   };
 
   const handleUnitSyncB = () => {
     setFormUnitA(formUnitB);
     setFormUnitC(formUnitB);
+    onStatChange(stat_total);
   };
 
   const handleUnitSyncC = () => {
     setFormUnitA(formUnitC);
     setFormUnitB(formUnitC);
+    onStatChange(stat_total);
   };
 
   const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
@@ -148,27 +180,27 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
             stat={stat_weapon}
             cardTitle="Weapon"
             formData={formWeapon}
-            onFormDataChange={setFormWeapon}
+            onFormDataChange={handleWeaponChange}
           />
           <FormUnit
             cardTitle="Unit A"
             stat={stat_unit_a}
             formData={formUnitA}
-            onFormDataChange={setFormUnitA}
+            onFormDataChange={handleUnitChangeA}
             onSync={handleUnitSyncA}
           />
           <FormUnit
             cardTitle="Unit B"
             stat={stat_unit_b}
             formData={formUnitB}
-            onFormDataChange={setFormUnitB}
+            onFormDataChange={handleUnitChangeB}
             onSync={handleUnitSyncB}
           />
           <FormUnit
             cardTitle="Unit C"
             stat={stat_unit_c}
             formData={formUnitC}
-            onFormDataChange={setFormUnitC}
+            onFormDataChange={handleUnitChangeC}
             onSync={handleUnitSyncC}
           />
         </Stack>

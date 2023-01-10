@@ -6,9 +6,15 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   ListSubheader,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import { CopyAll, Delete } from "@mui/icons-material";
+import {
+  CopyAll,
+  CopyAllRounded,
+  Delete,
+  DeleteRounded,
+} from "@mui/icons-material";
 
 import { Food } from "../../assets";
 
@@ -26,12 +32,26 @@ const CustomListItem: FC<CustomListItemProps> = (props) => {
         primaryTypographyProps={{ fontSize: "large" }}
       />
       <ListItemSecondaryAction>
-        <IconButton onClick={onCopy}>
-          <CopyAll />
-        </IconButton>
-        <IconButton onClick={onRemove}>
-          <Delete />
-        </IconButton>
+        <Tooltip
+          placement="top"
+          title={<Typography>Insert item below</Typography>}
+        >
+          <span>
+            <IconButton onClick={onCopy}>
+              <CopyAllRounded />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip
+          placement="top"
+          title={<Typography>Remove item</Typography>}
+        >
+          <span>
+            <IconButton onClick={onRemove}>
+              <DeleteRounded />
+            </IconButton>
+          </span>
+        </Tooltip>
       </ListItemSecondaryAction>
     </ListItem>
   );

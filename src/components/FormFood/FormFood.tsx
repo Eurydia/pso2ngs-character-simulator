@@ -12,22 +12,22 @@ import {
 } from "@mui/material";
 import { AddRounded, BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, Food, StatObject } from "../../assets";
+import { Food, StatObject } from "../../assets";
 
 import { AutocompleteFood } from "../AutocompleteFood";
-
-import { CustomList } from "./CustomList";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
+import { CustomList } from "./CustomList";
+
 type FormFoodProps = {
-  context: ActionContext;
   items: Food[];
+  stat: StatObject;
   onItemAdd: (next_item: Food, index: number) => void;
   onItemRemove: (index: number) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { context, items, onItemAdd, onItemRemove } = props;
+  const { stat, items, onItemAdd, onItemRemove } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selected, setSelected] = useState<Food | null>(null);
@@ -52,8 +52,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     onItemRemove(index);
   };
 
-  const stat: StatObject = Food.getStatObject(context, items);
-
   return (
     <Fragment>
       <FormBase
@@ -76,7 +74,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
           </Tooltip>
         }
         slotCardContent={
-          <Stack spacing={3}>
+          <Stack spacing={2}>
             <Stack direction="row" spacing={1}>
               <Box width={1}>
                 <AutocompleteFood
@@ -89,8 +87,8 @@ export const FormFood: FC<FormFoodProps> = (props) => {
                 disableRipple
                 disableElevation
                 variant="contained"
-                startIcon={<AddRounded />}
                 disabled={selected === null}
+                startIcon={<AddRounded />}
                 onClick={handleAdd}
               >
                 add

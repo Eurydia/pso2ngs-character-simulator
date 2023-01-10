@@ -31,9 +31,7 @@ type FormUnitProps = {
   cardTitle: string;
   stat: StatObject;
   formData: DataUnit;
-  onFormDataChange: (
-    data: DataUnit | ((prev: DataUnit) => DataUnit),
-  ) => void;
+  onFormDataChange: (getter: (prev: DataUnit) => DataUnit) => void;
   onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {

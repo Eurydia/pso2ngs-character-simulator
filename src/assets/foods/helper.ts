@@ -15,7 +15,6 @@ const getAwareStatObjectKvaris = (
 
   const stat: StatObject = statObject();
   const level_index: number = level - 4;
-
   if (level_index < 0 || level_index >= DATA_HARSH_COLD.length) {
     return stat;
   }
