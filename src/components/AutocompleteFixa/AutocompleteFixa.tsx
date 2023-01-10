@@ -3,6 +3,7 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
+  Typography,
 } from "@mui/material";
 
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
@@ -39,19 +40,23 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
         value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            fullWidth
-            placeholder="Fixa"
-            sx={{
-              textDecorationLine: disabled ? "line-through" : "none",
-            }}
-          />
-        )}
-        renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
-        )}
+        renderInput={(params) => {
+          return (
+            <TextField
+              {...params}
+              fullWidth
+              placeholder="Fixa"
+              sx={{
+                textDecorationLine: disabled
+                  ? "line-through"
+                  : "none",
+              }}
+            />
+          );
+        }}
+        renderOption={(props, option, _) => {
+          return <CustomOption {...props} option={option} />;
+        }}
       />
     );
   },

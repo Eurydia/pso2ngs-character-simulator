@@ -12,6 +12,7 @@ import { FormContextEditor, FormWeapon } from "../../components";
 
 import { useActionContext, useFormWeapon } from "../../hooks";
 import { StatObject, statObject } from "../../assets";
+import { PageEditEquipment } from "../PageEditEquipment";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
@@ -25,15 +26,12 @@ export const PageHome: FC<PageHomeProps> = (props) => {
   return (
     <Container maxWidth="lg">
       <Box margin={4}>
+        <PageEditEquipment
+          context={appContext}
+          storageKey="p-eq"
+          onChange={setStatEquipment}
+        />
         <Grid container spacing={2} columns={{ xs: 1, md: 2 }}>
-          <Grid item xs={1}>
-            <FormWeapon
-              cardTitle="Weapon"
-              context={appContext}
-              formData={formWeapon}
-              onFormDataChange={setFormWeapon}
-            />
-          </Grid>
           {/* <Grid item xs={1}>
             <LinkCard
               cardTitle="Food"

@@ -17,15 +17,15 @@ export type SummaryEquipment = {
   augments: string[];
 };
 
-export type FormDataUnit = {
+export type DataUnit = {
   unit: Unit | null;
   unit_level: number;
   fixa: Fixa | null;
   augments: (Augment | null)[];
 };
 
-export const FormDataUnit = {
-  getSummaryObject: (data: FormDataUnit): SummaryEquipment => {
+export const DataUnit = {
+  getSummaryObject: (data: DataUnit): SummaryEquipment => {
     const { unit, fixa, augments } = data;
     const result: SummaryEquipment = {
       equipment: null,
@@ -47,10 +47,7 @@ export const FormDataUnit = {
     return result;
   },
 
-  getStatObject: (
-    ctx: ActionContext,
-    data: FormDataUnit,
-  ): StatObject => {
+  getStatObject: (ctx: ActionContext, data: DataUnit): StatObject => {
     const { unit, unit_level, fixa, augments } = data;
 
     if (unit === null) {
@@ -82,7 +79,7 @@ export const FormDataUnit = {
   },
 };
 
-export type FormDataWeapon = {
+export type DataWeapon = {
   weapon: Weapon | null;
   weapon_level: number;
   potential_level: number;
@@ -90,8 +87,8 @@ export type FormDataWeapon = {
   augments: (Augment | null)[];
 };
 
-export const FormDataWeapon = {
-  getSummaryObject: (data: FormDataWeapon): SummaryEquipment => {
+export const DataWeapon = {
+  getSummaryObject: (data: DataWeapon): SummaryEquipment => {
     const { weapon, fixa, augments } = data;
     const result: SummaryEquipment = {
       equipment: null,
@@ -119,7 +116,7 @@ export const FormDataWeapon = {
 
   getStatObject: (
     ctx: ActionContext,
-    data: FormDataWeapon,
+    data: DataWeapon,
   ): StatObject => {
     const { weapon, weapon_level, potential_level, fixa, augments } =
       data;

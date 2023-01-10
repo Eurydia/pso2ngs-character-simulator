@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { FormDataUnit } from "../types";
+import { DataUnit } from "../types";
 
 import { useAugments } from "./useAugments";
 import { useEnhancement } from "./useEnhancement";

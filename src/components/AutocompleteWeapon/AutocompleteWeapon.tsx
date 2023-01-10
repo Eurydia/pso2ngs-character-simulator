@@ -51,26 +51,19 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         value={props.value}
         onChange={handleChange}
         filterOptions={filterOptions}
-        renderInput={({ InputProps, ...rest }) => (
-          <TextField
-            {...rest}
-            fullWidth
-            required
-            placeholder="Weapon"
-            InputProps={{
-              ...InputProps,
-              endAdornment: (
-                <EndAdornment
-                  shouldShowWarning={props.value === null}
-                  defaultAdornment={InputProps.endAdornment}
-                />
-              ),
-            }}
-          />
-        )}
-        renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
-        )}
+        renderInput={(params) => {
+          return (
+            <TextField
+              {...params}
+              fullWidth
+              required
+              placeholder="Weapon"
+            />
+          );
+        }}
+        renderOption={(props, option, _) => {
+          return <CustomOption {...props} option={option} />;
+        }}
       />
     );
   },

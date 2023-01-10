@@ -5,6 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   IconButton,
   Stack,
   Tooltip,
@@ -13,6 +14,7 @@ import {
 import { BarChart, Sync } from "@mui/icons-material";
 
 import {
+  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
@@ -27,62 +29,56 @@ import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 
 import { StatView } from "../StatView";
-import { FormDataUnit } from "../../types";
+import { DataUnit } from "../../types";
 
 type FormUnitProps = {
-  formValue: FormDataUnit;
-  onFormValueChange: (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ) => void;
   cardTitle: string;
-  stat: StatObject;
+  context: ActionContext;
+  formData: DataUnit;
+  onFormDataChange: (
+    data: DataUnit | ((prev: DataUnit) => DataUnit),
+  ) => void;
   onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
-  const { cardTitle, stat, formValue, onFormValueChange, onSync } =
+  const { context, cardTitle, formData, onFormDataChange, onSync } =
     props;
+  const { unit, unit_level, fixa, augments } = formData;
 
-  const { unit, unit_level, fixa, augments } = formValue;
-
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
-
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-
   const handleUnitChange = (value: Unit | null) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.unit = value;
       return next;
     });
   };
-
   const handleUnitLevelChange = (value: number) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.unit_level = value;
       return next;
     });
   };
-
   const handleFixaChange = (value: Fixa | null) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.fixa = value;
       return next;
     });
   };
-
   const handleAugmentChange = (
     value: Augment | null,
     index: number,
   ) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.augments[index] = value;
       return next;
@@ -94,6 +90,8 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     const active_count: number = Augment.getAugmentSlot(unit_level);
     active_augments = augments.slice(0, active_count);
   }
+
+  const stat = DataUnit.getStatObject(context, formData);
 
   return (
     <Fragment>
@@ -126,44 +124,48 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
             </Tooltip>
           </Fragment>
         }
-        slotPrimary={
-          <Stack spacing={1}>
-            <AutocompleteUnit
-              value={unit}
-              onChange={handleUnitChange}
-            />
-            <FieldLevel
-              disabled={unit === null}
-              valueMin={0}
-              valueMax={60}
-              value={unit_level}
-              onChange={handleUnitLevelChange}
-            />
-            <AutocompleteFixa
-              disabled={unit === null}
-              value={fixa}
-              onChange={handleFixaChange}
-              mode={GroupEnumFixa.UNIT}
-            />
-          </Stack>
-        }
-        slotSecondary={
-          <Stack spacing={1}>
-            {augments.map((augment, index) => {
-              const disabled =
-                unit === null || index >= active_augments.length;
-              return (
-                <AutocompleteAugment
-                  key={`augment-${index}`}
-                  disabled={disabled}
-                  value={augment}
-                  onChange={(value) => {
-                    handleAugmentChange(value, index);
-                  }}
+        slotCardContent={
+          <Grid container columns={{ xs: 1, sm: 2 }} spacing={3}>
+            <Grid item xs={1}>
+              <Stack spacing={1}>
+                <AutocompleteUnit
+                  value={unit}
+                  onChange={handleUnitChange}
                 />
-              );
-            })}
-          </Stack>
+                <FieldLevel
+                  disabled={unit === null}
+                  valueMin={0}
+                  valueMax={60}
+                  value={unit_level}
+                  onChange={handleUnitLevelChange}
+                />
+                <AutocompleteFixa
+                  disabled={unit === null}
+                  value={fixa}
+                  onChange={handleFixaChange}
+                  mode={GroupEnumFixa.UNIT}
+                />
+              </Stack>
+            </Grid>
+            <Grid item xs={1}>
+              <Stack spacing={1}>
+                {augments.map((augment, index) => {
+                  const disabled =
+                    unit === null || index >= active_augments.length;
+                  return (
+                    <AutocompleteAugment
+                      key={`augment-${index}`}
+                      disabled={disabled}
+                      value={augment}
+                      onChange={(value) => {
+                        handleAugmentChange(value, index);
+                      }}
+                    />
+                  );
+                })}
+              </Stack>
+            </Grid>
+          </Grid>
         }
       />
       <Dialog
@@ -177,9 +179,6 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-        <DialogActions disableSpacing>
-          <Button onClick={handleDialogClose}>close</Button>
-        </DialogActions>
       </Dialog>
     </Fragment>
   );

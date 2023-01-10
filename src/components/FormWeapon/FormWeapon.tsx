@@ -1,16 +1,18 @@
 import { Fragment, FC, useState } from "react";
 import {
+  Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
+  Grid,
   IconButton,
   Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { BarChart } from "@mui/icons-material";
+import { BarChartRounded } from "@mui/icons-material";
 
 import {
   ActionContext,
@@ -20,7 +22,7 @@ import {
   StatObject,
   Weapon,
 } from "../../assets";
-import { FormDataWeapon } from "../../types";
+import { DataWeapon } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { FieldLevel } from "../FieldLevel";
@@ -34,9 +36,9 @@ type FormWeaponProps = {
   context: ActionContext;
   cardTitle: string;
 
-  formData: FormDataWeapon;
+  formData: DataWeapon;
   onFormDataChange: (
-    getter: (prev: FormDataWeapon) => FormDataWeapon,
+    getter: (prev: DataWeapon) => DataWeapon,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
@@ -99,8 +101,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     active_augments = augments.slice(0, active_count);
   }
 
-  const summary = FormDataWeapon.getSummaryObject(formData);
-  const stat: StatObject = FormDataWeapon.getStatObject(
+  const stat: StatObject = DataWeapon.getStatObject(
     context,
     formData,
   );
@@ -108,73 +109,69 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   return (
     <Fragment>
       <FormBase
-        slotCardAction={null}
-        slotDialogTitle={null}
-        slotCardContent={
-          <Stack spacing={1}>
-            <Typography>{summary.equipment}</Typography>
-            <Typography>{summary.fixa}</Typography>
-            <Typography>{summary.augments}</Typography>
-          </Stack>
-        }
         cardTitle={cardTitle}
         slotCardHeaderAction={
           <Tooltip
             placement="top"
-            title={<Typography>Open stat</Typography>}
+            title={<Typography>Open summary</Typography>}
           >
             <span>
               <IconButton
+                disabled={formData.weapon === null}
                 onClick={handleDialogOpen}
-                disabled={weapon === null}
               >
-                <BarChart />
+                <BarChartRounded />
               </IconButton>
             </span>
           </Tooltip>
         }
-        slotDialogContent={
-          <Stack spacing={3}>
-            <Stack spacing={1}>
-              <AutocompleteWeapon
-                value={weapon}
-                onChange={handleWeaponChange}
-              />
-              <SelectPotential
-                weapon={weapon}
-                value={potential_level}
-                onChange={handlePotentialLevelChange}
-              />
-
-              <FieldLevel
-                disabled={weapon === null}
-                valueMin={0}
-                valueMax={60}
-                value={weapon_level}
-                onChange={handleWeaponLevelChange}
-              />
-              <AutocompleteFixa
-                disabled={weapon === null}
-                value={fixa}
-                onChange={handleFixaChange}
-                mode={GroupEnumFixa.WEAPON}
-              />
-            </Stack>
-            <Stack spacing={1}>
-              {augments.map((augment, index) => (
-                <AutocompleteAugment
-                  key={`augment-${index}`}
-                  disabled={
-                    weapon === null || index >= active_augments.length
-                  }
-                  value={augment}
-                  onChange={(value) => {
-                    handleAugmentChange(value, index);
-                  }}
+        slotCardContent={
+          <Grid container spacing={2} columns={{ xs: 1, md: 2 }}>
+            <Grid item xs={1}>
+              <Stack spacing={1}>
+                <AutocompleteWeapon
+                  value={weapon}
+                  onChange={handleWeaponChange}
                 />
-              ))}
-            </Stack>
-          </Stack>
+                <SelectPotential
+                  weapon={weapon}
+                  value={potential_level}
+                  onChange={handlePotentialLevelChange}
+                />
+
+                <FieldLevel
+                  disabled={weapon === null}
+                  valueMin={0}
+                  valueMax={60}
+                  value={weapon_level}
+                  onChange={handleWeaponLevelChange}
+                />
+                <AutocompleteFixa
+                  disabled={weapon === null}
+                  value={fixa}
+                  onChange={handleFixaChange}
+                  mode={GroupEnumFixa.WEAPON}
+                />
+              </Stack>
+            </Grid>
+            <Grid item xs={1}>
+              <Stack spacing={1}>
+                {augments.map((augment, index) => (
+                  <AutocompleteAugment
+                    key={`augment-${index}`}
+                    disabled={
+                      weapon === null ||
+                      index >= active_augments.length
+                    }
+                    value={augment}
+                    onChange={(value) => {
+                      handleAugmentChange(value, index);
+                    }}
+                  />
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
         }
       />
       <Dialog

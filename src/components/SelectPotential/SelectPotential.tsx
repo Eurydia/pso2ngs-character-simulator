@@ -50,7 +50,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
         }}
       >
         <MenuItem value={0}>
-          <Typography>No Level</Typography>
+          <Typography>No Potential</Typography>
         </MenuItem>
         {options.map(({ label, value }) => {
           return (

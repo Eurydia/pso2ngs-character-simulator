@@ -4,6 +4,7 @@ import {
   Autocomplete,
   AutocompleteChangeReason,
   InputAdornment,
+  Typography,
 } from "@mui/material";
 import { PriorityHigh } from "@mui/icons-material";
 
@@ -51,26 +52,19 @@ export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
         value={props.value}
         onChange={handleChange}
         filterOptions={filterOptions}
-        renderInput={({ InputProps, ...rest }) => (
-          <TextField
-            {...rest}
-            fullWidth
-            required
-            placeholder="Unit"
-            InputProps={{
-              ...InputProps,
-              endAdornment: (
-                <EndAdornment
-                  shouldShowWarning={props.value === null}
-                  defaultAdornment={InputProps.endAdornment}
-                />
-              ),
-            }}
-          />
-        )}
-        renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
-        )}
+        renderInput={({ InputProps, ...rest }) => {
+          return (
+            <TextField
+              {...rest}
+              fullWidth
+              required
+              placeholder="Unit"
+            />
+          );
+        }}
+        renderOption={(props, option, _) => {
+          return <CustomOption {...props} option={option} />;
+        }}
       />
     );
   },

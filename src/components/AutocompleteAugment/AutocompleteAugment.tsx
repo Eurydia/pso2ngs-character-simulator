@@ -3,6 +3,7 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
+  Typography,
 } from "@mui/material";
 
 import { AssetAugments, Augment } from "../../assets";
@@ -34,19 +35,23 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
         value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            fullWidth
-            placeholder="Augment"
-            sx={{
-              textDecorationLine: disabled ? "line-through" : "none",
-            }}
-          />
-        )}
-        renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
-        )}
+        renderInput={(params) => {
+          return (
+            <TextField
+              {...params}
+              fullWidth
+              placeholder="Augment"
+              sx={{
+                textDecorationLine: disabled
+                  ? "line-through"
+                  : "none",
+              }}
+            />
+          );
+        }}
+        renderOption={(props, option, _) => {
+          return <CustomOption {...props} option={option} />;
+        }}
       />
     );
   },

@@ -17,11 +17,7 @@ import { Assignment } from "@mui/icons-material";
 
 import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import {
-  FormDataUnit,
-  FormDataWeapon,
-  SummaryEquipment,
-} from "../../types";
+import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 
 const SummaryItem: FC<SummaryEquipment> = (props) => {
@@ -77,18 +73,10 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
   const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
 
-  const summary_weapon = FormDataWeapon.getSummaryObject(formWeapon);
-  const summary_unit_a = FormDataUnit.getSummaryObject(formUnitA);
-  const summary_unit_b = FormDataUnit.getSummaryObject(formUnitB);
-  const summary_unit_c = FormDataUnit.getSummaryObject(formUnitC);
-
-  const stat_weapon = FormDataWeapon.getStatObject(
-    context,
-    formWeapon,
-  );
-  const stat_unit_a = FormDataUnit.getStatObject(context, formUnitA);
-  const stat_unit_b = FormDataUnit.getStatObject(context, formUnitB);
-  const stat_unit_c = FormDataUnit.getStatObject(context, formUnitC);
+  const stat_weapon = DataWeapon.getStatObject(context, formWeapon);
+  const stat_unit_a = DataUnit.getStatObject(context, formUnitA);
+  const stat_unit_b = DataUnit.getStatObject(context, formUnitB);
+  const stat_unit_c = DataUnit.getStatObject(context, formUnitC);
 
   let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
   stat_total = StatObject.merge(stat_total, stat_unit_b);
@@ -117,35 +105,40 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setFormUnitB(formUnitC);
   };
 
+  const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
+  const summary_unit_a = DataUnit.getSummaryObject(formUnitA);
+  const summary_unit_b = DataUnit.getSummaryObject(formUnitB);
+  const summary_unit_c = DataUnit.getSummaryObject(formUnitC);
+
   return (
     <Fragment>
       <Box margin={4}>
         <Stack spacing={2}>
           <FormWeapon
+            context={context}
             cardTitle="Weapon"
-            stat={stat_weapon}
             formData={formWeapon}
             onFormDataChange={setFormWeapon}
           />
           <FormUnit
+            context={context}
             cardTitle="Unit A"
-            stat={stat_unit_a}
-            formValue={formUnitA}
-            onFormValueChange={setFormUnitA}
+            formData={formUnitA}
+            onFormDataChange={setFormUnitA}
             onSync={handleUnitSyncA}
           />
           <FormUnit
+            context={context}
             cardTitle="Unit B"
-            stat={stat_unit_b}
-            formValue={formUnitB}
-            onFormValueChange={setFormUnitB}
+            formData={formUnitB}
+            onFormDataChange={setFormUnitB}
             onSync={handleUnitSyncB}
           />
           <FormUnit
+            context={context}
             cardTitle="Unit C"
-            stat={stat_unit_c}
-            formValue={formUnitC}
-            onFormValueChange={setFormUnitC}
+            formData={formUnitC}
+            onFormDataChange={setFormUnitC}
             onSync={handleUnitSyncC}
           />
         </Stack>
@@ -170,9 +163,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
             <StatView stat={stat_total} maxHeight="" />
           </Stack>
         </DialogContent>
-        <DialogActions disableSpacing>
-          <Button onClick={handleDialogClose}>close</Button>
-        </DialogActions>
       </Dialog>
     </Fragment>
   );
