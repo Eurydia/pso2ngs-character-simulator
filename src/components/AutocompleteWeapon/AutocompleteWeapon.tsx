@@ -5,7 +5,7 @@ import {
   AutocompleteChangeReason,
   InputAdornment,
 } from "@mui/material";
-import { PriorityHigh } from "@mui/icons-material";
+import { PriorityHighRounded } from "@mui/icons-material";
 
 import { AssetWeapons, Weapon } from "../../assets";
 
@@ -21,7 +21,7 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
   if (shouldShowWarning) {
     return (
       <InputAdornment position="end">
-        <PriorityHigh color="warning" />
+        <PriorityHighRounded fontSize="large" color="warning" />
         {defaultAdornment}
       </InputAdornment>
     );
