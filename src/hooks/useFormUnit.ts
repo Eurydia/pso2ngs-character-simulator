@@ -10,17 +10,15 @@ import { useUnit } from "./useUnit";
 export const useFormUnit = (
   form_key: string,
 ): [
-  FormDataUnit,
-  (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ) => void,
+  DataUnit,
+  (data: DataUnit | ((prev: DataUnit) => DataUnit)) => void,
 ] => {
   const [unit, setUnit] = useUnit(form_key);
   const [unitLevel, setUnitLevel] = useEnhancement(`${form_key}-l`);
   const [fixa, setFixa] = useFixa(`${form_key}-f`);
   const [augments, setAugment] = useAugments(`${form_key}-a`);
 
-  const [data, setData] = useState<FormDataUnit>(() => {
+  const [data, setData] = useState<DataUnit>(() => {
     return { unit, unit_level: unitLevel, fixa, augments };
   });
 

@@ -13,7 +13,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Assignment } from "@mui/icons-material";
+import { Assignment, BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
@@ -112,6 +112,23 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   return (
     <Fragment>
+      <Fab
+        disableRipple
+        onClick={handleDialogOpen}
+        disabled={
+          formWeapon.weapon === null &&
+          formUnitA.unit === null &&
+          formUnitB.unit === null &&
+          formUnitC.unit === null
+        }
+        sx={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+        }}
+      >
+        <BarChartRounded />
+      </Fab>
       <Box margin={4}>
         <Stack spacing={2}>
           <FormWeapon
