@@ -37,27 +37,38 @@ type AutocompleteWeaponProps = {
 };
 export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
+    const { value, onChange } = props;
+
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
       value: Weapon | null,
       reason: AutocompleteChangeReason,
     ) => {
-      props.onChange(value);
+      onChange(value);
     };
 
     return (
       <Autocomplete
         options={AssetWeapons}
-        value={props.value}
+        value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
-        renderInput={(params) => {
+        renderInput={({ InputProps, ...rest }) => {
           return (
             <TextField
-              {...params}
+              {...rest}
               fullWidth
               required
               placeholder="Weapon"
+              InputProps={{
+                ...InputProps,
+                endAdornment: (
+                  <EndAdornment
+                    shouldShowWarning={value === null}
+                    defaultAdornment={InputProps.endAdornment}
+                  />
+                ),
+              }}
             />
           );
         }}
