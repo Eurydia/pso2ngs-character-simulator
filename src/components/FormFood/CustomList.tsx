@@ -39,7 +39,7 @@ const CustomListItem: FC<CustomListItemProps> = (props) => {
 
 type CustomListProps = {
   items: Food[];
-  onCopy: (index: number, item: Food) => void;
+  onCopy: (item: Food, index: number) => void;
   onRemove: (index: number) => void;
 };
 export const CustomList: FC<CustomListProps> = (props) => {
@@ -58,8 +58,12 @@ export const CustomList: FC<CustomListProps> = (props) => {
           <CustomListItem
             key={`${item.label}-${index}`}
             label={item.label}
-            onCopy={() => onCopy(index, item)}
-            onRemove={() => onRemove(index)}
+            onCopy={() => {
+              onCopy(item, index);
+            }}
+            onRemove={() => {
+              onRemove(index);
+            }}
           />
         );
       })}

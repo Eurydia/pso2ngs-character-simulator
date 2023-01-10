@@ -58,8 +58,7 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
             <TextField
               {...rest}
               fullWidth
-              required
-              placeholder="Weapon"
+              placeholder="Weapon*"
               InputProps={{
                 ...InputProps,
                 endAdornment: (

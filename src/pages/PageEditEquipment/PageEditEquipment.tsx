@@ -55,6 +55,7 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 };
 
 type PageEditEquipmentProps = {
+  isVisible: boolean;
   context: ActionContext;
   storageKey: string;
   onChange: (stat: StatObject) => void;
@@ -62,7 +63,7 @@ type PageEditEquipmentProps = {
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { storageKey, context, onChange } = props;
+  const { storageKey, context, onChange, isVisible } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -90,6 +91,8 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setDialogOpen(false);
   };
 
+  const handleWeaponChange = () => {};
+
   const handleUnitSyncA = () => {
     setFormUnitB(formUnitA);
     setFormUnitC(formUnitA);
@@ -111,49 +114,59 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const summary_unit_c = DataUnit.getSummaryObject(formUnitC);
 
   return (
-    <Fragment>
-      <Fab
-        disableRipple
-        onClick={handleDialogOpen}
-        disabled={
-          formWeapon.weapon === null &&
-          formUnitA.unit === null &&
-          formUnitB.unit === null &&
-          formUnitC.unit === null
-        }
-        sx={{
-          position: "fixed",
-          bottom: "24px",
-          right: "24px",
-        }}
+    <Container
+      maxWidth="md"
+      sx={{
+        display: isVisible ? "block" : "none",
+      }}
+    >
+      <Tooltip
+        placement="top"
+        title={<Typography>Open summary</Typography>}
       >
-        <BarChartRounded />
-      </Fab>
-      <Box margin={4}>
+        <Fab
+          disableRipple
+          onClick={handleDialogOpen}
+          disabled={
+            formWeapon.weapon === null &&
+            formUnitA.unit === null &&
+            formUnitB.unit === null &&
+            formUnitC.unit === null
+          }
+          sx={{
+            position: "fixed",
+            bottom: "24px",
+            right: "24px",
+          }}
+        >
+          <BarChartRounded />
+        </Fab>
+      </Tooltip>
+      <Box marginY={4}>
         <Stack spacing={2}>
           <FormWeapon
-            context={context}
+            stat={stat_weapon}
             cardTitle="Weapon"
             formData={formWeapon}
             onFormDataChange={setFormWeapon}
           />
           <FormUnit
-            context={context}
             cardTitle="Unit A"
+            stat={stat_unit_a}
             formData={formUnitA}
             onFormDataChange={setFormUnitA}
             onSync={handleUnitSyncA}
           />
           <FormUnit
-            context={context}
             cardTitle="Unit B"
+            stat={stat_unit_b}
             formData={formUnitB}
             onFormDataChange={setFormUnitB}
             onSync={handleUnitSyncB}
           />
           <FormUnit
-            context={context}
             cardTitle="Unit C"
+            stat={stat_unit_c}
             formData={formUnitC}
             onFormDataChange={setFormUnitC}
             onSync={handleUnitSyncC}
@@ -181,6 +194,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           </Stack>
         </DialogContent>
       </Dialog>
-    </Fragment>
+    </Container>
   );
 };

@@ -24,7 +24,7 @@ export const useFood = (
   storage_key: string,
 ): [
   Food[],
-  (index: number, item: Food) => void,
+  (item: Food, index: number) => void,
   (index: number) => void,
 ] => {
   const [value, setValue] = useState(() => {
@@ -36,7 +36,7 @@ export const useFood = (
     localStorage.setItem(storage_key, data_string);
   }, [value]);
 
-  const addItem = (index: number, next_value: Food) => {
+  const addItem = (next_value: Food, index: number) => {
     if (index < 0 || Food.MAX_ITEM <= index) {
       return;
     }

@@ -58,8 +58,7 @@ export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
             <TextField
               {...rest}
               fullWidth
-              required
-              placeholder="Unit"
+              placeholder="Unit*"
               InputProps={{
                 ...InputProps,
                 endAdornment: (

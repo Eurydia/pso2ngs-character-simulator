@@ -1,13 +1,8 @@
-import { FC, useState, useMemo, Fragment } from "react";
+import { FC, useState, Fragment } from "react";
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
@@ -15,9 +10,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Add, BarChart } from "@mui/icons-material";
+import { AddRounded, BarChartRounded } from "@mui/icons-material";
 
-import { Food, StatObject } from "../../assets";
+import { ActionContext, Food, StatObject } from "../../assets";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 
@@ -26,66 +21,61 @@ import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 type FormFoodProps = {
-  stat: StatObject;
+  context: ActionContext;
   items: Food[];
-  onItemAdd: (index: number, item: Food) => void;
+  onItemAdd: (next_item: Food, index: number) => void;
   onItemRemove: (index: number) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { stat, items, onItemAdd, onItemRemove } = props;
-
-  const [selected, setSelected] = useState<Food | null>(null);
+  const { context, items, onItemAdd, onItemRemove } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [selected, setSelected] = useState<Food | null>(null);
 
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
-
   const handleAdd = () => {
     if (selected === null) {
       return;
     }
-    onItemAdd(0, selected);
+    onItemAdd(selected, 0);
     setSelected(null);
   };
-  const handleCopy = (index: number, item: Food) => {
-    onItemAdd(index, item);
+  const handleCopy = (item: Food, index: number) => {
+    onItemAdd(item, index);
   };
   const handleRemove = (index: number) => {
     onItemRemove(index);
   };
 
+  const stat: StatObject = Food.getStatObject(context, items);
+
   return (
     <Fragment>
-      <Card variant="outlined" sx={{ padding: 1 }}>
-        <CardHeader
-          title="Food"
-          titleTypographyProps={{
-            fontSize: "x-large",
-            fontWeight: "bold",
-          }}
-          action={
-            <Tooltip
-              placement="top"
-              title={<Typography>Open summary</Typography>}
-            >
-              <span>
-                <IconButton
-                  disabled={items.length === 0}
-                  onClick={handleDialogOpen}
-                >
-                  <BarChart />
-                </IconButton>
-              </span>
-            </Tooltip>
-          }
-        />
-        <CardContent>
+      <FormBase
+        cardTitle="Food"
+        slotCardHeaderAction={
+          <Tooltip
+            placement="top"
+            title={<Typography>Open summary</Typography>}
+          >
+            <span>
+              <IconButton
+                size="large"
+                color="primary"
+                disabled={items.length === 0}
+                onClick={handleDialogOpen}
+              >
+                <BarChartRounded />
+              </IconButton>
+            </span>
+          </Tooltip>
+        }
+        slotCardContent={
           <Stack spacing={3}>
             <Stack direction="row" spacing={1}>
               <Box width={1}>
@@ -99,7 +89,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
                 disableRipple
                 disableElevation
                 variant="contained"
-                startIcon={<Add />}
+                startIcon={<AddRounded />}
                 disabled={selected === null}
                 onClick={handleAdd}
               >
@@ -112,8 +102,8 @@ export const FormFood: FC<FormFoodProps> = (props) => {
               onRemove={handleRemove}
             />
           </Stack>
-        </CardContent>
-      </Card>
+        }
+      />
       <Dialog
         fullWidth
         maxWidth="sm"
@@ -124,9 +114,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-        <DialogActions disableSpacing>
-          <Button onClick={handleDialogClose}>close</Button>
-        </DialogActions>
       </Dialog>
     </Fragment>
   );

@@ -1,8 +1,6 @@
 import { Fragment, FC, useState } from "react";
 import {
-  Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Grid,
@@ -11,29 +9,27 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { BarChart, Sync } from "@mui/icons-material";
+import { BarChartRounded, SyncRounded } from "@mui/icons-material";
 
 import {
-  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
   StatObject,
   Unit,
 } from "../../assets";
+import { DataUnit } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { AutocompleteUnit } from "../AutocompleteUnit";
 import { FieldLevel } from "../FieldLevel";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
-
 import { StatView } from "../StatView";
-import { DataUnit } from "../../types";
 
 type FormUnitProps = {
   cardTitle: string;
-  context: ActionContext;
+  stat: StatObject;
   formData: DataUnit;
   onFormDataChange: (
     data: DataUnit | ((prev: DataUnit) => DataUnit),
@@ -41,7 +37,7 @@ type FormUnitProps = {
   onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
-  const { context, cardTitle, formData, onFormDataChange, onSync } =
+  const { stat, cardTitle, formData, onFormDataChange, onSync } =
     props;
   const { unit, unit_level, fixa, augments } = formData;
 
@@ -91,8 +87,6 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     active_augments = augments.slice(0, active_count);
   }
 
-  const stat = DataUnit.getStatObject(context, formData);
-
   return (
     <Fragment>
       <FormBase
@@ -104,8 +98,12 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
               title={<Typography>Sync with me</Typography>}
             >
               <span>
-                <IconButton onClick={onSync}>
-                  <Sync />
+                <IconButton
+                  color="primary"
+                  size="large"
+                  onClick={onSync}
+                >
+                  <SyncRounded />
                 </IconButton>
               </span>
             </Tooltip>
@@ -115,17 +113,19 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
             >
               <span>
                 <IconButton
+                  color="primary"
+                  size="large"
                   disabled={unit === null}
                   onClick={handleDialogOpen}
                 >
-                  <BarChart />
+                  <BarChartRounded />
                 </IconButton>
               </span>
             </Tooltip>
           </Fragment>
         }
         slotCardContent={
-          <Grid container columns={{ xs: 1, sm: 2 }} spacing={3}>
+          <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
             <Grid item xs={1}>
               <Stack spacing={1}>
                 <AutocompleteUnit

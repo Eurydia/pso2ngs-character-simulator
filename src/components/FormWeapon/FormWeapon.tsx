@@ -1,11 +1,8 @@
 import { Fragment, FC, useState } from "react";
 import {
-  Box,
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
-  Divider,
   Grid,
   IconButton,
   Stack,
@@ -15,7 +12,6 @@ import {
 import { BarChartRounded } from "@mui/icons-material";
 
 import {
-  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
@@ -33,16 +29,15 @@ import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
 
 type FormWeaponProps = {
-  context: ActionContext;
   cardTitle: string;
-
+  stat: StatObject;
   formData: DataWeapon;
   onFormDataChange: (
     getter: (prev: DataWeapon) => DataWeapon,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { context, cardTitle, onFormDataChange, formData } = props;
+  const { stat, cardTitle, onFormDataChange, formData } = props;
 
   const { weapon, weapon_level, potential_level, fixa, augments } =
     formData;
@@ -101,11 +96,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     active_augments = augments.slice(0, active_count);
   }
 
-  const stat: StatObject = DataWeapon.getStatObject(
-    context,
-    formData,
-  );
-
   return (
     <Fragment>
       <FormBase
@@ -117,6 +107,8 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
           >
             <span>
               <IconButton
+                size="large"
+                color="primary"
                 disabled={formData.weapon === null}
                 onClick={handleDialogOpen}
               >
@@ -126,7 +118,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
           </Tooltip>
         }
         slotCardContent={
-          <Grid container spacing={2} columns={{ xs: 1, md: 2 }}>
+          <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
             <Grid item xs={1}>
               <Stack spacing={1}>
                 <AutocompleteWeapon
