@@ -13,12 +13,14 @@ import {
 import { BarChart } from "@mui/icons-material";
 
 import {
+  ActionContext,
   Augment,
   Fixa,
   GroupEnumFixa,
   StatObject,
   Weapon,
 } from "../../assets";
+import { FormDataWeapon } from "../../types";
 
 import { FormBase } from "../FormBase";
 import { FieldLevel } from "../FieldLevel";
@@ -27,80 +29,66 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
-import { FormDataWeapon } from "../../types";
 
 type FormWeaponProps = {
-  stat: StatObject;
+  context: ActionContext;
   cardTitle: string;
 
-  formValue: FormDataWeapon;
-  onFormValueChange: (
-    value:
-      | FormDataWeapon
-      | ((prev: FormDataWeapon) => FormDataWeapon),
+  formData: FormDataWeapon;
+  onFormDataChange: (
+    getter: (prev: FormDataWeapon) => FormDataWeapon,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const {
-    cardTitle,
-    stat,
-
-    formValue,
-    onFormValueChange,
-  } = props;
+  const { context, cardTitle, onFormDataChange, formData } = props;
 
   const { weapon, weapon_level, potential_level, fixa, augments } =
-    formValue;
+    formData;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
-
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-
   const handleWeaponChange = (value: Weapon | null) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.weapon = value;
       return next;
     });
   };
-
   const handleWeaponLevelChange = (value: number) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.weapon_level = value;
       return next;
     });
   };
-
   const handlePotentialLevelChange = (value: number) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.potential_level = value;
       return next;
     });
   };
-
   const handleFixaChange = (value: Fixa | null) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.fixa = value;
       return next;
     });
   };
-
   const handleAugmentChange = (
     value: Augment | null,
     index: number,
   ) => {
-    onFormValueChange((prev) => {
+    onFormDataChange((prev) => {
       const next = { ...prev };
       next.augments[index] = value;
+      next.augments = Augment.removeConflict(next.augments, index);
       return next;
     });
   };
@@ -111,11 +99,26 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     active_augments = augments.slice(0, active_count);
   }
 
+  const summary = FormDataWeapon.getSummaryObject(formData);
+  const stat: StatObject = FormDataWeapon.getStatObject(
+    context,
+    formData,
+  );
+
   return (
     <Fragment>
       <FormBase
-        title={cardTitle}
-        slotHeaderAction={
+        slotCardAction={null}
+        slotDialogTitle={null}
+        slotCardContent={
+          <Stack spacing={1}>
+            <Typography>{summary.equipment}</Typography>
+            <Typography>{summary.fixa}</Typography>
+            <Typography>{summary.augments}</Typography>
+          </Stack>
+        }
+        cardTitle={cardTitle}
+        slotCardHeaderAction={
           <Tooltip
             placement="top"
             title={<Typography>Open stat</Typography>}
@@ -130,47 +133,47 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             </span>
           </Tooltip>
         }
-        slotPrimary={
-          <Stack spacing={1}>
-            <AutocompleteWeapon
-              value={weapon}
-              onChange={handleWeaponChange}
-            />
-            <SelectPotential
-              weapon={weapon}
-              value={potential_level}
-              onChange={handlePotentialLevelChange}
-            />
-
-            <FieldLevel
-              disabled={weapon === null}
-              valueMin={0}
-              valueMax={60}
-              value={weapon_level}
-              onChange={handleWeaponLevelChange}
-            />
-            <AutocompleteFixa
-              disabled={weapon === null}
-              value={fixa}
-              onChange={handleFixaChange}
-              mode={GroupEnumFixa.WEAPON}
-            />
-          </Stack>
-        }
-        slotSecondary={
-          <Stack spacing={1}>
-            {augments.map((augment, index) => (
-              <AutocompleteAugment
-                key={`augment-${index}`}
-                disabled={
-                  weapon === null || index >= active_augments.length
-                }
-                value={augment}
-                onChange={(value) => {
-                  handleAugmentChange(value, index);
-                }}
+        slotDialogContent={
+          <Stack spacing={3}>
+            <Stack spacing={1}>
+              <AutocompleteWeapon
+                value={weapon}
+                onChange={handleWeaponChange}
               />
-            ))}
+              <SelectPotential
+                weapon={weapon}
+                value={potential_level}
+                onChange={handlePotentialLevelChange}
+              />
+
+              <FieldLevel
+                disabled={weapon === null}
+                valueMin={0}
+                valueMax={60}
+                value={weapon_level}
+                onChange={handleWeaponLevelChange}
+              />
+              <AutocompleteFixa
+                disabled={weapon === null}
+                value={fixa}
+                onChange={handleFixaChange}
+                mode={GroupEnumFixa.WEAPON}
+              />
+            </Stack>
+            <Stack spacing={1}>
+              {augments.map((augment, index) => (
+                <AutocompleteAugment
+                  key={`augment-${index}`}
+                  disabled={
+                    weapon === null || index >= active_augments.length
+                  }
+                  value={augment}
+                  onChange={(value) => {
+                    handleAugmentChange(value, index);
+                  }}
+                />
+              ))}
+            </Stack>
           </Stack>
         }
       />
@@ -184,9 +187,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-        <DialogActions disableSpacing>
-          <Button onClick={handleDialogClose}>close</Button>
-        </DialogActions>
       </Dialog>
     </Fragment>
   );

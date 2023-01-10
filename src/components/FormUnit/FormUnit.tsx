@@ -98,8 +98,8 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
   return (
     <Fragment>
       <FormBase
-        title={cardTitle}
-        slotHeaderAction={
+        cardTitle={cardTitle}
+        slotCardHeaderAction={
           <Fragment>
             <Tooltip
               placement="top"

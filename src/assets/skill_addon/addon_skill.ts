@@ -10,6 +10,7 @@ export type AddonSkill = {
 };
 
 export const AddonSkill = {
+  LEVEL_MAX: 20,
   getStatObject: (
     ctx: ActionContext,
     addon_skill: AddonSkill,

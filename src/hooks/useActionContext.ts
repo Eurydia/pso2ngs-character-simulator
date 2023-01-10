@@ -8,7 +8,6 @@ const retrieveData = (storage_key: string): ActionContext => {
       isDayTime: true,
       isDuringSezunEvent: false,
     },
-
     target: {
       isBoss: false,
       isDolls: false,
@@ -21,7 +20,6 @@ const retrieveData = (storage_key: string): ActionContext => {
       isWeakToLight: false,
       isWeakToDark: false,
     },
-
     character: {
       uniqueAugments: 0,
       hasTakenDamage: false,
@@ -38,7 +36,6 @@ const retrieveData = (storage_key: string): ActionContext => {
       ppValue: -1,
       ppValueCurrent: 0,
     },
-
     location: {
       kvaris: false,
       geometricLabyrinth: false,
@@ -53,16 +50,14 @@ const retrieveData = (storage_key: string): ActionContext => {
   if (!isValidJSON(loaded_data)) {
     return result;
   }
-
   const data: Object | unknown = JSON.parse(loaded_data);
   if (typeof data !== "object") {
     return result;
   }
-
   return { ...result, ...data };
 };
 
-export const useFormActionContext = (
+export const useActionContext = (
   storage_key: string,
 ): [
   ActionContext,

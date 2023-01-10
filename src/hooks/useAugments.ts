@@ -29,15 +29,12 @@ const retrieveAugments = (
   if (!Array.isArray(labels)) {
     return result;
   }
-
   result = Augment.fromLabels(labels.slice(0, size));
-
   while (result.length < size) {
     result.push(null);
   }
-
   for (let index = 0; index < size; index++) {
-    result = Augment.removeConflict(index, result);
+    result = Augment.removeConflict(result, index);
   }
   return result;
 };
@@ -69,7 +66,7 @@ export const useAugments = (
     setValue((prev) => {
       let next = [...prev];
       next[augment_index] = new_value;
-      next = Augment.removeConflict(augment_index, next);
+      next = Augment.removeConflict(next, augment_index);
       return next;
     });
   };

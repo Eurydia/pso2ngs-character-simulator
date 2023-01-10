@@ -58,10 +58,9 @@ export const Augment = {
     const items: Augment[] = [];
     for (const label of labels) {
       const augment: Augment | undefined = LOOKUP_AUGMENT[label];
-      if (augment === undefined) {
-        continue;
+      if (augment !== undefined) {
+        items.push(augment);
       }
-      items.push(augment);
     }
     return items;
   },
@@ -71,15 +70,15 @@ export const Augment = {
   },
 
   removeConflict: (
+    augments: (Augment | null)[],
     item_index: number,
-    items: (Augment | null)[],
   ): (Augment | null)[] => {
-    let result: (Augment | null)[] = [...items];
-    const next_item: Augment | null = items[item_index];
+    let result: (Augment | null)[] = [...augments];
+    const next_item: Augment | null = augments[item_index];
     if (next_item === null) {
       return result;
     }
-    items.forEach((prev_item, index) => {
+    augments.forEach((prev_item, index) => {
       if (index === item_index) {
         return;
       }

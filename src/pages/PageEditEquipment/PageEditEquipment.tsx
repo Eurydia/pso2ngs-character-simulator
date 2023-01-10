@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -15,13 +15,14 @@ import {
 } from "@mui/material";
 import { Assignment } from "@mui/icons-material";
 
-import { ActionContext, StatObject } from "../../assets";
+import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import {
   FormDataUnit,
   FormDataWeapon,
   SummaryEquipment,
 } from "../../types";
+import { useFormUnit, useFormWeapon } from "../../hooks";
 
 const SummaryItem: FC<SummaryEquipment> = (props) => {
   const { equipment, fixa, augments } = props;
@@ -59,41 +60,39 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 
 type PageEditEquipmentProps = {
   context: ActionContext;
-  weapon: FormDataWeapon;
-  unitA: FormDataUnit;
-  unitB: FormDataUnit;
-  unitC: FormDataUnit;
-
-  onWeaponChange: (
-    data: FormDataWeapon | ((prev: FormDataWeapon) => FormDataWeapon),
-  ) => void;
-  onUnitChangeA: (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ) => void;
-  onUnitChangeB: (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ) => void;
-  onUnitChangeC: (
-    data: FormDataUnit | ((prev: FormDataUnit) => FormDataUnit),
-  ) => void;
+  storageKey: string;
+  onChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const {
-    context,
-
-    weapon,
-    unitA,
-    unitB,
-    unitC,
-    onWeaponChange,
-    onUnitChangeA,
-    onUnitChangeB,
-    onUnitChangeC,
-  } = props;
+  const { storageKey, context, onChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const [formWeapon, setFormWeapon] = useFormWeapon(
+    `${storageKey}-w`,
+  );
+  const [formUnitA, setFormUnitA] = useFormUnit(`${storageKey}-ua`);
+  const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
+  const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
+
+  const summary_weapon = FormDataWeapon.getSummaryObject(formWeapon);
+  const summary_unit_a = FormDataUnit.getSummaryObject(formUnitA);
+  const summary_unit_b = FormDataUnit.getSummaryObject(formUnitB);
+  const summary_unit_c = FormDataUnit.getSummaryObject(formUnitC);
+
+  const stat_weapon = FormDataWeapon.getStatObject(
+    context,
+    formWeapon,
+  );
+  const stat_unit_a = FormDataUnit.getStatObject(context, formUnitA);
+  const stat_unit_b = FormDataUnit.getStatObject(context, formUnitB);
+  const stat_unit_c = FormDataUnit.getStatObject(context, formUnitC);
+
+  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
+  stat_total = StatObject.merge(stat_total, stat_unit_b);
+  stat_total = StatObject.merge(stat_total, stat_unit_c);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -104,91 +103,53 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   };
 
   const handleUnitSyncA = () => {
-    onUnitChangeB(unitA);
-    onUnitChangeC(unitA);
+    setFormUnitB(formUnitA);
+    setFormUnitC(formUnitA);
   };
 
   const handleUnitSyncB = () => {
-    onUnitChangeA(unitB);
-    onUnitChangeC(unitB);
+    setFormUnitA(formUnitB);
+    setFormUnitC(formUnitB);
   };
 
   const handleUnitSyncC = () => {
-    onUnitChangeA(unitC);
-    onUnitChangeB(unitC);
+    setFormUnitA(formUnitC);
+    setFormUnitB(formUnitC);
   };
-
-  const summary_weapon = FormDataWeapon.getSummaryObject(weapon);
-  const summary_unit_a = FormDataUnit.getSummaryObject(unitA);
-  const summary_unit_b = FormDataUnit.getSummaryObject(unitB);
-  const summary_unit_c = FormDataUnit.getSummaryObject(unitC);
-
-  const stat_weapon = FormDataWeapon.getStatObject(context, weapon);
-  const stat_unit_a = FormDataUnit.getStatObject(context, unitA);
-  const stat_unit_b = FormDataUnit.getStatObject(context, unitB);
-  const stat_unit_c = FormDataUnit.getStatObject(context, unitC);
-
-  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
-  stat_total = StatObject.merge(stat_total, stat_unit_b);
-  stat_total = StatObject.merge(stat_total, stat_unit_c);
 
   return (
     <Fragment>
-      <Container maxWidth="lg">
-        <Tooltip
-          placement="top"
-          title={<Typography>Open summary</Typography>}
-        >
-          <Fab
-            onClick={handleDialogOpen}
-            sx={{
-              display:
-                weapon.weapon === null &&
-                unitA.unit === null &&
-                unitB.unit === null &&
-                unitC.unit === null
-                  ? "none"
-                  : "flex",
-              position: "fixed",
-              bottom: "24px",
-              right: "24px",
-            }}
-          >
-            <Assignment />
-          </Fab>
-        </Tooltip>
-        <Box margin={4}>
-          <Stack spacing={2}>
-            <FormWeapon
-              cardTitle="Weapon"
-              stat={stat_weapon}
-              formValue={weapon}
-              onFormValueChange={onWeaponChange}
-            />
-            <FormUnit
-              cardTitle="Unit A"
-              stat={stat_unit_a}
-              formValue={unitA}
-              onFormValueChange={onUnitChangeA}
-              onSync={handleUnitSyncA}
-            />
-            <FormUnit
-              cardTitle="Unit B"
-              stat={stat_unit_b}
-              formValue={unitB}
-              onFormValueChange={onUnitChangeB}
-              onSync={handleUnitSyncB}
-            />
-            <FormUnit
-              cardTitle="Unit C"
-              stat={stat_unit_c}
-              formValue={unitC}
-              onFormValueChange={onUnitChangeC}
-              onSync={handleUnitSyncC}
-            />
-          </Stack>
-        </Box>
-      </Container>
+      <Box margin={4}>
+        <Stack spacing={2}>
+          <FormWeapon
+            cardTitle="Weapon"
+            stat={stat_weapon}
+            formData={formWeapon}
+            onFormDataChange={setFormWeapon}
+          />
+          <FormUnit
+            cardTitle="Unit A"
+            stat={stat_unit_a}
+            formValue={formUnitA}
+            onFormValueChange={setFormUnitA}
+            onSync={handleUnitSyncA}
+          />
+          <FormUnit
+            cardTitle="Unit B"
+            stat={stat_unit_b}
+            formValue={formUnitB}
+            onFormValueChange={setFormUnitB}
+            onSync={handleUnitSyncB}
+          />
+          <FormUnit
+            cardTitle="Unit C"
+            stat={stat_unit_c}
+            formValue={formUnitC}
+            onFormValueChange={setFormUnitC}
+            onSync={handleUnitSyncC}
+          />
+        </Stack>
+      </Box>
       <Dialog
         fullWidth
         maxWidth="sm"

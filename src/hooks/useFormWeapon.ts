@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ActionContext } from "../assets";
 
 import { FormDataWeapon } from "../types";
 
@@ -15,7 +16,7 @@ export const useFormWeapon = (
     data: FormDataWeapon | ((prev: FormDataWeapon) => FormDataWeapon),
   ) => void,
 ] => {
-  const [weapon, potentiaLevel, setWeapon, setPotentialLevel] =
+  const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
     useWeapon(form_key, `${form_key}-pl`);
   const [weaponLevel, setWeaponLevel] = useEnhancement(
     `${form_key}-l`,
@@ -27,18 +28,21 @@ export const useFormWeapon = (
     return {
       weapon,
       weapon_level: weaponLevel,
-      potential_level: potentiaLevel,
+      potential_level: potentialLevel,
       fixa,
       augments,
     };
   });
 
   useEffect(() => {
-    setWeapon(data.weapon);
-    setPotentialLevel(data.potential_level);
-    setWeaponLevel(data.weapon_level);
-    setFixa(data.fixa);
-    data.augments.forEach((augment, augment_index) => {
+    const { weapon, weapon_level, fixa, augments, potential_level } =
+      data;
+
+    setWeapon(weapon);
+    setPotentialLevel(potential_level);
+    setWeaponLevel(weapon_level);
+    setFixa(fixa);
+    augments.forEach((augment, augment_index) => {
       setAugment(augment, augment_index);
     });
   }, [data]);

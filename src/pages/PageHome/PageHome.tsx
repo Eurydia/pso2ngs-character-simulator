@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Box,
   Card,
@@ -6,68 +6,63 @@ import {
   CardHeader,
   Container,
   Grid,
-  Stack,
 } from "@mui/material";
 
-import { FormContextEditor, StatView } from "../../components";
-import { ActionContext, StatObject } from "../../assets";
+import { FormContextEditor, FormWeapon } from "../../components";
 
-import { LinkCard } from "./LinkCard";
+import { useActionContext, useFormWeapon } from "../../hooks";
+import { StatObject, statObject } from "../../assets";
 
-type PageHomeProps = {
-  stat: StatObject;
-  context: ActionContext;
-  onContextChange: (
-    value: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
-  const { stat, context, onContextChange } = props;
+  const [appContext, setAppContext] = useActionContext("app-ctx");
+  const [statEquipment, setStatEquipment] = useState<StatObject>(
+    statObject(),
+  );
+
+  const [formWeapon, setFormWeapon] = useFormWeapon("app");
 
   return (
     <Container maxWidth="lg">
       <Box margin={4}>
         <Grid container spacing={2} columns={{ xs: 1, md: 2 }}>
           <Grid item xs={1}>
+            <FormWeapon
+              cardTitle="Weapon"
+              context={appContext}
+              formData={formWeapon}
+              onFormDataChange={setFormWeapon}
+            />
+          </Grid>
+          {/* <Grid item xs={1}>
             <LinkCard
-              title="Equipment"
-              desc="It's dangerous to go alone."
-              destination="/config-equipment"
+              cardTitle="Food"
+              cardDescription="Invent the best snack of all time."
             />
           </Grid>
           <Grid item xs={1}>
             <LinkCard
-              title="Food"
-              desc="Invent the best snack of all time."
-              destination="/config-food"
+              cardTitle="Class & Skill tree"
+              cardDescription="Character class and skills."
             />
           </Grid>
           <Grid item xs={1}>
             <LinkCard
-              title="Class & Skill tree"
-              destination="/config-character"
-              desc="Character class and skills."
+              cardTitle="Addons"
+              cardDescription="Account-wide effects."
             />
           </Grid>
           <Grid item xs={1}>
             <LinkCard
-              title="Addons"
-              desc="Account-wide effects."
-              destination="/config-addon"
+              cardTitle="External effects"
+              cardDescription="Effects caused by others."
             />
           </Grid>
-          <Grid item xs={1}>
-            <LinkCard
-              title="External effects"
-              desc="Effects caused by others."
-              destination="/config-buffs"
-            />
-          </Grid>
-          <Grid item xs={1} />
+          <Grid item xs={1} /> */}
           <Grid item xs={1}>
             <FormContextEditor
-              formData={context}
-              onFormDataChange={onContextChange}
+              formData={appContext}
+              onFormDataChange={setAppContext}
             />
           </Grid>
           <Grid item xs={1}>
@@ -80,7 +75,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 }}
               />
               <CardContent>
-                <StatView stat={stat} maxHeight="600px" />
+                {/* <StatView stat={stat} maxHeight="600px" /> */}
               </CardContent>
             </Card>
           </Grid>

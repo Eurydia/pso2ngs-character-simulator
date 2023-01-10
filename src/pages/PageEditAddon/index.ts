@@ -1,0 +1,1 @@
+export { PageEditAddon } from "./PageEditAddon";
