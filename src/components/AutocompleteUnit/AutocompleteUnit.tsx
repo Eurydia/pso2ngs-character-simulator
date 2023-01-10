@@ -6,7 +6,10 @@ import {
   InputAdornment,
   Typography,
 } from "@mui/material";
-import { PriorityHigh } from "@mui/icons-material";
+import {
+  PriorityHigh,
+  PriorityHighRounded,
+} from "@mui/icons-material";
 
 import { AssetUnits, Unit } from "../../assets";
 
@@ -22,7 +25,7 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
   if (shouldShowWarning) {
     return (
       <InputAdornment position="end">
-        <PriorityHigh color="warning" />
+        <PriorityHighRounded fontSize="large" color="warning" />
         {defaultAdornment}
       </InputAdornment>
     );
