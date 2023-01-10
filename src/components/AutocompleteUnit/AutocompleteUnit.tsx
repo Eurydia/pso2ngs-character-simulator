@@ -4,12 +4,8 @@ import {
   Autocomplete,
   AutocompleteChangeReason,
   InputAdornment,
-  Typography,
 } from "@mui/material";
-import {
-  PriorityHigh,
-  PriorityHighRounded,
-} from "@mui/icons-material";
+import { PriorityHighRounded } from "@mui/icons-material";
 
 import { AssetUnits, Unit } from "../../assets";
 
