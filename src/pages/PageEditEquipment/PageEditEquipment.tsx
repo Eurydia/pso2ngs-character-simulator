@@ -13,48 +13,12 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import {
-  ActionContext,
-  StatObject,
-  ContextAction,
-} from "../../assets";
+import { ActionContext, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 
-const SummaryItem: FC<SummaryEquipment> = (props) => {
-  const { equipment, fixa, augments } = props;
-  return (
-    <Box>
-      <Typography fontWeight="bold">{equipment}</Typography>
-      <Typography>{fixa}</Typography>
-      {augments.map((value, index) => (
-        <Typography key={`${value}-${index}`}>{value}</Typography>
-      ))}
-    </Box>
-  );
-};
-
-type SummaryViewProps = {
-  items: SummaryEquipment[];
-};
-const SummaryView: FC<SummaryViewProps> = (props) => {
-  const { items } = props;
-
-  return (
-    <Box>
-      <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
-        {items.map((item, index) => {
-          return (
-            <Grid key={`item-${index}`} item xs={1}>
-              <SummaryItem {...item} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Box>
-  );
-};
+import { SummaryList } from "./ListSummary";
 
 type PageEditEquipmentProps = {
   isVisible: boolean;
@@ -216,7 +180,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         <DialogTitle>Equipment summary</DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
-            <SummaryView
+            <SummaryList
               items={[
                 summary_weapon,
                 summary_unit_a,

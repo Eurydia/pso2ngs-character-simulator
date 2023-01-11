@@ -15,7 +15,7 @@ import {
 import { HomeRounded } from "@mui/icons-material";
 
 import { FormContextEditor, StatView } from "../../components";
-import { StatObject, statObject, ContextAction } from "../../assets";
+import { StatObject, statObject } from "../../assets";
 import { useActionContext } from "../../hooks";
 
 import { PageEditEquipment } from "../PageEditEquipment";
@@ -26,6 +26,7 @@ import { LinkCard } from "./LinkCard";
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
   const [page, setPage] = useState(0);
+
   const [contextApp, setContextApp] = useActionContext("app-ctx");
 
   const [statEquipment, setStatEquipment] = useState(statObject());
@@ -107,6 +108,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 }}
               />
             </Grid>
+            <Grid item xs={1} />
             <Grid item xs={1}>
               <FormContextEditor
                 formData={contextApp}
