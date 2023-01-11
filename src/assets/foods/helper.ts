@@ -1,4 +1,4 @@
-import { ActionContext } from "../../contexts/ContextAction";
+import { ActionContext } from "../ContextAction";
 import { StatObject, statObject, StatEnum } from "../stat";
 import {
   GroupEnumFoodAttribute,

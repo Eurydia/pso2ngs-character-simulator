@@ -2,7 +2,7 @@ import { StatEnum, StatObject, statObject } from "../../stat";
 import { AssetPotentials, Potential } from "../../potentials";
 import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
-import { ActionContext } from "../../../contexts/ContextAction";
+import { ActionContext } from "../../ContextAction";
 
 export const G_EIGHT: Weapon[] = [];
 

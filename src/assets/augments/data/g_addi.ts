@@ -1,4 +1,4 @@
-import { ActionContext } from "../../../contexts/ContextAction";
+import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
 import { Augment, augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";

@@ -1,5 +1,5 @@
 import { StatEnum, statObject, StatObject } from "../stat";
-import { ActionContext } from "../../contexts/ContextAction";
+import { ActionContext } from "../ContextAction";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeaponRarity } from "./groupEnum";

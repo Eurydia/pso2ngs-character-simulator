@@ -1,10 +1,8 @@
-import { FC, Fragment, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect } from "react";
 import {
   Box,
-  Button,
   Container,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Fab,
@@ -13,13 +11,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Assignment, BarChartRounded } from "@mui/icons-material";
+import { BarChartRounded } from "@mui/icons-material";
 
-import { StatObject } from "../../assets";
+import {
+  ActionContext,
+  StatObject,
+  ContextAction,
+} from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
-import { ContextAction } from "../../contexts";
 
 const SummaryItem: FC<SummaryEquipment> = (props) => {
   const { equipment, fixa, augments } = props;
@@ -57,14 +58,14 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 
 type PageEditEquipmentProps = {
   isVisible: boolean;
+  context: ActionContext;
   storageKey: string;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const context = useContext(ContextAction);
-  const { storageKey, onStatChange, isVisible } = props;
+  const { context, storageKey, onStatChange, isVisible } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 

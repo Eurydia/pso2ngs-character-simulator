@@ -1,4 +1,4 @@
-import { createContext, FC, Fragment, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import {
   AppBar,
   Box,
@@ -15,14 +15,13 @@ import {
 import { HomeRounded } from "@mui/icons-material";
 
 import { FormContextEditor, StatView } from "../../components";
-import { StatObject, statObject } from "../../assets";
+import { StatObject, statObject, ContextAction } from "../../assets";
 import { useActionContext } from "../../hooks";
 
 import { PageEditEquipment } from "../PageEditEquipment";
 import { PageEditFood } from "../PageEditFood";
 
 import { LinkCard } from "./LinkCard";
-import { ContextAction } from "../../contexts";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
@@ -131,18 +130,18 @@ export const PageHome: FC<PageHomeProps> = (props) => {
           </Grid>
         </Box>
       </Container>
-      <ContextAction.Provider value={contextApp}>
-        <PageEditEquipment
-          isVisible={page === 1}
-          storageKey="p-equipment"
-          onStatChange={setStatEquipment}
-        />
-        <PageEditFood
-          isVisible={page === 2}
-          storageKey="p-food"
-          onStatChange={setStatFood}
-        />
-      </ContextAction.Provider>
+      <PageEditEquipment
+        isVisible={page === 1}
+        context={contextApp}
+        storageKey="p-equipment"
+        onStatChange={setStatEquipment}
+      />
+      <PageEditFood
+        isVisible={page === 2}
+        context={contextApp}
+        storageKey="p-food"
+        onStatChange={setStatFood}
+      />
     </Fragment>
   );
 };
