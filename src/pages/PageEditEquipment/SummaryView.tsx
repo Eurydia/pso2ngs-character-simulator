@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Typography,
 } from "@mui/material";
 
 import { SummaryEquipment } from "../../types";
@@ -16,11 +15,13 @@ type SummaryListItemProps = {
 };
 const SummaryListItem: FC<SummaryListItemProps> = (props) => {
   const { label, bold } = props;
+
   if (!Boolean(label)) {
     return null;
   }
+
   return (
-    <ListItem disablePadding dense>
+    <ListItem dense disablePadding>
       <ListItemText
         primary={label}
         primaryTypographyProps={{

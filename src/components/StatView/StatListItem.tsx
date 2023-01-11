@@ -15,7 +15,6 @@ type StatListItemProps = {
 export const StatListItem: FC<StatListItemProps> = memo(
   (props) => {
     const hidden: boolean = props.value === null;
-
     return (
       <ListItem dense sx={{ display: hidden ? "none" : "" }}>
         <ListItemIcon>{props.icon}</ListItemIcon>

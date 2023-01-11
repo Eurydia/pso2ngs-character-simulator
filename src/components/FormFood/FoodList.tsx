@@ -9,21 +9,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import {
-  CopyAll,
-  CopyAllRounded,
-  Delete,
-  DeleteRounded,
-} from "@mui/icons-material";
+import { CopyAllRounded, DeleteRounded } from "@mui/icons-material";
 
 import { Food } from "../../assets";
 
-type CustomListItemProps = {
+type FoodListItemProps = {
   label: string;
   onCopy: () => void;
   onRemove: () => void;
 };
-const CustomListItem: FC<CustomListItemProps> = (props) => {
+const FoodListItem: FC<FoodListItemProps> = (props) => {
   const { label, onCopy, onRemove } = props;
   return (
     <ListItem>
@@ -57,32 +52,29 @@ const CustomListItem: FC<CustomListItemProps> = (props) => {
   );
 };
 
-type CustomListProps = {
+type FoodListProps = {
   items: Food[];
   onCopy: (item: Food, index: number) => void;
   onRemove: (index: number) => void;
 };
-export const CustomList: FC<CustomListProps> = (props) => {
+export const FoodList: FC<FoodListProps> = (props) => {
   const { items, onCopy, onRemove } = props;
 
   return (
-    <List
-      subheader={
-        <ListSubheader disableGutters>
-          <Typography>{`${items.length}/10 items used`}</Typography>
-        </ListSubheader>
-      }
-    >
-      {items.map((item, index) => {
+    <List dense disablePadding>
+      <ListSubheader disableGutters>
+        <Typography>{`${items.length}/10 items used`}</Typography>
+      </ListSubheader>
+      {items.map((item, item_index) => {
         return (
-          <CustomListItem
-            key={`${item.label}-${index}`}
+          <FoodListItem
+            key={`${item.label}-${item_index}`}
             label={item.label}
             onCopy={() => {
-              onCopy(item, index);
+              onCopy(item, item_index);
             }}
             onRemove={() => {
-              onRemove(index);
+              onRemove(item_index);
             }}
           />
         );

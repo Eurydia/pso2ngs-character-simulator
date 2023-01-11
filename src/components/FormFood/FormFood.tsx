@@ -18,7 +18,7 @@ import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
-import { CustomList } from "./CustomList";
+import { FoodList } from "./CustomList";
 
 type FormFoodProps = {
   items: Food[];
@@ -93,7 +93,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
                 add
               </Button>
             </Stack>
-            <CustomList
+            <FoodList
               items={items}
               onCopy={handleCopy}
               onRemove={handleRemove}

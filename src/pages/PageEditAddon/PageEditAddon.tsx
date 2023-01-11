@@ -23,7 +23,11 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
       sx={{ display: isVisible ? "block" : "none" }}
     >
       <Box margin={4}>
-        <FormAddon context={context} title="Hunter" />
+        <Grid container spacing={2} columns={{ xs: 2, sm: 3, md: 4 }}>
+          <Grid item xs={2}>
+            <FormAddon context={context} title="Hunter" />
+          </Grid>
+        </Grid>
       </Box>
     </Container>
   );

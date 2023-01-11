@@ -16,8 +16,8 @@ import {
   AssetAddonSkills,
   StatObject,
 } from "../../assets";
+
 import { FormBase } from "../FormBase";
-import { CustomField } from "./FieldAddon";
 import { StatView } from "../StatView";
 
 type FormAddonProps = {
