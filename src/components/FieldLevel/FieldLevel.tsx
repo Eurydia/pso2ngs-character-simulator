@@ -4,33 +4,32 @@ import { TextField } from "@mui/material";
 import { clampValue } from "./helper";
 
 type FieldLevelProps = {
+  label: string;
   disabled: boolean;
-  valueMin: number | null;
-  valueMax: number | null;
+  valueMin: number;
+  valueMax: number;
   value: number;
   onChange: (value: number) => void;
 };
 export const FieldLevel: FC<FieldLevelProps> = memo(
   (props) => {
-    const { disabled, value, valueMax, valueMin, onChange } = props;
+    const { label, disabled, value, valueMax, valueMin, onChange } =
+      props;
 
     const handleChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
       const value_input: string = event.target.value;
-
       const value_parsed: number = Number.parseInt(value_input);
       if (Number.isNaN(value_parsed)) {
         onChange(0);
         return;
       }
-
       const value_clamped: number = clampValue(
         value_parsed,
         valueMin,
         valueMax,
       );
-
       onChange(value_clamped);
     };
 
@@ -46,7 +45,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
         onChange={handleChange}
         fullWidth
         inputMode="numeric"
-        placeholder="Enhancement"
+        placeholder={label}
         sx={{
           textDecorationLine: props.disabled
             ? "line-through"

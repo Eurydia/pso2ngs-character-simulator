@@ -8,25 +8,22 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
+import { FormAddon } from "../../components";
+import { ActionContext } from "../../assets";
 
-type PageEditAddonProps = {};
-export const PageEditAddon: FC<PageEditAddonProps> = () => {
+type PageEditAddonProps = {
+  context: ActionContext;
+  isVisible: boolean;
+};
+export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
+  const { isVisible, context } = props;
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="lg"
+      sx={{ display: isVisible ? "block" : "none" }}
+    >
       <Box margin={4}>
-        <Paper sx={{ padding: 4 }}>
-          <Grid container columns={{ md: 2, xs: 1 }} spacing={2}>
-            <Grid item xs={1}>
-              <TextField fullWidth label="Main class" />
-            </Grid>
-            <Grid item xs={1}>
-              <TextField fullWidth label="level" />
-            </Grid>
-            <Grid item xs={1}>
-              <TextField fullWidth label="Subclass class" />
-            </Grid>
-          </Grid>
-        </Paper>
+        <FormAddon context={context} title="Hunter" />
       </Box>
     </Container>
   );

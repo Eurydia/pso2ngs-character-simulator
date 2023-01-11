@@ -15,10 +15,10 @@ import { BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
+import { DataUnit, DataWeapon } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 
-import { SummaryList } from "./ListSummary";
+import { SummaryView } from "./SummaryView";
 
 type PageEditEquipmentProps = {
   isVisible: boolean;
@@ -71,13 +71,11 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   ) => {
     setFormUnitA(getter);
   };
-
   const handleUnitChangeB = (
     getter: (prev: DataUnit) => DataUnit,
   ) => {
     setFormUnitB(getter);
   };
-
   const handleUnitChangeC = (
     getter: (prev: DataUnit) => DataUnit,
   ) => {
@@ -85,18 +83,52 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   };
 
   const handleUnitSyncA = () => {
-    setFormUnitB(formUnitA);
-    setFormUnitC(formUnitA);
+    setFormUnitB((prev) => {
+      const next: DataUnit = {
+        ...formUnitA,
+        augments: [...formUnitA.augments],
+      };
+      return next;
+    });
+    setFormUnitC((prev) => {
+      const next: DataUnit = {
+        ...formUnitA,
+        augments: [...formUnitA.augments],
+      };
+      return next;
+    });
   };
-
   const handleUnitSyncB = () => {
-    setFormUnitA(formUnitB);
-    setFormUnitC(formUnitB);
+    setFormUnitA((prev) => {
+      const next: DataUnit = {
+        ...formUnitB,
+        augments: [...formUnitB.augments],
+      };
+      return next;
+    });
+    setFormUnitC((prev) => {
+      const next: DataUnit = {
+        ...formUnitB,
+        augments: [...formUnitB.augments],
+      };
+      return next;
+    });
   };
-
   const handleUnitSyncC = () => {
-    setFormUnitA(formUnitC);
-    setFormUnitB(formUnitC);
+    setFormUnitA((prev) => {
+      const next: DataUnit = {
+        ...formUnitC,
+        augments: [...formUnitC.augments],
+      };
+      return next;
+    });
+    setFormUnitB((prev) => {
+      const next: DataUnit = {
+        ...formUnitC,
+        augments: [...formUnitC.augments],
+      };
+      return next;
+    });
   };
 
   const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
@@ -172,10 +204,12 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>Equipment summary</DialogTitle>
+        <DialogTitle fontSize="x-large" fontWeight="bold">
+          Equipment summary
+        </DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
-            <SummaryList
+            <SummaryView
               items={[
                 summary_weapon,
                 summary_unit_a,

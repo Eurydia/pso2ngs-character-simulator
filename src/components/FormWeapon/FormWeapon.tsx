@@ -33,7 +33,7 @@ type FormWeaponProps = {
   stat: StatObject;
   formData: DataWeapon;
   onFormDataChange: (
-    getter: (prev: DataWeapon) => DataWeapon,
+    dispatch: (prev: DataWeapon) => DataWeapon,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
@@ -129,6 +129,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                 />
 
                 <FieldLevel
+                  label="Enhacement"
                   disabled={weapon === null}
                   valueMin={0}
                   valueMax={60}

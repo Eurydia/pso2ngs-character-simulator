@@ -22,6 +22,7 @@ import { PageEditEquipment } from "../PageEditEquipment";
 import { PageEditFood } from "../PageEditFood";
 
 import { LinkCard } from "./LinkCard";
+import { PageEditAddon } from "../PageEditAddon";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
@@ -144,6 +145,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
         storageKey="p-food"
         onStatChange={setStatFood}
       />
+      <PageEditAddon isVisible={page === 4} />
     </Fragment>
   );
 };

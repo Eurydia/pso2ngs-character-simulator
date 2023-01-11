@@ -1,5 +1,3 @@
-import { createContext } from "react";
-
 export type TargetContext = {
   isBoss: boolean;
   isDolls: boolean;
@@ -47,7 +45,3 @@ export type ActionContext = {
   character: CharacterContext;
   location: LocationContext;
 };
-
-export const ContextAction = createContext<ActionContext>(
-  {} as ActionContext,
-);

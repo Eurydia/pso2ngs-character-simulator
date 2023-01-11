@@ -37,6 +37,7 @@ type FormUnitProps = {
 export const FormUnit: FC<FormUnitProps> = (props) => {
   const { stat, cardTitle, formData, onFormDataChange, onSync } =
     props;
+
   const { unit, unit_level, fixa, augments } = formData;
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -75,6 +76,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     onFormDataChange((prev) => {
       const next = { ...prev };
       next.augments[index] = value;
+      next.augments = Augment.removeConflict(next.augments, index);
       return next;
     });
   };
@@ -126,6 +128,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   onChange={handleUnitChange}
                 />
                 <FieldLevel
+                  label="Enhacement"
                   disabled={unit === null}
                   valueMin={0}
                   valueMax={60}
