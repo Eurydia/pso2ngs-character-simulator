@@ -65,7 +65,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
             <Grid item xs={1}>
               <LinkCard
                 cardTitle="Equipment"
-                cardDescription="Edit your equipment"
+                cardDescription="All things equipment."
                 onLinkClick={() => {
                   setPage(1);
                 }}
@@ -80,25 +80,33 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={1}>
+            <Grid item xs={1}>
               <LinkCard
                 cardTitle="Class & Skill tree"
-                cardDescription="Character class and skills."
+                cardDescription="Classes and skills."
+                onLinkClick={() => {
+                  setPage(3);
+                }}
               />
             </Grid>
             <Grid item xs={1}>
               <LinkCard
                 cardTitle="Addons"
                 cardDescription="Account-wide effects."
+                onLinkClick={() => {
+                  setPage(4);
+                }}
               />
             </Grid>
             <Grid item xs={1}>
               <LinkCard
                 cardTitle="External effects"
                 cardDescription="Effects caused by others."
+                onLinkClick={() => {
+                  setPage(5);
+                }}
               />
             </Grid>
-            <Grid item xs={1} /> */}
             <Grid item xs={1}>
               <FormContextEditor
                 formData={appContext}

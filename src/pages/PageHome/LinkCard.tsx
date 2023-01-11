@@ -33,10 +33,11 @@ export const LinkCard: FC<LinkCardProps> = (props) => {
           fontWeight: "bold",
           fontSize: "x-large",
         }}
+        subheader={cardDescription}
+        subheaderTypographyProps={{
+          paragraph: true,
+        }}
       />
-      <CardContent>
-        <Typography paragraph>{cardDescription}</Typography>
-      </CardContent>
       <CardActions disableSpacing>
         <Button
           disableRipple
