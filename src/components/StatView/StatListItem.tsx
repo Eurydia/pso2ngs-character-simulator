@@ -7,20 +7,17 @@ import {
   Typography,
 } from "@mui/material";
 
-type CustomItemProps = {
-  value: string | null;
+type StatListItemProps = {
   label: ReactNode;
+  value: string | null;
   icon: ReactNode;
 };
-export const CustomItem: FC<CustomItemProps> = memo(
+export const StatListItem: FC<StatListItemProps> = memo(
   (props) => {
     const hidden: boolean = props.value === null;
 
     return (
-      <ListItem
-        dense
-        sx={{ paddingY: 0, display: hidden ? "none" : "" }}
-      >
+      <ListItem dense sx={{ display: hidden ? "none" : "" }}>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>
           <Stack

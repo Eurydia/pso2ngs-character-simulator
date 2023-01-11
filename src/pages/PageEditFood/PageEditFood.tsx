@@ -16,11 +16,6 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
 
   const [items, addItem, removeItem] = useFood(storageKey);
 
-  useEffect(() => {
-    const stat = Food.getStatObject(context, items);
-    onStatChange(stat);
-  }, [context, items]);
-
   const handleAddItem = (next_item: Food, index: number) => {
     addItem(next_item, index);
   };
@@ -28,6 +23,11 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   const handleRemoveItem = (index: number) => {
     removeItem(index);
   };
+
+  useEffect(() => {
+    const stat = Food.getStatObject(context, items);
+    onStatChange(stat);
+  }, [context, items]);
 
   const stat_total = Food.getStatObject(context, items);
 

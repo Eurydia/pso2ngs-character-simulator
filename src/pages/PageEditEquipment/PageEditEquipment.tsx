@@ -40,19 +40,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
   const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
 
-  useEffect(() => {
-    const weapon = DataWeapon.getStatObject(context, formWeapon);
-    const unit_a = DataUnit.getStatObject(context, formUnitA);
-    const unit_b = DataUnit.getStatObject(context, formUnitB);
-    const unit_c = DataUnit.getStatObject(context, formUnitC);
-
-    let stat = StatObject.merge(weapon, unit_a);
-    stat = StatObject.merge(stat, unit_b);
-    stat = StatObject.merge(stat, unit_c);
-
-    onStatChange(stat);
-  }, [context, formWeapon, formUnitA, formUnitB, formUnitC]);
-
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
@@ -130,6 +117,19 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
       return next;
     });
   };
+
+  useEffect(() => {
+    const weapon = DataWeapon.getStatObject(context, formWeapon);
+    const unit_a = DataUnit.getStatObject(context, formUnitA);
+    const unit_b = DataUnit.getStatObject(context, formUnitB);
+    const unit_c = DataUnit.getStatObject(context, formUnitC);
+
+    let stat = StatObject.merge(weapon, unit_a);
+    stat = StatObject.merge(stat, unit_b);
+    stat = StatObject.merge(stat, unit_c);
+
+    onStatChange(stat);
+  }, [context, formWeapon, formUnitA, formUnitB, formUnitC]);
 
   const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
   const summary_unit_a = DataUnit.getSummaryObject(formUnitA);

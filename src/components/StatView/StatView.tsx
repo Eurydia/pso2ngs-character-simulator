@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, List, Stack, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
 import { Nullable } from "../../types";
 
-import { CustomList } from "./CustomList";
-import { CustomItem } from "./CustomItem";
+import { StatList } from "./StatList";
+import { StatListItem } from "./StatListItem";
 import { getIcon } from "./helper";
 
 type CoreGroupProps = Nullable<{
@@ -23,33 +23,33 @@ const CoreGroup: FC<CoreGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Core">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Core">
+      <StatListItem
         label={StatEnumString[StatEnum.CORE_BP]}
         value={bp}
         icon={getIcon(bp)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.CORE_HP]}
         value={hp}
         icon={getIcon(hp)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.CORE_PP]}
         value={pp}
         icon={getIcon(pp)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.CORE_ATTACK]}
         value={attack}
         icon={getIcon(attack)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.CORE_DEFENSE]}
         value={defense}
         icon={getIcon(defense)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -67,28 +67,28 @@ const PotencyGroup: FC<PotencyGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Weapon up">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Weapon up">
+      <StatListItem
         label={StatEnumString[StatEnum.WEAPON_MELEE]}
         value={melee}
         icon={getIcon(melee)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.WEAPON_RANGED]}
         value={ranged}
         icon={getIcon(ranged)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.WEAPON_TECHNIQUE]}
         value={technique}
         icon={getIcon(technique)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.WEAPON_WEAKPOINT]}
         value={weakpoint}
         icon={getIcon(weakpoint)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -110,43 +110,43 @@ const AilmentGroup: FC<AilmentGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Ailment resistance">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Ailment resistance">
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_BURN]}
         value={burn}
         icon={getIcon(burn)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_FREEZE]}
         value={freeze}
         icon={getIcon(freeze)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_SHOCK]}
         value={shock}
         icon={getIcon(shock)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_BLIND]}
         value={blind}
         icon={getIcon(blind)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_PANIC]}
         value={panic}
         icon={getIcon(panic)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_POISON]}
         value={poison}
         icon={getIcon(poison)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.AIL_DOWN]}
         value={physicalDown}
         icon={getIcon(physicalDown)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -161,13 +161,13 @@ const AdvHPGroup: FC<AdvHPGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Advanced: HP">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Advanced: HP">
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_HP_BOOST]}
         value={boost}
         icon={getIcon(boost)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -184,23 +184,23 @@ const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Advanced: PP">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Advanced: PP">
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_PP_USAGE]}
         value={usage}
         icon={getIcon(usage, true)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_PP_ACTIVE_RECOVERY]}
         value={activeRecovery}
         icon={getIcon(activeRecovery)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_PP_NATURAL_RECOVERY]}
         value={naturalRecovery}
         icon={getIcon(naturalRecovery)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -225,33 +225,33 @@ const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Advanced: Offensive">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Advanced: Offensive">
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
         value={floorPotency}
         icon={getIcon(floorPotency)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_OFF_DAMAGE_UP]}
         value={damageUp}
         icon={getIcon(damageUp)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_OFF_CRIT_CHANCE]}
         value={critChance}
         icon={getIcon(critChance)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_OFF_CRIT_DAMAGE]}
         value={critDamage}
         icon={getIcon(critDamage)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_OFF_PB_RECOVERY]}
         value={pbRecovery}
         icon={getIcon(pbRecovery)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -268,23 +268,23 @@ const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Advanced: Defensive">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Advanced: Defensive">
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_DEF_DAMAGE_RES]}
         value={damageResist}
         icon={getIcon(damageResist)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_DEF_HEALING_UP]}
         value={healingUp}
         icon={getIcon(healingUp)}
       />
-      <CustomItem
+      <StatListItem
         label={StatEnumString[StatEnum.ADV_DEF_AILMENT_DURATION]}
         value={ailmentDuration}
         icon={getIcon(ailmentDuration, true)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -299,13 +299,13 @@ const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
   });
 
   return (
-    <CustomList hidden={hidden} subheader="Enviroment resistence">
-      <CustomItem
+    <StatList hidden={hidden} subheader="Enviroment resistence">
+      <StatListItem
         label={StatEnumString[StatEnum.HARSH_COLD]}
         value={harshEnvironment}
         icon={getIcon(harshEnvironment)}
       />
-    </CustomList>
+    </StatList>
   );
 };
 
@@ -327,8 +327,8 @@ export const StatView: FC<StatViewProps> = (props) => {
   }
 
   return (
-    <Box>
-      <Stack spacing={1} maxHeight={maxHeight} overflow="auto">
+    <Box maxHeight={maxHeight} overflow="auto">
+      <List dense disablePadding>
         <CoreGroup
           bp={StatObject.format(stat, StatEnum.CORE_BP)}
           hp={StatObject.format(stat, StatEnum.CORE_HP)}
@@ -413,7 +413,7 @@ export const StatView: FC<StatViewProps> = (props) => {
             StatEnum.ADV_DEF_AILMENT_DURATION,
           )}
         />
-      </Stack>
+      </List>
     </Box>
   );
 };
