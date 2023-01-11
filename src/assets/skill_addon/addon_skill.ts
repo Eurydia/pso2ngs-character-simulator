@@ -1,4 +1,4 @@
-import { ActionContext } from "../context";
+import { ActionContext } from "../../contexts/ContextAction";
 import { StatObject } from "../stat";
 
 export type AddonSkill = {

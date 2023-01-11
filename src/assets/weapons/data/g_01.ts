@@ -3,7 +3,7 @@ import { Potential, AssetPotentials } from "../../potentials";
 
 import { GroupEnumWeaponRarity } from "../groupEnum";
 import { weapon, Weapon } from "../weapon";
-import { ActionContext } from "../../context";
+import { ActionContext } from "../../../contexts/ContextAction";
 
 export const G_ONE: Weapon[] = [];
 

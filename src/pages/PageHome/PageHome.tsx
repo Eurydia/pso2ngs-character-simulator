@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { createContext, FC, Fragment, useState } from "react";
 import {
   AppBar,
   Box,
@@ -22,12 +22,13 @@ import { PageEditEquipment } from "../PageEditEquipment";
 import { PageEditFood } from "../PageEditFood";
 
 import { LinkCard } from "./LinkCard";
+import { ContextAction } from "../../contexts";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
   const [page, setPage] = useState(0);
+  const [contextApp, setContextApp] = useActionContext("app-ctx");
 
-  const [appContext, setAppContext] = useActionContext("app-ctx");
   const [statEquipment, setStatEquipment] = useState(statObject());
   const [statFood, setStatFood] = useState(statObject());
 
@@ -109,8 +110,8 @@ export const PageHome: FC<PageHomeProps> = (props) => {
             </Grid>
             <Grid item xs={1}>
               <FormContextEditor
-                formData={appContext}
-                onFormDataChange={setAppContext}
+                formData={contextApp}
+                onFormDataChange={setContextApp}
               />
             </Grid>
             <Grid item xs={1}>
@@ -130,18 +131,18 @@ export const PageHome: FC<PageHomeProps> = (props) => {
           </Grid>
         </Box>
       </Container>
-      <PageEditEquipment
-        isVisible={page === 1}
-        context={appContext}
-        storageKey="p-equipment"
-        onStatChange={setStatEquipment}
-      />
-      <PageEditFood
-        isVisible={page === 2}
-        context={appContext}
-        storageKey="p-food"
-        onStatChange={setStatFood}
-      />
+      <ContextAction.Provider value={contextApp}>
+        <PageEditEquipment
+          isVisible={page === 1}
+          storageKey="p-equipment"
+          onStatChange={setStatEquipment}
+        />
+        <PageEditFood
+          isVisible={page === 2}
+          storageKey="p-food"
+          onStatChange={setStatFood}
+        />
+      </ContextAction.Provider>
     </Fragment>
   );
 };

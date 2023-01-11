@@ -1,4 +1,4 @@
-import { FC, Fragment, useState, useEffect } from "react";
+import { FC, Fragment, useState, useEffect, useContext } from "react";
 import {
   Box,
   Button,
@@ -15,10 +15,11 @@ import {
 } from "@mui/material";
 import { Assignment, BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, statObject, StatObject } from "../../assets";
+import { StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
+import { ContextAction } from "../../contexts";
 
 const SummaryItem: FC<SummaryEquipment> = (props) => {
   const { equipment, fixa, augments } = props;
@@ -56,14 +57,14 @@ const SummaryView: FC<SummaryViewProps> = (props) => {
 
 type PageEditEquipmentProps = {
   isVisible: boolean;
-  context: ActionContext;
   storageKey: string;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { storageKey, context, onStatChange, isVisible } = props;
+  const context = useContext(ContextAction);
+  const { storageKey, onStatChange, isVisible } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 

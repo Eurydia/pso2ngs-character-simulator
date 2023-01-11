@@ -1,5 +1,5 @@
 import { StatObject, statObject } from "../stat";
-import { ActionContext } from "../context";
+import { ActionContext } from "../../contexts/ContextAction";
 
 export type Potential = {
   name: string;
