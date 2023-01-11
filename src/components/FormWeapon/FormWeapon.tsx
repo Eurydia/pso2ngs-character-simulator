@@ -105,16 +105,13 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             placement="top"
             title={<Typography>Open summary</Typography>}
           >
-            <span>
-              <IconButton
-                size="large"
-                color="primary"
-                disabled={formData.weapon === null}
-                onClick={handleDialogOpen}
-              >
-                <BarChartRounded />
-              </IconButton>
-            </span>
+            <IconButton
+              size="large"
+              color="primary"
+              onClick={handleDialogOpen}
+            >
+              <BarChartRounded />
+            </IconButton>
           </Tooltip>
         }
         slotCardContent={

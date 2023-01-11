@@ -16,21 +16,20 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
 
   const [items, addItem, removeItem] = useFood(storageKey);
 
-  const stat_total = Food.getStatObject(context, items);
-
   useEffect(() => {
-    onStatChange(stat_total);
-  }, [context]);
+    const stat = Food.getStatObject(context, items);
+    onStatChange(stat);
+  }, [context, items]);
 
   const handleAddItem = (next_item: Food, index: number) => {
     addItem(next_item, index);
-    onStatChange(stat_total);
   };
 
   const handleRemoveItem = (index: number) => {
     removeItem(index);
-    onStatChange(stat_total);
   };
+
+  const stat_total = Food.getStatObject(context, items);
 
   return (
     <Container

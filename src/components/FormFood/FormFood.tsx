@@ -65,7 +65,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
               <IconButton
                 size="large"
                 color="primary"
-                disabled={items.length === 0}
                 onClick={handleDialogOpen}
               >
                 <BarChartRounded />
@@ -108,7 +107,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>Stat summary</DialogTitle>
+        <DialogTitle>Food buff summary</DialogTitle>
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>

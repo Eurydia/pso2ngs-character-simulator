@@ -95,30 +95,25 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
               placement="top"
               title={<Typography>Sync with me</Typography>}
             >
-              <span>
-                <IconButton
-                  color="primary"
-                  size="large"
-                  onClick={onSync}
-                >
-                  <SyncRounded />
-                </IconButton>
-              </span>
+              <IconButton
+                color="primary"
+                size="large"
+                onClick={onSync}
+              >
+                <SyncRounded />
+              </IconButton>
             </Tooltip>
             <Tooltip
               placement="top"
               title={<Typography>Open stat</Typography>}
             >
-              <span>
-                <IconButton
-                  color="primary"
-                  size="large"
-                  disabled={unit === null}
-                  onClick={handleDialogOpen}
-                >
-                  <BarChartRounded />
-                </IconButton>
-              </span>
+              <IconButton
+                color="primary"
+                size="large"
+                onClick={handleDialogOpen}
+              >
+                <BarChartRounded />
+              </IconButton>
             </Tooltip>
           </Fragment>
         }

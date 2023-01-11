@@ -40,18 +40,18 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
   const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
 
-  const stat_weapon = DataWeapon.getStatObject(context, formWeapon);
-  const stat_unit_a = DataUnit.getStatObject(context, formUnitA);
-  const stat_unit_b = DataUnit.getStatObject(context, formUnitB);
-  const stat_unit_c = DataUnit.getStatObject(context, formUnitC);
-
-  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
-  stat_total = StatObject.merge(stat_total, stat_unit_b);
-  stat_total = StatObject.merge(stat_total, stat_unit_c);
-
   useEffect(() => {
-    onStatChange(stat_total);
-  }, [context]);
+    const weapon = DataWeapon.getStatObject(context, formWeapon);
+    const unit_a = DataUnit.getStatObject(context, formUnitA);
+    const unit_b = DataUnit.getStatObject(context, formUnitB);
+    const unit_c = DataUnit.getStatObject(context, formUnitC);
+
+    let stat = StatObject.merge(weapon, unit_a);
+    stat = StatObject.merge(stat, unit_b);
+    stat = StatObject.merge(stat, unit_c);
+
+    onStatChange(stat);
+  }, [context, formWeapon, formUnitA, formUnitB, formUnitC]);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -64,52 +64,54 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     getter: (prev: DataWeapon) => DataWeapon,
   ) => {
     setFormWeapon(getter);
-    onStatChange(stat_total);
   };
 
   const handleUnitChangeA = (
     getter: (prev: DataUnit) => DataUnit,
   ) => {
     setFormUnitA(getter);
-    onStatChange(stat_total);
   };
 
   const handleUnitChangeB = (
     getter: (prev: DataUnit) => DataUnit,
   ) => {
     setFormUnitB(getter);
-    onStatChange(stat_total);
   };
 
   const handleUnitChangeC = (
     getter: (prev: DataUnit) => DataUnit,
   ) => {
     setFormUnitC(getter);
-    onStatChange(stat_total);
   };
 
   const handleUnitSyncA = () => {
     setFormUnitB(formUnitA);
     setFormUnitC(formUnitA);
-    onStatChange(stat_total);
   };
 
   const handleUnitSyncB = () => {
     setFormUnitA(formUnitB);
     setFormUnitC(formUnitB);
-    onStatChange(stat_total);
   };
 
   const handleUnitSyncC = () => {
     setFormUnitA(formUnitC);
     setFormUnitB(formUnitC);
-    onStatChange(stat_total);
   };
 
   const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
   const summary_unit_a = DataUnit.getSummaryObject(formUnitA);
   const summary_unit_b = DataUnit.getSummaryObject(formUnitB);
   const summary_unit_c = DataUnit.getSummaryObject(formUnitC);
+
+  const stat_weapon = DataWeapon.getStatObject(context, formWeapon);
+  const stat_unit_a = DataUnit.getStatObject(context, formUnitA);
+  const stat_unit_b = DataUnit.getStatObject(context, formUnitB);
+  const stat_unit_c = DataUnit.getStatObject(context, formUnitC);
+
+  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
+  stat_total = StatObject.merge(stat_total, stat_unit_b);
+  stat_total = StatObject.merge(stat_total, stat_unit_c);
 
   return (
     <Container
@@ -123,14 +125,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         title={<Typography>Open summary</Typography>}
       >
         <Fab
-          disableRipple
           onClick={handleDialogOpen}
-          disabled={
-            formWeapon.weapon === null &&
-            formUnitA.unit === null &&
-            formUnitB.unit === null &&
-            formUnitC.unit === null
-          }
           sx={{
             position: "fixed",
             bottom: "24px",

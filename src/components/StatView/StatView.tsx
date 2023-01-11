@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
 import { Nullable } from "../../types";
@@ -315,6 +315,16 @@ type StatViewProps = {
 };
 export const StatView: FC<StatViewProps> = (props) => {
   const { stat, maxHeight } = props;
+
+  if (StatObject.getKeys(stat).length === 0) {
+    return (
+      <Box>
+        <Typography fontStyle="italic">
+          No stat to display.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box>
