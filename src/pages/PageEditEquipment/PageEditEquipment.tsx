@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, Fragment, useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -146,58 +146,60 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   stat_total = StatObject.merge(stat_total, stat_unit_c);
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: isVisible ? "block" : "none",
-      }}
-    >
-      <Tooltip
-        placement="top"
-        title={<Typography>Open summary</Typography>}
+    <Fragment>
+      <Container
+        maxWidth="md"
+        sx={{
+          display: isVisible ? "block" : "none",
+        }}
       >
-        <Fab
-          onClick={handleDialogOpen}
-          sx={{
-            position: "fixed",
-            bottom: "24px",
-            right: "24px",
-          }}
+        <Tooltip
+          placement="top"
+          title={<Typography>Open summary</Typography>}
         >
-          <BarChartRounded />
-        </Fab>
-      </Tooltip>
-      <Box marginY={4}>
-        <Stack spacing={2}>
-          <FormWeapon
-            stat={stat_weapon}
-            cardTitle="Weapon"
-            formData={formWeapon}
-            onFormDataChange={handleWeaponChange}
-          />
-          <FormUnit
-            cardTitle="Unit A"
-            stat={stat_unit_a}
-            formData={formUnitA}
-            onFormDataChange={handleUnitChangeA}
-            onSync={handleUnitSyncA}
-          />
-          <FormUnit
-            cardTitle="Unit B"
-            stat={stat_unit_b}
-            formData={formUnitB}
-            onFormDataChange={handleUnitChangeB}
-            onSync={handleUnitSyncB}
-          />
-          <FormUnit
-            cardTitle="Unit C"
-            stat={stat_unit_c}
-            formData={formUnitC}
-            onFormDataChange={handleUnitChangeC}
-            onSync={handleUnitSyncC}
-          />
-        </Stack>
-      </Box>
+          <Fab
+            onClick={handleDialogOpen}
+            sx={{
+              position: "fixed",
+              bottom: "24px",
+              right: "24px",
+            }}
+          >
+            <BarChartRounded />
+          </Fab>
+        </Tooltip>
+        <Box marginY={4}>
+          <Stack spacing={2}>
+            <FormWeapon
+              stat={stat_weapon}
+              cardTitle="Weapon"
+              formData={formWeapon}
+              onFormDataChange={handleWeaponChange}
+            />
+            <FormUnit
+              cardTitle="Unit A"
+              stat={stat_unit_a}
+              formData={formUnitA}
+              onFormDataChange={handleUnitChangeA}
+              onSync={handleUnitSyncA}
+            />
+            <FormUnit
+              cardTitle="Unit B"
+              stat={stat_unit_b}
+              formData={formUnitB}
+              onFormDataChange={handleUnitChangeB}
+              onSync={handleUnitSyncB}
+            />
+            <FormUnit
+              cardTitle="Unit C"
+              stat={stat_unit_c}
+              formData={formUnitC}
+              onFormDataChange={handleUnitChangeC}
+              onSync={handleUnitSyncC}
+            />
+          </Stack>
+        </Box>
+      </Container>
       <Dialog
         fullWidth
         maxWidth="sm"
@@ -221,6 +223,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           </Stack>
         </DialogContent>
       </Dialog>
-    </Container>
+    </Fragment>
   );
 };

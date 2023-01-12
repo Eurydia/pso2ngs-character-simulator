@@ -1,14 +1,23 @@
-import { FC } from "react";
-import { Box, Container, Grid, Stack } from "@mui/material";
+import { FC, Fragment, useEffect, useMemo, useState } from "react";
+import {
+  Box,
+  Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Stack,
+} from "@mui/material";
 
-import { FormAddon } from "../../components";
+import { FormAddon, StatView } from "../../components";
+
 import {
   ActionContext,
   AddonSkill,
   AssetAddonSkills,
   StatObject,
 } from "../../assets";
-import { useFormAddon } from "../../hooks/useFormAddon";
+import { useFormAddon } from "../../hooks";
 
 // ------------------ Hunter ------------------
 const HUNTER_MAIN_ADDON: AddonSkill =
@@ -87,9 +96,12 @@ type PageEditAddonProps = {
   storage_key: string;
   context: ActionContext;
   isVisible: boolean;
+  onStatChange: (stat: StatObject) => void;
 };
 export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
-  const { isVisible, context, storage_key } = props;
+  const { storage_key, isVisible, context, onStatChange } = props;
+
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const {
     mainLevel: huMainLevel,
@@ -208,159 +220,251 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
     WAKER_MAIN_ADDON,
     WAKER_SUB_ADDONS,
   );
-  const stat_hu: StatObject = huGetStatObject(context);
-  const stat_fi: StatObject = fiGetStatObject(context);
-  const stat_ra: StatObject = raGetStatObject(context);
-  const stat_gu: StatObject = guGetStatObject(context);
-  const stat_fo: StatObject = foGetStatObject(context);
-  const stat_te: StatObject = teGetStatObject(context);
-  const stat_br: StatObject = brGetStatObject(context);
-  const stat_bo: StatObject = boGetStatObject(context);
-  const stat_wa: StatObject = waGetStatObject(context);
+
+  const stat_hu: StatObject = useMemo(() => {
+    return huGetStatObject(context);
+  }, [context, huGetStatObject]);
+  const stat_fi: StatObject = useMemo(() => {
+    return fiGetStatObject(context);
+  }, [context, fiGetStatObject]);
+  const stat_ra: StatObject = useMemo(() => {
+    return raGetStatObject(context);
+  }, [context, raGetStatObject]);
+  const stat_gu: StatObject = useMemo(() => {
+    return guGetStatObject(context);
+  }, [context, guGetStatObject]);
+  const stat_fo: StatObject = useMemo(() => {
+    return foGetStatObject(context);
+  }, [context, foGetStatObject]);
+  const stat_te: StatObject = useMemo(() => {
+    return teGetStatObject(context);
+  }, [context, teGetStatObject]);
+  const stat_br: StatObject = useMemo(() => {
+    return brGetStatObject(context);
+  }, [context, brGetStatObject]);
+  const stat_bo: StatObject = useMemo(() => {
+    return boGetStatObject(context);
+  }, [context, boGetStatObject]);
+  const stat_wa: StatObject = useMemo(() => {
+    return waGetStatObject(context);
+  }, [context, waGetStatObject]);
+
+  const stat_total = useMemo((): StatObject => {
+    let stat = StatObject.merge(stat_hu, stat_fi);
+    stat = StatObject.merge(stat, stat_ra);
+    stat = StatObject.merge(stat, stat_gu);
+    stat = StatObject.merge(stat, stat_fo);
+    stat = StatObject.merge(stat, stat_te);
+    stat = StatObject.merge(stat, stat_br);
+    stat = StatObject.merge(stat, stat_bo);
+    return StatObject.merge(stat, stat_wa);
+  }, [
+    stat_hu,
+    stat_fi,
+    stat_ra,
+    stat_gu,
+    stat_fo,
+    stat_te,
+    stat_br,
+    stat_bo,
+    stat_wa,
+  ]);
+
+  useEffect(() => {
+    // let stat = StatObject.merge(stat_hu, stat_fi);
+    // stat = StatObject.merge(stat, stat_ra);
+    // stat = StatObject.merge(stat, stat_gu);
+    // stat = StatObject.merge(stat, stat_fo);
+    // stat = StatObject.merge(stat, stat_te);
+    // stat = StatObject.merge(stat, stat_br);
+    // stat = StatObject.merge(stat, stat_bo);
+    // stat = StatObject.merge(stat, stat_wa);
+    onStatChange(stat_total);
+  }, [
+    context,
+    stat_total,
+    // huGetStatObject,
+    // fiGetStatObject,
+    // raGetStatObject,
+    // guGetStatObject,
+    // foGetStatObject,
+    // teGetStatObject,
+    // brGetStatObject,
+    // boGetStatObject,
+    // waGetStatObject,
+  ]);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ display: isVisible ? "block" : "none" }}
-    >
-      <Box margin={4}>
-        <Grid container spacing={2} columns={{ xs: 1, sm: 1, md: 2 }}>
-          <Grid item xs={1}>
-            <Stack spacing={2}>
-              <FormAddon
-                title="Hunter"
-                stat={stat_hu}
-                mainLabel={HUNTER_MAIN_ADDON.label}
-                subLabels={HUNTER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={huMainLevel}
-                subLevels={huSubLevels}
-                subActiveIndexes={huSubActiveIndexes}
-                onMainLevelChange={huSetMainLevel}
-                onSubLevelChange={huSetSubLevel}
-                onSubActiveIndexChange={huSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Ranger"
-                stat={stat_ra}
-                mainLabel={RANGER_MAIN_ADDON.label}
-                subLabels={RANGER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={raMainLevel}
-                subLevels={raSubLevels}
-                subActiveIndexes={raSubActiveIndexes}
-                onMainLevelChange={raSetMainLevel}
-                onSubLevelChange={raSetSubLevel}
-                onSubActiveIndexChange={raSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Force"
-                stat={stat_fo}
-                mainLabel={FORCE_MAIN_ADDON.label}
-                subLabels={FORCE_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={foMainLevel}
-                subLevels={foSubLevels}
-                subActiveIndexes={foSubActiveIndexes}
-                onMainLevelChange={foSetMainLevel}
-                onSubLevelChange={foSetSubLevel}
-                onSubActiveIndexChange={foSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Braver"
-                stat={stat_br}
-                mainLabel={BRAVER_MAIN_ADDON.label}
-                subLabels={BRAVER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={brMainLevel}
-                subLevels={brSubLevels}
-                subActiveIndexes={brSubActiveIndexes}
-                onMainLevelChange={brSetMainLevel}
-                onSubLevelChange={brSetSubLevel}
-                onSubActiveIndexChange={brSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Waker"
-                stat={stat_wa}
-                mainLabel={WAKER_MAIN_ADDON.label}
-                subLabels={WAKER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={waMainLevel}
-                subLevels={waSubLevels}
-                subActiveIndexes={waSubActiveIndexes}
-                onMainLevelChange={waSetMainLevel}
-                onSubLevelChange={waSetSubLevel}
-                onSubActiveIndexChange={waSetSubActiveIndex}
-              />
-            </Stack>
+    <Fragment>
+      <Container
+        maxWidth="lg"
+        sx={{ display: isVisible ? "block" : "none" }}
+      >
+        <Box margin={4}>
+          <Grid
+            container
+            spacing={2}
+            columns={{ xs: 1, sm: 1, md: 2 }}
+          >
+            <Grid item xs={1}>
+              <Stack spacing={2}>
+                <FormAddon
+                  title="Hunter"
+                  stat={stat_hu}
+                  mainLabel={HUNTER_MAIN_ADDON.label}
+                  subLabels={HUNTER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={huMainLevel}
+                  subLevels={huSubLevels}
+                  subActiveIndexes={huSubActiveIndexes}
+                  onMainLevelChange={huSetMainLevel}
+                  onSubLevelChange={huSetSubLevel}
+                  onSubActiveIndexChange={huSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Ranger"
+                  stat={stat_ra}
+                  mainLabel={RANGER_MAIN_ADDON.label}
+                  subLabels={RANGER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={raMainLevel}
+                  subLevels={raSubLevels}
+                  subActiveIndexes={raSubActiveIndexes}
+                  onMainLevelChange={raSetMainLevel}
+                  onSubLevelChange={raSetSubLevel}
+                  onSubActiveIndexChange={raSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Force"
+                  stat={stat_fo}
+                  mainLabel={FORCE_MAIN_ADDON.label}
+                  subLabels={FORCE_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={foMainLevel}
+                  subLevels={foSubLevels}
+                  subActiveIndexes={foSubActiveIndexes}
+                  onMainLevelChange={foSetMainLevel}
+                  onSubLevelChange={foSetSubLevel}
+                  onSubActiveIndexChange={foSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Braver"
+                  stat={stat_br}
+                  mainLabel={BRAVER_MAIN_ADDON.label}
+                  subLabels={BRAVER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={brMainLevel}
+                  subLevels={brSubLevels}
+                  subActiveIndexes={brSubActiveIndexes}
+                  onMainLevelChange={brSetMainLevel}
+                  onSubLevelChange={brSetSubLevel}
+                  onSubActiveIndexChange={brSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Waker"
+                  stat={stat_wa}
+                  mainLabel={WAKER_MAIN_ADDON.label}
+                  subLabels={WAKER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={waMainLevel}
+                  subLevels={waSubLevels}
+                  subActiveIndexes={waSubActiveIndexes}
+                  onMainLevelChange={waSetMainLevel}
+                  onSubLevelChange={waSetSubLevel}
+                  onSubActiveIndexChange={waSetSubActiveIndex}
+                />
+              </Stack>
+            </Grid>
+            <Grid item xs={1}>
+              <Stack spacing={2}>
+                <FormAddon
+                  title="Fighter"
+                  stat={stat_fi}
+                  mainLabel={FIGHTER_MAIN_ADDON.label}
+                  subLabels={FIGHTER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={fiMainLevel}
+                  subLevels={fiSubLevels}
+                  subActiveIndexes={fiSubActiveIndexes}
+                  onMainLevelChange={fiSetMainLevel}
+                  onSubLevelChange={fiSetSubLevel}
+                  onSubActiveIndexChange={fiSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Gunner"
+                  stat={stat_gu}
+                  mainLabel={GUNNER_MAIN_ADDON.label}
+                  subLabels={GUNNER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={guMainLevel}
+                  subLevels={guSubLevels}
+                  subActiveIndexes={guSubActiveIndexes}
+                  onMainLevelChange={guSetMainLevel}
+                  onSubLevelChange={guSetSubLevel}
+                  onSubActiveIndexChange={guSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Techter"
+                  stat={stat_te}
+                  mainLabel={TECHTER_MAIN_ADDON.label}
+                  subLabels={TECHTER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={teMainLevel}
+                  subLevels={teSubLevels}
+                  subActiveIndexes={teSubActiveIndexes}
+                  onMainLevelChange={teSetMainLevel}
+                  onSubLevelChange={teSetSubLevel}
+                  onSubActiveIndexChange={teSetSubActiveIndex}
+                />
+                <FormAddon
+                  title="Bouncer"
+                  stat={stat_bo}
+                  mainLabel={BOUNCER_MAIN_ADDON.label}
+                  subLabels={BOUNCER_SUB_ADDONS.map((skill) => {
+                    return skill.label;
+                  })}
+                  mainLevel={boMainLevel}
+                  subLevels={boSubLevels}
+                  subActiveIndexes={boSubActiveIndexes}
+                  onMainLevelChange={boSetMainLevel}
+                  onSubLevelChange={boSetSubLevel}
+                  onSubActiveIndexChange={boSetSubActiveIndex}
+                />
+              </Stack>
+            </Grid>
           </Grid>
-          <Grid item xs={1}>
-            <Stack spacing={2}>
-              <FormAddon
-                title="Fighter"
-                stat={stat_fi}
-                mainLabel={FIGHTER_MAIN_ADDON.label}
-                subLabels={FIGHTER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={fiMainLevel}
-                subLevels={fiSubLevels}
-                subActiveIndexes={fiSubActiveIndexes}
-                onMainLevelChange={fiSetMainLevel}
-                onSubLevelChange={fiSetSubLevel}
-                onSubActiveIndexChange={fiSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Gunner"
-                stat={stat_gu}
-                mainLabel={GUNNER_MAIN_ADDON.label}
-                subLabels={GUNNER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={guMainLevel}
-                subLevels={guSubLevels}
-                subActiveIndexes={guSubActiveIndexes}
-                onMainLevelChange={guSetMainLevel}
-                onSubLevelChange={guSetSubLevel}
-                onSubActiveIndexChange={guSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Techter"
-                stat={stat_te}
-                mainLabel={TECHTER_MAIN_ADDON.label}
-                subLabels={TECHTER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={teMainLevel}
-                subLevels={teSubLevels}
-                subActiveIndexes={teSubActiveIndexes}
-                onMainLevelChange={teSetMainLevel}
-                onSubLevelChange={teSetSubLevel}
-                onSubActiveIndexChange={teSetSubActiveIndex}
-              />
-              <FormAddon
-                title="Bouncer"
-                stat={stat_bo}
-                mainLabel={BOUNCER_MAIN_ADDON.label}
-                subLabels={BOUNCER_SUB_ADDONS.map((skill) => {
-                  return skill.label;
-                })}
-                mainLevel={boMainLevel}
-                subLevels={boSubLevels}
-                subActiveIndexes={boSubActiveIndexes}
-                onMainLevelChange={boSetMainLevel}
-                onSubLevelChange={boSetSubLevel}
-                onSubActiveIndexChange={boSetSubActiveIndex}
-              />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle fontSize="x-large" fontWeight="bold">
+          Addon summary
+        </DialogTitle>
+        <DialogContent>
+          <Stack spacing={2}>
+            <StatView stat={stat_total} maxHeight="" />
+          </Stack>
+        </DialogContent>
+      </Dialog>
+    </Fragment>
   );
 };

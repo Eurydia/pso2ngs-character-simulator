@@ -32,8 +32,10 @@ export const PageHome: FC<PageHomeProps> = (props) => {
 
   const [statEquipment, setStatEquipment] = useState(statObject());
   const [statFood, setStatFood] = useState(statObject());
+  const [statAddon, setStatAddon] = useState(statObject());
 
   let stat_total = StatObject.merge(statEquipment, statFood);
+  stat_total = StatObject.merge(stat_total, statAddon);
 
   return (
     <Fragment>
@@ -146,9 +148,10 @@ export const PageHome: FC<PageHomeProps> = (props) => {
         onStatChange={setStatFood}
       />
       <PageEditAddon
-        storage_key="p-addon"
-        context={contextApp}
         isVisible={page === 4}
+        context={contextApp}
+        storage_key="p-addon"
+        onStatChange={setStatAddon}
       />
     </Fragment>
   );
