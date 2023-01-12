@@ -62,6 +62,15 @@ const TECHTER_SUB_ADDONS: AddonSkill[] = [
   AssetAddonSkills.GENERIC_HP_UP,
 ];
 
+// ------------------ Braver ------------------
+const BRAVER_MAIN_ADDON: AddonSkill =
+  AssetAddonSkills.BRAVER_CRIT_CHANCE_UP;
+const BRAVER_SUB_ADDONS: AddonSkill[] = [
+  AssetAddonSkills.BRAVER_HEALING_UP,
+  AssetAddonSkills.BRAVER_BURN_RES_UP,
+  AssetAddonSkills.GENERIC_HP_UP,
+];
+
 type PageEditAddonProps = {
   storage_key: string;
   context: ActionContext;
@@ -148,6 +157,19 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
     TECHTER_MAIN_ADDON,
     TECHTER_SUB_ADDONS,
   );
+  const {
+    mainLevel: brMainLevel,
+    subLevels: brSubLevels,
+    subActiveIndexes: brSubActiveIndexes,
+    setMainLevel: brSetMainLevel,
+    setSubLevel: brSetSubLevel,
+    setSubActiveIndex: brSetSubActiveIndex,
+    getStatObject: brGetStatObject,
+  } = useFormAddon(
+    `${storage_key}-braver`,
+    BRAVER_MAIN_ADDON,
+    BRAVER_SUB_ADDONS,
+  );
 
   const stat_hu: StatObject = huGetStatObject(context);
   const stat_fi: StatObject = fiGetStatObject(context);
@@ -155,6 +177,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
   const stat_gu: StatObject = guGetStatObject(context);
   const stat_fo: StatObject = foGetStatObject(context);
   const stat_te: StatObject = teGetStatObject(context);
+  const stat_br: StatObject = brGetStatObject(context);
 
   return (
     <Container
@@ -206,6 +229,20 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                 onMainLevelChange={foSetMainLevel}
                 onSubLevelChange={foSetSubLevel}
                 onSubActiveIndexChange={foSetSubActiveIndex}
+              />
+              <FormAddon
+                title="Braver"
+                stat={stat_br}
+                mainLabel={BRAVER_MAIN_ADDON.label}
+                subLabels={BRAVER_SUB_ADDONS.map((skill) => {
+                  return skill.label;
+                })}
+                mainLevel={brMainLevel}
+                subLevels={brSubLevels}
+                subActiveIndexes={brSubActiveIndexes}
+                onMainLevelChange={brSetMainLevel}
+                onSubLevelChange={brSetSubLevel}
+                onSubActiveIndexChange={brSetSubActiveIndex}
               />
             </Stack>
           </Grid>
