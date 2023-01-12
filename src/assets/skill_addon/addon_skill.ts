@@ -2,7 +2,7 @@ import { ActionContext } from "../ContextAction";
 import { StatObject } from "../stat";
 
 export type AddonSkill = {
-  name: string;
+  label: string;
   getAwareStatObject: (
     ctx: ActionContext,
     level_index: number,
@@ -28,7 +28,7 @@ export const addonSkill = (
   ) => StatObject,
 ): AddonSkill => {
   const result: AddonSkill = {
-    name,
+    label: name,
     getAwareStatObject,
   };
 

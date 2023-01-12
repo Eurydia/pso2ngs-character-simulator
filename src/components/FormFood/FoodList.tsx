@@ -22,10 +22,9 @@ const FoodListItem: FC<FoodListItemProps> = (props) => {
   const { label, onCopy, onRemove } = props;
   return (
     <ListItem>
-      <ListItemText
-        primary={label}
-        primaryTypographyProps={{ fontSize: "large" }}
-      />
+      <ListItemText>
+        <Typography fontSize="large">{label}</Typography>
+      </ListItemText>
       <ListItemSecondaryAction>
         <Tooltip
           placement="top"

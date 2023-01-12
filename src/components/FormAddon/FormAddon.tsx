@@ -10,34 +10,36 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import {
-  ActionContext,
-  AddonSkill,
-  AssetAddonSkills,
-  StatObject,
-} from "../../assets";
+import { ActionContext, AddonSkill, StatObject } from "../../assets";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
+import { FieldAddon } from "./FieldAddon";
+
 type FormAddonProps = {
-  context: ActionContext;
+  stat: StatObject;
   title: string;
+  mainSkill: AddonSkill;
+  subSkills: AddonSkill[];
 };
 export const FormAddon: FC<FormAddonProps> = (props) => {
-  const { title, context } = props;
+  const { title, stat, mainSkill, subSkills } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [mainLevel, setMainLevel] = useState(0);
-  const mainSkill = AssetAddonSkills.HUNTER_MELEE_WEAPON_UP;
+  const [selectOrder, setSelectOrder] = useState(() => {
+    let state: number[] = Array(subSkills.length);
+    state = state.fill(0);
+    return state;
+  });
 
-  const [subLevels, setSubLevels] = useState([0, 0]);
-  const [subActives, setSubActives] = useState([0, 0]);
-  const subSkills = [
-    AssetAddonSkills.HUNTER_BURN_RES_UP,
-    AssetAddonSkills.GENERIC_HP_UP,
-  ];
+  const [mainLevel, setMainLevel] = useState(AddonSkill.LEVEL_MAX);
+  const [subLevels, setSubLevels] = useState(() => {
+    let state: number[] = Array(subSkills.length);
+    state = state.fill(AddonSkill.LEVEL_MAX);
+    return state;
+  });
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -54,12 +56,10 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     });
   };
 
-  const handleSubActiveChange = (index: number) => {
-    setSubActives((prev) => {
+  const handleSubOrderChange = (index: number) => {
+    setSelectOrder((prev) => {
       let next = [...prev];
-
       if (next[index] > 0) {
-        next[index] = 0;
         return next;
       }
 
@@ -74,20 +74,20 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     });
   };
 
-  let stat = AddonSkill.getStatObject(context, mainSkill, mainLevel);
-  subActives.forEach((isActive, skill_index) => {
-    if (isActive <= 0) {
-      return;
-    }
-    const sub_skill = subSkills[skill_index];
-    const sub_skill_level = subLevels[skill_index];
-    const sub_skill_stat = AddonSkill.getStatObject(
-      context,
-      sub_skill,
-      sub_skill_level,
-    );
-    stat = StatObject.merge(stat, sub_skill_stat);
-  });
+  // let stat = AddonSkill.getStatObject(context, mainSkill, mainLevel);
+  // selectOrder.forEach((isActive, skill_index) => {
+  //   if (isActive <= 0) {
+  //     return;
+  //   }
+  //   const sub_skill = subSkills[skill_index];
+  //   const sub_skill_level = subLevels[skill_index];
+  //   const sub_skill_stat = AddonSkill.getStatObject(
+  //     context,
+  //     sub_skill,
+  //     sub_skill_level,
+  //   );
+  //   stat = StatObject.merge(stat, sub_skill_stat);
+  // });
 
   return (
     <Fragment>
@@ -107,29 +107,11 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
             </IconButton>
           </Tooltip>
         }
-        slotCardContent={
-          <Stack spacing={2}>
-            <CustomField
-              label={mainSkill.name}
-              value={mainLevel}
-              onChange={setMainLevel}
-            />
-            <Stack spacing={1}>
-              {subLevels.map((subLevel, index) => {
-                return (
-                  <CustomField
-                    key={`subskill-${index}`}
-                    label={subSkills[index].name}
-                    value={subLevel}
-                    onChange={(next_level) => {
-                      handleSubLevelChange(next_level, index);
-                    }}
-                  />
-                );
-              })}
-            </Stack>
-          </Stack>
-        }
+        slotCardContent={<Stack spacing={2}>
+          <
+
+
+        </Stack>}
       />
       <Dialog
         fullWidth

@@ -18,7 +18,7 @@ import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
-import { FoodList } from "./CustomList";
+import { FoodList } from "./FoodList";
 
 type FormFoodProps = {
   items: Food[];

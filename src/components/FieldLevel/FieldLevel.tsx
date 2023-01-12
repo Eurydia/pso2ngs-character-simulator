@@ -40,12 +40,12 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
 
     return (
       <TextField
-        disabled={disabled}
-        value={_value.toString()}
-        onChange={handleChange}
         fullWidth
         inputMode="numeric"
         placeholder={label}
+        disabled={disabled}
+        value={_value.toString()}
+        onChange={handleChange}
         sx={{
           textDecorationLine: props.disabled
             ? "line-through"
