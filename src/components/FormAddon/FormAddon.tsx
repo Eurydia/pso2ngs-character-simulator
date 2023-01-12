@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  TextField,
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
@@ -16,9 +17,10 @@ import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 import { FieldAddon } from "./FieldAddon";
+import { FieldLevel } from "../FieldLevel";
 
 type FormAddonProps = {
-  stat: StatObject;
+  stat: any;
   title: string;
   mainSkill: AddonSkill;
   subSkills: AddonSkill[];
@@ -27,12 +29,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   const { title, stat, mainSkill, subSkills } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const [selectOrder, setSelectOrder] = useState(() => {
-    let state: number[] = Array(subSkills.length);
-    state = state.fill(0);
-    return state;
-  });
 
   const [mainLevel, setMainLevel] = useState(AddonSkill.LEVEL_MAX);
   const [subLevels, setSubLevels] = useState(() => {
@@ -56,24 +52,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     });
   };
 
-  const handleSubOrderChange = (index: number) => {
-    setSelectOrder((prev) => {
-      let next = [...prev];
-      if (next[index] > 0) {
-        return next;
-      }
-
-      next = next.map((value) => {
-        if (value === 0) {
-          return 0;
-        }
-        return value - 1;
-      });
-      next[index] = 2;
-      return next;
-    });
-  };
-
   // let stat = AddonSkill.getStatObject(context, mainSkill, mainLevel);
   // selectOrder.forEach((isActive, skill_index) => {
   //   if (isActive <= 0) {
@@ -83,8 +61,8 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   //   const sub_skill_level = subLevels[skill_index];
   //   const sub_skill_stat = AddonSkill.getStatObject(
   //     context,
-  //     sub_skill,
   //     sub_skill_level,
+  //     sub_skill,
   //   );
   //   stat = StatObject.merge(stat, sub_skill_stat);
   // });
@@ -107,13 +85,16 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
             </IconButton>
           </Tooltip>
         }
-        slotCardContent={<Stack spacing={2}>
-          <
-
-
-        </Stack>}
+        slotCardContent={
+          <Stack spacing={2}>
+            <Stack direction="row" alignItems="center">
+              <Typography>{mainSkill.label}</Typography>
+              <TextField />
+            </Stack>
+          </Stack>
+        }
       />
-      <Dialog
+      {/* <Dialog
         fullWidth
         maxWidth="sm"
         open={dialogOpen}
@@ -123,7 +104,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </Fragment>
   );
 };

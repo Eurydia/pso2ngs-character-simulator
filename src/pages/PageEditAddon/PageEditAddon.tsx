@@ -19,7 +19,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
         <Grid container spacing={2} columns={{ xs: 1, sm: 1, md: 2 }}>
           <Grid item xs={1}>
             <FormAddon
-              context={context}
+              stat={{}}
               title="Hunter"
               mainSkill={AssetAddonSkills.HUNTER_MELEE_WEAPON_UP}
               subSkills={[
@@ -29,15 +29,14 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             />
           </Grid>
           <Grid item xs={1}>
-            <FormAddon
-              context={context}
+            {/*   <FormAddon
               title="Fighter"
               mainSkill={AssetAddonSkills.FIGHTER_CRIT_DAMAGE_UP}
               subSkills={[
                 AssetAddonSkills.FIGHTER_CRIT_DAMAGE_UP,
                 AssetAddonSkills.GENERIC_HP_UP,
               ]}
-            />
+            /> */}
           </Grid>
         </Grid>
       </Box>
