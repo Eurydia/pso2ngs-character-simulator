@@ -76,6 +76,13 @@ const BOUNCER_MAIN_ADDON: AddonSkill =
   AssetAddonSkills.BOUNCER_FREEZE_RES_UP;
 const BOUNCER_SUB_ADDONS: AddonSkill[] = [];
 
+// ------------------ Waker ------------------
+const WAKER_MAIN_ADDON: AddonSkill = AssetAddonSkills.WAKER_PP_UP;
+const WAKER_SUB_ADDONS: AddonSkill[] = [
+  AssetAddonSkills.WAKER_SHOCK_RES_UP,
+  AssetAddonSkills.GENERIC_HP_UP,
+];
+
 type PageEditAddonProps = {
   storage_key: string;
   context: ActionContext;
@@ -188,6 +195,19 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
     BOUNCER_MAIN_ADDON,
     BOUNCER_SUB_ADDONS,
   );
+  const {
+    mainLevel: waMainLevel,
+    subLevels: waSubLevels,
+    subActiveIndexes: waSubActiveIndexes,
+    setMainLevel: waSetMainLevel,
+    setSubLevel: waSetSubLevel,
+    setSubActiveIndex: waSetSubActiveIndex,
+    getStatObject: waGetStatObject,
+  } = useFormAddon(
+    `${storage_key}-waker`,
+    WAKER_MAIN_ADDON,
+    WAKER_SUB_ADDONS,
+  );
   const stat_hu: StatObject = huGetStatObject(context);
   const stat_fi: StatObject = fiGetStatObject(context);
   const stat_ra: StatObject = raGetStatObject(context);
@@ -196,6 +216,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
   const stat_te: StatObject = teGetStatObject(context);
   const stat_br: StatObject = brGetStatObject(context);
   const stat_bo: StatObject = boGetStatObject(context);
+  const stat_wa: StatObject = waGetStatObject(context);
 
   return (
     <Container
@@ -261,6 +282,20 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                 onMainLevelChange={brSetMainLevel}
                 onSubLevelChange={brSetSubLevel}
                 onSubActiveIndexChange={brSetSubActiveIndex}
+              />
+              <FormAddon
+                title="Waker"
+                stat={stat_wa}
+                mainLabel={WAKER_MAIN_ADDON.label}
+                subLabels={WAKER_SUB_ADDONS.map((skill) => {
+                  return skill.label;
+                })}
+                mainLevel={waMainLevel}
+                subLevels={waSubLevels}
+                subActiveIndexes={waSubActiveIndexes}
+                onMainLevelChange={waSetMainLevel}
+                onSubLevelChange={waSetSubLevel}
+                onSubActiveIndexChange={waSetSubActiveIndex}
               />
             </Stack>
           </Grid>
