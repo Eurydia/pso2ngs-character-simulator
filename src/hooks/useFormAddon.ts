@@ -67,18 +67,23 @@ const loadSubLevels = (
   }
   return parsed_string;
 };
-const loadSubActives = (storage_keys: string): number[] => {
+const loadSubActives = (
+  storage_keys: string,
+  size: number,
+): number[] => {
+  const fallback: number[] = Array(size).fill(0);
+
   const KEY: string = `${storage_keys}-${SUFFIX_SUB_ACTIVES}`;
   const data_string: string | null = localStorage.getItem(KEY);
   if (data_string === null) {
-    return [];
+    return fallback;
   }
   if (!isValidJSON(data_string)) {
-    return [];
+    return fallback;
   }
   const parsed_string: number[] = JSON.parse(data_string);
   if (!Array.isArray(parsed_string)) {
-    return [];
+    return fallback;
   }
   return parsed_string;
 };
@@ -103,7 +108,8 @@ export const useFormAddon = (
   });
   const [subActiveIndexes, _setSubActiveIndexes] = useState<number[]>(
     () => {
-      return loadSubActives(storage_key);
+      const size: number = sub_addons.length;
+      return loadSubActives(storage_key, size);
     },
   );
   const [subLevels, _setSubLevels] = useState<number[]>(() => {
@@ -127,11 +133,17 @@ export const useFormAddon = (
   const setSubActiveIndex = useCallback(
     (skill_index: number): void => {
       _setSubActiveIndexes((prev) => {
-        const next = [...prev];
-        next.push(skill_index);
-        if (next.length > 2) {
-          next.shift();
+        if (prev[skill_index] > 0) {
+          return prev;
         }
+        let next = [...prev];
+        next = next.map((value) => {
+          if (value === 0) {
+            return 0;
+          }
+          return value - 1;
+        });
+        next[skill_index] = 2;
         return next;
       });
     },
@@ -140,7 +152,10 @@ export const useFormAddon = (
   const getStatObject = useCallback(
     (ctx: ActionContext): StatObject => {
       let stat = AddonSkill.getStatObject(ctx, main_addon, mainLevel);
-      subActiveIndexes.forEach((skill_index) => {
+      subActiveIndexes.forEach((order_number, skill_index) => {
+        if (order_number === 0) {
+          return;
+        }
         const sub_addon: AddonSkill = sub_addons[skill_index];
         const sub_level: number = subLevels[skill_index];
         const sub_stat: StatObject = AddonSkill.getStatObject(

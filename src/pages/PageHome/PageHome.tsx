@@ -145,7 +145,11 @@ export const PageHome: FC<PageHomeProps> = (props) => {
         storageKey="p-food"
         onStatChange={setStatFood}
       />
-      <PageEditAddon isVisible={page === 4} />
+      <PageEditAddon
+        storage_key="p-addon"
+        context={contextApp}
+        isVisible={page === 4}
+      />
     </Fragment>
   );
 };

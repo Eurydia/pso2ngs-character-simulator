@@ -16,23 +16,20 @@ import { AddonSkill } from "../../assets";
 import { FieldLevel } from "../FieldLevel";
 
 type FieldAddonProps = {
-  bold: boolean;
-  label: string;
+  slotLabel: ReactNode;
   slotCheckbox: ReactNode;
   level: number;
-  onChange: (value: number) => void;
+  onLevelChange: (value: number) => void;
 };
 export const FieldAddon: FC<FieldAddonProps> = (props) => {
-  const { bold, label, level, slotCheckbox, onChange } = props;
+  const { slotLabel, slotCheckbox, level, onLevelChange } = props;
   return (
     <Box>
       <Grid container columns={3} spacing={1} alignItems="center">
         <Grid item xs>
           <Stack spacing={1} direction="row" alignItems="center">
             {slotCheckbox}
-            <Typography fontWeight={bold ? "bold" : "normal"}>
-              {label}
-            </Typography>
+            {slotLabel}
           </Stack>
         </Grid>
         <Grid item xs={1}>
@@ -42,7 +39,7 @@ export const FieldAddon: FC<FieldAddonProps> = (props) => {
             valueMin={0}
             valueMax={AddonSkill.LEVEL_MAX}
             value={level}
-            onChange={onChange}
+            onChange={onLevelChange}
           />
         </Grid>
       </Grid>

@@ -8,34 +8,52 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  Checkbox,
 } from "@mui/material";
-import { BarChartRounded } from "@mui/icons-material";
+import {
+  BarChartRounded,
+  CheckBoxOutlineBlankRounded,
+  CheckBoxRounded,
+} from "@mui/icons-material";
 
-import { ActionContext, AddonSkill, StatObject } from "../../assets";
+import { StatObject } from "../../assets";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 import { FieldAddon } from "./FieldAddon";
-import { FieldLevel } from "../FieldLevel";
+import { CheckboxAddon } from "./CheckboxAddon";
 
 type FormAddonProps = {
-  stat: any;
+  stat: StatObject;
   title: string;
-  mainSkill: AddonSkill;
-  subSkills: AddonSkill[];
+
+  mainLabel: string;
+  subLabels: string[];
+
+  mainLevel: number;
+  subLevels: number[];
+  subActiveIndexes: number[];
+
+  onMainLevelChange: (next_level: number) => void;
+  onSubLevelChange: (next_level: number, skill_index: number) => void;
+  onSubActiveIndexChange: (skill_index: number) => void;
 };
 export const FormAddon: FC<FormAddonProps> = (props) => {
-  const { title, stat, mainSkill, subSkills } = props;
+  const {
+    title,
+    stat,
+    mainLabel,
+    subLabels,
+    mainLevel,
+    subLevels,
+    subActiveIndexes,
+    onMainLevelChange,
+    onSubLevelChange,
+    onSubActiveIndexChange,
+  } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const [mainLevel, setMainLevel] = useState(AddonSkill.LEVEL_MAX);
-  const [subLevels, setSubLevels] = useState(() => {
-    let state: number[] = Array(subSkills.length);
-    state = state.fill(AddonSkill.LEVEL_MAX);
-    return state;
-  });
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -43,29 +61,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-
-  const handleSubLevelChange = (level: number, index: number) => {
-    setSubLevels((prev) => {
-      const next = [...prev];
-      next[index] = level;
-      return next;
-    });
-  };
-
-  // let stat = AddonSkill.getStatObject(context, mainSkill, mainLevel);
-  // selectOrder.forEach((isActive, skill_index) => {
-  //   if (isActive <= 0) {
-  //     return;
-  //   }
-  //   const sub_skill = subSkills[skill_index];
-  //   const sub_skill_level = subLevels[skill_index];
-  //   const sub_skill_stat = AddonSkill.getStatObject(
-  //     context,
-  //     sub_skill_level,
-  //     sub_skill,
-  //   );
-  //   stat = StatObject.merge(stat, sub_skill_stat);
-  // });
 
   return (
     <Fragment>
@@ -87,14 +82,44 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
         }
         slotCardContent={
           <Stack spacing={2}>
-            <Stack direction="row" alignItems="center">
-              <Typography>{mainSkill.label}</Typography>
-              <TextField />
+            <FieldAddon
+              slotLabel={
+                <Typography fontWeight="bold">{mainLabel}</Typography>
+              }
+              slotCheckbox={null}
+              level={mainLevel}
+              onLevelChange={onMainLevelChange}
+            />
+            <Stack spacing={1}>
+              {subActiveIndexes.map((orderNumber, skill_index) => {
+                const sub_level: number = subLevels[skill_index];
+                const sub_label: string = subLabels[skill_index];
+                const handleLevelChange = (next_level: number) => {
+                  onSubLevelChange(next_level, skill_index);
+                };
+                const handleActiveIndexChange = () => {
+                  onSubActiveIndexChange(skill_index);
+                };
+                return (
+                  <FieldAddon
+                    key={`${sub_label}-${skill_index}`}
+                    slotLabel={<Typography>{sub_label}</Typography>}
+                    slotCheckbox={
+                      <CheckboxAddon
+                        orderNumber={orderNumber}
+                        onClick={handleActiveIndexChange}
+                      />
+                    }
+                    level={sub_level}
+                    onLevelChange={handleLevelChange}
+                  />
+                );
+              })}
             </Stack>
           </Stack>
         }
       />
-      {/* <Dialog
+      <Dialog
         fullWidth
         maxWidth="sm"
         open={dialogOpen}
@@ -104,7 +129,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
     </Fragment>
   );
 };
