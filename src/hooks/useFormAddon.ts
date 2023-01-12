@@ -65,6 +65,9 @@ const loadSubLevels = (
   if (!Array.isArray(parsed_string)) {
     return fallback;
   }
+  while (parsed_string.length < size) {
+    parsed_string.push(0);
+  }
   return parsed_string;
 };
 const loadSubActives = (
@@ -72,7 +75,6 @@ const loadSubActives = (
   size: number,
 ): number[] => {
   const fallback: number[] = Array(size).fill(0);
-
   const KEY: string = `${storage_keys}-${SUFFIX_SUB_ACTIVES}`;
   const data_string: string | null = localStorage.getItem(KEY);
   if (data_string === null) {
@@ -84,6 +86,9 @@ const loadSubActives = (
   const parsed_string: number[] = JSON.parse(data_string);
   if (!Array.isArray(parsed_string)) {
     return fallback;
+  }
+  while (parsed_string.length < size) {
+    parsed_string.push(0);
   }
   return parsed_string;
 };

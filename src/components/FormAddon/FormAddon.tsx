@@ -81,7 +81,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
           </Tooltip>
         }
         slotCardContent={
-          <Stack spacing={2}>
+          <Stack spacing={3}>
             <FieldAddon
               slotLabel={
                 <Typography fontWeight="bold">{mainLabel}</Typography>

@@ -40,7 +40,6 @@ export const LinkCard: FC<LinkCardProps> = (props) => {
       />
       <CardActions disableSpacing>
         <Button
-          disableRipple
           startIcon={<LaunchRounded fontSize="large" />}
           onClick={onLinkClick}
         >

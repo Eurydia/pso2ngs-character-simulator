@@ -7,8 +7,8 @@ export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
   "Critical Hit Potency Up (Fighter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_CRIT_DAMAGE_UP: number[] = [
-      0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05,
-      0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1,
+      1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
+      1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.1,
     ];
     if (
       level_index < 0 ||
