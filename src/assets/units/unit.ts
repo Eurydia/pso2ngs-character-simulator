@@ -11,7 +11,7 @@ export type Unit = Readonly<{
   enhancement_max: number;
   level_required: number;
   growth_data: [number, number][];
-  getAwareStatObject: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject;
 }>;
 
 export const Unit = {
@@ -30,7 +30,7 @@ export const Unit = {
   },
 
   getDefenseBase: (unit: Unit): number => {
-    const stat_unit = unit.getAwareStatObject({});
+    const stat_unit = unit.getAwareStatObject(null);
     return StatObject.getStat(stat_unit, StatEnum.CORE_DEFENSE);
   },
 
@@ -117,7 +117,7 @@ export const unit = (
   enhancement_max: number,
   level_required: number,
   growth_data: [number, number][],
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   const result: Unit = {
     label,
