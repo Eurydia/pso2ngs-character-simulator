@@ -22,26 +22,22 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
   (props) => {
     const { food, onFoodChange, onKeyEnterPress } = props;
 
-    const handleFoodChange = useCallback(
-      (
-        event: SyntheticEvent<Element, Event>,
-        value: Food | null,
-        reason: AutocompleteChangeReason,
-      ): void => {
-        onFoodChange(value);
-      },
-      [],
-    );
+    const handleFoodChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: Food | null,
+      reason: AutocompleteChangeReason,
+    ): void => {
+      onFoodChange(value);
+    };
 
-    const handleKeyDown = useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>): void => {
-        const key = event.key;
-        if (key === "Enter") {
-          onKeyEnterPress();
-        }
-      },
-      [],
-    );
+    const handleKeyDown = (
+      event: React.KeyboardEvent<HTMLDivElement>,
+    ): void => {
+      const key = event.key;
+      if (key === "Enter") {
+        onKeyEnterPress();
+      }
+    };
 
     return (
       <Autocomplete
@@ -49,6 +45,7 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
         value={food}
         onChange={handleFoodChange}
         onKeyDown={handleKeyDown}
+        filterOptions={filterOptions}
         renderInput={(params) => <TextFieldFood {...params} />}
         renderOption={(props, option, _) => {
           return (
@@ -59,7 +56,6 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
             />
           );
         }}
-        filterOptions={filterOptions}
       />
     );
   },
