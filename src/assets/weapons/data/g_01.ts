@@ -20,7 +20,7 @@ const makeWeaponOne = (
   name: string,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   return weapon(
     name,
@@ -39,7 +39,7 @@ G_ONE.push(
     "Primm Series",
     1,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 177,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,

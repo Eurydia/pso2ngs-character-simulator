@@ -14,7 +14,7 @@ export type Weapon = Readonly<{
   potential: Potential;
   enhancement_max: number;
   level_required: number;
-  getAwareStatObject: (ctx: ActionContext) => StatObject;
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject;
 }>;
 
 export const Weapon = {
@@ -33,7 +33,7 @@ export const Weapon = {
   },
 
   getAttackBase: (weapon: Weapon): number => {
-    const stat: StatObject = weapon.getAwareStatObject({});
+    const stat: StatObject = weapon.getAwareStatObject(null);
     return StatObject.getStat(stat, StatEnum.CORE_ATTACK);
   },
 
@@ -104,7 +104,7 @@ export const weapon = (
   level_required: number,
   potential: Potential,
   growth_rate: [number, number][],
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   const result: Weapon = {
     label,
