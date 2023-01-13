@@ -130,10 +130,10 @@ export const FormUnit: FC<FormUnitProps> = memo((props) => {
                 <FieldLevel
                   label="Enhacement"
                   disabled={unit === null}
-                  valueMin={0}
-                  valueMax={unit === null ? 0 : unit.enhancement_max}
-                  value={unit_level}
-                  onValueChange={handleUnitLevelChange}
+                  levelMin={0}
+                  levelMax={unit === null ? 0 : unit.enhancement_max}
+                  level={unit_level}
+                  onLevelChange={handleUnitLevelChange}
                 />
                 <AutocompleteFixa
                   disabled={unit === null}

@@ -6,42 +6,42 @@ import { clampValue } from "./helper";
 type FieldLevelProps = {
   label: string;
   disabled: boolean;
-  valueMin: number;
-  valueMax: number;
-  value: number;
-  onValueChange: (next_level: number) => void;
+  levelMin: number;
+  levelMax: number;
+  level: number;
+  onLevelChange: (next_level: number) => void;
 };
 export const FieldLevel: FC<FieldLevelProps> = memo(
   (props) => {
     const {
       label,
       disabled,
-      value,
-      valueMax,
-      valueMin,
-      onValueChange,
+      level,
+      levelMax,
+      levelMin,
+      onLevelChange,
     } = props;
 
-    const handleValueChange = (
+    const handleLevelChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
       const value_input: string = event.target.value;
       const value_parsed: number = Number.parseInt(value_input);
       if (Number.isNaN(value_parsed)) {
-        onValueChange(0);
+        onLevelChange(0);
         return;
       }
       const value_clamped: number = clampValue(
         value_parsed,
-        valueMin,
-        valueMax,
+        levelMin,
+        levelMax,
       );
-      onValueChange(value_clamped);
+      onLevelChange(value_clamped);
     };
 
-    let _value: number = 0;
-    if (!Number.isNaN(value)) {
-      _value = value;
+    let value: string = "0";
+    if (!Number.isNaN(level)) {
+      value = level.toString();
     }
 
     return (
@@ -50,8 +50,8 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
         inputMode="numeric"
         placeholder={label}
         disabled={disabled}
-        value={_value.toString()}
-        onChange={handleValueChange}
+        value={value}
+        onChange={handleLevelChange}
         sx={{
           textDecorationLine: props.disabled
             ? "line-through"
@@ -63,9 +63,9 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
   (prev, next) => {
     return (
       prev.disabled === next.disabled &&
-      prev.value === next.value &&
-      prev.valueMax === next.valueMax &&
-      prev.valueMin === next.valueMin
+      prev.level === next.level &&
+      prev.levelMax === next.levelMax &&
+      prev.levelMin === next.levelMin
     );
   },
 );
