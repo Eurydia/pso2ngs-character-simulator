@@ -20,7 +20,7 @@ const makeWeaponThree = (
   name: string,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   return weapon(
     name,
@@ -39,7 +39,7 @@ G_THREE.push(
     "Theseus Series",
     8,
     AssetPotentials.DEFENSIVE_FORMATION,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -54,7 +54,7 @@ G_THREE.push(
     "Trois De Series",
     8,
     AssetPotentials.OFFENSIVE_FORMATION,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -69,7 +69,7 @@ G_THREE.push(
     "Gold Primm Sword",
     10,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -84,12 +84,15 @@ G_THREE.push(
     "Glissen Series",
     13,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext): StatObject => {
+    (ctx: ActionContext | null): StatObject => {
       const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
+      if (ctx === null) {
+        return stat;
+      }
       if (ctx.target.isWeakToLightning) {
         return stat;
       }
@@ -108,12 +111,15 @@ G_THREE.push(
     "Frostel Series",
     13,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext): StatObject => {
+    (ctx: ActionContext | null): StatObject => {
       const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
+      if (ctx === null) {
+        return stat;
+      }
       if (!ctx.target.isWeakToIce) {
         return stat;
       }
@@ -132,7 +138,7 @@ G_THREE.push(
     "Renaissa Series",
     1,
     AssetPotentials.DYNAMO_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 224,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
