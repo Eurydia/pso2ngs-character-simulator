@@ -20,7 +20,7 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
     const { mode, disabled, fixa: value, onFixaChange } = props;
 
-    const handleChange = (
+    const handleFixaChange = (
       event: SyntheticEvent<Element, Event>,
       value: Fixa | null,
       reason: AutocompleteChangeReason,
@@ -39,13 +39,13 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
         disabled={disabled}
         options={options}
         value={value}
-        onChange={handleChange}
+        onChange={handleFixaChange}
         filterOptions={filterOptions}
         renderInput={(params) => {
           return <TextFieldFixa {...params} />;
         }}
         renderOption={(props, option, _) => {
-          return <OptionFixa {...props} option={option} />;
+          return <OptionFixa LIProps={props} option={option} />;
         }}
       />
     );
