@@ -56,7 +56,10 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
   },
   (prev, next) => {
     return (
-      prev.disabled === next.disabled && prev.value === next.value
+      prev.disabled === next.disabled &&
+      prev.value === next.value &&
+      prev.valueMax === next.valueMax &&
+      prev.valueMin === next.valueMin
     );
   },
 );

@@ -131,7 +131,7 @@ export const FormUnit: FC<FormUnitProps> = memo((props) => {
                   label="Enhacement"
                   disabled={unit === null}
                   valueMin={0}
-                  valueMax={60}
+                  valueMax={unit === null ? 0 : unit.level_required}
                   value={unit_level}
                   onChange={handleUnitLevelChange}
                 />
