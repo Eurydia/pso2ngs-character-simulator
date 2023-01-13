@@ -1,6 +1,7 @@
-import { ChangeEvent, FC, memo, useCallback, useMemo } from "react";
+import { ChangeEvent, FC, memo, useMemo } from "react";
 import { MenuItem, TextField, Typography } from "@mui/material";
-import { Potential, Weapon } from "../../assets";
+
+import { Weapon } from "../../assets";
 
 type SelectPotentialProps = {
   // Dynamics props
