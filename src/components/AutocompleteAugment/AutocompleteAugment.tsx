@@ -1,4 +1,4 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent, useCallback } from "react";
 import {
   Autocomplete,
   AutocompleteChangeReason,
@@ -21,13 +21,16 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
     const { disabled, augment, onAugmentChange } = props;
 
-    const handleAugmentChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Augment | null,
-      reason: AutocompleteChangeReason,
-    ): void => {
-      onAugmentChange(value);
-    };
+    const handleAugmentChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Augment | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onAugmentChange(value);
+      },
+      [],
+    );
 
     return (
       <Autocomplete
