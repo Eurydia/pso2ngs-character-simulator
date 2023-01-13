@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, memo, useCallback } from "react";
+import { FC, ChangeEvent, memo, useCallback, useMemo } from "react";
 import { TextField } from "@mui/material";
 
 import { clampValue } from "./helper";
@@ -7,11 +7,11 @@ type FieldLevelProps = {
   // Dynamic props
   level: number;
   disabled: boolean;
+  levelMax: number;
 
   //  Static props
   label: string;
   levelMin: number;
-  levelMax: number;
 
   onLevelChange: (next_level: number) => void;
 };
@@ -46,10 +46,12 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       [],
     );
 
-    let value: string = "0";
-    if (!Number.isNaN(level)) {
-      value = level.toString();
-    }
+    const value = useMemo(() => {
+      if (Number.isNaN(level)) {
+        return "0";
+      }
+      return;
+    }, [level]);
 
     return (
       <TextField
@@ -71,8 +73,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
     return (
       prev.disabled === next.disabled &&
       prev.level === next.level &&
-      prev.levelMax === next.levelMax &&
-      prev.levelMin === next.levelMin
+      prev.levelMax === next.levelMax
     );
   },
 );
