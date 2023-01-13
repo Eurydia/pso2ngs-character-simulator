@@ -9,7 +9,7 @@ import { PriorityHighRounded } from "@mui/icons-material";
 
 import { AssetWeapons, Weapon } from "../../assets";
 
-import { CustomOption } from "./CustomOption";
+import { WeaponOption } from "./WeaponOption";
 import { filterOptions } from "./helper";
 
 type EndAdornmentProps = {
@@ -33,18 +33,18 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
 
 type AutocompleteWeaponProps = {
   value: Weapon | null;
-  onChange: (value: Weapon | null) => void;
+  onValueChange: (next_value: Weapon | null) => void;
 };
 export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
-    const { value, onChange } = props;
+    const { value, onValueChange } = props;
 
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
       value: Weapon | null,
       reason: AutocompleteChangeReason,
     ) => {
-      onChange(value);
+      onValueChange(value);
     };
 
     return (
@@ -53,6 +53,9 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         value={value}
         onChange={handleChange}
         filterOptions={filterOptions}
+        renderOption={(props, option, _) => {
+          return <WeaponOption {...props} option={option} />;
+        }}
         renderInput={({ InputProps, ...rest }) => {
           return (
             <TextField
@@ -70,9 +73,6 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
               }}
             />
           );
-        }}
-        renderOption={(props, option, _) => {
-          return <CustomOption {...props} option={option} />;
         }}
       />
     );

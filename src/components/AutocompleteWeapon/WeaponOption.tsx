@@ -4,10 +4,10 @@ import { ListItemText, MenuItem } from "@mui/material";
 
 import { Weapon } from "../../assets";
 
-type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
+type WeaponOptionProps = HTMLAttributes<HTMLLIElement> & {
   option: Weapon;
 };
-export const CustomOption: FC<CustomOptionProps> = (props) => {
+export const WeaponOption: FC<WeaponOptionProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>

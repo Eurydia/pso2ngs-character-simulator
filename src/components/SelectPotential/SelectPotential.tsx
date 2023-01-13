@@ -1,40 +1,60 @@
-import { ChangeEvent, FC, memo } from "react";
+import { ChangeEvent, FC, memo, useMemo } from "react";
 import { MenuItem, TextField, Typography } from "@mui/material";
-import { Weapon } from "../../assets";
+import { Potential, Weapon } from "../../assets";
 
 type SelectPotentialProps = {
   weapon: Weapon | null;
   value: number;
-  onChange: (value: number) => void;
+  onValueChange: (value: number) => void;
 };
 export const SelectPotential: FC<SelectPotentialProps> = memo(
   (props) => {
-    const { weapon, value, onChange } = props;
+    const { weapon, value, onValueChange } = props;
 
-    const handleChange = (
+    const handleValueChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
       const value_input: string = event.target.value;
       if (Number.isNaN(value_input)) {
         return;
       }
-      onChange(Number.parseInt(value_input));
+      onValueChange(Number.parseInt(value_input));
     };
 
-    let level_max: number = 0;
-    let potential_name: string = "";
-    if (weapon !== null) {
-      level_max = weapon.potential.level_max;
-      potential_name = weapon.potential.name;
-    }
+    const potential = useMemo((): Potential | null => {
+      if (weapon === null) {
+        return null;
+      }
+      return weapon.potential;
+    }, [weapon]);
 
-    const options: { label: string; value: number }[] = [];
-    for (let level = 1; level <= level_max; level++) {
-      options.push({
-        label: `${potential_name} Lv. ${level}`,
-        value: level,
-      });
-    }
+    const level_max = useMemo((): number => {
+      if (potential === null) {
+        return 0;
+      }
+      return potential.level_max;
+    }, [potential]);
+
+    const potential_name = useMemo((): string => {
+      if (potential === null) {
+        return "";
+      }
+      return potential.name;
+    }, [potential]);
+
+    const options = useMemo((): {
+      label: string;
+      value: number;
+    }[] => {
+      const results: { label: string; value: number }[] = [];
+      for (let level = 1; level <= level_max; level++) {
+        options.push({
+          label: `${potential_name} Lv. ${level}`,
+          value: level,
+        });
+      }
+      return results;
+    }, [potential_name, level_max]);
 
     return (
       <TextField
@@ -43,7 +63,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
         placeholder="Potential"
         disabled={level_max === 0}
         value={value}
-        onChange={handleChange}
+        onChange={handleValueChange}
         sx={{
           textDecorationLine:
             level_max === 0 ? "line-through" : "none",

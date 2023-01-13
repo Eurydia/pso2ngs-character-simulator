@@ -1,37 +1,38 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent, useMemo } from "react";
 import {
-  TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  Typography,
 } from "@mui/material";
 
 import { Fixa, AssetFixas, GroupEnumFixa } from "../../assets";
 
 import { filterOptions } from "./helper";
-import { CustomOption } from "./CustomOption";
+import { OptionFixa } from "./OptionFixa";
+import { TextFieldFixa } from "./TextFieldFixa";
 
 type AutocompleteFixaProps = {
   mode: GroupEnumFixa;
   disabled: boolean;
-  value: Fixa | null;
-  onChange: (value: Fixa | null) => void;
+  fixa: Fixa | null;
+  onFixaChange: (next_fixa: Fixa | null) => void;
 };
 export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
-    const { disabled, value, onChange } = props;
+    const { mode, disabled, fixa: value, onFixaChange } = props;
 
     const handleChange = (
       event: SyntheticEvent<Element, Event>,
       value: Fixa | null,
       reason: AutocompleteChangeReason,
     ) => {
-      onChange(value);
+      onFixaChange(value);
     };
 
-    const options: Fixa[] = AssetFixas.filter((fixa) => {
-      return fixa.group === props.mode;
-    });
+    const options = useMemo((): Fixa[] => {
+      return AssetFixas.filter((fixa) => {
+        return fixa.group === props.mode;
+      });
+    }, [mode]);
 
     return (
       <Autocomplete
@@ -41,21 +42,10 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
         onChange={handleChange}
         filterOptions={filterOptions}
         renderInput={(params) => {
-          return (
-            <TextField
-              {...params}
-              fullWidth
-              placeholder="Fixa"
-              sx={{
-                textDecorationLine: disabled
-                  ? "line-through"
-                  : "none",
-              }}
-            />
-          );
+          return <TextFieldFixa {...params} />;
         }}
         renderOption={(props, option, _) => {
-          return <CustomOption {...props} option={option} />;
+          return <OptionFixa {...props} option={option} />;
         }}
       />
     );
@@ -63,7 +53,7 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (prev, next) => {
     return (
       prev.disabled === next.disabled &&
-      prev.value?.label === next.value?.label
+      prev.fixa?.label === next.fixa?.label
     );
   },
 );

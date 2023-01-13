@@ -133,12 +133,12 @@ export const FormUnit: FC<FormUnitProps> = memo((props) => {
                   valueMin={0}
                   valueMax={unit === null ? 0 : unit.enhancement_max}
                   value={unit_level}
-                  onChange={handleUnitLevelChange}
+                  onValueChange={handleUnitLevelChange}
                 />
                 <AutocompleteFixa
                   disabled={unit === null}
-                  value={fixa}
-                  onChange={handleFixaChange}
+                  fixa={fixa}
+                  onFixaChange={handleFixaChange}
                   mode={GroupEnumFixa.UNIT}
                 />
               </Stack>

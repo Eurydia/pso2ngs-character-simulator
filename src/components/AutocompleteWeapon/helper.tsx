@@ -5,19 +5,14 @@ import { Weapon } from "../../assets";
 
 const extractTerms = (value: string): string[] => {
   const items = value.split(" ");
-
   const terms: string[] = [];
-
   for (const item of items) {
     const item_trimmed = item.trim();
-
     if (item_trimmed === "") {
       continue;
     }
-
     terms.push(item_trimmed);
   }
-
   return terms;
 };
 

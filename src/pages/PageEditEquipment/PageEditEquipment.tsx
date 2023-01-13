@@ -33,9 +33,15 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [formWeapon, setFormWeapon] = useFormWeapon(
-    `${storageKey}-w`,
-  );
+  const {
+    formData: formWeapon,
+    setWeapon,
+    setWeaponLevel,
+    setPotentialLevel,
+    setAugment: setWeaponAugment,
+    setFixa: setWeaponFixa,
+  } = useFormWeapon(storageKey);
+
   const [formUnitA, setFormUnitA] = useFormUnit(`${storageKey}-ua`);
   const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
   const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
@@ -45,12 +51,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   };
   const handleDialogClose = () => {
     setDialogOpen(false);
-  };
-
-  const handleWeaponChange = (
-    getter: (prev: DataWeapon) => DataWeapon,
-  ) => {
-    setFormWeapon(getter);
   };
 
   const handleUnitChangeA = (

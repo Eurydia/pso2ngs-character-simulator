@@ -1,4 +1,4 @@
-import { Fragment, FC, useState } from "react";
+import { Fragment, FC, useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -32,12 +32,27 @@ type FormWeaponProps = {
   cardTitle: string;
   stat: StatObject;
   formData: DataWeapon;
-  onFormDataChange: (
-    dispatch: (prev: DataWeapon) => DataWeapon,
+
+  onWeaponChange: (next_weapon: Weapon | null) => void;
+  onWeaponLevelChange: (next_level: number) => void;
+  onPotentialLevelChange: (next_level: number) => void;
+  onFixaChange: (next_fixa: Fixa | null) => void;
+  onAugmentChange: (
+    next_augment: Augment | null,
+    index: number,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const { stat, cardTitle, onFormDataChange, formData } = props;
+  const {
+    stat,
+    cardTitle,
+    formData,
+    onWeaponChange,
+    onWeaponLevelChange,
+    onPotentialLevelChange,
+    onAugmentChange,
+    onFixaChange,
+  } = props;
 
   const { weapon, weapon_level, potential_level, fixa, augments } =
     formData;
@@ -50,51 +65,14 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-  const handleWeaponChange = (value: Weapon | null) => {
-    onFormDataChange((prev) => {
-      const next = { ...prev };
-      next.weapon = value;
-      return next;
-    });
-  };
-  const handleWeaponLevelChange = (value: number) => {
-    onFormDataChange((prev) => {
-      const next = { ...prev };
-      next.weapon_level = value;
-      return next;
-    });
-  };
-  const handlePotentialLevelChange = (value: number) => {
-    onFormDataChange((prev) => {
-      const next = { ...prev };
-      next.potential_level = value;
-      return next;
-    });
-  };
-  const handleFixaChange = (value: Fixa | null) => {
-    onFormDataChange((prev) => {
-      const next = { ...prev };
-      next.fixa = value;
-      return next;
-    });
-  };
-  const handleAugmentChange = (
-    value: Augment | null,
-    index: number,
-  ) => {
-    onFormDataChange((prev) => {
-      const next = { ...prev };
-      next.augments[index] = value;
-      next.augments = Augment.removeConflict(next.augments, index);
-      return next;
-    });
-  };
 
-  let active_augments: (Augment | null)[] = [];
-  if (weapon !== null) {
-    const active_count: number = Augment.getAugmentSlot(weapon_level);
-    active_augments = augments.slice(0, active_count);
-  }
+  const active_augments = useMemo((): (Augment | null)[] => {
+    if (weapon === null) {
+      return [];
+    }
+    const count: number = Augment.getAugmentSlot(weapon_level);
+    return augments.slice(0, count);
+  }, [weapon, augments, weapon_level]);
 
   return (
     <Fragment>
@@ -120,12 +98,12 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
               <Stack spacing={1}>
                 <AutocompleteWeapon
                   value={weapon}
-                  onChange={handleWeaponChange}
+                  onValueChange={onWeaponChange}
                 />
                 <SelectPotential
                   weapon={weapon}
                   value={potential_level}
-                  onChange={handlePotentialLevelChange}
+                  onValueChange={onPotentialLevelChange}
                 />
 
                 <FieldLevel
@@ -136,13 +114,13 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                     weapon === null ? 0 : weapon.enhancement_max
                   }
                   value={weapon_level}
-                  onChange={handleWeaponLevelChange}
+                  onValueChange={onWeaponLevelChange}
                 />
                 <AutocompleteFixa
-                  disabled={weapon === null}
-                  value={fixa}
-                  onChange={handleFixaChange}
                   mode={GroupEnumFixa.WEAPON}
+                  disabled={weapon === null}
+                  fixa={fixa}
+                  onFixaChange={onFixaChange}
                 />
               </Stack>
             </Grid>

@@ -3,10 +3,10 @@ import { ListItemText, MenuItem } from "@mui/material";
 
 import { Fixa } from "../../assets";
 
-type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
+type OptionFixaProps = HTMLAttributes<HTMLLIElement> & {
   option: Fixa;
 };
-export const CustomOption: FC<CustomOptionProps> = (props) => {
+export const OptionFixa: FC<OptionFixaProps> = (props) => {
   const { option, ...rest } = props;
   return (
     <MenuItem {...rest}>

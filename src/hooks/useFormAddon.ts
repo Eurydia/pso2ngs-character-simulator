@@ -92,7 +92,6 @@ const loadSubActives = (
   }
   return parsed_string;
 };
-
 // ------------------------------
 // HOOK
 export const useFormAddon = (

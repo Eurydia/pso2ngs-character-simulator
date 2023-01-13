@@ -1,12 +1,19 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
-import { Augment, Fixa, Unit } from "../assets";
+import {
+  ActionContext,
+  Augment,
+  Fixa,
+  StatObject,
+  Unit,
+} from "../assets";
 import { DataUnit } from "../types";
 
 import { useUnit } from "./useUnit";
 import { useEnhancement } from "./useEnhancement";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
+import { AccordionActionsClassKey } from "@mui/material";
 
 export const useFormUnit = (
   storage_key: string,
@@ -19,6 +26,7 @@ export const useFormUnit = (
     next_augment: Augment | null,
     augment_index: number,
   ) => void;
+  getStatObject: (ctx: ActionContext) => StatObject;
 } => {
   const { unit, setUnit } = useUnit(storage_key);
   const { enhacement: unitLevel, setEnhancement: setUnitLevel } =
@@ -35,11 +43,19 @@ export const useFormUnit = (
     };
   }, [unit, unitLevel, fixa, augments]);
 
+  const getStatObject = useCallback(
+    (ctx: ActionContext): StatObject => {
+      return DataUnit.getStatObject(ctx, formData);
+    },
+    [formData],
+  );
+
   return {
     formData,
     setUnit,
     setUnitLevel,
     setFixa,
     setAugment,
+    getStatObject,
   };
 };

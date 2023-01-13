@@ -1,6 +1,12 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
-import { Augment, Fixa, Weapon } from "../assets";
+import {
+  ActionContext,
+  Augment,
+  Fixa,
+  StatObject,
+  Weapon,
+} from "../assets";
 import { DataWeapon } from "../types";
 
 import { useWeapon } from "./useWeapon";
@@ -20,13 +26,16 @@ export const useFormWeapon = (
     next_augment: Augment | null,
     augment_index: number,
   ) => void;
+  getStatObject: (ctx: ActionContext) => StatObject;
 } => {
+  const KEY: string = `${storage_key}-form-weapon`;
+
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
-    useWeapon(storage_key);
+    useWeapon(KEY);
   const { enhacement: weaponLevel, setEnhancement: setWeaponLevel } =
-    useEnhancement(storage_key);
-  const { fixa, setFixa } = useFixa(storage_key);
-  const { augments, setAugment } = useAugments(storage_key);
+    useEnhancement(KEY);
+  const { fixa, setFixa } = useFixa(KEY);
+  const { augments, setAugment } = useAugments(KEY);
 
   const formData = useMemo((): DataWeapon => {
     return {
@@ -38,6 +47,13 @@ export const useFormWeapon = (
     };
   }, [weapon, weaponLevel, potentialLevel, fixa, augments]);
 
+  const getStatObject = useCallback(
+    (ctx: ActionContext): StatObject => {
+      return DataWeapon.getStatObject(ctx, formData);
+    },
+    [formData],
+  );
+
   return {
     formData,
     setWeapon,
@@ -45,5 +61,6 @@ export const useFormWeapon = (
     setWeaponLevel,
     setFixa,
     setAugment,
+    getStatObject,
   };
 };

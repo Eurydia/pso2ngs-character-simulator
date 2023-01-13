@@ -9,20 +9,26 @@ type FieldLevelProps = {
   valueMin: number;
   valueMax: number;
   value: number;
-  onChange: (value: number) => void;
+  onValueChange: (next_level: number) => void;
 };
 export const FieldLevel: FC<FieldLevelProps> = memo(
   (props) => {
-    const { label, disabled, value, valueMax, valueMin, onChange } =
-      props;
+    const {
+      label,
+      disabled,
+      value,
+      valueMax,
+      valueMin,
+      onValueChange,
+    } = props;
 
-    const handleChange = (
+    const handleValueChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
       const value_input: string = event.target.value;
       const value_parsed: number = Number.parseInt(value_input);
       if (Number.isNaN(value_parsed)) {
-        onChange(0);
+        onValueChange(0);
         return;
       }
       const value_clamped: number = clampValue(
@@ -30,7 +36,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
         valueMin,
         valueMax,
       );
-      onChange(value_clamped);
+      onValueChange(value_clamped);
     };
 
     let _value: number = 0;
@@ -45,7 +51,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
         placeholder={label}
         disabled={disabled}
         value={_value.toString()}
-        onChange={handleChange}
+        onChange={handleValueChange}
         sx={{
           textDecorationLine: props.disabled
             ? "line-through"

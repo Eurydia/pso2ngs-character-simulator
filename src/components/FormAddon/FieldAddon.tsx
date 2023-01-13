@@ -30,7 +30,7 @@ export const FieldAddon: FC<FieldAddonProps> = memo((props) => {
             valueMin={0}
             valueMax={AddonSkill.LEVEL_MAX}
             value={level}
-            onChange={onLevelChange}
+            onValueChange={onLevelChange}
           />
         </Grid>
       </Grid>
