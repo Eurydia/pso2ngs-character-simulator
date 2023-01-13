@@ -1,4 +1,4 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent, useCallback } from "react";
 import {
   TextField,
   Autocomplete,
@@ -12,21 +12,26 @@ import { OptionAugment } from "./OptionAugment";
 import { TextFieldAugment } from "./TextFieldAugment";
 
 type AutocompleteAugmentProps = {
+  // Dynamics props
   disabled: boolean;
   augment: Augment | null;
+
   onAugmentChange: (next_augment: Augment | null) => void;
 };
 export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
     const { disabled, augment, onAugmentChange } = props;
 
-    const handleAugmentChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Augment | null,
-      reason: AutocompleteChangeReason,
-    ) => {
-      onAugmentChange(value);
-    };
+    const handleAugmentChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Augment | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onAugmentChange(value);
+      },
+      [],
+    );
 
     return (
       <Autocomplete

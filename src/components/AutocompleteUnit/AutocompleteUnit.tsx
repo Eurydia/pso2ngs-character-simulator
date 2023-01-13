@@ -1,4 +1,4 @@
-import { FC, memo, SyntheticEvent } from "react";
+import { FC, memo, SyntheticEvent, useCallback } from "react";
 import {
   Autocomplete,
   AutocompleteChangeReason,
@@ -11,20 +11,25 @@ import { OptionUnit } from "./OptionUnit";
 import { TextFieldUnit } from "./TextFieldUnit";
 
 type AutocompleteUnitProps = {
+  // Dynamic props
   unit: Unit | null;
+
   onUnitChange: (next_unit: Unit | null) => void;
 };
 export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
   (props) => {
     const { unit, onUnitChange } = props;
 
-    const handleUnitChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Unit | null,
-      reason: AutocompleteChangeReason,
-    ) => {
-      onUnitChange(value);
-    };
+    const handleUnitChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Unit | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onUnitChange(value);
+      },
+      [],
+    );
 
     return (
       <Autocomplete

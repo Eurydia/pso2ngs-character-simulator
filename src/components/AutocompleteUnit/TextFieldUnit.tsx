@@ -24,6 +24,7 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
     <InputAdornment position="end">{defaultAdornment}</InputAdornment>
   );
 };
+
 type TextFieldUnitProps = AutocompleteRenderInputParams & {
   shouldShowWarning: boolean;
 };

@@ -1,4 +1,4 @@
-import React, { memo, FC, SyntheticEvent } from "react";
+import React, { memo, FC, SyntheticEvent, useCallback } from "react";
 import {
   TextField,
   Autocomplete,
@@ -12,7 +12,9 @@ import { OptionFood } from "./OptionFood";
 import { TextFieldFood } from "./TextFieldFood";
 
 type AutocompleteFoodProps = {
+  // Dynamics props
   food: Food | null;
+
   onFoodChange: (next_food: Food | null) => void;
   onKeyEnterPress: () => void;
 };
@@ -20,22 +22,26 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
   (props) => {
     const { food, onFoodChange, onKeyEnterPress } = props;
 
-    const handleFoodChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Food | null,
-      reason: AutocompleteChangeReason,
-    ) => {
-      onFoodChange(value);
-    };
+    const handleFoodChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Food | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onFoodChange(value);
+      },
+      [],
+    );
 
-    const handleKeyDown = (
-      event: React.KeyboardEvent<HTMLDivElement>,
-    ) => {
-      const key = event.key;
-      if (key === "Enter") {
-        onKeyEnterPress();
-      }
-    };
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent<HTMLDivElement>): void => {
+        const key = event.key;
+        if (key === "Enter") {
+          onKeyEnterPress();
+        }
+      },
+      [],
+    );
 
     return (
       <Autocomplete

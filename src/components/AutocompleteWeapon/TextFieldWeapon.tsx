@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, memo, ReactNode } from "react";
 import {
   AutocompleteRenderInputParams,
   InputAdornment,
@@ -24,6 +24,7 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
     <InputAdornment position="end">{defaultAdornment}</InputAdornment>
   );
 };
+
 type TextFieldWeaponProps = AutocompleteRenderInputParams & {
   shouldShowWarning: boolean;
 };

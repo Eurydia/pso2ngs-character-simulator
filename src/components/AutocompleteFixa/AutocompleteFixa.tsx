@@ -1,4 +1,10 @@
-import { FC, memo, SyntheticEvent, useMemo } from "react";
+import {
+  FC,
+  memo,
+  SyntheticEvent,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   Autocomplete,
   AutocompleteChangeReason,
@@ -11,22 +17,29 @@ import { OptionFixa } from "./OptionFixa";
 import { TextFieldFixa } from "./TextFieldFixa";
 
 type AutocompleteFixaProps = {
-  mode: GroupEnumFixa;
+  // Dynamic props
   disabled: boolean;
   fixa: Fixa | null;
+
+  // Static props
+  mode: GroupEnumFixa;
+
   onFixaChange: (next_fixa: Fixa | null) => void;
 };
 export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
-    const { mode, disabled, fixa: value, onFixaChange } = props;
+    const { mode, disabled, fixa, onFixaChange } = props;
 
-    const handleFixaChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Fixa | null,
-      reason: AutocompleteChangeReason,
-    ) => {
-      onFixaChange(value);
-    };
+    const handleFixaChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Fixa | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onFixaChange(value);
+      },
+      [],
+    );
 
     const options = useMemo((): Fixa[] => {
       return AssetFixas.filter((fixa) => {
@@ -38,7 +51,7 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
       <Autocomplete
         disabled={disabled}
         options={options}
-        value={value}
+        value={fixa}
         onChange={handleFixaChange}
         filterOptions={filterOptions}
         renderInput={(params) => {
