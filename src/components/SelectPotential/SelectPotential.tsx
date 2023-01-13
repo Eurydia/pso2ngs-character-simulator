@@ -13,19 +13,16 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
   (props) => {
     const { weapon, potentialLevel, onPotentialLevelChange } = props;
 
-    const handlePotentialLevelChange = useCallback(
-      (
-        event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-      ): void => {
-        const value_input: string = event.target.value;
-        const value_parsed: number = Number.parseInt(value_input);
-        if (Number.isNaN(value_parsed)) {
-          return;
-        }
-        onPotentialLevelChange(value_parsed);
-      },
-      [],
-    );
+    const handlePotentialLevelChange = (
+      event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    ): void => {
+      const value_input: string = event.target.value;
+      const value_parsed: number = Number.parseInt(value_input);
+      if (Number.isNaN(value_parsed)) {
+        return;
+      }
+      onPotentialLevelChange(value_parsed);
+    };
 
     const options = useMemo((): {
       label: string;
@@ -37,10 +34,8 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       if (weapon === null) {
         return results;
       }
-
       const level_max: number = weapon.potential.level_max;
       const potential_name: string = weapon.potential.name;
-
       for (let level = 1; level <= level_max; level++) {
         results.push({
           label: `${potential_name} Lv. ${level}`,
