@@ -20,16 +20,13 @@ export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
   (props) => {
     const { unit, onUnitChange } = props;
 
-    const handleUnitChange = useCallback(
-      (
-        event: SyntheticEvent<Element, Event>,
-        value: Unit | null,
-        reason: AutocompleteChangeReason,
-      ): void => {
-        onUnitChange(value);
-      },
-      [],
-    );
+    const handleUnitChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: Unit | null,
+      reason: AutocompleteChangeReason,
+    ): void => {
+      onUnitChange(value);
+    };
 
     return (
       <Autocomplete
