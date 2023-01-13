@@ -19,7 +19,7 @@ const makeWeaponSix = (
   name: string,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   return weapon(
     name,
@@ -38,7 +38,7 @@ G_SIX.push(
     "Evoleclipse Series",
     40,
     AssetPotentials.ELUSIVE_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 346,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -53,7 +53,7 @@ G_SIX.push(
     "Sechetyl Series",
     45,
     AssetPotentials.TRAMPLE_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 350,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -68,7 +68,7 @@ G_SIX.push(
     "Rokz Roughewn Series",
     52,
     AssetPotentials.REVOLUTIONARY_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -83,7 +83,7 @@ G_SIX.push(
     "Rokz Sixiemes Series",
     52,
     AssetPotentials.DESPERATION_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -98,7 +98,7 @@ G_SIX.push(
     "Rokz Curva Series",
     52,
     AssetPotentials.STACCATO_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -113,7 +113,7 @@ G_SIX.push(
     "Evolorbit Series",
     53,
     AssetPotentials.ILLUSORY_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 355,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -128,7 +128,7 @@ G_SIX.push(
     "Codeck Series",
     40,
     AssetPotentials.IMPERVIOUS_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 351,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
