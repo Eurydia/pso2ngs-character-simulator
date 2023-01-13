@@ -1,6 +1,5 @@
 import React, { memo, FC, SyntheticEvent, useCallback } from "react";
 import {
-  TextField,
   Autocomplete,
   AutocompleteChangeReason,
 } from "@mui/material";
@@ -50,7 +49,12 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
         onChange={handleFoodChange}
         onKeyDown={handleKeyDown}
         filterOptions={filterOptions}
-        renderInput={(params) => <TextFieldFood {...params} />}
+        renderInput={(params) => (
+          <TextFieldFood
+            {...params}
+            shouldShowWarning={food === null}
+          />
+        )}
         renderOption={(props, option, _) => {
           return (
             <OptionFood
