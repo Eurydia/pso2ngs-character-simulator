@@ -29,7 +29,8 @@ type FormFoodProps = {
 export const FormFood: FC<FormFoodProps> = (props) => {
   const { stat, foods, onFoodAdd, onFoodRemove } = props;
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
   const [selected, setSelected] = useState<Food | null>(null);
 
   const handleDialogClose = useCallback(() => {
@@ -45,12 +46,14 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     }
     onFoodAdd(selected, 0);
     setSelected(null);
+  }, [selected]);
+
+  const handleCopy = useCallback((food: Food, food_index: number) => {
+    onFoodAdd(food, food_index);
   }, []);
-  const handleCopy = useCallback((item: Food, index: number) => {
-    onFoodAdd(item, index);
-  }, []);
-  const handleRemove = useCallback((index: number) => {
-    onFoodRemove(index);
+
+  const handleRemove = useCallback((food_index: number) => {
+    onFoodRemove(food_index);
   }, []);
 
   return (

@@ -6,17 +6,13 @@ import { Augment } from "../../assets";
 const extractTerms = (value: string): string[] => {
   const terms: string[] = [];
   const items: string[] = value.split(" ");
-
   for (const item of items) {
     const item_trimmed = item.trim();
-
     if (item_trimmed === "") {
       continue;
     }
-
     terms.push(item_trimmed);
   }
-
   return terms;
 };
 

@@ -6,27 +6,19 @@ import { Food } from "../../assets";
 const extractTerms = (value: string): string[] => {
   const terms: string[] = [];
   const items: string[] = value.split(" ");
-
   for (const item of items) {
     const item_trimmed = item.trim();
-
     if (item_trimmed === "") {
       continue;
     }
-
     terms.push(item_trimmed);
   }
-
   return terms;
 };
 
 const termReducer = (options: Food[], term: string): Food[] => {
   return matchSorter(options, term, {
-    keys: [
-      (item) => item.label,
-      (item) => item.attribute,
-      (item) => item.category,
-    ],
+    keys: [(item) => item.attribute, (item) => item.category],
   });
 };
 

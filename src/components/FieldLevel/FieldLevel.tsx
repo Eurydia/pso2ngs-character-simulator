@@ -26,22 +26,25 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       onLevelChange,
     } = props;
 
-    const handleLevelChange = (
-      event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-    ): void => {
-      const value_input: string = event.target.value;
-      const value_parsed: number = Number.parseInt(value_input);
-      if (Number.isNaN(value_parsed)) {
-        onLevelChange(0);
-        return;
-      }
-      const value_clamped: number = clampValue(
-        value_parsed,
-        levelMin,
-        levelMax,
-      );
-      onLevelChange(value_clamped);
-    };
+    const handleLevelChange = useCallback(
+      (
+        event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+      ): void => {
+        const value_input: string = event.target.value;
+        const value_parsed: number = Number.parseInt(value_input);
+        if (Number.isNaN(value_parsed)) {
+          onLevelChange(0);
+          return;
+        }
+        const value_clamped: number = clampValue(
+          value_parsed,
+          levelMin,
+          levelMax,
+        );
+        onLevelChange(value_clamped);
+      },
+      [levelMax, levelMin],
+    );
 
     const value = useMemo(() => {
       if (Number.isNaN(level)) {
