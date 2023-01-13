@@ -100,6 +100,8 @@ export const Weapon = {
 export const weapon = (
   label: string,
   rarity: GroupEnumWeaponRarity,
+  enhancement_max: number,
+  level_required: number,
   potential: Potential,
   growth_rate: [number, number][],
   getAwareStatObject: (ctx: ActionContext) => StatObject,
@@ -107,6 +109,8 @@ export const weapon = (
   const result: Weapon = {
     label,
     rarity,
+    enhancement_max,
+    level_required,
     potential,
     growth_rate,
     getAwareStatObject,
