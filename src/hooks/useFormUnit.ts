@@ -15,9 +15,8 @@ export const useFormUnit = (
   (dispatch: DataUnit | ((prev: DataUnit) => DataUnit)) => void,
 ] => {
   const [unit, setUnit] = useUnit(storage_key);
-  const [unitLevel, setUnitLevel] = useEnhancement(
-    `${storage_key}-l`,
-  );
+  const { enhacement: unitLevel, setEnhancement: setUnitLevel } =
+    useEnhancement(storage_key);
   const [fixa, setFixa] = useFixa(`${storage_key}-f`);
   const { augments, setAugment } = useAugments(storage_key);
 

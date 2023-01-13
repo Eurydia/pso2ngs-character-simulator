@@ -15,9 +15,8 @@ export const useFormWeapon = (
 ] => {
   const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
     useWeapon(storage_key, `${storage_key}-pl`);
-  const [weaponLevel, setWeaponLevel] = useEnhancement(
-    `${storage_key}-l`,
-  );
+  const { enhacement: weaponLevel, setEnhancement: setWeaponLevel } =
+    useEnhancement(storage_key);
   const [fixa, setFixa] = useFixa(`${storage_key}-f`);
   const { augments, setAugment } = useAugments(storage_key);
 
