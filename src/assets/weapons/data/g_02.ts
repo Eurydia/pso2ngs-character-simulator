@@ -20,7 +20,7 @@ const makeWeaponTwo = (
   name: string,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   return weapon(
     name,
@@ -39,7 +39,7 @@ G_TWO.push(
     "Tzvia Series",
     4,
     AssetPotentials.INDOMITABLE_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -54,7 +54,7 @@ G_TWO.push(
     "Silver Primm Sword",
     5,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
@@ -69,7 +69,7 @@ G_TWO.push(
     "N-Exp Weapon",
     5,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
