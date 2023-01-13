@@ -19,7 +19,7 @@ export const useFormUnit = (
     `${storage_key}-l`,
   );
   const [fixa, setFixa] = useFixa(`${storage_key}-f`);
-  const [augments, setAugment] = useAugments(`${storage_key}-a`);
+  const { augments, setAugment } = useAugments(storage_key);
 
   const [data, setData] = useState<DataUnit>(() => {
     return { unit, unit_level: unitLevel, fixa, augments };
