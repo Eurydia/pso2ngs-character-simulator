@@ -1,4 +1,11 @@
-import { FC, Fragment, useState, useEffect } from "react";
+import {
+  FC,
+  Fragment,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   Box,
   Container,
@@ -6,7 +13,6 @@ import {
   DialogContent,
   DialogTitle,
   Fab,
-  Grid,
   Stack,
   Tooltip,
   Typography,
@@ -15,7 +21,7 @@ import { BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { DataUnit, DataWeapon } from "../../types";
+import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 
 import { SummaryView } from "./SummaryView";
@@ -40,110 +46,124 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setPotentialLevel,
     setAugment: setWeaponAugment,
     setFixa: setWeaponFixa,
-  } = useFormWeapon(storageKey);
+    getStatObject: getWeaponStatObject,
+  } = useFormWeapon(`${storageKey}-form-weapon`);
 
-  const [formUnitA, setFormUnitA] = useFormUnit(`${storageKey}-ua`);
-  const [formUnitB, setFormUnitB] = useFormUnit(`${storageKey}-ub`);
-  const [formUnitC, setFormUnitC] = useFormUnit(`${storageKey}-uc`);
+  const {
+    formData: formUnitA,
+    setUnit: setUnitA,
+    setUnitLevel: setUnitLevelA,
+    setAugment: setAugmentA,
+    setFixa: setFixaA,
+    getStatObject: getUnitStatObjectA,
+  } = useFormUnit(`${storageKey}-form-unit-a`);
 
-  const handleDialogOpen = () => {
+  const {
+    formData: formUnitB,
+    setUnit: setUnitB,
+    setUnitLevel: setUnitLevelB,
+    setAugment: setAugmentB,
+    setFixa: setFixaB,
+    getStatObject: getUnitStatObjectB,
+  } = useFormUnit(`${storageKey}-form-unit-b`);
+
+  const {
+    formData: formUnitC,
+    setUnit: setUnitC,
+    setUnitLevel: setUnitLevelC,
+    setAugment: setAugmentC,
+    setFixa: setFixaC,
+    getStatObject: getUnitStatObjectC,
+  } = useFormUnit(`${storageKey}-form-unit-C`);
+
+  const handleDialogOpen = useCallback((): void => {
     setDialogOpen(true);
-  };
-  const handleDialogClose = () => {
+  }, []);
+
+  const handleDialogClose = useCallback((): void => {
     setDialogOpen(false);
-  };
+  }, []);
 
-  const handleUnitChangeA = (
-    getter: (prev: DataUnit) => DataUnit,
-  ) => {
-    setFormUnitA(getter);
-  };
-  const handleUnitChangeB = (
-    getter: (prev: DataUnit) => DataUnit,
-  ) => {
-    setFormUnitB(getter);
-  };
-  const handleUnitChangeC = (
-    getter: (prev: DataUnit) => DataUnit,
-  ) => {
-    setFormUnitC(getter);
-  };
+  const handleUnitSyncA = useCallback((): void => {
+    setUnitB(formUnitA.unit);
+    setUnitLevelB(formUnitA.unit_level);
+    setFixaB(formUnitA.fixa);
 
-  const handleUnitSyncA = () => {
-    setFormUnitB((prev) => {
-      const next: DataUnit = {
-        ...formUnitA,
-        augments: [...formUnitA.augments],
-      };
-      return next;
+    setUnitC(formUnitA.unit);
+    setUnitLevelC(formUnitA.unit_level);
+    setFixaC(formUnitA.fixa);
+
+    formUnitA.augments.forEach((next_augment, augment_index) => {
+      setAugmentB(next_augment, augment_index);
+      setAugmentC(next_augment, augment_index);
     });
-    setFormUnitC((prev) => {
-      const next: DataUnit = {
-        ...formUnitA,
-        augments: [...formUnitA.augments],
-      };
-      return next;
+  }, []);
+
+  const handleUnitSyncB = useCallback((): void => {
+    setUnitA(formUnitB.unit);
+    setUnitLevelA(formUnitB.unit_level);
+    setFixaA(formUnitB.fixa);
+
+    setUnitC(formUnitB.unit);
+    setUnitLevelC(formUnitB.unit_level);
+    setFixaC(formUnitB.fixa);
+
+    formUnitB.augments.forEach((next_augment, augment_index) => {
+      setAugmentA(next_augment, augment_index);
+      setAugmentC(next_augment, augment_index);
     });
-  };
-  const handleUnitSyncB = () => {
-    setFormUnitA((prev) => {
-      const next: DataUnit = {
-        ...formUnitB,
-        augments: [...formUnitB.augments],
-      };
-      return next;
+  }, []);
+
+  const handleUnitSyncC = useCallback((): void => {
+    setUnitA(formUnitC.unit);
+    setUnitLevelA(formUnitC.unit_level);
+    setFixaA(formUnitC.fixa);
+
+    setUnitB(formUnitC.unit);
+    setUnitLevelB(formUnitC.unit_level);
+    setFixaB(formUnitC.fixa);
+
+    formUnitC.augments.forEach((next_augment, augment_index) => {
+      setAugmentA(next_augment, augment_index);
+      setAugmentB(next_augment, augment_index);
     });
-    setFormUnitC((prev) => {
-      const next: DataUnit = {
-        ...formUnitB,
-        augments: [...formUnitB.augments],
-      };
-      return next;
-    });
-  };
-  const handleUnitSyncC = () => {
-    setFormUnitA((prev) => {
-      const next: DataUnit = {
-        ...formUnitC,
-        augments: [...formUnitC.augments],
-      };
-      return next;
-    });
-    setFormUnitB((prev) => {
-      const next: DataUnit = {
-        ...formUnitC,
-        augments: [...formUnitC.augments],
-      };
-      return next;
-    });
-  };
+  }, []);
+
+  const summary_weapon = useMemo((): SummaryEquipment => {
+    return DataWeapon.getSummaryObject(formWeapon);
+  }, [formWeapon]);
+  const summary_unit_a = useMemo((): SummaryEquipment => {
+    return DataUnit.getSummaryObject(formUnitA);
+  }, [formUnitA]);
+  const summary_unit_b = useMemo((): SummaryEquipment => {
+    return DataUnit.getSummaryObject(formUnitB);
+  }, [formUnitB]);
+  const summary_unit_c = useMemo((): SummaryEquipment => {
+    return DataUnit.getSummaryObject(formUnitC);
+  }, [formUnitC]);
+
+  const stat_weapon = useMemo((): StatObject => {
+    return getWeaponStatObject(context);
+  }, [context, getWeaponStatObject]);
+  const stat_unit_a = useMemo((): StatObject => {
+    return getUnitStatObjectA(context);
+  }, [context, getUnitStatObjectA]);
+  const stat_unit_b = useMemo((): StatObject => {
+    return getUnitStatObjectB(context);
+  }, [context, getUnitStatObjectB]);
+  const stat_unit_c = useMemo((): StatObject => {
+    return getUnitStatObjectC(context);
+  }, [context, getUnitStatObjectC]);
+
+  const stat_total = useMemo((): StatObject => {
+    let stat = StatObject.merge(stat_weapon, stat_unit_a);
+    stat = StatObject.merge(stat, stat_unit_b);
+    return StatObject.merge(stat, stat_unit_c);
+  }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
 
   useEffect(() => {
-    const weapon = DataWeapon.getStatObject(context, formWeapon);
-    const unit_a = DataUnit.getStatObject(context, formUnitA);
-    const unit_b = DataUnit.getStatObject(context, formUnitB);
-    const unit_c = DataUnit.getStatObject(context, formUnitC);
-
-    let stat = StatObject.merge(weapon, unit_a);
-    stat = StatObject.merge(stat, unit_b);
-    stat = StatObject.merge(stat, unit_c);
-
-    onStatChange(stat);
-  }, [context, formWeapon, formUnitA, formUnitB, formUnitC]);
-
-  const summary_weapon = DataWeapon.getSummaryObject(formWeapon);
-  const summary_unit_a = DataUnit.getSummaryObject(formUnitA);
-  const summary_unit_b = DataUnit.getSummaryObject(formUnitB);
-  const summary_unit_c = DataUnit.getSummaryObject(formUnitC);
-
-  const stat_weapon = DataWeapon.getStatObject(context, formWeapon);
-  const stat_unit_a = DataUnit.getStatObject(context, formUnitA);
-  const stat_unit_b = DataUnit.getStatObject(context, formUnitB);
-  const stat_unit_c = DataUnit.getStatObject(context, formUnitC);
-
-  let stat_total = StatObject.merge(stat_weapon, stat_unit_a);
-  stat_total = StatObject.merge(stat_total, stat_unit_b);
-  stat_total = StatObject.merge(stat_total, stat_unit_c);
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Fragment>
@@ -171,30 +191,43 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         <Box marginY={4}>
           <Stack spacing={2}>
             <FormWeapon
-              stat={stat_weapon}
               cardTitle="Weapon"
+              stat={stat_weapon}
               formData={formWeapon}
-              onFormDataChange={handleWeaponChange}
+              onWeaponChange={setWeapon}
+              onPotentialLevelChange={setPotentialLevel}
+              onWeaponLevelChange={setWeaponLevel}
+              onFixaChange={setWeaponFixa}
+              onAugmentChange={setWeaponAugment}
             />
             <FormUnit
               cardTitle="Unit A"
               stat={stat_unit_a}
               formData={formUnitA}
-              onFormDataChange={handleUnitChangeA}
+              onUnitChange={setUnitA}
+              onUnitLevelChange={setUnitLevelA}
+              onFixaChange={setFixaA}
+              onAugmentChange={setAugmentA}
               onSync={handleUnitSyncA}
             />
             <FormUnit
               cardTitle="Unit B"
               stat={stat_unit_b}
               formData={formUnitB}
-              onFormDataChange={handleUnitChangeB}
+              onUnitChange={setUnitB}
+              onUnitLevelChange={setUnitLevelB}
+              onFixaChange={setFixaB}
+              onAugmentChange={setAugmentB}
               onSync={handleUnitSyncB}
             />
             <FormUnit
               cardTitle="Unit C"
               stat={stat_unit_c}
               formData={formUnitC}
-              onFormDataChange={handleUnitChangeC}
+              onUnitChange={setUnitC}
+              onUnitLevelChange={setUnitLevelC}
+              onFixaChange={setFixaC}
+              onAugmentChange={setAugmentC}
               onSync={handleUnitSyncC}
             />
           </Stack>

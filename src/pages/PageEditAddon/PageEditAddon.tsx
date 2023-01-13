@@ -271,28 +271,8 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
   ]);
 
   useEffect(() => {
-    // let stat = StatObject.merge(stat_hu, stat_fi);
-    // stat = StatObject.merge(stat, stat_ra);
-    // stat = StatObject.merge(stat, stat_gu);
-    // stat = StatObject.merge(stat, stat_fo);
-    // stat = StatObject.merge(stat, stat_te);
-    // stat = StatObject.merge(stat, stat_br);
-    // stat = StatObject.merge(stat, stat_bo);
-    // stat = StatObject.merge(stat, stat_wa);
     onStatChange(stat_total);
-  }, [
-    context,
-    stat_total,
-    // huGetStatObject,
-    // fiGetStatObject,
-    // raGetStatObject,
-    // guGetStatObject,
-    // foGetStatObject,
-    // teGetStatObject,
-    // brGetStatObject,
-    // boGetStatObject,
-    // waGetStatObject,
-  ]);
+  }, [stat_total]);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);

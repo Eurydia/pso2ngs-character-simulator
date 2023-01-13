@@ -28,14 +28,12 @@ export const useFormWeapon = (
   ) => void;
   getStatObject: (ctx: ActionContext) => StatObject;
 } => {
-  const KEY: string = `${storage_key}-form-weapon`;
-
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
-    useWeapon(KEY);
+    useWeapon(storage_key);
   const { enhacement: weaponLevel, setEnhancement: setWeaponLevel } =
-    useEnhancement(KEY);
-  const { fixa, setFixa } = useFixa(KEY);
-  const { augments, setAugment } = useAugments(KEY);
+    useEnhancement(storage_key);
+  const { fixa, setFixa } = useFixa(storage_key);
+  const { augments, setAugment } = useAugments(storage_key);
 
   const formData = useMemo((): DataWeapon => {
     return {
