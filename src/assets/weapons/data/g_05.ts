@@ -18,12 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponFive = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_FIVE,
+    60,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -34,6 +37,7 @@ const makeWeaponFive = (
 G_FIVE.push(
   makeWeaponFive(
     "Quintel Series",
+    21,
     AssetPotentials.FORTRESS_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -48,6 +52,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Gothica Series",
+    21,
     AssetPotentials.REINVIGORATING_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -62,6 +67,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Fivla Series",
+    21,
     AssetPotentials.FOCUSED_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -76,6 +82,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Greaga Series",
+    27,
     AssetPotentials.FIGHTING_SPIRIT_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -90,6 +97,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Kukuhroziat Series",
+    27,
     AssetPotentials.UNASSAILABLE_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -104,6 +112,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Vigorous Series",
+    31,
     AssetPotentials.VIGOROUS_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -118,6 +127,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Explosive Series",
+    31,
     AssetPotentials.EXPLOSIVE_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -132,6 +142,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Harmonious Series",
+    31,
     AssetPotentials.HARMONIOUS_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -146,6 +157,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Imbued Series",
+    31,
     AssetPotentials.IMBUED_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -160,6 +172,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Cinquem Series",
+    36,
     AssetPotentials.VIRTUOSO_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -174,6 +187,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Tempesta Series",
+    15,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -197,6 +211,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Lumiere Series",
+    15,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -220,6 +235,7 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Obscura Series",
+    15,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
