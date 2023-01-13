@@ -88,7 +88,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
             </Grid>
             <Grid item xs={1}>
               <LinkCard
-                cardTitle="Class & Skill tree"
+                cardTitle="Class & skill tree"
                 cardDescription="Classes and skills."
                 onLinkClick={() => {
                   setPage(3);

@@ -40,6 +40,8 @@ export const LinkCard: FC<LinkCardProps> = (props) => {
       />
       <CardActions disableSpacing>
         <Button
+          disableElevation
+          variant="contained"
           startIcon={<LaunchRounded fontSize="large" />}
           onClick={onLinkClick}
         >
