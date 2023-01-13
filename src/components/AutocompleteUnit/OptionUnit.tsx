@@ -3,13 +3,14 @@ import { HTMLAttributes } from "react";
 import { ListItemText, MenuItem } from "@mui/material";
 import { Unit } from "../../assets";
 
-type CustomOptionProps = HTMLAttributes<HTMLLIElement> & {
+type OptionUnitProps = {
+  LIProps: HTMLAttributes<HTMLLIElement>;
   option: Unit;
 };
-export const CustomOption: FC<CustomOptionProps> = (props) => {
-  const { option, ...rest } = props;
+export const OptionUnit: FC<OptionUnitProps> = (props) => {
+  const { option, LIProps } = props;
   return (
-    <MenuItem {...rest}>
+    <MenuItem {...LIProps}>
       <ListItemText>{option.label}</ListItemText>
     </MenuItem>
   );

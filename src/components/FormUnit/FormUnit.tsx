@@ -124,8 +124,8 @@ export const FormUnit: FC<FormUnitProps> = memo((props) => {
             <Grid item xs={1}>
               <Stack spacing={1}>
                 <AutocompleteUnit
-                  value={unit}
-                  onChange={handleUnitChange}
+                  unit={unit}
+                  onUnitChange={handleUnitChange}
                 />
                 <FieldLevel
                   label="Enhacement"

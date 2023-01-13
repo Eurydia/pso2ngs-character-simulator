@@ -1,83 +1,52 @@
-import { FC, memo, SyntheticEvent, ReactNode } from "react";
+import { FC, memo, SyntheticEvent } from "react";
 import {
-  TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  InputAdornment,
 } from "@mui/material";
-import { PriorityHighRounded } from "@mui/icons-material";
 
 import { AssetUnits, Unit } from "../../assets";
 
-import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
+import { OptionUnit } from "./OptionUnit";
+import { TextFieldUnit } from "./TextFieldUnit";
 
-type EndAdornmentProps = {
-  shouldShowWarning: boolean;
-  defaultAdornment: ReactNode | ReactNode[];
+type AutocompleteUnitProps = {
+  unit: Unit | null;
+  onUnitChange: (next_unit: Unit | null) => void;
 };
-const EndAdornment: FC<EndAdornmentProps> = (props) => {
-  const { shouldShowWarning, defaultAdornment } = props;
-  if (shouldShowWarning) {
-    return (
-      <InputAdornment position="end">
-        <PriorityHighRounded fontSize="large" color="warning" />
-        {defaultAdornment}
-      </InputAdornment>
-    );
-  }
-  return (
-    <InputAdornment position="end">{defaultAdornment}</InputAdornment>
-  );
-};
-
-type AutocompleteWeaponProps = {
-  value: Unit | null;
-  onChange: (value: Unit | null) => void;
-};
-export const AutocompleteUnit: FC<AutocompleteWeaponProps> = memo(
+export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
   (props) => {
-    const { value, onChange } = props;
+    const { unit, onUnitChange } = props;
 
-    const handleChange = (
+    const handleUnitChange = (
       event: SyntheticEvent<Element, Event>,
       value: Unit | null,
       reason: AutocompleteChangeReason,
     ) => {
-      onChange(value);
+      onUnitChange(value);
     };
 
     return (
       <Autocomplete
         options={AssetUnits}
-        value={value}
-        onChange={handleChange}
+        value={unit}
+        onChange={handleUnitChange}
         filterOptions={filterOptions}
-        renderInput={({ InputProps, ...rest }) => {
+        renderInput={(params) => {
           return (
-            <TextField
-              {...rest}
-              fullWidth
-              placeholder="Unit*"
-              InputProps={{
-                ...InputProps,
-                endAdornment: (
-                  <EndAdornment
-                    shouldShowWarning={value === null}
-                    defaultAdornment={InputProps.endAdornment}
-                  />
-                ),
-              }}
+            <TextFieldUnit
+              {...params}
+              shouldShowWarning={unit === null}
             />
           );
         }}
         renderOption={(props, option, _) => {
-          return <CustomOption {...props} option={option} />;
+          return <OptionUnit LIProps={props} option={option} />;
         }}
       />
     );
   },
   (prev, next) => {
-    return prev.value?.label === next.value?.label;
+    return prev.unit?.label === next.unit?.label;
   },
 );
