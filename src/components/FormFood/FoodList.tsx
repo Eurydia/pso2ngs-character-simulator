@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import {
   IconButton,
   List,
@@ -18,38 +18,39 @@ type FoodListItemProps = {
   onCopy: () => void;
   onRemove: () => void;
 };
-const FoodListItem: FC<FoodListItemProps> = (props) => {
-  const { label, onCopy, onRemove } = props;
-  return (
-    <ListItem>
-      <ListItemText>
-        <Typography fontSize="large">{label}</Typography>
-      </ListItemText>
-      <ListItemSecondaryAction>
-        <Tooltip
-          placement="top"
-          title={<Typography>Insert item below</Typography>}
-        >
-          <span>
+const FoodListItem: FC<FoodListItemProps> = memo(
+  (props) => {
+    const { label, onCopy, onRemove } = props;
+    return (
+      <ListItem>
+        <ListItemText>
+          <Typography fontSize="large">{label}</Typography>
+        </ListItemText>
+        <ListItemSecondaryAction>
+          <Tooltip
+            placement="top"
+            title={<Typography>Insert item below</Typography>}
+          >
             <IconButton onClick={onCopy}>
               <CopyAllRounded />
             </IconButton>
-          </span>
-        </Tooltip>
-        <Tooltip
-          placement="top"
-          title={<Typography>Remove item</Typography>}
-        >
-          <span>
+          </Tooltip>
+          <Tooltip
+            placement="top"
+            title={<Typography>Remove item</Typography>}
+          >
             <IconButton onClick={onRemove}>
               <DeleteRounded />
             </IconButton>
-          </span>
-        </Tooltip>
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-};
+          </Tooltip>
+        </ListItemSecondaryAction>
+      </ListItem>
+    );
+  },
+  (prev, next) => {
+    return prev.label === next.label;
+  },
+);
 
 type FoodListProps = {
   items: Food[];

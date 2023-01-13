@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 import { Box, Container } from "@mui/material";
 
 import { Food, StatObject, ActionContext } from "../../assets";
@@ -12,24 +12,28 @@ type PageEditFoodProps = {
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
-  const { context, storageKey, onStatChange, isVisible } = props;
+  const { isVisible, context, storageKey, onStatChange } = props;
 
-  const [items, addItem, removeItem] = useFood(storageKey);
+  const { foods, addFood, removeFood, getStatObject } =
+    useFood(storageKey);
 
-  const handleAddItem = (next_item: Food, index: number) => {
-    addItem(next_item, index);
-  };
+  const handleAddItem = useCallback(
+    (next_food: Food, food_index: number) => {
+      addFood(next_food, food_index);
+    },
+    [],
+  );
+  const handleRemoveItem = useCallback((food_index: number) => {
+    removeFood(food_index);
+  }, []);
 
-  const handleRemoveItem = (index: number) => {
-    removeItem(index);
-  };
+  const stat_total = useMemo(() => {
+    return getStatObject(context);
+  }, [context, getStatObject]);
 
   useEffect(() => {
-    const stat = Food.getStatObject(context, items);
-    onStatChange(stat);
-  }, [context, items]);
-
-  const stat_total = Food.getStatObject(context, items);
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Container
@@ -41,9 +45,9 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
       <Box margin={4}>
         <FormFood
           stat={stat_total}
-          items={items}
-          onItemAdd={handleAddItem}
-          onItemRemove={handleRemoveItem}
+          foods={foods}
+          onFoodAdd={handleAddItem}
+          onFoodRemove={handleRemoveItem}
         />
       </Box>
     </Container>

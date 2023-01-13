@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, List, Stack, Typography } from "@mui/material";
+import { Box, List, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
 import { Nullable } from "../../types";

@@ -1,4 +1,4 @@
-import { FC, useState, Fragment } from "react";
+import { FC, useState, Fragment, useCallback, memo } from "react";
 import {
   Box,
   Button,
@@ -21,36 +21,37 @@ import { StatView } from "../StatView";
 import { FoodList } from "./FoodList";
 
 type FormFoodProps = {
-  items: Food[];
   stat: StatObject;
-  onItemAdd: (next_item: Food, index: number) => void;
-  onItemRemove: (index: number) => void;
+  foods: Food[];
+  onFoodAdd: (next_food: Food, food_index: number) => void;
+  onFoodRemove: (food_index: number) => void;
 };
-export const FormFood: FC<FormFoodProps> = (props) => {
-  const { stat, items, onItemAdd, onItemRemove } = props;
+export const FormFood: FC<FormFoodProps> = memo((props) => {
+  const { stat, foods, onFoodAdd, onFoodRemove } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selected, setSelected] = useState<Food | null>(null);
 
-  const handleDialogClose = () => {
+  const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
-  };
-  const handleDialogOpen = () => {
+  }, []);
+  const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
-  };
-  const handleAdd = () => {
+  }, []);
+
+  const handleAdd = useCallback(() => {
     if (selected === null) {
       return;
     }
-    onItemAdd(selected, 0);
+    onFoodAdd(selected, 0);
     setSelected(null);
-  };
-  const handleCopy = (item: Food, index: number) => {
-    onItemAdd(item, index);
-  };
-  const handleRemove = (index: number) => {
-    onItemRemove(index);
-  };
+  }, []);
+  const handleCopy = useCallback((item: Food, index: number) => {
+    onFoodAdd(item, index);
+  }, []);
+  const handleRemove = useCallback((index: number) => {
+    onFoodRemove(index);
+  }, []);
 
   return (
     <Fragment>
@@ -61,15 +62,13 @@ export const FormFood: FC<FormFoodProps> = (props) => {
             placement="top"
             title={<Typography>Open summary</Typography>}
           >
-            <span>
-              <IconButton
-                size="large"
-                color="primary"
-                onClick={handleDialogOpen}
-              >
-                <BarChartRounded />
-              </IconButton>
-            </span>
+            <IconButton
+              size="large"
+              color="primary"
+              onClick={handleDialogOpen}
+            >
+              <BarChartRounded />
+            </IconButton>
           </Tooltip>
         }
         slotCardContent={
@@ -94,7 +93,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
               </Button>
             </Stack>
             <FoodList
-              items={items}
+              items={foods}
               onCopy={handleCopy}
               onRemove={handleRemove}
             />
@@ -114,4 +113,4 @@ export const FormFood: FC<FormFoodProps> = (props) => {
       </Dialog>
     </Fragment>
   );
-};
+});
