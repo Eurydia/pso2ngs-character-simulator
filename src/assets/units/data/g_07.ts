@@ -15,11 +15,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitSeven = (
   name: string,
+  level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_SEVEN,
+    50,
+    level_required,
     GROWTH_DATA,
     getAwareStatObject,
   );
@@ -45,6 +48,7 @@ const makeUnitSeven = (
     };
     const unit_seven: Unit = makeUnitSeven(
       `Efitus Armor ${suffix}`,
+      57,
       _getter,
     );
     G_SEVEN.push(unit_seven);
@@ -55,6 +59,7 @@ const makeUnitSeven = (
 G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vida",
+    61,
     (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 40,
@@ -71,6 +76,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vio",
+    61,
     (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 40,
@@ -85,13 +91,17 @@ G_SEVEN.push(
 
 // -------------------------
 G_SEVEN.push(
-  makeUnitSeven("Eclaireur Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 35,
-      [StatEnum.WEAPON_MELEE]: 1.04,
-      [StatEnum.WEAPON_RANGED]: 1.04,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.04,
-      [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95,
-    });
-  }),
+  makeUnitSeven(
+    "Eclaireur Armor",
+    65,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 35,
+        [StatEnum.WEAPON_MELEE]: 1.04,
+        [StatEnum.WEAPON_RANGED]: 1.04,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.04,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 0.95,
+      });
+    },
+  ),
 );
