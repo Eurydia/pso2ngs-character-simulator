@@ -1,25 +1,31 @@
-import { ChangeEvent, FC, memo, useMemo } from "react";
+import { ChangeEvent, FC, memo, useCallback, useMemo } from "react";
 import { MenuItem, TextField, Typography } from "@mui/material";
 import { Potential, Weapon } from "../../assets";
 
 type SelectPotentialProps = {
+  // Dynamics props
   weapon: Weapon | null;
-  value: number;
-  onValueChange: (value: number) => void;
+  potentialLevel: number;
+
+  onPotentialLevelChange: (next_level: number) => void;
 };
 export const SelectPotential: FC<SelectPotentialProps> = memo(
   (props) => {
-    const { weapon, value, onValueChange } = props;
+    const { weapon, potentialLevel, onPotentialLevelChange } = props;
 
-    const handleValueChange = (
-      event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-    ) => {
-      const value_input: string = event.target.value;
-      if (Number.isNaN(value_input)) {
-        return;
-      }
-      onValueChange(Number.parseInt(value_input));
-    };
+    const handleValueChange = useCallback(
+      (
+        event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+      ): void => {
+        const value_input: string = event.target.value;
+        const value_parsed: number = Number.parseInt(value_input);
+        if (Number.isNaN(value_parsed)) {
+          return;
+        }
+        onPotentialLevelChange(value_parsed);
+      },
+      [],
+    );
 
     const potential = useMemo((): Potential | null => {
       if (weapon === null) {
@@ -62,7 +68,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
         fullWidth
         placeholder="Potential"
         disabled={level_max === 0}
-        value={value}
+        value={potentialLevel}
         onChange={handleValueChange}
         sx={{
           textDecorationLine:
@@ -87,7 +93,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
   },
   (prev, next) => {
     return (
-      prev.value === next.value &&
+      prev.potentialLevel === next.potentialLevel &&
       prev.weapon?.label === next.weapon?.label
     );
   },
