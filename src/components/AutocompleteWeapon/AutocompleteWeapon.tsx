@@ -9,8 +9,9 @@ import { PriorityHighRounded } from "@mui/icons-material";
 
 import { AssetWeapons, Weapon } from "../../assets";
 
-import { WeaponOption } from "./WeaponOption";
 import { filterOptions } from "./helper";
+import { OptionWeapon } from "./OptionWeapon";
+import { TextFieldWeapon } from "./TextFieldWeapon";
 
 type EndAdornmentProps = {
   shouldShowWarning: boolean;
@@ -32,45 +33,35 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
 };
 
 type AutocompleteWeaponProps = {
-  value: Weapon | null;
-  onValueChange: (next_value: Weapon | null) => void;
+  weapon: Weapon | null;
+  onWeaponChange: (next_value: Weapon | null) => void;
 };
 export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
-    const { value, onValueChange } = props;
+    const { weapon, onWeaponChange } = props;
 
-    const handleChange = (
+    const handleWeaponChange = (
       event: SyntheticEvent<Element, Event>,
       value: Weapon | null,
       reason: AutocompleteChangeReason,
     ) => {
-      onValueChange(value);
+      onWeaponChange(value);
     };
 
     return (
       <Autocomplete
         options={AssetWeapons}
-        value={value}
-        onChange={handleChange}
+        value={weapon}
+        onChange={handleWeaponChange}
         filterOptions={filterOptions}
         renderOption={(props, option, _) => {
-          return <WeaponOption {...props} option={option} />;
+          return <OptionWeapon LIProps={props} option={option} />;
         }}
-        renderInput={({ InputProps, ...rest }) => {
+        renderInput={(params) => {
           return (
-            <TextField
-              {...rest}
-              fullWidth
-              placeholder="Weapon*"
-              InputProps={{
-                ...InputProps,
-                endAdornment: (
-                  <EndAdornment
-                    shouldShowWarning={value === null}
-                    defaultAdornment={InputProps.endAdornment}
-                  />
-                ),
-              }}
+            <TextFieldWeapon
+              {...params}
+              shouldShowWarning={weapon === null}
             />
           );
         }}
@@ -78,6 +69,6 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
     );
   },
   (prev, next) => {
-    return prev.value?.label === next.value?.label;
+    return prev.weapon?.label === next.weapon?.label;
   },
 );

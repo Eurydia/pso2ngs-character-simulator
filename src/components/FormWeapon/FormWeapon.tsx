@@ -97,8 +97,8 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={1}>
                 <AutocompleteWeapon
-                  value={weapon}
-                  onValueChange={onWeaponChange}
+                  weapon={weapon}
+                  onWeaponChange={onWeaponChange}
                 />
                 <SelectPotential
                   weapon={weapon}
