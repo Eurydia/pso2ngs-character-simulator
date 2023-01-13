@@ -1,38 +1,45 @@
-import { useEffect, useMemo, useState } from "react";
-import { Augment } from "../assets";
+import { useMemo } from "react";
 
+import { Augment, Fixa, Unit } from "../assets";
 import { DataUnit } from "../types";
 
-import { useAugments } from "./useAugments";
+import { useUnit } from "./useUnit";
 import { useEnhancement } from "./useEnhancement";
 import { useFixa } from "./useFixa";
-import { useUnit } from "./useUnit";
+import { useAugments } from "./useAugments";
 
 export const useFormUnit = (
   storage_key: string,
-): [
-  DataUnit,
-  (dispatch: DataUnit | ((prev: DataUnit) => DataUnit)) => void,
-] => {
-  const [unit, setUnit] = useUnit(storage_key);
+): {
+  formData: DataUnit;
+  setUnit: (next_unit: Unit | null) => void;
+  setUnitLevel: (next_level: number) => void;
+  setFixa: (next_fixa: Fixa | null) => void;
+  setAugment: (
+    next_augment: Augment | null,
+    augment_index: number,
+  ) => void;
+} => {
+  const { unit, setUnit } = useUnit(storage_key);
   const { enhacement: unitLevel, setEnhancement: setUnitLevel } =
     useEnhancement(storage_key);
-  const [fixa, setFixa] = useFixa(`${storage_key}-f`);
+  const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 
-  const [data, setData] = useState<DataUnit>(() => {
-    return { unit, unit_level: unitLevel, fixa, augments };
-  });
+  const formData = useMemo((): DataUnit => {
+    return {
+      unit,
+      unit_level: unitLevel,
+      fixa,
+      augments,
+    };
+  }, [unit, unitLevel, fixa, augments]);
 
-  useEffect(() => {
-    const { unit, unit_level, fixa, augments } = data;
-    setUnit(unit);
-    setUnitLevel(unit_level);
-    setFixa(fixa);
-    augments.forEach((augment, augment_index) => {
-      setAugment(augment, augment_index);
-    });
-  }, [data]);
-
-  return [data, setData];
+  return {
+    formData,
+    setUnit,
+    setUnitLevel,
+    setFixa,
+    setAugment,
+  };
 };
