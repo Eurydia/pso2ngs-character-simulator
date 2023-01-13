@@ -7,51 +7,51 @@ import {
 
 import { AssetFoods, Food } from "../../assets";
 
-import { CustomOption } from "./CustomOption";
 import { filterOptions } from "./helper";
+import { OptionFood } from "./OptionFood";
+import { TextFieldFood } from "./TextFieldFood";
 
-type AutocompleteAugmentProps = {
-  value: Food | null;
-  onChange: (value: Food | null) => void;
-  onEnterPress: () => void;
+type AutocompleteFoodProps = {
+  food: Food | null;
+  onFoodChange: (next_food: Food | null) => void;
+  onKeyEnterPress: () => void;
 };
-export const AutocompleteFood: FC<AutocompleteAugmentProps> = memo(
+export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
   (props) => {
-    const handleChange = (
+    const { food, onFoodChange, onKeyEnterPress } = props;
+
+    const handleFoodChange = (
       event: SyntheticEvent<Element, Event>,
       value: Food | null,
       reason: AutocompleteChangeReason,
     ) => {
-      props.onChange(value);
+      onFoodChange(value);
     };
 
     const handleKeyDown = (
       event: React.KeyboardEvent<HTMLDivElement>,
     ) => {
       const key = event.key;
-
       if (key === "Enter") {
-        props.onEnterPress();
+        onKeyEnterPress();
       }
     };
 
     return (
       <Autocomplete
         options={AssetFoods}
-        value={props.value}
-        onChange={handleChange}
+        value={food}
+        onChange={handleFoodChange}
         onKeyDown={handleKeyDown}
-        renderInput={(params) => (
-          <TextField {...params} fullWidth placeholder="Search" />
-        )}
+        renderInput={(params) => <TextFieldFood {...params} />}
         renderOption={(props, option, _) => (
-          <CustomOption {...props} option={option} />
+          <OptionFood LIProps={props} option={option} />
         )}
         filterOptions={filterOptions}
       />
     );
   },
   (prev, next) => {
-    return prev.value?.label === next.value?.label;
+    return prev.food?.label === next.food?.label;
   },
 );

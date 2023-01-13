@@ -77,9 +77,9 @@ export const FormFood: FC<FormFoodProps> = (props) => {
             <Stack direction="row" spacing={1}>
               <Box width={1}>
                 <AutocompleteFood
-                  value={selected}
-                  onChange={setSelected}
-                  onEnterPress={handleAdd}
+                  food={selected}
+                  onFoodChange={setSelected}
+                  onKeyEnterPress={handleAdd}
                 />
               </Box>
               <Button
