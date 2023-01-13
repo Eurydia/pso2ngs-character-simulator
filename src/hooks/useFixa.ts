@@ -39,7 +39,9 @@ export const useFixa = (
   fixa: Fixa | null;
   setFixa: (next_fixa: Fixa | null) => void;
 } => {
-  const [value, setValue] = useState(() => loadFixa(storage_key));
+  const [value, setValue] = useState<Fixa | null>(() => {
+    return loadFixa(storage_key);
+  });
 
   const setFixa = useCallback((next_fixa: Fixa | null) => {
     setValue(next_fixa);

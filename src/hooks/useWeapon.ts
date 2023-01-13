@@ -1,12 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { Weapon } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const retrieveWeapon = (storage_key: string): Weapon | null => {
-  const loaded_string: string | null =
-    localStorage.getItem(storage_key);
+const SUFFIX_KEY_WEAPON: string = "weapon";
+const SUFFIX_KEY_POTENTIAL_LEVEL: string = "potential-level";
+
+// ---------------------------------------------
+// Setter
+const saveWeapon = (
+  storage_key: string,
+  weapon: Weapon | null,
+): void => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_WEAPON}`;
+  const data_string: string = Weapon.toString(weapon);
+  localStorage.setItem(KEY, data_string);
+};
+const savePotentialLevel = (
+  storage_key: string,
+  potential_level: number,
+): void => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_POTENTIAL_LEVEL}`;
+  const data_string: string = potential_level.toString();
+  localStorage.setItem(KEY, data_string);
+};
+// ---------------------------------------------
+// Getter
+const loadWeapon = (storage_key: string): Weapon | null => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_WEAPON}`;
+  const loaded_string: string | null = localStorage.getItem(KEY);
   if (loaded_string === null) {
     return null;
   }
@@ -19,12 +42,9 @@ const retrieveWeapon = (storage_key: string): Weapon | null => {
   }
   return Weapon.fromLabel(label);
 };
-
-export const retrievePotentialLevel = (
-  storage_key: string,
-): number => {
-  const loaded_string: string | null =
-    localStorage.getItem(storage_key);
+export const loadPotentialLevel = (storage_key: string): number => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_POTENTIAL_LEVEL}`;
+  const loaded_string: string | null = localStorage.getItem(KEY);
   if (loaded_string === null) {
     return 0;
   }
@@ -39,44 +59,38 @@ export const retrievePotentialLevel = (
 };
 
 export const useWeapon = (
-  storage_key_weapon: string,
-  storage_key_potential_level: string,
-): [
-  Weapon | null,
-  number,
-  (new_value: Weapon | null) => void,
-  (new_level: number) => void,
-] => {
-  const [weapon, setWeapon] = useState(() => {
-    return retrieveWeapon(storage_key_weapon);
+  storage_key: string,
+): {
+  weapon: Weapon | null;
+  potentialLevel: number;
+  setWeapon: (next_weapon: Weapon | null) => void;
+  setPotentialLevel: (next_level: number) => void;
+} => {
+  const [weapon, _setWeapon] = useState<Weapon | null>(() => {
+    return loadWeapon(storage_key);
   });
-  const [potentialLevel, setPotentialLevel] = useState(() => {
-    return retrievePotentialLevel(storage_key_potential_level);
-  });
+  const [potentialLevel, _setPotentialLevel] = useState<number>(
+    () => {
+      return loadPotentialLevel(storage_key);
+    },
+  );
+
+  const setWeapon = useCallback((next_weapon: Weapon | null) => {
+    _setWeapon(next_weapon);
+    setPotentialLevel(0);
+  }, []);
+
+  const setPotentialLevel = useCallback((next_level: number) => {
+    _setPotentialLevel(next_level);
+  }, []);
 
   useEffect(() => {
-    const data_string: string | null = Weapon.toString(weapon);
-    localStorage.setItem(
-      storage_key_weapon,
-      JSON.stringify(data_string),
-    );
+    saveWeapon(storage_key, weapon);
   }, [weapon]);
 
   useEffect(() => {
-    localStorage.setItem(
-      storage_key_potential_level,
-      JSON.stringify(potentialLevel),
-    );
+    savePotentialLevel(storage_key, potentialLevel);
   }, [potentialLevel]);
 
-  const setterWeapon = (new_value: Weapon | null) => {
-    setWeapon(new_value);
-    setterPotentialLevel(0);
-  };
-
-  const setterPotentialLevel = (new_level: number) => {
-    setPotentialLevel(new_level);
-  };
-
-  return [weapon, potentialLevel, setterWeapon, setterPotentialLevel];
+  return { weapon, potentialLevel, setWeapon, setPotentialLevel };
 };

@@ -38,7 +38,7 @@ export const useFood = (
   addFood: (next_food: Food, food_index: number) => void;
   removeFood: (food_index: number) => void;
 } => {
-  const [values, setValues] = useState(() => {
+  const [values, setValues] = useState<Food[]>(() => {
     return loadFoods(storage_key);
   });
 

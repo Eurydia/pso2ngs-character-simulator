@@ -36,7 +36,7 @@ export const useEnhancement = (
   enhacement: number;
   setEnhancement: (next_enhancement: number) => void;
 } => {
-  const [value, setValue] = useState(() => {
+  const [value, setValue] = useState<number>(() => {
     return loadLevel(storage_key);
   });
 
