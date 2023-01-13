@@ -17,12 +17,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponSix = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_SIX,
+    60,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -33,6 +36,7 @@ const makeWeaponSix = (
 G_SIX.push(
   makeWeaponSix(
     "Evoleclipse Series",
+    40,
     AssetPotentials.ELUSIVE_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -47,6 +51,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Sechetyl Series",
+    45,
     AssetPotentials.TRAMPLE_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -61,6 +66,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Roughewn Series",
+    52,
     AssetPotentials.REVOLUTIONARY_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -75,6 +81,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Sixiemes Series",
+    52,
     AssetPotentials.DESPERATION_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -89,6 +96,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Curva Series",
+    52,
     AssetPotentials.STACCATO_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -103,6 +111,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Evolorbit Series",
+    53,
     AssetPotentials.ILLUSORY_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -117,6 +126,7 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Codeck Series",
+    40,
     AssetPotentials.IMPERVIOUS_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
