@@ -1,5 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
+
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -17,7 +18,7 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitSix = (
   name: string,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   return unit(
     name,
@@ -34,7 +35,7 @@ G_SIX.push(
   makeUnitSix(
     "Defrozza Armor",
     42,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 22,
         [StatEnum.CORE_HP]: 50,
@@ -52,7 +53,7 @@ G_SIX.push(
   makeUnitSix(
     "Defrozzi Armor",
     42,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_PP]: 9,
@@ -66,17 +67,21 @@ G_SIX.push(
 );
 
 G_SIX.push(
-  makeUnitSix("Sestato Armor", 42, (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 21,
-      [StatEnum.CORE_HP]: 35,
-      [StatEnum.CORE_PP]: 5,
-      [StatEnum.WEAPON_MELEE]: 1.015,
-      [StatEnum.WEAPON_RANGED]: 1.015,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.015,
-      [StatEnum.HARSH_COLD]: 0.2,
-    });
-  }),
+  makeUnitSix(
+    "Sestato Armor",
+    42,
+    (_: ActionContext | null): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 21,
+        [StatEnum.CORE_HP]: 35,
+        [StatEnum.CORE_PP]: 5,
+        [StatEnum.WEAPON_MELEE]: 1.015,
+        [StatEnum.WEAPON_RANGED]: 1.015,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.015,
+        [StatEnum.HARSH_COLD]: 0.2,
+      });
+    },
+  ),
 );
 (() => {
   const DATA_ENTRY: [string, [StatEnum, StatEnum]][] = [
@@ -86,7 +91,7 @@ G_SIX.push(
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 30,
@@ -109,7 +114,7 @@ G_SIX.push(
   makeUnitSix(
     "Behlgren Armor",
     52,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 26,
         [StatEnum.CORE_HP]: -40,
