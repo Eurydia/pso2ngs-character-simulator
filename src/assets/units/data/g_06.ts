@@ -16,11 +16,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitSix = (
   name: string,
+  level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_SIX,
+    60,
+    level_required,
     GROWTH_DATA,
     getAwareStatObject,
   );
@@ -28,34 +31,42 @@ const makeUnitSix = (
 
 // -------------------------
 G_SIX.push(
-  makeUnitSix("Defrozza Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 22,
-      [StatEnum.CORE_HP]: 50,
-      [StatEnum.WEAPON_MELEE]: 1.01,
-      [StatEnum.WEAPON_RANGED]: 1.01,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.01,
-      [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
-      [StatEnum.HARSH_COLD]: 0.2,
-    });
-  }),
+  makeUnitSix(
+    "Defrozza Armor",
+    42,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 22,
+        [StatEnum.CORE_HP]: 50,
+        [StatEnum.WEAPON_MELEE]: 1.01,
+        [StatEnum.WEAPON_RANGED]: 1.01,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.01,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+        [StatEnum.HARSH_COLD]: 0.2,
+      });
+    },
+  ),
 );
 
 G_SIX.push(
-  makeUnitSix("Defrozzi Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 20,
-      [StatEnum.CORE_PP]: 9,
-      [StatEnum.WEAPON_MELEE]: 1.02,
-      [StatEnum.WEAPON_RANGED]: 1.02,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-      [StatEnum.HARSH_COLD]: 0.2,
-    });
-  }),
+  makeUnitSix(
+    "Defrozzi Armor",
+    42,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 20,
+        [StatEnum.CORE_PP]: 9,
+        [StatEnum.WEAPON_MELEE]: 1.02,
+        [StatEnum.WEAPON_RANGED]: 1.02,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+        [StatEnum.HARSH_COLD]: 0.2,
+      });
+    },
+  ),
 );
 
 G_SIX.push(
-  makeUnitSix("Sestato Armor", (_: ActionContext): StatObject => {
+  makeUnitSix("Sestato Armor", 42, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 21,
       [StatEnum.CORE_HP]: 35,
@@ -87,6 +98,7 @@ G_SIX.push(
     };
     const unit_six: Unit = makeUnitSix(
       `Sestato Armor ${suffix}`,
+      47,
       _getter,
     );
     G_SIX.push(unit_six);
@@ -94,21 +106,25 @@ G_SIX.push(
 })();
 
 G_SIX.push(
-  makeUnitSix("Behlgren Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 26,
-      [StatEnum.CORE_HP]: -40,
-      [StatEnum.CORE_PP]: 13,
-      [StatEnum.WEAPON_MELEE]: 1.0275,
-      [StatEnum.WEAPON_RANGED]: 1.0275,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.0275,
-      [StatEnum.AIL_BLIND]: 0.5,
-      [StatEnum.AIL_BURN]: 0.5,
-      [StatEnum.AIL_FREEZE]: 0.5,
-      [StatEnum.AIL_PANIC]: 0.5,
-      [StatEnum.AIL_DOWN]: 0.5,
-      [StatEnum.AIL_POISON]: 0.5,
-      [StatEnum.AIL_SHOCK]: 0.5,
-    });
-  }),
+  makeUnitSix(
+    "Behlgren Armor",
+    52,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 26,
+        [StatEnum.CORE_HP]: -40,
+        [StatEnum.CORE_PP]: 13,
+        [StatEnum.WEAPON_MELEE]: 1.0275,
+        [StatEnum.WEAPON_RANGED]: 1.0275,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.0275,
+        [StatEnum.AIL_BLIND]: 0.5,
+        [StatEnum.AIL_BURN]: 0.5,
+        [StatEnum.AIL_FREEZE]: 0.5,
+        [StatEnum.AIL_PANIC]: 0.5,
+        [StatEnum.AIL_DOWN]: 0.5,
+        [StatEnum.AIL_POISON]: 0.5,
+        [StatEnum.AIL_SHOCK]: 0.5,
+      });
+    },
+  ),
 );
