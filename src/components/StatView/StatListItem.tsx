@@ -8,8 +8,11 @@ import {
 } from "@mui/material";
 
 type StatListItemProps = {
-  label: ReactNode;
+  // Dynamic props
   value: string | null;
+
+  // Static props
+  label: ReactNode;
   icon: ReactNode;
 };
 export const StatListItem: FC<StatListItemProps> = memo(

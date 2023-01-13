@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Box, List, Typography } from "@mui/material";
 
 import { StatEnum, StatEnumString, StatObject } from "../../assets";
@@ -310,110 +310,132 @@ const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
 };
 
 type StatViewProps = {
-  maxHeight: string;
+  // Dyanmic props
   stat: StatObject;
-};
-export const StatView: FC<StatViewProps> = (props) => {
-  const { stat, maxHeight } = props;
 
-  if (StatObject.getKeys(stat).length === 0) {
+  // Static props
+  maxHeight: string;
+};
+export const StatView: FC<StatViewProps> = memo(
+  (props) => {
+    const { stat, maxHeight } = props;
+
+    if (StatObject.getKeys(stat).length === 0) {
+      return (
+        <Box>
+          <Typography fontStyle="italic">
+            No stat to display.
+          </Typography>
+        </Box>
+      );
+    }
+
     return (
-      <Box>
-        <Typography fontStyle="italic">
-          No stat to display.
-        </Typography>
+      <Box maxHeight={maxHeight} overflow="auto">
+        <List dense disablePadding>
+          <CoreGroup
+            bp={StatObject.format(stat, StatEnum.CORE_BP)}
+            hp={StatObject.format(stat, StatEnum.CORE_HP)}
+            pp={StatObject.format(stat, StatEnum.CORE_PP)}
+            attack={StatObject.format(stat, StatEnum.CORE_ATTACK)}
+            defense={StatObject.format(stat, StatEnum.CORE_DEFENSE)}
+          />
+          <PotencyGroup
+            melee={StatObject.format(stat, StatEnum.WEAPON_MELEE)}
+            ranged={StatObject.format(stat, StatEnum.WEAPON_RANGED)}
+            technique={StatObject.format(
+              stat,
+              StatEnum.WEAPON_TECHNIQUE,
+            )}
+            weakpoint={StatObject.format(
+              stat,
+              StatEnum.WEAPON_WEAKPOINT,
+            )}
+          />
+          <AilmentGroup
+            burn={StatObject.format(stat, StatEnum.AIL_BURN)}
+            freeze={StatObject.format(stat, StatEnum.AIL_FREEZE)}
+            blind={StatObject.format(stat, StatEnum.AIL_BLIND)}
+            panic={StatObject.format(stat, StatEnum.AIL_PANIC)}
+            shock={StatObject.format(stat, StatEnum.AIL_SHOCK)}
+            poison={StatObject.format(stat, StatEnum.AIL_POISON)}
+            physicalDown={StatObject.format(stat, StatEnum.AIL_DOWN)}
+          />
+          <EnvironmentGroup
+            harshEnvironment={StatObject.format(
+              stat,
+              StatEnum.HARSH_COLD,
+            )}
+          />
+          <AdvHPGroup
+            boost={StatObject.format(stat, StatEnum.ADV_HP_BOOST)}
+          />
+          <AdvPPGroup
+            usage={StatObject.format(stat, StatEnum.ADV_PP_USAGE)}
+            naturalRecovery={StatObject.format(
+              stat,
+              StatEnum.ADV_PP_NATURAL_RECOVERY,
+            )}
+            activeRecovery={StatObject.format(
+              stat,
+              StatEnum.ADV_PP_ACTIVE_RECOVERY,
+            )}
+          />
+          <AdvOffensiveGroup
+            floorPotency={StatObject.format(
+              stat,
+              StatEnum.ADV_OFF_FLOOR,
+            )}
+            damageUp={StatObject.format(
+              stat,
+              StatEnum.ADV_OFF_DAMAGE_UP,
+            )}
+            critChance={StatObject.format(
+              stat,
+              StatEnum.ADV_OFF_CRIT_CHANCE,
+            )}
+            critDamage={StatObject.format(
+              stat,
+              StatEnum.ADV_OFF_CRIT_DAMAGE,
+            )}
+            pbRecovery={StatObject.format(
+              stat,
+              StatEnum.ADV_OFF_PB_RECOVERY,
+            )}
+          />
+          <AdvDefensiveGroup
+            healingUp={StatObject.format(
+              stat,
+              StatEnum.ADV_DEF_HEALING_UP,
+            )}
+            damageResist={StatObject.format(
+              stat,
+              StatEnum.ADV_DEF_DAMAGE_RES,
+            )}
+            ailmentDuration={StatObject.format(
+              stat,
+              StatEnum.ADV_DEF_AILMENT_DURATION,
+            )}
+          />
+        </List>
       </Box>
     );
-  }
+  },
+  (prev, next) => {
+    const prevKeys = StatObject.getKeys(prev.stat);
+    const nextKeys = StatObject.getKeys(next.stat);
+    if (prevKeys.length !== nextKeys.length) {
+      return false;
+    }
 
-  return (
-    <Box maxHeight={maxHeight} overflow="auto">
-      <List dense disablePadding>
-        <CoreGroup
-          bp={StatObject.format(stat, StatEnum.CORE_BP)}
-          hp={StatObject.format(stat, StatEnum.CORE_HP)}
-          pp={StatObject.format(stat, StatEnum.CORE_PP)}
-          attack={StatObject.format(stat, StatEnum.CORE_ATTACK)}
-          defense={StatObject.format(stat, StatEnum.CORE_DEFENSE)}
-        />
-        <PotencyGroup
-          melee={StatObject.format(stat, StatEnum.WEAPON_MELEE)}
-          ranged={StatObject.format(stat, StatEnum.WEAPON_RANGED)}
-          technique={StatObject.format(
-            stat,
-            StatEnum.WEAPON_TECHNIQUE,
-          )}
-          weakpoint={StatObject.format(
-            stat,
-            StatEnum.WEAPON_WEAKPOINT,
-          )}
-        />
-        <AilmentGroup
-          burn={StatObject.format(stat, StatEnum.AIL_BURN)}
-          freeze={StatObject.format(stat, StatEnum.AIL_FREEZE)}
-          blind={StatObject.format(stat, StatEnum.AIL_BLIND)}
-          panic={StatObject.format(stat, StatEnum.AIL_PANIC)}
-          shock={StatObject.format(stat, StatEnum.AIL_SHOCK)}
-          poison={StatObject.format(stat, StatEnum.AIL_POISON)}
-          physicalDown={StatObject.format(stat, StatEnum.AIL_DOWN)}
-        />
-        <EnvironmentGroup
-          harshEnvironment={StatObject.format(
-            stat,
-            StatEnum.HARSH_COLD,
-          )}
-        />
-        <AdvHPGroup
-          boost={StatObject.format(stat, StatEnum.ADV_HP_BOOST)}
-        />
-        <AdvPPGroup
-          usage={StatObject.format(stat, StatEnum.ADV_PP_USAGE)}
-          naturalRecovery={StatObject.format(
-            stat,
-            StatEnum.ADV_PP_NATURAL_RECOVERY,
-          )}
-          activeRecovery={StatObject.format(
-            stat,
-            StatEnum.ADV_PP_ACTIVE_RECOVERY,
-          )}
-        />
-        <AdvOffensiveGroup
-          floorPotency={StatObject.format(
-            stat,
-            StatEnum.ADV_OFF_FLOOR,
-          )}
-          damageUp={StatObject.format(
-            stat,
-            StatEnum.ADV_OFF_DAMAGE_UP,
-          )}
-          critChance={StatObject.format(
-            stat,
-            StatEnum.ADV_OFF_CRIT_CHANCE,
-          )}
-          critDamage={StatObject.format(
-            stat,
-            StatEnum.ADV_OFF_CRIT_DAMAGE,
-          )}
-          pbRecovery={StatObject.format(
-            stat,
-            StatEnum.ADV_OFF_PB_RECOVERY,
-          )}
-        />
-        <AdvDefensiveGroup
-          healingUp={StatObject.format(
-            stat,
-            StatEnum.ADV_DEF_HEALING_UP,
-          )}
-          damageResist={StatObject.format(
-            stat,
-            StatEnum.ADV_DEF_DAMAGE_RES,
-          )}
-          ailmentDuration={StatObject.format(
-            stat,
-            StatEnum.ADV_DEF_AILMENT_DURATION,
-          )}
-        />
-      </List>
-    </Box>
-  );
-};
+    const prevStat = prev.stat;
+    const nextStat = next.stat;
+    for (const key of prevKeys) {
+      if (prevStat[key] !== nextStat[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+);
