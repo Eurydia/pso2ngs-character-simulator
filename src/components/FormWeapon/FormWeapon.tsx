@@ -132,7 +132,9 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   label="Enhacement"
                   disabled={weapon === null}
                   valueMin={0}
-                  valueMax={60}
+                  valueMax={
+                    weapon === null ? 0 : weapon.enhancement_max
+                  }
                   value={weapon_level}
                   onChange={handleWeaponLevelChange}
                 />
