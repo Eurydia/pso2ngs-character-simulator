@@ -46,7 +46,13 @@ export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
           );
         }}
         renderOption={(props, option, _) => {
-          return <OptionUnit LIProps={props} option={option} />;
+          return (
+            <OptionUnit
+              key={option.label}
+              LIProps={props}
+              option={option}
+            />
+          );
         }}
       />
     );

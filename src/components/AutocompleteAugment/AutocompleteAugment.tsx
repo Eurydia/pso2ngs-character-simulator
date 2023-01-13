@@ -44,7 +44,13 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
           return <TextFieldAugment {...params} />;
         }}
         renderOption={(props, option, _) => {
-          return <OptionAugment LIProps={props} option={option} />;
+          return (
+            <OptionAugment
+              key={option.label}
+              LIProps={props}
+              option={option}
+            />
+          );
         }}
       />
     );

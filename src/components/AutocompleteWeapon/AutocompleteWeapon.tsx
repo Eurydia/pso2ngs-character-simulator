@@ -38,7 +38,13 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         onChange={handleWeaponChange}
         filterOptions={filterOptions}
         renderOption={(props, option, _) => {
-          return <OptionWeapon LIProps={props} option={option} />;
+          return (
+            <OptionWeapon
+              key={option.label}
+              LIProps={props}
+              option={option}
+            />
+          );
         }}
         renderInput={(params) => {
           return (

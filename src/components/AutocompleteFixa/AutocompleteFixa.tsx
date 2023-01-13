@@ -58,7 +58,13 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
           return <TextFieldFixa {...params} />;
         }}
         renderOption={(props, option, _) => {
-          return <OptionFixa LIProps={props} option={option} />;
+          return (
+            <OptionFixa
+              key={option.label}
+              LIProps={props}
+              option={option}
+            />
+          );
         }}
       />
     );

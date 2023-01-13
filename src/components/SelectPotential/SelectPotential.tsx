@@ -54,7 +54,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
     }[] => {
       const results: { label: string; value: number }[] = [];
       for (let level = 1; level <= level_max; level++) {
-        options.push({
+        results.push({
           label: `${potential_name} Lv. ${level}`,
           value: level,
         });

@@ -50,9 +50,15 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
         onChange={handleFoodChange}
         onKeyDown={handleKeyDown}
         renderInput={(params) => <TextFieldFood {...params} />}
-        renderOption={(props, option, _) => (
-          <OptionFood LIProps={props} option={option} />
-        )}
+        renderOption={(props, option, _) => {
+          return (
+            <OptionFood
+              key={option.label}
+              LIProps={props}
+              option={option}
+            />
+          );
+        }}
         filterOptions={filterOptions}
       />
     );

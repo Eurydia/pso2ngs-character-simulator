@@ -43,7 +43,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
         );
         onLevelChange(value_clamped);
       },
-      [],
+      [levelMax, levelMin],
     );
 
     const value = useMemo(() => {
