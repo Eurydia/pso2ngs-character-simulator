@@ -18,12 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponTwo = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_TWO,
+    60,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -34,6 +37,7 @@ const makeWeaponTwo = (
 G_TWO.push(
   makeWeaponTwo(
     "Tzvia Series",
+    4,
     AssetPotentials.INDOMITABLE_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -48,6 +52,7 @@ G_TWO.push(
 G_TWO.push(
   makeWeaponTwo(
     "Silver Primm Sword",
+    5,
     AssetPotentials.RECYCLER_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -62,6 +67,7 @@ G_TWO.push(
 G_TWO.push(
   makeWeaponTwo(
     "N-Exp Weapon",
+    5,
     AssetPotentials.RECYCLER_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
