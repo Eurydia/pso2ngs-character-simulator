@@ -12,6 +12,8 @@ export type Weapon = Readonly<{
   rarity: GroupEnumWeaponRarity;
   growth_rate: [number, number][];
   potential: Potential;
+  enhancement_max: number;
+  level_required: number;
   getAwareStatObject: (ctx: ActionContext) => StatObject;
 }>;
 
