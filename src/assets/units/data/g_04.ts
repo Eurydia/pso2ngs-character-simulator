@@ -1,5 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
+
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -17,7 +18,7 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitFour = (
   name: string,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   return unit(
     name,
@@ -34,7 +35,7 @@ G_FOUR.push(
   makeUnitFour(
     "Qual De Armor",
     10,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 8,
         [StatEnum.CORE_PP]: 6,
@@ -51,7 +52,7 @@ G_FOUR.push(
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 13,
         [StatEnum.CORE_PP]: 4,
@@ -72,7 +73,7 @@ G_FOUR.push(
   makeUnitFour(
     "Cattleya Armor",
     10,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 12,
         [StatEnum.CORE_HP]: 20,
@@ -83,13 +84,17 @@ G_FOUR.push(
 );
 
 G_FOUR.push(
-  makeUnitFour("Vialto Armor", 10, (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 14,
-      [StatEnum.CORE_HP]: 30,
-      [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
-    });
-  }),
+  makeUnitFour(
+    "Vialto Armor",
+    10,
+    (_: ActionContext | null): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 14,
+        [StatEnum.CORE_HP]: 30,
+        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+      });
+    },
+  ),
 );
 
 (() => {
@@ -100,7 +105,7 @@ G_FOUR.push(
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 16,
         [StatEnum.CORE_HP]: 25,
@@ -119,22 +124,26 @@ G_FOUR.push(
 })();
 
 G_FOUR.push(
-  makeUnitFour("Geant Armor", 15, (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 15,
-      [StatEnum.CORE_HP]: -20,
-      [StatEnum.CORE_PP]: 10,
-      [StatEnum.WEAPON_MELEE]: 1.02,
-      [StatEnum.WEAPON_RANGED]: 1.02,
-      [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-      [StatEnum.AIL_BLIND]: 0.5,
-      [StatEnum.AIL_BURN]: 0.5,
-      [StatEnum.AIL_FREEZE]: 0.5,
-      [StatEnum.AIL_PANIC]: 0.5,
-      [StatEnum.AIL_PANIC]: 0.5,
-      [StatEnum.AIL_DOWN]: 0.5,
-      [StatEnum.AIL_POISON]: 0.5,
-      [StatEnum.AIL_SHOCK]: 0.5,
-    });
-  }),
+  makeUnitFour(
+    "Geant Armor",
+    15,
+    (_: ActionContext | null): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 15,
+        [StatEnum.CORE_HP]: -20,
+        [StatEnum.CORE_PP]: 10,
+        [StatEnum.WEAPON_MELEE]: 1.02,
+        [StatEnum.WEAPON_RANGED]: 1.02,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+        [StatEnum.AIL_BLIND]: 0.5,
+        [StatEnum.AIL_BURN]: 0.5,
+        [StatEnum.AIL_FREEZE]: 0.5,
+        [StatEnum.AIL_PANIC]: 0.5,
+        [StatEnum.AIL_PANIC]: 0.5,
+        [StatEnum.AIL_DOWN]: 0.5,
+        [StatEnum.AIL_POISON]: 0.5,
+        [StatEnum.AIL_SHOCK]: 0.5,
+      });
+    },
+  ),
 );
