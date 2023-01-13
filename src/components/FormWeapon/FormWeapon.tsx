@@ -1,4 +1,11 @@
-import { Fragment, FC, useState, useMemo, useCallback } from "react";
+import {
+  Fragment,
+  FC,
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+} from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,11 +19,10 @@ import {
 import { BarChartRounded } from "@mui/icons-material";
 
 import {
+  ActionContext,
   Augment,
-  Fixa,
   GroupEnumFixa,
   StatObject,
-  Weapon,
 } from "../../assets";
 import { DataWeapon } from "../../types";
 
@@ -27,56 +33,60 @@ import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
+import {
+  useAugments,
+  useEnhancement,
+  useFixa,
+  useWeapon,
+} from "../../hooks";
 
 type FormWeaponProps = {
-  // Dynamic props
-  formData: DataWeapon;
-  stat: StatObject;
-
-  // Static props
   cardTitle: string;
 
-  onWeaponChange: (next_weapon: Weapon | null) => void;
-  onWeaponLevelChange: (next_level: number) => void;
-  onPotentialLevelChange: (next_level: number) => void;
-  onFixaChange: (next_fixa: Fixa | null) => void;
-  onAugmentChange: (
-    next_augment: Augment | null,
-    index: number,
-  ) => void;
+  context: ActionContext;
+  storageKey: string;
+  onStatChange: (next_stat: StatObject) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
-  const {
-    stat,
-    cardTitle,
-    formData,
-    onWeaponChange,
-    onWeaponLevelChange,
-    onPotentialLevelChange,
-    onAugmentChange,
-    onFixaChange,
-  } = props;
-
-  const { weapon, weapon_level, potential_level, fixa, augments } =
-    formData;
+  const { cardTitle, storageKey, context, onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
-
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
   }, []);
+
+  const { weapon, setWeapon, potentialLevel, setPotentialLevel } =
+    useWeapon(storageKey);
+  const { enhancement, setEnhancement } = useEnhancement(storageKey);
+  const { fixa, setFixa } = useFixa(storageKey);
+  const { augments, setAugment } = useAugments(storageKey);
 
   const active_augments = useMemo((): (Augment | null)[] => {
     if (weapon === null) {
       return [];
     }
-    const count: number = Augment.getAugmentSlot(weapon_level);
+    const count: number = Augment.getAugmentSlot(enhancement);
     return augments.slice(0, count);
-  }, [weapon, augments, weapon_level]);
+  }, [weapon, augments, enhancement]);
+
+  const stat = useMemo((): StatObject => {
+    const data: DataWeapon = {
+      weapon,
+      potential_level: potentialLevel,
+      enhancement,
+      fixa,
+      augments: active_augments,
+    };
+    return DataWeapon.getStatObject(context, data);
+  }, [context, weapon, enhancement, fixa, active_augments]);
+
+  useEffect(() => {
+    onStatChange(stat);
+  }, [stat]);
 
   return (
     <Fragment>
@@ -102,28 +112,28 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
               <Stack spacing={1}>
                 <AutocompleteWeapon
                   weapon={weapon}
-                  onWeaponChange={onWeaponChange}
+                  onWeaponChange={setWeapon}
                 />
                 <SelectPotential
                   weapon={weapon}
-                  potentialLevel={potential_level}
-                  onPotentialLevelChange={onPotentialLevelChange}
+                  potentialLevel={potentialLevel}
+                  onPotentialLevelChange={setPotentialLevel}
                 />
                 <FieldLevel
                   label="Enhacement"
                   levelMin={0}
                   disabled={weapon === null}
-                  level={weapon_level}
+                  level={enhancement}
                   levelMax={
                     weapon === null ? 0 : weapon.enhancement_max
                   }
-                  onLevelChange={onWeaponLevelChange}
+                  onLevelChange={setEnhancement}
                 />
                 <AutocompleteFixa
                   mode={GroupEnumFixa.WEAPON}
                   disabled={weapon === null}
                   fixa={fixa}
-                  onFixaChange={onFixaChange}
+                  onFixaChange={setFixa}
                 />
               </Stack>
             </Grid>
@@ -139,7 +149,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                       }
                       augment={augment}
                       onAugmentChange={(next_augment) => {
-                        onAugmentChange(next_augment, augment_index);
+                        setAugment(next_augment, augment_index);
                       }}
                     />
                   );

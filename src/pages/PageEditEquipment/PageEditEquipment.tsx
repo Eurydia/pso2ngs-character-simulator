@@ -19,10 +19,10 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, StatObject } from "../../assets";
+import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { DataUnit, DataWeapon } from "../../types";
-import { useFormUnit, useFormWeapon } from "../../hooks";
+import { DataUnit } from "../../types";
+import { useFormUnit } from "../../hooks";
 
 type PageEditEquipmentProps = {
   storageKey: string;
@@ -37,14 +37,9 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const {
-    formData: formWeapon,
-    setWeapon,
-    setWeaponLevel,
-    setPotentialLevel,
-    setAugment: setWeaponAugment,
-    setFixa: setWeaponFixa,
-  } = useFormWeapon(`${storageKey}-form-weapon`);
+  const [statWeapon, setStatWeapon] = useState<StatObject>(
+    statObject(),
+  );
 
   const {
     formData: formUnitA,
@@ -123,9 +118,9 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     });
   }, [formUnitC]);
 
-  const stat_weapon = useMemo((): StatObject => {
-    return DataWeapon.getStatObject(context, formWeapon);
-  }, [context, formWeapon]);
+  // const stat_weapon = useMemo((): StatObject => {
+  //   return DataWeapon.getStatObject(context, formWeapon);
+  // }, [context, formWeapon]);
   const stat_unit_a = useMemo((): StatObject => {
     return DataUnit.getStatObject(context, formUnitA);
   }, [context, formUnitA]);
@@ -137,10 +132,10 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   }, [context, formUnitC]);
 
   const stat_total = useMemo((): StatObject => {
-    let stat = StatObject.merge(stat_weapon, stat_unit_a);
+    let stat = StatObject.merge(statWeapon, stat_unit_a);
     stat = StatObject.merge(stat, stat_unit_b);
     return StatObject.merge(stat, stat_unit_c);
-  }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
+  }, [statWeapon, stat_unit_a, stat_unit_b, stat_unit_c]);
 
   useEffect(() => {
     onStatChange(stat_total);
@@ -173,13 +168,16 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           <Stack spacing={2}>
             <FormWeapon
               cardTitle="Weapon"
-              stat={stat_weapon}
-              formData={formWeapon}
-              onWeaponChange={setWeapon}
-              onPotentialLevelChange={setPotentialLevel}
-              onWeaponLevelChange={setWeaponLevel}
-              onFixaChange={setWeaponFixa}
-              onAugmentChange={setWeaponAugment}
+              context={context}
+              storageKey="form-weapon"
+              onStatChange={setStatWeapon}
+              // stat={stat_weapon}
+              // formData={formWeapon}
+              // onWeaponChange={setWeapon}
+              // onPotentialLevelChange={setPotentialLevel}
+              // onWeaponLevelChange={setWeaponLevel}
+              // onFixaChange={setWeaponFixa}
+              // onAugmentChange={setWeaponAugment}
             />
             <FormUnit
               cardTitle="Unit A"

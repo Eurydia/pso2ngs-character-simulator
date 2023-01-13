@@ -46,7 +46,10 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       [levelMax, levelMin],
     );
 
-    const value = useMemo(() => {
+    const value = useMemo((): string => {
+      if (level === undefined) {
+        return "0";
+      }
       if (Number.isNaN(level)) {
         return "0";
       }

@@ -53,7 +53,7 @@ export const DataUnit = {
 
 export type DataWeapon = {
   weapon: Weapon | null;
-  weapon_level: number;
+  enhancement: number;
   potential_level: number;
   fixa: Fixa | null;
   augments: (Augment | null)[];
@@ -64,7 +64,7 @@ export const DataWeapon = {
     ctx: ActionContext,
     data: DataWeapon,
   ): StatObject => {
-    const { weapon, weapon_level, potential_level, fixa, augments } =
+    const { weapon, enhancement, potential_level, fixa, augments } =
       data;
 
     if (weapon === null) {
@@ -92,7 +92,7 @@ export const DataWeapon = {
     const stat_weapon: StatObject = Weapon.getStatObject(
       ctx,
       weapon,
-      weapon_level,
+      enhancement,
       damage_adjustment,
       potential_level,
     );

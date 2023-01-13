@@ -33,7 +33,7 @@ const loadLevel = (storage_key: string): number => {
 export const useEnhancement = (
   storage_key: string,
 ): {
-  enhacement: number;
+  enhancement: number;
   setEnhancement: (next_enhancement: number) => void;
 } => {
   const [value, setValue] = useState<number>(() => {
@@ -48,5 +48,5 @@ export const useEnhancement = (
     saveLevel(storage_key, value);
   }, [value]);
 
-  return { enhacement: value, setEnhancement };
+  return { enhancement: value, setEnhancement };
 };

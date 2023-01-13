@@ -23,7 +23,7 @@ export const useFormWeapon = (
 } => {
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
     useWeapon(storage_key);
-  const { enhacement: weaponLevel, setEnhancement: setWeaponLevel } =
+  const { enhancement: weaponLevel, setEnhancement: setWeaponLevel } =
     useEnhancement(storage_key);
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
@@ -31,7 +31,7 @@ export const useFormWeapon = (
   const formData = useMemo((): DataWeapon => {
     return {
       weapon,
-      weapon_level: weaponLevel,
+      enhancement: weaponLevel,
       potential_level: potentialLevel,
       fixa,
       augments,
