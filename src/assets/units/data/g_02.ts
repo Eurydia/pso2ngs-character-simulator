@@ -17,14 +17,13 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitTwo = (
   name: string,
-  enhancement_max: number,
   level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_TWO,
-    enhancement_max,
+    60,
     level_required,
     GROWTH_DATA,
     getAwareStatObject,
@@ -33,23 +32,17 @@ const makeUnitTwo = (
 
 // -------------------------
 G_TWO.push(
-  makeUnitTwo(
-    "Tzvia Armor",
-    60,
-    1,
-    (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_DEFENSE]: 9,
-        [StatEnum.CORE_PP]: 2,
-      });
-    },
-  ),
+  makeUnitTwo("Tzvia Armor", 1, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_PP]: 2,
+    });
+  }),
 );
 
 G_TWO.push(
   makeUnitTwo(
     "Silver Primm Armor",
-    60,
     1,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -61,15 +54,10 @@ G_TWO.push(
 );
 
 G_TWO.push(
-  makeUnitTwo(
-    "N-EXP Armor",
-    60,
-    1,
-    (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_DEFENSE]: 9,
-        [StatEnum.CORE_PP]: 2,
-      });
-    },
-  ),
+  makeUnitTwo("N-EXP Armor", 1, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_DEFENSE]: 9,
+      [StatEnum.CORE_PP]: 2,
+    });
+  }),
 );
