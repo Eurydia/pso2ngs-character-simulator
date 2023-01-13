@@ -46,7 +46,8 @@ const loadAugments = (
   }
   return result;
 };
-
+// ---------------------------------------------
+// Hook
 export const useAugments = (
   storage_key: string,
 ): {
