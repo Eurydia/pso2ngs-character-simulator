@@ -11,12 +11,6 @@ import {
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
-export type SummaryEquipment = {
-  equipment: string | null;
-  fixa: string | null;
-  augments: string[];
-};
-
 export type DataUnit = {
   unit: Unit | null;
   unit_level: number;
@@ -25,28 +19,6 @@ export type DataUnit = {
 };
 
 export const DataUnit = {
-  getSummaryObject: (data: DataUnit): SummaryEquipment => {
-    const { unit, fixa, augments } = data;
-    const result: SummaryEquipment = {
-      equipment: null,
-      fixa: null,
-      augments: [],
-    };
-    if (unit === null) {
-      return result;
-    }
-    result.equipment = unit.label;
-    if (fixa !== null) {
-      result.fixa = fixa.label;
-    }
-    for (const augment of augments) {
-      if (augment !== null) {
-        result.augments.push(augment.label);
-      }
-    }
-    return result;
-  },
-
   getStatObject: (ctx: ActionContext, data: DataUnit): StatObject => {
     const { unit, unit_level, fixa, augments } = data;
 
@@ -88,32 +60,6 @@ export type DataWeapon = {
 };
 
 export const DataWeapon = {
-  getSummaryObject: (data: DataWeapon): SummaryEquipment => {
-    const { weapon, fixa, augments } = data;
-    const result: SummaryEquipment = {
-      equipment: null,
-      fixa: null,
-      augments: [],
-    };
-
-    if (weapon === null) {
-      return result;
-    }
-    result.equipment = weapon.label;
-
-    if (fixa !== null) {
-      result.fixa = fixa.label;
-    }
-
-    for (const augment of augments) {
-      if (augment !== null) {
-        result.augments.push(augment.label);
-      }
-    }
-
-    return result;
-  },
-
   getStatObject: (
     ctx: ActionContext,
     data: DataWeapon,
@@ -151,5 +97,16 @@ export const DataWeapon = {
       potential_level,
     );
     return StatObject.merge(result, stat_weapon);
+  },
+};
+
+export type DataAddon = {};
+
+export const DataAddon = {
+  getStatObject: (
+    ctx: ActionContext,
+    data: DataAddon,
+  ): StatObject => {
+    return statObject();
   },
 };

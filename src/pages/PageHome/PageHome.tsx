@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useMemo, useState } from "react";
 import {
   AppBar,
   Box,
@@ -20,9 +20,9 @@ import { useActionContext } from "../../hooks";
 
 import { PageEditEquipment } from "../PageEditEquipment";
 import { PageEditFood } from "../PageEditFood";
+import { PageEditAddon } from "../PageEditAddon";
 
 import { LinkCard } from "./LinkCard";
-import { PageEditAddon } from "../PageEditAddon";
 
 type PageHomeProps = {};
 export const PageHome: FC<PageHomeProps> = (props) => {
@@ -34,8 +34,10 @@ export const PageHome: FC<PageHomeProps> = (props) => {
   const [statFood, setStatFood] = useState(statObject());
   const [statAddon, setStatAddon] = useState(statObject());
 
-  let stat_total = StatObject.merge(statEquipment, statFood);
-  stat_total = StatObject.merge(stat_total, statAddon);
+  const stat_total = useMemo(() => {
+    let stat = StatObject.merge(statEquipment, statFood);
+    return StatObject.merge(stat, statAddon);
+  }, [statEquipment, statFood, statAddon]);
 
   return (
     <Fragment>

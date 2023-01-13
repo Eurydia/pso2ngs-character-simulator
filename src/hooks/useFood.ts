@@ -37,7 +37,6 @@ export const useFood = (
   foods: Food[];
   addFood: (next_food: Food, food_index: number) => void;
   removeFood: (food_index: number) => void;
-  getStatObject: (ctx: ActionContext) => StatObject;
 } => {
   const [values, setValues] = useState<Food[]>(() => {
     return loadFoods(storage_key);
@@ -70,16 +69,9 @@ export const useFood = (
     });
   }, []);
 
-  const getStatObject = useCallback(
-    (ctx: ActionContext): StatObject => {
-      return Food.getStatObject(ctx, values);
-    },
-    [values],
-  );
-
   useEffect(() => {
     saveFoods(storage_key, values);
   }, [values]);
 
-  return { foods: values, addFood, removeFood, getStatObject };
+  return { foods: values, addFood, removeFood };
 };

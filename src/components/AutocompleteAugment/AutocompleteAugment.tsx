@@ -1,6 +1,5 @@
-import { FC, memo, SyntheticEvent, useCallback } from "react";
+import { FC, memo, SyntheticEvent } from "react";
 import {
-  TextField,
   Autocomplete,
   AutocompleteChangeReason,
 } from "@mui/material";
@@ -22,16 +21,13 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
     const { disabled, augment, onAugmentChange } = props;
 
-    const handleAugmentChange = useCallback(
-      (
-        event: SyntheticEvent<Element, Event>,
-        value: Augment | null,
-        reason: AutocompleteChangeReason,
-      ): void => {
-        onAugmentChange(value);
-      },
-      [],
-    );
+    const handleAugmentChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: Augment | null,
+      reason: AutocompleteChangeReason,
+    ): void => {
+      onAugmentChange(value);
+    };
 
     return (
       <Autocomplete

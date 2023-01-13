@@ -21,15 +21,13 @@ import { BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { DataUnit, DataWeapon, SummaryEquipment } from "../../types";
+import { DataUnit, DataWeapon } from "../../types";
 import { useFormUnit, useFormWeapon } from "../../hooks";
 
-import { SummaryView } from "./SummaryView";
-
 type PageEditEquipmentProps = {
+  storageKey: string;
   isVisible: boolean;
   context: ActionContext;
-  storageKey: string;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
@@ -46,7 +44,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setPotentialLevel,
     setAugment: setWeaponAugment,
     setFixa: setWeaponFixa,
-    getStatObject: getWeaponStatObject,
   } = useFormWeapon(`${storageKey}-form-weapon`);
 
   const {
@@ -55,7 +52,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setUnitLevel: setUnitLevelA,
     setAugment: setAugmentA,
     setFixa: setFixaA,
-    getStatObject: getUnitStatObjectA,
   } = useFormUnit(`${storageKey}-form-unit-a`);
 
   const {
@@ -64,7 +60,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setUnitLevel: setUnitLevelB,
     setAugment: setAugmentB,
     setFixa: setFixaB,
-    getStatObject: getUnitStatObjectB,
   } = useFormUnit(`${storageKey}-form-unit-b`);
 
   const {
@@ -73,8 +68,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setUnitLevel: setUnitLevelC,
     setAugment: setAugmentC,
     setFixa: setFixaC,
-    getStatObject: getUnitStatObjectC,
-  } = useFormUnit(`${storageKey}-form-unit-C`);
+  } = useFormUnit(`${storageKey}-form-unit-c`);
 
   const handleDialogOpen = useCallback((): void => {
     setDialogOpen(true);
@@ -129,31 +123,18 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     });
   }, []);
 
-  const summary_weapon = useMemo((): SummaryEquipment => {
-    return DataWeapon.getSummaryObject(formWeapon);
-  }, [formWeapon]);
-  const summary_unit_a = useMemo((): SummaryEquipment => {
-    return DataUnit.getSummaryObject(formUnitA);
-  }, [formUnitA]);
-  const summary_unit_b = useMemo((): SummaryEquipment => {
-    return DataUnit.getSummaryObject(formUnitB);
-  }, [formUnitB]);
-  const summary_unit_c = useMemo((): SummaryEquipment => {
-    return DataUnit.getSummaryObject(formUnitC);
-  }, [formUnitC]);
-
   const stat_weapon = useMemo((): StatObject => {
-    return getWeaponStatObject(context);
-  }, [context, getWeaponStatObject]);
+    return DataWeapon.getStatObject(context, formWeapon);
+  }, [context, formWeapon]);
   const stat_unit_a = useMemo((): StatObject => {
-    return getUnitStatObjectA(context);
-  }, [context, getUnitStatObjectA]);
+    return DataUnit.getStatObject(context, formUnitA);
+  }, [context, formUnitA]);
   const stat_unit_b = useMemo((): StatObject => {
-    return getUnitStatObjectB(context);
-  }, [context, getUnitStatObjectB]);
+    return DataUnit.getStatObject(context, formUnitB);
+  }, [context, formUnitB]);
   const stat_unit_c = useMemo((): StatObject => {
-    return getUnitStatObjectC(context);
-  }, [context, getUnitStatObjectC]);
+    return DataUnit.getStatObject(context, formUnitC);
+  }, [context, formUnitC]);
 
   const stat_total = useMemo((): StatObject => {
     let stat = StatObject.merge(stat_weapon, stat_unit_a);
@@ -243,17 +224,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           Equipment summary
         </DialogTitle>
         <DialogContent>
-          <Stack spacing={2}>
-            <SummaryView
-              items={[
-                summary_weapon,
-                summary_unit_a,
-                summary_unit_b,
-                summary_unit_c,
-              ]}
-            />
-            <StatView stat={stat_total} maxHeight="" />
-          </Stack>
+          <StatView stat={stat_total} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>

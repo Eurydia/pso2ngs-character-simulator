@@ -25,7 +25,6 @@ export const useFormUnit = (
     next_augment: Augment | null,
     augment_index: number,
   ) => void;
-  getStatObject: (ctx: ActionContext) => StatObject;
 } => {
   const { unit, setUnit } = useUnit(storage_key);
   const { enhacement: unitLevel, setEnhancement: setUnitLevel } =
@@ -42,19 +41,11 @@ export const useFormUnit = (
     };
   }, [unit, unitLevel, fixa, augments]);
 
-  const getStatObject = useCallback(
-    (ctx: ActionContext): StatObject => {
-      return DataUnit.getStatObject(ctx, formData);
-    },
-    [formData],
-  );
-
   return {
     formData,
     setUnit,
     setUnitLevel,
     setFixa,
     setAugment,
-    getStatObject,
   };
 };

@@ -26,7 +26,6 @@ export const useFormWeapon = (
     next_augment: Augment | null,
     augment_index: number,
   ) => void;
-  getStatObject: (ctx: ActionContext) => StatObject;
 } => {
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
     useWeapon(storage_key);
@@ -45,13 +44,6 @@ export const useFormWeapon = (
     };
   }, [weapon, weaponLevel, potentialLevel, fixa, augments]);
 
-  const getStatObject = useCallback(
-    (ctx: ActionContext): StatObject => {
-      return DataWeapon.getStatObject(ctx, formData);
-    },
-    [formData],
-  );
-
   return {
     formData,
     setWeapon,
@@ -59,6 +51,5 @@ export const useFormWeapon = (
     setWeaponLevel,
     setFixa,
     setAugment,
-    getStatObject,
   };
 };

@@ -14,8 +14,7 @@ type PageEditFoodProps = {
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   const { isVisible, context, storageKey, onStatChange } = props;
 
-  const { foods, addFood, removeFood, getStatObject } =
-    useFood(storageKey);
+  const { foods, addFood, removeFood } = useFood(storageKey);
 
   const handleAddItem = useCallback(
     (next_food: Food, food_index: number) => {
@@ -28,8 +27,8 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   }, []);
 
   const stat_total = useMemo(() => {
-    return getStatObject(context);
-  }, [context, getStatObject]);
+    return Food.getStatObject(context, foods);
+  }, [context, foods]);
 
   useEffect(() => {
     onStatChange(stat_total);
