@@ -30,16 +30,13 @@ export const AutocompleteFixa: FC<AutocompleteFixaProps> = memo(
   (props) => {
     const { mode, disabled, fixa, onFixaChange } = props;
 
-    const handleFixaChange = useCallback(
-      (
-        event: SyntheticEvent<Element, Event>,
-        value: Fixa | null,
-        reason: AutocompleteChangeReason,
-      ): void => {
-        onFixaChange(value);
-      },
-      [],
-    );
+    const handleFixaChange = (
+      event: SyntheticEvent<Element, Event>,
+      value: Fixa | null,
+      reason: AutocompleteChangeReason,
+    ): void => {
+      onFixaChange(value);
+    };
 
     const options = useMemo((): Fixa[] => {
       return AssetFixas.filter((fixa) => {
