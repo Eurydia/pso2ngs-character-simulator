@@ -49,10 +49,10 @@ export const useFood = (
       }
       setValues((prev) => {
         const next = [...prev];
-        next.splice(food_index, 0, next_food);
         if (next.length >= Food.MAX_ITEM) {
           next.pop();
         }
+        next.splice(food_index, 0, next_food);
         return next;
       });
     },
