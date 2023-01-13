@@ -16,12 +16,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponSeven = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_SEVEN,
+    50,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -32,6 +35,7 @@ const makeWeaponSeven = (
 G_SEVEN.push(
   makeWeaponSeven(
     "Kaizaar Mk. I Series",
+    53,
     AssetPotentials.TEMPERED_FORM,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -46,6 +50,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Crystia Series",
+    55,
     AssetPotentials.ABSORPTION_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -60,6 +65,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Pursuit Series",
+    57,
     AssetPotentials.PURSUIT_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -74,6 +80,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Citadel Series",
+    57,
     AssetPotentials.CITADEL_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -88,6 +95,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Gyrating Series",
+    57,
     AssetPotentials.GYRATING_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -102,6 +110,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Kaizaar Series",
+    60,
     AssetPotentials.TEMPERED_FORM,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -116,6 +125,7 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Obsidia Series",
+    61,
     AssetPotentials.CORUSCATING_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
