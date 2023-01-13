@@ -49,12 +49,7 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
         onChange={handleFoodChange}
         onKeyDown={handleKeyDown}
         filterOptions={filterOptions}
-        renderInput={(params) => (
-          <TextFieldFood
-            {...params}
-            shouldShowWarning={food === null}
-          />
-        )}
+        renderInput={(params) => <TextFieldFood {...params} />}
         renderOption={(props, option, _) => {
           return (
             <OptionFood
