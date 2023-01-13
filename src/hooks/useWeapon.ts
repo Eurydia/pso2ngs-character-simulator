@@ -67,23 +67,29 @@ export const useWeapon = (
   setWeapon: (next_weapon: Weapon | null) => void;
   setPotentialLevel: (next_level: number) => void;
 } => {
-  const [weapon, _setWeapon] = useState<Weapon | null>(() => {
-    return loadWeapon(storage_key);
-  });
   const [potentialLevel, _setPotentialLevel] = useState<number>(
     () => {
       return loadPotentialLevel(storage_key);
     },
   );
+  const [weapon, _setWeapon] = useState<Weapon | null>(() => {
+    return loadWeapon(storage_key);
+  });
 
-  const setWeapon = useCallback((next_weapon: Weapon | null) => {
-    _setWeapon(next_weapon);
-    setPotentialLevel(0);
-  }, []);
+  const setPotentialLevel = useCallback(
+    (next_level: number): void => {
+      _setPotentialLevel(next_level);
+    },
+    [],
+  );
 
-  const setPotentialLevel = useCallback((next_level: number) => {
-    _setPotentialLevel(next_level);
-  }, []);
+  const setWeapon = useCallback(
+    (next_weapon: Weapon | null): void => {
+      _setWeapon(next_weapon);
+      setPotentialLevel(0);
+    },
+    [],
+  );
 
   useEffect(() => {
     saveWeapon(storage_key, weapon);

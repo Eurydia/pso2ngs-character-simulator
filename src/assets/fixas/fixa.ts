@@ -17,7 +17,7 @@ export const Fixa = {
     if (fixa === null) {
       return JSON.stringify(null);
     }
-    return fixa.label;
+    return JSON.stringify(fixa.label);
   },
 
   fromLabel: (label: string): Fixa | null => {

@@ -47,7 +47,7 @@ export const FieldLevel: FC<FieldLevelProps> = memo(
       if (Number.isNaN(level)) {
         return "0";
       }
-      return;
+      return level.toString();
     }, [level]);
 
     return (

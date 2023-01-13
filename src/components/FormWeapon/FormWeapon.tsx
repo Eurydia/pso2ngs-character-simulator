@@ -109,7 +109,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   potentialLevel={potential_level}
                   onPotentialLevelChange={onPotentialLevelChange}
                 />
-
                 <FieldLevel
                   label="Enhacement"
                   levelMin={0}

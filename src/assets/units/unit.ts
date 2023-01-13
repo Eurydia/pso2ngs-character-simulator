@@ -19,7 +19,7 @@ export const Unit = {
     if (unit === null) {
       return JSON.stringify(null);
     }
-    return unit.label;
+    return JSON.stringify(unit.label);
   },
 
   fromLabel(label: string): Unit | null {

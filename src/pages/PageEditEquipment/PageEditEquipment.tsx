@@ -91,7 +91,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
       setAugmentB(next_augment, augment_index);
       setAugmentC(next_augment, augment_index);
     });
-  }, []);
+  }, [formUnitA]);
 
   const handleUnitSyncB = useCallback((): void => {
     setUnitA(formUnitB.unit);
@@ -106,7 +106,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
       setAugmentA(next_augment, augment_index);
       setAugmentC(next_augment, augment_index);
     });
-  }, []);
+  }, [formUnitB]);
 
   const handleUnitSyncC = useCallback((): void => {
     setUnitA(formUnitC.unit);
@@ -121,7 +121,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
       setAugmentA(next_augment, augment_index);
       setAugmentB(next_augment, augment_index);
     });
-  }, []);
+  }, [formUnitC]);
 
   const stat_weapon = useMemo((): StatObject => {
     return DataWeapon.getStatObject(context, formWeapon);
