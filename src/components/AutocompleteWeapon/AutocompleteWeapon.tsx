@@ -20,13 +20,16 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
     const { weapon, onWeaponChange } = props;
 
-    const handleWeaponChange = (
-      event: SyntheticEvent<Element, Event>,
-      value: Weapon | null,
-      reason: AutocompleteChangeReason,
-    ): void => {
-      onWeaponChange(value);
-    };
+    const handleWeaponChange = useCallback(
+      (
+        event: SyntheticEvent<Element, Event>,
+        value: Weapon | null,
+        reason: AutocompleteChangeReason,
+      ): void => {
+        onWeaponChange(value);
+      },
+      [],
+    );
 
     return (
       <Autocomplete
