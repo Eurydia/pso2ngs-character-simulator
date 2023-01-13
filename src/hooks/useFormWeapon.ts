@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Augment, Fixa, Weapon } from "../assets";
 
 import { DataWeapon } from "../types";
 
@@ -9,18 +10,25 @@ import { useWeapon } from "./useWeapon";
 
 export const useFormWeapon = (
   storage_key: string,
-): [
-  DataWeapon,
-  (data: DataWeapon | ((prev: DataWeapon) => DataWeapon)) => void,
-] => {
-  const [weapon, potentialLevel, setWeapon, setPotentialLevel] =
-    useWeapon(storage_key, `${storage_key}-pl`);
+): {
+  formData: DataWeapon;
+  setWeapon: (next_weapon: Weapon | null) => void;
+  setPotentialLevel: (next_level: number) => void;
+  setWeaponLevel: (next_level: number) => void;
+  setFixa: (next_fixa: Fixa | null) => void;
+  setAugment: (
+    next_augment: Augment | null,
+    augment_index: number,
+  ) => void;
+} => {
+  const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
+    useWeapon(storage_key);
   const { enhacement: weaponLevel, setEnhancement: setWeaponLevel } =
     useEnhancement(storage_key);
-  const [fixa, setFixa] = useFixa(`${storage_key}-f`);
+  const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 
-  const [data, setData] = useState<DataWeapon>(() => {
+  const formData = useMemo(() => {
     return {
       weapon,
       weapon_level: weaponLevel,
@@ -28,20 +36,14 @@ export const useFormWeapon = (
       fixa,
       augments,
     };
-  });
+  }, [weapon, weaponLevel, potentialLevel, fixa, augments]);
 
-  useEffect(() => {
-    const { weapon, weapon_level, fixa, augments, potential_level } =
-      data;
-
-    setWeapon(weapon);
-    setPotentialLevel(potential_level);
-    setWeaponLevel(weapon_level);
-    setFixa(fixa);
-    augments.forEach((augment, augment_index) => {
-      setAugment(augment, augment_index);
-    });
-  }, [data]);
-
-  return [data, setData];
+  return {
+    formData,
+    setWeapon,
+    setPotentialLevel,
+    setWeaponLevel,
+    setFixa,
+    setAugment,
+  };
 };
