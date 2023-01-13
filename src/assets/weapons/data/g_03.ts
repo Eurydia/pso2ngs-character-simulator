@@ -18,12 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponThree = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_THREE,
+    60,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -34,6 +37,7 @@ const makeWeaponThree = (
 G_THREE.push(
   makeWeaponThree(
     "Theseus Series",
+    8,
     AssetPotentials.DEFENSIVE_FORMATION,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -48,6 +52,7 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Trois De Series",
+    8,
     AssetPotentials.OFFENSIVE_FORMATION,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -62,6 +67,7 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Gold Primm Sword",
+    10,
     AssetPotentials.RECYCLER_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -76,6 +82,7 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Glissen Series",
+    13,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -83,11 +90,6 @@ G_THREE.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
-        return stat;
-      }
-
       if (ctx.target.isWeakToLightning) {
         stat = StatObject.setStat(
           stat,
@@ -104,6 +106,7 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Frostel Series",
+    13,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -111,11 +114,6 @@ G_THREE.push(
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-
-      if (ctx.target === undefined) {
-        return stat;
-      }
-
       if (ctx.target.isWeakToIce) {
         stat = StatObject.setStat(
           stat,
@@ -132,6 +130,7 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Renaissa Series",
+    1,
     AssetPotentials.DYNAMO_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
