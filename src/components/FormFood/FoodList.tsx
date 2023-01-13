@@ -53,28 +53,28 @@ const FoodListItem: FC<FoodListItemProps> = memo(
 );
 
 type FoodListProps = {
-  items: Food[];
+  foods: Food[];
   onCopy: (item: Food, index: number) => void;
   onRemove: (index: number) => void;
 };
 export const FoodList: FC<FoodListProps> = (props) => {
-  const { items, onCopy, onRemove } = props;
+  const { foods, onCopy, onRemove } = props;
 
   return (
     <List dense disablePadding>
       <ListSubheader disableGutters>
-        <Typography>{`${items.length}/10 items used`}</Typography>
+        <Typography>{`${foods.length}/10 items used`}</Typography>
       </ListSubheader>
-      {items.map((item, item_index) => {
+      {foods.map((food, food_index) => {
         return (
           <FoodListItem
-            key={`${item.label}-${item_index}`}
-            label={item.label}
-            onCopy={() => {
-              onCopy(item, item_index);
+            key={`${food.label}-${food_index}`}
+            label={food.label}
+            onCopy={(): void => {
+              onCopy(food, food_index);
             }}
-            onRemove={() => {
-              onRemove(item_index);
+            onRemove={(): void => {
+              onRemove(food_index);
             }}
           />
         );

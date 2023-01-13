@@ -96,7 +96,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
               </Button>
             </Stack>
             <FoodList
-              items={foods}
+              foods={foods}
               onCopy={handleCopy}
               onRemove={handleRemove}
             />
