@@ -20,7 +20,7 @@ const makeWeaponFour = (
   name: string,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Weapon => {
   return weapon(
     name,
@@ -39,7 +39,7 @@ G_FOUR.push(
     "Resurgia Series",
     11,
     AssetPotentials.DYNAMO_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 240,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -54,7 +54,7 @@ G_FOUR.push(
     "Cattleya Series",
     14,
     AssetPotentials.MUSTERED_MIGHT_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -69,7 +69,7 @@ G_FOUR.push(
     "Foursis Series",
     14,
     AssetPotentials.BASTION_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -84,7 +84,7 @@ G_FOUR.push(
     "Vialto Series",
     14,
     AssetPotentials.MEDITATION_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -99,7 +99,7 @@ G_FOUR.push(
     "Straga Series",
     15,
     AssetPotentials.BERSERK_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 243,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -114,7 +114,7 @@ G_FOUR.push(
     "Evolcoat Series",
     15,
     AssetPotentials.SOULSPRING_UNIT,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_ATTACK]: 242,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
@@ -129,12 +129,15 @@ G_FOUR.push(
     "Flamel Series",
     14,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext): StatObject => {
+    (ctx: ActionContext | null): StatObject => {
       const stat = statObject({
         [StatEnum.CORE_ATTACK]: 240,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
+      if (ctx === null) {
+        return stat;
+      }
       if (!ctx.target.isWeakToFire) {
         return stat;
       }
