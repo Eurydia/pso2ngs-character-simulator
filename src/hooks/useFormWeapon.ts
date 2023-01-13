@@ -1,12 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
-import {
-  ActionContext,
-  Augment,
-  Fixa,
-  StatObject,
-  Weapon,
-} from "../assets";
+import { Augment, Fixa, Weapon } from "../assets";
 import { DataWeapon } from "../types";
 
 import { useWeapon } from "./useWeapon";

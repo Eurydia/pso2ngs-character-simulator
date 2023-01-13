@@ -22,7 +22,7 @@ export const Weapon = {
     if (weapon === null) {
       return JSON.stringify(null);
     }
-    return weapon.label;
+    return JSON.stringify(weapon.label);
   },
 
   fromLabel: (label: string): Weapon | null => {

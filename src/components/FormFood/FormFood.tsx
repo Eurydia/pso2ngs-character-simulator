@@ -26,7 +26,7 @@ type FormFoodProps = {
   onFoodAdd: (next_food: Food, food_index: number) => void;
   onFoodRemove: (food_index: number) => void;
 };
-export const FormFood: FC<FormFoodProps> = memo((props) => {
+export const FormFood: FC<FormFoodProps> = (props) => {
   const { stat, foods, onFoodAdd, onFoodRemove } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -113,4 +113,4 @@ export const FormFood: FC<FormFoodProps> = memo((props) => {
       </Dialog>
     </Fragment>
   );
-});
+};

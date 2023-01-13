@@ -22,7 +22,7 @@ const savePotentialLevel = (
   potential_level: number,
 ): void => {
   const KEY: string = `${storage_key}-${SUFFIX_KEY_POTENTIAL_LEVEL}`;
-  const data_string: string = potential_level.toString();
+  const data_string: string = JSON.stringify(potential_level);
   localStorage.setItem(KEY, data_string);
 };
 // ---------------------------------------------
