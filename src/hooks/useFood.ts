@@ -1,12 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Food } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const retrieveFoods = (storage_key: string): Food[] => {
-  const loaded_string: string | null =
-    localStorage.getItem(storage_key);
+const SUFFIX_KEY_FOOD: string = "food";
+
+// ---------------------------------------------
+// Setter
+const saveFoods = (storage_key: string, foods: Food[]): void => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_FOOD}`;
+  const data_string: string = Food.toString(foods);
+  localStorage.setItem(KEY, data_string);
+};
+// ---------------------------------------------
+// Getter
+const loadFoods = (storage_key: string): Food[] => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_FOOD}`;
+  const loaded_string: string | null = localStorage.getItem(KEY);
   if (loaded_string === null) {
     return [];
   }
@@ -22,42 +33,45 @@ const retrieveFoods = (storage_key: string): Food[] => {
 
 export const useFood = (
   storage_key: string,
-): [
-  Food[],
-  (item: Food, index: number) => void,
-  (index: number) => void,
-] => {
-  const [value, setValue] = useState(() => {
-    return retrieveFoods(storage_key);
+): {
+  foods: Food[];
+  addFood: (next_food: Food, food_index: number) => void;
+  removeFood: (food_index: number) => void;
+} => {
+  const [values, setValues] = useState(() => {
+    return loadFoods(storage_key);
   });
 
-  useEffect(() => {
-    const data_string: string = Food.toString(value);
-    localStorage.setItem(storage_key, data_string);
-  }, [value]);
-
-  const addItem = (next_value: Food, index: number) => {
-    if (index < 0 || Food.MAX_ITEM <= index) {
-      return;
-    }
-    setValue((prev) => {
-      const next = [...prev];
-      if (next.length >= Food.MAX_ITEM) {
-        next.pop();
+  const addFood = useCallback(
+    (next_food: Food, food_index: number) => {
+      if (food_index < 0 || food_index >= Food.MAX_ITEM) {
+        return;
       }
-      next.splice(index, 0, next_value);
-      return next;
-    });
-  };
-  const removeItem = (index: number): void => {
-    if (index < 0 || Food.MAX_ITEM <= index) {
+      setValues((prev) => {
+        const next = [...prev];
+        next.splice(food_index, 0, next_food);
+        if (next.length >= Food.MAX_ITEM) {
+          next.pop();
+        }
+        return next;
+      });
+    },
+    [],
+  );
+  const removeFood = useCallback((food_index: number): void => {
+    if (food_index < 0 || food_index >= Food.MAX_ITEM) {
       return;
     }
-    setValue((prev) => {
+    setValues((prev) => {
       const next = [...prev];
-      next.splice(index, 1);
+      next.splice(food_index, 1);
       return next;
     });
-  };
-  return [value, addItem, removeItem];
+  }, []);
+
+  useEffect(() => {
+    saveFoods(storage_key, values);
+  }, [values]);
+
+  return { foods: values, addFood, removeFood };
 };
