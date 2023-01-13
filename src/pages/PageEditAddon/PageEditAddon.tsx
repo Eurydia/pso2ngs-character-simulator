@@ -5,8 +5,11 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Fab,
   Grid,
   Stack,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { FormAddon, StatView } from "../../components";
@@ -18,6 +21,7 @@ import {
   StatObject,
 } from "../../assets";
 import { useFormAddon } from "../../hooks";
+import { BarChartRounded } from "@mui/icons-material";
 
 // ------------------ Hunter ------------------
 const HUNTER_MAIN_ADDON: AddonSkill =
@@ -287,6 +291,21 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
         maxWidth="lg"
         sx={{ display: isVisible ? "block" : "none" }}
       >
+        <Tooltip
+          placement="top"
+          title={<Typography>Open summary</Typography>}
+        >
+          <Fab
+            onClick={handleDialogOpen}
+            sx={{
+              position: "fixed",
+              bottom: "24px",
+              right: "24px",
+            }}
+          >
+            <BarChartRounded />
+          </Fab>
+        </Tooltip>
         <Box margin={4}>
           <Grid
             container
