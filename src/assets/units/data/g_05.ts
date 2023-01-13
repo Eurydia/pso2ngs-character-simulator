@@ -17,11 +17,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFive = (
   name: string,
+  level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_FIVE,
+    60,
+    level_required,
     GROWTH_DATA,
     getAwareStatObject,
   );
@@ -29,7 +32,7 @@ const makeUnitFive = (
 
 // -------------------------
 G_FIVE.push(
-  makeUnitFive("Vidal Armor", (_: ActionContext): StatObject => {
+  makeUnitFive("Vidal Armor", 24, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 22,
       [StatEnum.CORE_HP]: 45,
@@ -39,7 +42,7 @@ G_FIVE.push(
 );
 
 G_FIVE.push(
-  makeUnitFive("Vijf Armor", (_: ActionContext): StatObject => {
+  makeUnitFive("Vijf Armor", 24, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 17,
       [StatEnum.CORE_HP]: 30,
@@ -67,6 +70,7 @@ G_FIVE.push(
     };
     const unit_five: Unit = makeUnitFive(
       `Vijf Armor ${suffix}`,
+      31,
       _getter,
     );
     G_FIVE.push(unit_five);
@@ -74,7 +78,7 @@ G_FIVE.push(
 })();
 
 G_FIVE.push(
-  makeUnitFive("Vios Armor", (_: ActionContext): StatObject => {
+  makeUnitFive("Vios Armor", 24, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 15,
       [StatEnum.CORE_PP]: 8,
@@ -86,16 +90,20 @@ G_FIVE.push(
 );
 
 G_FIVE.push(
-  makeUnitFive("Vindalun Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 20,
-      [StatEnum.CORE_HP]: 70,
-    });
-  }),
+  makeUnitFive(
+    "Vindalun Armor",
+    26,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 20,
+        [StatEnum.CORE_HP]: 70,
+      });
+    },
+  ),
 );
 
 G_FIVE.push(
-  makeUnitFive("Viosel Armor", (_: ActionContext): StatObject => {
+  makeUnitFive("Viosel Armor", 26, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 10,
       [StatEnum.CORE_PP]: 14,
@@ -111,7 +119,7 @@ G_FIVE.push(
 );
 
 G_FIVE.push(
-  makeUnitFive("Gres Armor", (_: ActionContext): StatObject => {
+  makeUnitFive("Gres Armor", 31, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 21,
       [StatEnum.CORE_HP]: -40,
@@ -146,7 +154,11 @@ G_FIVE.push(
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
       });
     };
-    const unit_five: Unit = makeUnitFive(`${name} Armor`, _getter);
+    const unit_five: Unit = makeUnitFive(
+      `${name} Armor`,
+      31,
+      _getter,
+    );
     G_FIVE.push(unit_five);
   }
 })();
