@@ -130,7 +130,7 @@ G_FOUR.push(
     14,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
-      let stat = statObject({
+      const stat = statObject({
         [StatEnum.CORE_ATTACK]: 240,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,

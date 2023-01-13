@@ -85,19 +85,19 @@ G_THREE.push(
     13,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
-      let stat: StatObject = statObject({
+      const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
       if (ctx.target.isWeakToLightning) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
+        return stat;
       }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
@@ -109,19 +109,19 @@ G_THREE.push(
     13,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
-      let stat: StatObject = statObject({
+      const stat: StatObject = statObject({
         [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx.target.isWeakToIce) {
-        stat = StatObject.setStat(
-          stat,
-          StatEnum.ADV_OFF_DAMAGE_UP,
-          1.15,
-        );
+      if (!ctx.target.isWeakToIce) {
+        return stat;
       }
-      return stat;
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_DAMAGE_UP,
+        1.15,
+      );
     },
   ),
 );
