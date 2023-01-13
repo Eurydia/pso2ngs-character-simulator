@@ -1,12 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { Fixa } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const retrieveFixa = (storage_key: string): Fixa | null => {
-  const loaded_string: string | null =
-    localStorage.getItem(storage_key);
+const SUFFIX_KEY_FIXA: string = "fixa";
+
+// ---------------------------------------------
+// Setter
+const saveFixa = (storage_key: string, fixa: Fixa | null): void => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_FIXA}`;
+  const data_string: string = Fixa.toString(fixa);
+  localStorage.setItem(KEY, data_string);
+};
+// ---------------------------------------------
+// Getter
+const loadFixa = (storage_key: string): Fixa | null => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_FIXA}`;
+
+  const loaded_string: string | null = localStorage.getItem(KEY);
   if (loaded_string === null) {
     return null;
   }
@@ -19,20 +31,23 @@ const retrieveFixa = (storage_key: string): Fixa | null => {
   }
   return Fixa.fromLabel(label);
 };
-
+// ---------------------------------------------
+// Hook
 export const useFixa = (
   storage_key: string,
-): [Fixa | null, (new_value: Fixa | null) => void] => {
-  const [value, setValue] = useState(() => retrieveFixa(storage_key));
+): {
+  fixa: Fixa | null;
+  setFixa: (next_fixa: Fixa | null) => void;
+} => {
+  const [value, setValue] = useState(() => loadFixa(storage_key));
+
+  const setFixa = useCallback((next_fixa: Fixa | null) => {
+    setValue(next_fixa);
+  }, []);
 
   useEffect(() => {
-    const string_data: string | null = Fixa.toString(value);
-    localStorage.setItem(storage_key, string_data);
+    saveFixa(storage_key, value);
   }, [value]);
 
-  const setter = (new_value: Fixa | null) => {
-    setValue(new_value);
-  };
-
-  return [value, setter];
+  return { fixa: value, setFixa };
 };
