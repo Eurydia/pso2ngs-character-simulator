@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
-import { Augment, Fixa, Weapon } from "../assets";
+import { useMemo } from "react";
 
+import { Augment, Fixa, Weapon } from "../assets";
 import { DataWeapon } from "../types";
 
-import { useAugments } from "./useAugments";
+import { useWeapon } from "./useWeapon";
 import { useEnhancement } from "./useEnhancement";
 import { useFixa } from "./useFixa";
-import { useWeapon } from "./useWeapon";
+import { useAugments } from "./useAugments";
 
 export const useFormWeapon = (
   storage_key: string,
