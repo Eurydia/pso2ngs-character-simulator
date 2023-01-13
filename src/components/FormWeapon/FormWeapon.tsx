@@ -133,8 +133,8 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                       weapon === null ||
                       index >= active_augments.length
                     }
-                    value={augment}
-                    onChange={(value) => {
+                    augment={augment}
+                    onAugmentChange={(value) => {
                       handleAugmentChange(value, index);
                     }}
                   />

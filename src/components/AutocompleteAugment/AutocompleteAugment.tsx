@@ -3,54 +3,43 @@ import {
   TextField,
   Autocomplete,
   AutocompleteChangeReason,
-  Typography,
 } from "@mui/material";
 
 import { AssetAugments, Augment } from "../../assets";
 
 import { filterOptions } from "./helper";
-import { CustomOption } from "./CustomOption";
+import { OptionAugment } from "./OptionAugment";
+import { TextFieldAugment } from "./TextFieldAugment";
 
 type AutocompleteAugmentProps = {
   disabled: boolean;
-  value: Augment | null;
-  onChange: (value: Augment | null) => void;
+  augment: Augment | null;
+  onAugmentChange: (next_augment: Augment | null) => void;
 };
 export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (props) => {
-    const { disabled, value, onChange } = props;
+    const { disabled, augment, onAugmentChange } = props;
 
-    const handleChange = (
+    const handleAugmentChange = (
       event: SyntheticEvent<Element, Event>,
       value: Augment | null,
       reason: AutocompleteChangeReason,
     ) => {
-      onChange(value);
+      onAugmentChange(value);
     };
 
     return (
       <Autocomplete
         disabled={disabled}
         options={AssetAugments}
-        value={value}
-        onChange={handleChange}
+        value={augment}
+        onChange={handleAugmentChange}
         filterOptions={filterOptions}
         renderInput={(params) => {
-          return (
-            <TextField
-              {...params}
-              fullWidth
-              placeholder="Augment"
-              sx={{
-                textDecorationLine: disabled
-                  ? "line-through"
-                  : "none",
-              }}
-            />
-          );
+          return <TextFieldAugment {...params} />;
         }}
         renderOption={(props, option, _) => {
-          return <CustomOption {...props} option={option} />;
+          return <OptionAugment LIProps={props} option={option} />;
         }}
       />
     );
@@ -58,7 +47,7 @@ export const AutocompleteAugment: FC<AutocompleteAugmentProps> = memo(
   (prev, next) => {
     return (
       prev.disabled === next.disabled &&
-      prev.value?.label === next.value?.label
+      prev.augment?.label === next.augment?.label
     );
   },
 );

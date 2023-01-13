@@ -152,8 +152,8 @@ export const FormUnit: FC<FormUnitProps> = memo((props) => {
                     <AutocompleteAugment
                       key={`augment-${index}`}
                       disabled={disabled}
-                      value={augment}
-                      onChange={(value) => {
+                      augment={augment}
+                      onAugmentChange={(value) => {
                         handleAugmentChange(value, index);
                       }}
                     />
