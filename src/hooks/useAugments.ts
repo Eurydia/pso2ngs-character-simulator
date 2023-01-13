@@ -12,8 +12,8 @@ const saveAugments = (
   augments: (Augment | null)[],
 ): void => {
   const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
-  const string_data: string = Augment.toString(augments);
-  localStorage.setItem(KEY, string_data);
+  const data_string: string = Augment.toString(augments);
+  localStorage.setItem(KEY, data_string);
 };
 
 // ---------------------------------------------
