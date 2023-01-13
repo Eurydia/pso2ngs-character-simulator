@@ -16,11 +16,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFour = (
   name: string,
+  level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_FOUR,
+    60,
+    level_required,
     GROWTH_DATA,
     getAwareStatObject,
   );
@@ -28,12 +31,16 @@ const makeUnitFour = (
 
 // -------------------------
 G_FOUR.push(
-  makeUnitFour("Qual De Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 8,
-      [StatEnum.CORE_PP]: 6,
-    });
-  }),
+  makeUnitFour(
+    "Qual De Armor",
+    10,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 8,
+        [StatEnum.CORE_PP]: 6,
+      });
+    },
+  ),
 );
 
 (() => {
@@ -42,8 +49,8 @@ G_FOUR.push(
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
-  for (const ENTRY of DATA_ENTRY) {
-    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = ENTRY;
+  for (const entry of DATA_ENTRY) {
+    const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
     const _getter = (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 13,
@@ -54,6 +61,7 @@ G_FOUR.push(
     };
     const unit_four: Unit = makeUnitFour(
       `Qual De Armor ${suffix}`,
+      12,
       _getter,
     );
     G_FOUR.push(unit_four);
@@ -61,17 +69,21 @@ G_FOUR.push(
 })();
 
 G_FOUR.push(
-  makeUnitFour("Cattleya Armor", (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 12,
-      [StatEnum.CORE_HP]: 20,
-      [StatEnum.CORE_PP]: 2,
-    });
-  }),
+  makeUnitFour(
+    "Cattleya Armor",
+    10,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 12,
+        [StatEnum.CORE_HP]: 20,
+        [StatEnum.CORE_PP]: 2,
+      });
+    },
+  ),
 );
 
 G_FOUR.push(
-  makeUnitFour("Vialto Armor", (_: ActionContext): StatObject => {
+  makeUnitFour("Vialto Armor", 10, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 14,
       [StatEnum.CORE_HP]: 30,
@@ -86,7 +98,6 @@ G_FOUR.push(
     ["Belta", [StatEnum.WEAPON_RANGED, StatEnum.WEAPON_TECHNIQUE]],
     ["Sheza", [StatEnum.WEAPON_MELEE, StatEnum.WEAPON_TECHNIQUE]],
   ];
-
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
     const _getter = (_: ActionContext): StatObject => {
@@ -100,6 +111,7 @@ G_FOUR.push(
     };
     const unit_four: Unit = makeUnitFour(
       `Vialto Armor ${suffix}`,
+      12,
       _getter,
     );
     G_FOUR.push(unit_four);
@@ -107,7 +119,7 @@ G_FOUR.push(
 })();
 
 G_FOUR.push(
-  makeUnitFour("Geant Armor", (_: ActionContext): StatObject => {
+  makeUnitFour("Geant Armor", 15, (_: ActionContext): StatObject => {
     return statObject({
       [StatEnum.CORE_DEFENSE]: 15,
       [StatEnum.CORE_HP]: -20,
