@@ -18,12 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponFour = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_FOUR,
+    60,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -34,6 +37,7 @@ const makeWeaponFour = (
 G_FOUR.push(
   makeWeaponFour(
     "Resurgia Series",
+    11,
     AssetPotentials.DYNAMO_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -48,6 +52,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Cattleya Series",
+    14,
     AssetPotentials.MUSTERED_MIGHT_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -62,6 +67,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Foursis Series",
+    14,
     AssetPotentials.BASTION_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -76,6 +82,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Vialto Series",
+    14,
     AssetPotentials.MEDITATION_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -90,6 +97,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Straga Series",
+    15,
     AssetPotentials.BERSERK_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -104,6 +112,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Evolcoat Series",
+    15,
     AssetPotentials.SOULSPRING_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -118,6 +127,7 @@ G_FOUR.push(
 G_FOUR.push(
   makeWeaponFour(
     "Flamel Series",
+    14,
     AssetPotentials.VALOROUS_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat = statObject({
