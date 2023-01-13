@@ -16,12 +16,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponEight = (
   name: string,
+  level_required: number,
   potential: Potential,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_EIGHT,
+    50,
+    level_required,
     potential,
     GROWTH_DATA,
     getAwareStatObject,
@@ -32,6 +35,7 @@ const makeWeaponEight = (
 G_EIGHT.push(
   makeWeaponEight(
     "Primm Libra Series",
+    55,
     AssetPotentials.SOOTHING_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -55,6 +59,7 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Effulgent Series",
+    60,
     AssetPotentials.BLITZ_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -78,6 +83,7 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Tenebrous Series",
+    60,
     AssetPotentials.BLITZ_UNIT,
     (ctx: ActionContext): StatObject => {
       let stat: StatObject = statObject({
@@ -101,6 +107,7 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Kouklophis Series",
+    62,
     AssetPotentials.INSTANT_DEATH_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -115,6 +122,7 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Gunblaze Series",
+    65,
     AssetPotentials.FLAWLESS_UNIT,
     (_: ActionContext): StatObject => {
       return statObject({
