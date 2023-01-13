@@ -1,4 +1,4 @@
-import { Fragment, FC, useState } from "react";
+import { Fragment, FC, useState, memo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -34,7 +34,7 @@ type FormUnitProps = {
   onFormDataChange: (getter: (prev: DataUnit) => DataUnit) => void;
   onSync: () => void;
 };
-export const FormUnit: FC<FormUnitProps> = (props) => {
+export const FormUnit: FC<FormUnitProps> = memo((props) => {
   const { stat, cardTitle, formData, onFormDataChange, onSync } =
     props;
 
@@ -178,4 +178,4 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
       </Dialog>
     </Fragment>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, memo, useState } from "react";
 import {
   Tooltip,
   Typography,
@@ -26,20 +26,19 @@ import { CheckboxAddon } from "./CheckboxAddon";
 
 type FormAddonProps = {
   stat: StatObject;
-  title: string;
-
-  mainLabel: string;
-  subLabels: string[];
-
   mainLevel: number;
   subLevels: number[];
   subActiveIndexes: number[];
+
+  title: string;
+  mainLabel: string;
+  subLabels: string[];
 
   onMainLevelChange: (next_level: number) => void;
   onSubLevelChange: (next_level: number, skill_index: number) => void;
   onSubActiveIndexChange: (skill_index: number) => void;
 };
-export const FormAddon: FC<FormAddonProps> = (props) => {
+export const FormAddon: FC<FormAddonProps> = memo((props) => {
   const {
     title,
     stat,
@@ -83,35 +82,33 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
         slotCardContent={
           <Stack spacing={3}>
             <FieldAddon
-              slotLabel={
-                <Typography fontWeight="bold">{mainLabel}</Typography>
-              }
+              bold
+              title={mainLabel}
               slotCheckbox={null}
               level={mainLevel}
               onLevelChange={onMainLevelChange}
             />
             <Stack spacing={1}>
-              {subActiveIndexes.map((orderNumber, skill_index) => {
+              {subActiveIndexes.map((order_number, skill_index) => {
                 const sub_level: number = subLevels[skill_index];
                 const sub_label: string = subLabels[skill_index];
-                const handleLevelChange = (next_level: number) => {
-                  onSubLevelChange(next_level, skill_index);
-                };
-                const handleActiveIndexChange = () => {
-                  onSubActiveIndexChange(skill_index);
-                };
                 return (
                   <FieldAddon
                     key={`${sub_label}-${skill_index}`}
-                    slotLabel={<Typography>{sub_label}</Typography>}
+                    bold={false}
+                    title={sub_label}
                     slotCheckbox={
                       <CheckboxAddon
-                        orderNumber={orderNumber}
-                        onClick={handleActiveIndexChange}
+                        orderNumber={order_number}
+                        onClick={() => {
+                          onSubActiveIndexChange(skill_index);
+                        }}
                       />
                     }
                     level={sub_level}
-                    onLevelChange={handleLevelChange}
+                    onLevelChange={(next_level: number) => {
+                      onSubLevelChange(next_level, skill_index);
+                    }}
                   />
                 );
               })}
@@ -132,4 +129,4 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
       </Dialog>
     </Fragment>
   );
-};
+});

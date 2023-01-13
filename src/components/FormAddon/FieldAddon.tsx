@@ -1,35 +1,26 @@
-import {
-  CheckBoxOutlineBlankRounded,
-  CheckBoxRounded,
-  LooksOneRounded,
-  LooksTwoRounded,
-} from "@mui/icons-material";
-import {
-  Box,
-  Checkbox,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { FC, ReactNode } from "react";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import { FC, memo, ReactNode } from "react";
 import { AddonSkill } from "../../assets";
 import { FieldLevel } from "../FieldLevel";
 
 type FieldAddonProps = {
-  slotLabel: ReactNode;
   slotCheckbox: ReactNode;
+  bold: boolean;
+  title: string;
   level: number;
   onLevelChange: (value: number) => void;
 };
-export const FieldAddon: FC<FieldAddonProps> = (props) => {
-  const { slotLabel, slotCheckbox, level, onLevelChange } = props;
+export const FieldAddon: FC<FieldAddonProps> = memo((props) => {
+  const { title, bold, slotCheckbox, level, onLevelChange } = props;
   return (
     <Box>
       <Grid container columns={3} spacing={1} alignItems="center">
         <Grid item xs>
           <Stack spacing={1} direction="row" alignItems="center">
             {slotCheckbox}
-            {slotLabel}
+            <Typography fontWeight={bold ? "bold" : "normal"}>
+              {title}
+            </Typography>
           </Stack>
         </Grid>
         <Grid item xs={1}>
@@ -45,4 +36,4 @@ export const FieldAddon: FC<FieldAddonProps> = (props) => {
       </Grid>
     </Box>
   );
-};
+});

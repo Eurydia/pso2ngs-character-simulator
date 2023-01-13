@@ -8,6 +8,8 @@ const LOOKUP_UNIT: { [key: string]: Unit } = {};
 export type Unit = Readonly<{
   label: string;
   rarity: GroupEnumUnitRarity;
+  enhancement_max: number;
+  level_required: number;
   growth_data: [number, number][];
   getAwareStatObject: (ctx: ActionContext) => StatObject;
 }>;
@@ -112,12 +114,16 @@ export const Unit = {
 export const unit = (
   label: string,
   rarity: GroupEnumUnitRarity,
+  enhancement_max: number,
+  level_required: number,
   growth_data: [number, number][],
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   const result: Unit = {
     label,
     rarity,
+    enhancement_max,
+    level_required,
     growth_data,
     getAwareStatObject,
   };
