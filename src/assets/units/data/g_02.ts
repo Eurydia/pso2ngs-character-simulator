@@ -18,7 +18,7 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitTwo = (
   name: string,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   return unit(
     name,
@@ -32,19 +32,10 @@ const makeUnitTwo = (
 
 // -------------------------
 G_TWO.push(
-  makeUnitTwo("Tzvia Armor", 1, (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 9,
-      [StatEnum.CORE_PP]: 2,
-    });
-  }),
-);
-
-G_TWO.push(
   makeUnitTwo(
-    "Silver Primm Armor",
+    "Tzvia Armor",
     1,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 9,
         [StatEnum.CORE_PP]: 2,
@@ -54,10 +45,27 @@ G_TWO.push(
 );
 
 G_TWO.push(
-  makeUnitTwo("N-EXP Armor", 1, (_: ActionContext): StatObject => {
-    return statObject({
-      [StatEnum.CORE_DEFENSE]: 9,
-      [StatEnum.CORE_PP]: 2,
-    });
-  }),
+  makeUnitTwo(
+    "Silver Primm Armor",
+    1,
+    (_: ActionContext | null): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 9,
+        [StatEnum.CORE_PP]: 2,
+      });
+    },
+  ),
+);
+
+G_TWO.push(
+  makeUnitTwo(
+    "N-EXP Armor",
+    1,
+    (_: ActionContext | null): StatObject => {
+      return statObject({
+        [StatEnum.CORE_DEFENSE]: 9,
+        [StatEnum.CORE_PP]: 2,
+      });
+    },
+  ),
 );
