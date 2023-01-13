@@ -57,7 +57,8 @@ export const loadPotentialLevel = (storage_key: string): number => {
   }
   return parsed_string;
 };
-
+// ---------------------------------------------
+// Hook
 export const useWeapon = (
   storage_key: string,
 ): {
