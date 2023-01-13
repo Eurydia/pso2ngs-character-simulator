@@ -1,5 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
+
 import { GroupEnumUnitRarity } from "../groupEnum";
 import { unit, Unit } from "../unit";
 
@@ -16,7 +17,7 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitSeven = (
   name: string,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
+  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   return unit(
     name,
@@ -37,7 +38,7 @@ const makeUnitSeven = (
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 39,
         [StatEnum.CORE_HP]: 30,
@@ -60,7 +61,7 @@ G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vida",
     61,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 40,
         [StatEnum.CORE_HP]: 55,
@@ -77,7 +78,7 @@ G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vio",
     61,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 40,
         [StatEnum.CORE_PP]: 10,
@@ -94,7 +95,7 @@ G_SEVEN.push(
   makeUnitSeven(
     "Eclaireur Armor",
     65,
-    (_: ActionContext): StatObject => {
+    (_: ActionContext | null): StatObject => {
       return statObject({
         [StatEnum.CORE_DEFENSE]: 35,
         [StatEnum.WEAPON_MELEE]: 1.04,
