@@ -16,14 +16,13 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitThree = (
   name: string,
-  enhancement_max: number,
   level_required: number,
   getterFunction: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_THREE,
-    enhancement_max,
+    60,
     level_required,
     GROWTH_DATA,
     getterFunction,
@@ -34,7 +33,6 @@ const makeUnitThree = (
 G_THREE.push(
   makeUnitThree(
     "Theseus Armor",
-    60,
     5,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -49,7 +47,6 @@ G_THREE.push(
 G_THREE.push(
   makeUnitThree(
     "Gold Primm Armor",
-    60,
     5,
     (_: ActionContext): StatObject => {
       return statObject({
@@ -64,7 +61,6 @@ G_THREE.push(
 G_THREE.push(
   makeUnitThree(
     "Renaissa Armor",
-    60,
     1,
     (_: ActionContext): StatObject => {
       return statObject({
