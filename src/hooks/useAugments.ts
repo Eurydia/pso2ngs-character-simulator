@@ -1,34 +1,42 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Augment } from "../assets";
 import { isValidJSON } from "./utility";
 
+const SUFFIX_KEY_AUGMENT: string = "augment";
+
+// ---------------------------------------------
+// Setter
 const saveAugments = (
   storage_key: string,
   augments: (Augment | null)[],
 ): void => {
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
   const string_data: string = Augment.toString(augments);
-  localStorage.setItem(storage_key, string_data);
+  localStorage.setItem(KEY, string_data);
 };
 
-const retrieveAugments = (
+// ---------------------------------------------
+// Getter
+const loadAugments = (
   storage_key: string,
   size: number,
 ): (Augment | null)[] => {
-  let result: (Augment | null)[] = Array(size).fill(null);
+  const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
 
-  const loaded_data: string | null =
-    localStorage.getItem(storage_key);
-  if (loaded_data === null) {
+  let result: (Augment | null)[] = Array(size).fill(null);
+  const loaded_string: string | null = localStorage.getItem(KEY);
+  if (loaded_string === null) {
     return result;
   }
-  if (!isValidJSON(loaded_data)) {
+  if (!isValidJSON(loaded_string)) {
     return result;
   }
-  const labels: string[] | unknown = JSON.parse(loaded_data);
+  const labels: string[] | unknown = JSON.parse(loaded_string);
   if (!Array.isArray(labels)) {
     return result;
   }
+
   result = Augment.fromLabels(labels.slice(0, size));
   while (result.length < size) {
     result.push(null);
@@ -40,36 +48,36 @@ const retrieveAugments = (
 };
 
 export const useAugments = (
-  key_augment: string,
-): [
-  (Augment | null)[],
-  (value: Augment | null, index: number) => void,
-] => {
-  const [value, setValue] = useState(() => {
-    return retrieveAugments(
-      key_augment,
-      Augment.getAugmentSlot(9999),
-    );
+  storage_key: string,
+): {
+  augments: (Augment | null)[];
+  setAugment: (
+    next_augment: Augment | null,
+    augment_index: number,
+  ) => void;
+} => {
+  const [values, setValues] = useState<(Augment | null)[]>(() => {
+    return loadAugments(storage_key, Augment.getAugmentSlot(9999));
   });
 
+  const setAugment = useCallback(
+    (next_augment: Augment | null, augment_index: number) => {
+      if (augment_index < 0 || augment_index >= values.length) {
+        return;
+      }
+      setValues((prev) => {
+        let next = [...prev];
+        next[augment_index] = next_augment;
+        next = Augment.removeConflict(next, augment_index);
+        return next;
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
-    saveAugments(key_augment, value);
-  }, [value]);
+    saveAugments(storage_key, values);
+  }, [values]);
 
-  const setter = (
-    new_value: Augment | null,
-    augment_index: number,
-  ) => {
-    if (augment_index < 0 || value.length <= augment_index) {
-      return;
-    }
-    setValue((prev) => {
-      let next = [...prev];
-      next[augment_index] = new_value;
-      next = Augment.removeConflict(next, augment_index);
-      return next;
-    });
-  };
-
-  return [value, setter];
+  return { augments: values, setAugment };
 };
