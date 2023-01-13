@@ -15,36 +15,37 @@ const saveAugments = (
   const data_string: string = Augment.toString(augments);
   localStorage.setItem(KEY, data_string);
 };
-
 // ---------------------------------------------
 // Getter
 const loadAugments = (
   storage_key: string,
   size: number,
 ): (Augment | null)[] => {
+  const fallback: (Augment | null)[] = Array(size).fill(null);
   const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
 
-  let result: (Augment | null)[] = Array(size).fill(null);
   const loaded_string: string | null = localStorage.getItem(KEY);
   if (loaded_string === null) {
-    return result;
+    return fallback;
   }
   if (!isValidJSON(loaded_string)) {
-    return result;
+    return fallback;
   }
   const labels: string[] | unknown = JSON.parse(loaded_string);
   if (!Array.isArray(labels)) {
-    return result;
+    return fallback;
   }
 
-  result = Augment.fromLabels(labels.slice(0, size));
-  while (result.length < size) {
-    result.push(null);
+  let results: (Augment | null)[] = Augment.fromLabels(
+    labels.slice(0, size),
+  );
+  while (results.length < size) {
+    results.push(null);
   }
   for (let index = 0; index < size; index++) {
-    result = Augment.removeConflict(result, index);
+    results = Augment.removeConflict(results, index);
   }
-  return result;
+  return results;
 };
 // ---------------------------------------------
 // Hook
