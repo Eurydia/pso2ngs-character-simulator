@@ -39,6 +39,7 @@ import {
   useFixa,
   useWeapon,
 } from "../../hooks";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormWeaponProps = {
   cardTitle: string;
@@ -93,18 +94,11 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       <FormBase
         cardTitle={cardTitle}
         slotCardHeaderAction={
-          <Tooltip
-            placement="top"
-            title={<Typography>Open summary</Typography>}
-          >
-            <IconButton
-              size="large"
-              color="primary"
-              onClick={handleDialogOpen}
-            >
-              <BarChartRounded />
-            </IconButton>
-          </Tooltip>
+          <IconButtonTooltip
+            tooltipText="Open summary"
+            icon={<BarChartRounded />}
+            onClick={handleDialogOpen}
+          />
         }
         slotCardContent={
           <Grid container spacing={2} columns={{ xs: 1, sm: 2 }}>
