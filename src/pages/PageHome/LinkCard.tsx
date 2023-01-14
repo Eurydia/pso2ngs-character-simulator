@@ -1,21 +1,6 @@
-import { FC, Fragment, ReactNode, useState } from "react";
-import {
-  BarChartRounded,
-  BuildRounded,
-  LaunchRounded,
-} from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { FC, memo } from "react";
+import { Button, Card, CardActions, CardHeader } from "@mui/material";
+import { LaunchRounded } from "@mui/icons-material";
 
 type LinkCardProps = {
   cardTitle: string;

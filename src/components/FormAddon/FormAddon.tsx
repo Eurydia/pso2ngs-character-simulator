@@ -14,15 +14,19 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Checkbox,
 } from "@mui/material";
-import { BarChartRounded } from "@mui/icons-material";
+import {
+  BarChartRounded,
+  CheckBoxRounded,
+} from "@mui/icons-material";
 
 import { ActionContext, AddonSkill, StatObject } from "../../assets";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
-import { FieldAddon } from "./FieldAddon";
+import { FieldAddonLayout } from "./FieldAddon";
 import { CheckboxAddon } from "./CheckboxAddon";
 import {
   loadMainLevel,
@@ -33,6 +37,7 @@ import {
   saveSubActiveIndexes,
 } from "./helper";
 import { IconButtonTooltip } from "../IconButtonTooltip";
+import { FieldLevel } from "../FieldLevel";
 
 type FormAddonProps = {
   // dynamic props
@@ -157,12 +162,29 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
         }
         slotCardContent={
           <Stack spacing={3}>
-            <FieldAddon
-              bold
-              title={mainSkill.label}
-              slotCheckbox={null}
-              level={mainLevel}
-              onLevelChange={setMainLevel}
+            <FieldAddonLayout
+              slotCheckbox={
+                <Checkbox
+                  checked
+                  disabled
+                  checkedIcon={<CheckBoxRounded />}
+                />
+              }
+              slotLabel={
+                <Typography fontWeight="bold">
+                  {mainSkill.label}
+                </Typography>
+              }
+              slotField={
+                <FieldLevel
+                  disabled={false}
+                  label="Level"
+                  levelMin={0}
+                  levelMax={AddonSkill.LEVEL_MAX}
+                  level={mainLevel}
+                  onLevelChange={setMainLevel}
+                />
+              }
             />
             <Stack spacing={1}>
               {subSkills.map((sub_skill, skill_index) => {
@@ -170,19 +192,29 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                 const sub_level = subLevels[skill_index];
                 const order_number = subActiveIndexes[skill_index];
                 return (
-                  <FieldAddon
+                  <FieldAddonLayout
                     key={`${sub_label}-${skill_index}`}
-                    bold={false}
-                    title={sub_label}
-                    level={sub_level}
-                    onLevelChange={(next_level: number) => {
-                      handleSubLevelChange(next_level, skill_index);
-                    }}
+                    slotLabel={<Typography>{sub_label}</Typography>}
                     slotCheckbox={
                       <CheckboxAddon
                         orderNumber={order_number}
                         onClick={() => {
                           handleSubActiveIndexChange(skill_index);
+                        }}
+                      />
+                    }
+                    slotField={
+                      <FieldLevel
+                        disabled={false}
+                        label="Level"
+                        levelMin={0}
+                        levelMax={AddonSkill.LEVEL_MAX}
+                        level={sub_level}
+                        onLevelChange={(next_level) => {
+                          handleSubLevelChange(
+                            next_level,
+                            skill_index,
+                          );
                         }}
                       />
                     }

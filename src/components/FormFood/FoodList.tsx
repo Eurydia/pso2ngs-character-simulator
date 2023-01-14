@@ -29,7 +29,7 @@ const FoodListItem: FC<FoodListItemProps> = memo(
         <ListItemSecondaryAction>
           <Tooltip
             placement="top"
-            title={<Typography>Insert item below</Typography>}
+            title={<Typography>Insert below</Typography>}
           >
             <IconButton onClick={onCopy}>
               <CopyAllRounded />

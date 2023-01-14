@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { HomeRounded } from "@mui/icons-material";
+import { grey } from "@mui/material/colors";
 
 import { FormContextEditor, StatView } from "../../components";
 import { StatObject, statObject } from "../../assets";
@@ -47,15 +48,13 @@ export const PageHome: FC<PageHomeProps> = (props) => {
             placement="top"
             title={<Typography>Home</Typography>}
           >
-            <span>
-              <IconButton
-                onClick={() => {
-                  return setPage(0);
-                }}
-              >
-                <HomeRounded />
-              </IconButton>
-            </span>
+            <IconButton
+              onClick={() => {
+                return setPage(0);
+              }}
+            >
+              <HomeRounded htmlColor={grey[200]} />
+            </IconButton>
           </Tooltip>
         </Toolbar>
       </AppBar>
