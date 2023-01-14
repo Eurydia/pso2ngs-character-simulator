@@ -152,7 +152,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
       <PageEditAddon
         isVisible={page === 4}
         context={contextApp}
-        storage_key="p-addon"
+        pageStorageKey="p-addon"
         onStatChange={setStatAddon}
       />
     </Fragment>

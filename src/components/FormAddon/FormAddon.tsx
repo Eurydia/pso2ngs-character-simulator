@@ -1,4 +1,11 @@
-import { FC, Fragment, useCallback, useState } from "react";
+import {
+  FC,
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Tooltip,
   Typography,
@@ -10,42 +17,43 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { StatObject } from "../../assets";
+import { ActionContext, AddonSkill, StatObject } from "../../assets";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 import { FieldAddon } from "./FieldAddon";
 import { CheckboxAddon } from "./CheckboxAddon";
+import {
+  loadMainLevel,
+  loadSubLevels,
+  loadSubActiveIndexes,
+  saveMainLevel,
+  saveSubLevels,
+  saveSubActiveIndexes,
+} from "./helper";
+import { useFixa } from "../../hooks";
 
 type FormAddonProps = {
   // dynamic props
-  stat: StatObject;
-  mainLevel: number;
-  subLevels: number[];
-  subActiveIndexes: number[];
+  context: ActionContext;
 
   // static props
+  formStorageKey: string;
   title: string;
-  mainLabel: string;
-  subLabels: string[];
+  mainSkill: AddonSkill;
+  subSkills: AddonSkill[];
 
-  onMainLevelChange: (next_level: number) => void;
-  onSubLevelChange: (next_level: number, skill_index: number) => void;
-  onSubActiveIndexChange: (skill_index: number) => void;
+  onStatChange: (next_stat: StatObject) => void;
 };
 export const FormAddon: FC<FormAddonProps> = (props) => {
   const {
     title,
-    stat,
-    mainLabel,
-    subLabels,
-    mainLevel,
-    subLevels,
-    subActiveIndexes,
-    onMainLevelChange,
-    onSubLevelChange,
-    onSubActiveIndexChange,
+    formStorageKey,
+    context,
+    mainSkill,
+    subSkills,
+    onStatChange,
   } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -56,6 +64,88 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
   }, []);
+
+  const [mainLevel, setMainLevel] = useState<number>(() => {
+    return loadMainLevel(formStorageKey);
+  });
+  const [subActiveIndexes, setSubActiveIndexes] = useState<number[]>(
+    () => {
+      const size: number = subSkills.length;
+      return loadSubActiveIndexes(formStorageKey, size);
+    },
+  );
+  const [subLevels, setSubLevels] = useState<number[]>(() => {
+    const size: number = subSkills.length;
+    return loadSubLevels(formStorageKey, size);
+  });
+
+  const handleSubLevelChange = useCallback(
+    (next_level: number, skill_index: number): void => {
+      setSubLevels((prev) => {
+        const next = [...prev];
+        next[skill_index] = next_level;
+        return next;
+      });
+    },
+    [],
+  );
+  const handleSubActiveIndexChange = useCallback(
+    (skill_index: number): void => {
+      setSubActiveIndexes((prev) => {
+        if (prev[skill_index] > 0) {
+          return prev;
+        }
+        let next = [...prev];
+        next = next.map((value) => {
+          if (value === 0) {
+            return 0;
+          }
+          return value - 1;
+        });
+        next[skill_index] = 2;
+        return next;
+      });
+    },
+    [],
+  );
+
+  const stat = useMemo((): StatObject => {
+    let stat = AddonSkill.getStatObject(
+      context,
+      mainSkill,
+      mainLevel,
+    );
+    subActiveIndexes.forEach((order_number, skill_index) => {
+      if (order_number === 0) {
+        return;
+      }
+      const sub_addon: AddonSkill = subSkills[skill_index];
+      const sub_level: number = subLevels[skill_index];
+      const sub_stat: StatObject = AddonSkill.getStatObject(
+        context,
+        sub_addon,
+        sub_level,
+      );
+      stat = StatObject.merge(stat, sub_stat);
+    });
+    return stat;
+  }, [mainLevel, subLevels, subActiveIndexes, context]);
+
+  useEffect(() => {
+    saveMainLevel(formStorageKey, mainLevel);
+  }, [mainLevel]);
+
+  useEffect(() => {
+    saveSubLevels(formStorageKey, subLevels);
+  }, [subLevels]);
+
+  useEffect(() => {
+    saveSubActiveIndexes(formStorageKey, subActiveIndexes);
+  }, [subActiveIndexes]);
+
+  useEffect(() => {
+    onStatChange(stat);
+  }, [stat]);
 
   return (
     <Fragment>
@@ -79,15 +169,16 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
           <Stack spacing={3}>
             <FieldAddon
               bold
-              title={mainLabel}
+              title={mainSkill.label}
               slotCheckbox={null}
               level={mainLevel}
-              onLevelChange={onMainLevelChange}
+              onLevelChange={setMainLevel}
             />
             <Stack spacing={1}>
               {subActiveIndexes.map((order_number, skill_index) => {
                 const sub_level: number = subLevels[skill_index];
-                const sub_label: string = subLabels[skill_index];
+                const sub_label: string =
+                  subSkills[skill_index].label;
                 return (
                   <FieldAddon
                     key={`${sub_label}-${skill_index}`}
@@ -97,13 +188,13 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                       <CheckboxAddon
                         orderNumber={order_number}
                         onClick={() => {
-                          onSubActiveIndexChange(skill_index);
+                          handleSubActiveIndexChange(skill_index);
                         }}
                       />
                     }
                     level={sub_level}
                     onLevelChange={(next_level: number) => {
-                      onSubLevelChange(next_level, skill_index);
+                      handleSubLevelChange(next_level, skill_index);
                     }}
                   />
                 );

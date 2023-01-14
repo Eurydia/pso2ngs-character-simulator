@@ -1,4 +1,11 @@
-import { FC, Fragment, useEffect, useMemo, useState } from "react";
+import {
+  FC,
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Box,
   Container,
@@ -11,6 +18,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { BarChartRounded } from "@mui/icons-material";
 
 import { FormAddon, StatView } from "../../components";
 
@@ -18,10 +26,9 @@ import {
   ActionContext,
   AddonSkill,
   AssetAddonSkills,
+  statObject,
   StatObject,
 } from "../../assets";
-import { useFormAddon } from "../../hooks";
-import { BarChartRounded } from "@mui/icons-material";
 
 // ------------------ Hunter ------------------
 const HUNTER_MAIN_ADDON: AddonSkill =
@@ -97,193 +104,75 @@ const WAKER_SUB_ADDONS: AddonSkill[] = [
 ];
 
 type PageEditAddonProps = {
-  storage_key: string;
+  pageStorageKey: string;
   context: ActionContext;
   isVisible: boolean;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
-  const { storage_key, isVisible, context, onStatChange } = props;
+  const { pageStorageKey, isVisible, context, onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const {
-    mainLevel: huMainLevel,
-    subLevels: huSubLevels,
-    subActiveIndexes: huSubActiveIndexes,
-    setMainLevel: huSetMainLevel,
-    setSubLevel: huSetSubLevel,
-    setSubActiveIndex: huSetSubActiveIndex,
-    getStatObject: huGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-hunter`,
-    HUNTER_MAIN_ADDON,
-    HUNTER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: fiMainLevel,
-    subLevels: fiSubLevels,
-    subActiveIndexes: fiSubActiveIndexes,
-    setMainLevel: fiSetMainLevel,
-    setSubLevel: fiSetSubLevel,
-    setSubActiveIndex: fiSetSubActiveIndex,
-    getStatObject: fiGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-fighter`,
-    FIGHTER_MAIN_ADDON,
-    FIGHTER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: raMainLevel,
-    subLevels: raSubLevels,
-    subActiveIndexes: raSubActiveIndexes,
-    setMainLevel: raSetMainLevel,
-    setSubLevel: raSetSubLevel,
-    setSubActiveIndex: raSetSubActiveIndex,
-    getStatObject: raGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-ranger`,
-    RANGER_MAIN_ADDON,
-    RANGER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: guMainLevel,
-    subLevels: guSubLevels,
-    subActiveIndexes: guSubActiveIndexes,
-    setMainLevel: guSetMainLevel,
-    setSubLevel: guSetSubLevel,
-    setSubActiveIndex: guSetSubActiveIndex,
-    getStatObject: guGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-gunner`,
-    GUNNER_MAIN_ADDON,
-    GUNNER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: foMainLevel,
-    subLevels: foSubLevels,
-    subActiveIndexes: foSubActiveIndexes,
-    setMainLevel: foSetMainLevel,
-    setSubLevel: foSetSubLevel,
-    setSubActiveIndex: foSetSubActiveIndex,
-    getStatObject: foGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-force`,
-    FORCE_MAIN_ADDON,
-    FORCE_SUB_ADDONS,
-  );
-  const {
-    mainLevel: teMainLevel,
-    subLevels: teSubLevels,
-    subActiveIndexes: teSubActiveIndexes,
-    setMainLevel: teSetMainLevel,
-    setSubLevel: teSetSubLevel,
-    setSubActiveIndex: teSetSubActiveIndex,
-    getStatObject: teGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-techter`,
-    TECHTER_MAIN_ADDON,
-    TECHTER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: brMainLevel,
-    subLevels: brSubLevels,
-    subActiveIndexes: brSubActiveIndexes,
-    setMainLevel: brSetMainLevel,
-    setSubLevel: brSetSubLevel,
-    setSubActiveIndex: brSetSubActiveIndex,
-    getStatObject: brGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-braver`,
-    BRAVER_MAIN_ADDON,
-    BRAVER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: boMainLevel,
-    subLevels: boSubLevels,
-    subActiveIndexes: boSubActiveIndexes,
-    setMainLevel: boSetMainLevel,
-    setSubLevel: boSetSubLevel,
-    setSubActiveIndex: boSetSubActiveIndex,
-    getStatObject: boGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-bouncer`,
-    BOUNCER_MAIN_ADDON,
-    BOUNCER_SUB_ADDONS,
-  );
-  const {
-    mainLevel: waMainLevel,
-    subLevels: waSubLevels,
-    subActiveIndexes: waSubActiveIndexes,
-    setMainLevel: waSetMainLevel,
-    setSubLevel: waSetSubLevel,
-    setSubActiveIndex: waSetSubActiveIndex,
-    getStatObject: waGetStatObject,
-  } = useFormAddon(
-    `${storage_key}-waker`,
-    WAKER_MAIN_ADDON,
-    WAKER_SUB_ADDONS,
-  );
+  const handleDialogOpen = useCallback(() => {
+    setDialogOpen(true);
+  }, []);
+  const handleDialogClose = useCallback(() => {
+    setDialogOpen(false);
+  }, []);
 
-  const stat_hu: StatObject = useMemo(() => {
-    return huGetStatObject(context);
-  }, [context, huGetStatObject]);
-  const stat_fi: StatObject = useMemo(() => {
-    return fiGetStatObject(context);
-  }, [context, fiGetStatObject]);
-  const stat_ra: StatObject = useMemo(() => {
-    return raGetStatObject(context);
-  }, [context, raGetStatObject]);
-  const stat_gu: StatObject = useMemo(() => {
-    return guGetStatObject(context);
-  }, [context, guGetStatObject]);
-  const stat_fo: StatObject = useMemo(() => {
-    return foGetStatObject(context);
-  }, [context, foGetStatObject]);
-  const stat_te: StatObject = useMemo(() => {
-    return teGetStatObject(context);
-  }, [context, teGetStatObject]);
-  const stat_br: StatObject = useMemo(() => {
-    return brGetStatObject(context);
-  }, [context, brGetStatObject]);
-  const stat_bo: StatObject = useMemo(() => {
-    return boGetStatObject(context);
-  }, [context, boGetStatObject]);
-  const stat_wa: StatObject = useMemo(() => {
-    return waGetStatObject(context);
-  }, [context, waGetStatObject]);
+  const [statHunter, setStatHunter] = useState<StatObject>(
+    statObject(),
+  );
+  const [statFighter, setStatFighter] = useState<StatObject>(
+    statObject(),
+  );
+  const [statRanger, setStatRanger] = useState<StatObject>(
+    statObject(),
+  );
+  const [statGunner, setStatGunner] = useState<StatObject>(
+    statObject(),
+  );
+  const [statForce, setStatForce] = useState<StatObject>(
+    statObject(),
+  );
+  const [statTechter, setStatTechter] = useState<StatObject>(
+    statObject(),
+  );
+  const [statBraver, setStatBraver] = useState<StatObject>(
+    statObject(),
+  );
+  const [statBouncer, setStatBouncer] = useState<StatObject>(
+    statObject(),
+  );
+  const [statWaker, setStatWaker] = useState<StatObject>(
+    statObject(),
+  );
 
   const stat_total = useMemo((): StatObject => {
-    let stat = StatObject.merge(stat_hu, stat_fi);
-    stat = StatObject.merge(stat, stat_ra);
-    stat = StatObject.merge(stat, stat_gu);
-    stat = StatObject.merge(stat, stat_fo);
-    stat = StatObject.merge(stat, stat_te);
-    stat = StatObject.merge(stat, stat_br);
-    stat = StatObject.merge(stat, stat_bo);
-    return StatObject.merge(stat, stat_wa);
+    let result = StatObject.merge(statHunter, statFighter);
+    result = StatObject.merge(result, statRanger);
+    result = StatObject.merge(result, statGunner);
+    result = StatObject.merge(result, statForce);
+    result = StatObject.merge(result, statTechter);
+    result = StatObject.merge(result, statBraver);
+    result = StatObject.merge(result, statBouncer);
+    return StatObject.merge(result, statWaker);
   }, [
-    stat_hu,
-    stat_fi,
-    stat_ra,
-    stat_gu,
-    stat_fo,
-    stat_te,
-    stat_br,
-    stat_bo,
-    stat_wa,
+    statHunter,
+    statFighter,
+    statRanger,
+    statGunner,
+    statForce,
+    statTechter,
+    statBraver,
+    statBouncer,
+    statWaker,
   ]);
 
   useEffect(() => {
     onStatChange(stat_total);
   }, [stat_total]);
-
-  const handleDialogOpen = () => {
-    setDialogOpen(true);
-  };
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
 
   return (
     <Fragment>
@@ -315,74 +204,44 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={2}>
                 <FormAddon
+                  mainSkill={HUNTER_MAIN_ADDON}
+                  subSkills={HUNTER_SUB_ADDONS}
                   title="Hunter"
-                  stat={stat_hu}
-                  mainLabel={HUNTER_MAIN_ADDON.label}
-                  subLabels={HUNTER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={huMainLevel}
-                  subLevels={huSubLevels}
-                  subActiveIndexes={huSubActiveIndexes}
-                  onMainLevelChange={huSetMainLevel}
-                  onSubLevelChange={huSetSubLevel}
-                  onSubActiveIndexChange={huSetSubActiveIndex}
+                  formStorageKey={`${pageStorageKey}-hunter`}
+                  context={context}
+                  onStatChange={setStatHunter}
                 />
                 <FormAddon
+                  mainSkill={RANGER_MAIN_ADDON}
+                  subSkills={RANGER_SUB_ADDONS}
                   title="Ranger"
-                  stat={stat_ra}
-                  mainLabel={RANGER_MAIN_ADDON.label}
-                  subLabels={RANGER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={raMainLevel}
-                  subLevels={raSubLevels}
-                  subActiveIndexes={raSubActiveIndexes}
-                  onMainLevelChange={raSetMainLevel}
-                  onSubLevelChange={raSetSubLevel}
-                  onSubActiveIndexChange={raSetSubActiveIndex}
+                  formStorageKey={`${pageStorageKey}-ranger`}
+                  context={context}
+                  onStatChange={setStatRanger}
                 />
                 <FormAddon
+                  mainSkill={FORCE_MAIN_ADDON}
+                  subSkills={FORCE_SUB_ADDONS}
                   title="Force"
-                  stat={stat_fo}
-                  mainLabel={FORCE_MAIN_ADDON.label}
-                  subLabels={FORCE_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={foMainLevel}
-                  subLevels={foSubLevels}
-                  subActiveIndexes={foSubActiveIndexes}
-                  onMainLevelChange={foSetMainLevel}
-                  onSubLevelChange={foSetSubLevel}
-                  onSubActiveIndexChange={foSetSubActiveIndex}
+                  formStorageKey={`${pageStorageKey}-force`}
+                  context={context}
+                  onStatChange={setStatForce}
                 />
                 <FormAddon
+                  mainSkill={BRAVER_MAIN_ADDON}
+                  subSkills={BRAVER_SUB_ADDONS}
                   title="Braver"
-                  stat={stat_br}
-                  mainLabel={BRAVER_MAIN_ADDON.label}
-                  subLabels={BRAVER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={brMainLevel}
-                  subLevels={brSubLevels}
-                  subActiveIndexes={brSubActiveIndexes}
-                  onMainLevelChange={brSetMainLevel}
-                  onSubLevelChange={brSetSubLevel}
-                  onSubActiveIndexChange={brSetSubActiveIndex}
+                  formStorageKey={`${pageStorageKey}-braver`}
+                  context={context}
+                  onStatChange={setStatBraver}
                 />
                 <FormAddon
+                  mainSkill={WAKER_MAIN_ADDON}
+                  subSkills={WAKER_SUB_ADDONS}
                   title="Waker"
-                  stat={stat_wa}
-                  mainLabel={WAKER_MAIN_ADDON.label}
-                  subLabels={WAKER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={waMainLevel}
-                  subLevels={waSubLevels}
-                  subActiveIndexes={waSubActiveIndexes}
-                  onMainLevelChange={waSetMainLevel}
-                  onSubLevelChange={waSetSubLevel}
-                  onSubActiveIndexChange={waSetSubActiveIndex}
+                  formStorageKey={`${pageStorageKey}-waker`}
+                  context={context}
+                  onStatChange={setStatWaker}
                 />
               </Stack>
             </Grid>
@@ -390,59 +249,35 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
               <Stack spacing={2}>
                 <FormAddon
                   title="Fighter"
-                  stat={stat_fi}
-                  mainLabel={FIGHTER_MAIN_ADDON.label}
-                  subLabels={FIGHTER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={fiMainLevel}
-                  subLevels={fiSubLevels}
-                  subActiveIndexes={fiSubActiveIndexes}
-                  onMainLevelChange={fiSetMainLevel}
-                  onSubLevelChange={fiSetSubLevel}
-                  onSubActiveIndexChange={fiSetSubActiveIndex}
+                  mainSkill={FIGHTER_MAIN_ADDON}
+                  subSkills={FIGHTER_SUB_ADDONS}
+                  formStorageKey={`${pageStorageKey}-fighter`}
+                  context={context}
+                  onStatChange={setStatFighter}
                 />
                 <FormAddon
                   title="Gunner"
-                  stat={stat_gu}
-                  mainLabel={GUNNER_MAIN_ADDON.label}
-                  subLabels={GUNNER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={guMainLevel}
-                  subLevels={guSubLevels}
-                  subActiveIndexes={guSubActiveIndexes}
-                  onMainLevelChange={guSetMainLevel}
-                  onSubLevelChange={guSetSubLevel}
-                  onSubActiveIndexChange={guSetSubActiveIndex}
+                  mainSkill={GUNNER_MAIN_ADDON}
+                  subSkills={GUNNER_SUB_ADDONS}
+                  formStorageKey={`${pageStorageKey}-gunner`}
+                  context={context}
+                  onStatChange={setStatGunner}
                 />
                 <FormAddon
                   title="Techter"
-                  stat={stat_te}
-                  mainLabel={TECHTER_MAIN_ADDON.label}
-                  subLabels={TECHTER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={teMainLevel}
-                  subLevels={teSubLevels}
-                  subActiveIndexes={teSubActiveIndexes}
-                  onMainLevelChange={teSetMainLevel}
-                  onSubLevelChange={teSetSubLevel}
-                  onSubActiveIndexChange={teSetSubActiveIndex}
+                  mainSkill={TECHTER_MAIN_ADDON}
+                  subSkills={TECHTER_SUB_ADDONS}
+                  formStorageKey={`${pageStorageKey}-techter`}
+                  context={context}
+                  onStatChange={setStatTechter}
                 />
                 <FormAddon
                   title="Bouncer"
-                  stat={stat_bo}
-                  mainLabel={BOUNCER_MAIN_ADDON.label}
-                  subLabels={BOUNCER_SUB_ADDONS.map((skill) => {
-                    return skill.label;
-                  })}
-                  mainLevel={boMainLevel}
-                  subLevels={boSubLevels}
-                  subActiveIndexes={boSubActiveIndexes}
-                  onMainLevelChange={boSetMainLevel}
-                  onSubLevelChange={boSetSubLevel}
-                  onSubActiveIndexChange={boSetSubActiveIndex}
+                  mainSkill={BOUNCER_MAIN_ADDON}
+                  subSkills={BOUNCER_SUB_ADDONS}
+                  formStorageKey={`${pageStorageKey}-bouncer`}
+                  context={context}
+                  onStatChange={setStatBouncer}
                 />
               </Stack>
             </Grid>
