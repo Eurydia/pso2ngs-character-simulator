@@ -3,8 +3,6 @@ export { useFixa } from "./useFixa";
 export { useWeapon } from "./useWeapon";
 export { useUnit } from "./useUnit";
 export { useEnhancement } from "./useEnhancement";
-// export { useFood } from "./useFood";
 
 export { useFormUnit } from "./useFormUnit";
 export { useActionContext } from "./useActionContext";
-// export { useFormAddon } from "./useFormAddon";
