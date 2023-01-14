@@ -27,7 +27,7 @@ export const useFormUnit = (
   ) => void;
 } => {
   const { unit, setUnit } = useUnit(storage_key);
-  const { enhacement: unitLevel, setEnhancement: setUnitLevel } =
+  const { enhancement: unitLevel, setEnhancement: setUnitLevel } =
     useEnhancement(storage_key);
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
