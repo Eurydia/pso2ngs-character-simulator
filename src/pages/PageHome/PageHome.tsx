@@ -140,7 +140,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
       <PageEditEquipment
         isVisible={page === 1}
         context={contextApp}
-        storageKey="p-equipment"
+        pageStorageKey="p-equipment"
         onStatChange={setStatEquipment}
       />
       <PageEditFood

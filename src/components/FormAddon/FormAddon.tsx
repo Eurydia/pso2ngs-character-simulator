@@ -55,8 +55,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     onStatChange,
   } = props;
 
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
+  const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
@@ -64,18 +63,16 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     setDialogOpen(false);
   }, []);
 
-  const [mainLevel, setMainLevel] = useState<number>(() => {
+  const [mainLevel, setMainLevel] = useState(() => {
     return loadMainLevel(formStorageKey);
   });
-  const [subActiveIndexes, setSubActiveIndexes] = useState<number[]>(
-    () => {
-      const size: number = subSkills.length;
-      return loadSubActiveIndexes(formStorageKey, size);
-    },
-  );
-  const [subLevels, setSubLevels] = useState<number[]>(() => {
+  const [subLevels, setSubLevels] = useState(() => {
     const size: number = subSkills.length;
     return loadSubLevels(formStorageKey, size);
+  });
+  const [subActiveIndexes, setSubActiveIndexes] = useState(() => {
+    const size: number = subSkills.length;
+    return loadSubActiveIndexes(formStorageKey, size);
   });
 
   const handleSubLevelChange = useCallback(
@@ -108,7 +105,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     [],
   );
 
-  const stat_total = useMemo((): StatObject => {
+  const stat_total = useMemo(() => {
     let stat = AddonSkill.getStatObject(
       context,
       mainSkill,
@@ -174,15 +171,19 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
               onLevelChange={setMainLevel}
             />
             <Stack spacing={1}>
-              {subActiveIndexes.map((order_number, skill_index) => {
-                const sub_level: number = subLevels[skill_index];
-                const sub_label: string =
-                  subSkills[skill_index].label;
+              {subSkills.map((sub_skill, skill_index) => {
+                const sub_label = sub_skill.label;
+                const sub_level = subLevels[skill_index];
+                const order_number = subActiveIndexes[skill_index];
                 return (
                   <FieldAddon
                     key={`${sub_label}-${skill_index}`}
                     bold={false}
                     title={sub_label}
+                    level={sub_level}
+                    onLevelChange={(next_level: number) => {
+                      handleSubLevelChange(next_level, skill_index);
+                    }}
                     slotCheckbox={
                       <CheckboxAddon
                         orderNumber={order_number}
@@ -191,10 +192,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                         }}
                       />
                     }
-                    level={sub_level}
-                    onLevelChange={(next_level: number) => {
-                      handleSubLevelChange(next_level, skill_index);
-                    }}
                   />
                 );
               })}

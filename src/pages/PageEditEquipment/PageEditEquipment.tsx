@@ -25,7 +25,7 @@ import { DataUnit } from "../../types";
 import { useFormUnit } from "../../hooks";
 
 type PageEditEquipmentProps = {
-  storageKey: string;
+  pageStorageKey: string;
   isVisible: boolean;
   context: ActionContext;
   onStatChange: (stat: StatObject) => void;
@@ -33,21 +33,24 @@ type PageEditEquipmentProps = {
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { context, storageKey, onStatChange, isVisible } = props;
+  const { pageStorageKey, isVisible, context, onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const handleDialogOpen = useCallback((): void => {
+    setDialogOpen(true);
+  }, []);
+  const handleDialogClose = useCallback((): void => {
+    setDialogOpen(false);
+  }, []);
 
-  const [statWeapon, setStatWeapon] = useState<StatObject>(
-    statObject(),
-  );
-
+  const [statWeapon, setStatWeapon] = useState(statObject());
   const {
     formData: formUnitA,
     setUnit: setUnitA,
     setUnitLevel: setUnitLevelA,
     setAugment: setAugmentA,
     setFixa: setFixaA,
-  } = useFormUnit(`${storageKey}-form-unit-a`);
+  } = useFormUnit(`${pageStorageKey}-form-unit-a`);
 
   const {
     formData: formUnitB,
@@ -55,7 +58,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setUnitLevel: setUnitLevelB,
     setAugment: setAugmentB,
     setFixa: setFixaB,
-  } = useFormUnit(`${storageKey}-form-unit-b`);
+  } = useFormUnit(`${pageStorageKey}-form-unit-b`);
 
   const {
     formData: formUnitC,
@@ -63,15 +66,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setUnitLevel: setUnitLevelC,
     setAugment: setAugmentC,
     setFixa: setFixaC,
-  } = useFormUnit(`${storageKey}-form-unit-c`);
-
-  const handleDialogOpen = useCallback((): void => {
-    setDialogOpen(true);
-  }, []);
-
-  const handleDialogClose = useCallback((): void => {
-    setDialogOpen(false);
-  }, []);
+  } = useFormUnit(`${pageStorageKey}-form-unit-c`);
 
   const handleUnitSyncA = useCallback((): void => {
     setUnitB(formUnitA.unit);
@@ -118,9 +113,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     });
   }, [formUnitC]);
 
-  // const stat_weapon = useMemo((): StatObject => {
-  //   return DataWeapon.getStatObject(context, formWeapon);
-  // }, [context, formWeapon]);
   const stat_unit_a = useMemo((): StatObject => {
     return DataUnit.getStatObject(context, formUnitA);
   }, [context, formUnitA]);
@@ -168,16 +160,9 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           <Stack spacing={2}>
             <FormWeapon
               cardTitle="Weapon"
-              context={context}
               storageKey="form-weapon"
+              context={context}
               onStatChange={setStatWeapon}
-              // stat={stat_weapon}
-              // formData={formWeapon}
-              // onWeaponChange={setWeapon}
-              // onPotentialLevelChange={setPotentialLevel}
-              // onWeaponLevelChange={setWeaponLevel}
-              // onFixaChange={setWeaponFixa}
-              // onAugmentChange={setWeaponAugment}
             />
             <FormUnit
               cardTitle="Unit A"

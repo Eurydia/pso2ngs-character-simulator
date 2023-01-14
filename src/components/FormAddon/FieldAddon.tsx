@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { FC, memo, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { AddonSkill } from "../../assets";
 import { FieldLevel } from "../FieldLevel";
 
