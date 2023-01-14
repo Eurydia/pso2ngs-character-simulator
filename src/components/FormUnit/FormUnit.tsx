@@ -33,6 +33,7 @@ import { FieldLevel } from "../FieldLevel";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { StatView } from "../StatView";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormUnitProps = {
   // Dynamic props
@@ -90,30 +91,16 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
         cardTitle={cardTitle}
         slotCardHeaderAction={
           <Fragment>
-            <Tooltip
-              placement="top"
-              title={<Typography>Sync with me</Typography>}
-            >
-              <IconButton
-                color="primary"
-                size="large"
-                onClick={onSync}
-              >
-                <SyncRounded />
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              placement="top"
-              title={<Typography>Open stat</Typography>}
-            >
-              <IconButton
-                color="primary"
-                size="large"
-                onClick={handleDialogOpen}
-              >
-                <BarChartRounded />
-              </IconButton>
-            </Tooltip>
+            <IconButtonTooltip
+              tooltipText="Sync with me"
+              icon={<SyncRounded />}
+              onClick={onSync}
+            />
+            <IconButtonTooltip
+              tooltipText="Open summary"
+              icon={<BarChartRounded />}
+              onClick={handleDialogOpen}
+            />
           </Fragment>
         }
         slotCardContent={
