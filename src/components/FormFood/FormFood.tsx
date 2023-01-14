@@ -30,13 +30,16 @@ import { StatView } from "../StatView";
 import { FoodList } from "./FoodList";
 
 type FormFoodProps = {
-  storageKey: string;
-
+  // Dynamic props
   context: ActionContext;
+
+  // Static props
+  formStorageKey: string;
+
   onStatChange: (next_stat: StatObject) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { storageKey, context, onStatChange } = props;
+  const { formStorageKey: storageKey, context, onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
@@ -67,13 +70,13 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     removeFood(food_index);
   }, []);
 
-  const stat = useMemo((): StatObject => {
+  const stat_total = useMemo((): StatObject => {
     return Food.getStatObject(context, foods);
   }, [context, foods]);
 
   useEffect(() => {
-    onStatChange(stat);
-  }, [stat]);
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Fragment>
@@ -130,7 +133,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
       >
         <DialogTitle>Food buff summary</DialogTitle>
         <DialogContent>
-          <StatView stat={stat} maxHeight="" />
+          <StatView stat={stat_total} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>

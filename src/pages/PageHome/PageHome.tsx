@@ -146,7 +146,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
       <PageEditFood
         isVisible={page === 2}
         context={contextApp}
-        storageKey="p-food"
+        pageStorageKey="p-food"
         onStatChange={setStatFood}
       />
       <PageEditAddon

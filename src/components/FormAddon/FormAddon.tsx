@@ -32,7 +32,6 @@ import {
   saveSubLevels,
   saveSubActiveIndexes,
 } from "./helper";
-import { useFixa } from "../../hooks";
 
 type FormAddonProps = {
   // dynamic props
@@ -109,7 +108,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     [],
   );
 
-  const stat = useMemo((): StatObject => {
+  const stat_total = useMemo((): StatObject => {
     let stat = AddonSkill.getStatObject(
       context,
       mainSkill,
@@ -144,8 +143,8 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   }, [subActiveIndexes]);
 
   useEffect(() => {
-    onStatChange(stat);
-  }, [stat]);
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Fragment>
@@ -211,7 +210,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
       >
         <DialogTitle>{`${title} addon summary`}</DialogTitle>
         <DialogContent>
-          <StatView stat={stat} maxHeight="" />
+          <StatView stat={stat_total} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>
