@@ -32,6 +32,7 @@ import {
   saveSubLevels,
   saveSubActiveIndexes,
 } from "./helper";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormAddonProps = {
   // dynamic props
@@ -148,18 +149,11 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
       <FormBase
         cardTitle={title}
         slotCardHeaderAction={
-          <Tooltip
-            placement="top"
-            title={<Typography>Open summary</Typography>}
-          >
-            <IconButton
-              size="large"
-              color="primary"
-              onClick={handleDialogOpen}
-            >
-              <BarChartRounded />
-            </IconButton>
-          </Tooltip>
+          <IconButtonTooltip
+            tooltipText="Open summary"
+            icon={<BarChartRounded />}
+            onClick={handleDialogOpen}
+          />
         }
         slotCardContent={
           <Stack spacing={3}>
