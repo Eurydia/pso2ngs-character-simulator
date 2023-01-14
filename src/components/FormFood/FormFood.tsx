@@ -24,6 +24,7 @@ import { ActionContext, Food, StatObject } from "../../assets";
 import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 import { FoodList } from "./FoodList";
 import { loadFoods } from "./helper";
@@ -109,18 +110,11 @@ export const FormFood: FC<FormFoodProps> = (props) => {
       <FormBase
         cardTitle="Food"
         slotCardHeaderAction={
-          <Tooltip
-            placement="top"
-            title={<Typography>Open summary</Typography>}
-          >
-            <IconButton
-              size="large"
-              color="primary"
-              onClick={handleDialogOpen}
-            >
-              <BarChartRounded />
-            </IconButton>
-          </Tooltip>
+          <IconButtonTooltip
+            tooltipText="Open summary"
+            icon={<BarChartRounded />}
+            onClick={handleDialogOpen}
+          />
         }
         slotCardContent={
           <Stack spacing={2}>
