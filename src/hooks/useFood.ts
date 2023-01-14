@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { ActionContext, Food, StatObject } from "../assets";
+import { Food } from "../assets";
 
 import { isValidJSON } from "./utility";
 
@@ -30,7 +30,8 @@ const loadFoods = (storage_key: string): Food[] => {
   }
   return Food.fromLabels(labels);
 };
-
+// ---------------------------------------------
+// Hook
 export const useFood = (
   storage_key: string,
 ): {

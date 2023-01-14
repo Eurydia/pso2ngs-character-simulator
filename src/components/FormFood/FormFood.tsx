@@ -3,7 +3,6 @@ import {
   useState,
   Fragment,
   useCallback,
-  memo,
   useMemo,
   useEffect,
 } from "react";
@@ -21,13 +20,13 @@ import {
 import { AddRounded, BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, Food, StatObject } from "../../assets";
-import { useFood } from "../../hooks";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
 import { FoodList } from "./FoodList";
+import { loadFoods } from "./helper";
 
 type FormFoodProps = {
   // Dynamic props
@@ -39,36 +38,63 @@ type FormFoodProps = {
   onStatChange: (next_stat: StatObject) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { formStorageKey: storageKey, context, onStatChange } = props;
+  const { formStorageKey, context, onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
   }, []);
-
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
 
   const [selected, setSelected] = useState<Food | null>(null);
-  const { foods, addFood, removeFood } = useFood(storageKey);
-
+  const [foods, setFoods] = useState<Food[]>(() => {
+    return loadFoods(formStorageKey);
+  });
   const handleAdd = useCallback(() => {
     if (selected === null) {
       return;
     }
-    addFood(selected, 0);
+    setFoods((prev) => {
+      const next = [...prev];
+      if (next.length >= Food.MAX_ITEM) {
+        next.pop();
+      }
+      next.splice(0, 0, selected);
+      return next;
+    });
     setSelected(null);
   }, [selected]);
-
-  const handleCopy = useCallback((food: Food, food_index: number) => {
-    addFood(food, food_index);
-  }, []);
-
-  const handleRemove = useCallback((food_index: number) => {
-    removeFood(food_index);
-  }, []);
+  const handleCopy = useCallback(
+    (next_food: Food, food_index: number) => {
+      if (food_index < 0 || food_index >= foods.length) {
+        return;
+      }
+      setFoods((prev) => {
+        const next = [...prev];
+        if (next.length >= Food.MAX_ITEM) {
+          next.pop();
+        }
+        next.splice(food_index, 0, next_food);
+        return next;
+      });
+    },
+    [foods],
+  );
+  const handleRemove = useCallback(
+    (food_index: number) => {
+      if (food_index < 0 || food_index >= foods.length) {
+        return;
+      }
+      setFoods((prev) => {
+        const next = [...prev];
+        next.splice(food_index, 1);
+        return next;
+      });
+    },
+    [foods],
+  );
 
   const stat_total = useMemo((): StatObject => {
     return Food.getStatObject(context, foods);
