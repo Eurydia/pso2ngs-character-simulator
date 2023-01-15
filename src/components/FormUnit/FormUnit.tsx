@@ -44,7 +44,7 @@ type FormUnitProps = {
   cardTitle: string;
 
   onUnitChange: (next_unit: Unit | null) => void;
-  onUnitLevelChange: (next_level: number) => void;
+  onEnhancementChange: (next_enhancement: number) => void;
   onFixaChange: (next_fixa: Fixa | null) => void;
   onAugmentChange: (
     next_augment: Augment | null,
@@ -59,7 +59,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     cardTitle,
     formData,
     onUnitChange,
-    onUnitLevelChange,
+    onEnhancementChange,
     onFixaChange,
     onAugmentChange,
     onSync,
@@ -117,7 +117,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   disabled={unit === null}
                   levelMax={unit === null ? 0 : unit.enhancement_max}
                   level={unit_level}
-                  onLevelChange={onUnitLevelChange}
+                  onLevelChange={onEnhancementChange}
                 />
                 <AutocompleteFixa
                   mode={GroupEnumFixa.UNIT}

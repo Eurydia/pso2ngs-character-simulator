@@ -22,9 +22,9 @@ import { BarChartRounded } from "@mui/icons-material";
 
 import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
-import { DataUnit } from "../../types";
-import { useFormUnit } from "../../hooks";
+import { DataUnit, DataWeapon } from "../../types";
 import { GlobalAppContext } from "../../contexts";
+import { useDataUnit, useDataWeapon } from "../../hooks";
 
 type PageEditEquipmentProps = {
   pageStorageKey: string;
@@ -50,91 +50,98 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setDialogOpen(false);
   }, []);
 
-  const [statWeapon, setStatWeapon] = useState(statObject());
   const {
-    dataUnit: formUnitA,
+    dataWeapon: dataWeapon,
+    setWeapon: setWeapon,
+    setPotentialLevel: setWeaponPotentialLevel,
+    setEnhancement: setEnhancementWeapon,
+    setFixa: setFixaWeapon,
+    setAugment: setAugmentWeapon,
+  } = useDataWeapon(`${pageStorageKey}-form-weapon`);
+  const {
+    dataUnit: dataUnitA,
     setUnit: setUnitA,
-    setEnhancement: setUnitLevelA,
-    setAugment: setAugmentA,
-    setFixa: setFixaA,
-  } = useFormUnit(`${pageStorageKey}-form-unit-a`);
-
+    setEnhancement: setEnhancementUnitA,
+    setFixa: setFixaUnitA,
+    setAugment: setAugmentUnitA,
+  } = useDataUnit(`${pageStorageKey}-form-unit-a`);
   const {
-    dataUnit: formUnitB,
+    dataUnit: dataUnitB,
     setUnit: setUnitB,
-    setEnhancement: setUnitLevelB,
-    setAugment: setAugmentB,
-    setFixa: setFixaB,
-  } = useFormUnit(`${pageStorageKey}-form-unit-b`);
-
+    setEnhancement: setEnhancementUnitB,
+    setFixa: setFixaUnitB,
+    setAugment: setAugmentUnitB,
+  } = useDataUnit(`${pageStorageKey}-form-unit-b`);
   const {
-    dataUnit: formUnitC,
+    dataUnit: dataUnitC,
     setUnit: setUnitC,
-    setEnhancement: setUnitLevelC,
-    setAugment: setAugmentC,
-    setFixa: setFixaC,
-  } = useFormUnit(`${pageStorageKey}-form-unit-c`);
+    setEnhancement: setEnhancementUnitC,
+    setFixa: setFixaUnitC,
+    setAugment: setAugmentUnitC,
+  } = useDataUnit(`${pageStorageKey}-form-unit-C`);
 
   const handleUnitSyncA = useCallback((): void => {
-    setUnitB(formUnitA.unit);
-    setUnitLevelB(formUnitA.enhancement);
-    setFixaB(formUnitA.fixa);
+    setUnitB(dataUnitA.unit);
+    setEnhancementUnitB(dataUnitA.enhancement);
+    setFixaUnitB(dataUnitA.fixa);
 
-    setUnitC(formUnitA.unit);
-    setUnitLevelC(formUnitA.enhancement);
-    setFixaC(formUnitA.fixa);
+    setUnitC(dataUnitA.unit);
+    setEnhancementUnitC(dataUnitA.enhancement);
+    setFixaUnitC(dataUnitA.fixa);
 
-    formUnitA.augments.forEach((next_augment, augment_index) => {
-      setAugmentB(next_augment, augment_index);
-      setAugmentC(next_augment, augment_index);
+    dataUnitA.augments.forEach((next_augment, augment_index) => {
+      setAugmentUnitB(next_augment, augment_index);
+      setAugmentUnitC(next_augment, augment_index);
     });
-  }, [formUnitA]);
-
+  }, [dataUnitA]);
   const handleUnitSyncB = useCallback((): void => {
-    setUnitA(formUnitB.unit);
-    setUnitLevelA(formUnitB.enhancement);
-    setFixaA(formUnitB.fixa);
+    setUnitA(dataUnitB.unit);
+    setEnhancementUnitA(dataUnitB.enhancement);
+    setFixaUnitA(dataUnitB.fixa);
 
-    setUnitC(formUnitB.unit);
-    setUnitLevelC(formUnitB.enhancement);
-    setFixaC(formUnitB.fixa);
+    setUnitC(dataUnitB.unit);
+    setEnhancementUnitC(dataUnitB.enhancement);
+    setFixaUnitC(dataUnitB.fixa);
 
-    formUnitB.augments.forEach((next_augment, augment_index) => {
-      setAugmentA(next_augment, augment_index);
-      setAugmentC(next_augment, augment_index);
+    dataUnitB.augments.forEach((next_augment, augment_index) => {
+      setAugmentUnitA(next_augment, augment_index);
+      setAugmentUnitC(next_augment, augment_index);
     });
-  }, [formUnitB]);
+  }, [dataUnitB]);
+  const handleSyncUnitC = useCallback((): void => {
+    setUnitA(dataUnitC.unit);
+    setEnhancementUnitA(dataUnitC.enhancement);
+    setFixaUnitA(dataUnitC.fixa);
 
-  const handleUnitSyncC = useCallback((): void => {
-    setUnitA(formUnitC.unit);
-    setUnitLevelA(formUnitC.enhancement);
-    setFixaA(formUnitC.fixa);
+    setUnitB(dataUnitC.unit);
+    setEnhancementUnitB(dataUnitC.enhancement);
+    setFixaUnitB(dataUnitC.fixa);
 
-    setUnitB(formUnitC.unit);
-    setUnitLevelB(formUnitC.enhancement);
-    setFixaB(formUnitC.fixa);
-
-    formUnitC.augments.forEach((next_augment, augment_index) => {
-      setAugmentA(next_augment, augment_index);
-      setAugmentB(next_augment, augment_index);
+    dataUnitC.augments.forEach((next_augment, augment_index) => {
+      setAugmentUnitA(next_augment, augment_index);
+      setAugmentUnitB(next_augment, augment_index);
     });
-  }, [formUnitC]);
+  }, [dataUnitC]);
+
+  const stat_weapon = useMemo((): StatObject => {
+    return DataWeapon.getStatObject(context, dataWeapon);
+  }, [context, dataWeapon]);
 
   const stat_unit_a = useMemo((): StatObject => {
-    return DataUnit.getStatObject(context, formUnitA);
-  }, [context, formUnitA]);
+    return DataUnit.getStatObject(context, dataUnitA);
+  }, [context, dataUnitA]);
   const stat_unit_b = useMemo((): StatObject => {
-    return DataUnit.getStatObject(context, formUnitB);
-  }, [context, formUnitB]);
+    return DataUnit.getStatObject(context, dataUnitB);
+  }, [context, dataUnitB]);
   const stat_unit_c = useMemo((): StatObject => {
-    return DataUnit.getStatObject(context, formUnitC);
-  }, [context, formUnitC]);
+    return DataUnit.getStatObject(context, dataUnitC);
+  }, [context, dataUnitC]);
 
   const stat_total = useMemo((): StatObject => {
-    let stat = StatObject.merge(statWeapon, stat_unit_a);
+    let stat = StatObject.merge(stat_weapon, stat_unit_a);
     stat = StatObject.merge(stat, stat_unit_b);
     return StatObject.merge(stat, stat_unit_c);
-  }, [statWeapon, stat_unit_a, stat_unit_b, stat_unit_c]);
+  }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
 
   useEffect(() => {
     onStatChange(stat_total);
@@ -162,39 +169,43 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           <Stack spacing={2}>
             <FormWeapon
               cardTitle="Weapon"
-              storageKey="form-weapon"
-              context={context}
-              onStatChange={setStatWeapon}
+              stat={stat_weapon}
+              formData={dataWeapon}
+              onWeaponChange={setWeapon}
+              onPotentialLevelChange={setWeaponPotentialLevel}
+              onEnhancementChange={setEnhancementWeapon}
+              onFixaChange={setFixaWeapon}
+              onAugmentChange={setAugmentWeapon}
             />
             <FormUnit
               cardTitle="Unit A"
               stat={stat_unit_a}
-              formData={formUnitA}
+              formData={dataUnitA}
               onUnitChange={setUnitA}
-              onUnitLevelChange={setUnitLevelA}
-              onFixaChange={setFixaA}
-              onAugmentChange={setAugmentA}
+              onEnhancementChange={setEnhancementUnitA}
+              onFixaChange={setFixaUnitA}
+              onAugmentChange={setAugmentUnitA}
               onSync={handleUnitSyncA}
             />
             <FormUnit
               cardTitle="Unit B"
               stat={stat_unit_b}
-              formData={formUnitB}
+              formData={dataUnitB}
               onUnitChange={setUnitB}
-              onUnitLevelChange={setUnitLevelB}
-              onFixaChange={setFixaB}
-              onAugmentChange={setAugmentB}
+              onEnhancementChange={setEnhancementUnitB}
+              onFixaChange={setFixaUnitB}
+              onAugmentChange={setAugmentUnitB}
               onSync={handleUnitSyncB}
             />
             <FormUnit
               cardTitle="Unit C"
               stat={stat_unit_c}
-              formData={formUnitC}
+              formData={dataUnitC}
               onUnitChange={setUnitC}
-              onUnitLevelChange={setUnitLevelC}
-              onFixaChange={setFixaC}
-              onAugmentChange={setAugmentC}
-              onSync={handleUnitSyncC}
+              onEnhancementChange={setEnhancementUnitC}
+              onFixaChange={setFixaUnitC}
+              onAugmentChange={setAugmentUnitC}
+              onSync={handleSyncUnitC}
             />
           </Stack>
         </Box>

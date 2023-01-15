@@ -34,22 +34,25 @@ type FormWeaponProps = {
   formData: DataWeapon;
   stat: StatObject;
 
-  onWeapon: (next_weapon: Weapon | null) => void;
-  onPotentialLevel: (next_level: number) => void;
-  onEnhancement: (next_enhancement: number) => void;
-  onFixa: (next_fixa: Fixa | null) => void;
-  onAugment: (next_augment: Augment | null, index: number) => void;
+  onWeaponChange: (next_weapon: Weapon | null) => void;
+  onPotentialLevelChange: (next_level: number) => void;
+  onEnhancementChange: (next_enhancement: number) => void;
+  onFixaChange: (next_fixa: Fixa | null) => void;
+  onAugmentChange: (
+    next_augment: Augment | null,
+    index: number,
+  ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const {
     cardTitle,
     stat,
     formData,
-    onWeapon,
-    onPotentialLevel,
-    onEnhancement,
-    onFixa,
-    onAugment,
+    onWeaponChange,
+    onPotentialLevelChange,
+    onEnhancementChange,
+    onFixaChange,
+    onAugmentChange,
   } = props;
 
   const { weapon, potential_level, enhancement, fixa, augments } =
@@ -71,24 +74,6 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     return augments.slice(0, count);
   }, [weapon, augments, enhancement]);
 
-  // const stat = useMemo((): StatObject => {
-  //   const data: DataWeapon = {
-  //     weapon,
-  //     potential_level,
-  //     enhancement,
-  //     fixa,
-  //     augments: active_augments,
-  //   };
-  //   return DataWeapon.getStatObject(context, data);
-  // }, [
-  //   context,
-  //   weapon,
-  //   potential_level,
-  //   enhancement,
-  //   fixa,
-  //   active_augments,
-  // ]);
-
   return (
     <Fragment>
       <FormBase
@@ -106,12 +91,12 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
               <Stack spacing={1}>
                 <AutocompleteWeapon
                   weapon={weapon}
-                  onWeaponChange={onWeapon}
+                  onWeaponChange={onWeaponChange}
                 />
                 <SelectPotential
                   weapon={weapon}
                   potentialLevel={potential_level}
-                  onPotentialLevelChange={onPotentialLevel}
+                  onPotentialLevelChange={onPotentialLevelChange}
                 />
                 <FieldLevel
                   label="Enhacement"
@@ -121,13 +106,13 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   levelMax={
                     weapon === null ? 0 : weapon.enhancement_max
                   }
-                  onLevelChange={onEnhancement}
+                  onLevelChange={onEnhancementChange}
                 />
                 <AutocompleteFixa
                   mode={GroupEnumFixa.WEAPON}
                   disabled={weapon === null}
                   fixa={fixa}
-                  onFixaChange={onFixa}
+                  onFixaChange={onFixaChange}
                 />
               </Stack>
             </Grid>
@@ -143,7 +128,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                       }
                       augment={augment}
                       onAugmentChange={(next_augment) => {
-                        onAugment(next_augment, augment_index);
+                        onAugmentChange(next_augment, augment_index);
                       }}
                     />
                   );
