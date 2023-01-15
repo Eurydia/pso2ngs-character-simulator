@@ -8,7 +8,7 @@ import { useEnhancement } from "./useEnhancement";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
 
-export const useDataUnit = (
+export const useDataWeapon = (
   storage_key: string,
 ): {
   dataWeapon: DataWeapon;
