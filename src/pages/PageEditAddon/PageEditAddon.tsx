@@ -2,6 +2,7 @@ import {
   FC,
   Fragment,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -29,6 +30,7 @@ import {
   statObject,
   StatObject,
 } from "../../assets";
+import { GlobalAppContext } from "../../contexts";
 
 // ------------------ Hunter ------------------
 const HUNTER_MAIN_ADDON: AddonSkill =
@@ -105,15 +107,14 @@ const WAKER_SUB_ADDONS: AddonSkill[] = [
 
 type PageEditAddonProps = {
   pageStorageKey: string;
-  context: ActionContext;
-  isVisible: boolean;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
-  const { pageStorageKey, isVisible, context, onStatChange } = props;
+  const { pageStorageKey, onStatChange } = props;
+
+  const context = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
@@ -176,10 +177,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
 
   return (
     <Fragment>
-      <Container
-        maxWidth="lg"
-        sx={{ display: isVisible ? "block" : "none" }}
-      >
+      <Container maxWidth="lg">
         <Tooltip
           placement="top"
           title={<Typography>Open summary</Typography>}
@@ -195,7 +193,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             <BarChartRounded />
           </Fab>
         </Tooltip>
-        <Box margin={4}>
+        <Box marginY={4}>
           <Grid
             container
             spacing={2}
