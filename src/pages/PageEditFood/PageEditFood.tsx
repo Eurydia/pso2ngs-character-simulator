@@ -1,25 +1,21 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Box, Container } from "@mui/material";
 
-import { StatObject, ActionContext } from "../../assets";
+import { StatObject } from "../../assets";
 import { FormFood } from "../../components";
+import { GlobalAppContext } from "../../contexts";
 
 type PageEditFoodProps = {
-  isVisible: boolean;
-  context: ActionContext;
   pageStorageKey: string;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
-  const { isVisible, context, pageStorageKey, onStatChange } = props;
+  const { pageStorageKey, onStatChange } = props;
+
+  const context = useContext(GlobalAppContext);
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: isVisible ? "block" : "none",
-      }}
-    >
+    <Container maxWidth="md">
       <Box margin={4}>
         <FormFood
           context={context}
