@@ -15,22 +15,6 @@ const SKILL_SUB: {
 // ----------------------------------------------
 // Main class exclusive skills
 
-// Stealth Strike
-(() => {
-  const SKILL_NAME: string = "Stealth Strike";
-
-  const _getterFunctionMain = (
-    ctx: ActionContext,
-    level: number,
-  ): StatObject => {
-    return statObject({
-      [StatEnum.ADV_OFF_THREAT]: 0.2,
-    });
-  };
-
-  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
-})();
-
 // Blight Rounds Self Benefit
 (() => {
   const SKILL_NAME: string = "Blight Rounds Self Benefit";

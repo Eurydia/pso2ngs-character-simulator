@@ -1,19 +1,10 @@
-import {
-  Fragment,
-  FC,
-  useState,
-  memo,
-  useCallback,
-  useMemo,
-} from "react";
+import { Fragment, FC, useState, useCallback, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   Grid,
-  IconButton,
   Stack,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { BarChartRounded, SyncRounded } from "@mui/icons-material";
@@ -27,11 +18,11 @@ import {
 } from "../../assets";
 import { DataUnit } from "../../types";
 
-import { FormBase } from "../FormBase";
 import { AutocompleteUnit } from "../AutocompleteUnit";
 import { FieldLevel } from "../FieldLevel";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
+import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 
@@ -50,7 +41,6 @@ type FormUnitProps = {
     next_augment: Augment | null,
     augment_index: number,
   ) => void;
-
   onSync: () => void;
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
@@ -65,25 +55,22 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     onSync,
   } = props;
 
-  const { unit, enhancement: unit_level, fixa, augments } = formData;
+  const { unit, enhancement, fixa, augments } = formData;
 
   const [dialogOpen, setDialogOpen] = useState(false);
-
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
-
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
   }, []);
 
-  const active_augments = useMemo((): (Augment | null)[] => {
+  const active_slots = useMemo((): number => {
     if (unit === null) {
-      return [];
+      return 0;
     }
-    const count: number = Augment.getAugmentSlot(unit_level);
-    return augments.slice(0, count);
-  }, [unit, augments, unit_level]);
+    return Augment.getAugmentSlot(enhancement);
+  }, [unit, enhancement]);
 
   return (
     <Fragment>
@@ -116,7 +103,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   levelMin={0}
                   disabled={unit === null}
                   levelMax={unit === null ? 0 : unit.enhancement_max}
-                  level={unit_level}
+                  level={enhancement}
                   onLevelChange={onEnhancementChange}
                 />
                 <AutocompleteFixa
@@ -134,8 +121,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                     <AutocompleteAugment
                       key={`augment-${augment_index}`}
                       disabled={
-                        unit === null ||
-                        augment_index >= active_augments.length
+                        unit === null || augment_index >= active_slots
                       }
                       augment={augment}
                       onAugmentChange={(next_augment) => {

@@ -41,7 +41,7 @@ import { GlobalAppContext } from "../../contexts";
 
 type FormAddonProps = {
   // static props
-  title: string;
+  cardTitle: string;
   formStorageKey: string;
   mainSkill: AddonSkill;
   subSkills: AddonSkill[];
@@ -50,7 +50,7 @@ type FormAddonProps = {
 };
 export const FormAddon: FC<FormAddonProps> = (props) => {
   const {
-    title,
+    cardTitle,
     formStorageKey,
     mainSkill,
     subSkills,
@@ -148,7 +148,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   return (
     <Fragment>
       <FormBase
-        cardTitle={title}
+        cardTitle={cardTitle}
         slotCardHeaderAction={
           <IconButtonTooltip
             tooltipText="Open summary"
@@ -223,13 +223,14 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
       />
       <Dialog
         fullWidth
+        keepMounted
         maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
         <DialogTitle>
           <Typography fontWeight="bold" fontSize="x-large">
-            {`${title} addon summary`}
+            {`${cardTitle} addon summary`}
           </Typography>
         </DialogTitle>
         <DialogContent>

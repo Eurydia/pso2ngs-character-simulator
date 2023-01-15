@@ -202,35 +202,35 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={2}>
                 <FormAddon
-                  title="Hunter"
+                  cardTitle="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}
                   subSkills={HUNTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-hunter`}
                   onStatChange={setStatHunter}
                 />
                 <FormAddon
-                  title="Ranger"
+                  cardTitle="Ranger"
                   mainSkill={RANGER_MAIN_ADDON}
                   subSkills={RANGER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-ranger`}
                   onStatChange={setStatRanger}
                 />
                 <FormAddon
-                  title="Force"
+                  cardTitle="Force"
                   mainSkill={FORCE_MAIN_ADDON}
                   subSkills={FORCE_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-force`}
                   onStatChange={setStatForce}
                 />
                 <FormAddon
-                  title="Braver"
+                  cardTitle="Braver"
                   mainSkill={BRAVER_MAIN_ADDON}
                   subSkills={BRAVER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-braver`}
                   onStatChange={setStatBraver}
                 />
                 <FormAddon
-                  title="Waker"
+                  cardTitle="Waker"
                   mainSkill={WAKER_MAIN_ADDON}
                   subSkills={WAKER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-waker`}
@@ -241,28 +241,28 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={2}>
                 <FormAddon
-                  title="Fighter"
+                  cardTitle="Fighter"
                   mainSkill={FIGHTER_MAIN_ADDON}
                   subSkills={FIGHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-fighter`}
                   onStatChange={setStatFighter}
                 />
                 <FormAddon
-                  title="Gunner"
+                  cardTitle="Gunner"
                   mainSkill={GUNNER_MAIN_ADDON}
                   subSkills={GUNNER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-gunner`}
                   onStatChange={setStatGunner}
                 />
                 <FormAddon
-                  title="Techter"
+                  cardTitle="Techter"
                   mainSkill={TECHTER_MAIN_ADDON}
                   subSkills={TECHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-techter`}
                   onStatChange={setStatTechter}
                 />
                 <FormAddon
-                  title="Bouncer"
+                  cardTitle="Bouncer"
                   mainSkill={BOUNCER_MAIN_ADDON}
                   subSkills={BOUNCER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-bouncer`}

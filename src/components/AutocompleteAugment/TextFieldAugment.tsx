@@ -7,13 +7,14 @@ import {
 export const TextFieldAugment: FC<AutocompleteRenderInputParams> = (
   props,
 ) => {
+  const { disabled } = props;
   return (
     <TextField
       {...props}
       fullWidth
       placeholder="Augment"
       sx={{
-        textDecorationLine: props.disabled ? "line-through" : "none",
+        textDecorationLine: disabled ? "line-through" : "none",
       }}
     />
   );

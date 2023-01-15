@@ -14,20 +14,6 @@ const SKILL_SUB: {
 // ----------------------------------------------
 // Main class exclusive skills
 
-// War Cry
-(() => {
-  const SKILL_NAME: string = "War Cry";
-
-  const _getterFunctionMain = (
-    ctx: ActionContext,
-    level: number,
-  ): StatObject => {
-    return statObject({ [StatEnum.ADV_OFF_THREAT]: 2 });
-  };
-
-  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
-})();
-
 // ----------------------------------------------
 //  Main & Sub class skills
 

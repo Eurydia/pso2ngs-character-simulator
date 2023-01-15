@@ -67,13 +67,12 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     setDialogOpen(false);
   }, []);
 
-  const active_augments = useMemo((): (Augment | null)[] => {
+  const active_slots = useMemo((): number => {
     if (weapon === null) {
-      return [];
+      return 0;
     }
-    const count: number = Augment.getAugmentSlot(enhancement);
-    return augments.slice(0, count);
-  }, [weapon, augments, enhancement]);
+    return Augment.getAugmentSlot(enhancement);
+  }, [weapon, enhancement]);
 
   return (
     <Fragment>
@@ -125,7 +124,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                       key={`augment-${augment_index}`}
                       disabled={
                         weapon === null ||
-                        augment_index >= active_augments.length
+                        augment_index >= active_slots
                       }
                       augment={augment}
                       onAugmentChange={(next_augment) => {
