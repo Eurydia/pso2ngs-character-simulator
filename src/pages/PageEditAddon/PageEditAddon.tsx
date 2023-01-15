@@ -202,43 +202,38 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={2}>
                 <FormAddon
+                  title="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}
                   subSkills={HUNTER_SUB_ADDONS}
-                  title="Hunter"
                   formStorageKey={`${pageStorageKey}-hunter`}
-                  context={context}
                   onStatChange={setStatHunter}
                 />
                 <FormAddon
+                  title="Ranger"
                   mainSkill={RANGER_MAIN_ADDON}
                   subSkills={RANGER_SUB_ADDONS}
-                  title="Ranger"
                   formStorageKey={`${pageStorageKey}-ranger`}
-                  context={context}
                   onStatChange={setStatRanger}
                 />
                 <FormAddon
+                  title="Force"
                   mainSkill={FORCE_MAIN_ADDON}
                   subSkills={FORCE_SUB_ADDONS}
-                  title="Force"
                   formStorageKey={`${pageStorageKey}-force`}
-                  context={context}
                   onStatChange={setStatForce}
                 />
                 <FormAddon
+                  title="Braver"
                   mainSkill={BRAVER_MAIN_ADDON}
                   subSkills={BRAVER_SUB_ADDONS}
-                  title="Braver"
                   formStorageKey={`${pageStorageKey}-braver`}
-                  context={context}
                   onStatChange={setStatBraver}
                 />
                 <FormAddon
+                  title="Waker"
                   mainSkill={WAKER_MAIN_ADDON}
                   subSkills={WAKER_SUB_ADDONS}
-                  title="Waker"
                   formStorageKey={`${pageStorageKey}-waker`}
-                  context={context}
                   onStatChange={setStatWaker}
                 />
               </Stack>
@@ -250,7 +245,6 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   mainSkill={FIGHTER_MAIN_ADDON}
                   subSkills={FIGHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-fighter`}
-                  context={context}
                   onStatChange={setStatFighter}
                 />
                 <FormAddon
@@ -258,7 +252,6 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   mainSkill={GUNNER_MAIN_ADDON}
                   subSkills={GUNNER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-gunner`}
-                  context={context}
                   onStatChange={setStatGunner}
                 />
                 <FormAddon
@@ -266,7 +259,6 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   mainSkill={TECHTER_MAIN_ADDON}
                   subSkills={TECHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-techter`}
-                  context={context}
                   onStatChange={setStatTechter}
                 />
                 <FormAddon
@@ -274,7 +266,6 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   mainSkill={BOUNCER_MAIN_ADDON}
                   subSkills={BOUNCER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-bouncer`}
-                  context={context}
                   onStatChange={setStatBouncer}
                 />
               </Stack>
