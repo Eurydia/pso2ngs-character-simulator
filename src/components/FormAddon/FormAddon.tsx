@@ -25,7 +25,7 @@ import { AddonSkill, StatObject } from "../../assets";
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
 
-import { FieldAddonLayout } from "./FieldAddon";
+import { FieldAddonLayout } from "./FieldAddonLayout";
 import { CheckboxAddon } from "./CheckboxAddon";
 import {
   loadMainLevel,
