@@ -1,12 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
-import {
-  ActionContext,
-  Augment,
-  Fixa,
-  StatObject,
-  Unit,
-} from "../assets";
+import { Augment, Fixa, Unit } from "../assets";
 import { DataUnit } from "../types";
 
 import { useUnit } from "./useUnit";
@@ -17,7 +11,7 @@ import { useAugments } from "./useAugments";
 export const useFormUnit = (
   storage_key: string,
 ): {
-  formData: DataUnit;
+  dataUnit: DataUnit;
   setUnit: (next_unit: Unit | null) => void;
   setUnitLevel: (next_level: number) => void;
   setFixa: (next_fixa: Fixa | null) => void;
@@ -32,7 +26,7 @@ export const useFormUnit = (
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 
-  const formData = useMemo((): DataUnit => {
+  const dataUnit = useMemo((): DataUnit => {
     return {
       unit,
       unit_level: unitLevel,
@@ -42,7 +36,7 @@ export const useFormUnit = (
   }, [unit, unitLevel, fixa, augments]);
 
   return {
-    formData,
+    dataUnit,
     setUnit,
     setUnitLevel,
     setFixa,

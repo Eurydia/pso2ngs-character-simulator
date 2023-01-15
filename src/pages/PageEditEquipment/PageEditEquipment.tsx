@@ -52,7 +52,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const [statWeapon, setStatWeapon] = useState(statObject());
   const {
-    formData: formUnitA,
+    dataUnit: formUnitA,
     setUnit: setUnitA,
     setUnitLevel: setUnitLevelA,
     setAugment: setAugmentA,
@@ -60,7 +60,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   } = useFormUnit(`${pageStorageKey}-form-unit-a`);
 
   const {
-    formData: formUnitB,
+    dataUnit: formUnitB,
     setUnit: setUnitB,
     setUnitLevel: setUnitLevelB,
     setAugment: setAugmentB,
@@ -68,7 +68,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   } = useFormUnit(`${pageStorageKey}-form-unit-b`);
 
   const {
-    formData: formUnitC,
+    dataUnit: formUnitC,
     setUnit: setUnitC,
     setUnitLevel: setUnitLevelC,
     setAugment: setAugmentC,
