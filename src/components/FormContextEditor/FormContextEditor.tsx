@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Box,
   Card,
@@ -10,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+
 import {
   ActionContext,
   CharacterContext,
@@ -18,6 +19,7 @@ import {
   TargetContext,
   TimeContext,
 } from "../../assets";
+
 import { CustomSwitch } from "./CustomSwitch";
 
 type ContextEditorTimeProps = {

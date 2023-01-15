@@ -5,6 +5,7 @@ import {
   useEffect,
   useCallback,
   useMemo,
+  useContext,
 } from "react";
 import {
   Box,
@@ -23,17 +24,18 @@ import { ActionContext, statObject, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit } from "../../types";
 import { useFormUnit } from "../../hooks";
+import { GlobalAppContext } from "../../contexts";
 
 type PageEditEquipmentProps = {
   pageStorageKey: string;
-  isVisible: boolean;
-  context: ActionContext;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { pageStorageKey, isVisible, context, onStatChange } = props;
+  const { pageStorageKey, onStatChange } = props;
+
+  const context = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback((): void => {
@@ -135,12 +137,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   return (
     <Fragment>
-      <Container
-        maxWidth="md"
-        sx={{
-          display: isVisible ? "block" : "none",
-        }}
-      >
+      <Container maxWidth="md">
         <Tooltip
           placement="top"
           title={<Typography>Open summary</Typography>}

@@ -3,44 +3,7 @@ import { ActionContext } from "../assets";
 import { isValidJSON } from "./utility";
 
 const retrieveData = (storage_key: string): ActionContext => {
-  const result: ActionContext = {
-    time: {
-      isDayTime: true,
-      isDuringSezunEvent: false,
-    },
-    target: {
-      isBoss: false,
-      isDolls: false,
-      isDowned: false,
-
-      isWeakToLightning: false,
-      isWeakToIce: false,
-      isWeakToFire: false,
-      isWeakToWind: false,
-      isWeakToLight: false,
-      isWeakToDark: false,
-    },
-    character: {
-      uniqueAugments: 0,
-      hasTakenDamage: false,
-      hasActiveBarrier: false,
-      hasDodgedAttack: false,
-      hasCriticallyHit: false,
-      isAttacking: false,
-      isAttackingBlight: false,
-      isAttackingWeakPoint: false,
-      defenseValue: 0,
-      attackValue: 0,
-      hpValue: -1,
-      hpValueCurrent: 0,
-      ppValue: -1,
-      ppValueCurrent: 0,
-    },
-    location: {
-      kvaris: false,
-      geometricLabyrinth: false,
-    },
-  };
+  const result: ActionContext = ActionContext.createContext();
 
   const loaded_data: string | null =
     localStorage.getItem(storage_key);
