@@ -56,8 +56,8 @@ const SKILL_SUB: {
 
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
     const hp_boost: number = DATA_HP_BOOST[level_index];
-    stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-    stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     stat.setStat(StatEnum.ADV_HP_BOOST, hp_boost);
     return stat;
   };
@@ -79,8 +79,8 @@ const SKILL_SUB: {
 
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
     const hp_boost: number = DATA_HP_BOOST[level_index];
-    stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-    stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     stat.setStat(StatEnum.ADV_HP_BOOST, hp_boost);
     return stat;
   };
@@ -106,7 +106,7 @@ const SKILL_SUB: {
       return stat;
     }
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     return stat;
   };
   SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
@@ -125,7 +125,7 @@ const SKILL_SUB: {
       return stat;
     }
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+    stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     return stat;
   };
   SKILL_SUB[SKILL_NAME] = _getterFunctionSub;

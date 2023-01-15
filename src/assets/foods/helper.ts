@@ -67,8 +67,7 @@ const getAwareStatObjectLight = (
 
   const pp_recovery: number = DATA_PP_RECOVERY[level_index];
   return statObject({
-    [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
-    [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
+    [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
   });
 };
 

@@ -23,7 +23,7 @@ export const FORCE_TECHNIQUE_WEAPON_UP = addonSkill(
 
 export const FORCE_NATURAL_PP_RECOVERY = addonSkill(
   "Natural PP Recovery Up (Force)",
-  (_: ActionContext, level_index: number): StatObject => {
+  (ctx: ActionContext, level_index: number): StatObject => {
     const DATA_PP_RECOVERY: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
       1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.1,
@@ -31,9 +31,12 @@ export const FORCE_NATURAL_PP_RECOVERY = addonSkill(
     if (level_index < 0 || level_index >= DATA_PP_RECOVERY.length) {
       return statObject();
     }
+    if (ctx.character.isAttacking) {
+      return statObject();
+    }
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
     return statObject({
-      [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
+      [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
     });
   },
 );

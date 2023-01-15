@@ -241,8 +241,7 @@ export const MEDITATION_UNIT = ((): Potential => {
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
-      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
+      [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
     });
   };
   return potential("Meditation Unit", DATA_WEAPON_UP.length, _getter);
@@ -483,20 +482,27 @@ export const IMBUED_UNIT = ((): Potential => {
   const DATA_PP_USAGE: number[] = [0.9, 0.9, 0.9, 0.9, 0.85];
   const DATA_PP_RECOVERY: number[] = [1.2, 1.2, 1.2, 1.2, 1.3];
   const _getter = (
-    _: ActionContext,
+    ctx: ActionContext,
     level_index: number,
   ): StatObject => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const pp_usage: number = DATA_PP_USAGE[level_index];
     const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-    return statObject({
+    const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
       [StatEnum.ADV_PP_USAGE]: pp_usage,
-      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
     });
+    if (!ctx.character.isAttacking) {
+      return stat;
+    }
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_PP_RECOVERY,
+      pp_recovery,
+    );
   };
   return potential("Imbued Unit", DATA_WEAPON_UP.length, _getter);
 })();
@@ -594,9 +600,12 @@ export const ELUSIVE_UNIT = ((): Potential => {
     if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
+    if (ctx.character.isAttacking) {
+      return stat;
+    }
     return StatObject.setStat(
       stat,
-      StatEnum.ADV_PP_NATURAL_RECOVERY,
+      StatEnum.ADV_PP_RECOVERY,
       pp_recovery,
     );
   };
@@ -655,7 +664,7 @@ export const STACCATO_UNIT = ((): Potential => {
     }
     return StatObject.setStat(
       stat,
-      StatEnum.ADV_PP_ACTIVE_RECOVERY,
+      StatEnum.ADV_PP_RECOVERY,
       pp_recovery,
     );
   };
@@ -715,11 +724,11 @@ export const REVOLUTIONARY_UNIT = ((): Potential => {
     if (!ctx.character.hasTakenDamage) {
       return stat;
     }
-    const stat_up: StatObject = statObject({
-      [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
-      [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
-    });
-    return StatObject.merge(stat, stat_up);
+    return StatObject.setStat(
+      stat,
+      StatEnum.ADV_PP_RECOVERY,
+      pp_recovery,
+    );
   };
   return potential(
     "Revolutionary Unit",
@@ -746,9 +755,12 @@ export const ILLUSORY_UNIT = ((): Potential => {
     if (!ctx.character.hasDodgedAttack) {
       return stat;
     }
+    if (ctx.character.isAttacking) {
+      return stat;
+    }
     return StatObject.setStat(
       stat,
-      StatEnum.ADV_PP_NATURAL_RECOVERY,
+      StatEnum.ADV_PP_RECOVERY,
       recovery_up,
     );
   };

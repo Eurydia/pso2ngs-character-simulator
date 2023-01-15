@@ -44,8 +44,8 @@ const SKILL_SUB: {
 
     if (ctx.character.isAttacking) {
       const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     }
 
     return stat;
@@ -74,8 +74,8 @@ const SKILL_SUB: {
 
     if (ctx.character.isAttacking) {
       const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     }
 
     return stat;
@@ -112,8 +112,8 @@ const SKILL_SUB: {
 
     if (ctx.character.isAttacking && ctx.target.isNonBoss) {
       const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     }
 
     return stat;
@@ -145,8 +145,8 @@ const SKILL_SUB: {
 
     if (ctx.character.isAttacking && ctx.target.isNonBoss) {
       const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_ACTIVE_RECOVERY, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_NATURAL_RECOVERY, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
+      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
     }
 
     return stat;

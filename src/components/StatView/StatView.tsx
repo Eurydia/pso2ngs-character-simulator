@@ -173,11 +173,10 @@ const AdvHPGroup: FC<AdvHPGroupProps> = (props) => {
 
 type AdvPPGroupProps = Nullable<{
   usage: string;
-  naturalRecovery: string;
-  activeRecovery: string;
+  recovery: string;
 }>;
 const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
-  const { usage, activeRecovery, naturalRecovery } = props;
+  const { usage, recovery } = props;
 
   const hidden = Object.values(props).every((value) => {
     return value === null;
@@ -191,14 +190,9 @@ const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
         icon={getIcon(usage, true)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_PP_ACTIVE_RECOVERY]}
-        value={activeRecovery}
-        icon={getIcon(activeRecovery)}
-      />
-      <StatListItem
-        label={StatEnumString[StatEnum.ADV_PP_NATURAL_RECOVERY]}
-        value={naturalRecovery}
-        icon={getIcon(naturalRecovery)}
+        label={StatEnumString[StatEnum.ADV_PP_RECOVERY]}
+        value={recovery}
+        icon={getIcon(recovery)}
       />
     </StatList>
   );
@@ -371,14 +365,7 @@ export const StatView: FC<StatViewProps> = (props) => {
         />
         <AdvPPGroup
           usage={StatObject.format(stat, StatEnum.ADV_PP_USAGE)}
-          naturalRecovery={StatObject.format(
-            stat,
-            StatEnum.ADV_PP_NATURAL_RECOVERY,
-          )}
-          activeRecovery={StatObject.format(
-            stat,
-            StatEnum.ADV_PP_ACTIVE_RECOVERY,
-          )}
+          recovery={StatObject.format(stat, StatEnum.ADV_PP_RECOVERY)}
         />
         <AdvOffensiveGroup
           floorPotency={StatObject.format(

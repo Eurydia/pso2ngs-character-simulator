@@ -52,9 +52,12 @@ const makeFixaUnit = (
   const DATA_PP_RECOVERY: number[] = [1.02, 1.03, 1.04, 1.045, 1.05];
   DATA_PP_RECOVERY.forEach((pp_recovery, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (ctx: ActionContext): StatObject => {
+      if (ctx.character.isAttacking) {
+        return statObject();
+      }
       return statObject({
-        [StatEnum.ADV_PP_NATURAL_RECOVERY]: pp_recovery,
+        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
       });
     };
     const unit_fixa: Fixa = makeFixaUnit(
@@ -70,9 +73,12 @@ const makeFixaUnit = (
   const DATA_PP_RECOVERY: number[] = [1.02, 1.03, 1.04, 1.045, 1.05];
   DATA_PP_RECOVERY.forEach((pp_recovery, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (_: ActionContext): StatObject => {
+    const _getter = (ctx: ActionContext): StatObject => {
+      if (!ctx.character.isAttacking) {
+        return statObject();
+      }
       return statObject({
-        [StatEnum.ADV_PP_ACTIVE_RECOVERY]: pp_recovery,
+        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
       });
     };
     const fixa_unit: Fixa = makeFixaUnit(
