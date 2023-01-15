@@ -5,6 +5,7 @@ import {
   useCallback,
   useMemo,
   useEffect,
+  useContext,
 } from "react";
 import {
   Box,
@@ -13,6 +14,7 @@ import {
   DialogContent,
   DialogTitle,
   Stack,
+  Typography,
 } from "@mui/material";
 import { AddRounded, BarChartRounded } from "@mui/icons-material";
 
@@ -25,18 +27,18 @@ import { IconButtonTooltip } from "../IconButtonTooltip";
 
 import { FoodList } from "./FoodList";
 import { loadFoods } from "./helper";
+import { GlobalAppContext } from "../../contexts";
 
 type FormFoodProps = {
-  // Dynamic props
-  context: ActionContext;
-
   // Static props
   formStorageKey: string;
 
   onStatChange: (next_stat: StatObject) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { formStorageKey, context, onStatChange } = props;
+  const { formStorageKey, onStatChange } = props;
+
+  const context = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const handleDialogClose = useCallback(() => {
@@ -144,11 +146,16 @@ export const FormFood: FC<FormFoodProps> = (props) => {
       />
       <Dialog
         fullWidth
-        maxWidth="sm"
+        keepMounted
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>Food buff summary</DialogTitle>
+        <DialogTitle>
+          <Typography fontWeight="bold" fontSize="x-large">
+            Food buff summary
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <StatView stat={stat_total} maxHeight="" />
         </DialogContent>

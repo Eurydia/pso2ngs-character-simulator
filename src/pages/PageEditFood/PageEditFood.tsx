@@ -1,9 +1,8 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { Box, Container } from "@mui/material";
 
 import { StatObject } from "../../assets";
 import { FormFood } from "../../components";
-import { GlobalAppContext } from "../../contexts";
 
 type PageEditFoodProps = {
   pageStorageKey: string;
@@ -12,13 +11,10 @@ type PageEditFoodProps = {
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   const { pageStorageKey, onStatChange } = props;
 
-  const context = useContext(GlobalAppContext);
-
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="sm">
       <Box marginY={4}>
         <FormFood
-          context={context}
           formStorageKey={`${pageStorageKey}-foods`}
           onStatChange={onStatChange}
         />

@@ -5,6 +5,7 @@ import {
   DialogTitle,
   Grid,
   Stack,
+  Typography,
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
@@ -140,11 +141,16 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       />
       <Dialog
         fullWidth
-        maxWidth="sm"
+        keepMounted
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`${cardTitle} summary`}</DialogTitle>
+        <DialogTitle>
+          <Typography fontWeight="bold" fontSize="x-large">
+            {`${cardTitle} summary`}
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>

@@ -9,10 +9,14 @@ type StatListProps = {
 export const StatList: FC<StatListProps> = (props) => {
   const { hidden, children, subheader } = props;
   return (
-    <List dense sx={{ display: hidden ? "none" : "block" }}>
-      <ListSubheader disableGutters>
+    <List
+      dense
+      subheader={subheader}
+      sx={{ display: hidden ? "none" : "block" }}
+    >
+      {/* <ListSubheader disableGutters>
         <Typography>{subheader}</Typography>
-      </ListSubheader>
+      </ListSubheader> */}
       {children}
     </List>
   );

@@ -223,11 +223,15 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
       />
       <Dialog
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`${title} addon summary`}</DialogTitle>
+        <DialogTitle>
+          <Typography fontWeight="bold" fontSize="x-large">
+            {`${title} addon summary`}
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <StatView stat={stat_total} maxHeight="" />
         </DialogContent>

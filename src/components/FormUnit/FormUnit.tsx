@@ -152,11 +152,15 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
       <Dialog
         keepMounted
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>{`${cardTitle} summary`}</DialogTitle>
+        <DialogTitle>
+          <Typography fontWeight="bold" fontSize="x-large">
+            {`${cardTitle} summary`}
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <StatView stat={stat} maxHeight="" />
         </DialogContent>
