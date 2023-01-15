@@ -20,7 +20,12 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, statObject, StatObject } from "../../assets";
+import {
+  ActionContext,
+  Augment,
+  statObject,
+  StatObject,
+} from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon } from "../../types";
 import { GlobalAppContext } from "../../contexts";
@@ -38,7 +43,7 @@ type PageEditEquipmentProps = {
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { pageStorageKey, onStatChange } = props;
+  const { pageStorageKey, onStatChange, onContextChange } = props;
 
   const context = useContext(GlobalAppContext);
 
@@ -78,7 +83,58 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setEnhancement: setEnhancementUnitC,
     setFixa: setFixaUnitC,
     setAugment: setAugmentUnitC,
-  } = useDataUnit(`${pageStorageKey}-form-unit-C`);
+  } = useDataUnit(`${pageStorageKey}-form-unit-c`);
+
+  useEffect(() => {
+    const unique_active_augments: Set<string> = new Set();
+
+    if (dataWeapon.weapon !== null) {
+      dataWeapon.augments
+        .slice(0, Augment.getAugmentSlot(dataWeapon.enhancement))
+        .forEach((augment) => {
+          if (augment === null) {
+            return;
+          }
+          unique_active_augments.add(augment.label);
+        });
+    }
+    if (dataUnitA.unit !== null) {
+      dataUnitA.augments
+        .slice(0, Augment.getAugmentSlot(dataUnitA.enhancement))
+        .forEach((augment) => {
+          if (augment === null) {
+            return;
+          }
+          unique_active_augments.add(augment.label);
+        });
+    }
+    if (dataUnitB.unit !== null) {
+      dataUnitB.augments
+        .slice(0, Augment.getAugmentSlot(dataUnitB.enhancement))
+        .forEach((augment) => {
+          if (augment === null) {
+            return;
+          }
+          unique_active_augments.add(augment.label);
+        });
+    }
+    if (dataUnitC.unit !== null) {
+      dataUnitC.augments
+        .slice(0, Augment.getAugmentSlot(dataUnitC.enhancement))
+        .forEach((augment) => {
+          if (augment === null) {
+            return;
+          }
+          unique_active_augments.add(augment.label);
+        });
+    }
+
+    onContextChange(({ character, ...rest }) => {
+      const next = { ...rest, character: { ...character } };
+      next.character.uniqueAugments = unique_active_augments.size;
+      return next;
+    });
+  }, [dataWeapon, dataUnitA, dataUnitB, dataUnitC]);
 
   const handleUnitSyncA = useCallback((): void => {
     setUnitB(dataUnitA.unit);

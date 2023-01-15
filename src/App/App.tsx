@@ -10,7 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import { PageEditEquipment, PageHome } from "../pages";
+import {
+  PageEditAddon,
+  PageEditEquipment,
+  PageEditFood,
+  PageHome,
+} from "../pages";
 import { useActionContext } from "../hooks";
 import { StatEnum, StatObject, statObject } from "../assets";
 import { GlobalAppContext } from "../contexts";
@@ -38,7 +43,7 @@ export const App: FC = () => {
     stat = StatObject.setStat(stat, StatEnum.CORE_HP, hp * hp_boost);
     stat = StatObject.setStat(stat, StatEnum.ADV_HP_BOOST, 1);
 
-    return;
+    return stat;
   }, [statEquipment, statFood, statAddon]);
 
   return (
@@ -70,7 +75,13 @@ export const App: FC = () => {
       <GlobalAppContext.Provider value={appContext}>
         <PageContainer
           isVisible={page === 0}
-          component={<PageHome />}
+          component={
+            <PageHome
+              stat={stat_total}
+              onContextChange={setAppContext}
+              onPageChange={setPage}
+            />
+          }
         />
         <PageContainer
           isVisible={page === 1}
@@ -78,19 +89,27 @@ export const App: FC = () => {
             <PageEditEquipment
               pageStorageKey="p-equipment"
               onStatChange={setStatEquipment}
+              onContextChange={setAppContext}
             />
           }
         />
-
-        <PageEditFood
+        <PageContainer
           isVisible={page === 2}
-          pageStorageKey="p-food"
-          onStatChange={setStatFood}
+          component={
+            <PageEditFood
+              pageStorageKey="p-food"
+              onStatChange={setStatFood}
+            />
+          }
         />
-        <PageEditAddon
+        <PageContainer
           isVisible={page === 4}
-          pageStorageKey="p-addon"
-          onStatChange={setStatAddon}
+          component={
+            <PageEditAddon
+              pageStorageKey="p-addon"
+              onStatChange={setStatAddon}
+            />
+          }
         />
       </GlobalAppContext.Provider>
     </ThemeProvider>

@@ -503,7 +503,7 @@ export const IMBUED_UNIT = ((): Potential => {
 
 export const VIRTUOSO_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.22, 1.26, 1.27];
-  const DATA_EFFECT_MAX: number[] = [1.15, 1.15, 1.15, 1.15, 1.2];
+  const DATA_EFFECT_MAX: number[] = [0.15, 0.15, 0.15, 0.2, 0.2];
   const DATA_EFFECT_MULTIPLIER: number[] = [
     0.01, 0.01, 0.01, 0.01, 0.02,
   ];
@@ -522,13 +522,16 @@ export const VIRTUOSO_UNIT = ((): Potential => {
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
     const { uniqueAugments } = ctx.character;
+    if (uniqueAugments === 0) {
+      return stat;
+    }
     let effect_value: number = uniqueAugments * effect_multiplier;
     if (effect_value > effect_max) {
       effect_value = effect_max;
     }
     const stat_up: StatObject = statObject({
-      [StatEnum.ADV_DEF_HEALING_UP]: effect_value,
-      [StatEnum.ADV_PP_USAGE]: 2 - effect_value,
+      [StatEnum.ADV_PP_USAGE]: 1 - effect_value,
+      [StatEnum.ADV_DEF_HEALING_UP]: 1 + effect_value,
     });
     return StatObject.merge(stat, stat_up);
   };
