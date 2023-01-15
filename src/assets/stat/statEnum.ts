@@ -32,7 +32,6 @@ export const enum StatEnum {
   ADV_OFF_CRIT_DAMAGE = "offCritDamage",
   ADV_OFF_PB_RECOVERY = "offPBRecovery",
   ADV_OFF_PB_DAMAGE_UP = "offPBDamageUp",
-  ADV_OFF_THREA = "offThreat",
 
   ADV_DEF_HEALING_UP = "defHealingUp",
   ADV_DEF_DAMAGE_RES = "defDamageResist",
