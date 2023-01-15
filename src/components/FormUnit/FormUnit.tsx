@@ -65,7 +65,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     onSync,
   } = props;
 
-  const { unit, unit_level, fixa, augments } = formData;
+  const { unit, enhancement: unit_level, fixa, augments } = formData;
 
   const [dialogOpen, setDialogOpen] = useState(false);
 

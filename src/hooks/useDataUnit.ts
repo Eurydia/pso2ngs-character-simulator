@@ -13,7 +13,7 @@ export const useFormUnit = (
 ): {
   dataUnit: DataUnit;
   setUnit: (next_unit: Unit | null) => void;
-  setUnitLevel: (next_level: number) => void;
+  setEnhancement: (next_level: number) => void;
   setFixa: (next_fixa: Fixa | null) => void;
   setAugment: (
     next_augment: Augment | null,
@@ -21,15 +21,14 @@ export const useFormUnit = (
   ) => void;
 } => {
   const { unit, setUnit } = useUnit(storage_key);
-  const { enhancement: unitLevel, setEnhancement: setUnitLevel } =
-    useEnhancement(storage_key);
+  const { enhancement, setEnhancement } = useEnhancement(storage_key);
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 
   const dataUnit = useMemo((): DataUnit => {
     return {
       unit,
-      unit_level: unitLevel,
+      enhancement: unitLevel,
       fixa,
       augments,
     };
@@ -38,7 +37,7 @@ export const useFormUnit = (
   return {
     dataUnit,
     setUnit,
-    setUnitLevel,
+    setEnhancement: setUnitLevel,
     setFixa,
     setAugment,
   };

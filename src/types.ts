@@ -13,14 +13,14 @@ export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
 export type DataUnit = {
   unit: Unit | null;
-  unit_level: number;
+  enhancement: number;
   fixa: Fixa | null;
   augments: (Augment | null)[];
 };
 
 export const DataUnit = {
   getStatObject: (ctx: ActionContext, data: DataUnit): StatObject => {
-    const { unit, unit_level, fixa, augments } = data;
+    const { unit, enhancement: unit_level, fixa, augments } = data;
 
     if (unit === null) {
       return statObject();

@@ -54,7 +54,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const {
     dataUnit: formUnitA,
     setUnit: setUnitA,
-    setUnitLevel: setUnitLevelA,
+    setEnhancement: setUnitLevelA,
     setAugment: setAugmentA,
     setFixa: setFixaA,
   } = useFormUnit(`${pageStorageKey}-form-unit-a`);
@@ -62,7 +62,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const {
     dataUnit: formUnitB,
     setUnit: setUnitB,
-    setUnitLevel: setUnitLevelB,
+    setEnhancement: setUnitLevelB,
     setAugment: setAugmentB,
     setFixa: setFixaB,
   } = useFormUnit(`${pageStorageKey}-form-unit-b`);
@@ -70,18 +70,18 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const {
     dataUnit: formUnitC,
     setUnit: setUnitC,
-    setUnitLevel: setUnitLevelC,
+    setEnhancement: setUnitLevelC,
     setAugment: setAugmentC,
     setFixa: setFixaC,
   } = useFormUnit(`${pageStorageKey}-form-unit-c`);
 
   const handleUnitSyncA = useCallback((): void => {
     setUnitB(formUnitA.unit);
-    setUnitLevelB(formUnitA.unit_level);
+    setUnitLevelB(formUnitA.enhancement);
     setFixaB(formUnitA.fixa);
 
     setUnitC(formUnitA.unit);
-    setUnitLevelC(formUnitA.unit_level);
+    setUnitLevelC(formUnitA.enhancement);
     setFixaC(formUnitA.fixa);
 
     formUnitA.augments.forEach((next_augment, augment_index) => {
@@ -92,11 +92,11 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const handleUnitSyncB = useCallback((): void => {
     setUnitA(formUnitB.unit);
-    setUnitLevelA(formUnitB.unit_level);
+    setUnitLevelA(formUnitB.enhancement);
     setFixaA(formUnitB.fixa);
 
     setUnitC(formUnitB.unit);
-    setUnitLevelC(formUnitB.unit_level);
+    setUnitLevelC(formUnitB.enhancement);
     setFixaC(formUnitB.fixa);
 
     formUnitB.augments.forEach((next_augment, augment_index) => {
@@ -107,11 +107,11 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const handleUnitSyncC = useCallback((): void => {
     setUnitA(formUnitC.unit);
-    setUnitLevelA(formUnitC.unit_level);
+    setUnitLevelA(formUnitC.enhancement);
     setFixaA(formUnitC.fixa);
 
     setUnitB(formUnitC.unit);
-    setUnitLevelB(formUnitC.unit_level);
+    setUnitLevelB(formUnitC.enhancement);
     setFixaB(formUnitC.fixa);
 
     formUnitC.augments.forEach((next_augment, augment_index) => {
