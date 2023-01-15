@@ -4,5 +4,5 @@ export { useWeapon } from "./useWeapon";
 export { useUnit } from "./useUnit";
 export { useEnhancement } from "./useEnhancement";
 
-export { useFormUnit } from "./useFormUnit";
+export { useDataUnit as useFormUnit } from "./useDataUnit";
 export { useActionContext } from "./useActionContext";

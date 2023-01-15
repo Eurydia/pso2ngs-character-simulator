@@ -8,7 +8,7 @@ import { useEnhancement } from "./useEnhancement";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
 
-export const useFormUnit = (
+export const useDataUnit = (
   storage_key: string,
 ): {
   dataUnit: DataUnit;
@@ -28,16 +28,16 @@ export const useFormUnit = (
   const dataUnit = useMemo((): DataUnit => {
     return {
       unit,
-      enhancement: unitLevel,
+      enhancement,
       fixa,
       augments,
     };
-  }, [unit, unitLevel, fixa, augments]);
+  }, [unit, enhancement, fixa, augments]);
 
   return {
     dataUnit,
     setUnit,
-    setEnhancement: setUnitLevel,
+    setEnhancement,
     setFixa,
     setAugment,
   };
