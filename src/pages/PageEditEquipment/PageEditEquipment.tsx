@@ -28,7 +28,12 @@ import { GlobalAppContext } from "../../contexts";
 
 type PageEditEquipmentProps = {
   pageStorageKey: string;
-  onStatChange: (stat: StatObject) => void;
+  onStatChange: (next_stat: StatObject) => void;
+  onContextChange: (
+    next_context:
+      | ActionContext
+      | ((prev_context: ActionContext) => ActionContext),
+  ) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
