@@ -157,19 +157,19 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
           />
         }
         slotCardContent={
-          <Stack spacing={3}>
+          <Stack spacing={2}>
             <FieldAddonLayout
+              slotLabel={
+                <Typography fontWeight="bold">
+                  {mainSkill.label}
+                </Typography>
+              }
               slotCheckbox={
                 <Checkbox
                   checked
                   disabled
                   checkedIcon={<CheckBoxRounded />}
                 />
-              }
-              slotLabel={
-                <Typography fontWeight="bold">
-                  {mainSkill.label}
-                </Typography>
               }
               slotField={
                 <FieldLevel
