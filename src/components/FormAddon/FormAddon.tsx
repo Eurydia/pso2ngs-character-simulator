@@ -2,14 +2,13 @@ import {
   FC,
   Fragment,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
 } from "react";
 import {
-  Tooltip,
   Typography,
-  IconButton,
   Stack,
   Dialog,
   DialogContent,
@@ -21,7 +20,7 @@ import {
   CheckBoxRounded,
 } from "@mui/icons-material";
 
-import { ActionContext, AddonSkill, StatObject } from "../../assets";
+import { AddonSkill, StatObject } from "../../assets";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
@@ -38,14 +37,12 @@ import {
 } from "./helper";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 import { FieldLevel } from "../FieldLevel";
+import { GlobalAppContext } from "../../contexts";
 
 type FormAddonProps = {
-  // dynamic props
-  context: ActionContext;
-
   // static props
-  formStorageKey: string;
   title: string;
+  formStorageKey: string;
   mainSkill: AddonSkill;
   subSkills: AddonSkill[];
 
@@ -55,11 +52,12 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
   const {
     title,
     formStorageKey,
-    context,
     mainSkill,
     subSkills,
     onStatChange,
   } = props;
+
+  const context = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
@@ -80,6 +78,16 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     const size: number = subSkills.length;
     return loadSubActiveIndexes(formStorageKey, size);
   });
+
+  useEffect(() => {
+    saveMainLevel(formStorageKey, mainLevel);
+  }, [mainLevel]);
+  useEffect(() => {
+    saveSubLevels(formStorageKey, subLevels);
+  }, [subLevels]);
+  useEffect(() => {
+    saveSubActiveIndexes(formStorageKey, subActiveIndexes);
+  }, [subActiveIndexes]);
 
   const handleSubLevelChange = useCallback(
     (next_level: number, skill_index: number): void => {
@@ -132,18 +140,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
     });
     return stat;
   }, [mainLevel, subLevels, subActiveIndexes, context]);
-
-  useEffect(() => {
-    saveMainLevel(formStorageKey, mainLevel);
-  }, [mainLevel]);
-
-  useEffect(() => {
-    saveSubLevels(formStorageKey, subLevels);
-  }, [subLevels]);
-
-  useEffect(() => {
-    saveSubActiveIndexes(formStorageKey, subActiveIndexes);
-  }, [subActiveIndexes]);
 
   useEffect(() => {
     onStatChange(stat_total);
