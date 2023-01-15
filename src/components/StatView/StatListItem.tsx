@@ -28,7 +28,7 @@ export const StatListItem: FC<StatListItemProps> = memo(
             alignItems="center"
           >
             <Typography>{props.label}</Typography>
-            <Typography>{props.value}</Typography>
+            <Typography fontWeight="bold">{props.value}</Typography>
           </Stack>
         </ListItemText>
       </ListItem>

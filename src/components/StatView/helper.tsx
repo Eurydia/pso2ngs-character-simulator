@@ -1,13 +1,17 @@
 import { ReactNode } from "react";
 import {
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
+  KeyboardDoubleArrowDownRounded,
+  KeyboardDoubleArrowUpRounded,
   Remove,
 } from "@mui/icons-material";
 import { blue, pink } from "@mui/material/colors";
 
-const UP_ICON = <KeyboardDoubleArrowUp htmlColor={blue["400"]} />;
-const DOWN_ICON = <KeyboardDoubleArrowDown htmlColor={pink["400"]} />;
+const UP_ICON = (
+  <KeyboardDoubleArrowUpRounded htmlColor={blue["400"]} />
+);
+const DOWN_ICON = (
+  <KeyboardDoubleArrowDownRounded htmlColor={pink["400"]} />
+);
 
 export const getIcon = (
   value: string | null,
