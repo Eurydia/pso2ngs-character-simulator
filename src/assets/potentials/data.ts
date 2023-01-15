@@ -503,7 +503,7 @@ export const IMBUED_UNIT = ((): Potential => {
 
 export const VIRTUOSO_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.22, 1.26, 1.27];
-  const DATA_EFFECT_MAX: number[] = [0.15, 0.15, 0.15, 0.2, 0.2];
+  const DATA_AUGMENT_MAX: number[] = [15, 15, 15, 20, 10];
   const DATA_EFFECT_MULTIPLIER: number[] = [
     0.01, 0.01, 0.01, 0.01, 0.02,
   ];
@@ -514,7 +514,6 @@ export const VIRTUOSO_UNIT = ((): Potential => {
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const effect_multiplier: number =
       DATA_EFFECT_MULTIPLIER[level_index];
-    const effect_max: number = DATA_EFFECT_MAX[level_index];
     const stat: StatObject = statObject({
       [StatEnum.CORE_BP]: (level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
@@ -525,10 +524,12 @@ export const VIRTUOSO_UNIT = ((): Potential => {
     if (uniqueAugments === 0) {
       return stat;
     }
-    let effect_value: number = uniqueAugments * effect_multiplier;
-    if (effect_value > effect_max) {
-      effect_value = effect_max;
+    const augment_max: number = DATA_AUGMENT_MAX[level_index];
+    let unique_augments: number = uniqueAugments;
+    if (unique_augments > augment_max) {
+      unique_augments = augment_max;
     }
+    const effect_value: number = unique_augments * effect_multiplier;
     const stat_up: StatObject = statObject({
       [StatEnum.ADV_PP_USAGE]: 1 - effect_value,
       [StatEnum.ADV_DEF_HEALING_UP]: 1 + effect_value,
