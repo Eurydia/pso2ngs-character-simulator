@@ -16,7 +16,7 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
 
   return (
     <Container maxWidth="md">
-      <Box margin={4}>
+      <Box marginY={4}>
         <FormFood
           context={context}
           formStorageKey={`${pageStorageKey}-foods`}
