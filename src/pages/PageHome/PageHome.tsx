@@ -1,10 +1,18 @@
 import { FC, useContext } from "react";
-import { Box, Container, Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
+} from "@mui/material";
 
 import { ActionContext, StatObject } from "../../assets";
 import { GlobalAppContext } from "../../contexts";
 
 import { LinkCard } from "./LinkCard";
+import { FormContextEditor, StatView } from "../../components";
 
 type PageHomeProps = {
   stat: StatObject;
@@ -70,7 +78,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
             />
           </Grid>
           <Grid item xs={1} />
-          {/* <Grid item xs={1}>
+          <Grid item xs={1}>
             <FormContextEditor
               formData={context}
               onFormDataChange={onContextChange}
@@ -89,7 +97,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 <StatView stat={stat} maxHeight="600px" />
               </CardContent>
             </Card>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Box>
     </Container>

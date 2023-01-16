@@ -11,6 +11,8 @@ export type CharacterClass = {
 };
 
 export const CharacterClass = {
+  LEVEL_MAX: 70,
+
   getCharacterHP: (
     base_hp: number,
     character_level: number,

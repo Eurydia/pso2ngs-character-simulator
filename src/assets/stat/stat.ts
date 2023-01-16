@@ -17,7 +17,10 @@ export const StatObject = {
     if (!keys.includes(key)) {
       return null;
     }
-    const value: number = data[key]!;
+    const value: number | undefined = data[key];
+    if (value === undefined) {
+      return null;
+    }
     if (StatAdd.has(key)) {
       return formatStatAdd(value);
     }
@@ -45,7 +48,7 @@ export const StatObject = {
   setStat: (
     stat: StatObject,
     key: StatEnum,
-    value: number,
+    value: number | undefined,
   ): StatObject => {
     const next_data: StatObject = { ...stat };
     next_data[key] = value;

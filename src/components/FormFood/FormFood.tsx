@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { AddRounded, BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, Food, StatObject } from "../../assets";
+import { Food, StatObject } from "../../assets";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
@@ -26,7 +26,7 @@ import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 
 import { FoodList } from "./FoodList";
-import { loadFoods } from "./helper";
+import { loadFoods, saveFoods } from "./helper";
 import { GlobalAppContext } from "../../contexts";
 
 type FormFoodProps = {
@@ -52,6 +52,11 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   const [foods, setFoods] = useState<Food[]>(() => {
     return loadFoods(formStorageKey);
   });
+
+  useEffect(() => {
+    saveFoods(formStorageKey, foods);
+  }, [foods]);
+
   const handleAdd = useCallback(() => {
     if (selected === null) {
       return;
@@ -122,11 +127,9 @@ export const FormFood: FC<FormFoodProps> = (props) => {
                 <AutocompleteFood
                   food={selected}
                   onFoodChange={setSelected}
-                  onKeyEnterPress={handleAdd}
                 />
               </Box>
               <Button
-                disableRipple
                 disableElevation
                 variant="contained"
                 disabled={selected === null}

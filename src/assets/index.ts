@@ -7,3 +7,7 @@ export { Potential } from "./potentials";
 export * from "./fixas";
 export * from "./foods";
 export * from "./skill_addon";
+export {
+  CharacterClass,
+  AssetCharacterClasses,
+} from "./character_class";

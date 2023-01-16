@@ -12,6 +12,7 @@ import {
 import { CopyAllRounded, DeleteRounded } from "@mui/icons-material";
 
 import { Food } from "../../assets";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FoodListItemProps = {
   label: string;
@@ -27,22 +28,16 @@ const FoodListItem: FC<FoodListItemProps> = memo(
           <Typography fontSize="large">{label}</Typography>
         </ListItemText>
         <ListItemSecondaryAction>
-          <Tooltip
-            placement="top"
-            title={<Typography>Insert below</Typography>}
-          >
-            <IconButton onClick={onCopy}>
-              <CopyAllRounded />
-            </IconButton>
-          </Tooltip>
-          <Tooltip
-            placement="top"
-            title={<Typography>Remove item</Typography>}
-          >
-            <IconButton onClick={onRemove}>
-              <DeleteRounded />
-            </IconButton>
-          </Tooltip>
+          <IconButtonTooltip
+            tooltipText="Insert below"
+            icon={<CopyAllRounded />}
+            onClick={onCopy}
+          />
+          <IconButtonTooltip
+            tooltipText="Remove item"
+            icon={<DeleteRounded />}
+            onClick={onRemove}
+          />
         </ListItemSecondaryAction>
       </ListItem>
     );

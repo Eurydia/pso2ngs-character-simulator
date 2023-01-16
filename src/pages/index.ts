@@ -1,4 +1,5 @@
-export * from "./PageHome";
-export * from "./PageEditFood";
-export * from "./PageEditEquipment";
-export * from "./PageEditAddon";
+export { PageHome } from "./PageHome";
+export { PageEditFood } from "./PageEditFood";
+export { PageEditEquipment } from "./PageEditEquipment";
+export { PageEditAddon } from "./PageEditAddon";
+export { PageEditClass } from "./PageEditClass";

@@ -11,12 +11,13 @@ export const StatList: FC<StatListProps> = (props) => {
   return (
     <List
       dense
-      subheader={subheader}
+      subheader={
+        <ListSubheader disableGutters>
+          <Typography>{subheader}</Typography>
+        </ListSubheader>
+      }
       sx={{ display: hidden ? "none" : "block" }}
     >
-      {/* <ListSubheader disableGutters>
-        <Typography>{subheader}</Typography>
-      </ListSubheader> */}
       {children}
     </List>
   );

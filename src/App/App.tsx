@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import {
   AppBar,
   CssBaseline,
@@ -12,6 +12,7 @@ import {
 
 import {
   PageEditAddon,
+  PageEditClass,
   PageEditEquipment,
   PageEditFood,
   PageHome,
@@ -26,7 +27,7 @@ import { HomeRounded } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 
 export const App: FC = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(3);
 
   const [appContext, setAppContext] = useActionContext("app-ctx");
 
@@ -37,14 +38,42 @@ export const App: FC = () => {
   const stat_total = useMemo(() => {
     let stat = StatObject.merge(statEquipment, statFood);
     stat = StatObject.merge(stat, statAddon);
-
-    const hp = StatObject.getStat(stat, StatEnum.CORE_HP);
     const hp_boost = StatObject.getStat(stat, StatEnum.ADV_HP_BOOST);
-    stat = StatObject.setStat(stat, StatEnum.CORE_HP, hp * hp_boost);
-    stat = StatObject.setStat(stat, StatEnum.ADV_HP_BOOST, 1);
-
+    if (hp_boost) {
+      const hp = StatObject.getStat(stat, StatEnum.CORE_HP);
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.CORE_HP,
+        Math.round(hp * hp_boost),
+      );
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.ADV_HP_BOOST,
+        undefined,
+      );
+    }
     return stat;
   }, [statEquipment, statFood, statAddon]);
+
+  useEffect(() => {
+    setAppContext((prev) => {
+      const next = { ...prev };
+      const { coreAttack, coreDefense, corePP, coreHP } = stat_total;
+      if (coreAttack !== undefined) {
+        next.character.attackValue = coreAttack;
+      }
+      if (coreDefense !== undefined) {
+        next.character.defenseValue = coreDefense;
+      }
+      if (coreHP !== undefined) {
+        next.character.hpValue = coreHP;
+      }
+      if (corePP !== undefined) {
+        next.character.ppValue = corePP;
+      }
+      return next;
+    });
+  }, [stat_total]);
 
   return (
     <ThemeProvider theme={style_overrides}>
@@ -101,6 +130,10 @@ export const App: FC = () => {
               onStatChange={setStatFood}
             />
           }
+        />
+        <PageContainer
+          isVisible={page === 3}
+          component={<PageEditClass />}
         />
         <PageContainer
           isVisible={page === 4}

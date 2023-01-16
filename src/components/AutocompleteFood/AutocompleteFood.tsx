@@ -15,11 +15,10 @@ type AutocompleteFoodProps = {
   food: Food | null;
 
   onFoodChange: (next_food: Food | null) => void;
-  onKeyEnterPress: () => void;
 };
 export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
   (props) => {
-    const { food, onFoodChange, onKeyEnterPress } = props;
+    const { food, onFoodChange } = props;
 
     const handleFoodChange = useCallback(
       (
@@ -32,24 +31,15 @@ export const AutocompleteFood: FC<AutocompleteFoodProps> = memo(
       [],
     );
 
-    const handleKeyDown = useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>): void => {
-        const key = event.key;
-        if (key === "Enter") {
-          onKeyEnterPress();
-        }
-      },
-      [],
-    );
-
     return (
       <Autocomplete
         options={AssetFoods}
         value={food}
         onChange={handleFoodChange}
-        onKeyDown={handleKeyDown}
         filterOptions={filterOptions}
-        renderInput={(params) => <TextFieldFood {...params} />}
+        renderInput={(params) => {
+          return <TextFieldFood {...params} />;
+        }}
         renderOption={(props, option, _) => {
           return (
             <OptionFood

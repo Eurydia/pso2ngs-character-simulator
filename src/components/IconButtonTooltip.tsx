@@ -6,21 +6,18 @@ type IconButtonTooltipProps = {
   tooltipText: string;
   onClick: () => void;
 };
-export const IconButtonTooltip: FC<IconButtonTooltipProps> = memo(
-  (props) => {
-    const { icon, tooltipText, onClick } = props;
-    return (
-      <Tooltip
-        placement="top"
-        title={<Typography>{tooltipText}</Typography>}
-      >
-        <IconButton size="large" color="primary" onClick={onClick}>
-          {icon}
-        </IconButton>
-      </Tooltip>
-    );
-  },
-  (prev, next) => {
-    return true;
-  },
-);
+export const IconButtonTooltip: FC<IconButtonTooltipProps> = (
+  props,
+) => {
+  const { icon, tooltipText, onClick } = props;
+  return (
+    <Tooltip
+      placement="top"
+      title={<Typography>{tooltipText}</Typography>}
+    >
+      <IconButton size="large" color="primary" onClick={onClick}>
+        {icon}
+      </IconButton>
+    </Tooltip>
+  );
+};
