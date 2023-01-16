@@ -1,30 +1,38 @@
-import { FC, ChangeEvent, memo, useCallback, useMemo } from "react";
+import {
+  FC,
+  ChangeEvent,
+  memo,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from "react";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 
 import { clampValue } from "./helper";
-import { AddRounded } from "@mui/icons-material";
 
-type FieldEnhancementProps = {
+type FieldNumberProps = {
   // Dynamic props
-  level: number;
+  value: number;
   disabled: boolean;
-  levelMax: number;
+  valueMax: number;
 
   //  Static props
   label: string;
-  levelMin: number;
+  startAdornment: ReactNode;
+  valueMin: number;
 
-  onEnhancementChange: (next_enhancement: number) => void;
+  onValueChange: (next_value: number) => void;
 };
-export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
+export const FieldNumber: FC<FieldNumberProps> = memo(
   (props) => {
     const {
-      disabled,
       label,
-      level,
-      levelMax,
-      levelMin,
-      onEnhancementChange,
+      startAdornment,
+      disabled,
+      value,
+      valueMax,
+      valueMin,
+      onValueChange,
     } = props;
 
     const handleLevelChange = useCallback(
@@ -34,28 +42,28 @@ export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
         const value_input: string = event.target.value;
         const value_parsed: number = Number.parseInt(value_input);
         if (Number.isNaN(value_parsed)) {
-          onEnhancementChange(0);
+          onValueChange(0);
           return;
         }
         const value_clamped: number = clampValue(
           value_parsed,
-          levelMin,
-          levelMax,
+          valueMin,
+          valueMax,
         );
-        onEnhancementChange(value_clamped);
+        onValueChange(value_clamped);
       },
-      [levelMax, levelMin],
+      [valueMax, valueMin],
     );
 
-    const value = useMemo((): string => {
-      if (level === undefined) {
+    const value_string = useMemo((): string => {
+      if (value === undefined) {
         return "0";
       }
-      if (Number.isNaN(level)) {
+      if (Number.isNaN(value)) {
         return "0";
       }
-      return level.toString();
-    }, [level]);
+      return value.toString();
+    }, [value]);
 
     return (
       <TextField
@@ -63,12 +71,12 @@ export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
         inputMode="numeric"
         placeholder={label}
         disabled={disabled}
-        value={value}
+        value={value_string}
         onChange={handleLevelChange}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Typography>+</Typography>
+              {startAdornment}
             </InputAdornment>
           ),
         }}
@@ -83,8 +91,8 @@ export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
   (prev, next) => {
     return (
       prev.disabled === next.disabled &&
-      prev.level === next.level &&
-      prev.levelMax === next.levelMax
+      prev.value === next.value &&
+      prev.valueMax === next.valueMax
     );
   },
 );

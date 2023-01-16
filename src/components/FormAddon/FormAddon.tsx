@@ -36,7 +36,7 @@ import {
   saveSubActiveIndexes,
 } from "./helper";
 import { IconButtonTooltip } from "../IconButtonTooltip";
-import { FieldEnhancement } from "../FieldEnhancement";
+import { FieldNumber } from "../FieldNumber";
 import { GlobalAppContext } from "../../contexts";
 import { FieldAddonLevel } from "../FieldAddonLevel";
 

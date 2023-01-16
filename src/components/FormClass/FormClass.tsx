@@ -21,7 +21,7 @@ export const FormClass: FC<FormClassProps> = (props) => {
       cardTitle={cardTitle}
       slotCardHeaderAction={null}
       slotCardContent={
-        <Stack>
+        <Stack spacing={1}>
           <SelectClass
             startIcon={<LooksOneRounded />}
             currentClass={main}
