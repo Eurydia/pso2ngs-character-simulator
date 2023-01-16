@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useMemo } from "react";
+import { ChangeEvent, FC, memo, ReactNode, useMemo } from "react";
 import {
   Box,
   InputAdornment,
@@ -27,13 +27,13 @@ type SelectClassProps = {
   currentClass: string;
 
   // Static props
-  label: string;
+  startIcon: ReactNode;
 
   onCurrentClassChange: (next_class: string) => void;
 };
 export const SelectClass: FC<SelectClassProps> = memo(
   (props) => {
-    const { label, currentClass, onCurrentClassChange } = props;
+    const { startIcon, currentClass, onCurrentClassChange } = props;
 
     const handlePotentialLevelChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -49,10 +49,15 @@ export const SelectClass: FC<SelectClassProps> = memo(
       <TextField
         select
         fullWidth
-        variant="filled"
-        label={label}
         value={currentClass}
         onChange={handlePotentialLevelChange}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              {startIcon}
+            </InputAdornment>
+          ),
+        }}
       >
         {CLASS_OPTIONS.map((label, index) => {
           return (

@@ -19,7 +19,7 @@ import {
 import { DataWeapon } from "../../types";
 
 import { FormBase } from "../FormBase";
-import { FieldLevel } from "../FieldLevel";
+import { FieldEnhancement } from "../FieldEnhancement";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
@@ -98,7 +98,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   potentialLevel={potential_level}
                   onPotentialLevelChange={onPotentialLevelChange}
                 />
-                <FieldLevel
+                <FieldEnhancement
                   label="Enhacement"
                   levelMin={0}
                   disabled={weapon === null}

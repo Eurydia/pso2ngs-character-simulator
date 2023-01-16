@@ -36,7 +36,7 @@ import {
   saveSubActiveIndexes,
 } from "./helper";
 import { IconButtonTooltip } from "../IconButtonTooltip";
-import { FieldLevel } from "../FieldLevel";
+import { FieldEnhancement } from "../FieldEnhancement";
 import { GlobalAppContext } from "../../contexts";
 
 type FormAddonProps = {
@@ -172,7 +172,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                 />
               }
               slotField={
-                <FieldLevel
+                <FieldEnhancement
                   disabled={false}
                   label="Level"
                   levelMin={0}
@@ -200,7 +200,7 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                       />
                     }
                     slotField={
-                      <FieldLevel
+                      <FieldEnhancement
                         disabled={false}
                         label="Level"
                         levelMin={0}

@@ -1,3 +1,7 @@
+import {
+  LooksOneRounded,
+  LooksTwoRounded,
+} from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import { FC, useState } from "react";
 import { FormBase } from "../FormBase";
@@ -19,12 +23,12 @@ export const FormClass: FC<FormClassProps> = (props) => {
       slotCardContent={
         <Stack>
           <SelectClass
-            label="Main"
+            startIcon={<LooksOneRounded />}
             currentClass={main}
             onCurrentClassChange={setMain}
           />
           <SelectClass
-            label="Sub"
+            startIcon={<LooksTwoRounded />}
             currentClass={sub}
             onCurrentClassChange={setSub}
           />

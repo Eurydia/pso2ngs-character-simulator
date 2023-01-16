@@ -19,7 +19,7 @@ import {
 import { DataUnit } from "../../types";
 
 import { AutocompleteUnit } from "../AutocompleteUnit";
-import { FieldLevel } from "../FieldLevel";
+import { FieldEnhancement } from "../FieldEnhancement";
 import { AutocompleteFixa } from "../AutocompleteFixa";
 import { AutocompleteAugment } from "../AutocompleteAugment";
 import { FormBase } from "../FormBase";
@@ -98,7 +98,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   unit={unit}
                   onUnitChange={onUnitChange}
                 />
-                <FieldLevel
+                <FieldEnhancement
                   label="Enhacement"
                   levelMin={0}
                   disabled={unit === null}

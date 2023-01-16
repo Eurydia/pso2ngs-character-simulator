@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 
 import { clampValue } from "./helper";
 
-type FieldLevelProps = {
+type FieldEnhancementProps = {
   // Dynamic props
   level: number;
   disabled: boolean;
@@ -15,7 +15,7 @@ type FieldLevelProps = {
 
   onLevelChange: (next_level: number) => void;
 };
-export const FieldLevel: FC<FieldLevelProps> = memo(
+export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
   (props) => {
     const {
       disabled,
