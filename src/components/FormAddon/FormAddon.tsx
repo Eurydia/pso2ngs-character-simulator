@@ -21,9 +21,12 @@ import {
 } from "@mui/icons-material";
 
 import { AddonSkill, StatObject } from "../../assets";
+import { GlobalAppContext } from "../../contexts";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
+import { IconButtonTooltip } from "../IconButtonTooltip";
+import { FieldNumber } from "../FieldNumber";
 
 import { FieldAddonLayout } from "./FieldAddonLayout";
 import { CheckboxAddon } from "./CheckboxAddon";
@@ -35,10 +38,6 @@ import {
   saveSubLevels,
   saveSubActiveIndexes,
 } from "./helper";
-import { IconButtonTooltip } from "../IconButtonTooltip";
-import { FieldNumber } from "../FieldNumber";
-import { GlobalAppContext } from "../../contexts";
-import { FieldAddonLevel } from "../FieldAddonLevel";
 
 type FormAddonProps = {
   // static props
@@ -173,10 +172,14 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                 />
               }
               slotField={
-                <FieldAddonLevel
+                <FieldNumber
+                  disabled={false}
                   label="Level"
-                  level={mainLevel}
-                  onAddonLevelChange={setMainLevel}
+                  startAdornment={<Typography>Lv.</Typography>}
+                  valueMin={0}
+                  valueMax={AddonSkill.LEVEL_MAX}
+                  value={mainLevel}
+                  onValueChange={setMainLevel}
                 />
               }
             />
@@ -198,10 +201,14 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                       />
                     }
                     slotField={
-                      <FieldAddonLevel
+                      <FieldNumber
                         label="Level"
-                        level={sub_level}
-                        onAddonLevelChange={(next_level) => {
+                        disabled={false}
+                        startAdornment={<Typography>Lv.</Typography>}
+                        valueMin={0}
+                        valueMax={AddonSkill.LEVEL_MAX}
+                        value={sub_level}
+                        onValueChange={(next_level) => {
                           handleSubLevelChange(
                             next_level,
                             skill_index,
