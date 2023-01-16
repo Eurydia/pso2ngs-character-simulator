@@ -100,6 +100,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                 />
                 <FieldNumber
                   label="Enhacement"
+                  startAdornment={<Typography>+</Typography>}
                   valueMin={0}
                   disabled={weapon === null}
                   value={enhancement}
