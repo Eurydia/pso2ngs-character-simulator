@@ -13,6 +13,13 @@ export type CharacterClass = {
 export const CharacterClass = {
   LEVEL_MAX: 70,
 
+  fromLabel: (class_name: string): CharacterClass | null => {
+    if (class_name in LOOKUP_TABLE) {
+      return LOOKUP_TABLE[class_name];
+    }
+    return null;
+  },
+
   getCharacterHP: (
     base_hp: number,
     character_level: number,

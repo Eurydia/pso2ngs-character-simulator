@@ -8,7 +8,7 @@ export const PageEditClass: FC<PageEditClassProps> = () => {
   return (
     <Container maxWidth="md">
       <Box marginY={4}>
-        <FormClass cardTitle="Main class" />
+        <FormClass cardTitle="Main class & sub class" />
       </Box>
     </Container>
   );

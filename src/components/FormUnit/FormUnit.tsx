@@ -99,7 +99,6 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   onUnitChange={onUnitChange}
                 />
                 <FieldNumber
-                  label="Enhancement"
                   startAdornment={<Typography>+</Typography>}
                   valueMin={0}
                   disabled={unit === null}

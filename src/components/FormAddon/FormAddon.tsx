@@ -174,7 +174,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
               slotField={
                 <FieldNumber
                   disabled={false}
-                  label="Level"
                   startAdornment={<Typography>Lv.</Typography>}
                   valueMin={0}
                   valueMax={AddonSkill.LEVEL_MAX}
@@ -202,7 +201,6 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                     }
                     slotField={
                       <FieldNumber
-                        label="Level"
                         disabled={false}
                         startAdornment={<Typography>Lv.</Typography>}
                         valueMin={0}

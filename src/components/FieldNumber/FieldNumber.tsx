@@ -17,7 +17,6 @@ type FieldNumberProps = {
   valueMax: number;
 
   //  Static props
-  label: string;
   startAdornment: ReactNode;
   valueMin: number;
 
@@ -26,7 +25,6 @@ type FieldNumberProps = {
 export const FieldNumber: FC<FieldNumberProps> = memo(
   (props) => {
     const {
-      label,
       startAdornment,
       disabled,
       value,
@@ -69,7 +67,6 @@ export const FieldNumber: FC<FieldNumberProps> = memo(
       <TextField
         fullWidth
         inputMode="numeric"
-        placeholder={label}
         disabled={disabled}
         value={value_string}
         onChange={handleLevelChange}

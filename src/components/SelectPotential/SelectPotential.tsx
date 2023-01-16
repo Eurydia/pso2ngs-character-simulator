@@ -39,7 +39,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       const potential_name: string = weapon.potential.name;
       for (let level = 1; level <= level_max; level++) {
         results.push({
-          label: `${potential_name} Lv. ${level}`,
+          label: `${potential_name} Lv.${level}`,
           value: level,
         });
       }
