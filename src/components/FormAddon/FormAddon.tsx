@@ -38,6 +38,7 @@ import {
 import { IconButtonTooltip } from "../IconButtonTooltip";
 import { FieldEnhancement } from "../FieldEnhancement";
 import { GlobalAppContext } from "../../contexts";
+import { FieldAddonLevel } from "../FieldAddonLevel";
 
 type FormAddonProps = {
   // static props
@@ -172,13 +173,10 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                 />
               }
               slotField={
-                <FieldEnhancement
-                  disabled={false}
+                <FieldAddonLevel
                   label="Level"
-                  levelMin={0}
-                  levelMax={AddonSkill.LEVEL_MAX}
                   level={mainLevel}
-                  onLevelChange={setMainLevel}
+                  onAddonLevelChange={setMainLevel}
                 />
               }
             />
@@ -200,13 +198,10 @@ export const FormAddon: FC<FormAddonProps> = (props) => {
                       />
                     }
                     slotField={
-                      <FieldEnhancement
-                        disabled={false}
+                      <FieldAddonLevel
                         label="Level"
-                        levelMin={0}
-                        levelMax={AddonSkill.LEVEL_MAX}
                         level={sub_level}
-                        onLevelChange={(next_level) => {
+                        onAddonLevelChange={(next_level) => {
                           handleSubLevelChange(
                             next_level,
                             skill_index,

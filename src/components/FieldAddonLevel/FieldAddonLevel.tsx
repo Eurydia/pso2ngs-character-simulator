@@ -2,30 +2,20 @@ import { FC, ChangeEvent, memo, useCallback, useMemo } from "react";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 
 import { clampValue } from "./helper";
-import { AddRounded } from "@mui/icons-material";
+import { AddonSkill } from "../../assets";
 
-type FieldEnhancementProps = {
+type FieldAddonLevelProps = {
   // Dynamic props
   level: number;
-  disabled: boolean;
-  levelMax: number;
 
   //  Static props
   label: string;
-  levelMin: number;
 
-  onEnhancementChange: (next_enhancement: number) => void;
+  onAddonLevelChange: (next_level: number) => void;
 };
-export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
+export const FieldAddonLevel: FC<FieldAddonLevelProps> = memo(
   (props) => {
-    const {
-      disabled,
-      label,
-      level,
-      levelMax,
-      levelMin,
-      onEnhancementChange,
-    } = props;
+    const { label, level, onAddonLevelChange } = props;
 
     const handleLevelChange = useCallback(
       (
@@ -34,17 +24,20 @@ export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
         const value_input: string = event.target.value;
         const value_parsed: number = Number.parseInt(value_input);
         if (Number.isNaN(value_parsed)) {
-          onEnhancementChange(0);
+          onAddonLevelChange(0);
           return;
         }
-        const value_clamped: number = clampValue(
-          value_parsed,
-          levelMin,
-          levelMax,
-        );
-        onEnhancementChange(value_clamped);
+
+        let value_clamped: number = value_parsed;
+        if (value_clamped < 0) {
+          value_clamped = 0;
+        }
+        if (value_clamped > AddonSkill.LEVEL_MAX) {
+          value_clamped = AddonSkill.LEVEL_MAX;
+        }
+        onAddonLevelChange(value_clamped);
       },
-      [levelMax, levelMin],
+      [],
     );
 
     const value = useMemo((): string => {
@@ -62,29 +55,17 @@ export const FieldEnhancement: FC<FieldEnhancementProps> = memo(
         fullWidth
         inputMode="numeric"
         placeholder={label}
-        disabled={disabled}
         value={value}
         onChange={handleLevelChange}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
-              <Typography>+</Typography>
-            </InputAdornment>
+            <InputAdornment position="start">Lv. </InputAdornment>
           ),
-        }}
-        sx={{
-          textDecorationLine: props.disabled
-            ? "line-through"
-            : "none",
         }}
       />
     );
   },
   (prev, next) => {
-    return (
-      prev.disabled === next.disabled &&
-      prev.level === next.level &&
-      prev.levelMax === next.levelMax
-    );
+    return prev.level === next.level;
   },
 );

@@ -106,7 +106,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   levelMax={
                     weapon === null ? 0 : weapon.enhancement_max
                   }
-                  onLevelChange={onEnhancementChange}
+                  onEnhancementChange={onEnhancementChange}
                 />
                 <AutocompleteFixa
                   mode={GroupEnumFixa.WEAPON}

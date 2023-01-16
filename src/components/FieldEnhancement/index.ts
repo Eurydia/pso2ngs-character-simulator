@@ -1,1 +1,1 @@
-export { FieldEnhancement as FieldEnhancement } from "./FieldEnhancement";
+export { FieldEnhancement } from "./FieldEnhancement";

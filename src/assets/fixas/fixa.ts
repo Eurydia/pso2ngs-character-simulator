@@ -35,7 +35,7 @@ export const fixa = (
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Fixa => {
   const level = fixa_level.toString();
-  const label = `${name} ${level}`.trimEnd();
+  const label = `${name} Lv. ${level}`.trimEnd();
 
   const result: Fixa = {
     name,

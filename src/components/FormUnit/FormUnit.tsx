@@ -104,7 +104,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   disabled={unit === null}
                   levelMax={unit === null ? 0 : unit.enhancement_max}
                   level={enhancement}
-                  onLevelChange={onEnhancementChange}
+                  onEnhancementChange={onEnhancementChange}
                 />
                 <AutocompleteFixa
                   mode={GroupEnumFixa.UNIT}
