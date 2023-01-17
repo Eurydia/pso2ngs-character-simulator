@@ -150,6 +150,7 @@ export const FormCharacterClassAddon: FC<
   return (
     <Fragment>
       <FormBase
+        slotCardHeaderAvatar={null}
         cardTitle={cardTitle}
         slotCardHeaderAction={
           <IconButtonTooltip
@@ -159,7 +160,7 @@ export const FormCharacterClassAddon: FC<
           />
         }
         slotCardContent={
-          <Stack spacing={2}>
+          <Stack spacing={3}>
             <FieldAddonLayout
               slotLabel={
                 <Typography fontWeight="bold">

@@ -102,7 +102,7 @@ export const App: FC = () => {
         </Toolbar>
       </AppBar>
       <GlobalAppContext.Provider value={appContext}>
-        {/* <PageContainer
+        <PageContainer
           isVisible={page === 0}
           component={
             <PageHome
@@ -111,8 +111,8 @@ export const App: FC = () => {
               onPageChange={setPage}
             />
           }
-        /> */}
-        {/* <PageContainer
+        />
+        <PageContainer
           isVisible={page === 1}
           component={
             <PageEditEquipment
@@ -121,8 +121,8 @@ export const App: FC = () => {
               onContextChange={setAppContext}
             />
           }
-        /> */}
-        {/* <PageContainer
+        />
+        <PageContainer
           isVisible={page === 2}
           component={
             <PageEditFood
@@ -130,12 +130,12 @@ export const App: FC = () => {
               onStatChange={setStatFood}
             />
           }
-        /> */}
+        />
         <PageContainer
           isVisible={page === 3}
           component={<PageEditClass />}
         />
-        {/* <PageContainer
+        <PageContainer
           isVisible={page === 4}
           component={
             <PageEditAddon
@@ -143,7 +143,7 @@ export const App: FC = () => {
               onStatChange={setStatAddon}
             />
           }
-        /> */}
+        />
       </GlobalAppContext.Provider>
     </ThemeProvider>
   );

@@ -9,3 +9,4 @@ export { FormFood } from "./FormFood";
 
 export { FormCharacterClass } from "./FormCharacterClass";
 export { FormCharacterClassAddon } from "./FormCharacterClassAddon";
+export { FormCharacterClassSkill } from "./FormCharacterClassSkill";

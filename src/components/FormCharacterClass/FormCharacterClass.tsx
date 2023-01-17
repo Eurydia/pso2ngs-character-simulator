@@ -95,6 +95,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
     <Fragment>
       <FormBase
         cardTitle={cardTitle}
+        slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <IconButtonTooltip
             tooltipText="Open summary"
@@ -127,7 +128,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
             <Box width={{ xs: 1, sm: 0.5 }}>
               <SelectClass
                 startIcon={
-                  <LooksTwoRounded htmlColor={grey["500"]} />
+                  <LooksTwoRounded htmlColor={grey["400"]} />
                 }
                 currentClass={classData.sub}
                 onCurrentClassChange={handleSubLabelChange}

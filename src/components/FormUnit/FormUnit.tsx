@@ -76,6 +76,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     <Fragment>
       <FormBase
         cardTitle={cardTitle}
+        slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <Fragment>
             <IconButtonTooltip

@@ -113,6 +113,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
     <Fragment>
       <FormBase
         cardTitle="Food"
+        slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <IconButtonTooltip
             tooltipText="Open summary"

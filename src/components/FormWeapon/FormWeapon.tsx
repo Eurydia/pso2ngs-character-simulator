@@ -78,6 +78,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     <Fragment>
       <FormBase
         cardTitle={cardTitle}
+        slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <IconButtonTooltip
             tooltipText="Open summary"
