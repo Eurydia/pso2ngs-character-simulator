@@ -8,4 +8,4 @@ export { FormUnit } from "./FormUnit";
 export { FormFood } from "./FormFood";
 
 export { FormCharacterClass as FormClass } from "./FormCharacterClass";
-export { FormClassAddon } from "./FormClassAddon";
+export { FormCharacterClassAddon as FormClassAddon } from "./FormCharacterClassAddon";
