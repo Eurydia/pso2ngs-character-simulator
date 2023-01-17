@@ -99,7 +99,11 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
                   onPotentialLevelChange={onPotentialLevelChange}
                 />
                 <FieldNumber
-                  startAdornment={<Typography>+</Typography>}
+                  startAdornment={
+                    <Typography sx={{ textDecorationLine: "none" }}>
+                      +
+                    </Typography>
+                  }
                   valueMin={0}
                   disabled={weapon === null}
                   value={enhancement}

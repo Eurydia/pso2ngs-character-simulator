@@ -99,7 +99,11 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
                   onUnitChange={onUnitChange}
                 />
                 <FieldNumber
-                  startAdornment={<Typography>+</Typography>}
+                  startAdornment={
+                    <Typography sx={{ textDecorationLine: "none" }}>
+                      +
+                    </Typography>
+                  }
                   valueMin={0}
                   disabled={unit === null}
                   valueMax={unit === null ? 0 : unit.enhancement_max}
