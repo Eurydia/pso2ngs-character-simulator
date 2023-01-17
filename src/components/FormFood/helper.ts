@@ -1,7 +1,5 @@
 import { Food } from "../../assets";
 
-const SUFFIX_KEY_FOOD: string = "food";
-
 const isValidJSON = (data_string: string): boolean => {
   try {
     JSON.parse(data_string);
@@ -17,15 +15,14 @@ export const saveFoods = (
   storage_key: string,
   foods: Food[],
 ): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_FOOD}`;
   const data_string: string = Food.toString(foods);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
 // ---------------------------------------------
 // Getter
 export const loadFoods = (storage_key: string): Food[] => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_FOOD}`;
-  const loaded_string: string | null = localStorage.getItem(KEY);
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return [];
   }

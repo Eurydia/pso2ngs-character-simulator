@@ -40,16 +40,16 @@ export const FormFood: FC<FormFoodProps> = (props) => {
 
   const context = useContext(GlobalAppContext);
 
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const handleDialogClose = useCallback(() => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleDialogClose = useCallback((): void => {
     setDialogOpen(false);
   }, []);
-  const handleDialogOpen = useCallback(() => {
+  const handleDialogOpen = useCallback((): void => {
     setDialogOpen(true);
   }, []);
 
   const [selected, setSelected] = useState<Food | null>(null);
-  const [foods, setFoods] = useState<Food[]>(() => {
+  const [foods, setFoods] = useState((): Food[] => {
     return loadFoods(formStorageKey);
   });
 

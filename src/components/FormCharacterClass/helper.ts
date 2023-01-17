@@ -13,24 +13,21 @@ const isValidJSON = (data: string): boolean => {
 };
 
 // ------------------------------------
-
-const SUFFIX_CLASS: string = "class";
-
+// Setter
 export const saveCharacterClass = (
   storage_key: string,
   class_data: [string, string],
 ): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_CLASS}`;
   const data_string: string = JSON.stringify(class_data);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
-
+// ------------------------------------
+// Getter
 export const loadCharacterClass = (
   storage_key: string,
 ): [string, string] => {
-  const KEY: string = `${storage_key}-${SUFFIX_CLASS}`;
-
-  const loaded_string: string | null = localStorage.getItem(KEY);
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return [HUNTER_CLASS, FIGHTER_CLASS];
   }

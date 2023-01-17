@@ -14,7 +14,7 @@ import {
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import { CharacterClass } from "../../assets";
+import { CharacterClass, StatObject } from "../../assets";
 
 import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
@@ -26,9 +26,9 @@ type FormCharacterClassProps = {
   mainLevel: number;
   mainClass: string;
   subClass: string;
+  stat: StatObject;
 
   cardTitle: string;
-  formStorageKey: string;
 
   onMainLevelChange: (next_level: number) => void;
   onMainClassChange: (next_class: string) => void;
@@ -39,7 +39,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
 ) => {
   const {
     cardTitle,
-    formStorageKey,
+    stat,
     mainLevel,
     mainClass,
     subClass,
@@ -48,15 +48,14 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
     onSubClassChange,
   } = props;
 
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const handleDialogClose = useCallback(() => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleDialogClose = useCallback((): void => {
     setDialogOpen(false);
   }, []);
-  const handleDialogOpen = useCallback(() => {
+  const handleDialogOpen = useCallback((): void => {
     setDialogOpen(true);
   }, []);
 
-  // const [mainLevel, setMainLevel] = useState(0);
   // const [classData, setClassData] = useState((): [string, string] => {
   //   return loadCharacterClass(formStorageKey);
   // });
@@ -169,7 +168,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
           </Typography>
         </DialogTitle>
         <DialogContent>
-          {/* <StatView stat={stat} maxHeight="" /> */}
+          <StatView stat={stat} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>
