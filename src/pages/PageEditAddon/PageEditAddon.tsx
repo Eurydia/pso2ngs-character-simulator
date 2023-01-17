@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { FormAddon, StatView } from "../../components";
+import { FormClassAddon, StatView } from "../../components";
 
 import {
   ActionContext,
@@ -201,35 +201,35 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
           >
             <Grid item xs={1}>
               <Stack spacing={2}>
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}
                   subSkills={HUNTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-hunter`}
                   onStatChange={setStatHunter}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Ranger"
                   mainSkill={RANGER_MAIN_ADDON}
                   subSkills={RANGER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-ranger`}
                   onStatChange={setStatRanger}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Force"
                   mainSkill={FORCE_MAIN_ADDON}
                   subSkills={FORCE_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-force`}
                   onStatChange={setStatForce}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Braver"
                   mainSkill={BRAVER_MAIN_ADDON}
                   subSkills={BRAVER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-braver`}
                   onStatChange={setStatBraver}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Waker"
                   mainSkill={WAKER_MAIN_ADDON}
                   subSkills={WAKER_SUB_ADDONS}
@@ -240,28 +240,28 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             </Grid>
             <Grid item xs={1}>
               <Stack spacing={2}>
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Fighter"
                   mainSkill={FIGHTER_MAIN_ADDON}
                   subSkills={FIGHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-fighter`}
                   onStatChange={setStatFighter}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Gunner"
                   mainSkill={GUNNER_MAIN_ADDON}
                   subSkills={GUNNER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-gunner`}
                   onStatChange={setStatGunner}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Techter"
                   mainSkill={TECHTER_MAIN_ADDON}
                   subSkills={TECHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-techter`}
                   onStatChange={setStatTechter}
                 />
-                <FormAddon
+                <FormClassAddon
                   cardTitle="Bouncer"
                   mainSkill={BOUNCER_MAIN_ADDON}
                   subSkills={BOUNCER_SUB_ADDONS}
