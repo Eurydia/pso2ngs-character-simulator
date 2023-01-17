@@ -23,7 +23,8 @@ export const useDataWeapon = (
 } => {
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
     useWeapon(storage_key);
-  const { enhancement, setEnhancement } = useEnhancement(storage_key);
+  const { value: enhancement, setValue: setEnhancement } =
+    useEnhancement(storage_key);
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 

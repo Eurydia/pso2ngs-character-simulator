@@ -2,20 +2,17 @@ import { useCallback, useEffect, useState } from "react";
 
 import { isValidJSON } from "./utility";
 
-const SUFFIX_KEY_ENHANCEMENT: string = "enhancement";
-
 // ---------------------------------------------
 // Setter
-const saveLevel = (storage_key: string, level: number): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_ENHANCEMENT}`;
+const saveData = (storage_key: string, level: number): void => {
   const data_string: string = JSON.stringify(level);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
 // ---------------------------------------------
 // Getter
-const loadLevel = (storage_key: string): number => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_ENHANCEMENT}`;
-  const loaded_string: string | null = localStorage.getItem(KEY);
+const loadData = (storage_key: string): number => {
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return 0;
   }
@@ -33,20 +30,20 @@ const loadLevel = (storage_key: string): number => {
 export const useEnhancement = (
   storage_key: string,
 ): {
-  enhancement: number;
-  setEnhancement: (next_enhancement: number) => void;
+  value: number;
+  setValue: (next_enhancement: number) => void;
 } => {
-  const [value, setValue] = useState<number>(() => {
-    return loadLevel(storage_key);
+  const [value, _setValue] = useState((): number => {
+    return loadData(storage_key);
   });
 
-  const setEnhancement = useCallback((next_enhancement: number) => {
-    setValue(next_enhancement);
+  const setValue = useCallback((next_enhancement: number): void => {
+    _setValue(next_enhancement);
   }, []);
 
   useEffect(() => {
-    saveLevel(storage_key, value);
+    saveData(storage_key, value);
   }, [value]);
 
-  return { enhancement: value, setEnhancement };
+  return { value, setValue };
 };
