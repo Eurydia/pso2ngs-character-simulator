@@ -105,11 +105,10 @@ const WAKER_SUB_ADDONS: AddonSkill[] = [
 ];
 
 type PageEditAddonProps = {
-  pageStorageKey: string;
   onStatChange: (stat: StatObject) => void;
 };
 export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
-  const { pageStorageKey, onStatChange } = props;
+  const { onStatChange } = props;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
@@ -202,35 +201,35 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   cardTitle="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}
                   subSkills={HUNTER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-hunter`}
+                  formStorageKey="addon-hunter"
                   onStatChange={setStatHunter}
                 />
                 <FormAddonSkill
                   cardTitle="Ranger"
                   mainSkill={RANGER_MAIN_ADDON}
                   subSkills={RANGER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-ranger`}
+                  formStorageKey="addon-ranger"
                   onStatChange={setStatRanger}
                 />
                 <FormAddonSkill
                   cardTitle="Force"
                   mainSkill={FORCE_MAIN_ADDON}
                   subSkills={FORCE_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-force`}
+                  formStorageKey="addon-force"
                   onStatChange={setStatForce}
                 />
                 <FormAddonSkill
                   cardTitle="Braver"
                   mainSkill={BRAVER_MAIN_ADDON}
                   subSkills={BRAVER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-braver`}
+                  formStorageKey="addon-braver"
                   onStatChange={setStatBraver}
                 />
                 <FormAddonSkill
                   cardTitle="Waker"
                   mainSkill={WAKER_MAIN_ADDON}
                   subSkills={WAKER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-waker`}
+                  formStorageKey="addon-waker"
                   onStatChange={setStatWaker}
                 />
               </Stack>
@@ -241,28 +240,28 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
                   cardTitle="Fighter"
                   mainSkill={FIGHTER_MAIN_ADDON}
                   subSkills={FIGHTER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-fighter`}
+                  formStorageKey="addon-fighter"
                   onStatChange={setStatFighter}
                 />
                 <FormAddonSkill
                   cardTitle="Gunner"
                   mainSkill={GUNNER_MAIN_ADDON}
                   subSkills={GUNNER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-gunner`}
+                  formStorageKey="addon-gunner"
                   onStatChange={setStatGunner}
                 />
                 <FormAddonSkill
                   cardTitle="Techter"
                   mainSkill={TECHTER_MAIN_ADDON}
                   subSkills={TECHTER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-techter`}
+                  formStorageKey="addon-techter"
                   onStatChange={setStatTechter}
                 />
                 <FormAddonSkill
                   cardTitle="Bouncer"
                   mainSkill={BOUNCER_MAIN_ADDON}
                   subSkills={BOUNCER_SUB_ADDONS}
-                  formStorageKey={`${pageStorageKey}-bouncer`}
+                  formStorageKey="addon-bouncer"
                   onStatChange={setStatBouncer}
                 />
               </Stack>
