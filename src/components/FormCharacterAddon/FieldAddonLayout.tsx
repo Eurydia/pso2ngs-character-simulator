@@ -1,5 +1,5 @@
-import { Box, Grid, Stack } from "@mui/material";
 import { FC, ReactNode } from "react";
+import { Box, Grid, Stack } from "@mui/material";
 
 type FieldAddonLayoutProps = {
   slotCheckbox: ReactNode;

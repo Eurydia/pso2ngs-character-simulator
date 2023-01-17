@@ -39,7 +39,7 @@ import {
   saveSubActiveIndexes,
 } from "./helper";
 
-type FormAddonProps = {
+type FormCharacterAddonProps = {
   // static props
   cardTitle: string;
   formStorageKey: string;
@@ -48,7 +48,9 @@ type FormAddonProps = {
 
   onStatChange: (next_stat: StatObject) => void;
 };
-export const FormAddon: FC<FormAddonProps> = (props) => {
+export const FormCharacterAddon: FC<FormCharacterAddonProps> = (
+  props,
+) => {
   const {
     cardTitle,
     formStorageKey,
