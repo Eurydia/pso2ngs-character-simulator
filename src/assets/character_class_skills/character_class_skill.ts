@@ -14,24 +14,30 @@ export type CharacterClassSkill = {
 };
 
 export const CharacterClassSkill = {
-  getStatusObject: (
+  getStatObjectMain: (
     ctx: ActionContext,
     skill: CharacterClassSkill,
     level: number,
-    fromMain: boolean,
   ): StatObject => {
     if (level < 1 || level > skill.level_max) {
       return statObject();
     }
-
     const level_index: number = level - 1;
-    if (fromMain) {
-      if (skill.getAwareStatObjectMain === null) {
-        return statObject();
-      }
-      return skill.getAwareStatObjectMain(ctx, level_index);
+    if (skill.getAwareStatObjectMain === null) {
+      return statObject();
     }
+    return skill.getAwareStatObjectMain(ctx, level_index);
+  },
 
+  getStatObjectSub: (
+    ctx: ActionContext,
+    skill: CharacterClassSkill,
+    level: number,
+  ): StatObject => {
+    if (level < 1 || level > skill.level_max) {
+      return statObject();
+    }
+    const level_index: number = level - 1;
     if (skill.getAwareStatObjectSub === null) {
       return statObject();
     }

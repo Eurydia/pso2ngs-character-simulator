@@ -69,17 +69,19 @@ export const FormCharacterClassAddon: FC<
     setDialogOpen(false);
   }, []);
 
-  const [mainLevel, setMainLevel] = useState(() => {
+  const [mainLevel, setMainLevel] = useState((): number => {
     return loadMainLevel(formStorageKey);
   });
-  const [subLevels, setSubLevels] = useState(() => {
+  const [subLevels, setSubLevels] = useState((): number[] => {
     const size: number = subSkills.length;
     return loadSubLevels(formStorageKey, size);
   });
-  const [subActiveIndexes, setSubActiveIndexes] = useState(() => {
-    const size: number = subSkills.length;
-    return loadSubActiveIndexes(formStorageKey, size);
-  });
+  const [subActiveIndexes, setSubActiveIndexes] = useState(
+    (): number[] => {
+      const size: number = subSkills.length;
+      return loadSubActiveIndexes(formStorageKey, size);
+    },
+  );
 
   useEffect(() => {
     saveMainLevel(formStorageKey, mainLevel);

@@ -1,4 +1,11 @@
-import { FC, Fragment, useCallback, useMemo, useState } from "react";
+import {
+  FC,
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Box,
   Dialog,
@@ -8,10 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  ArrowDownwardRounded,
   BarChartRounded,
-  KeyboardArrowDownRounded,
-  KeyboardDoubleArrowDownRounded,
   LooksOneRounded,
   LooksTwoRounded,
 } from "@mui/icons-material";
@@ -23,15 +27,17 @@ import { FormBase } from "../FormBase";
 import { SelectClass } from "../SelectClass";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
-import { amber, grey, orange } from "@mui/material/colors";
+import { grey, orange } from "@mui/material/colors";
+import { loadCharacterClass, saveCharacterClass } from "./helper";
 
 type FormCharacterClassProps = {
   cardTitle: string;
+  formStorageKey: string;
 };
 export const FormCharacterClass: FC<FormCharacterClassProps> = (
   props,
 ) => {
-  const { cardTitle } = props;
+  const { cardTitle, formStorageKey } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const handleDialogClose = useCallback(() => {
@@ -41,34 +47,34 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
     setDialogOpen(true);
   }, []);
 
-  const [classData, setClassData] = useState<{
-    main: string;
-    sub: string;
-  }>({ main: "Hunter", sub: "Fighter" });
-  const [mainLevel, setMainLevel] = useState<number>(0);
-
+  const [mainLevel, setMainLevel] = useState(0);
+  const [classData, setClassData] = useState((): [string, string] => {
+    return loadCharacterClass(formStorageKey);
+  });
+  useEffect(() => {
+    saveCharacterClass(formStorageKey, classData);
+  }, [classData]);
   const handleMainLabelChange = useCallback(
     (next_label: string): void => {
       setClassData((prev) => {
-        const next = { ...prev };
-        if (next_label === prev.sub) {
-          next.sub = prev.main;
+        const next: [string, string] = [...prev];
+        if (next_label === prev[0]) {
+          next[1] = prev[0];
         }
-        next.main = next_label;
+        next[0] = next_label;
         return next;
       });
     },
-    [classData],
+    [],
   );
-
   const handleSubLabelChange = useCallback(
-    (next_sub_label: string) => {
+    (next_label: string) => {
       setClassData((prev) => {
-        const next = { ...prev };
-        if (next_sub_label === prev.main) {
-          next.main = prev.sub;
+        const next: [string, string] = [...prev];
+        if (next_label === prev[1]) {
+          next[0] = prev[1];
         }
-        next.sub = next_sub_label;
+        next[1] = next_label;
         return next;
       });
     },
@@ -77,12 +83,12 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
 
   const mainClass = useMemo((): CharacterClass | null => {
     const next_class: CharacterClass | null =
-      CharacterClass.fromLabel(classData.main);
+      CharacterClass.fromLabel(classData[0]);
     if (next_class === null) {
       return null;
     }
     return next_class;
-  }, [classData.main]);
+  }, [classData[0]]);
 
   const stat = useMemo(() => {
     if (mainClass === null) {
@@ -113,7 +119,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 startIcon={
                   <LooksOneRounded htmlColor={orange["400"]} />
                 }
-                currentClass={classData.main}
+                currentClass={classData[0]}
                 onCurrentClassChange={handleMainLabelChange}
               />
               <FieldNumber
@@ -130,7 +136,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 startIcon={
                   <LooksTwoRounded htmlColor={grey["400"]} />
                 }
-                currentClass={classData.sub}
+                currentClass={classData[1]}
                 onCurrentClassChange={handleSubLabelChange}
               />
             </Box>
