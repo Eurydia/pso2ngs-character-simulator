@@ -20,7 +20,7 @@ import {
   CheckBoxRounded,
 } from "@mui/icons-material";
 
-import { AddonSkill, StatObject } from "../../assets";
+import { CharacterClassAddon, StatObject } from "../../assets";
 import { GlobalAppContext } from "../../contexts";
 
 import { FormBase } from "../FormBase";
@@ -43,8 +43,8 @@ type FormClassAddonProps = {
   // static props
   cardTitle: string;
   formStorageKey: string;
-  mainSkill: AddonSkill;
-  subSkills: AddonSkill[];
+  mainSkill: CharacterClassAddon;
+  subSkills: CharacterClassAddon[];
 
   onStatChange: (next_stat: StatObject) => void;
 };
@@ -120,7 +120,7 @@ export const FormClassAddon: FC<FormClassAddonProps> = (props) => {
   );
 
   const stat_total = useMemo(() => {
-    let stat = AddonSkill.getStatObject(
+    let stat = CharacterClassAddon.getStatObject(
       context,
       mainSkill,
       mainLevel,
@@ -129,9 +129,9 @@ export const FormClassAddon: FC<FormClassAddonProps> = (props) => {
       if (order_number === 0) {
         return;
       }
-      const sub_addon: AddonSkill = subSkills[skill_index];
+      const sub_addon: CharacterClassAddon = subSkills[skill_index];
       const sub_level: number = subLevels[skill_index];
-      const sub_stat: StatObject = AddonSkill.getStatObject(
+      const sub_stat: StatObject = CharacterClassAddon.getStatObject(
         context,
         sub_addon,
         sub_level,
@@ -176,7 +176,7 @@ export const FormClassAddon: FC<FormClassAddonProps> = (props) => {
                   disabled={false}
                   startAdornment={<Typography>Lv.</Typography>}
                   valueMin={0}
-                  valueMax={AddonSkill.LEVEL_MAX}
+                  valueMax={CharacterClassAddon.LEVEL_MAX}
                   value={mainLevel}
                   onValueChange={setMainLevel}
                 />
@@ -204,7 +204,7 @@ export const FormClassAddon: FC<FormClassAddonProps> = (props) => {
                         disabled={false}
                         startAdornment={<Typography>Lv.</Typography>}
                         valueMin={0}
-                        valueMax={AddonSkill.LEVEL_MAX}
+                        valueMax={CharacterClassAddon.LEVEL_MAX}
                         value={sub_level}
                         onValueChange={(next_level) => {
                           handleSubLevelChange(

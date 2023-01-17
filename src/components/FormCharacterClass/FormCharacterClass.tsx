@@ -8,7 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import {
+  ArrowDownwardRounded,
   BarChartRounded,
+  KeyboardArrowDownRounded,
+  KeyboardDoubleArrowDownRounded,
   LooksOneRounded,
   LooksTwoRounded,
 } from "@mui/icons-material";
@@ -20,6 +23,7 @@ import { FormBase } from "../FormBase";
 import { SelectClass } from "../SelectClass";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
+import { amber, grey, orange } from "@mui/material/colors";
 
 type FormCharacterClassProps = {
   cardTitle: string;
@@ -105,7 +109,9 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
               direction={{ xs: "column", sm: "row" }}
             >
               <SelectClass
-                startIcon={<LooksOneRounded />}
+                startIcon={
+                  <LooksOneRounded htmlColor={orange["400"]} />
+                }
                 currentClass={classData.main}
                 onCurrentClassChange={handleMainLabelChange}
               />
@@ -120,7 +126,9 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
             </Stack>
             <Box width={{ xs: 1, sm: 0.5 }}>
               <SelectClass
-                startIcon={<LooksTwoRounded />}
+                startIcon={
+                  <LooksTwoRounded htmlColor={grey["500"]} />
+                }
                 currentClass={classData.sub}
                 onCurrentClassChange={handleSubLabelChange}
               />

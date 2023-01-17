@@ -24,85 +24,85 @@ import { BarChartRounded } from "@mui/icons-material";
 import { FormClassAddon, StatView } from "../../components";
 
 import {
-  ActionContext,
-  AddonSkill,
-  AssetAddonSkills,
+  CharacterClassAddon,
+  AssetCharacterClassAddons,
   statObject,
   StatObject,
 } from "../../assets";
 import { GlobalAppContext } from "../../contexts";
 
 // ------------------ Hunter ------------------
-const HUNTER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.HUNTER_MELEE_WEAPON_UP;
-const HUNTER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.HUNTER_BURN_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const HUNTER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.HUNTER_MELEE_WEAPON_UP;
+const HUNTER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.HUNTER_BURN_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Fighter ------------------
-const FIGHTER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.FIGHTER_CRIT_DAMAGE_UP;
-const FIGHTER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.FIGHTER_FREEZE_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const FIGHTER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.FIGHTER_CRIT_DAMAGE_UP;
+const FIGHTER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.FIGHTER_FREEZE_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Ranger ------------------
-const RANGER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.RANGER_RANGED_WEAPON_UP;
-const RANGER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.RANGER_PB_DAMAGE_UP,
-  AssetAddonSkills.RANGER_SHOCK_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const RANGER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.RANGER_RANGED_WEAPON_UP;
+const RANGER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.RANGER_PB_DAMAGE_UP,
+  AssetCharacterClassAddons.RANGER_SHOCK_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Gunner ------------------
-const GUNNER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.GUNNER_ACTIVE_PB_RECOVERY;
-const GUNNER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.GUNNNER_ACTIVE_PP_RECOVERY,
-  AssetAddonSkills.GUNNER_BLIND_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const GUNNER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.GUNNER_ACTIVE_PB_RECOVERY;
+const GUNNER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.GUNNNER_ACTIVE_PP_RECOVERY,
+  AssetCharacterClassAddons.GUNNER_BLIND_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Force ------------------
-const FORCE_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.FORCE_TECHNIQUE_WEAPON_UP;
-const FORCE_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.FORCE_NATURAL_PP_RECOVERY,
-  AssetAddonSkills.FORCE_PANIC_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const FORCE_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.FORCE_TECHNIQUE_WEAPON_UP;
+const FORCE_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.FORCE_NATURAL_PP_RECOVERY,
+  AssetCharacterClassAddons.FORCE_PANIC_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Techter ------------------
-const TECHTER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.TECHTER_NATURAL_PB_RECOVERY;
-const TECHTER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.TECHTER_DAMAGE_RES_UP,
-  AssetAddonSkills.TECHTER_POISON_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const TECHTER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.TECHTER_NATURAL_PB_RECOVERY;
+const TECHTER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.TECHTER_DAMAGE_RES_UP,
+  AssetCharacterClassAddons.TECHTER_POISON_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Braver ------------------
-const BRAVER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.BRAVER_CRIT_CHANCE_UP;
-const BRAVER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.BRAVER_HEALING_UP,
-  AssetAddonSkills.BRAVER_BURN_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const BRAVER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.BRAVER_CRIT_CHANCE_UP;
+const BRAVER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.BRAVER_HEALING_UP,
+  AssetCharacterClassAddons.BRAVER_BURN_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 // ------------------ Bouncer ------------------
-const BOUNCER_MAIN_ADDON: AddonSkill =
-  AssetAddonSkills.BOUNCER_FREEZE_RES_UP;
-const BOUNCER_SUB_ADDONS: AddonSkill[] = [];
+const BOUNCER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.BOUNCER_FREEZE_RES_UP;
+const BOUNCER_SUB_ADDONS: CharacterClassAddon[] = [];
 
 // ------------------ Waker ------------------
-const WAKER_MAIN_ADDON: AddonSkill = AssetAddonSkills.WAKER_PP_UP;
-const WAKER_SUB_ADDONS: AddonSkill[] = [
-  AssetAddonSkills.WAKER_SHOCK_RES_UP,
-  AssetAddonSkills.GENERIC_HP_UP,
+const WAKER_MAIN_ADDON: CharacterClassAddon =
+  AssetCharacterClassAddons.WAKER_PP_UP;
+const WAKER_SUB_ADDONS: CharacterClassAddon[] = [
+  AssetCharacterClassAddons.WAKER_SHOCK_RES_UP,
+  AssetCharacterClassAddons.GENERIC_HP_UP,
 ];
 
 type PageEditAddonProps = {
