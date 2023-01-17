@@ -10,18 +10,18 @@ const saveData = (storage_key: string, level: number): void => {
 };
 // ---------------------------------------------
 // Getter
-const loadData = (storage_key: string): number => {
+const loadData = (storage_key: string, fallback: number): number => {
   const loaded_string: string | null =
     localStorage.getItem(storage_key);
   if (loaded_string === null) {
-    return 0;
+    return fallback;
   }
   if (!isValidJSON(loaded_string)) {
-    return 0;
+    return fallback;
   }
   const parsed_string: number = Number.parseInt(loaded_string);
   if (Number.isNaN(parsed_string)) {
-    return 0;
+    return fallback;
   }
   return parsed_string;
 };
@@ -29,12 +29,13 @@ const loadData = (storage_key: string): number => {
 // Hook
 export const useNumber = (
   storage_key: string,
+  default_value: number = 0,
 ): {
   value: number;
   setValue: (nextx_value: number) => void;
 } => {
   const [value, _setValue] = useState((): number => {
-    return loadData(storage_key);
+    return loadData(storage_key, default_value);
   });
 
   const setValue = useCallback((next_enhancement: number): void => {

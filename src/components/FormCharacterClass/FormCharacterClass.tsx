@@ -28,8 +28,6 @@ type FormCharacterClassProps = {
   subClass: string;
   stat: StatObject;
 
-  cardTitle: string;
-
   onMainLevelChange: (next_level: number) => void;
   onMainClassChange: (next_class: string) => void;
   onSubClassChange: (next_class: string) => void;
@@ -38,7 +36,6 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
   props,
 ) => {
   const {
-    cardTitle,
     stat,
     mainLevel,
     mainClass,
@@ -56,63 +53,10 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
     setDialogOpen(true);
   }, []);
 
-  // const [classData, setClassData] = useState((): [string, string] => {
-  //   return loadCharacterClass(formStorageKey);
-  // });
-  // useEffect(() => {
-  //   saveCharacterClass(formStorageKey, classData);
-  // }, [classData]);
-  // const handleMainLabelChange = useCallback(
-  //   (next_label: string): void => {
-  //     setClassData((prev) => {
-  //       const next: [string, string] = [...prev];
-  //       if (next_label === prev[0]) {
-  //         next[1] = prev[0];
-  //       }
-  //       next[0] = next_label;
-  //       return next;
-  //     });
-  //   },
-  //   [],
-  // );
-  // const handleSubLabelChange = useCallback(
-  //   (next_label: string) => {
-  //     setClassData((prev) => {
-  //       const next: [string, string] = [...prev];
-  //       if (next_label === prev[1]) {
-  //         next[0] = prev[1];
-  //       }
-  //       next[1] = next_label;
-  //       return next;
-  //     });
-  //   },
-  //   [classData],
-  // );
-
-  // const mainClass = useMemo((): CharacterClass | null => {
-  //   const next_class: CharacterClass | null =
-  //     CharacterClass.fromLabel(classData[0]);
-  //   if (next_class === null) {
-  //     return null;
-  //   }
-  //   return next_class;
-  // }, [classData[0]]);
-
-  // const stat = useMemo(() => {
-  //   if (mainClass === null) {
-  //     return statObject();
-  //   }
-  //   return CharacterClass.getStatObject(mainClass, mainLevel);
-  // }, [mainClass, mainLevel]);
-
-  // useEffect(() => {
-  //   onStatChange(stat);
-  // }, [stat]);
-
   return (
     <Fragment>
       <FormBase
-        cardTitle={cardTitle}
+        cardTitle="Main class & sub class"
         slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <IconButtonTooltip
