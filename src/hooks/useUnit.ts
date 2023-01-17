@@ -4,20 +4,17 @@ import { Unit } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const SUFFIX_KEY_UNIT: string = "unit";
-
 // ---------------------------------------------
 // Setter
 const saveUnit = (storage_key: string, unit: Unit | null): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_UNIT}`;
   const data_string: string = Unit.toString(unit);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
 // ---------------------------------------------
 // Getter
 const loadUnit = (storage_key: string): Unit | null => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_UNIT}`;
-  const loaded_string: string | null = localStorage.getItem(KEY);
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return null;
   }
@@ -36,9 +33,9 @@ export const useUnit = (
   storage_key: string,
 ): {
   unit: Unit | null;
-  setUnit: (new_value: Unit | null) => void;
+  setUnit: (next_unit: Unit | null) => void;
 } => {
-  const [value, setValue] = useState<Unit | null>(() => {
+  const [value, setValue] = useState((): Unit | null => {
     return loadUnit(storage_key);
   });
 
