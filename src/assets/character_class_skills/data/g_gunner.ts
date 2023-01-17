@@ -2,7 +2,7 @@ import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
 import { GroupEnumClass } from "../GroupEnum";
-import { characterClass } from "../class_skill";
+import { characterClassSkill } from "../character_class_skill";
 
 const SKILL_MAIN: {
   [K: string]: (ctx: ActionContext, level: number) => StatObject;
@@ -154,7 +154,7 @@ const SKILL_SUB: {
   SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
 })();
 
-export const G_GUNNER = characterClass(
+export const G_GUNNER = characterClassSkill(
   GroupEnumClass.GUNNER,
   SKILL_MAIN,
   SKILL_SUB,
