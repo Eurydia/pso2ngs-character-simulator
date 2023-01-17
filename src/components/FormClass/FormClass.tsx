@@ -21,12 +21,10 @@ import { SelectClass } from "../SelectClass";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 
-type FormCharacterClassProps = {
+type FormClassProps = {
   cardTitle: string;
 };
-export const FormCharacterClass: FC<FormCharacterClassProps> = (
-  props,
-) => {
+export const FormClass: FC<FormClassProps> = (props) => {
   const { cardTitle } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
