@@ -3,17 +3,14 @@ import { useCallback, useEffect, useState } from "react";
 import { Augment } from "../assets";
 import { isValidJSON } from "./utility";
 
-const SUFFIX_KEY_AUGMENT: string = "augment";
-
 // ---------------------------------------------
 // Setter
 const saveAugments = (
   storage_key: string,
   augments: (Augment | null)[],
 ): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
   const data_string: string = Augment.toString(augments);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
 // ---------------------------------------------
 // Getter
@@ -22,9 +19,9 @@ const loadAugments = (
   size: number,
 ): (Augment | null)[] => {
   const fallback: (Augment | null)[] = Array(size).fill(null);
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_AUGMENT}`;
 
-  const loaded_string: string | null = localStorage.getItem(KEY);
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return fallback;
   }
@@ -58,7 +55,7 @@ export const useAugments = (
     augment_index: number,
   ) => void;
 } => {
-  const [values, setValues] = useState<(Augment | null)[]>(() => {
+  const [values, setValues] = useState((): (Augment | null)[] => {
     return loadAugments(storage_key, Augment.getAugmentSlot(9999));
   });
 

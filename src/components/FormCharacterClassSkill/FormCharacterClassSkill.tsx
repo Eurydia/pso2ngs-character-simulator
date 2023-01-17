@@ -17,6 +17,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -41,11 +42,14 @@ type FormCharacterClassSkillProps = {
 
   isMainClass: boolean;
   isSubClass: boolean;
+
+  onStatChange: (next_stat: StatObject) => void;
 };
 export const FormCharacterClassSkill: FC<
   FormCharacterClassSkillProps
 > = (props) => {
-  const { cardTitle, skills, isMainClass, isSubClass } = props;
+  const { cardTitle, skills, isMainClass, isSubClass, onStatChange } =
+    props;
 
   const context = useContext(GlobalAppContext);
 
@@ -111,6 +115,10 @@ export const FormCharacterClassSkill: FC<
     }
     return stat;
   }, [isMainClass, isSubClass, skillLevels, context]);
+
+  useEffect(() => {
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Fragment>

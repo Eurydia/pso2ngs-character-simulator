@@ -1,11 +1,4 @@
-import {
-  FC,
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { FC, Fragment, useCallback, useState } from "react";
 import {
   Box,
   Dialog,
@@ -14,30 +7,46 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { grey, orange } from "@mui/material/colors";
 import {
   BarChartRounded,
   LooksOneRounded,
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import { CharacterClass, statObject } from "../../assets";
+import { CharacterClass } from "../../assets";
 
 import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
 import { SelectClass } from "../SelectClass";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
-import { grey, orange } from "@mui/material/colors";
-import { loadCharacterClass, saveCharacterClass } from "./helper";
 
 type FormCharacterClassProps = {
+  mainLevel: number;
+  mainClass: string;
+  subClass: string;
+
   cardTitle: string;
   formStorageKey: string;
+
+  onMainLevelChange: (next_level: number) => void;
+  onMainClassChange: (next_class: string) => void;
+  onSubClassChange: (next_class: string) => void;
 };
 export const FormCharacterClass: FC<FormCharacterClassProps> = (
   props,
 ) => {
-  const { cardTitle, formStorageKey } = props;
+  const {
+    cardTitle,
+    formStorageKey,
+    mainLevel,
+    mainClass,
+    subClass,
+    onMainLevelChange,
+    onMainClassChange,
+    onSubClassChange,
+  } = props;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const handleDialogClose = useCallback(() => {
@@ -47,55 +56,59 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
     setDialogOpen(true);
   }, []);
 
-  const [mainLevel, setMainLevel] = useState(0);
-  const [classData, setClassData] = useState((): [string, string] => {
-    return loadCharacterClass(formStorageKey);
-  });
-  useEffect(() => {
-    saveCharacterClass(formStorageKey, classData);
-  }, [classData]);
-  const handleMainLabelChange = useCallback(
-    (next_label: string): void => {
-      setClassData((prev) => {
-        const next: [string, string] = [...prev];
-        if (next_label === prev[0]) {
-          next[1] = prev[0];
-        }
-        next[0] = next_label;
-        return next;
-      });
-    },
-    [],
-  );
-  const handleSubLabelChange = useCallback(
-    (next_label: string) => {
-      setClassData((prev) => {
-        const next: [string, string] = [...prev];
-        if (next_label === prev[1]) {
-          next[0] = prev[1];
-        }
-        next[1] = next_label;
-        return next;
-      });
-    },
-    [classData],
-  );
+  // const [mainLevel, setMainLevel] = useState(0);
+  // const [classData, setClassData] = useState((): [string, string] => {
+  //   return loadCharacterClass(formStorageKey);
+  // });
+  // useEffect(() => {
+  //   saveCharacterClass(formStorageKey, classData);
+  // }, [classData]);
+  // const handleMainLabelChange = useCallback(
+  //   (next_label: string): void => {
+  //     setClassData((prev) => {
+  //       const next: [string, string] = [...prev];
+  //       if (next_label === prev[0]) {
+  //         next[1] = prev[0];
+  //       }
+  //       next[0] = next_label;
+  //       return next;
+  //     });
+  //   },
+  //   [],
+  // );
+  // const handleSubLabelChange = useCallback(
+  //   (next_label: string) => {
+  //     setClassData((prev) => {
+  //       const next: [string, string] = [...prev];
+  //       if (next_label === prev[1]) {
+  //         next[0] = prev[1];
+  //       }
+  //       next[1] = next_label;
+  //       return next;
+  //     });
+  //   },
+  //   [classData],
+  // );
 
-  const mainClass = useMemo((): CharacterClass | null => {
-    const next_class: CharacterClass | null =
-      CharacterClass.fromLabel(classData[0]);
-    if (next_class === null) {
-      return null;
-    }
-    return next_class;
-  }, [classData[0]]);
+  // const mainClass = useMemo((): CharacterClass | null => {
+  //   const next_class: CharacterClass | null =
+  //     CharacterClass.fromLabel(classData[0]);
+  //   if (next_class === null) {
+  //     return null;
+  //   }
+  //   return next_class;
+  // }, [classData[0]]);
 
-  const stat = useMemo(() => {
-    if (mainClass === null) {
-      return statObject();
-    }
-    return CharacterClass.getStatObject(mainClass, mainLevel);
-  }, [mainClass, mainLevel]);
+  // const stat = useMemo(() => {
+  //   if (mainClass === null) {
+  //     return statObject();
+  //   }
+  //   return CharacterClass.getStatObject(mainClass, mainLevel);
+  // }, [mainClass, mainLevel]);
+
+  // useEffect(() => {
+  //   onStatChange(stat);
+  // }, [stat]);
 
   return (
     <Fragment>
@@ -119,8 +132,8 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 startIcon={
                   <LooksOneRounded htmlColor={orange["400"]} />
                 }
-                currentClass={classData[0]}
-                onCurrentClassChange={handleMainLabelChange}
+                currentClass={mainClass}
+                onCurrentClassChange={onMainClassChange}
               />
               <FieldNumber
                 disabled={false}
@@ -128,7 +141,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 valueMin={1}
                 valueMax={CharacterClass.LEVEL_MAX}
                 value={mainLevel}
-                onValueChange={setMainLevel}
+                onValueChange={onMainLevelChange}
               />
             </Stack>
             <Box width={{ xs: 1, sm: 0.5 }}>
@@ -136,8 +149,8 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 startIcon={
                   <LooksTwoRounded htmlColor={grey["400"]} />
                 }
-                currentClass={classData[1]}
-                onCurrentClassChange={handleSubLabelChange}
+                currentClass={subClass}
+                onCurrentClassChange={onSubClassChange}
               />
             </Box>
           </Stack>
@@ -156,7 +169,7 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
           </Typography>
         </DialogTitle>
         <DialogContent>
-          <StatView stat={stat} maxHeight="" />
+          {/* <StatView stat={stat} maxHeight="" /> */}
         </DialogContent>
       </Dialog>
     </Fragment>

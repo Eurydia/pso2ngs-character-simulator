@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Box, Container, Grid, Stack } from "@mui/material";
 
 import {
@@ -8,6 +8,8 @@ import {
 import {
   AssetCharacterClassSkills,
   CharacterClassSkill,
+  statObject,
+  StatObject,
 } from "../../assets";
 
 const HUNTER_SKILLS: CharacterClassSkill[] = [
@@ -16,9 +18,15 @@ const HUNTER_SKILLS: CharacterClassSkill[] = [
 
 type PageEditClassProps = {
   pageStorageKey: string;
+  onStatChange: (next_stat: StatObject) => void;
 };
 export const PageEditClass: FC<PageEditClassProps> = (props) => {
   const { pageStorageKey } = props;
+
+  
+
+  const [mainStat, setMainStat] = useState(statObject());
+
   return (
     <Container maxWidth="md">
       <Box marginY={4}>
@@ -26,14 +34,16 @@ export const PageEditClass: FC<PageEditClassProps> = (props) => {
           <FormCharacterClass
             formStorageKey={pageStorageKey}
             cardTitle="Main class & sub class"
+            onStatChange={setMainStat}
           />
           <Box>
             <Grid container spacing={3} columns={{ xs: 1, sm: 2 }}>
               <Grid item xs={1}>
                 <FormCharacterClassSkill
                   cardTitle="Hunter skills"
+
                   formStorageKey={`${pageStorageKey}-hunter`}
-                  isMainClass={true}
+                  isMainClass={class}
                   isSubClass={false}
                   skills={HUNTER_SKILLS}
                 />
