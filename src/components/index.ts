@@ -4,4 +4,4 @@ export { FormWeapon } from "./FormWeapon";
 export { FormUnit } from "./FormUnit";
 export { FormFood } from "./FormFood";
 export { FormClassAddon } from "./FormClassAddon";
-export { FormClass } from "./FormCharacterClass";
+export { FormClass } from "./FormClass";
