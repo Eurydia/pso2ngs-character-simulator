@@ -37,20 +37,14 @@ export const useWeapon = (
   storage_key: string,
 ): {
   weapon: Weapon | null;
-  potentialLevel: number;
   setWeapon: (next_weapon: Weapon | null) => void;
-  setPotentialLevel: (next_level: number) => void;
 } => {
   const [weapon, _setWeapon] = useState((): Weapon | null => {
     return loadWeapon(storage_key);
   });
-  const { value: potentialLevel, setValue: setPotentialLevel } =
-    useNumber(`${storage_key}-potential-level`);
-
   const setWeapon = useCallback(
     (next_weapon: Weapon | null): void => {
       _setWeapon(next_weapon);
-      setPotentialLevel(0);
     },
     [],
   );
@@ -59,5 +53,5 @@ export const useWeapon = (
     saveWeapon(storage_key, weapon);
   }, [weapon]);
 
-  return { weapon, potentialLevel, setWeapon, setPotentialLevel };
+  return { weapon, setWeapon };
 };

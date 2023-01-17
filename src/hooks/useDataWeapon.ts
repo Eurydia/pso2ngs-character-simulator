@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 import { Augment, Fixa, Weapon } from "../assets";
 import { DataWeapon } from "../types";
@@ -21,12 +21,26 @@ export const useDataWeapon = (
     augment_index: number,
   ) => void;
 } => {
-  const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
-    useWeapon(storage_key);
-  const { value: enhancement, setValue: setEnhancement } =
-    useNumber(storage_key);
-  const { fixa, setFixa } = useFixa(storage_key);
-  const { augments, setAugment } = useAugments(storage_key);
+  const { weapon, setWeapon: _setWeapon } = useWeapon(
+    `${storage_key}-weapon`,
+  );
+  const { value: potentialLevel, setValue: setPotentialLevel } =
+    useNumber(`${storage_key}-potential-level`);
+  const { value: enhancement, setValue: setEnhancement } = useNumber(
+    `${storage_key}-enhancement`,
+  );
+  const { fixa, setFixa } = useFixa(`${storage_key}-fixa`);
+  const { augments, setAugment } = useAugments(
+    `${storage_key}-augments`,
+  );
+
+  const setWeapon = useCallback(
+    (next_weapon: Weapon | null): void => {
+      _setWeapon(next_weapon);
+      setPotentialLevel(0);
+    },
+    [],
+  );
 
   const dataWeapon = useMemo((): DataWeapon => {
     return {
