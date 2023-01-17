@@ -29,14 +29,13 @@ import { FoodList } from "./FoodList";
 import { loadFoods, saveFoods } from "./helper";
 import { GlobalAppContext } from "../../contexts";
 
-type FormFoodProps = {
-  // Static props
-  formStorageKey: string;
+const STORAGE_KEY: string = "food-items";
 
+type FormFoodProps = {
   onStatChange: (next_stat: StatObject) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { formStorageKey, onStatChange } = props;
+  const { onStatChange } = props;
 
   const context = useContext(GlobalAppContext);
 
@@ -50,11 +49,11 @@ export const FormFood: FC<FormFoodProps> = (props) => {
 
   const [selected, setSelected] = useState<Food | null>(null);
   const [foods, setFoods] = useState((): Food[] => {
-    return loadFoods(formStorageKey);
+    return loadFoods(STORAGE_KEY);
   });
 
   useEffect(() => {
-    saveFoods(formStorageKey, foods);
+    saveFoods(STORAGE_KEY, foods);
   }, [foods]);
 
   const handleAdd = useCallback(() => {
