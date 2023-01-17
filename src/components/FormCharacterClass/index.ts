@@ -1,1 +1,1 @@
-export { FormClass } from "./FormClass";
+export { FormCharacterClass } from "./FormCharacterClass";
