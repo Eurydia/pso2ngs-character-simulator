@@ -4,7 +4,7 @@ import { Augment, Fixa, Unit } from "../assets";
 import { DataUnit } from "../types";
 
 import { useUnit } from "./useUnit";
-import { useEnhancement } from "./useEnhancement";
+import { useNumber } from "./useNumber";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
 
@@ -21,8 +21,9 @@ export const useDataUnit = (
   ) => void;
 } => {
   const { unit, setUnit } = useUnit(`${storage_key}-unit`);
-  const { value: enhancement, setValue: setEnhancement } =
-    useEnhancement(`${storage_key}-enhancement`);
+  const { value: enhancement, setValue: setEnhancement } = useNumber(
+    `${storage_key}-enhancement`,
+  );
   const { fixa, setFixa } = useFixa(`${storage_key}-fixa`);
   const { augments, setAugment } = useAugments(
     `${storage_key}-augment`,

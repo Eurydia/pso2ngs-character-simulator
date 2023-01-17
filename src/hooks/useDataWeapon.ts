@@ -4,7 +4,7 @@ import { Augment, Fixa, Weapon } from "../assets";
 import { DataWeapon } from "../types";
 
 import { useWeapon } from "./useWeapon";
-import { useEnhancement } from "./useEnhancement";
+import { useNumber } from "./useNumber";
 import { useFixa } from "./useFixa";
 import { useAugments } from "./useAugments";
 
@@ -24,7 +24,7 @@ export const useDataWeapon = (
   const { weapon, potentialLevel, setWeapon, setPotentialLevel } =
     useWeapon(storage_key);
   const { value: enhancement, setValue: setEnhancement } =
-    useEnhancement(storage_key);
+    useNumber(storage_key);
   const { fixa, setFixa } = useFixa(storage_key);
   const { augments, setAugment } = useAugments(storage_key);
 

@@ -27,11 +27,11 @@ const loadData = (storage_key: string): number => {
 };
 // ---------------------------------------------
 // Hook
-export const useEnhancement = (
+export const useNumber = (
   storage_key: string,
 ): {
   value: number;
-  setValue: (next_enhancement: number) => void;
+  setValue: (nextx_value: number) => void;
 } => {
   const [value, _setValue] = useState((): number => {
     return loadData(storage_key);
