@@ -1,1 +1,1 @@
-export { FormCharacter as FormCharacterClass } from "./FormCharacter";
+export { FormCharacter } from "./FormCharacter";

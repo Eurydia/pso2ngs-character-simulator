@@ -1,37 +1,25 @@
 import {
   FC,
-  Fragment,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from "react";
+import { Box, Stack } from "@mui/material";
 import {
-  Box,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { grey, orange } from "@mui/material/colors";
-import {
-  BarChartRounded,
-  LooksOneRounded,
-  LooksTwoRounded,
-} from "@mui/icons-material";
+  AssetCharacterClasses,
+  CharacterClass,
+  statObject,
+  StatObject,
+} from "../../assets";
 
-import { CharacterClass, statObject, StatObject } from "../../assets";
-
-import { FieldNumber } from "../FieldNumber";
-import { FormBase } from "../FormBase";
-import { SelectClass } from "../SelectClass";
-import { StatView } from "../StatView";
-import { IconButtonTooltip } from "../IconButtonTooltip";
 import { FormCharacterClass } from "../FormCharacterClass";
 import { useNumber } from "../../hooks";
 import { GlobalAppContext } from "../../contexts";
+
+const HUNTER: string = AssetCharacterClasses.G_HUNTER.label;
+const FIGHTER: string = AssetCharacterClasses.G_FIGHTER.label;
 
 type FormCharacterProps = {
   formStorageKey: string;
@@ -53,8 +41,30 @@ export const FormCharacter: FC<FormCharacterProps> = (props) => {
     `${formStorageKey}-main-class-level`,
     1,
   );
-  const [mainClass, setMainClass] = useState("Fighter");
-  const [subClass, setSubClass] = useState("Hunter");
+  const [mainClass, setMainClass] = useState((): string => {
+    const loaded_string: string | null = localStorage.getItem(
+      `${formStorageKey}-main-class`,
+    );
+    if (loaded_string === null) {
+      return HUNTER;
+    }
+    if (CharacterClass.fromLabel(loaded_string) === null) {
+      return HUNTER;
+    }
+    return loaded_string;
+  });
+  const [subClass, setSubClass] = useState((): string => {
+    const loaded_string: string | null = localStorage.getItem(
+      `${formStorageKey}-sub-class`,
+    );
+    if (loaded_string === null) {
+      return FIGHTER;
+    }
+    if (CharacterClass.fromLabel(loaded_string) === null) {
+      return FIGHTER;
+    }
+    return loaded_string;
+  });
 
   useEffect((): void => {
     localStorage.setItem(`${formStorageKey}-main-class`, mainClass);

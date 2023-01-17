@@ -116,7 +116,6 @@ export const App: FC = () => {
           isVisible={page === 1}
           component={
             <PageEditEquipment
-              pageStorageKey="p-equipment"
               onStatChange={setStatEquipment}
               onContextChange={setAppContext}
             />
@@ -124,12 +123,7 @@ export const App: FC = () => {
         />
         <PageContainer
           isVisible={page === 2}
-          component={
-            <PageEditFood
-              pageStorageKey="p-food"
-              onStatChange={setStatFood}
-            />
-          }
+          component={<PageEditFood onStatChange={setStatFood} />}
         />
         <PageContainer
           isVisible={page === 3}
@@ -137,12 +131,7 @@ export const App: FC = () => {
         />
         <PageContainer
           isVisible={page === 4}
-          component={
-            <PageEditAddon
-              pageStorageKey="p-addon"
-              onStatChange={setStatAddon}
-            />
-          }
+          component={<PageEditAddon onStatChange={setStatAddon} />}
         />
       </GlobalAppContext.Provider>
     </ThemeProvider>

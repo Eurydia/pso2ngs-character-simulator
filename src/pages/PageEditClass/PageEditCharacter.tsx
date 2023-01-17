@@ -1,10 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Box, Container, Grid, Stack } from "@mui/material";
 
-import {
-  FormCharacterClass,
-  FormCharacterClassSkill,
-} from "../../components";
+import { FormCharacter } from "../../components";
 import {
   ActionContext,
   AssetCharacterClassSkills,
@@ -33,23 +30,7 @@ export const PageEditClass: FC<PageEditClassProps> = (props) => {
   return (
     <Container maxWidth="md">
       <Box marginY={4}>
-        <Stack spacing={3}>
-          <FormCharacterClass cardTitle="Main class & sub class" />
-          <Box>
-            {/* <Grid container spacing={3} columns={{ xs: 1, sm: 2 }}>
-              <Grid item xs={1}>
-                <FormCharacterClassSkill
-                  cardTitle="Hunter skills"
-
-                  formStorageKey={`${pageStorageKey}-hunter`}
-                  isMainClass={class}
-                  isSubClass={false}
-                  skills={HUNTER_SKILLS}
-                />
-              </Grid>
-            </Grid> */}
-          </Box>
-        </Stack>
+        <FormCharacter formStorageKey={`${pageStorageKey}-class`} />
       </Box>
     </Container>
   );

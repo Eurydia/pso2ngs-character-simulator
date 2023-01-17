@@ -27,7 +27,6 @@ import { GlobalAppContext } from "../../contexts";
 import { useDataUnit, useDataWeapon } from "../../hooks";
 
 type PageEditEquipmentProps = {
-  pageStorageKey: string;
   onStatChange: (next_stat: StatObject) => void;
   onContextChange: (
     next_context:
@@ -38,7 +37,7 @@ type PageEditEquipmentProps = {
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { pageStorageKey, onStatChange, onContextChange } = props;
+  const { onStatChange, onContextChange } = props;
 
   const context = useContext(GlobalAppContext);
 
@@ -57,32 +56,31 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setEnhancement: setEnhancementWeapon,
     setFixa: setFixaWeapon,
     setAugment: setAugmentWeapon,
-  } = useDataWeapon(`${pageStorageKey}-weapon`);
+  } = useDataWeapon("equipment-weapon");
   const {
     dataUnit: dataUnitA,
     setUnit: setUnitA,
     setEnhancement: setEnhancementUnitA,
     setFixa: setFixaUnitA,
     setAugment: setAugmentUnitA,
-  } = useDataUnit(`${pageStorageKey}-unit-a`);
+  } = useDataUnit("equipment-unit-a");
   const {
     dataUnit: dataUnitB,
     setUnit: setUnitB,
     setEnhancement: setEnhancementUnitB,
     setFixa: setFixaUnitB,
     setAugment: setAugmentUnitB,
-  } = useDataUnit(`${pageStorageKey}-unit-b`);
+  } = useDataUnit("equipment-unit-b");
   const {
     dataUnit: dataUnitC,
     setUnit: setUnitC,
     setEnhancement: setEnhancementUnitC,
     setFixa: setFixaUnitC,
     setAugment: setAugmentUnitC,
-  } = useDataUnit(`${pageStorageKey}-unit-c`);
+  } = useDataUnit("equipment-unit-c");
 
   useEffect(() => {
     const unique_active_augments: Set<string> = new Set();
-
     if (dataWeapon.weapon !== null) {
       dataWeapon.augments
         .slice(0, Augment.getAugmentSlot(dataWeapon.enhancement))
