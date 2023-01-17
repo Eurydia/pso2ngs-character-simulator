@@ -4,21 +4,17 @@ import { Fixa } from "../assets";
 
 import { isValidJSON } from "./utility";
 
-const SUFFIX_KEY_FIXA: string = "fixa";
-
 // ---------------------------------------------
 // Setter
 const saveFixa = (storage_key: string, fixa: Fixa | null): void => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_FIXA}`;
   const data_string: string = Fixa.toString(fixa);
-  localStorage.setItem(KEY, data_string);
+  localStorage.setItem(storage_key, data_string);
 };
 // ---------------------------------------------
 // Getter
 const loadFixa = (storage_key: string): Fixa | null => {
-  const KEY: string = `${storage_key}-${SUFFIX_KEY_FIXA}`;
-
-  const loaded_string: string | null = localStorage.getItem(KEY);
+  const loaded_string: string | null =
+    localStorage.getItem(storage_key);
   if (loaded_string === null) {
     return null;
   }
@@ -39,11 +35,11 @@ export const useFixa = (
   fixa: Fixa | null;
   setFixa: (next_fixa: Fixa | null) => void;
 } => {
-  const [value, setValue] = useState<Fixa | null>(() => {
+  const [value, setValue] = useState((): Fixa | null => {
     return loadFixa(storage_key);
   });
 
-  const setFixa = useCallback((next_fixa: Fixa | null) => {
+  const setFixa = useCallback((next_fixa: Fixa | null): void => {
     setValue(next_fixa);
   }, []);
 
