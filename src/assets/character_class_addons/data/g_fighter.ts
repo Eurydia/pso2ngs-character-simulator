@@ -1,9 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addonSkill } from "../addon_skill";
+import { characterClassAddon } from "../character_class_addon";
 
-export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
+export const FIGHTER_CRIT_DAMAGE_UP = characterClassAddon(
   "Critical Hit Potency Up (Fighter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_CRIT_DAMAGE_UP: number[] = [
@@ -23,7 +23,7 @@ export const FIGHTER_CRIT_DAMAGE_UP = addonSkill(
   },
 );
 
-export const FIGHTER_FREEZE_RES_UP = addonSkill(
+export const FIGHTER_FREEZE_RES_UP = characterClassAddon(
   "Freeze Resistance Up (Fighter)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [

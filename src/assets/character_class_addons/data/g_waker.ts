@@ -1,9 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addonSkill } from "../addon_skill";
+import { characterClassAddon } from "../character_class_addon";
 
-export const WAKER_PP_UP = addonSkill(
+export const WAKER_PP_UP = characterClassAddon(
   "PP Up (Waker)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_PP: number[] = [
@@ -20,7 +20,7 @@ export const WAKER_PP_UP = addonSkill(
   },
 );
 
-export const WAKER_SHOCK_RES_UP = addonSkill(
+export const WAKER_SHOCK_RES_UP = characterClassAddon(
   "Shock Resistance Up (Waker)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [

@@ -1,9 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { addonSkill } from "../addon_skill";
+import { characterClassAddon } from "../character_class_addon";
 
-export const GENERIC_HP_UP = addonSkill(
+export const GENERIC_HP_UP = characterClassAddon(
   "HP Up (Generic)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_HP: number[] = [

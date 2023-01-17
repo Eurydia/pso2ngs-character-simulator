@@ -6,5 +6,4 @@ export * from "./weapons";
 export { Potential } from "./potentials";
 export * from "./fixas";
 export * from "./foods";
-export * from "./skill_addon";
-export * from "./classes";
+export * from "./character_classes";

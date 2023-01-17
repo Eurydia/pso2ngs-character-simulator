@@ -1,7 +1,7 @@
 import { ActionContext } from "../ContextAction";
 import { StatObject } from "../stat";
 
-export type AddonSkill = {
+export type CharacterClassAddon = {
   label: string;
   getAwareStatObject: (
     ctx: ActionContext,
@@ -9,25 +9,25 @@ export type AddonSkill = {
   ) => StatObject;
 };
 
-export const AddonSkill = {
+export const CharacterClassAddon = {
   LEVEL_MAX: 20,
   getStatObject: (
     ctx: ActionContext,
-    addon_skill: AddonSkill,
+    addon_skill: CharacterClassAddon,
     level: number,
   ) => {
     return addon_skill.getAwareStatObject(ctx, level - 1);
   },
 };
 
-export const addonSkill = (
+export const characterClassAddon = (
   name: string,
   getAwareStatObject: (
     ctx: ActionContext,
     level_index: number,
   ) => StatObject,
-): AddonSkill => {
-  const result: AddonSkill = {
+): CharacterClassAddon => {
+  const result: CharacterClassAddon = {
     label: name,
     getAwareStatObject,
   };
