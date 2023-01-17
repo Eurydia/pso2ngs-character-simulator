@@ -20,12 +20,7 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import {
-  ActionContext,
-  Augment,
-  statObject,
-  StatObject,
-} from "../../assets";
+import { ActionContext, Augment, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon } from "../../types";
 import { GlobalAppContext } from "../../contexts";
@@ -62,28 +57,28 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setEnhancement: setEnhancementWeapon,
     setFixa: setFixaWeapon,
     setAugment: setAugmentWeapon,
-  } = useDataWeapon(`${pageStorageKey}-form-weapon`);
+  } = useDataWeapon(`${pageStorageKey}-weapon`);
   const {
     dataUnit: dataUnitA,
     setUnit: setUnitA,
     setEnhancement: setEnhancementUnitA,
     setFixa: setFixaUnitA,
     setAugment: setAugmentUnitA,
-  } = useDataUnit(`${pageStorageKey}-form-unit-a`);
+  } = useDataUnit(`${pageStorageKey}-unit-a`);
   const {
     dataUnit: dataUnitB,
     setUnit: setUnitB,
     setEnhancement: setEnhancementUnitB,
     setFixa: setFixaUnitB,
     setAugment: setAugmentUnitB,
-  } = useDataUnit(`${pageStorageKey}-form-unit-b`);
+  } = useDataUnit(`${pageStorageKey}-unit-b`);
   const {
     dataUnit: dataUnitC,
     setUnit: setUnitC,
     setEnhancement: setEnhancementUnitC,
     setFixa: setFixaUnitC,
     setAugment: setAugmentUnitC,
-  } = useDataUnit(`${pageStorageKey}-form-unit-c`);
+  } = useDataUnit(`${pageStorageKey}-unit-c`);
 
   useEffect(() => {
     const unique_active_augments: Set<string> = new Set();
@@ -182,7 +177,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   const stat_weapon = useMemo((): StatObject => {
     return DataWeapon.getStatObject(context, dataWeapon);
   }, [context, dataWeapon]);
-
   const stat_unit_a = useMemo((): StatObject => {
     return DataUnit.getStatObject(context, dataUnitA);
   }, [context, dataUnitA]);
