@@ -1,21 +1,39 @@
-import { FC, useCallback, useMemo, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { FC, Fragment, useCallback, useMemo, useState } from "react";
 import {
+  Box,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  Typography,
+} from "@mui/material";
+import {
+  BarChartRounded,
   LooksOneRounded,
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import { CharacterClass } from "../../assets";
+import { CharacterClass, statObject } from "../../assets";
 
 import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
 import { SelectClass } from "../SelectClass";
+import { StatView } from "../StatView";
+import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormClassProps = {
   cardTitle: string;
 };
 export const FormClass: FC<FormClassProps> = (props) => {
   const { cardTitle } = props;
+
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const handleDialogClose = useCallback(() => {
+    setDialogOpen(false);
+  }, []);
+  const handleDialogOpen = useCallback(() => {
+    setDialogOpen(true);
+  }, []);
 
   const [classData, setClassData] = useState<{
     main: string;
@@ -51,45 +69,79 @@ export const FormClass: FC<FormClassProps> = (props) => {
     [classData],
   );
 
-  const mainClass = useMemo(() => {
+  const mainClass = useMemo((): CharacterClass | null => {
     const next_class: CharacterClass | null =
       CharacterClass.fromLabel(classData.main);
     if (next_class === null) {
-      return;
+      return null;
     }
     return next_class;
   }, [classData.main]);
 
+  const stat = useMemo(() => {
+    if (mainClass === null) {
+      return statObject();
+    }
+    return CharacterClass.getStatObject(mainClass, mainLevel);
+  }, [mainClass, mainLevel]);
+
   return (
-    <FormBase
-      cardTitle={cardTitle}
-      slotCardHeaderAction={null}
-      slotCardContent={
-        <Stack spacing={3}>
-          <Stack spacing={1} direction={{ xs: "column", sm: "row" }}>
-            <SelectClass
-              startIcon={<LooksOneRounded />}
-              currentClass={classData.main}
-              onCurrentClassChange={handleMainLabelChange}
-            />
-            <FieldNumber
-              disabled={false}
-              startAdornment={<Typography>Lv.</Typography>}
-              valueMin={1}
-              valueMax={CharacterClass.LEVEL_MAX}
-              value={mainLevel}
-              onValueChange={setMainLevel}
-            />
+    <Fragment>
+      <FormBase
+        cardTitle={cardTitle}
+        slotCardHeaderAction={
+          <IconButtonTooltip
+            tooltipText="Open summary"
+            icon={<BarChartRounded />}
+            onClick={handleDialogOpen}
+          />
+        }
+        slotCardContent={
+          <Stack spacing={3}>
+            <Stack
+              spacing={1}
+              direction={{ xs: "column", sm: "row" }}
+            >
+              <SelectClass
+                startIcon={<LooksOneRounded />}
+                currentClass={classData.main}
+                onCurrentClassChange={handleMainLabelChange}
+              />
+              <FieldNumber
+                disabled={false}
+                startAdornment={<Typography>Lv.</Typography>}
+                valueMin={1}
+                valueMax={CharacterClass.LEVEL_MAX}
+                value={mainLevel}
+                onValueChange={setMainLevel}
+              />
+            </Stack>
+            <Box width={{ xs: 1, sm: 0.5 }}>
+              <SelectClass
+                startIcon={<LooksTwoRounded />}
+                currentClass={classData.sub}
+                onCurrentClassChange={handleSubLabelChange}
+              />
+            </Box>
           </Stack>
-          <Box width={{ xs: 1, sm: 0.5 }}>
-            <SelectClass
-              startIcon={<LooksTwoRounded />}
-              currentClass={classData.sub}
-              onCurrentClassChange={handleSubLabelChange}
-            />
-          </Box>
-        </Stack>
-      }
-    />
+        }
+      />
+      <Dialog
+        fullWidth
+        keepMounted
+        maxWidth="xs"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>
+          <Typography fontWeight="bold" fontSize="x-large">
+            Class summary
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <StatView stat={stat} maxHeight="" />
+        </DialogContent>
+      </Dialog>
+    </Fragment>
   );
 };

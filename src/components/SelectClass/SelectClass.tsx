@@ -1,25 +1,23 @@
-import { ChangeEvent, FC, memo, ReactNode, useMemo } from "react";
+import { ChangeEvent, FC, memo, ReactNode } from "react";
 import {
-  Box,
   InputAdornment,
   MenuItem,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
 
-import { CharacterClass } from "../../assets";
+import { AssetCharacterClasses } from "../../assets";
 
 const CLASS_OPTIONS: string[] = [
-  "Hunter",
-  "Fighter",
-  "Ranger",
-  "Gunner",
-  "Force",
-  "Techter",
-  "Braver",
-  "Bouncer",
-  "Waker",
+  AssetCharacterClasses.G_HUNTER.label,
+  AssetCharacterClasses.G_FIGHTER.label,
+  AssetCharacterClasses.G_RANGER.label,
+  AssetCharacterClasses.G_GUNNER.label,
+  AssetCharacterClasses.G_FORCE.label,
+  AssetCharacterClasses.G_TECHTER.label,
+  AssetCharacterClasses.G_BRAVER.label,
+  AssetCharacterClasses.G_BOUNCER.label,
+  AssetCharacterClasses.G_WAKER.label,
 ];
 
 type SelectClassProps = {
