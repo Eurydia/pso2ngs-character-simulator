@@ -1,1 +1,1 @@
-export { FormCharacterClassAddon as FormCharacterClassAddon } from "./FormCharacterClassAddon";
+export { FormCharacterClassAddon } from "./FormCharacterClassAddon";

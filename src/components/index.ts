@@ -7,5 +7,5 @@ export { FormUnit } from "./FormUnit";
 
 export { FormFood } from "./FormFood";
 
-export { FormCharacterClass as FormClass } from "./FormCharacterClass";
-export { FormCharacterClassAddon as FormClassAddon } from "./FormCharacterClassAddon";
+export { FormCharacterClass } from "./FormCharacterClass";
+export { FormCharacterClassAddon } from "./FormCharacterClassAddon";
