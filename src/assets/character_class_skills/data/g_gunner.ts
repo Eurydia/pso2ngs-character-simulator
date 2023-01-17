@@ -1,161 +1,93 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
+import {
+  CharacterClassSkill,
+  characterClassSkill,
+} from "../character_class_skill";
 
-import { GroupEnumClass } from "../GroupEnum";
-import { characterClassSkill } from "../character_class_skill";
-
-const SKILL_MAIN: {
-  [K: string]: (ctx: ActionContext, level: number) => StatObject;
-} = {};
-
-const SKILL_SUB: {
-  [K: string]: (ctx: ActionContext, level: number) => StatObject;
-} = {};
-
-// ----------------------------------------------
-// Main class exclusive skills
-
-// ----------------------------------------------
-// Main & Sub class skills
-
-// Attack PP Recovery
-(() => {
-  const SKILL_NAME: string = "Attack PP Recovery";
-
-  const _getterFunctionMain = (
-    ctx: ActionContext,
-    level: number,
-  ): StatObject => {
-    const DATA_PP_RECOVERY: number[] = [
+export const G_GUNNER_ATTACK_PP_RECOVERY =
+  ((): CharacterClassSkill => {
+    const DATA_PP_RECOVERY_MAIN: number[] = [
       1.2, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3, 1.31,
       1.32, 1.33, 1.34, 1.35,
     ];
-
-    const stat: StatObject = statObject();
-    const level_index: number = level - 1;
-
-    if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
-      return stat;
-    }
-
-    if (ctx.character === undefined) {
-      return stat;
-    }
-
-    if (ctx.character.isAttacking) {
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
-    }
-
-    return stat;
-  };
-  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
-
-  const _getterFunctionSub = (
-    ctx: ActionContext,
-    level: number,
-  ): StatObject => {
-    const DATA_PP_RECOVERY: number[] = [
+    const DATA_PP_RECOVERY_SUB: number[] = [
       1.1, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.2, 1.21,
       1.22, 1.23, 1.24, 1.25,
     ];
+    const _getterMain = (
+      ctx: ActionContext,
+      level_index: number,
+    ): StatObject => {
+      if (!ctx.character.isAttacking) {
+        return statObject();
+      }
+      const pp_recovery: number = DATA_PP_RECOVERY_MAIN[level_index];
+      return statObject({
+        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+      });
+    };
+    const _getterSub = (
+      ctx: ActionContext,
+      level_index: number,
+    ): StatObject => {
+      if (!ctx.character.isAttacking) {
+        return statObject();
+      }
+      const pp_recovery: number = DATA_PP_RECOVERY_SUB[level_index];
+      return statObject({
+        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+      });
+    };
+    return characterClassSkill(
+      "Attack PP Recovery",
+      DATA_PP_RECOVERY_MAIN.length,
+      _getterMain,
+      _getterSub,
+    );
+  })();
 
-    const stat: StatObject = statObject();
-    const level_index: number = level - 1;
-
-    if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
-      return stat;
-    }
-
-    if (ctx.character === undefined) {
-      return stat;
-    }
-
-    if (ctx.character.isAttacking) {
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
-    }
-
-    return stat;
-  };
-  SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
-})();
-
-// Overwhelm
-(() => {
-  const SKILL_NAME: string = "Overwhelm";
-
-  const _getterFunctionMain = (
+export const G_GUNNER_OVERWHELM = ((): CharacterClassSkill => {
+  const DATA_PP_RECOVERY_MAIN: number[] = [
+    1.2, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3,
+  ];
+  const DATA_PP_RECOVERY_SUB: number[] = [
+    1.1, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.2,
+  ];
+  const _getterMain = (
     ctx: ActionContext,
-    level: number,
+    level_index: number,
   ): StatObject => {
-    const DATA_PP_RECOVERY: number[] = [
-      1.2, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3,
-    ];
-
-    const stat: StatObject = statObject();
-    const level_index: number = level - 1;
-
-    if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
-      return stat;
+    if (!ctx.character.isAttacking) {
+      return statObject();
     }
-
-    if (ctx.character === undefined) {
-      return stat;
+    if (!ctx.target.isBoss) {
+      return statObject();
     }
-
-    if (ctx.target === undefined) {
-      return stat;
-    }
-
-    if (ctx.character.isAttacking && ctx.target.isNonBoss) {
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
-    }
-
-    return stat;
+    const pp_recovery: number = DATA_PP_RECOVERY_MAIN[level_index];
+    return statObject({
+      [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+    });
   };
-  SKILL_MAIN[SKILL_NAME] = _getterFunctionMain;
-
-  const _getterFunctionSub = (
+  const _getterSub = (
     ctx: ActionContext,
-    level: number,
+    level_index: number,
   ): StatObject => {
-    const DATA_PP_RECOVERY: number[] = [
-      1.1, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.2,
-    ];
-
-    const stat: StatObject = statObject();
-    const level_index: number = level - 1;
-
-    if (level_index < 0 || DATA_PP_RECOVERY.length <= level_index) {
-      return stat;
+    if (!ctx.character.isAttacking) {
+      return statObject();
     }
-
-    if (ctx.character === undefined) {
-      return stat;
+    if (!ctx.target.isBoss) {
+      return statObject();
     }
-
-    if (ctx.target === undefined) {
-      return stat;
-    }
-
-    if (ctx.character.isAttacking && ctx.target.isNonBoss) {
-      const pp_recovery: number = DATA_PP_RECOVERY[level_index];
-      stat.setStat(StatEnum.ADV_PP_A, pp_recovery);
-      stat.setStat(StatEnum.ADV_PP_N, pp_recovery);
-    }
-
-    return stat;
+    const pp_recovery: number = DATA_PP_RECOVERY_SUB[level_index];
+    return statObject({
+      [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+    });
   };
-  SKILL_SUB[SKILL_NAME] = _getterFunctionSub;
+  return characterClassSkill(
+    "Overwhelm",
+    DATA_PP_RECOVERY_MAIN.length,
+    _getterMain,
+    _getterSub,
+  );
 })();
-
-export const G_GUNNER = characterClassSkill(
-  GroupEnumClass.GUNNER,
-  SKILL_MAIN,
-  SKILL_SUB,
-);
