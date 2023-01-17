@@ -1,9 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { characterClassAddon } from "../character_class_addon";
+import { addonSkill } from "../addon_skill";
 
-export const BOUNCER_FREEZE_RES_UP = characterClassAddon(
+export const BOUNCER_FREEZE_RES_UP = addonSkill(
   "Freeze Resistance Up (Bouncer)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [

@@ -1,10 +1,10 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { characterClassAddon } from "../character_class_addon";
+import { addonSkill } from "../addon_skill";
 
-export const RANGER_RANGED_WEAPON_UP = characterClassAddon(
-  "Ranged Weapon Potency Up (Ranger)",
+export const FORCE_TECHNIQUE_WEAPON_UP = addonSkill(
+  "Technique Weapon Potency Up (Force)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_WEAPON_UP: number[] = [
       1.0025, 1.005, 1.0075, 1.01, 1.0125, 1.015, 1.0175, 1.02,
@@ -16,30 +16,33 @@ export const RANGER_RANGED_WEAPON_UP = characterClassAddon(
     }
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     return statObject({
-      [StatEnum.WEAPON_RANGED]: weapon_up,
+      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
     });
   },
 );
 
-export const RANGER_PB_DAMAGE_UP = characterClassAddon(
-  "Photon Blast Potency Up (Ranger)",
-  (_: ActionContext, level_index: number): StatObject => {
-    const DATA_PB_DAMAGE_UP: number[] = [
+export const FORCE_NATURAL_PP_RECOVERY = addonSkill(
+  "Natural PP Recovery Up (Force)",
+  (ctx: ActionContext, level_index: number): StatObject => {
+    const DATA_PP_RECOVERY: number[] = [
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
-      1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.01,
+      1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.1,
     ];
-    if (level_index < 0 || level_index >= DATA_PB_DAMAGE_UP.length) {
+    if (level_index < 0 || level_index >= DATA_PP_RECOVERY.length) {
       return statObject();
     }
-    const pb_damage_up: number = DATA_PB_DAMAGE_UP[level_index];
+    if (ctx.character.isAttacking) {
+      return statObject();
+    }
+    const pp_recovery: number = DATA_PP_RECOVERY[level_index];
     return statObject({
-      [StatEnum.ADV_OFF_PB_DAMAGE_UP]: pb_damage_up,
+      [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
     });
   },
 );
 
-export const RANGER_SHOCK_RES_UP = characterClassAddon(
-  "Freeze Resistance Up (Ranger)",
+export const FORCE_PANIC_RES_UP = addonSkill(
+  "Panic Resistance Up (Force)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
       1.3, 1.32, 1.33, 1.34, 1.35, 1.36, 1.37, 1.38, 1.39, 1.4, 1.41,
@@ -49,6 +52,8 @@ export const RANGER_SHOCK_RES_UP = characterClassAddon(
       return statObject();
     }
     const ail_res: number = DATA_AIL_RES[level_index];
-    return statObject({ [StatEnum.AIL_SHOCK]: ail_res });
+    return statObject({
+      [StatEnum.AIL_PANIC]: ail_res,
+    });
   },
 );

@@ -1,9 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import { characterClassAddon } from "../character_class_addon";
+import { addonSkill } from "../addon_skill";
 
-export const BRAVER_CRIT_CHANCE_UP = characterClassAddon(
+export const BRAVER_CRIT_CHANCE_UP = addonSkill(
   "Critical Hit Rate Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_CRIT_CHANCE: number[] = [
@@ -20,7 +20,7 @@ export const BRAVER_CRIT_CHANCE_UP = characterClassAddon(
   },
 );
 
-export const BRAVER_HEALING_UP = characterClassAddon(
+export const BRAVER_HEALING_UP = addonSkill(
   "Restasigne Heal Amount Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_HEALING_UP: number[] = [
@@ -37,7 +37,7 @@ export const BRAVER_HEALING_UP = characterClassAddon(
   },
 );
 
-export const BRAVER_BURN_RES_UP = characterClassAddon(
+export const BRAVER_BURN_RES_UP = addonSkill(
   "Burn Resistance Up (Braver)",
   (_: ActionContext, level_index: number): StatObject => {
     const DATA_AIL_RES: number[] = [
