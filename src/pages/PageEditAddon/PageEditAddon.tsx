@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { FormCharacterClassAddon, StatView } from "../../components";
+import { FormAddonSkill, StatView } from "../../components";
 
 import {
   CharacterClassAddon,
@@ -201,35 +201,35 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
           >
             <Grid item xs={1}>
               <Stack spacing={2}>
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}
                   subSkills={HUNTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-hunter`}
                   onStatChange={setStatHunter}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Ranger"
                   mainSkill={RANGER_MAIN_ADDON}
                   subSkills={RANGER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-ranger`}
                   onStatChange={setStatRanger}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Force"
                   mainSkill={FORCE_MAIN_ADDON}
                   subSkills={FORCE_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-force`}
                   onStatChange={setStatForce}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Braver"
                   mainSkill={BRAVER_MAIN_ADDON}
                   subSkills={BRAVER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-braver`}
                   onStatChange={setStatBraver}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Waker"
                   mainSkill={WAKER_MAIN_ADDON}
                   subSkills={WAKER_SUB_ADDONS}
@@ -240,28 +240,28 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
             </Grid>
             <Grid item xs={1}>
               <Stack spacing={2}>
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Fighter"
                   mainSkill={FIGHTER_MAIN_ADDON}
                   subSkills={FIGHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-fighter`}
                   onStatChange={setStatFighter}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Gunner"
                   mainSkill={GUNNER_MAIN_ADDON}
                   subSkills={GUNNER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-gunner`}
                   onStatChange={setStatGunner}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Techter"
                   mainSkill={TECHTER_MAIN_ADDON}
                   subSkills={TECHTER_SUB_ADDONS}
                   formStorageKey={`${pageStorageKey}-techter`}
                   onStatChange={setStatTechter}
                 />
-                <FormCharacterClassAddon
+                <FormAddonSkill
                   cardTitle="Bouncer"
                   mainSkill={BOUNCER_MAIN_ADDON}
                   subSkills={BOUNCER_SUB_ADDONS}
