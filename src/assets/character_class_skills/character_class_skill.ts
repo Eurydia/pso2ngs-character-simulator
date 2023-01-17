@@ -1,5 +1,5 @@
 import { ActionContext } from "../ContextAction";
-import { StatObject } from "../stat";
+import { statObject, StatObject } from "../stat";
 
 type GetterSignature = (
   ctx: ActionContext,
@@ -13,7 +13,31 @@ export type CharacterClassSkill = {
   getAwareStatObjectSub: GetterSignature | null;
 };
 
-export const CharacterClassSkill = {};
+export const CharacterClassSkill = {
+  getStatusObject: (
+    ctx: ActionContext,
+    skill: CharacterClassSkill,
+    level: number,
+    fromMain: boolean,
+  ): StatObject => {
+    if (level < 1 || level > skill.level_max) {
+      return statObject();
+    }
+
+    const level_index: number = level - 1;
+    if (fromMain) {
+      if (skill.getAwareStatObjectMain === null) {
+        return statObject();
+      }
+      return skill.getAwareStatObjectMain(ctx, level_index);
+    }
+
+    if (skill.getAwareStatObjectSub === null) {
+      return statObject();
+    }
+    return skill.getAwareStatObjectSub(ctx, level_index);
+  },
+};
 
 export const characterClassSkill = (
   label: string,
