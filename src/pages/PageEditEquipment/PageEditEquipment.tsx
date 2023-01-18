@@ -80,37 +80,15 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     DataWeapon.getUniqueAugments(dataWeapon).forEach((label) => {
       unique_augments.add(label);
     });
-
-    if (dataUnitA.unit !== null) {
-      dataUnitA.augments
-        .slice(0, Augment.getActiveSlots(dataUnitA.enhancement))
-        .forEach((augment) => {
-          if (augment === null) {
-            return;
-          }
-          unique_augments.add(augment.label);
-        });
-    }
-    if (dataUnitB.unit !== null) {
-      dataUnitB.augments
-        .slice(0, Augment.getActiveSlots(dataUnitB.enhancement))
-        .forEach((augment) => {
-          if (augment === null) {
-            return;
-          }
-          unique_augments.add(augment.label);
-        });
-    }
-    if (dataUnitC.unit !== null) {
-      dataUnitC.augments
-        .slice(0, Augment.getActiveSlots(dataUnitC.enhancement))
-        .forEach((augment) => {
-          if (augment === null) {
-            return;
-          }
-          unique_augments.add(augment.label);
-        });
-    }
+    DataUnit.getUniqueAugments(dataUnitA).forEach((label) => {
+      unique_augments.add(label);
+    });
+    DataUnit.getUniqueAugments(dataUnitB).forEach((label) => {
+      unique_augments.add(label);
+    });
+    DataUnit.getUniqueAugments(dataUnitC).forEach((label) => {
+      unique_augments.add(label);
+    });
 
     setContext(({ character, ...rest }) => {
       const next = { ...rest, character: { ...character } };
