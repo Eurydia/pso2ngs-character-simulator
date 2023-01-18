@@ -68,27 +68,33 @@ export const FormAddonSkill: FC<FormAddonSkillProps> = (props) => {
   }, []);
 
   const [mainLevel, setMainLevel] = useState((): number => {
-    return loadMainLevel(formStorageKey);
+    return loadMainLevel(`${formStorageKey}-main-level`);
   });
   const [subLevels, setSubLevels] = useState((): number[] => {
     const size: number = subSkills.length;
-    return loadSubLevels(formStorageKey, size);
+    return loadSubLevels(`${formStorageKey}-sub-levels`, size);
   });
   const [subActiveIndexes, setSubActiveIndexes] = useState(
     (): number[] => {
       const size: number = subSkills.length;
-      return loadSubActiveIndexes(formStorageKey, size);
+      return loadSubActiveIndexes(
+        `${formStorageKey}-sub-actives`,
+        size,
+      );
     },
   );
 
   useEffect(() => {
-    saveMainLevel(formStorageKey, mainLevel);
+    saveMainLevel(`${formStorageKey}-main-level`, mainLevel);
   }, [mainLevel]);
   useEffect(() => {
-    saveSubLevels(formStorageKey, subLevels);
+    saveSubLevels(`${formStorageKey}-sub-levels`, subLevels);
   }, [subLevels]);
   useEffect(() => {
-    saveSubActiveIndexes(formStorageKey, subActiveIndexes);
+    saveSubActiveIndexes(
+      `${formStorageKey}-sub-actives`,
+      subActiveIndexes,
+    );
   }, [subActiveIndexes]);
 
   const handleSubLevelChange = useCallback(

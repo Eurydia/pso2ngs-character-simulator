@@ -69,8 +69,8 @@ export const PageHome: FC<PageHomeProps> = (props) => {
               }}
             />
           </Grid>
-          {/* <Grid item xs={1} /> */}
-          {/* <Grid item xs={1}>
+          <Grid item xs={1} />
+          <Grid item xs={1}>
             <FormContextEditor />
           </Grid>
           <Grid item xs={1}>
@@ -86,7 +86,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 <StatView stat={stat} maxHeight="600px" />
               </CardContent>
             </Card>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Box>
     </Container>

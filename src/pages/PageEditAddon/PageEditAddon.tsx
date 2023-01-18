@@ -178,7 +178,6 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
           title={<Typography>Open summary</Typography>}
         >
           <Fab
-            color="primary"
             onClick={handleDialogOpen}
             sx={{
               position: "fixed",
@@ -186,7 +185,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
               right: "24px",
             }}
           >
-            <BarChartRounded />
+            <BarChartRounded color="primary" />
           </Fab>
         </Tooltip>
         <Box marginY={4}>

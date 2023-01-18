@@ -37,15 +37,15 @@ type FormFoodProps = {
 export const FormFood: FC<FormFoodProps> = (props) => {
   const { onStatChange } = props;
 
-  const { context, updateContext } = useContext(AppContext);
+  const { context } = useContext(AppContext);
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const handleDialogClose = useCallback((): void => {
-    setDialogOpen(false);
-  }, []);
-  const handleDialogOpen = useCallback((): void => {
-    setDialogOpen(true);
-  }, []);
+  // const [dialogOpen, setDialogOpen] = useState(false);
+  // const handleDialogClose = useCallback((): void => {
+  //   setDialogOpen(false);
+  // }, []);
+  // const handleDialogOpen = useCallback((): void => {
+  //   setDialogOpen(true);
+  // }, []);
 
   const [selected, setSelected] = useState<Food | null>(null);
   const [foods, setFoods] = useState((): Food[] => {
@@ -109,13 +109,7 @@ export const FormFood: FC<FormFoodProps> = (props) => {
       <FormBase
         cardTitle="Food"
         slotCardHeaderAvatar={null}
-        slotCardHeaderAction={
-          <IconButtonTooltip
-            tooltipText="Open summary"
-            icon={<BarChartRounded />}
-            onClick={handleDialogOpen}
-          />
-        }
+        slotCardHeaderAction={null}
         slotCardContent={
           <Stack spacing={2}>
             <Stack direction="row" spacing={1}>
@@ -143,22 +137,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
           </Stack>
         }
       />
-      <Dialog
-        fullWidth
-        keepMounted
-        maxWidth="xs"
-        open={dialogOpen}
-        onClose={handleDialogClose}
-      >
-        <DialogTitle>
-          <Typography fontWeight="bold" fontSize="x-large">
-            Food buff summary
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <StatView stat={stat_total} maxHeight="" />
-        </DialogContent>
-      </Dialog>
     </Fragment>
   );
 };

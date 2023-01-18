@@ -38,18 +38,19 @@ export const App: FC = () => {
   const stat_total = useMemo((): StatObject => {
     let stat = StatObject.merge(statEquipment, statFood);
     stat = StatObject.merge(stat, statAddon);
+    stat = StatObject.merge(stat, statCharacter);
     const hp_boost = StatObject.getStat(stat, StatEnum.ADV_HP_BOOST);
-    if (hp_boost) {
+    if (hp_boost !== 1) {
       const hp = StatObject.getStat(stat, StatEnum.CORE_HP);
       stat = StatObject.setStat(
         stat,
         StatEnum.CORE_HP,
         Math.round(hp * hp_boost),
       );
-      delete stat.hiddenHPBoost;
+      delete stat[StatEnum.ADV_HP_BOOST];
     }
     return stat;
-  }, [statEquipment, statFood, statAddon]);
+  }, [statEquipment, statFood, statAddon, statCharacter]);
 
   useEffect(() => {
     setContext((prev) => {
