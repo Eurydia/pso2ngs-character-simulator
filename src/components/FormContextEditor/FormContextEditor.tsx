@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useContext } from "react";
 import {
   Box,
   Card,
@@ -21,31 +21,27 @@ import {
 } from "../../assets";
 
 import { CustomSwitch } from "./CustomSwitch";
+import { GlobalAppContext } from "../../contexts";
 
-type ContextEditorTimeProps = {
-  value: TimeContext;
-  onValueChange: (
-    value: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type ContextEditorTimeProps = {};
 const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
-  const { value, onValueChange } = props;
-  const { isDayTime, isDuringSezunEvent } = value;
-
-  const handleDayTimeChange = () => {
-    onValueChange((prev) => {
+  const { context, setContext } = useContext(GlobalAppContext);
+  const { isDayTime, isDuringSezunEvent } = context.time;
+  const handleDayTimeChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.time.isDayTime = !prev.time.isDayTime;
       return next;
     });
-  };
-  const handleSezunChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleSezunChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.time.isDuringSezunEvent = !prev.time.isDuringSezunEvent;
       return next;
     });
-  };
+  }, []);
+
   return (
     <FormControl>
       <FormLabel>Time</FormLabel>
@@ -69,20 +65,15 @@ const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
   );
 };
 
-type ContextEditorLocationProps = {
-  value: LocationContext;
-  onValueChange: (
-    value: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type ContextEditorLocationProps = {};
 const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   props,
 ) => {
-  const { value, onValueChange } = props;
-  const { kvaris, geometricLabyrinth } = value;
+  const { context, setContext } = useContext(GlobalAppContext);
+  const { kvaris, geometricLabyrinth } = context.location;
 
-  const handleKvarisChange = () => {
-    onValueChange((prev) => {
+  const handleKvarisChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.location.kvaris = !prev.location.kvaris;
       if (next.location.kvaris) {
@@ -90,9 +81,9 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
       }
       return next;
     });
-  };
-  const handleGeoChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleGeoChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.location.geometricLabyrinth =
         !prev.location.geometricLabyrinth;
@@ -101,7 +92,7 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
       }
       return next;
     });
-  };
+  }, []);
   return (
     <FormControl>
       <FormLabel>Location</FormLabel>
@@ -121,14 +112,9 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   );
 };
 
-type ContextEditorTargetProps = {
-  value: TargetContext;
-  onValueChange: (
-    value: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type ContextEditorTargetProps = {};
 const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
-  const { value, onValueChange } = props;
+  const { context, setContext } = useContext(GlobalAppContext);
   const {
     isBoss,
     isDolls,
@@ -139,71 +125,71 @@ const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
     isWeakToLight,
     isWeakToLightning,
     isWeakToWind,
-  } = value;
+  } = context.target;
 
-  const handleBossChange = () => {
-    onValueChange((prev) => {
+  const handleBossChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isBoss = !prev.target.isBoss;
       return next;
     });
-  };
-  const handleDollsChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleDollsChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isDolls = !prev.target.isDolls;
       return next;
     });
-  };
-  const handleDownedChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleDownedChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isDowned = !prev.target.isDowned;
       return next;
     });
-  };
-  const handleWeakFireChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakFireChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToFire = !prev.target.isWeakToFire;
       return next;
     });
-  };
-  const handleWeakDarkChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakDarkChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToDark = !prev.target.isWeakToDark;
       return next;
     });
-  };
-  const handleWeakIceChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakIceChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToIce = !prev.target.isWeakToIce;
       return next;
     });
-  };
-  const handleWeakWindChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakWindChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToWind = !prev.target.isWeakToWind;
       return next;
     });
-  };
-  const handleWeakLightningChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakLightningChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToLightning = !prev.target.isWeakToLightning;
       return next;
     });
-  };
-  const handleWeakLightChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleWeakLightChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToLight = !prev.target.isWeakToLight;
       return next;
     });
-  };
+  }, []);
   return (
     <FormControl>
       <FormLabel>Target</FormLabel>
@@ -283,16 +269,11 @@ const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
   );
 };
 
-type ContextEditorCharacterProps = {
-  value: CharacterContext;
-  onValueChange: (
-    value: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type ContextEditorCharacterProps = {};
 const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
   props,
 ) => {
-  const { value, onValueChange } = props;
+  const { context, setContext } = useContext(GlobalAppContext);
   const {
     isAttacking,
     isAttackingBlight,
@@ -301,17 +282,17 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
     hasCriticallyHit,
     hasTakenDamage,
     hasDodgedAttack,
-  } = value;
+  } = context.character;
 
-  const handleAttackChange = () => {
-    onValueChange((prev) => {
+  const handleAttackChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.isAttacking = !prev.character.isAttacking;
       return next;
     });
-  };
-  const handleAttackBlightChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleAttackBlightChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.isAttackingBlight =
         !prev.character.isAttackingBlight;
@@ -320,9 +301,9 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
       }
       return next;
     });
-  };
-  const handleAttackWeakPointChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleAttackWeakPointChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.isAttackingWeakPoint =
         !prev.character.isAttackingWeakPoint;
@@ -331,9 +312,9 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
       }
       return next;
     });
-  };
-  const handleCriticallyHitChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleCriticallyHitChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.hasCriticallyHit =
         !prev.character.hasCriticallyHit;
@@ -342,22 +323,22 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
       }
       return next;
     });
-  };
-  const handleDodgedChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleDodgedChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.hasDodgedAttack =
         !prev.character.hasDodgedAttack;
       return next;
     });
-  };
-  const handleDamagedChange = () => {
-    onValueChange((prev) => {
+  }, []);
+  const handleDamagedChange = useCallback(() => {
+    setContext((prev) => {
       const next = { ...prev };
       next.character.hasTakenDamage = !prev.character.hasTakenDamage;
       return next;
     });
-  };
+  }, []);
 
   return (
     <FormControl>
@@ -402,18 +383,10 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
   );
 };
 
-type FormContextEditorProps = {
-  formData: ActionContext;
-  onFormDataChange: (
-    data: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void;
-};
+type FormContextEditorProps = {};
 export const FormContextEditor: FC<FormContextEditorProps> = (
   props,
 ) => {
-  const { formData, onFormDataChange } = props;
-  const { location, character, time, target } = formData;
-
   return (
     <Card variant="outlined" sx={{ padding: 1 }}>
       <CardHeader
@@ -426,22 +399,10 @@ export const FormContextEditor: FC<FormContextEditorProps> = (
       <CardContent>
         <Box>
           <Stack spacing={2} divider={<Divider flexItem />}>
-            <ContextEditorTime
-              value={time}
-              onValueChange={onFormDataChange}
-            />
-            <ContextEditorLocation
-              value={location}
-              onValueChange={onFormDataChange}
-            />
-            <ContextEditorTarget
-              value={target}
-              onValueChange={onFormDataChange}
-            />
-            <ContextEditorCharacter
-              value={character}
-              onValueChange={onFormDataChange}
-            />
+            <ContextEditorTime />
+            <ContextEditorLocation />
+            <ContextEditorTarget />
+            <ContextEditorCharacter />
           </Stack>
         </Box>
       </CardContent>

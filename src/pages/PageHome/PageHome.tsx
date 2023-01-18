@@ -17,16 +17,9 @@ import { FormContextEditor, StatView } from "../../components";
 type PageHomeProps = {
   stat: StatObject;
   onPageChange: (next_page: number) => void;
-  onContextChange: (
-    next_context:
-      | ActionContext
-      | ((prev_context: ActionContext) => ActionContext),
-  ) => void;
 };
 export const PageHome: FC<PageHomeProps> = (props) => {
-  const { stat, onContextChange, onPageChange } = props;
-
-  const context = useContext(GlobalAppContext);
+  const { stat, onPageChange } = props;
 
   return (
     <Container disableGutters maxWidth="lg">
@@ -79,10 +72,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={1}>
-            <FormContextEditor
-              formData={context}
-              onFormDataChange={onContextChange}
-            />
+            <FormContextEditor />
           </Grid>
           <Grid item xs={1}>
             <Card variant="outlined" sx={{ padding: 1 }}>
