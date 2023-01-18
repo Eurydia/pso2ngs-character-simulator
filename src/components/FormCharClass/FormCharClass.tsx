@@ -18,7 +18,7 @@ import { CharacterClass, StatObject } from "../../assets";
 
 import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
-import { SelectClass } from "../SelectClass";
+import { SelectCharClass } from "../SelectCharClass";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 
@@ -70,12 +70,12 @@ export const FormCharClass: FC<FormCharClassProps> = memo(
                 spacing={1}
                 direction={{ xs: "column", sm: "row" }}
               >
-                <SelectClass
+                <SelectCharClass
                   startIcon={
                     <LooksOneRounded htmlColor={orange["400"]} />
                   }
-                  currentClass={mainClass}
-                  onCurrentClassChange={onMainClassChange}
+                  charClass={mainClass}
+                  onCharClassChange={onMainClassChange}
                 />
                 <FieldNumber
                   disabled={false}
@@ -87,12 +87,12 @@ export const FormCharClass: FC<FormCharClassProps> = memo(
                 />
               </Stack>
               <Box width={{ xs: 1, sm: 0.5 }}>
-                <SelectClass
+                <SelectCharClass
                   startIcon={
                     <LooksTwoRounded htmlColor={grey["400"]} />
                   }
-                  currentClass={subClass}
-                  onCurrentClassChange={onSubClassChange}
+                  charClass={subClass}
+                  onCharClassChange={onSubClassChange}
                 />
               </Box>
             </Stack>

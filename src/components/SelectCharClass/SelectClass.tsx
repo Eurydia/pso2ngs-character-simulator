@@ -20,18 +20,18 @@ const CLASS_OPTIONS: string[] = [
   AssetCharacterClasses.G_WAKER.label,
 ];
 
-type SelectClassProps = {
+type SelectCharClassProps = {
   // Dynamics props
-  currentClass: string;
+  charClass: string;
 
   // Static props
   startIcon: ReactNode;
 
-  onCurrentClassChange: (next_class: string) => void;
+  onCharClassChange: (next_class: string) => void;
 };
-export const SelectClass: FC<SelectClassProps> = memo(
+export const SelectCharClass: FC<SelectCharClassProps> = memo(
   (props) => {
-    const { startIcon, currentClass, onCurrentClassChange } = props;
+    const { startIcon, charClass, onCharClassChange } = props;
 
     const handlePotentialLevelChange = (
       event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -40,14 +40,14 @@ export const SelectClass: FC<SelectClassProps> = memo(
       if (!CLASS_OPTIONS.includes(value_input)) {
         return;
       }
-      onCurrentClassChange(value_input);
+      onCharClassChange(value_input);
     };
 
     return (
       <TextField
         select
         fullWidth
-        value={currentClass}
+        value={charClass}
         onChange={handlePotentialLevelChange}
         InputProps={{
           startAdornment: (
@@ -68,6 +68,6 @@ export const SelectClass: FC<SelectClassProps> = memo(
     );
   },
   (prev, next) => {
-    return prev.currentClass === next.currentClass;
+    return prev.charClass === next.charClass;
   },
 );
