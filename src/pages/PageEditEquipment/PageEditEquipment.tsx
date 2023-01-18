@@ -74,28 +74,31 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     setAugment: setAugmentUnitC,
   } = useDataUnit("equipment-unit-c");
 
-  useEffect(() => {
-    const unique_augments: Set<string> = new Set();
+  const unique_augments = useMemo((): number => {
+    const augments: Set<string> = new Set();
 
     DataWeapon.getUniqueAugments(dataWeapon).forEach((label) => {
-      unique_augments.add(label);
+      augments.add(label);
     });
     DataUnit.getUniqueAugments(dataUnitA).forEach((label) => {
-      unique_augments.add(label);
+      augments.add(label);
     });
     DataUnit.getUniqueAugments(dataUnitB).forEach((label) => {
-      unique_augments.add(label);
+      augments.add(label);
     });
     DataUnit.getUniqueAugments(dataUnitC).forEach((label) => {
-      unique_augments.add(label);
+      augments.add(label);
     });
+    return augments.size;
+  }, [dataWeapon, dataUnitA, dataUnitB, dataUnitC]);
 
+  useEffect(() => {
     setContext(({ character, ...rest }) => {
       const next = { ...rest, character: { ...character } };
-      next.character.uniqueAugments = unique_augments.size;
+      next.character.uniqueAugments = unique_augments;
       return next;
     });
-  }, [dataWeapon, dataUnitA, dataUnitB, dataUnitC]);
+  }, [unique_augments]);
 
   const handleUnitSyncA = useCallback((): void => {
     setUnitB(dataUnitA.unit);
