@@ -2,7 +2,7 @@ import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_TECHTER_AWAKE_AILE = ((): CharClassSkill => {
+export const TECHTER_AWAKE_AILE = ((): CharClassSkill => {
   const DATA_PB_RECOVERY_MAIN: number[] = [
     1.1, 1.13, 1.16, 1.18, 1.2,
   ];
