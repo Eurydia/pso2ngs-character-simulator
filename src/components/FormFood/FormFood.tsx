@@ -27,7 +27,7 @@ import { IconButtonTooltip } from "../IconButtonTooltip";
 
 import { FoodList } from "./FoodList";
 import { loadFoods, saveFoods } from "./helper";
-import { GlobalAppContext } from "../../contexts";
+import { AppContext } from "../../contexts";
 
 const STORAGE_KEY: string = "food-items";
 
@@ -37,7 +37,7 @@ type FormFoodProps = {
 export const FormFood: FC<FormFoodProps> = (props) => {
   const { onStatChange } = props;
 
-  const context = useContext(GlobalAppContext);
+  const context = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogClose = useCallback((): void => {

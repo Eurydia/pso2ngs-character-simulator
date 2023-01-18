@@ -27,7 +27,7 @@ import {
   StatObject,
   statObject,
 } from "../../assets";
-import { GlobalAppContext } from "../../contexts";
+import { AppContext } from "../../contexts";
 import { FieldNumber } from "../FieldNumber";
 
 import { FormBase } from "../FormBase";
@@ -51,7 +51,7 @@ export const FormCharacterClassSkill: FC<
   const { cardTitle, skills, isMainClass, isSubClass, onStatChange } =
     props;
 
-  const { context } = useContext(GlobalAppContext);
+  const { context } = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {

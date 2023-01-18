@@ -21,11 +21,11 @@ import {
 } from "../../assets";
 
 import { CustomSwitch } from "./CustomSwitch";
-import { GlobalAppContext } from "../../contexts";
+import { AppContext } from "../../contexts";
 
 type ContextEditorTimeProps = {};
 const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
-  const { context, setContext } = useContext(GlobalAppContext);
+  const { context, setContext } = useContext(AppContext);
   const { isDayTime, isDuringSezunEvent } = context.time;
   const handleDayTimeChange = useCallback(() => {
     setContext((prev) => {
@@ -69,7 +69,7 @@ type ContextEditorLocationProps = {};
 const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   props,
 ) => {
-  const { context, setContext } = useContext(GlobalAppContext);
+  const { context, setContext } = useContext(AppContext);
   const { kvaris, geometricLabyrinth } = context.location;
 
   const handleKvarisChange = useCallback(() => {
@@ -114,7 +114,7 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
 
 type ContextEditorTargetProps = {};
 const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
-  const { context, setContext } = useContext(GlobalAppContext);
+  const { context, setContext } = useContext(AppContext);
   const {
     isBoss,
     isDolls,
@@ -273,7 +273,7 @@ type ContextEditorCharacterProps = {};
 const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
   props,
 ) => {
-  const { context, setContext } = useContext(GlobalAppContext);
+  const { context, setContext } = useContext(AppContext);
   const {
     isAttacking,
     isAttackingBlight,

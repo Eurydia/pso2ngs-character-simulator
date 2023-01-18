@@ -8,4 +8,6 @@ export { FormUnit } from "./FormUnit";
 export { FormFood } from "./FormFood";
 
 export { FormAddonSkill } from "./FormAddonSkill";
-export { FormCharacter } from "./FormCharacter";
+
+export { FormCharacterClass } from "./FormCharacterClass";
+export { FormCharacterClassSkill } from "./FormCharacterClassSkill";

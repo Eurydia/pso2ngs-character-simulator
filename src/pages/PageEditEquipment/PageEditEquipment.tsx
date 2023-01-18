@@ -23,7 +23,7 @@ import { BarChartRounded } from "@mui/icons-material";
 import { Augment, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon } from "../../types";
-import { GlobalAppContext } from "../../contexts";
+import { AppContext, AppContextSetter } from "../../contexts";
 import { useDataUnit, useDataWeapon } from "../../hooks";
 
 type PageEditEquipmentProps = {
@@ -34,7 +34,8 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 ) => {
   const { onStatChange } = props;
 
-  const { context, setContext } = useContext(GlobalAppContext);
+  const context = useContext(AppContext);
+  const setContext = useContext(AppContextSetter);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback((): void => {
@@ -76,7 +77,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   const unique_augments = useMemo((): number => {
     const augments: Set<string> = new Set();
-
     DataWeapon.getUniqueAugments(dataWeapon).forEach((label) => {
       augments.add(label);
     });
@@ -162,9 +162,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     return StatObject.merge(stat, stat_unit_c);
   }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
 
-  useEffect(() => {
-    onStatChange(stat_total);
-  }, [stat_total]);
+  useEffect(() => {}, [stat_total]);
 
   return (
     <Fragment>

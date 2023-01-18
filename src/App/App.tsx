@@ -2,7 +2,6 @@ import { FC, useEffect, useMemo, useState } from "react";
 import {
   AppBar,
   CssBaseline,
-  GlobalStyles,
   IconButton,
   ThemeProvider,
   Toolbar,
@@ -21,7 +20,7 @@ import {
 } from "../pages";
 import { useActionContext } from "../hooks";
 import { StatEnum, StatObject, statObject } from "../assets";
-import { GlobalAppContext } from "../contexts";
+import { AppContext } from "../contexts";
 
 import { CustomGlobalStyle, style_overrides } from "./theme";
 import { PageContainer } from "./PageContainer";
@@ -96,7 +95,9 @@ export const App: FC = () => {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <GlobalAppContext.Provider value={{ context, setContext }}>
+      <AppContext.Provider
+        value={{ context, updateContext: setContext }}
+      >
         <PageContainer
           isVisible={page === 0}
           component={
@@ -123,7 +124,7 @@ export const App: FC = () => {
           isVisible={page === 4}
           component={<PageEditAddon onStatChange={setStatAddon} />}
         />
-      </GlobalAppContext.Provider>
+      </AppContext.Provider>
     </ThemeProvider>
   );
 };

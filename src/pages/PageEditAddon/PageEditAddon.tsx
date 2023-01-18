@@ -29,7 +29,6 @@ import {
   statObject,
   StatObject,
 } from "../../assets";
-import { GlobalAppContext } from "../../contexts";
 
 // ------------------ Hunter ------------------
 const HUNTER_MAIN_ADDON: AddonSkill =
@@ -179,6 +178,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
           title={<Typography>Open summary</Typography>}
         >
           <Fab
+            color="primary"
             onClick={handleDialogOpen}
             sx={{
               position: "fixed",

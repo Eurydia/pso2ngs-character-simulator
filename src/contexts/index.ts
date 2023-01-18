@@ -1,1 +1,1 @@
-export { GlobalAppContext } from "./GlobalAppContext";
+export { AppContext } from "./AppContext";

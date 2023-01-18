@@ -21,7 +21,7 @@ import {
 } from "@mui/icons-material";
 
 import { AddonSkill, StatObject } from "../../assets";
-import { GlobalAppContext } from "../../contexts";
+import { AppContext } from "../../contexts";
 
 import { FormBase } from "../FormBase";
 import { StatView } from "../StatView";
@@ -57,7 +57,7 @@ export const FormAddonSkill: FC<FormAddonSkillProps> = (props) => {
     onStatChange,
   } = props;
 
-  const context = useContext(GlobalAppContext);
+  const context = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
