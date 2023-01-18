@@ -1,17 +1,4 @@
 import {
-  BarChartRounded,
-  LooksOneRounded,
-  LooksTwoRounded,
-} from "@mui/icons-material";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { amber, grey, orange } from "@mui/material/colors";
-import {
   FC,
   Fragment,
   ReactNode,
@@ -21,6 +8,19 @@ import {
   useMemo,
   useState,
 } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { grey, orange } from "@mui/material/colors";
+import {
+  BarChartRounded,
+  LooksOneRounded,
+  LooksTwoRounded,
+} from "@mui/icons-material";
 
 import {
   CharacterClassSkill,
@@ -35,7 +35,7 @@ import { IconButtonTooltip } from "../IconButtonTooltip";
 import { StatView } from "../StatView";
 import { FieldSkillLayout } from "./FieldSkillLayout";
 
-type FormCharacterClassSkillProps = {
+type FormCharClassSkillProps = {
   formStorageKey: string;
   cardTitle: string;
   skills: CharacterClassSkill[];
@@ -45,9 +45,9 @@ type FormCharacterClassSkillProps = {
 
   onStatChange: (next_stat: StatObject) => void;
 };
-export const FormCharacterClassSkill: FC<
-  FormCharacterClassSkillProps
-> = (props) => {
+export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
+  props,
+) => {
   const { cardTitle, skills, isMainClass, isSubClass, onStatChange } =
     props;
 
@@ -87,7 +87,7 @@ export const FormCharacterClassSkill: FC<
     return null;
   }, [isMainClass, isSubClass]);
 
-  const stat_total = useMemo(() => {
+  const stat_total = useMemo((): StatObject => {
     let stat: StatObject = statObject();
     if (isMainClass) {
       skills.forEach((skill, skill_index) => {
@@ -100,6 +100,7 @@ export const FormCharacterClassSkill: FC<
           );
         stat = StatObject.merge(stat, stat_skill);
       });
+      return stat;
     }
     if (isSubClass) {
       skills.forEach((skill, skill_index) => {
@@ -112,6 +113,7 @@ export const FormCharacterClassSkill: FC<
           );
         stat = StatObject.merge(stat, stat_skill);
       });
+      return stat;
     }
     return stat;
   }, [isMainClass, isSubClass, skillLevels, context]);

@@ -1,1 +1,0 @@
-export { FormCharacterClassSkill } from "./FormCharacterClassSkill";

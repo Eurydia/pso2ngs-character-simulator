@@ -10,4 +10,4 @@ export { FormFood } from "./FormFood";
 export { FormAddonSkill } from "./FormAddonSkill";
 
 export { FormCharClass as FormCharacterClass } from "./FormCharClass";
-export { FormCharacterClassSkill } from "./FormCharacterClassSkill";
+export { FormCharClassSkill as FormCharacterClassSkill } from "./FormCharClassSkill";
