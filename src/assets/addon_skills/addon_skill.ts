@@ -1,5 +1,6 @@
+import { Add } from "@mui/icons-material";
 import { ActionContext } from "../ContextAction";
-import { StatObject } from "../stat";
+import { statObject, StatObject } from "../stat";
 
 export type AddonSkill = {
   label: string;
@@ -16,6 +17,9 @@ export const AddonSkill = {
     addon_skill: AddonSkill,
     level: number,
   ) => {
+    if (level < 1 || level > AddonSkill.LEVEL_MAX) {
+      return statObject();
+    }
     return addon_skill.getAwareStatObject(ctx, level - 1);
   },
 };

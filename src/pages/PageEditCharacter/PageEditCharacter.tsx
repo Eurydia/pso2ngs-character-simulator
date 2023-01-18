@@ -109,10 +109,6 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     "character-level",
     1,
   );
-  const { charClass: mainClass, setCharClass: setMainClass } =
-    useCharClass("character-class-main", AssetCharClasses.HUNTER);
-  const { charClass: subClass, setCharClass: setSubClass } =
-    useCharClass("character-class-sub", AssetCharClasses.FIGHTER);
   useEffect(() => {
     updateContext(({ character, ...rest }) => {
       const next = {
@@ -122,6 +118,28 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       return next;
     });
   }, [charLevel]);
+  const { charClass: mainClass, setCharClass: setMainClass } =
+    useCharClass("character-class-main", AssetCharClasses.HUNTER);
+  const { charClass: subClass, setCharClass: setSubClass } =
+    useCharClass("character-class-sub", AssetCharClasses.FIGHTER);
+  const handleMainClassChange = useCallback(
+    (next_class: string): void => {
+      if (next_class === subClass) {
+        setSubClass(mainClass);
+      }
+      setMainClass(next_class);
+    },
+    [subClass, mainClass],
+  );
+  const handleSubClassChange = useCallback(
+    (next_class: string): void => {
+      if (next_class === mainClass) {
+        setMainClass(subClass);
+      }
+      setSubClass(next_class);
+    },
+    [subClass, mainClass],
+  );
 
   const [statHunter, setStatHunter] = useState((): StatObject => {
     return statObject();
@@ -148,9 +166,28 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     return CharClass.getStatObject(char_class, charLevel);
   }, [mainClass, charLevel]);
 
+  const stat_total = useMemo((): StatObject => {
+    let stat: StatObject = StatObject.merge(
+      stat_class_main,
+      statHunter,
+    );
+    stat = StatObject.merge(stat, statFighter);
+    stat = StatObject.merge(stat, statRanger);
+    stat = StatObject.merge(stat, statGunner);
+    return StatObject.merge(stat, statBraver);
+  }, [
+    stat_class_main,
+    statHunter,
+    statFighter,
+    statRanger,
+    statGunner,
+    statBraver,
+  ]);
+
   useEffect(() => {
-    onStatChange(stat_class_main);
-  }, [stat_class_main]);
+    onStatChange(stat_total);
+  }, [stat_total]);
+  console.log(statHunter);
 
   return (
     <Fragment>
@@ -179,8 +216,8 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
                 mainClass={mainClass}
                 subClass={subClass}
                 onCharLevelChange={setCharLevel}
-                onMainClassChange={setMainClass}
-                onSubClassChange={setSubClass}
+                onMainClassChange={handleMainClassChange}
+                onSubClassChange={handleSubClassChange}
               />
             </Grid>
             <Grid item xs={1}>
@@ -219,7 +256,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
                   skills={FIGHTER_SKILLS}
                   isMainClass={mainClass === FIGHTER}
                   isSubClass={subClass === FIGHTER}
-                  onStatChange={setStatHunter}
+                  onStatChange={setStatFighter}
                 />
                 <FormCharClassSkill
                   formStorageKey="class-skill-gunner"

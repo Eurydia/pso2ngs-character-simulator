@@ -11,9 +11,6 @@ export const FORCE_TECHNIQUE_WEAPON_UP = addonSkill(
       1.0225, 1.025, 1.0275, 1.03, 1.0325, 1.035, 1.0375, 1.04,
       1.0425, 1.045, 1.0475, 1.05,
     ];
-    if (level_index < 0 || level_index >= DATA_WEAPON_UP.length) {
-      return statObject();
-    }
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     return statObject({
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
@@ -28,9 +25,6 @@ export const FORCE_NATURAL_PP_RECOVERY = addonSkill(
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
       1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.1,
     ];
-    if (level_index < 0 || level_index >= DATA_PP_RECOVERY.length) {
-      return statObject();
-    }
     if (ctx.character.isAttacking) {
       return statObject();
     }

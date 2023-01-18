@@ -72,7 +72,6 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
     },
     [],
   );
-
   const card_icon = useMemo((): ReactNode => {
     if (isMainClass) {
       return (
@@ -140,6 +139,7 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
               const skill_level: number = skillLevels[skill_index];
               return (
                 <FieldSkillLayout
+                  key={label}
                   slotLabel={<Typography>{label}</Typography>}
                   slotField={
                     <FieldNumber

@@ -10,9 +10,6 @@ export const GUNNER_ACTIVE_PB_RECOVERY = addonSkill(
       1.01, 1.02, 1.03, 1.04, 1.05, 1.06, 1.07, 1.08, 1.09, 1.1, 1.11,
       1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.2,
     ];
-    if (level_index < 0 || level_index >= DATA_PB_RECOVERY.length) {
-      return statObject();
-    }
     if (!ctx.character.isAttacking) {
       return statObject();
     }
@@ -30,9 +27,6 @@ export const GUNNNER_ACTIVE_PP_RECOVERY = addonSkill(
       1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.035, 1.04, 1.045, 1.05,
       1.055, 1.06, 1.065, 1.07, 1.075, 1.08, 1.085, 1.09, 1.095, 1.1,
     ];
-    if (level_index < 0 || level_index >= DATA_PP_RECOVERY.length) {
-      return statObject();
-    }
     if (!ctx.character.isAttacking) {
       return statObject();
     }
