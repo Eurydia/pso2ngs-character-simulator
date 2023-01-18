@@ -18,11 +18,13 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitThree = (
   name: string,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  base_defense: number,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_THREE,
+    base_defense,
     60,
     level_required,
     GROWTH_DATA,
@@ -35,9 +37,9 @@ G_THREE.push(
   makeUnitThree(
     "Theseus Armor",
     5,
-    (_: ActionContext | null): StatObject => {
+    9,
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 9,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 1,
       });
@@ -49,9 +51,9 @@ G_THREE.push(
   makeUnitThree(
     "Gold Primm Armor",
     5,
-    (_: ActionContext | null): StatObject => {
+    9,
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 9,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 1,
       });
@@ -63,9 +65,9 @@ G_THREE.push(
   makeUnitThree(
     "Renaissa Armor",
     1,
-    (_: ActionContext | null): StatObject => {
+    10,
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 10,
         [StatEnum.CORE_HP]: 10,
         [StatEnum.CORE_PP]: 2,
         [StatEnum.WEAPON_MELEE]: 1.01,
