@@ -25,7 +25,7 @@ import {
   AssetCharacterClasses,
   AssetCharacterClassSkills,
   CharacterClass,
-  CharacterClassSkill,
+  CharClassSkill,
   statObject,
   StatObject,
 } from "../../assets";
@@ -34,7 +34,7 @@ import { FormCharacterClass, StatView } from "../../components";
 import { BarChartRounded } from "@mui/icons-material";
 import { AppContext } from "../../contexts";
 
-const HUNTER_SKILLS: CharacterClassSkill[] = [
+const HUNTER_SKILLS: CharClassSkill[] = [
   AssetCharacterClassSkills.G_HUNTER_FLASH_GUARD,
 ];
 

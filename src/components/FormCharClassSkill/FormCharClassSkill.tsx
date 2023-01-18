@@ -22,11 +22,7 @@ import {
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import {
-  CharacterClassSkill,
-  StatObject,
-  statObject,
-} from "../../assets";
+import { CharClassSkill, StatObject, statObject } from "../../assets";
 import { AppContext } from "../../contexts";
 import { FieldNumber } from "../FieldNumber";
 
@@ -38,7 +34,7 @@ import { FieldSkillLayout } from "./FieldSkillLayout";
 type FormCharClassSkillProps = {
   formStorageKey: string;
   cardTitle: string;
-  skills: CharacterClassSkill[];
+  skills: CharClassSkill[];
 
   isMainClass: boolean;
   isSubClass: boolean;
@@ -93,7 +89,7 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
       skills.forEach((skill, skill_index) => {
         const skill_level: number = skillLevels[skill_index];
         const stat_skill: StatObject =
-          CharacterClassSkill.getStatObjectMain(
+          CharClassSkill.getStatObjectMain(
             context,
             skill,
             skill_level,
@@ -106,7 +102,7 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
       skills.forEach((skill, skill_index) => {
         const skill_level: number = skillLevels[skill_index];
         const stat_skill: StatObject =
-          CharacterClassSkill.getStatObjectSub(
+          CharClassSkill.getStatObjectSub(
             context,
             skill,
             skill_level,

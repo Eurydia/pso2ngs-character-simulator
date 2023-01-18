@@ -1,8 +1,8 @@
 import { StatEnum, statObject, StatObject } from "../stat";
 
-const LOOKUP_TABLE: { [key: string]: CharacterClass } = {};
+const LOOKUP_TABLE: { [key: string]: CharClass } = {};
 
-export type CharacterClass = {
+export type CharClass = {
   label: string;
   base_hp: number;
   base_pp: number;
@@ -10,10 +10,10 @@ export type CharacterClass = {
   base_defense: number;
 };
 
-export const CharacterClass = {
+export const CharClass = {
   LEVEL_MAX: 70,
 
-  fromLabel: (class_name: string): CharacterClass | null => {
+  fromLabel: (class_name: string): CharClass | null => {
     if (class_name in LOOKUP_TABLE) {
       return LOOKUP_TABLE[class_name];
     }
@@ -48,18 +48,18 @@ export const CharacterClass = {
   },
 
   getStatObject: (
-    character_class: CharacterClass,
+    character_class: CharClass,
     character_level: number,
   ): StatObject => {
-    const hp = CharacterClass.getCharacterHP(
+    const hp = CharClass.getCharacterHP(
       character_class.base_hp,
       character_level,
     );
-    const attack = CharacterClass.getCharacterAttack(
+    const attack = CharClass.getCharacterAttack(
       character_class.base_attack,
       character_level,
     );
-    const defense = CharacterClass.getCharacterDefense(
+    const defense = CharClass.getCharacterDefense(
       character_class.base_defense,
       character_level,
     );
@@ -75,14 +75,14 @@ export const CharacterClass = {
   },
 };
 
-export const characterClass = (
+export const charClass = (
   label: string,
   base_hp: number,
   base_pp: number,
   base_attack: number,
   base_defense: number,
-): CharacterClass => {
-  const result: CharacterClass = {
+): CharClass => {
+  const result: CharClass = {
     label,
     base_hp,
     base_pp,
