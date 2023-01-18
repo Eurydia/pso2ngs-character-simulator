@@ -250,12 +250,13 @@ const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
 };
 
 type AdvDefensiveGroupProps = Nullable<{
+  healing: string;
   healingUp: string;
   damageResist: string;
   ailmentDuration: string;
 }>;
 const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
-  const { damageResist, healingUp, ailmentDuration } = props;
+  const { healing, damageResist, healingUp, ailmentDuration } = props;
 
   const hidden = Object.values(props).every((value) => {
     return value === null;
@@ -263,6 +264,11 @@ const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
 
   return (
     <StatList hidden={hidden} subheader="Advanced: Defensive">
+      <StatListItem
+        label={StatEnumString[StatEnum.ADV_DEF_HEALING]}
+        value={healing}
+        icon={getIcon(healing)}
+      />
       <StatListItem
         label={StatEnumString[StatEnum.ADV_DEF_DAMAGE_RES]}
         value={damageResist}
@@ -390,6 +396,7 @@ export const StatView: FC<StatViewProps> = (props) => {
           )}
         />
         <AdvDefensiveGroup
+          healing={StatObject.format(stat, StatEnum.ADV_DEF_HEALING)}
           healingUp={StatObject.format(
             stat,
             StatEnum.ADV_DEF_HEALING_UP,

@@ -77,6 +77,7 @@ export const StatAdd: Set<StatEnum> = new Set([
   StatEnum.CORE_PP,
   StatEnum.CORE_ATTACK,
   StatEnum.CORE_DEFENSE,
+  StatEnum.ADV_DEF_HEALING,
 ]);
 
 export const StatSpecial: Set<StatEnum> = new Set([

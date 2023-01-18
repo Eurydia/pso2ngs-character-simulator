@@ -49,7 +49,7 @@ export const App: FC = () => {
     );
     delete stat[StatEnum.ADV_HP_BOOST];
 
-    const healing = 175;
+    const healing = StatObject.getStat(stat, StatEnum.CORE_HP) / 2;
     const healing_up = StatObject.getStat(
       stat,
       StatEnum.ADV_DEF_HEALING_UP,
@@ -57,7 +57,7 @@ export const App: FC = () => {
     stat = StatObject.setStat(
       stat,
       StatEnum.ADV_DEF_HEALING,
-      healing * healing_up,
+      Math.floor(healing * healing_up),
     );
     delete stat[StatEnum.ADV_DEF_HEALING_UP];
 

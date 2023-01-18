@@ -35,7 +35,12 @@ export const StatObject = {
   },
 
   getStat: (stat: StatObject, key: StatEnum): number => {
-    const keys = StatObject.getKeys(stat);
+    const value: number | undefined = stat[key];
+
+    if (value !== undefined) {
+      return value;
+    }
+    const keys: StatEnum[] = StatObject.getKeys(stat);
     if (keys.includes(key)) {
       return stat[key]!;
     }

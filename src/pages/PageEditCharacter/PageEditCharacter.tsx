@@ -30,7 +30,7 @@ import {
   StatObject,
 } from "../../assets";
 import { useCharClass, useNumber } from "../../hooks";
-import { FormCharacterClass, StatView } from "../../components";
+import { FormCharClass, StatView } from "../../components";
 import { BarChartRounded } from "@mui/icons-material";
 import { AppContext } from "../../contexts";
 
@@ -90,6 +90,10 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     return CharClass.getStatObject(char_class, charLevel);
   }, [mainClass, charLevel]);
 
+  useEffect(() => {
+    onStatChange(stat_class_main);
+  }, [stat_class_main]);
+
   return (
     <Fragment>
       <Tooltip
@@ -109,7 +113,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       </Tooltip>
       <Container maxWidth="md">
         <Box marginY={4}>
-          <FormCharacterClass
+          <FormCharClass
             stat={stat_class_main}
             charLevel={charLevel}
             mainClass={mainClass}
