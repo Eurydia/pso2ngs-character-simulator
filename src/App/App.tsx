@@ -35,7 +35,7 @@ export const App: FC = () => {
   const [statAddon, setStatAddon] = useState(statObject());
   const [statCharacter, setStatChatacter] = useState(statObject());
 
-  const stat_total = useMemo(() => {
+  const stat_total = useMemo((): StatObject => {
     let stat = StatObject.merge(statEquipment, statFood);
     stat = StatObject.merge(stat, statAddon);
     const hp_boost = StatObject.getStat(stat, StatEnum.ADV_HP_BOOST);
@@ -46,11 +46,7 @@ export const App: FC = () => {
         StatEnum.CORE_HP,
         Math.round(hp * hp_boost),
       );
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.ADV_HP_BOOST,
-        undefined,
-      );
+      delete stat.hiddenHPBoost;
     }
     return stat;
   }, [statEquipment, statFood, statAddon]);
@@ -58,22 +54,33 @@ export const App: FC = () => {
   useEffect(() => {
     setContext((prev) => {
       const next = { ...prev };
-      const { coreAttack, coreDefense, corePP, coreHP } = stat_total;
-      if (coreAttack !== undefined) {
-        next.character.attackValue = coreAttack;
+      const attack: number | undefined =
+        stat_total[StatEnum.CORE_ATTACK];
+      const defense: number | undefined =
+        stat_total[StatEnum.CORE_DEFENSE];
+      const hp: number | undefined = stat_total[StatEnum.CORE_HP];
+      const pp: number | undefined = stat_total[StatEnum.CORE_PP];
+
+      if (attack !== undefined) {
+        next.character.attackValue = attack;
       }
-      if (coreDefense !== undefined) {
-        next.character.defenseValue = coreDefense;
+      if (defense !== undefined) {
+        next.character.defenseValue = defense;
       }
-      if (coreHP !== undefined) {
-        next.character.hpValue = coreHP;
+      if (hp !== undefined) {
+        next.character.hpValue = hp;
       }
-      if (corePP !== undefined) {
-        next.character.ppValue = corePP;
+      if (pp !== undefined) {
+        next.character.ppValue = pp;
       }
       return next;
     });
-  }, [stat_total]);
+  }, [
+    stat_total[StatEnum.CORE_HP],
+    stat_total[StatEnum.CORE_PP],
+    stat_total[StatEnum.CORE_ATTACK],
+    stat_total[StatEnum.CORE_DEFENSE],
+  ]);
 
   return (
     <ThemeProvider theme={style_overrides}>

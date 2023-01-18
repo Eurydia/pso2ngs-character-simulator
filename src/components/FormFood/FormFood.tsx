@@ -37,7 +37,7 @@ type FormFoodProps = {
 export const FormFood: FC<FormFoodProps> = (props) => {
   const { onStatChange } = props;
 
-  const context = useContext(AppContext);
+  const { context, updateContext } = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogClose = useCallback((): void => {
@@ -51,7 +51,6 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   const [foods, setFoods] = useState((): Food[] => {
     return loadFoods(STORAGE_KEY);
   });
-
   useEffect(() => {
     saveFoods(STORAGE_KEY, foods);
   }, [foods]);
@@ -72,10 +71,10 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   }, [selected]);
   const handleCopy = useCallback(
     (next_food: Food, food_index: number) => {
-      if (food_index < 0 || food_index >= foods.length) {
-        return;
-      }
       setFoods((prev) => {
+        if (food_index < 0 || food_index >= prev.length) {
+          return prev;
+        }
         const next = [...prev];
         if (next.length >= Food.MAX_ITEM) {
           next.pop();
@@ -84,21 +83,18 @@ export const FormFood: FC<FormFoodProps> = (props) => {
         return next;
       });
     },
-    [foods],
+    [],
   );
-  const handleRemove = useCallback(
-    (food_index: number) => {
-      if (food_index < 0 || food_index >= foods.length) {
-        return;
+  const handleRemove = useCallback((food_index: number) => {
+    setFoods((prev) => {
+      if (food_index < 0 || food_index >= prev.length) {
+        return prev;
       }
-      setFoods((prev) => {
-        const next = [...prev];
-        next.splice(food_index, 1);
-        return next;
-      });
-    },
-    [foods],
-  );
+      const next = [...prev];
+      next.splice(food_index, 1);
+      return next;
+    });
+  }, []);
 
   const stat_total = useMemo((): StatObject => {
     return Food.getStatObject(context, foods);

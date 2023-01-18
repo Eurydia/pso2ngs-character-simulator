@@ -23,7 +23,7 @@ import { BarChartRounded } from "@mui/icons-material";
 import { Augment, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon } from "../../types";
-import { AppContext, AppContextSetter } from "../../contexts";
+import { AppContext } from "../../contexts";
 import { useDataUnit, useDataWeapon } from "../../hooks";
 
 type PageEditEquipmentProps = {
@@ -34,8 +34,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 ) => {
   const { onStatChange } = props;
 
-  const context = useContext(AppContext);
-  const setContext = useContext(AppContextSetter);
+  const { context, updateContext } = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback((): void => {
@@ -93,7 +92,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   }, [dataWeapon, dataUnitA, dataUnitB, dataUnitC]);
 
   useEffect(() => {
-    setContext(({ character, ...rest }) => {
+    updateContext(({ character, ...rest }) => {
       const next = { ...rest, character: { ...character } };
       next.character.uniqueAugments = unique_augments;
       return next;

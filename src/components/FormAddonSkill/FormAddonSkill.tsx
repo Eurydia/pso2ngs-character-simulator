@@ -57,7 +57,7 @@ export const FormAddonSkill: FC<FormAddonSkillProps> = (props) => {
     onStatChange,
   } = props;
 
-  const context = useContext(AppContext);
+  const { context } = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
