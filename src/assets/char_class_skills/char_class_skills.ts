@@ -6,17 +6,17 @@ type GetterSignature = (
   level_index: number,
 ) => StatObject;
 
-export type CharacterClassSkill = {
+export type CharClassSkill = {
   label: string;
   level_max: number;
   getAwareStatObjectMain: GetterSignature | null;
   getAwareStatObjectSub: GetterSignature | null;
 };
 
-export const CharacterClassSkill = {
+export const CharClassSkill = {
   getStatObjectMain: (
     ctx: ActionContext,
-    skill: CharacterClassSkill,
+    skill: CharClassSkill,
     level: number,
   ): StatObject => {
     if (level < 1 || level > skill.level_max) {
@@ -31,7 +31,7 @@ export const CharacterClassSkill = {
 
   getStatObjectSub: (
     ctx: ActionContext,
-    skill: CharacterClassSkill,
+    skill: CharClassSkill,
     level: number,
   ): StatObject => {
     if (level < 1 || level > skill.level_max) {
@@ -45,13 +45,13 @@ export const CharacterClassSkill = {
   },
 };
 
-export const characterClassSkill = (
+export const charClassSkill = (
   label: string,
   level_max: number,
   getAwareStatObjectMain: GetterSignature | null,
   getAwareStatObjectSub: GetterSignature | null,
-): CharacterClassSkill => {
-  const result: CharacterClassSkill = {
+): CharClassSkill => {
+  const result: CharClassSkill = {
     label,
     level_max,
     getAwareStatObjectMain,

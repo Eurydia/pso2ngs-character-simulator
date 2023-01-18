@@ -1,12 +1,9 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 
-import {
-  CharacterClassSkill,
-  characterClassSkill,
-} from "../character_class_skill";
+import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_HUNTER_FLASH_GUARD = ((): CharacterClassSkill => {
+export const G_HUNTER_FLASH_GUARD = ((): CharClassSkill => {
   const DATA_DAMAGE_RES_MAIN: number[] = [
     1.1, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.2,
     1.21, 1.22, 1.23, 1.24, 1.25,
@@ -33,7 +30,7 @@ export const G_HUNTER_FLASH_GUARD = ((): CharacterClassSkill => {
       [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
     });
   };
-  return characterClassSkill(
+  return charClassSkill(
     "Flash Guard",
     DATA_DAMAGE_RES_MAIN.length,
     _getterMain,

@@ -1,11 +1,8 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
-import {
-  CharacterClassSkill,
-  characterClassSkill,
-} from "../character_class_skill";
+import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_TECHTER_AWAKE_AILE = ((): CharacterClassSkill => {
+export const G_TECHTER_AWAKE_AILE = ((): CharClassSkill => {
   const DATA_PB_RECOVERY_MAIN: number[] = [
     1.1, 1.13, 1.16, 1.18, 1.2,
   ];
@@ -42,7 +39,7 @@ export const G_TECHTER_AWAKE_AILE = ((): CharacterClassSkill => {
       [StatEnum.ADV_OFF_PB_RECOVERY]: pb_recovery,
     });
   };
-  return characterClassSkill(
+  return charClassSkill(
     "Awake Aile",
     DATA_PB_RECOVERY_MAIN.length,
     _getterMain,

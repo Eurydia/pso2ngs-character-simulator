@@ -1,11 +1,8 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
-import {
-  CharacterClassSkill,
-  characterClassSkill,
-} from "../character_class_skill";
+import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_FORCE_PP_RECOVERY_BOOST = ((): CharacterClassSkill => {
+export const G_FORCE_PP_RECOVERY_BOOST = ((): CharClassSkill => {
   const DATA_PP_RECOVERY_MAIN: number[] = [
     1.5, 1.56, 1.62, 1.66, 1.72, 1.78, 1.84, 1.9, 1.95, 2.0, 2.02,
     2.04, 2.06, 2.08, 2.1,
@@ -38,7 +35,7 @@ export const G_FORCE_PP_RECOVERY_BOOST = ((): CharacterClassSkill => {
       [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
     });
   };
-  return characterClassSkill(
+  return charClassSkill(
     "PP Recovery Boost",
     DATA_PP_RECOVERY_MAIN.length,
     _getterMain,

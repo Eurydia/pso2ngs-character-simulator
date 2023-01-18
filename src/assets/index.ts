@@ -8,4 +8,4 @@ export * from "./fixas";
 export * from "./foods";
 export * from "./addon_skills";
 export * from "./character_classes";
-export * from "./character_class_skills";
+export * from "./char_class_skills";
