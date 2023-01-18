@@ -17,8 +17,8 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFour = (
   name: string,
-  level_required: number,
   base_defense: number,
+  level_required: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
@@ -36,8 +36,8 @@ const makeUnitFour = (
 G_FOUR.push(
   makeUnitFour(
     "Qual De Armor",
-    10,
     8,
+    10,
     (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_PP]: 6,
@@ -56,8 +56,8 @@ G_FOUR.push(
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
     const unit_four: Unit = makeUnitFour(
       `Qual De Armor ${suffix}`,
-      12,
       13,
+      12,
       (_: ActionContext): StatObject => {
         return statObject({
           [StatEnum.CORE_PP]: 4,
@@ -73,8 +73,8 @@ G_FOUR.push(
 G_FOUR.push(
   makeUnitFour(
     "Cattleya Armor",
-    10,
     12,
+    10,
     (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_HP]: 20,
@@ -87,8 +87,8 @@ G_FOUR.push(
 G_FOUR.push(
   makeUnitFour(
     "Vialto Armor",
-    10,
     14,
+    10,
     (_: ActionContext): StatObject => {
       return statObject({
         [StatEnum.CORE_HP]: 30,
@@ -108,8 +108,8 @@ G_FOUR.push(
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
     const unit_four: Unit = makeUnitFour(
       `Vialto Armor ${suffix}`,
-      12,
       16,
+      12,
       (_: ActionContext): StatObject => {
         return statObject({
           [StatEnum.CORE_HP]: 25,
