@@ -39,16 +39,28 @@ export const App: FC = () => {
     let stat = StatObject.merge(statEquipment, statFood);
     stat = StatObject.merge(stat, statAddon);
     stat = StatObject.merge(stat, statCharacter);
+
     const hp_boost = StatObject.getStat(stat, StatEnum.ADV_HP_BOOST);
-    if (hp_boost !== 1) {
-      const hp = StatObject.getStat(stat, StatEnum.CORE_HP);
-      stat = StatObject.setStat(
-        stat,
-        StatEnum.CORE_HP,
-        Math.round(hp * hp_boost),
-      );
-      delete stat[StatEnum.ADV_HP_BOOST];
-    }
+    const hp = StatObject.getStat(stat, StatEnum.CORE_HP);
+    stat = StatObject.setStat(
+      stat,
+      StatEnum.CORE_HP,
+      Math.round(hp * hp_boost),
+    );
+    delete stat[StatEnum.ADV_HP_BOOST];
+
+    const healing = 175;
+    const healing_up = StatObject.getStat(
+      stat,
+      StatEnum.ADV_DEF_HEALING_UP,
+    );
+    stat = StatObject.setStat(
+      stat,
+      StatEnum.ADV_DEF_HEALING,
+      healing * healing_up,
+    );
+    delete stat[StatEnum.ADV_DEF_HEALING_UP];
+
     return stat;
   }, [statEquipment, statFood, statAddon, statCharacter]);
 

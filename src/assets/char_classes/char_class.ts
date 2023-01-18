@@ -11,7 +11,7 @@ export type CharClass = {
 };
 
 export const CharClass = {
-  LEVEL_MAX: 70,
+  LEVEL_MAX: 65,
 
   fromLabel: (class_name: string): CharClass | null => {
     if (class_name in LOOKUP_TABLE) {

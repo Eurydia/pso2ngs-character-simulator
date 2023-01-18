@@ -24,7 +24,7 @@ import {
   ActionContext,
   AssetCharacterClasses,
   AssetCharacterClassSkills,
-  CharacterClass,
+  CharClass,
   CharClassSkill,
   statObject,
   StatObject,
@@ -82,12 +82,12 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
   }, [charLevel]);
 
   const stat_class_main = useMemo((): StatObject => {
-    const char_class: CharacterClass | null =
-      CharacterClass.fromLabel(mainClass);
+    const char_class: CharClass | null =
+      CharClass.fromLabel(mainClass);
     if (char_class === null) {
       return statObject();
     }
-    return CharacterClass.getStatObject(char_class, charLevel);
+    return CharClass.getStatObject(char_class, charLevel);
   }, [mainClass, charLevel]);
 
   return (

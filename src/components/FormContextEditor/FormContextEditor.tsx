@@ -12,30 +12,24 @@ import {
   Typography,
 } from "@mui/material";
 
-import {
-  ActionContext,
-  CharacterContext,
-  LocationContext,
-  TargetContext,
-  TimeContext,
-} from "../../assets";
-
 import { CustomSwitch } from "./CustomSwitch";
 import { AppContext } from "../../contexts";
 
 type ContextEditorTimeProps = {};
 const ContextEditorTime: FC<ContextEditorTimeProps> = (props) => {
-  const { context, setContext } = useContext(AppContext);
+  const { context, updateContext } = useContext(AppContext);
+
   const { isDayTime, isDuringSezunEvent } = context.time;
+
   const handleDayTimeChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.time.isDayTime = !prev.time.isDayTime;
       return next;
     });
   }, []);
   const handleSezunChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.time.isDuringSezunEvent = !prev.time.isDuringSezunEvent;
       return next;
@@ -69,11 +63,11 @@ type ContextEditorLocationProps = {};
 const ContextEditorLocation: FC<ContextEditorLocationProps> = (
   props,
 ) => {
-  const { context, setContext } = useContext(AppContext);
+  const { context, updateContext } = useContext(AppContext);
   const { kvaris, geometricLabyrinth } = context.location;
 
   const handleKvarisChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.location.kvaris = !prev.location.kvaris;
       if (next.location.kvaris) {
@@ -83,7 +77,7 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
     });
   }, []);
   const handleGeoChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.location.geometricLabyrinth =
         !prev.location.geometricLabyrinth;
@@ -114,7 +108,7 @@ const ContextEditorLocation: FC<ContextEditorLocationProps> = (
 
 type ContextEditorTargetProps = {};
 const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
-  const { context, setContext } = useContext(AppContext);
+  const { context, updateContext } = useContext(AppContext);
   const {
     isBoss,
     isDolls,
@@ -128,63 +122,63 @@ const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
   } = context.target;
 
   const handleBossChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isBoss = !prev.target.isBoss;
       return next;
     });
   }, []);
   const handleDollsChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isDolls = !prev.target.isDolls;
       return next;
     });
   }, []);
   const handleDownedChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isDowned = !prev.target.isDowned;
       return next;
     });
   }, []);
   const handleWeakFireChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToFire = !prev.target.isWeakToFire;
       return next;
     });
   }, []);
   const handleWeakDarkChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToDark = !prev.target.isWeakToDark;
       return next;
     });
   }, []);
   const handleWeakIceChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToIce = !prev.target.isWeakToIce;
       return next;
     });
   }, []);
   const handleWeakWindChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToWind = !prev.target.isWeakToWind;
       return next;
     });
   }, []);
   const handleWeakLightningChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToLightning = !prev.target.isWeakToLightning;
       return next;
     });
   }, []);
   const handleWeakLightChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.target.isWeakToLight = !prev.target.isWeakToLight;
       return next;
@@ -273,7 +267,7 @@ type ContextEditorCharacterProps = {};
 const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
   props,
 ) => {
-  const { context, setContext } = useContext(AppContext);
+  const { context, updateContext } = useContext(AppContext);
   const {
     isAttacking,
     isAttackingBlight,
@@ -285,14 +279,14 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
   } = context.character;
 
   const handleAttackChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.isAttacking = !prev.character.isAttacking;
       return next;
     });
   }, []);
   const handleAttackBlightChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.isAttackingBlight =
         !prev.character.isAttackingBlight;
@@ -303,7 +297,7 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
     });
   }, []);
   const handleAttackWeakPointChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.isAttackingWeakPoint =
         !prev.character.isAttackingWeakPoint;
@@ -314,7 +308,7 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
     });
   }, []);
   const handleCriticallyHitChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.hasCriticallyHit =
         !prev.character.hasCriticallyHit;
@@ -325,7 +319,7 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
     });
   }, []);
   const handleDodgedChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.hasDodgedAttack =
         !prev.character.hasDodgedAttack;
@@ -333,7 +327,7 @@ const ContextEditorCharacter: FC<ContextEditorCharacterProps> = (
     });
   }, []);
   const handleDamagedChange = useCallback(() => {
-    setContext((prev) => {
+    updateContext((prev) => {
       const next = { ...prev };
       next.character.hasTakenDamage = !prev.character.hasTakenDamage;
       return next;

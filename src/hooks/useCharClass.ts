@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { CharacterClass } from "../assets";
+import { CharClass } from "../assets";
 import { isValidJSON } from "./utility";
 
 // ---------------------------------------------
@@ -23,7 +23,7 @@ const loadData = (storage_key: string, fallback: string): string => {
   if (typeof parsed_string !== "string") {
     return fallback;
   }
-  if (CharacterClass.fromLabel(parsed_string) === null) {
+  if (CharClass.fromLabel(parsed_string) === null) {
     return fallback;
   }
   return parsed_string;
@@ -32,7 +32,7 @@ const loadData = (storage_key: string, fallback: string): string => {
 // Hooks
 export const useCharClass = (
   storage_key: string,
-  default_value: CharacterClass,
+  default_value: CharClass,
 ): {
   charClass: string;
   setCharClass: (

@@ -14,7 +14,7 @@ import {
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import { CharacterClass, StatObject } from "../../assets";
+import { CharClass, StatObject } from "../../assets";
 
 import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
@@ -81,7 +81,7 @@ export const FormCharClass: FC<FormCharClassProps> = memo(
                   disabled={false}
                   startAdornment={<Typography>Lv.</Typography>}
                   valueMin={1}
-                  valueMax={CharacterClass.LEVEL_MAX}
+                  valueMax={CharClass.LEVEL_MAX}
                   value={charLevel}
                   onValueChange={onCharLevelChange}
                 />
