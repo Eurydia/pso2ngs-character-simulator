@@ -17,13 +17,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitFive = (
   name: string,
-  level_required: number,
   base_defense: number,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  level_required: number,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_FIVE,
+    base_defense,
     60,
     level_required,
     GROWTH_DATA,
@@ -35,10 +36,10 @@ const makeUnitFive = (
 G_FIVE.push(
   makeUnitFive(
     "Vidal Armor",
+    22,
     24,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 22,
         [StatEnum.CORE_HP]: 45,
         [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
       });
@@ -49,10 +50,10 @@ G_FIVE.push(
 G_FIVE.push(
   makeUnitFive(
     "Vijf Armor",
+    17,
     24,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 17,
         [StatEnum.CORE_HP]: 30,
         [StatEnum.CORE_PP]: 4,
       });
@@ -68,19 +69,18 @@ G_FIVE.push(
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext | null): StatObject => {
-      return statObject({
-        [StatEnum.CORE_DEFENSE]: 18,
-        [StatEnum.CORE_HP]: 20,
-        [StatEnum.CORE_PP]: 7,
-        [stat_weapon_up_a]: 1.01,
-        [stat_weapon_up_b]: 1.01,
-      });
-    };
     const unit_five: Unit = makeUnitFive(
       `Vijf Armor ${suffix}`,
+      18,
       31,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_HP]: 20,
+          [StatEnum.CORE_PP]: 7,
+          [stat_weapon_up_a]: 1.01,
+          [stat_weapon_up_b]: 1.01,
+        });
+      },
     );
     G_FIVE.push(unit_five);
   }
@@ -89,10 +89,10 @@ G_FIVE.push(
 G_FIVE.push(
   makeUnitFive(
     "Vios Armor",
+    15,
     24,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 15,
         [StatEnum.CORE_PP]: 8,
         [StatEnum.WEAPON_MELEE]: 1.01,
         [StatEnum.WEAPON_RANGED]: 1.01,
@@ -105,10 +105,10 @@ G_FIVE.push(
 G_FIVE.push(
   makeUnitFive(
     "Vindalun Armor",
+    20,
     26,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 20,
         [StatEnum.CORE_HP]: 70,
       });
     },
@@ -118,10 +118,10 @@ G_FIVE.push(
 G_FIVE.push(
   makeUnitFive(
     "Viosel Armor",
+    10,
     26,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 10,
         [StatEnum.CORE_PP]: 14,
         [StatEnum.AIL_BLIND]: 1.2,
         [StatEnum.AIL_BURN]: 1.2,
@@ -138,10 +138,10 @@ G_FIVE.push(
 G_FIVE.push(
   makeUnitFive(
     "Gres Armor",
+    21,
     31,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 21,
         [StatEnum.CORE_HP]: -40,
         [StatEnum.CORE_PP]: 13,
         [StatEnum.AIL_BLIND]: 0.5,
@@ -166,19 +166,18 @@ G_FIVE.push(
   ];
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
-    const _getter = (_: ActionContext | null): StatObject => {
-      return statObject({
-        [StatEnum.CORE_DEFENSE]: 20,
-        [StatEnum.CORE_HP]: 25,
-        [StatEnum.CORE_PP]: 3,
-        [stat_weapon_up]: 1.02,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
-      });
-    };
     const unit_five: Unit = makeUnitFive(
       `${name} Armor`,
+      20,
       31,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_HP]: 25,
+          [StatEnum.CORE_PP]: 3,
+          [stat_weapon_up]: 1.02,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: 1.01,
+        });
+      },
     );
     G_FIVE.push(unit_five);
   }
