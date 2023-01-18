@@ -16,21 +16,13 @@ const HUNTER_SKILLS: CharacterClassSkill[] = [
 ];
 
 type PageEditClassProps = {
-  pageStorageKey: string;
   onStatChange: (next_stat: StatObject) => void;
-  onContextChange: (
-    next_context:
-      | ActionContext
-      | ((prev_context: ActionContext) => ActionContext),
-  ) => void;
 };
 export const PageEditClass: FC<PageEditClassProps> = (props) => {
-  const { pageStorageKey } = props;
-
   return (
     <Container maxWidth="md">
       <Box marginY={4}>
-        <FormCharacter formStorageKey={`${pageStorageKey}-class`} />
+        <FormCharacter formStorageKey="character-class" />
       </Box>
     </Container>
   );

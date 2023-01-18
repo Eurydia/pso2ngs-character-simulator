@@ -1,5 +1,5 @@
 import { ActionContext } from "../ContextAction";
-import { StatObject } from "../stat";
+import { statObject, StatObject } from "../stat";
 
 import { GroupEnumAugment } from "./groupEnum";
 
@@ -17,19 +17,6 @@ const _toRoman = (num: number): string => {
     return "";
   }
   return ROMAN_LOOKUP[num];
-};
-
-export const _getAugmentSlot = (level: number): number => {
-  if (level >= 50) {
-    return 5;
-  }
-  if (level >= 40) {
-    return 4;
-  }
-  if (level >= 20) {
-    return 3;
-  }
-  return 2;
 };
 
 export type Augment = {
@@ -65,8 +52,35 @@ export const Augment = {
     return items;
   },
 
-  getAugmentSlot: (level: number): number => {
-    return _getAugmentSlot(level);
+  getActiveSlots: (enhancement: number): number => {
+    if (enhancement >= 50) {
+      return 5;
+    }
+    if (enhancement >= 40) {
+      return 4;
+    }
+    if (enhancement >= 20) {
+      return 3;
+    }
+    return 2;
+  },
+
+  getActiveAugments: (
+    augments: (Augment | null)[],
+    enhancement: number,
+  ): (Augment | null)[] => {
+    const active_slots: number = Augment.getActiveSlots(enhancement);
+    return augments.slice(0, active_slots);
+  },
+
+  getStatObject: (
+    ctx: ActionContext,
+    augment: Augment | null,
+  ): StatObject => {
+    if (augment === null) {
+      return statObject();
+    }
+    return augment.getAwareStatObject(ctx);
   },
 
   removeConflict: (

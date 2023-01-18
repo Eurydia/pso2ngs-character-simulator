@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { BarChartRounded } from "@mui/icons-material";
 
-import { ActionContext, Augment, StatObject } from "../../assets";
+import { Augment, StatObject } from "../../assets";
 import { FormWeapon, FormUnit, StatView } from "../../components";
 import { DataUnit, DataWeapon } from "../../types";
 import { GlobalAppContext } from "../../contexts";
@@ -28,18 +28,13 @@ import { useDataUnit, useDataWeapon } from "../../hooks";
 
 type PageEditEquipmentProps = {
   onStatChange: (next_stat: StatObject) => void;
-  onContextChange: (
-    next_context:
-      | ActionContext
-      | ((prev_context: ActionContext) => ActionContext),
-  ) => void;
 };
 export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   props,
 ) => {
-  const { onStatChange, onContextChange } = props;
+  const { onStatChange } = props;
 
-  const context = useContext(GlobalAppContext);
+  const { context, setContext } = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback((): void => {
@@ -80,51 +75,46 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
   } = useDataUnit("equipment-unit-c");
 
   useEffect(() => {
-    const unique_active_augments: Set<string> = new Set();
-    if (dataWeapon.weapon !== null) {
-      dataWeapon.augments
-        .slice(0, Augment.getAugmentSlot(dataWeapon.enhancement))
-        .forEach((augment) => {
-          if (augment === null) {
-            return;
-          }
-          unique_active_augments.add(augment.label);
-        });
-    }
+    const unique_augments: Set<string> = new Set();
+
+    DataWeapon.getUniqueAugments(dataWeapon).forEach((label) => {
+      unique_augments.add(label);
+    });
+
     if (dataUnitA.unit !== null) {
       dataUnitA.augments
-        .slice(0, Augment.getAugmentSlot(dataUnitA.enhancement))
+        .slice(0, Augment.getActiveSlots(dataUnitA.enhancement))
         .forEach((augment) => {
           if (augment === null) {
             return;
           }
-          unique_active_augments.add(augment.label);
+          unique_augments.add(augment.label);
         });
     }
     if (dataUnitB.unit !== null) {
       dataUnitB.augments
-        .slice(0, Augment.getAugmentSlot(dataUnitB.enhancement))
+        .slice(0, Augment.getActiveSlots(dataUnitB.enhancement))
         .forEach((augment) => {
           if (augment === null) {
             return;
           }
-          unique_active_augments.add(augment.label);
+          unique_augments.add(augment.label);
         });
     }
     if (dataUnitC.unit !== null) {
       dataUnitC.augments
-        .slice(0, Augment.getAugmentSlot(dataUnitC.enhancement))
+        .slice(0, Augment.getActiveSlots(dataUnitC.enhancement))
         .forEach((augment) => {
           if (augment === null) {
             return;
           }
-          unique_active_augments.add(augment.label);
+          unique_augments.add(augment.label);
         });
     }
 
-    onContextChange(({ character, ...rest }) => {
+    setContext(({ character, ...rest }) => {
       const next = { ...rest, character: { ...character } };
-      next.character.uniqueAugments = unique_active_augments.size;
+      next.character.uniqueAugments = unique_augments.size;
       return next;
     });
   }, [dataWeapon, dataUnitA, dataUnitB, dataUnitC]);
@@ -203,6 +193,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           title={<Typography>Open summary</Typography>}
         >
           <Fab
+            color="primary"
             onClick={handleDialogOpen}
             sx={{
               position: "fixed",

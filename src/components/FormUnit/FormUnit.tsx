@@ -69,7 +69,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
     if (unit === null) {
       return 0;
     }
-    return Augment.getAugmentSlot(enhancement);
+    return Augment.getActiveSlots(enhancement);
   }, [unit, enhancement]);
 
   return (

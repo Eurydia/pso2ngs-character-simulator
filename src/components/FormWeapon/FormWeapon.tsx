@@ -71,7 +71,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
     if (weapon === null) {
       return 0;
     }
-    return Augment.getAugmentSlot(enhancement);
+    return Augment.getActiveSlots(enhancement);
   }, [weapon, enhancement]);
 
   return (

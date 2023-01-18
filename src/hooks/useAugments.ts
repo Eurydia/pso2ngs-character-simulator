@@ -56,7 +56,7 @@ export const useAugments = (
   ) => void;
 } => {
   const [values, setValues] = useState((): (Augment | null)[] => {
-    return loadAugments(storage_key, Augment.getAugmentSlot(9999));
+    return loadAugments(storage_key, Augment.getActiveSlots(9999));
   });
 
   const setAugment = useCallback(

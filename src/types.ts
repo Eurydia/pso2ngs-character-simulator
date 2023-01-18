@@ -19,35 +19,53 @@ export type DataUnit = {
 };
 
 export const DataUnit = {
+  getUniqueAugments: (data: DataUnit): string[] => {
+    const { unit, enhancement, augments } = data;
+    if (unit === null) {
+      return [];
+    }
+    const results: string[] = [];
+    Augment.getActiveAugments(augments, enhancement).forEach(
+      (augment) => {
+        if (augment === null) {
+          return;
+        }
+        results.push(augment.label);
+      },
+    );
+    return results;
+  },
+
   getStatObject: (ctx: ActionContext, data: DataUnit): StatObject => {
-    const { unit, enhancement: unit_level, fixa, augments } = data;
+    const { unit, enhancement, fixa, augments } = data;
 
     if (unit === null) {
       return statObject();
     }
 
-    let result: StatObject = statObject();
+    let stat_total: StatObject = statObject();
     const stat_unit: StatObject = Unit.getStatObject(
       ctx,
       unit,
-      unit_level,
+      enhancement,
     );
-    result = StatObject.merge(result, stat_unit);
+    stat_total = StatObject.merge(stat_total, stat_unit);
 
-    if (fixa !== null) {
-      const stat_fixa: StatObject = fixa.getAwareStatObject(ctx);
-      result = StatObject.merge(result, stat_fixa);
-    }
+    const stat_fixa: StatObject = Fixa.getStatObject(ctx, fixa);
+    stat_total = StatObject.merge(stat_total, stat_fixa);
 
-    for (const augment of augments) {
-      if (augment === null) {
-        continue;
-      }
-      const stat_augment: StatObject =
-        augment.getAwareStatObject(ctx);
-      result = StatObject.merge(result, stat_augment);
+    const active_augments = Augment.getActiveAugments(
+      augments,
+      enhancement,
+    );
+    for (const augment of active_augments) {
+      const stat_augment: StatObject = Augment.getStatObject(
+        ctx,
+        augment,
+      );
+      stat_total = StatObject.merge(stat_total, stat_augment);
     }
-    return result;
+    return stat_total;
   },
 };
 
@@ -60,6 +78,23 @@ export type DataWeapon = {
 };
 
 export const DataWeapon = {
+  getUniqueAugments: (data: DataWeapon): string[] => {
+    const { weapon, enhancement, augments } = data;
+    if (weapon === null) {
+      return [];
+    }
+    const results: string[] = [];
+    Augment.getActiveAugments(augments, enhancement).forEach(
+      (augment) => {
+        if (augment === null) {
+          return;
+        }
+        results.push(augment.label);
+      },
+    );
+    return results;
+  },
+
   getStatObject: (
     ctx: ActionContext,
     data: DataWeapon,
@@ -71,22 +106,20 @@ export const DataWeapon = {
       return statObject();
     }
 
-    let result: StatObject = statObject();
-    if (fixa !== null) {
-      const stat_fixa: StatObject = fixa.getAwareStatObject(ctx);
-      result = StatObject.merge(result, stat_fixa);
-    }
+    let stat_total: StatObject = statObject();
+    const stat_fixa: StatObject = Fixa.getStatObject(ctx, fixa);
+    stat_total = StatObject.merge(stat_total, stat_fixa);
+
     for (const augment of augments) {
-      if (augment === null) {
-        continue;
-      }
-      const stat_augment: StatObject =
-        augment.getAwareStatObject(ctx);
-      result = StatObject.merge(result, stat_augment);
+      const stat_augment: StatObject = Augment.getStatObject(
+        ctx,
+        augment,
+      );
+      stat_total = StatObject.merge(stat_total, stat_augment);
     }
 
     const damage_adjustment: number = StatObject.getStat(
-      result,
+      stat_total,
       StatEnum.ADV_OFF_FLOOR,
     );
     const stat_weapon: StatObject = Weapon.getStatObject(
@@ -96,17 +129,6 @@ export const DataWeapon = {
       damage_adjustment,
       potential_level,
     );
-    return StatObject.merge(result, stat_weapon);
-  },
-};
-
-export type DataAddon = {};
-
-export const DataAddon = {
-  getStatObject: (
-    ctx: ActionContext,
-    data: DataAddon,
-  ): StatObject => {
-    return statObject();
+    return StatObject.merge(stat_total, stat_weapon);
   },
 };

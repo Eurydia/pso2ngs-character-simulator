@@ -1,5 +1,5 @@
 import { ActionContext } from "../ContextAction";
-import { StatObject } from "../stat";
+import { statObject, StatObject } from "../stat";
 import { GroupEnumFixa } from "./groupEnum";
 
 const LOOKUP_FIXA: { [key: string]: Fixa } = {};
@@ -25,6 +25,16 @@ export const Fixa = {
       return LOOKUP_FIXA[label];
     }
     return null;
+  },
+
+  getStatObject: (
+    ctx: ActionContext,
+    fixa: Fixa | null,
+  ): StatObject => {
+    if (fixa === null) {
+      return statObject();
+    }
+    return fixa.getAwareStatObject(ctx);
   },
 };
 

@@ -23,7 +23,7 @@ import { useActionContext } from "../hooks";
 import { StatEnum, StatObject, statObject } from "../assets";
 import { GlobalAppContext } from "../contexts";
 
-import { style_overrides } from "./theme";
+import { CustomGlobalStyle, style_overrides } from "./theme";
 import { PageContainer } from "./PageContainer";
 
 export const App: FC = () => {
@@ -34,6 +34,7 @@ export const App: FC = () => {
   const [statEquipment, setStatEquipment] = useState(statObject());
   const [statFood, setStatFood] = useState(statObject());
   const [statAddon, setStatAddon] = useState(statObject());
+  const [statCharacter, setStatChatacter] = useState(statObject());
 
   const stat_total = useMemo(() => {
     let stat = StatObject.merge(statEquipment, statFood);
@@ -78,13 +79,7 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={style_overrides}>
       <CssBaseline />
-      <GlobalStyles
-        styles={{
-          body: {
-            backgroundColor: style_overrides.palette.primary.light,
-          },
-        }}
-      />
+      <CustomGlobalStyle />
       <AppBar position="sticky">
         <Toolbar>
           <Tooltip
@@ -105,20 +100,13 @@ export const App: FC = () => {
         <PageContainer
           isVisible={page === 0}
           component={
-            <PageHome
-              stat={stat_total}
-              onContextChange={setContext}
-              onPageChange={setPage}
-            />
+            <PageHome stat={stat_total} onPageChange={setPage} />
           }
         />
         <PageContainer
           isVisible={page === 1}
           component={
-            <PageEditEquipment
-              onStatChange={setStatEquipment}
-              onContextChange={setContext}
-            />
+            <PageEditEquipment onStatChange={setStatEquipment} />
           }
         />
         <PageContainer
@@ -127,7 +115,9 @@ export const App: FC = () => {
         />
         <PageContainer
           isVisible={page === 3}
-          component={<PageEditClass />}
+          component={
+            <PageEditClass onStatChange={setStatChatacter} />
+          }
         />
         <PageContainer
           isVisible={page === 4}
