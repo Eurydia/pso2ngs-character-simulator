@@ -19,7 +19,7 @@ const makeUnitOne = (
   name: string,
   level_required: number,
   base_defense: number,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
@@ -34,14 +34,9 @@ const makeUnitOne = (
 
 // -------------------------
 G_ONE.push(
-  makeUnitOne(
-    "Primm Armor",
-    1,
-    8,
-    (_: ActionContext | null): StatObject => {
-      return statObject({
-        [StatEnum.CORE_HP]: 10,
-      });
-    },
-  ),
+  makeUnitOne("Primm Armor", 1, 8, (_: ActionContext): StatObject => {
+    return statObject({
+      [StatEnum.CORE_HP]: 10,
+    });
+  }),
 );
