@@ -24,11 +24,11 @@ import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormCharacterClassProps = {
   stat: StatObject;
-  mainLevel: number;
+  charLevel: number;
   mainClass: string;
   subClass: string;
 
-  onMainLevelChange: (next_level: number) => void;
+  onCharLevelChange: (next_level: number) => void;
   onMainClassChange: (next_class: string) => void;
   onSubClassChange: (next_class: string) => void;
 };
@@ -37,10 +37,10 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
 ) => {
   const {
     stat,
-    mainLevel,
+    charLevel,
     mainClass,
     subClass,
-    onMainLevelChange,
+    onCharLevelChange,
     onMainClassChange,
     onSubClassChange,
   } = props;
@@ -83,8 +83,8 @@ export const FormCharacterClass: FC<FormCharacterClassProps> = (
                 startAdornment={<Typography>Lv.</Typography>}
                 valueMin={1}
                 valueMax={CharacterClass.LEVEL_MAX}
-                value={mainLevel}
-                onValueChange={onMainLevelChange}
+                value={charLevel}
+                onValueChange={onCharLevelChange}
               />
             </Stack>
             <Box width={{ xs: 1, sm: 0.5 }}>

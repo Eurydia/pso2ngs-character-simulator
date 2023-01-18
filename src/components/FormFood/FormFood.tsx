@@ -1,58 +1,38 @@
 import {
   FC,
   useState,
-  Fragment,
   useCallback,
   useMemo,
   useEffect,
   useContext,
 } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { AddRounded, BarChartRounded } from "@mui/icons-material";
+import { Box, Button, Stack } from "@mui/material";
+import { AddRounded } from "@mui/icons-material";
 
 import { Food, StatObject } from "../../assets";
 
 import { AutocompleteFood } from "../AutocompleteFood";
 import { FormBase } from "../FormBase";
-import { StatView } from "../StatView";
-import { IconButtonTooltip } from "../IconButtonTooltip";
 
 import { FoodList } from "./FoodList";
 import { loadFoods, saveFoods } from "./helper";
 import { AppContext } from "../../contexts";
 
-const STORAGE_KEY: string = "food-items";
-
 type FormFoodProps = {
+  formStorageKey: string;
   onStatChange: (next_stat: StatObject) => void;
 };
 export const FormFood: FC<FormFoodProps> = (props) => {
-  const { onStatChange } = props;
+  const { formStorageKey, onStatChange } = props;
 
   const { context } = useContext(AppContext);
 
-  // const [dialogOpen, setDialogOpen] = useState(false);
-  // const handleDialogClose = useCallback((): void => {
-  //   setDialogOpen(false);
-  // }, []);
-  // const handleDialogOpen = useCallback((): void => {
-  //   setDialogOpen(true);
-  // }, []);
-
   const [selected, setSelected] = useState<Food | null>(null);
   const [foods, setFoods] = useState((): Food[] => {
-    return loadFoods(STORAGE_KEY);
+    return loadFoods(`${formStorageKey}-items`);
   });
   useEffect(() => {
-    saveFoods(STORAGE_KEY, foods);
+    saveFoods(`${formStorageKey}-items`, foods);
   }, [foods]);
 
   const handleAdd = useCallback(() => {
@@ -105,38 +85,36 @@ export const FormFood: FC<FormFoodProps> = (props) => {
   }, [stat_total]);
 
   return (
-    <Fragment>
-      <FormBase
-        cardTitle="Food"
-        slotCardHeaderAvatar={null}
-        slotCardHeaderAction={null}
-        slotCardContent={
-          <Stack spacing={2}>
-            <Stack direction="row" spacing={1}>
-              <Box width={1}>
-                <AutocompleteFood
-                  food={selected}
-                  onFoodChange={setSelected}
-                />
-              </Box>
-              <Button
-                disableElevation
-                variant="contained"
-                disabled={selected === null}
-                startIcon={<AddRounded />}
-                onClick={handleAdd}
-              >
-                add
-              </Button>
-            </Stack>
-            <FoodList
-              foods={foods}
-              onCopy={handleCopy}
-              onRemove={handleRemove}
-            />
+    <FormBase
+      cardTitle="Food"
+      slotCardHeaderAvatar={null}
+      slotCardHeaderAction={null}
+      slotCardContent={
+        <Stack spacing={2}>
+          <Stack direction="row" spacing={1}>
+            <Box width={1}>
+              <AutocompleteFood
+                food={selected}
+                onFoodChange={setSelected}
+              />
+            </Box>
+            <Button
+              disableElevation
+              variant="contained"
+              disabled={selected === null}
+              startIcon={<AddRounded />}
+              onClick={handleAdd}
+            >
+              add
+            </Button>
           </Stack>
-        }
-      />
-    </Fragment>
+          <FoodList
+            foods={foods}
+            onCopy={handleCopy}
+            onRemove={handleRemove}
+          />
+        </Stack>
+      }
+    />
   );
 };

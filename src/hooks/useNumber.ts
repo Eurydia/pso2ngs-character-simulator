@@ -32,7 +32,7 @@ export const useNumber = (
   default_value: number = 0,
 ): {
   value: number;
-  setValue: (nextx_value: number) => void;
+  setValue: (next_value: number) => void;
 } => {
   const [value, _setValue] = useState((): number => {
     return loadData(storage_key, default_value);

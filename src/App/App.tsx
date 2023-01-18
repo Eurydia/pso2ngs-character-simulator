@@ -13,7 +13,7 @@ import { HomeRounded } from "@mui/icons-material";
 
 import {
   PageEditAddon,
-  PageEditClass,
+  PageEditCharacter,
   PageEditEquipment,
   PageEditFood,
   PageHome,
@@ -125,7 +125,7 @@ export const App: FC = () => {
         <PageContainer
           isVisible={page === 3}
           component={
-            <PageEditClass onStatChange={setStatChatacter} />
+            <PageEditCharacter onStatChange={setStatChatacter} />
           }
         />
         <PageContainer

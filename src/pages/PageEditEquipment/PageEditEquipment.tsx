@@ -165,22 +165,22 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
 
   return (
     <Fragment>
-      <Container maxWidth="md">
-        <Tooltip
-          placement="top"
-          title={<Typography>Open summary</Typography>}
+      <Tooltip
+        placement="top"
+        title={<Typography>Open summary</Typography>}
+      >
+        <Fab
+          onClick={handleDialogOpen}
+          sx={{
+            position: "fixed",
+            bottom: "24px",
+            right: "24px",
+          }}
         >
-          <Fab
-            onClick={handleDialogOpen}
-            sx={{
-              position: "fixed",
-              bottom: "24px",
-              right: "24px",
-            }}
-          >
-            <BarChartRounded color="primary" />
-          </Fab>
-        </Tooltip>
+          <BarChartRounded color="primary" />
+        </Fab>
+      </Tooltip>
+      <Container maxWidth="md">
         <Box marginY={4}>
           <Stack spacing={2}>
             <FormWeapon

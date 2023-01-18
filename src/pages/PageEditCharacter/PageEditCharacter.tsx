@@ -2,6 +2,7 @@ import {
   FC,
   Fragment,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -12,19 +13,37 @@ import {
   DialogContent,
   DialogTitle,
   Fab,
+  Grid,
+  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
 
-import { statObject, StatObject } from "../../assets";
-import { FormFood, StatView } from "../../components";
+import {
+  ActionContext,
+  AssetCharacterClassSkills,
+  CharacterClassSkill,
+  statObject,
+  StatObject,
+} from "../../assets";
+import { useNumber } from "../../hooks";
+import { FormCharacterClass, StatView } from "../../components";
 import { BarChartRounded } from "@mui/icons-material";
+import { AppContext } from "../../contexts";
 
-type PageEditFoodProps = {
+const HUNTER_SKILLS: CharacterClassSkill[] = [
+  AssetCharacterClassSkills.G_HUNTER_FLASH_GUARD,
+];
+
+type PageEditCharacterProps = {
   onStatChange: (next_stat: StatObject) => void;
 };
-export const PageEditFood: FC<PageEditFoodProps> = (props) => {
+export const PageEditCharacter: FC<PageEditCharacterProps> = (
+  props,
+) => {
   const { onStatChange } = props;
+
+  const { context, updateContext } = useContext(AppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback((): void => {
@@ -34,13 +53,21 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
     setDialogOpen(false);
   }, []);
 
-  const [stat, setStat] = useState((): StatObject => {
-    return statObject();
-  });
+  const { value: charLevel, setValue: setCharLevel } = useNumber(
+    "character-level",
+    1,
+  );
+  const [mainClass, setMainClass] = useState();
 
   useEffect(() => {
-    onStatChange(stat);
-  }, [stat]);
+    updateContext(({ character, ...rest }) => {
+      const next = {
+        ...rest,
+        character: { ...character, level: charLevel },
+      };
+      return next;
+    });
+  }, [charLevel]);
 
   return (
     <Fragment>
@@ -59,25 +86,25 @@ export const PageEditFood: FC<PageEditFoodProps> = (props) => {
           <BarChartRounded color="primary" />
         </Fab>
       </Tooltip>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Box marginY={4}>
-          <FormFood formStorageKey="food" onStatChange={setStat} />
+          <FormCharacterClass
+            charLevel={charLevel}
+            onCharLevelChange={setCharLevel}
+          />
         </Box>
       </Container>
       <Dialog
         fullWidth
-        keepMounted
-        maxWidth="xs"
+        maxWidth="sm"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
-        <DialogTitle>
-          <Typography fontWeight="bold" fontSize="x-large">
-            Food summary
-          </Typography>
+        <DialogTitle fontSize="x-large" fontWeight="bold">
+          Equipment summary
         </DialogTitle>
         <DialogContent>
-          <StatView stat={stat} maxHeight="" />
+          <StatView stat={statObject()} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>

@@ -1,1 +1,0 @@
-export { PageEditClass } from "./PageEditCharacter";
