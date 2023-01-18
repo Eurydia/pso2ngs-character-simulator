@@ -2,7 +2,7 @@ import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_FIGHTER_DEFEAT_ADVANTAGE = ((): CharClassSkill => {
+export const FIGHTER_DEFEAT_ADVANTAGE = ((): CharClassSkill => {
   const DATA_DAMAGE_UP_MAIN: number[] = [
     1.06, 1.07, 1.08, 1.09, 1.1, 1.11, 1.12, 1.13, 1.14, 1.15,
   ];
@@ -37,7 +37,7 @@ export const G_FIGHTER_DEFEAT_ADVANTAGE = ((): CharClassSkill => {
   );
 })();
 
-export const G_FIGHTER_DEFEAT_PP_RECOVERY = ((): CharClassSkill => {
+export const FIGHTER_DEFEAT_PP_RECOVERY = ((): CharClassSkill => {
   const DATA_PP_RECOVERY_MAIN: number[] = [
     1.3, 1.33, 1.36, 1.38, 1.4, 1.42, 1.44, 1.46, 1.48, 1.5, 1.52,
     1.54, 1.56, 1.58, 1.6,

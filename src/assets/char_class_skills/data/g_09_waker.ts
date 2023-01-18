@@ -2,7 +2,7 @@ import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_WAKER_WELFARE_MANAGEMENT = ((): CharClassSkill => {
+export const WAKER_WELFARE_MANAGEMENT = ((): CharClassSkill => {
   const DATA_DAMAGE_RES_MAIN: number[] = [1.2, 1.25, 1.3, 1.35, 1.4];
   const DATA_DAMAGE_RES_SUB: number[] = [1.1, 1.13, 1.16, 1.18, 1.2];
   const DATA_HP_BREAKPOINT = [0.3, 0.3, 0.3, 0.3, 0.3];

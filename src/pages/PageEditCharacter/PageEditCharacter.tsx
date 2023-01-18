@@ -35,7 +35,7 @@ import { BarChartRounded } from "@mui/icons-material";
 import { AppContext } from "../../contexts";
 
 const HUNTER_SKILLS: CharClassSkill[] = [
-  AssetCharacterClassSkills.G_HUNTER_FLASH_GUARD,
+  AssetCharacterClassSkills.HUNTER_FLASH_GUARD,
 ];
 
 type PageEditCharacterProps = {

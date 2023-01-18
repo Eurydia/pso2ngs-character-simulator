@@ -2,7 +2,7 @@ import { ActionContext } from "../../ContextAction";
 import { StatEnum, statObject, StatObject } from "../../stat";
 import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
-export const G_GUNNER_ATTACK_PP_RECOVERY = ((): CharClassSkill => {
+export const GUNNER_ATTACK_PP_RECOVERY = ((): CharClassSkill => {
   const DATA_PP_RECOVERY_MAIN: number[] = [
     1.2, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3, 1.31,
     1.32, 1.33, 1.34, 1.35,
@@ -43,7 +43,7 @@ export const G_GUNNER_ATTACK_PP_RECOVERY = ((): CharClassSkill => {
   );
 })();
 
-export const G_GUNNER_OVERWHELM = ((): CharClassSkill => {
+export const GUNNER_OVERWHELM = ((): CharClassSkill => {
   const DATA_PP_RECOVERY_MAIN: number[] = [
     1.2, 1.22, 1.23, 1.24, 1.25, 1.26, 1.27, 1.28, 1.29, 1.3,
   ];
