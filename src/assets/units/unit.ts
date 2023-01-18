@@ -3,7 +3,7 @@ import { StatEnum, statObject, StatObject } from "../stat";
 
 import { GroupEnumUnitRarity } from "./groupEnum";
 
-const LOOKUP_UNIT: { [key: string]: Unit } = {};
+const UNIT_LOOKUP: { [key: string]: Unit } = {};
 
 export type Unit = Readonly<{
   label: string;
@@ -24,8 +24,8 @@ export const Unit = {
   },
 
   fromLabel(label: string): Unit | null {
-    if (label in LOOKUP_UNIT) {
-      return LOOKUP_UNIT[label];
+    if (label in UNIT_LOOKUP) {
+      return UNIT_LOOKUP[label];
     }
     return null;
   },
@@ -134,7 +134,7 @@ export const unit = (
     getAwareStatObject,
   };
 
-  LOOKUP_UNIT[label] = result;
+  UNIT_LOOKUP[label] = result;
 
   return result;
 };
