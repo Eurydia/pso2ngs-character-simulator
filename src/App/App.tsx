@@ -9,6 +9,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { HomeRounded } from "@mui/icons-material";
 
 import {
   PageEditAddon,
@@ -23,13 +25,11 @@ import { GlobalAppContext } from "../contexts";
 
 import { style_overrides } from "./theme";
 import { PageContainer } from "./PageContainer";
-import { HomeRounded } from "@mui/icons-material";
-import { grey } from "@mui/material/colors";
 
 export const App: FC = () => {
   const [page, setPage] = useState(3);
 
-  const [appContext, setAppContext] = useActionContext("app-ctx");
+  const { context, setContext } = useActionContext("app-context");
 
   const [statEquipment, setStatEquipment] = useState(statObject());
   const [statFood, setStatFood] = useState(statObject());
@@ -56,7 +56,7 @@ export const App: FC = () => {
   }, [statEquipment, statFood, statAddon]);
 
   useEffect(() => {
-    setAppContext((prev) => {
+    setContext((prev) => {
       const next = { ...prev };
       const { coreAttack, coreDefense, corePP, coreHP } = stat_total;
       if (coreAttack !== undefined) {
@@ -93,7 +93,7 @@ export const App: FC = () => {
           >
             <IconButton
               onClick={() => {
-                return setPage(0);
+                setPage(0);
               }}
             >
               <HomeRounded htmlColor={grey[200]} />
@@ -101,13 +101,13 @@ export const App: FC = () => {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <GlobalAppContext.Provider value={appContext}>
+      <GlobalAppContext.Provider value={{ context, setContext }}>
         <PageContainer
           isVisible={page === 0}
           component={
             <PageHome
               stat={stat_total}
-              onContextChange={setAppContext}
+              onContextChange={setContext}
               onPageChange={setPage}
             />
           }
@@ -117,7 +117,7 @@ export const App: FC = () => {
           component={
             <PageEditEquipment
               onStatChange={setStatEquipment}
-              onContextChange={setAppContext}
+              onContextChange={setContext}
             />
           }
         />

@@ -5,7 +5,7 @@ import { StatObject } from "../../assets";
 import { FormFood } from "../../components";
 
 type PageEditFoodProps = {
-  onStatChange: (stat: StatObject) => void;
+  onStatChange: (next_stat: StatObject) => void;
 };
 export const PageEditFood: FC<PageEditFoodProps> = (props) => {
   const { onStatChange } = props;

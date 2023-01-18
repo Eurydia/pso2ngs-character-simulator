@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { ActionContext } from "../assets";
 import { isValidJSON } from "./utility";
 
-const retrieveData = (storage_key: string): ActionContext => {
+const saveContext = (
+  storage_key: string,
+  data: ActionContext,
+): void => {
+  const data_string: string = JSON.stringify(data);
+  localStorage.setItem(storage_key, data_string);
+};
+
+const loadData = (storage_key: string): ActionContext => {
   const result: ActionContext = ActionContext.createContext();
 
   const loaded_data: string | null =
@@ -22,20 +30,21 @@ const retrieveData = (storage_key: string): ActionContext => {
 
 export const useActionContext = (
   storage_key: string,
-): [
-  ActionContext,
-  (
-    data: ActionContext | ((prev: ActionContext) => ActionContext),
-  ) => void,
-] => {
-  const [value, setValue] = useState<ActionContext>(() => {
-    return retrieveData(storage_key);
+): {
+  context: ActionContext;
+  setContext: (
+    next_context:
+      | ActionContext
+      | ((prev_context: ActionContext) => ActionContext),
+  ) => void;
+} => {
+  const [value, setValue] = useState((): ActionContext => {
+    return loadData(storage_key);
   });
 
   useEffect(() => {
-    const string_data: string = JSON.stringify(value);
-    localStorage.setItem(storage_key, string_data);
+    saveContext(storage_key, value);
   }, [value]);
 
-  return [value, setValue];
+  return { context: value, setContext: setValue };
 };
