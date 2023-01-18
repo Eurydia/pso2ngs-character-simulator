@@ -18,6 +18,7 @@ const GROWTH_DATA: [number, number][] = [
 const makeUnitFive = (
   name: string,
   level_required: number,
+  base_defense: number,
   getAwareStatObject: (ctx: ActionContext | null) => StatObject,
 ): Unit => {
   return unit(
