@@ -63,12 +63,12 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
   const { charClass: mainClass, setCharClass: setMainClass } =
     useCharClass(
       "character-class-main",
-      AssetCharacterClasses.G_HUNTER,
+      AssetCharacterClasses.HUNTER,
     );
   const { charClass: subClass, setCharClass: setSubClass } =
     useCharClass(
       "character-class-sub",
-      AssetCharacterClasses.G_FIGHTER,
+      AssetCharacterClasses.FIGHTER,
     );
 
   useEffect(() => {

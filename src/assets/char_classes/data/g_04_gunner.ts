@@ -1,9 +1,9 @@
 import { charClass, CharClass } from "../char_class";
 
-export const G_WAKER: CharClass = charClass(
-  "Waker",
-  255,
+export const GUNNER: CharClass = charClass(
+  "Gunner",
+  250,
   100,
   451,
-  302,
+  297,
 );

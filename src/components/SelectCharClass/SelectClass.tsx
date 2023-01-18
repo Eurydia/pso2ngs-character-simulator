@@ -9,15 +9,15 @@ import {
 import { AssetCharacterClasses } from "../../assets";
 
 const CLASS_OPTIONS: string[] = [
-  AssetCharacterClasses.G_HUNTER.label,
-  AssetCharacterClasses.G_FIGHTER.label,
-  AssetCharacterClasses.G_RANGER.label,
-  AssetCharacterClasses.G_GUNNER.label,
-  AssetCharacterClasses.G_FORCE.label,
-  AssetCharacterClasses.G_TECHTER.label,
-  AssetCharacterClasses.G_BRAVER.label,
-  AssetCharacterClasses.G_BOUNCER.label,
-  AssetCharacterClasses.G_WAKER.label,
+  AssetCharacterClasses.HUNTER.label,
+  AssetCharacterClasses.FIGHTER.label,
+  AssetCharacterClasses.RANGER.label,
+  AssetCharacterClasses.GUNNER.label,
+  AssetCharacterClasses.FORCE.label,
+  AssetCharacterClasses.TECHTER.label,
+  AssetCharacterClasses.BRAVER.label,
+  AssetCharacterClasses.BOUNCER.label,
+  AssetCharacterClasses.WAKER.label,
 ];
 
 type SelectCharClassProps = {

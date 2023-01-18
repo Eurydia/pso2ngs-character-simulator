@@ -1,6 +1,6 @@
 import { charClass, CharClass } from "../char_class";
 
-export const G_TECHTER: CharClass = charClass(
+export const TECHTER: CharClass = charClass(
   "Techter",
   260,
   100,
