@@ -122,7 +122,7 @@ export const unit = (
   enhancement_max: number,
   level_required: number,
   growth_data: [number, number][],
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   const result: Unit = {
     label,
