@@ -23,10 +23,10 @@ import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormCharacterClassProps = {
+  stat: StatObject;
   mainLevel: number;
   mainClass: string;
   subClass: string;
-  stat: StatObject;
 
   onMainLevelChange: (next_level: number) => void;
   onMainClassChange: (next_class: string) => void;

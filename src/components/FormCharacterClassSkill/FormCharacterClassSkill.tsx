@@ -51,7 +51,7 @@ export const FormCharacterClassSkill: FC<
   const { cardTitle, skills, isMainClass, isSubClass, onStatChange } =
     props;
 
-  const context = useContext(GlobalAppContext);
+  const { context } = useContext(GlobalAppContext);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
