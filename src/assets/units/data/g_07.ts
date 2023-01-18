@@ -16,12 +16,14 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeUnitSeven = (
   name: string,
+  base_defense: number,
   level_required: number,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Unit => {
   return unit(
     name,
     GroupEnumUnitRarity.R_SEVEN,
+    base_defense,
     50,
     level_required,
     GROWTH_DATA,
@@ -38,19 +40,18 @@ const makeUnitSeven = (
   ];
   for (const entry of DATA_ENTRY) {
     const [suffix, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext | null): StatObject => {
-      return statObject({
-        [StatEnum.CORE_DEFENSE]: 39,
-        [StatEnum.CORE_HP]: 30,
-        [StatEnum.CORE_PP]: 4,
-        [stat_weapon_up_a]: 1.03,
-        [stat_weapon_up_b]: 1.03,
-      });
-    };
     const unit_seven: Unit = makeUnitSeven(
       `Efitus Armor ${suffix}`,
+      39,
       57,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_HP]: 30,
+          [StatEnum.CORE_PP]: 4,
+          [stat_weapon_up_a]: 1.03,
+          [stat_weapon_up_b]: 1.03,
+        });
+      },
     );
     G_SEVEN.push(unit_seven);
   }
@@ -60,10 +61,10 @@ const makeUnitSeven = (
 G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vida",
+    40,
     61,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 40,
         [StatEnum.CORE_HP]: 55,
         [StatEnum.WEAPON_MELEE]: 1.03,
         [StatEnum.WEAPON_RANGED]: 1.03,
@@ -77,10 +78,10 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeUnitSeven(
     "Eptize Armor Vio",
+    40,
     61,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 40,
         [StatEnum.CORE_PP]: 10,
         [StatEnum.WEAPON_MELEE]: 1.03,
         [StatEnum.WEAPON_RANGED]: 1.03,
@@ -94,10 +95,10 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeUnitSeven(
     "Eclaireur Armor",
+    35,
     65,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_DEFENSE]: 35,
         [StatEnum.WEAPON_MELEE]: 1.04,
         [StatEnum.WEAPON_RANGED]: 1.04,
         [StatEnum.WEAPON_TECHNIQUE]: 1.04,
