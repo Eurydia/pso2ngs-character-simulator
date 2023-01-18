@@ -15,10 +15,10 @@ type FieldNumberProps = {
   value: number;
   disabled: boolean;
   valueMax: number;
+  valueMin: number;
 
   //  Static props
   startAdornment: ReactNode;
-  valueMin: number;
 
   onValueChange: (next_value: number) => void;
 };
@@ -43,7 +43,7 @@ export const FieldNumber: FC<FieldNumberProps> = memo(
           .trim();
         const value_parsed: number = Number.parseInt(value_filtered);
         if (Number.isNaN(value_parsed)) {
-          onValueChange(0);
+          onValueChange(valueMin);
           return;
         }
         const value_clamped: number = clampValue(
@@ -57,11 +57,8 @@ export const FieldNumber: FC<FieldNumberProps> = memo(
     );
 
     const value_string = useMemo((): string => {
-      if (value === undefined) {
-        return "0";
-      }
       if (Number.isNaN(value)) {
-        return "0";
+        return valueMin.toString();
       }
       return value.toString();
     }, [value]);
@@ -92,7 +89,8 @@ export const FieldNumber: FC<FieldNumberProps> = memo(
     return (
       prev.disabled === next.disabled &&
       prev.value === next.value &&
-      prev.valueMax === next.valueMax
+      prev.valueMax === next.valueMax &&
+      prev.valueMin === next.valueMin
     );
   },
 );

@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import {
@@ -21,12 +22,14 @@ import {
 
 import {
   ActionContext,
+  AssetCharacterClasses,
   AssetCharacterClassSkills,
+  CharacterClass,
   CharacterClassSkill,
   statObject,
   StatObject,
 } from "../../assets";
-import { useNumber } from "../../hooks";
+import { useCharClass, useNumber } from "../../hooks";
 import { FormCharacterClass, StatView } from "../../components";
 import { BarChartRounded } from "@mui/icons-material";
 import { AppContext } from "../../contexts";
@@ -57,7 +60,16 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     "character-level",
     1,
   );
-  const [mainClass, setMainClass] = useState();
+  const { charClass: mainClass, setCharClass: setMainClass } =
+    useCharClass(
+      "character-class-main",
+      AssetCharacterClasses.G_HUNTER,
+    );
+  const { charClass: subClass, setCharClass: setSubClass } =
+    useCharClass(
+      "character-class-sub",
+      AssetCharacterClasses.G_FIGHTER,
+    );
 
   useEffect(() => {
     updateContext(({ character, ...rest }) => {
@@ -68,6 +80,15 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       return next;
     });
   }, [charLevel]);
+
+  const stat_class_main = useMemo((): StatObject => {
+    const char_class: CharacterClass | null =
+      CharacterClass.fromLabel(mainClass);
+    if (char_class === null) {
+      return statObject();
+    }
+    return CharacterClass.getStatObject(char_class, charLevel);
+  }, [mainClass, charLevel]);
 
   return (
     <Fragment>
@@ -89,8 +110,13 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       <Container maxWidth="md">
         <Box marginY={4}>
           <FormCharacterClass
+            stat={stat_class_main}
             charLevel={charLevel}
+            mainClass={mainClass}
+            subClass={subClass}
             onCharLevelChange={setCharLevel}
+            onMainClassChange={setMainClass}
+            onSubClassChange={setSubClass}
           />
         </Box>
       </Container>
@@ -101,7 +127,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
         onClose={handleDialogClose}
       >
         <DialogTitle fontSize="x-large" fontWeight="bold">
-          Equipment summary
+          Character summary
         </DialogTitle>
         <DialogContent>
           <StatView stat={statObject()} maxHeight="" />
