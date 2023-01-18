@@ -3,7 +3,7 @@ import { statObject, StatObject } from "../stat";
 
 import { GroupEnumAugment } from "./groupEnum";
 
-const LOOKUP_AUGMENT: { [key: string]: Augment } = {};
+const AUGMENT_TABLE: { [key: string]: Augment } = {};
 
 const ROMAN_LOOKUP: { [key: number]: string } = {
   1: "I",
@@ -19,7 +19,7 @@ const _toRoman = (num: number): string => {
   return ROMAN_LOOKUP[num];
 };
 
-export type Augment = {
+export type Augment = Readonly<{
   name: string;
   level: string;
   level_roman: string;
@@ -27,7 +27,7 @@ export type Augment = {
   group: GroupEnumAugment;
   conflict: GroupEnumAugment[];
   getAwareStatObject: (ctx: ActionContext) => StatObject;
-};
+}>;
 
 export const Augment = {
   toString: (items: (Augment | null)[]): string => {
@@ -44,7 +44,7 @@ export const Augment = {
   fromLabels: (labels: string[]): Augment[] => {
     const items: Augment[] = [];
     for (const label of labels) {
-      const augment: Augment | undefined = LOOKUP_AUGMENT[label];
+      const augment: Augment | undefined = AUGMENT_TABLE[label];
       if (augment !== undefined) {
         items.push(augment);
       }
@@ -145,7 +145,7 @@ export const augment = (
     getAwareStatObject,
   };
 
-  LOOKUP_AUGMENT[label] = result;
+  AUGMENT_TABLE[label] = result;
 
   return result;
 };
