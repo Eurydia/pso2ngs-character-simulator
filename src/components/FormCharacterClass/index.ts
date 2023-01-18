@@ -1,1 +1,0 @@
-export { FormCharacterClass } from "./FormCharacterClass";
