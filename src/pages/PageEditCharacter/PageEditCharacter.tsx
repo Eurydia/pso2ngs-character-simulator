@@ -22,21 +22,70 @@ import {
 
 import {
   ActionContext,
-  AssetCharacterClasses,
-  AssetCharacterClassSkills,
+  AssetCharClasses,
+  AssetCharClassSkills,
   CharClass,
   CharClassSkill,
   statObject,
   StatObject,
 } from "../../assets";
 import { useCharClass, useNumber } from "../../hooks";
-import { FormCharClass, StatView } from "../../components";
+import {
+  FormCharClass,
+  FormCharClassSkill,
+  StatView,
+} from "../../components";
 import { BarChartRounded } from "@mui/icons-material";
 import { AppContext } from "../../contexts";
 
+// --------------------------------
+const HUNTER: string = AssetCharClasses.HUNTER.label;
 const HUNTER_SKILLS: CharClassSkill[] = [
-  AssetCharacterClassSkills.HUNTER_FLASH_GUARD,
+  AssetCharClassSkills.HUNTER_FLASH_GUARD,
 ];
+
+// --------------------------------
+const FIGHTER: string = AssetCharClasses.FIGHTER.label;
+const FIGHTER_SKILLS: CharClassSkill[] = [
+  AssetCharClassSkills.FIGHTER_DEFEAT_ADVANTAGE,
+  AssetCharClassSkills.FIGHTER_DEFEAT_PP_RECOVERY,
+];
+
+// --------------------------------
+const RANGER: string = AssetCharClasses.RANGER.label;
+const RANGER_SKILL: CharClassSkill[] = [
+  AssetCharClassSkills.RANGER_BAD_CONDITION_REDUCTION,
+  AssetCharClassSkills.RANGER_BAD_CONDITION_WARD,
+];
+
+// --------------------------------
+const GUNNER: string = AssetCharClasses.GUNNER.label;
+const GUNNER_SKILL: CharClassSkill[] = [
+  AssetCharClassSkills.GUNNER_ATTACK_PP_RECOVERY,
+  AssetCharClassSkills.GUNNER_OVERWHELM,
+];
+
+// --------------------------------
+const FORCE: string = AssetCharClasses.FORCE.label;
+const FORCE_SKILL: CharClassSkill[] = [];
+
+// --------------------------------
+const TECHTER: string = AssetCharClasses.TECHTER.label;
+const TECHTER_SKILL: CharClassSkill[] = [];
+
+// --------------------------------
+const BRAVER: string = AssetCharClasses.BRAVER.label;
+const BRAVER_SKILL: CharClassSkill[] = [
+  AssetCharClassSkills.BRAVER_RESTA_EFFECT_AMPLIFIER,
+];
+
+// --------------------------------
+const BOUNCER: string = AssetCharClasses.BOUNCER.label;
+const BOUNCER_SKILL: CharClassSkill[] = [];
+
+// --------------------------------
+const WAKER: string = AssetCharClasses.WAKER.label;
+const WAKER_SKILL: CharClassSkill[] = [];
 
 type PageEditCharacterProps = {
   onStatChange: (next_stat: StatObject) => void;
@@ -61,16 +110,9 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     1,
   );
   const { charClass: mainClass, setCharClass: setMainClass } =
-    useCharClass(
-      "character-class-main",
-      AssetCharacterClasses.HUNTER,
-    );
+    useCharClass("character-class-main", AssetCharClasses.HUNTER);
   const { charClass: subClass, setCharClass: setSubClass } =
-    useCharClass(
-      "character-class-sub",
-      AssetCharacterClasses.FIGHTER,
-    );
-
+    useCharClass("character-class-sub", AssetCharClasses.FIGHTER);
   useEffect(() => {
     updateContext(({ character, ...rest }) => {
       const next = {
@@ -80,6 +122,22 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       return next;
     });
   }, [charLevel]);
+
+  const [statHunter, setStatHunter] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statFighter, setStatFighter] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statRanger, setStatRanger] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statGunner, setStatGunner] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statBraver, setStatBraver] = useState((): StatObject => {
+    return statObject();
+  });
 
   const stat_class_main = useMemo((): StatObject => {
     const char_class: CharClass | null =
@@ -113,15 +171,67 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       </Tooltip>
       <Container maxWidth="md">
         <Box marginY={4}>
-          <FormCharClass
-            stat={stat_class_main}
-            charLevel={charLevel}
-            mainClass={mainClass}
-            subClass={subClass}
-            onCharLevelChange={setCharLevel}
-            onMainClassChange={setMainClass}
-            onSubClassChange={setSubClass}
-          />
+          <Grid container spacing={3} columns={{ xs: 1, sm: 2 }}>
+            <Grid item xs={1} sm={2}>
+              <FormCharClass
+                stat={stat_class_main}
+                charLevel={charLevel}
+                mainClass={mainClass}
+                subClass={subClass}
+                onCharLevelChange={setCharLevel}
+                onMainClassChange={setMainClass}
+                onSubClassChange={setSubClass}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <Stack spacing={3}>
+                <FormCharClassSkill
+                  formStorageKey="class-skill-hunter"
+                  cardTitle="Hunter skills"
+                  skills={HUNTER_SKILLS}
+                  isMainClass={mainClass === HUNTER}
+                  isSubClass={subClass === HUNTER}
+                  onStatChange={setStatHunter}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-ranger"
+                  cardTitle="Ranger skills"
+                  skills={RANGER_SKILL}
+                  isMainClass={mainClass === RANGER}
+                  isSubClass={subClass === RANGER}
+                  onStatChange={setStatRanger}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-braver"
+                  cardTitle="Braver skills"
+                  skills={BRAVER_SKILL}
+                  isMainClass={mainClass === BRAVER}
+                  isSubClass={subClass === BRAVER}
+                  onStatChange={setStatBraver}
+                />
+              </Stack>
+            </Grid>
+            <Grid item xs={1}>
+              <Stack spacing={3}>
+                <FormCharClassSkill
+                  formStorageKey="class-skill-fighter"
+                  cardTitle="Fighter skills"
+                  skills={FIGHTER_SKILLS}
+                  isMainClass={mainClass === FIGHTER}
+                  isSubClass={subClass === FIGHTER}
+                  onStatChange={setStatHunter}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-gunner"
+                  cardTitle="Gunner skills"
+                  skills={GUNNER_SKILL}
+                  isMainClass={mainClass === GUNNER}
+                  isSubClass={subClass === GUNNER}
+                  onStatChange={setStatGunner}
+                />
+              </Stack>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
       <Dialog

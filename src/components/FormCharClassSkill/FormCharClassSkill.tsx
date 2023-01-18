@@ -75,10 +75,14 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
 
   const card_icon = useMemo((): ReactNode => {
     if (isMainClass) {
-      return <LooksOneRounded htmlColor={orange["400"]} />;
+      return (
+        <LooksOneRounded fontSize="large" htmlColor={orange["400"]} />
+      );
     }
     if (isSubClass) {
-      return <LooksTwoRounded htmlColor={grey["400"]} />;
+      return (
+        <LooksTwoRounded fontSize="large" htmlColor={grey["400"]} />
+      );
     }
     return null;
   }, [isMainClass, isSubClass]);

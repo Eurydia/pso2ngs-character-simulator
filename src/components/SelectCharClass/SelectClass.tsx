@@ -6,18 +6,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import { AssetCharacterClasses } from "../../assets";
+import { AssetCharClasses } from "../../assets";
 
 const CLASS_OPTIONS: string[] = [
-  AssetCharacterClasses.HUNTER.label,
-  AssetCharacterClasses.FIGHTER.label,
-  AssetCharacterClasses.RANGER.label,
-  AssetCharacterClasses.GUNNER.label,
-  AssetCharacterClasses.FORCE.label,
-  AssetCharacterClasses.TECHTER.label,
-  AssetCharacterClasses.BRAVER.label,
-  AssetCharacterClasses.BOUNCER.label,
-  AssetCharacterClasses.WAKER.label,
+  AssetCharClasses.HUNTER.label,
+  AssetCharClasses.FIGHTER.label,
+  AssetCharClasses.RANGER.label,
+  AssetCharClasses.GUNNER.label,
+  AssetCharClasses.FORCE.label,
+  AssetCharClasses.TECHTER.label,
+  AssetCharClasses.BRAVER.label,
+  AssetCharClasses.BOUNCER.label,
+  AssetCharClasses.WAKER.label,
 ];
 
 type SelectCharClassProps = {
