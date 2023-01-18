@@ -1,6 +1,6 @@
-import { characterClass, CharacterClass } from "../character_class";
+import { charClass, CharClass } from "../char_class";
 
-export const G_FIGHTER: CharacterClass = characterClass(
+export const G_FIGHTER: CharClass = charClass(
   "Fighter",
   280,
   100,
