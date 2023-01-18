@@ -3,18 +3,18 @@ import { ActionContext } from "../ContextAction";
 import { Potential } from "../potentials";
 
 import { GroupEnumWeaponRarity } from "./groupEnum";
-import { calcAttackBonus } from "./helper";
 
-const LOOKUP_WEAPON: { [key: string]: Weapon } = {};
+const WEAPON_LOOKUP: { [key: string]: Weapon } = {};
 
 export type Weapon = Readonly<{
   label: string;
   rarity: GroupEnumWeaponRarity;
+  base_attack: number;
   growth_rate: [number, number][];
   potential: Potential;
   enhancement_max: number;
   level_required: number;
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject;
+  getAwareStatObject: (ctx: ActionContext) => StatObject;
 }>;
 
 export const Weapon = {
@@ -26,26 +26,44 @@ export const Weapon = {
   },
 
   fromLabel: (label: string): Weapon | null => {
-    if (label in LOOKUP_WEAPON) {
-      return LOOKUP_WEAPON[label];
+    if (label in WEAPON_LOOKUP) {
+      return WEAPON_LOOKUP[label];
     }
     return null;
   },
 
   getAttackBase: (weapon: Weapon): number => {
-    const stat: StatObject = weapon.getAwareStatObject(null);
-    return StatObject.getStat(stat, StatEnum.CORE_ATTACK);
+    return weapon.base_attack;
   },
 
-  getAttackBonus: (weapon: Weapon, weapon_level: number): number => {
-    return calcAttackBonus(weapon_level, weapon.growth_rate);
+  getAttackBonus: (
+    enhancement: number,
+    growth_rate: [number, number][],
+  ): number => {
+    let result: number = 0;
+    for (const entry of growth_rate) {
+      const [gr_level, gr_bonus] = entry;
+
+      if (enhancement > gr_level) {
+        result = gr_bonus;
+        continue;
+      }
+      // exact match
+      if (enhancement === gr_level) {
+        return gr_bonus;
+      }
+      if (enhancement < gr_level) {
+        return Math.round((enhancement / gr_level) * gr_bonus);
+      }
+    }
+    return result;
   },
 
-  getAttack: (weapon: Weapon, weapon_level: number): number => {
+  getAttack: (weapon: Weapon, enhancement: number): number => {
     const attack_base: number = Weapon.getAttackBase(weapon);
     const attack_bonus: number = Weapon.getAttackBonus(
-      weapon,
-      weapon_level,
+      enhancement,
+      weapon.growth_rate,
     );
     return attack_base + attack_bonus;
   },
@@ -53,21 +71,21 @@ export const Weapon = {
   getStatObject: (
     ctx: ActionContext,
     weapon: Weapon,
-    weapon_level: number,
+    enhancement: number,
     damage_adjustment: number,
     potential_level: number,
   ): StatObject => {
-    let result: StatObject = statObject();
+    let stat_total: StatObject = statObject();
 
     const stat_weapon: StatObject = weapon.getAwareStatObject(ctx);
-    result = StatObject.merge(result, stat_weapon);
+    stat_total = StatObject.merge(stat_total, stat_weapon);
 
     const attack_bonus: number = Weapon.getAttackBonus(
-      weapon,
-      weapon_level,
+      enhancement,
+      weapon.growth_rate,
     );
-    result = StatObject.stack(
-      result,
+    stat_total = StatObject.stack(
+      stat_total,
       StatEnum.CORE_ATTACK,
       attack_bonus,
     );
@@ -77,11 +95,11 @@ export const Weapon = {
       StatEnum.ADV_OFF_FLOOR,
     );
     const floor_adjustment: number = floor_base * damage_adjustment;
-    result = StatObject.stack(
-      result,
+    stat_total = StatObject.stack(
+      stat_total,
       StatEnum.CORE_BP,
       Math.round(
-        Weapon.getAttack(weapon, weapon_level) *
+        Weapon.getAttack(weapon, enhancement) *
           (floor_adjustment / 2),
       ),
     );
@@ -91,24 +109,26 @@ export const Weapon = {
       weapon.potential,
       potential_level,
     );
-    result = StatObject.merge(result, stat_potential);
+    stat_total = StatObject.merge(stat_total, stat_potential);
 
-    return result;
+    return stat_total;
   },
 };
 
 export const weapon = (
   label: string,
   rarity: GroupEnumWeaponRarity,
+  base_attack: number,
   enhancement_max: number,
   level_required: number,
   potential: Potential,
   growth_rate: [number, number][],
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   const result: Weapon = {
     label,
     rarity,
+    base_attack,
     enhancement_max,
     level_required,
     potential,
@@ -116,7 +136,7 @@ export const weapon = (
     getAwareStatObject,
   };
 
-  LOOKUP_WEAPON[label] = result;
+  WEAPON_LOOKUP[label] = result;
 
   return result;
 };
