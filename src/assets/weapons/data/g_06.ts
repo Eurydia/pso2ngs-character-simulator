@@ -17,13 +17,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponSix = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_SIX,
+    base_attack,
     60,
     level_required,
     potential,
@@ -36,11 +38,11 @@ const makeWeaponSix = (
 G_SIX.push(
   makeWeaponSix(
     "Evoleclipse Series",
+    346,
     40,
     AssetPotentials.ELUSIVE_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 346,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -51,11 +53,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Sechetyl Series",
+    350,
     45,
     AssetPotentials.TRAMPLE_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 350,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -66,11 +68,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Roughewn Series",
+    353,
     52,
     AssetPotentials.REVOLUTIONARY_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -81,11 +83,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Sixiemes Series",
+    353,
     52,
     AssetPotentials.DESPERATION_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -96,11 +98,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Rokz Curva Series",
+    353,
     52,
     AssetPotentials.STACCATO_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 353,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -111,11 +113,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Evolorbit Series",
+    355,
     53,
     AssetPotentials.ILLUSORY_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 355,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -126,11 +128,11 @@ G_SIX.push(
 G_SIX.push(
   makeWeaponSix(
     "Codeck Series",
+    351,
     40,
     AssetPotentials.IMPERVIOUS_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 351,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
