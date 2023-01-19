@@ -1,14 +1,14 @@
 import { StatObject, statObject } from "../stat";
 import { ActionContext } from "../ContextAction";
 
-export type Potential = {
+export type Potential = Readonly<{
   name: string;
-  level_max: number;
+  enhancement_max: number;
   getAwareStatObject: (
     ctx: ActionContext,
     level: number,
   ) => StatObject;
-};
+}>;
 
 export const Potential = {
   getStateObject: (
@@ -18,7 +18,7 @@ export const Potential = {
   ): StatObject => {
     if (
       potential_level < 1 ||
-      potential_level > potential.level_max
+      potential_level > potential.enhancement_max
     ) {
       return statObject();
     }
@@ -37,7 +37,7 @@ export const potential = (
 ): Potential => {
   const result: Potential = {
     name,
-    level_max,
+    enhancement_max: level_max,
     getAwareStatObject,
   };
 
