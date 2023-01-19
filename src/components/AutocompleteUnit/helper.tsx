@@ -39,3 +39,10 @@ export const filterOptions = (
   );
   return filtered_options;
 };
+
+export const getOptionDisabled = (
+  option: Unit,
+  charLevel: number,
+): boolean => {
+  return option.level_required > charLevel;
+};
