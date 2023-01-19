@@ -1,4 +1,4 @@
-import { StatObject, statObject } from "../stat";
+import { StatEnum, StatObject, statObject } from "../stat";
 import { ActionContext } from "../ContextAction";
 
 export type Potential = Readonly<{
@@ -23,7 +23,15 @@ export const Potential = {
       return statObject();
     }
     const potential_level_index: number = potential_level - 1;
-    return potential.getAwareStatObject(ctx, potential_level_index);
+    const stat_potential: StatObject = potential.getAwareStatObject(
+      ctx,
+      potential_level_index,
+    );
+    return StatObject.setStat(
+      stat_potential,
+      StatEnum.CORE_BP,
+      potential_level * 10,
+    );
   },
 };
 

@@ -6,11 +6,11 @@ export const RECYCLER_UNIT = ((): Potential => {
   const DATA_WEAPON_UP: number[] = [1.18, 1.2, 1.23, 1.24, 1.25];
   const _getter = (
     _: ActionContext,
-    level_index: number,
+    potential_level_index: number,
   ): StatObject => {
-    const weapon_up: number = DATA_WEAPON_UP[level_index];
+    const weapon_up: number = DATA_WEAPON_UP[potential_level_index];
     return statObject({
-      [StatEnum.CORE_BP]: (level_index + 1) * 10,
+      [StatEnum.CORE_BP]: (potential_level_index + 1) * 10,
       [StatEnum.WEAPON_MELEE]: weapon_up,
       [StatEnum.WEAPON_RANGED]: weapon_up,
       [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
