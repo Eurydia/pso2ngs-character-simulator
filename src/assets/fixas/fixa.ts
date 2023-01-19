@@ -4,13 +4,13 @@ import { GroupEnumFixa } from "./groupEnum";
 
 const LOOKUP_FIXA: { [key: string]: Fixa } = {};
 
-export type Fixa = {
+export type Fixa = Readonly<{
   name: string;
   level: string;
   label: string;
   group: GroupEnumFixa;
   getAwareStatObject: (ctx: ActionContext) => StatObject;
-};
+}>;
 
 export const Fixa = {
   toString: (fixa: Fixa | null): string => {
