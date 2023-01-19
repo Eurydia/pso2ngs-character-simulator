@@ -18,13 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponFive = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_FIVE,
+    base_attack,
     60,
     level_required,
     potential,
@@ -37,11 +39,11 @@ const makeWeaponFive = (
 G_FIVE.push(
   makeWeaponFive(
     "Quintel Series",
+    277,
     21,
     AssetPotentials.FORTRESS_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 277,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -52,11 +54,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Gothica Series",
+    277,
     21,
     AssetPotentials.REINVIGORATING_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 277,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -67,11 +69,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Fivla Series",
+    277,
     21,
     AssetPotentials.FOCUSED_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 277,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -82,11 +84,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Greaga Series",
+    280,
     27,
     AssetPotentials.FIGHTING_SPIRIT_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 280,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -97,11 +99,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Kukuhroziat Series",
+    280,
     27,
     AssetPotentials.UNASSAILABLE_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 280,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -112,11 +114,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Vigorous Series",
+    284,
     31,
     AssetPotentials.VIGOROUS_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 284,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -127,11 +129,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Explosive Series",
+    284,
     31,
     AssetPotentials.EXPLOSIVE_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 284,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -142,11 +144,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Harmonious Series",
+    284,
     31,
     AssetPotentials.HARMONIOUS_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 284,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -157,11 +159,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Relik Imbued Series",
+    284,
     31,
     AssetPotentials.IMBUED_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 284,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -172,11 +174,11 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Cinquem Series",
+    293,
     36,
     AssetPotentials.VIRTUOSO_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 293,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
@@ -187,17 +189,14 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Tempesta Series",
+    263,
     15,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext | null): StatObject => {
-      let stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 263,
+    (ctx: ActionContext): StatObject => {
+      const stat: StatObject = statObject({
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToWind) {
         return stat;
       }
@@ -214,17 +213,14 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Lumiere Series",
+    263,
     15,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext | null): StatObject => {
-      let stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 263,
+    (ctx: ActionContext): StatObject => {
+      const stat: StatObject = statObject({
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToLight) {
         return stat;
       }
@@ -241,17 +237,14 @@ G_FIVE.push(
 G_FIVE.push(
   makeWeaponFive(
     "Obscura Series",
+    263,
     15,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 263,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToDark) {
         return stat;
       }
