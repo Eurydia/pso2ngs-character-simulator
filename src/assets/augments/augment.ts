@@ -30,9 +30,9 @@ export type Augment = Readonly<{
 }>;
 
 export const Augment = {
-  toString: (items: (Augment | null)[]): string => {
+  toString: (augments: (Augment | null)[]): string => {
     const labels: string[] = [];
-    for (const item of items) {
+    for (const item of augments) {
       if (item === null) {
         continue;
       }
@@ -85,38 +85,38 @@ export const Augment = {
 
   removeConflict: (
     augments: (Augment | null)[],
-    item_index: number,
+    next_augment_index: number,
   ): (Augment | null)[] => {
     let result: (Augment | null)[] = [...augments];
-    const next_item: Augment | null = augments[item_index];
-    if (next_item === null) {
+    const next_augment: Augment | null = augments[next_augment_index];
+    if (next_augment === null) {
       return result;
     }
-    augments.forEach((prev_item, index) => {
-      if (index === item_index) {
+    augments.forEach((prev_item, augment_index) => {
+      if (augment_index === next_augment_index) {
         return;
       }
       if (prev_item === null) {
         return;
       }
-      if (next_item.name === prev_item.name) {
-        result[index] = null;
+      if (next_augment.name === prev_item.name) {
+        result[augment_index] = null;
         return;
       }
       if (
-        next_item.name === "Mastery" &&
+        next_augment.name === "Mastery" &&
         prev_item.group === GroupEnumAugment.FUSED
       ) {
         return;
       }
       if (
         prev_item.name === "Mastery" &&
-        next_item.group === GroupEnumAugment.FUSED
+        next_augment.group === GroupEnumAugment.FUSED
       ) {
         return;
       }
-      if (next_item.conflict.includes(prev_item.group)) {
-        result[index] = null;
+      if (next_augment.conflict.includes(prev_item.group)) {
+        result[augment_index] = null;
         return;
       }
     });
