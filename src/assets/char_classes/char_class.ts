@@ -2,71 +2,68 @@ import { StatEnum, statObject, StatObject } from "../stat";
 
 const LOOKUP_TABLE: { [key: string]: CharClass } = {};
 
-export type CharClass = {
+export type CharClass = Readonly<{
   label: string;
   base_hp: number;
   base_pp: number;
   base_attack: number;
   base_defense: number;
-};
+}>;
 
 export const CharClass = {
   LEVEL_MAX: 65,
 
-  fromLabel: (class_name: string): CharClass | null => {
-    if (class_name in LOOKUP_TABLE) {
-      return LOOKUP_TABLE[class_name];
+  fromLabel: (char_class: string): CharClass | null => {
+    if (char_class in LOOKUP_TABLE) {
+      return LOOKUP_TABLE[char_class];
     }
     return null;
   },
 
-  getCharacterHP: (
-    base_hp: number,
-    character_level: number,
-  ): number => {
-    return Math.round(base_hp * 1.05 ** ((character_level - 1) / 5));
+  getCharacterHP: (base_hp: number, char_level: number): number => {
+    return Math.round(base_hp * 1.05 ** ((char_level - 1) / 5));
   },
 
   getCharacterAttack: (
     base_attack: number,
-    character_level: number,
+    char_level: number,
   ): number => {
     return (
-      Math.round(450 * 1.1 ** ((character_level - 1) / 5)) +
+      Math.round(450 * 1.1 ** ((char_level - 1) / 5)) +
       (base_attack - 450)
     );
   },
 
   getCharacterDefense: (
     base_defense: number,
-    character_level: number,
+    char_level: number,
   ): number => {
     return (
-      Math.round(300 * 1.08 ** ((character_level - 1) / 5)) +
+      Math.round(300 * 1.08 ** ((char_level - 1) / 5)) +
       (base_defense - 300)
     );
   },
 
   getStatObject: (
-    character_class: CharClass,
-    character_level: number,
+    char_class: CharClass,
+    char_level: number,
   ): StatObject => {
     const hp = CharClass.getCharacterHP(
-      character_class.base_hp,
-      character_level,
+      char_class.base_hp,
+      char_level,
     );
     const attack = CharClass.getCharacterAttack(
-      character_class.base_attack,
-      character_level,
+      char_class.base_attack,
+      char_level,
     );
     const defense = CharClass.getCharacterDefense(
-      character_class.base_defense,
-      character_level,
+      char_class.base_defense,
+      char_level,
     );
 
     return statObject({
       [StatEnum.CORE_HP]: hp,
-      [StatEnum.CORE_PP]: character_class.base_pp,
+      [StatEnum.CORE_PP]: char_class.base_pp,
       [StatEnum.CORE_ATTACK]: attack,
       [StatEnum.CORE_DEFENSE]: defense,
       [StatEnum.CORE_BP]: attack + Math.floor(defense / 2),
