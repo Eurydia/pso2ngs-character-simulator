@@ -18,15 +18,14 @@ const makeFixaUnit = (
   const DATA_DAMAGE_RES: number[] = [1.01, 1.02, 1.03, 1.035, 1.04];
   DATA_DAMAGE_RES.forEach((damage_res, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      });
-    };
     const unit_fixa: Fixa = makeFixaUnit(
       "Fixa Guard",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+        });
+      },
     );
     G_UNIT.push(unit_fixa);
   });
@@ -36,13 +35,12 @@ const makeFixaUnit = (
   const DATA_PP_USAGE: number[] = [0.99, 0.98, 0.97, 0.965, 0.96];
   DATA_PP_USAGE.forEach((pp_usage, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({ [StatEnum.ADV_PP_USAGE]: pp_usage });
-    };
     const unit_fixa: Fixa = makeFixaUnit(
       "Fixa Performa",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({ [StatEnum.ADV_PP_USAGE]: pp_usage });
+      },
     );
     G_UNIT.push(unit_fixa);
   });
@@ -52,18 +50,17 @@ const makeFixaUnit = (
   const DATA_PP_RECOVERY: number[] = [1.02, 1.03, 1.04, 1.045, 1.05];
   DATA_PP_RECOVERY.forEach((pp_recovery, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (ctx: ActionContext): StatObject => {
-      if (ctx.character.isAttacking) {
-        return statObject();
-      }
-      return statObject({
-        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
-      });
-    };
     const unit_fixa: Fixa = makeFixaUnit(
       "Fixa Natura",
       level,
-      _getter,
+      (ctx: ActionContext): StatObject => {
+        if (ctx.character.isAttacking) {
+          return statObject();
+        }
+        return statObject({
+          [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+        });
+      },
     );
     G_UNIT.push(unit_fixa);
   });
@@ -73,18 +70,17 @@ const makeFixaUnit = (
   const DATA_PP_RECOVERY: number[] = [1.02, 1.03, 1.04, 1.045, 1.05];
   DATA_PP_RECOVERY.forEach((pp_recovery, level_index) => {
     const level: number = level_index + 1;
-    const _getter = (ctx: ActionContext): StatObject => {
-      if (!ctx.character.isAttacking) {
-        return statObject();
-      }
-      return statObject({
-        [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
-      });
-    };
     const fixa_unit: Fixa = makeFixaUnit(
       "Fixa Enthusia",
       level,
-      _getter,
+      (ctx: ActionContext): StatObject => {
+        if (!ctx.character.isAttacking) {
+          return statObject();
+        }
+        return statObject({
+          [StatEnum.ADV_PP_RECOVERY]: pp_recovery,
+        });
+      },
     );
     G_UNIT.push(fixa_unit);
   });
