@@ -31,9 +31,10 @@ export type Augment = Readonly<{
 
 export const Augment = {
   toString: (augments: (Augment | null)[]): string => {
-    const labels: string[] = [];
+    const labels: (string | null)[] = [];
     for (const item of augments) {
       if (item === null) {
+        labels.push(null);
         continue;
       }
       labels.push(item.label);
@@ -41,15 +42,19 @@ export const Augment = {
     return JSON.stringify(labels);
   },
 
-  fromLabels: (labels: string[]): Augment[] => {
-    const items: Augment[] = [];
+  fromLabels: (labels: (string | null)[]): (Augment | null)[] => {
+    const results: (Augment | null)[] = [];
     for (const label of labels) {
+      if (label === null) {
+        results.push(null);
+        continue;
+      }
       const augment: Augment | undefined = AUGMENT_LOOKUP[label];
       if (augment !== undefined) {
-        items.push(augment);
+        results.push(augment);
       }
     }
-    return items;
+    return results;
   },
 
   getActiveSlots: (enhancement: number): number => {
