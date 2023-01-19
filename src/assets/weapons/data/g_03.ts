@@ -18,13 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponThree = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_THREE,
+    base_attack,
     60,
     level_required,
     potential,
@@ -37,11 +39,11 @@ const makeWeaponThree = (
 G_THREE.push(
   makeWeaponThree(
     "Theseus Series",
+    223,
     8,
     AssetPotentials.DEFENSIVE_FORMATION,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },

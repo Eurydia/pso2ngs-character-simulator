@@ -80,14 +80,14 @@ export const Weapon = {
     const stat_weapon: StatObject = weapon.getAwareStatObject(ctx);
     stat_total = StatObject.merge(stat_total, stat_weapon);
 
-    const attack_bonus: number = Weapon.getAttackBonus(
+    const weapon_attack: number = Weapon.getAttack(
+      weapon,
       enhancement,
-      weapon.growth_rate,
     );
-    stat_total = StatObject.stack(
+    stat_total = StatObject.setStat(
       stat_total,
       StatEnum.CORE_ATTACK,
-      attack_bonus,
+      weapon_attack,
     );
 
     const floor_base: number = StatObject.getStat(
@@ -95,13 +95,10 @@ export const Weapon = {
       StatEnum.ADV_OFF_FLOOR,
     );
     const floor_adjustment: number = floor_base * damage_adjustment;
-    stat_total = StatObject.stack(
+    stat_total = StatObject.setStat(
       stat_total,
       StatEnum.CORE_BP,
-      Math.round(
-        Weapon.getAttack(weapon, enhancement) *
-          (floor_adjustment / 2),
-      ),
+      Math.round(weapon_attack * (floor_adjustment / 2)),
     );
 
     const stat_potential: StatObject = Potential.getStateObject(
@@ -109,9 +106,7 @@ export const Weapon = {
       weapon.potential,
       potential_level,
     );
-    stat_total = StatObject.merge(stat_total, stat_potential);
-
-    return stat_total;
+    return StatObject.merge(stat_total, stat_potential);
   },
 };
 
