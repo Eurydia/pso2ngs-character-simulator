@@ -1,5 +1,5 @@
 import { ActionContext } from "../ContextAction";
-import { statObject, StatObject } from "../stat";
+import { StatObject } from "../stat";
 import {
   GroupEnumFoodCategory,
   GroupEnumFoodAttribute,
@@ -9,7 +9,7 @@ import {
   getStatObjectCategory,
 } from "./helper";
 
-const LOOKUP_FOODS: { [K: string]: Food } = {};
+const FOOD_LOOKUP: { [K: string]: Food } = {};
 
 export type Food = {
   label: string;
@@ -20,27 +20,27 @@ export type Food = {
 export const Food = {
   MAX_ITEM: 10,
 
-  toString(items: Food[]): string {
+  toString(foods: Food[]): string {
     const labels: string[] = [];
-    for (const item of items) {
-      labels.push(item.label);
+    for (const food of foods) {
+      labels.push(food.label);
     }
     return JSON.stringify(labels);
   },
 
   fromLabels(labels: string[]): Food[] {
-    const result: Food[] = [];
+    const results: Food[] = [];
     for (const label of labels) {
-      const item: Food | undefined = LOOKUP_FOODS[label];
-      if (item !== undefined) {
-        result.push(item);
+      const result: Food | undefined = FOOD_LOOKUP[label];
+      if (result !== undefined) {
+        results.push(result);
       }
     }
-    return result;
+    return results;
   },
 
   countOccurence: (
-    items: Food[],
+    foods: Food[],
   ): {
     [K in GroupEnumFoodAttribute | GroupEnumFoodCategory]: number;
   } => {
@@ -57,33 +57,35 @@ export const Food = {
       [GroupEnumFoodCategory.VEGETABLE]: 0,
     };
 
-    for (const item of items) {
-      const attr = item.attribute;
-      result[attr] += 1;
-      const cate = item.category;
-      result[cate] += 1;
+    for (const food of foods) {
+      const { attribute, category } = food;
+      result[attribute] += 1;
+      result[category] += 1;
     }
     return result;
   },
 
   getStatObjectAttribute: (
     ctx: ActionContext,
-    data: { [K in GroupEnumFoodAttribute]: number },
+    occurence: { [K in GroupEnumFoodAttribute]: number },
   ): StatObject => {
-    return getStatObjectAttribute(ctx, data);
+    return getStatObjectAttribute(ctx, occurence);
   },
 
   getStatObjectCategory: (
     ctx: ActionContext,
-    data: { [K in GroupEnumFoodCategory]: number },
+    occurence: { [K in GroupEnumFoodCategory]: number },
   ): StatObject => {
-    return getStatObjectCategory(ctx, data);
+    return getStatObjectCategory(ctx, occurence);
   },
 
-  getStatObject: (ctx: ActionContext, items: Food[]): StatObject => {
-    const counter = Food.countOccurence(items);
-    const stat_attribute = Food.getStatObjectAttribute(ctx, counter);
-    const stat_category = Food.getStatObjectCategory(ctx, counter);
+  getStatObject: (ctx: ActionContext, foods: Food[]): StatObject => {
+    const occurrence = Food.countOccurence(foods);
+    const stat_attribute = Food.getStatObjectAttribute(
+      ctx,
+      occurrence,
+    );
+    const stat_category = Food.getStatObjectCategory(ctx, occurrence);
     return StatObject.merge(stat_attribute, stat_category);
   },
 };
@@ -100,7 +102,7 @@ export const food = (
     label,
   };
 
-  LOOKUP_FOODS[label] = result;
+  FOOD_LOOKUP[label] = result;
 
   return result;
 };
