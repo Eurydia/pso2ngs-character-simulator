@@ -16,13 +16,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponSeven = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_SEVEN,
+    base_attack,
     50,
     level_required,
     potential,
@@ -35,11 +37,11 @@ const makeWeaponSeven = (
 G_SEVEN.push(
   makeWeaponSeven(
     "Kaizaar Mk. I Series",
+    465,
     53,
     AssetPotentials.TEMPERED_FORM,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 465,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -50,11 +52,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Crystia Series",
+    473,
     55,
     AssetPotentials.ABSORPTION_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 473,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -65,11 +67,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Pursuit Series",
+    490,
     57,
     AssetPotentials.PURSUIT_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 490,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -80,11 +82,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Citadel Series",
+    490,
     57,
     AssetPotentials.CITADEL_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 490,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -95,11 +97,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Rugged Gyrating Series",
+    490,
     57,
     AssetPotentials.GYRATING_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 490,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -110,11 +112,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Kaizaar Series",
+    485,
     60,
     AssetPotentials.TEMPERED_FORM,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 485,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -125,11 +127,11 @@ G_SEVEN.push(
 G_SEVEN.push(
   makeWeaponSeven(
     "Obsidia Series",
+    488,
     61,
     AssetPotentials.CORUSCATING_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 488,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
