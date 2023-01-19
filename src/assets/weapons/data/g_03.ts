@@ -54,11 +54,11 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Trois De Series",
+    223,
     8,
     AssetPotentials.OFFENSIVE_FORMATION,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
@@ -69,11 +69,11 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Gold Primm Sword",
+    223,
     10,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 223,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
@@ -84,18 +84,15 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Glissen Series",
+    225,
     13,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
-      if (ctx.target.isWeakToLightning) {
+      if (!ctx.target.isWeakToLightning) {
         return stat;
       }
       return StatObject.setStat(
@@ -111,17 +108,14 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Frostel Series",
+    225,
     13,
     AssetPotentials.VALOROUS_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 225,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToIce) {
         return stat;
       }
@@ -138,11 +132,11 @@ G_THREE.push(
 G_THREE.push(
   makeWeaponThree(
     "Renaissa Series",
+    224,
     1,
     AssetPotentials.DYNAMO_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 224,
         [StatEnum.ADV_OFF_FLOOR]: 1.75,
       });
     },
