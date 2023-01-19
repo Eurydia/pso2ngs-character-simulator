@@ -1,55 +1,58 @@
 import { ActionContext } from "../ContextAction";
 import { statObject, StatObject } from "../stat";
 
-type GetterSignature = (
-  ctx: ActionContext,
-  level_index: number,
-) => StatObject;
-
-export type CharClassSkill = {
+export type CharClassSkill = Readonly<{
   label: string;
   level_max: number;
-  getAwareStatObjectMain: GetterSignature | null;
-  getAwareStatObjectSub: GetterSignature | null;
-};
+  getAwareStatObjectMain:
+    | ((ctx: ActionContext, level_index: number) => StatObject)
+    | null;
+  getAwareStatObjectSub:
+    | ((ctx: ActionContext, level_index: number) => StatObject)
+    | null;
+}>;
 
 export const CharClassSkill = {
   getStatObjectMain: (
     ctx: ActionContext,
-    skill: CharClassSkill,
+    class_skill: CharClassSkill,
     level: number,
   ): StatObject => {
-    if (level < 1 || level > skill.level_max) {
+    if (level < 1 || level > class_skill.level_max) {
       return statObject();
     }
     const level_index: number = level - 1;
-    if (skill.getAwareStatObjectMain === null) {
+    if (class_skill.getAwareStatObjectMain === null) {
       return statObject();
     }
-    return skill.getAwareStatObjectMain(ctx, level_index);
+    return class_skill.getAwareStatObjectMain(ctx, level_index);
   },
 
   getStatObjectSub: (
     ctx: ActionContext,
-    skill: CharClassSkill,
+    class_skill: CharClassSkill,
     level: number,
   ): StatObject => {
-    if (level < 1 || level > skill.level_max) {
+    if (level < 1 || level > class_skill.level_max) {
       return statObject();
     }
     const level_index: number = level - 1;
-    if (skill.getAwareStatObjectSub === null) {
+    if (class_skill.getAwareStatObjectSub === null) {
       return statObject();
     }
-    return skill.getAwareStatObjectSub(ctx, level_index);
+    return class_skill.getAwareStatObjectSub(ctx, level_index);
   },
 };
 
 export const charClassSkill = (
   label: string,
   level_max: number,
-  getAwareStatObjectMain: GetterSignature | null,
-  getAwareStatObjectSub: GetterSignature | null,
+  getAwareStatObjectMain:
+    | ((ctx: ActionContext, level: number) => StatObject)
+    | null,
+  getAwareStatObjectSub:
+    | ((ctx: ActionContext, level: number) => StatObject)
+    | null,
 ): CharClassSkill => {
   const result: CharClassSkill = {
     label,
