@@ -18,13 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponTwo = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_TWO,
+    base_attack,
     60,
     level_required,
     potential,
@@ -37,11 +39,11 @@ const makeWeaponTwo = (
 G_TWO.push(
   makeWeaponTwo(
     "Tzvia Series",
+    195,
     4,
     AssetPotentials.INDOMITABLE_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
@@ -52,11 +54,11 @@ G_TWO.push(
 G_TWO.push(
   makeWeaponTwo(
     "Silver Primm Sword",
+    195,
     5,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
@@ -67,11 +69,11 @@ G_TWO.push(
 G_TWO.push(
   makeWeaponTwo(
     "N-Exp Weapon",
+    195,
     5,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 195,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
