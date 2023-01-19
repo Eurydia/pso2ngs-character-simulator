@@ -61,12 +61,14 @@ export const CharClass = {
       char_level,
     );
 
+    const bp = attack + Math.floor(defense / 2);
+
     return statObject({
+      [StatEnum.CORE_BP]: bp,
       [StatEnum.CORE_HP]: hp,
       [StatEnum.CORE_PP]: char_class.base_pp,
       [StatEnum.CORE_ATTACK]: attack,
       [StatEnum.CORE_DEFENSE]: defense,
-      [StatEnum.CORE_BP]: attack + Math.floor(defense / 2),
       [StatEnum.ADV_OFF_CRIT_CHANCE]: 0.05,
     });
   },
