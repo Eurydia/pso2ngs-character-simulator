@@ -35,7 +35,7 @@ export const SelectPotential: FC<SelectPotentialProps> = memo(
       if (weapon === null) {
         return results;
       }
-      const level_max: number = weapon.potential.enhancement_max;
+      const level_max: number = weapon.potential.potential_level_max;
       const potential_name: string = weapon.potential.name;
       for (let level = 1; level <= level_max; level++) {
         results.push({
