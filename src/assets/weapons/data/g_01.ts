@@ -18,13 +18,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponOne = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_ONE,
+    base_attack,
     60,
     level_required,
     potential,
@@ -37,11 +39,11 @@ const makeWeaponOne = (
 G_ONE.push(
   makeWeaponOne(
     "Primm Series",
+    177,
     1,
     AssetPotentials.RECYCLER_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 177,
         [StatEnum.ADV_OFF_FLOOR]: 1.7,
       });
     },
