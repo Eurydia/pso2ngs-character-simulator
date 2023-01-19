@@ -12,13 +12,14 @@ import { TextFieldUnit } from "./TextFieldUnit";
 
 type AutocompleteUnitProps = {
   // Dynamic props
+  charLevel: number;
   unit: Unit | null;
 
   onUnitChange: (next_unit: Unit | null) => void;
 };
 export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
   (props) => {
-    const { unit, onUnitChange } = props;
+    const { charLevel, unit, onUnitChange } = props;
 
     const handleUnitChange = useCallback(
       (
@@ -37,6 +38,9 @@ export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
         value={unit}
         onChange={handleUnitChange}
         filterOptions={filterOptions}
+        getOptionDisabled={(option) => {
+          return option.level_required > charLevel;
+        }}
         renderInput={(params) => {
           return (
             <TextFieldUnit
@@ -58,6 +62,9 @@ export const AutocompleteUnit: FC<AutocompleteUnitProps> = memo(
     );
   },
   (prev, next) => {
-    return prev.unit?.label === next.unit?.label;
+    return (
+      prev.charLevel === next.charLevel &&
+      prev.unit?.label === next.unit?.label
+    );
   },
 );
