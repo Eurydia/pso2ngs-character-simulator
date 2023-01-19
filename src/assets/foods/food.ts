@@ -81,11 +81,14 @@ export const Food = {
 
   getStatObject: (ctx: ActionContext, foods: Food[]): StatObject => {
     const occurrence = Food.countOccurence(foods);
-    const stat_attribute = Food.getStatObjectAttribute(
+    const stat_attribute: StatObject = Food.getStatObjectAttribute(
       ctx,
       occurrence,
     );
-    const stat_category = Food.getStatObjectCategory(ctx, occurrence);
+    const stat_category: StatObject = Food.getStatObjectCategory(
+      ctx,
+      occurrence,
+    );
     return StatObject.merge(stat_attribute, stat_category);
   },
 };
