@@ -12,7 +12,7 @@ const ROMAN_LOOKUP: { [key: number]: string } = {
   4: "IV",
   5: "V",
 };
-const _toRoman = (num: number): string => {
+const toRoman = (num: number): string => {
   if (num < 1) {
     return "";
   }
@@ -42,18 +42,21 @@ export const Augment = {
     return JSON.stringify(labels);
   },
 
+  fromLabel: (label: string | null): Augment | null => {
+    if (label === null) {
+      return null;
+    }
+    if (label in AUGMENT_LOOKUP) {
+      return AUGMENT_LOOKUP[label];
+    }
+    return null;
+  },
+
   fromLabels: (labels: (string | null)[]): (Augment | null)[] => {
     const results: (Augment | null)[] = [];
-    for (const label of labels) {
-      if (label === null) {
-        results.push(null);
-        continue;
-      }
-      const augment: Augment | undefined = AUGMENT_LOOKUP[label];
-      if (augment !== undefined) {
-        results.push(augment);
-      }
-    }
+    labels.forEach((label) => {
+      results.push(Augment.fromLabel(label));
+    });
     return results;
   },
 
@@ -92,7 +95,7 @@ export const Augment = {
     augments: (Augment | null)[],
     next_augment_index: number,
   ): (Augment | null)[] => {
-    let result: (Augment | null)[] = [...augments];
+    const result: (Augment | null)[] = [...augments];
     const next_augment: Augment | null = augments[next_augment_index];
     if (next_augment === null) {
       return result;
@@ -137,7 +140,7 @@ export const augment = (
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
   const level = augment_level.toString();
-  const level_roman = _toRoman(augment_level);
+  const level_roman = toRoman(augment_level);
   const label = `${name} ${level_roman}`.trimEnd();
 
   const result: Augment = {

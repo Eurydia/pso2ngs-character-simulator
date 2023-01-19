@@ -16,7 +16,7 @@ export const AddonSkill = {
     ctx: ActionContext,
     addon_skill: AddonSkill,
     level: number,
-  ) => {
+  ): StatObject => {
     if (level < 1 || level > AddonSkill.LEVEL_MAX) {
       return statObject();
     }
