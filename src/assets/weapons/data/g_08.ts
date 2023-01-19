@@ -17,13 +17,15 @@ const GROWTH_DATA: [number, number][] = [
 
 const makeWeaponEight = (
   name: string,
+  base_attack: number,
   level_required: number,
   potential: Potential,
-  getAwareStatObject: (ctx: ActionContext | null) => StatObject,
+  getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Weapon => {
   return weapon(
     name,
     GroupEnumWeaponRarity.R_EIGHT,
+    base_attack,
     50,
     level_required,
     potential,
@@ -36,17 +38,14 @@ const makeWeaponEight = (
 G_EIGHT.push(
   makeWeaponEight(
     "Primm Libra Series",
+    436,
     55,
     AssetPotentials.SOOTHING_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 436,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToIce) {
         return stat;
       }
@@ -63,17 +62,14 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Effulgent Series",
+    446,
     60,
     AssetPotentials.BLITZ_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 446,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToFire) {
         return stat;
       }
@@ -90,17 +86,14 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Tenebrous Series",
+    448,
     60,
     AssetPotentials.BLITZ_UNIT,
-    (ctx: ActionContext | null): StatObject => {
+    (ctx: ActionContext): StatObject => {
       const stat: StatObject = statObject({
-        [StatEnum.CORE_ATTACK]: 448,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
         [StatEnum.ADV_OFF_DAMAGE_UP]: 1.1,
       });
-      if (ctx === null) {
-        return stat;
-      }
       if (!ctx.target.isWeakToIce) {
         return stat;
       }
@@ -117,11 +110,11 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Kouklophis Series",
+    520,
     62,
     AssetPotentials.INSTANT_DEATH_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 520,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
@@ -132,11 +125,11 @@ G_EIGHT.push(
 G_EIGHT.push(
   makeWeaponEight(
     "Gunblaze Series",
+    526,
     65,
     AssetPotentials.FLAWLESS_UNIT,
-    (_: ActionContext | null): StatObject => {
+    (_: ActionContext): StatObject => {
       return statObject({
-        [StatEnum.CORE_ATTACK]: 526,
         [StatEnum.ADV_OFF_FLOOR]: 1.5,
       });
     },
