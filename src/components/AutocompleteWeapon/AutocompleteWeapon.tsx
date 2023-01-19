@@ -12,13 +12,14 @@ import { TextFieldWeapon } from "./TextFieldWeapon";
 
 type AutocompleteWeaponProps = {
   // Dynamic props
+  charLevel: number;
   weapon: Weapon | null;
 
   onWeaponChange: (next_value: Weapon | null) => void;
 };
 export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
   (props) => {
-    const { weapon, onWeaponChange } = props;
+    const { charLevel, weapon, onWeaponChange } = props;
 
     const handleWeaponChange = useCallback(
       (
@@ -37,6 +38,9 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
         value={weapon}
         onChange={handleWeaponChange}
         filterOptions={filterOptions}
+        getOptionDisabled={(option) => {
+          return option.level_required > charLevel;
+        }}
         renderOption={(props, option, _) => {
           return (
             <OptionWeapon
@@ -58,6 +62,9 @@ export const AutocompleteWeapon: FC<AutocompleteWeaponProps> = memo(
     );
   },
   (prev, next) => {
-    return prev.weapon?.label === next.weapon?.label;
+    return (
+      prev.charLevel === next.charLevel &&
+      prev.weapon?.label === next.weapon?.label
+    );
   },
 );
