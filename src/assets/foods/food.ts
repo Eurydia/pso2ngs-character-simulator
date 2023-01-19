@@ -28,11 +28,18 @@ export const Food = {
     return JSON.stringify(labels);
   },
 
+  fromLabel: (label: string): Food | null => {
+    if (label in FOOD_LOOKUP) {
+      return FOOD_LOOKUP[label];
+    }
+    return null;
+  },
+
   fromLabels(labels: string[]): Food[] {
     const results: Food[] = [];
     for (const label of labels) {
-      const result: Food | undefined = FOOD_LOOKUP[label];
-      if (result !== undefined) {
+      const result: Food | null = Food.fromLabel(label);
+      if (result !== null) {
         results.push(result);
       }
     }
@@ -56,7 +63,6 @@ export const Food = {
       [GroupEnumFoodCategory.SEAFOOD]: 0,
       [GroupEnumFoodCategory.VEGETABLE]: 0,
     };
-
     for (const food of foods) {
       const { attribute, category } = food;
       result[attribute] += 1;
