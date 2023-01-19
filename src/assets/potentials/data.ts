@@ -83,34 +83,36 @@ export const DEFENSIVE_FORMATION = ((): Potential => {
 export const OFFENSIVE_FORMATION = (() => {
   const DATA_WEAPON_UP: number[] = [1.17, 1.19, 1.22, 1.22, 1.23];
   const DATA_CRIT_CHANCE: number[] = [0.15, 0.15, 0.15, 0.18, 0.27];
-  const DATA_ATK_BREAKOFF: number[] = [2000, 2000, 2000, 2000, 2400];
-  const _getter = (
-    ctx: ActionContext,
-    level_index: number,
-  ): StatObject => {
-    const weapon_up: number = DATA_WEAPON_UP[level_index];
-    const crit_chance: number = DATA_CRIT_CHANCE[level_index];
-    const attack_breakoff: number = DATA_ATK_BREAKOFF[level_index];
-    const stat: StatObject = statObject({
-      [StatEnum.CORE_BP]: (level_index + 1) * 10,
-      [StatEnum.WEAPON_MELEE]: weapon_up,
-      [StatEnum.WEAPON_RANGED]: weapon_up,
-      [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-    });
-    const { attackValue } = ctx.character;
-    if (attackValue < attack_breakoff) {
-      return stat;
-    }
-    return StatObject.setStat(
-      stat,
-      StatEnum.ADV_OFF_CRIT_CHANCE,
-      crit_chance,
-    );
-  };
+  const DATA_ATTACK_BREAKOFF: number[] = [
+    2000, 2000, 2000, 2000, 2400,
+  ];
   return potential(
     "Offensive Formation",
     DATA_WEAPON_UP.length,
-    _getter,
+    (
+      ctx: ActionContext,
+      potential_level_index: number,
+    ): StatObject => {
+      const weapon_up: number = DATA_WEAPON_UP[potential_level_index];
+      const crit_chance: number =
+        DATA_CRIT_CHANCE[potential_level_index];
+      const attack_breakoff: number =
+        DATA_ATTACK_BREAKOFF[potential_level_index];
+      const stat: StatObject = statObject({
+        [StatEnum.WEAPON_MELEE]: weapon_up,
+        [StatEnum.WEAPON_RANGED]: weapon_up,
+        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+      });
+      const { attackValue } = ctx.character;
+      if (attackValue < attack_breakoff) {
+        return stat;
+      }
+      return StatObject.setStat(
+        stat,
+        StatEnum.ADV_OFF_CRIT_CHANCE,
+        crit_chance,
+      );
+    },
   );
 })();
 
