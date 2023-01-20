@@ -154,7 +154,19 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
   const [statGunner, setStatGunner] = useState((): StatObject => {
     return statObject();
   });
+  const [statForce, setStatForce] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statTechter, setStatTechter] = useState((): StatObject => {
+    return statObject();
+  });
   const [statBraver, setStatBraver] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statBouncer, setStatBouncer] = useState((): StatObject => {
+    return statObject();
+  });
+  const [statWaker, setStatWaker] = useState((): StatObject => {
     return statObject();
   });
 
@@ -175,14 +187,22 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
     stat = StatObject.merge(stat, statFighter);
     stat = StatObject.merge(stat, statRanger);
     stat = StatObject.merge(stat, statGunner);
-    return StatObject.merge(stat, statBraver);
+    stat = StatObject.merge(stat, statForce);
+    stat = StatObject.merge(stat, statTechter);
+    stat = StatObject.merge(stat, statBraver);
+    stat = StatObject.merge(stat, statBouncer);
+    return StatObject.merge(stat, statWaker);
   }, [
     stat_class_main,
     statHunter,
     statFighter,
     statRanger,
     statGunner,
+    statForce,
+    statTechter,
     statBraver,
+    statBouncer,
+    statWaker,
   ]);
 
   useEffect(() => {
@@ -239,12 +259,28 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
                   onStatChange={setStatRanger}
                 />
                 <FormCharClassSkill
+                  formStorageKey="class-skill-force"
+                  cardTitle="Force skills"
+                  skills={FORCE_SKILL}
+                  isMainClass={mainClass === FORCE}
+                  isSubClass={subClass === FORCE}
+                  onStatChange={setStatForce}
+                />
+                <FormCharClassSkill
                   formStorageKey="class-skill-braver"
                   cardTitle="Braver skills"
                   skills={BRAVER_SKILL}
                   isMainClass={mainClass === BRAVER}
                   isSubClass={subClass === BRAVER}
                   onStatChange={setStatBraver}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-waker"
+                  cardTitle="Waker skills"
+                  skills={WAKER_SKILL}
+                  isMainClass={mainClass === WAKER}
+                  isSubClass={subClass === WAKER}
+                  onStatChange={setStatWaker}
                 />
               </Stack>
             </Grid>
@@ -265,6 +301,22 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
                   isMainClass={mainClass === GUNNER}
                   isSubClass={subClass === GUNNER}
                   onStatChange={setStatGunner}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-techter"
+                  cardTitle="Techter skills"
+                  skills={TECHTER_SKILL}
+                  isMainClass={mainClass === TECHTER}
+                  isSubClass={subClass === TECHTER}
+                  onStatChange={setStatTechter}
+                />
+                <FormCharClassSkill
+                  formStorageKey="class-skill-bouncer"
+                  cardTitle="Bouncer skills"
+                  skills={BOUNCER_SKILL}
+                  isMainClass={mainClass === BOUNCER}
+                  isSubClass={subClass === BOUNCER}
+                  onStatChange={setStatBouncer}
                 />
               </Stack>
             </Grid>

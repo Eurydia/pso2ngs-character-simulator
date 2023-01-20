@@ -171,7 +171,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
 
   return (
     <Fragment>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Tooltip
           placement="top"
           title={<Typography>Open summary</Typography>}
@@ -233,7 +233,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
               </Stack>
             </Grid>
             <Grid item xs={1}>
-              <Stack spacing={2}>
+              <Stack spacing={3}>
                 <FormAddonSkill
                   cardTitle="Fighter"
                   mainSkill={FIGHTER_MAIN_ADDON}

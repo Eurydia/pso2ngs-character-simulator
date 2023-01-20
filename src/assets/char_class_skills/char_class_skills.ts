@@ -13,6 +13,8 @@ export type CharClassSkill = Readonly<{
 }>;
 
 export const CharClassSkill = {
+  SKILLPOINT_MAX: 40,
+
   getStatObjectMain: (
     ctx: ActionContext,
     class_skill: CharClassSkill,

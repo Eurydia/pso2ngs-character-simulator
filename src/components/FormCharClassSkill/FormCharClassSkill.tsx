@@ -22,7 +22,12 @@ import {
   LooksTwoRounded,
 } from "@mui/icons-material";
 
-import { CharClassSkill, StatObject, statObject } from "../../assets";
+import {
+  CharClassSkill,
+  StatEnum,
+  StatObject,
+  statObject,
+} from "../../assets";
 import { AppContext } from "../../contexts";
 import { FieldNumber } from "../FieldNumber";
 
@@ -30,6 +35,8 @@ import { FormBase } from "../FormBase";
 import { IconButtonTooltip } from "../IconButtonTooltip";
 import { StatView } from "../StatView";
 import { FieldSkillLayout } from "./FieldSkillLayout";
+import { useNumber } from "../../hooks";
+import { loadSkillLevels, saveSkillLevels } from "./helper";
 
 type FormCharClassSkillProps = {
   formStorageKey: string;
@@ -44,8 +51,14 @@ type FormCharClassSkillProps = {
 export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
   props,
 ) => {
-  const { cardTitle, skills, isMainClass, isSubClass, onStatChange } =
-    props;
+  const {
+    formStorageKey,
+    cardTitle,
+    skills,
+    isMainClass,
+    isSubClass,
+    onStatChange,
+  } = props;
 
   const { context } = useContext(AppContext);
 
@@ -57,11 +70,18 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
     setDialogOpen(false);
   }, []);
 
+  const { value: skillPoint, setValue: setSkillPoint } = useNumber(
+    `${formStorageKey}-sp`,
+  );
   const [skillLevels, setSkillLevels] = useState((): number[] => {
     const size: number = skills.length;
-    const state: number[] = Array(size).fill(0);
-    return state;
+    return loadSkillLevels(`${formStorageKey}-levels`, size);
   });
+
+  useEffect(() => {
+    saveSkillLevels(`${formStorageKey}-levels`, skillLevels);
+  }, [skillLevels]);
+
   const handleSkillLevelChange = useCallback(
     (next_level: number, skill_index: number): void => {
       setSkillLevels((prev) => {
@@ -72,6 +92,7 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
     },
     [],
   );
+
   const card_icon = useMemo((): ReactNode => {
     if (isMainClass) {
       return (
@@ -87,8 +108,13 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
   }, [isMainClass, isSubClass]);
 
   const stat_total = useMemo((): StatObject => {
-    let stat: StatObject = statObject();
+    let stat = statObject();
     if (isMainClass) {
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.CORE_BP,
+        skillPoint * 3,
+      );
       skills.forEach((skill, skill_index) => {
         const skill_level: number = skillLevels[skill_index];
         const stat_skill: StatObject =
@@ -102,6 +128,11 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
       return stat;
     }
     if (isSubClass) {
+      stat = StatObject.setStat(
+        stat,
+        StatEnum.CORE_BP,
+        skillPoint * 3,
+      );
       skills.forEach((skill, skill_index) => {
         const skill_level: number = skillLevels[skill_index];
         const stat_skill: StatObject =
@@ -114,8 +145,8 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
       });
       return stat;
     }
-    return stat;
-  }, [isMainClass, isSubClass, skillLevels, context]);
+    return statObject();
+  }, [isMainClass, isSubClass, skillLevels, context, skillPoint]);
 
   useEffect(() => {
     onStatChange(stat_total);
@@ -134,31 +165,48 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
           />
         }
         slotCardContent={
-          <Stack spacing={1}>
-            {skills.map(({ label, level_max }, skill_index) => {
-              const skill_level: number = skillLevels[skill_index];
-              return (
-                <FieldSkillLayout
-                  key={label}
-                  slotLabel={<Typography>{label}</Typography>}
-                  slotField={
-                    <FieldNumber
-                      disabled={false}
-                      startAdornment={<Typography>Lv.</Typography>}
-                      value={skill_level}
-                      valueMax={level_max}
-                      valueMin={0}
-                      onValueChange={(next_level) => {
-                        handleSkillLevelChange(
-                          next_level,
-                          skill_index,
-                        );
-                      }}
-                    />
-                  }
+          <Stack spacing={2}>
+            <FieldSkillLayout
+              slotLabel={<Typography>SP spent</Typography>}
+              slotField={
+                <FieldNumber
+                  disabled={false}
+                  startAdornment={null}
+                  value={skillPoint}
+                  valueMax={CharClassSkill.SKILLPOINT_MAX}
+                  valueMin={skillLevels.reduce((a, b) => {
+                    return a + b;
+                  }, 0)}
+                  onValueChange={setSkillPoint}
                 />
-              );
-            })}
+              }
+            />
+            <Stack spacing={1}>
+              {skills.map(({ label, level_max }, skill_index) => {
+                const skill_level: number = skillLevels[skill_index];
+                return (
+                  <FieldSkillLayout
+                    key={label}
+                    slotLabel={<Typography>{label}</Typography>}
+                    slotField={
+                      <FieldNumber
+                        disabled={false}
+                        startAdornment={<Typography>Lv.</Typography>}
+                        value={skill_level}
+                        valueMax={level_max}
+                        valueMin={0}
+                        onValueChange={(next_level) => {
+                          handleSkillLevelChange(
+                            next_level,
+                            skill_index,
+                          );
+                        }}
+                      />
+                    }
+                  />
+                );
+              })}
+            </Stack>
           </Stack>
         }
       />
