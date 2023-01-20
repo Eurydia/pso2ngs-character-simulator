@@ -181,8 +181,8 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         </Fab>
       </Tooltip>
       <Container maxWidth="md">
-        <Box marginY={4}>
-          <Stack spacing={2}>
+        <Box marginY={3}>
+          <Stack spacing={3}>
             <FormWeapon
               cardTitle="Weapon"
               charLevel={context.character.level}

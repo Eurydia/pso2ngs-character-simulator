@@ -15,7 +15,7 @@ const EndAdornment: FC<EndAdornmentProps> = (props) => {
   if (shouldShowWarning) {
     return (
       <InputAdornment position="end">
-        <PriorityHighRounded fontSize="large" color="warning" />
+        <PriorityHighRounded fontSize="medium" color="warning" />
         {defaultAdornment}
       </InputAdornment>
     );
