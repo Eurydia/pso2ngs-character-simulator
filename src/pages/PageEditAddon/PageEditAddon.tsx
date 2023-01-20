@@ -2,7 +2,6 @@ import {
   FC,
   Fragment,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -191,11 +190,11 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
         <Box marginY={4}>
           <Grid
             container
-            spacing={2}
+            spacing={3}
             columns={{ xs: 1, sm: 1, md: 2 }}
           >
             <Grid item xs={1}>
-              <Stack spacing={2}>
+              <Stack spacing={3}>
                 <FormAddonSkill
                   cardTitle="Hunter"
                   mainSkill={HUNTER_MAIN_ADDON}

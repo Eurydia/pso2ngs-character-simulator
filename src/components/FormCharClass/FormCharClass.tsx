@@ -65,7 +65,7 @@ export const FormCharClass: FC<FormCharClassProps> = memo(
             />
           }
           slotCardContent={
-            <Stack spacing={3}>
+            <Stack spacing={2}>
               <Stack
                 spacing={1}
                 direction={{ xs: "column", sm: "row" }}

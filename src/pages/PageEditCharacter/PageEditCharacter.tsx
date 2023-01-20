@@ -188,7 +188,6 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
   useEffect(() => {
     onStatChange(stat_total);
   }, [stat_total]);
-  console.log(statHunter);
 
   return (
     <Fragment>

@@ -4,8 +4,8 @@ import { CharClassSkill, charClassSkill } from "../char_class_skills";
 
 export const RANGER_BAD_CONDITION_WARD = ((): CharClassSkill => {
   const DATA_AIL_RES_MAIN: number[] = [
-    1.25, 1.29, 1.33, 1.36, 1.42, 1.44, 1.46, 1.48, 1.5, 1.52, 1.54,
-    1.56, 1.58, 1.6,
+    1.25, 1.29, 1.33, 1.36, 1.39, 1.42, 1.44, 1.46, 1.48, 1.5, 1.52,
+    1.54, 1.56, 1.58, 1.6,
   ];
   const DATA_AIL_RES_SUB: number[] = [
     1.05, 1.07, 1.09, 1.11, 1.13, 1.15, 1.17, 1.19, 1.22, 1.25, 1.28,
