@@ -325,7 +325,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       </Container>
       <Dialog
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
@@ -333,7 +333,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
           Character summary
         </DialogTitle>
         <DialogContent>
-          <StatView stat={statObject()} maxHeight="" />
+          <StatView stat={stat_total} maxHeight="" />
         </DialogContent>
       </Dialog>
     </Fragment>
