@@ -67,7 +67,9 @@ const GUNNER_SKILL: CharClassSkill[] = [
 
 // --------------------------------
 const FORCE: string = AssetCharClasses.FORCE.label;
-const FORCE_SKILL: CharClassSkill[] = [];
+const FORCE_SKILL: CharClassSkill[] = [
+  AssetCharClassSkills.FORCE_PP_RECOVERY_BOOST,
+];
 
 // --------------------------------
 const TECHTER: string = AssetCharClasses.TECHTER.label;

@@ -75,20 +75,17 @@ export const Unit = {
     const stat_unit: StatObject = unit.getAwareStatObject(ctx);
     stat_total = StatObject.merge(stat_total, stat_unit);
 
-    const defense_bonus: number = Unit.getDefenseBonus(
-      unit.growth_data,
-      enhancement,
-    );
+    const unit_defense: number = Unit.getDefense(unit, enhancement);
     stat_total = StatObject.stack(
       stat_total,
       StatEnum.CORE_DEFENSE,
-      defense_bonus,
+      unit_defense,
     );
 
     stat_total = StatObject.stack(
       stat_total,
       StatEnum.CORE_BP,
-      Math.floor(Unit.getDefense(unit, enhancement) / 2),
+      Math.floor(unit_defense / 2),
     );
 
     const unit_hp: number = StatObject.getStat(

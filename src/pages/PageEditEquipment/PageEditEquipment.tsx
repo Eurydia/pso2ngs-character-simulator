@@ -233,7 +233,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
       </Container>
       <Dialog
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >

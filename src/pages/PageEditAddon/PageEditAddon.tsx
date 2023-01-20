@@ -269,7 +269,7 @@ export const PageEditAddon: FC<PageEditAddonProps> = (props) => {
       </Container>
       <Dialog
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
         open={dialogOpen}
         onClose={handleDialogClose}
       >
