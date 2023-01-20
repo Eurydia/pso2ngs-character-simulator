@@ -4,10 +4,11 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Grid,
   Stack,
   Typography,
 } from "@mui/material";
-import { grey, orange } from "@mui/material/colors";
+import { amber, grey, orange } from "@mui/material/colors";
 import {
   BarChartRounded,
   LooksOneRounded,
@@ -16,11 +17,11 @@ import {
 
 import { CharClass, StatObject } from "../../assets";
 
-import { FieldNumber } from "../FieldNumber";
 import { FormBase } from "../FormBase";
-import { SelectCharClass } from "../SelectCharClass";
-import { StatView } from "../StatView";
+import { AutocompleteCharClass } from "../AutocompleteCharClass";
+import { FieldNumber } from "../FieldNumber";
 import { IconButtonTooltip } from "../IconButtonTooltip";
+import { StatView } from "../StatView";
 
 type FormCharClassProps = {
   stat: StatObject;
@@ -66,34 +67,49 @@ export const FormCharClass: FC<FormCharClassProps> = memo(
           }
           slotCardContent={
             <Stack spacing={2}>
-              <Stack
-                spacing={1}
-                direction={{ xs: "column", sm: "row" }}
-              >
-                <SelectCharClass
-                  startIcon={
-                    <LooksOneRounded htmlColor={orange["400"]} />
-                  }
-                  charClass={mainClass}
-                  onCharClassChange={onMainClassChange}
-                />
-                <FieldNumber
-                  disabled={false}
-                  startAdornment={<Typography>Lv.</Typography>}
-                  valueMin={1}
-                  valueMax={CharClass.LEVEL_MAX}
-                  value={charLevel}
-                  onValueChange={onCharLevelChange}
-                />
-              </Stack>
-              <Box width={{ xs: 1, sm: 0.5 }}>
-                <SelectCharClass
-                  startIcon={
-                    <LooksTwoRounded htmlColor={grey["400"]} />
-                  }
-                  charClass={subClass}
-                  onCharClassChange={onSubClassChange}
-                />
+              <Box>
+                <Grid
+                  container
+                  spacing={1}
+                  columns={{ xs: 1, sm: 2 }}
+                >
+                  <Grid item xs={1}>
+                    <AutocompleteCharClass
+                      startIcon={
+                        <LooksOneRounded htmlColor={amber["400"]} />
+                      }
+                      charClass={mainClass}
+                      onCharClassChange={onMainClassChange}
+                    />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <FieldNumber
+                      disabled={false}
+                      startAdornment={<Typography>Lv.</Typography>}
+                      valueMin={1}
+                      valueMax={CharClass.LEVEL_MAX}
+                      value={charLevel}
+                      onValueChange={onCharLevelChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid
+                  container
+                  spacing={1}
+                  columns={{ xs: 1, sm: 2 }}
+                >
+                  <Grid item xs={1}>
+                    <AutocompleteCharClass
+                      startIcon={
+                        <LooksTwoRounded htmlColor={grey["400"]} />
+                      }
+                      charClass={subClass}
+                      onCharClassChange={onSubClassChange}
+                    />
+                  </Grid>
+                </Grid>
               </Box>
             </Stack>
           }

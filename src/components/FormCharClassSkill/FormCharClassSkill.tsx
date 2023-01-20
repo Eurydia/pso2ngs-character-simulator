@@ -15,7 +15,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { grey, orange } from "@mui/material/colors";
+import { amber, grey, orange } from "@mui/material/colors";
 import {
   BarChartRounded,
   LooksOneRounded,
@@ -96,12 +96,12 @@ export const FormCharClassSkill: FC<FormCharClassSkillProps> = (
   const card_icon = useMemo((): ReactNode => {
     if (isMainClass) {
       return (
-        <LooksOneRounded fontSize="large" htmlColor={orange["400"]} />
+        <LooksOneRounded fontSize="medium" htmlColor={amber["400"]} />
       );
     }
     if (isSubClass) {
       return (
-        <LooksTwoRounded fontSize="large" htmlColor={grey["400"]} />
+        <LooksTwoRounded fontSize="medium" htmlColor={grey["400"]} />
       );
     }
     return null;

@@ -1,0 +1,1 @@
+export { AutocompleteCharClass } from "./AutocompleteCharClass";
