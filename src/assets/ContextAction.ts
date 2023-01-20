@@ -20,6 +20,7 @@ export type CharacterContext = {
   isAttackingBlight: boolean;
   isAttackingWeakPoint: boolean;
 
+  level: number;
   uniqueAugments: number;
   defenseValue: number;
   attackValue: number;
@@ -80,6 +81,7 @@ export const ActionContext = {
         hpValueCurrent: 0,
         ppValue: -1,
         ppValueCurrent: 0,
+        level: 1,
       },
       location: {
         kvaris: false,

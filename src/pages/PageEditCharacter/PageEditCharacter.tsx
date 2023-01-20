@@ -118,6 +118,7 @@ export const PageEditCharacter: FC<PageEditCharacterProps> = (
       return next;
     });
   }, [charLevel]);
+
   const { charClass: mainClass, setCharClass: setMainClass } =
     useCharClass("character-class-main", AssetCharClasses.HUNTER);
   const { charClass: subClass, setCharClass: setSubClass } =

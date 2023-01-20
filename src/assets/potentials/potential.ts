@@ -3,7 +3,7 @@ import { ActionContext } from "../ContextAction";
 
 export type Potential = Readonly<{
   name: string;
-  potential_level_max: number;
+  level_max: number;
   getAwareStatObject: (
     ctx: ActionContext,
     level: number,
@@ -18,7 +18,7 @@ export const Potential = {
   ): StatObject => {
     if (
       potential_level < 1 ||
-      potential_level > potential.potential_level_max
+      potential_level > potential.level_max
     ) {
       return statObject();
     }
@@ -45,7 +45,7 @@ export const potential = (
 ): Potential => {
   const result: Potential = {
     name,
-    potential_level_max,
+    level_max: potential_level_max,
     getAwareStatObject,
   };
 

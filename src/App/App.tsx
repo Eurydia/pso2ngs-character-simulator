@@ -26,7 +26,7 @@ import { CustomGlobalStyle, style_overrides } from "./theme";
 import { PageContainer } from "./PageContainer";
 
 export const App: FC = () => {
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(0);
 
   const { context, setContext } = useActionContext("app-context");
 

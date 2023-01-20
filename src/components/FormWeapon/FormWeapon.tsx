@@ -26,6 +26,7 @@ import { AutocompleteAugment } from "../AutocompleteAugment";
 import { SelectPotential } from "../SelectPotential";
 import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
+import { AutocompletePotential } from "../AutocompletePotential";
 
 type FormWeaponProps = {
   // Static props
@@ -34,6 +35,7 @@ type FormWeaponProps = {
   // Dynamic props
   formData: DataWeapon;
   stat: StatObject;
+  charLevel: number;
 
   onWeaponChange: (next_weapon: Weapon | null) => void;
   onPotentialLevelChange: (next_level: number) => void;
@@ -41,13 +43,14 @@ type FormWeaponProps = {
   onFixaChange: (next_fixa: Fixa | null) => void;
   onAugmentChange: (
     next_augment: Augment | null,
-    index: number,
+    augment_index: number,
   ) => void;
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const {
     cardTitle,
     stat,
+    charLevel,
     formData,
     onWeaponChange,
     onPotentialLevelChange,
@@ -59,7 +62,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const { weapon, potential_level, enhancement, fixa, augments } =
     formData;
 
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogOpen = useCallback(() => {
     setDialogOpen(true);
   }, []);
@@ -91,20 +94,17 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
             <Grid item xs={1}>
               <Stack spacing={1}>
                 <AutocompleteWeapon
+                  charLevel={charLevel}
                   weapon={weapon}
                   onWeaponChange={onWeaponChange}
                 />
-                <SelectPotential
+                <AutocompletePotential
                   weapon={weapon}
                   potentialLevel={potential_level}
-                  onPotentialLevelChange={onPotentialLevelChange}
+                  onLevelChange={onPotentialLevelChange}
                 />
                 <FieldNumber
-                  startAdornment={
-                    <Typography sx={{ textDecorationLine: "none" }}>
-                      +
-                    </Typography>
-                  }
+                  startAdornment={<Typography>+</Typography>}
                   valueMin={0}
                   disabled={weapon === null}
                   value={enhancement}
@@ -152,7 +152,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
       >
         <DialogTitle>
           <Typography fontWeight="bold" fontSize="x-large">
-            {`${cardTitle} summary`}
+            Weapon summary
           </Typography>
         </DialogTitle>
         <DialogContent>

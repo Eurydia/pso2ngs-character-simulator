@@ -185,6 +185,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
           <Stack spacing={2}>
             <FormWeapon
               cardTitle="Weapon"
+              charLevel={context.character.level}
               stat={stat_weapon}
               formData={dataWeapon}
               onWeaponChange={setWeapon}
