@@ -19,19 +19,15 @@ import {
 import { DataWeapon } from "../../types";
 
 import { FormBase } from "../FormBase";
+import { AutocompleteWeapon } from "../AutocompleteWeapon";
+import { AutocompletePotential } from "../AutocompletePotential";
 import { FieldNumber } from "../FieldNumber";
 import { AutocompleteFixa } from "../AutocompleteFixa";
-import { AutocompleteWeapon } from "../AutocompleteWeapon";
 import { AutocompleteAugment } from "../AutocompleteAugment";
-import { SelectPotential } from "../SelectPotential";
-import { StatView } from "../StatView";
 import { IconButtonTooltip } from "../IconButtonTooltip";
-import { AutocompletePotential } from "../AutocompletePotential";
+import { StatView } from "../StatView";
 
 type FormWeaponProps = {
-  // Static props
-  cardTitle: string;
-
   // Dynamic props
   formData: DataWeapon;
   stat: StatObject;
@@ -48,7 +44,6 @@ type FormWeaponProps = {
 };
 export const FormWeapon: FC<FormWeaponProps> = (props) => {
   const {
-    cardTitle,
     stat,
     charLevel,
     formData,
@@ -80,7 +75,7 @@ export const FormWeapon: FC<FormWeaponProps> = (props) => {
   return (
     <Fragment>
       <FormBase
-        cardTitle={cardTitle}
+        cardTitle="Weapon"
         slotCardHeaderAvatar={null}
         slotCardHeaderAction={
           <IconButtonTooltip
