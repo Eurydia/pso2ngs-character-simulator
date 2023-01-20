@@ -161,7 +161,9 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
     return StatObject.merge(stat, stat_unit_c);
   }, [stat_weapon, stat_unit_a, stat_unit_b, stat_unit_c]);
 
-  useEffect(() => {}, [stat_total]);
+  useEffect(() => {
+    onStatChange(stat_total);
+  }, [stat_total]);
 
   return (
     <Fragment>
@@ -184,7 +186,6 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
         <Box marginY={3}>
           <Stack spacing={3}>
             <FormWeapon
-              cardTitle="Weapon"
               charLevel={context.character.level}
               stat={stat_weapon}
               formData={dataWeapon}
@@ -196,6 +197,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
             />
             <FormUnit
               cardTitle="Unit A"
+              charLevel={context.character.level}
               stat={stat_unit_a}
               formData={dataUnitA}
               onUnitChange={setUnitA}
@@ -206,6 +208,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
             />
             <FormUnit
               cardTitle="Unit B"
+              charLevel={context.character.level}
               stat={stat_unit_b}
               formData={dataUnitB}
               onUnitChange={setUnitB}
@@ -216,6 +219,7 @@ export const PageEditEquipment: FC<PageEditEquipmentProps> = (
             />
             <FormUnit
               cardTitle="Unit C"
+              charLevel={context.character.level}
               stat={stat_unit_c}
               formData={dataUnitC}
               onUnitChange={setUnitC}

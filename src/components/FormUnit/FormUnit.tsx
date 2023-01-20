@@ -28,6 +28,7 @@ import { IconButtonTooltip } from "../IconButtonTooltip";
 
 type FormUnitProps = {
   // Dynamic props
+  charLevel: number;
   stat: StatObject;
   formData: DataUnit;
 
@@ -45,6 +46,7 @@ type FormUnitProps = {
 };
 export const FormUnit: FC<FormUnitProps> = (props) => {
   const {
+    charLevel,
     stat,
     cardTitle,
     formData,
@@ -97,6 +99,7 @@ export const FormUnit: FC<FormUnitProps> = (props) => {
               <Stack spacing={1}>
                 <AutocompleteUnit
                   unit={unit}
+                  charLevel={charLevel}
                   onUnitChange={onUnitChange}
                 />
                 <FieldNumber
