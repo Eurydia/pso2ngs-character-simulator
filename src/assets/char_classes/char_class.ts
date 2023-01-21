@@ -11,7 +11,7 @@ export type CharClass = Readonly<{
 }>;
 
 export const CharClass = {
-  LEVEL_MAX: 65,
+  LEVEL_MAX: 70,
 
   fromLabel: (char_class: string): CharClass | null => {
     if (char_class in LOOKUP_TABLE) {
