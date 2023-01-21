@@ -17,7 +17,6 @@ export type CharacterContext = {
   hasDodgedAttack: boolean;
   hasCriticallyHit: boolean;
   isAttacking: boolean;
-  isAttackingBlight: boolean;
   isAttackingWeakPoint: boolean;
 
   level: number;
@@ -73,7 +72,6 @@ export const ActionContext = {
         hasDodgedAttack: false,
         hasCriticallyHit: false,
         isAttacking: false,
-        isAttackingBlight: false,
         isAttackingWeakPoint: false,
         defenseValue: 0,
         attackValue: 0,

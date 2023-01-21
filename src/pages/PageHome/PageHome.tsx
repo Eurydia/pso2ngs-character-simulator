@@ -60,7 +60,7 @@ export const PageHome: FC<PageHomeProps> = (props) => {
               }}
             />
           </Grid>
-          <Grid item xs={1}>
+          {/* <Grid item xs={1}>
             <LinkCard
               cardTitle="External effects"
               cardDescription="Effects caused by others."
@@ -68,15 +68,14 @@ export const PageHome: FC<PageHomeProps> = (props) => {
                 onPageChange(5);
               }}
             />
-          </Grid>
-          <Grid item xs={1} />
+          </Grid> */}
           <Grid item xs={1}>
             <FormContextEditor />
           </Grid>
           <Grid item xs={1}>
             <Card variant="outlined" sx={{ padding: 1 }}>
               <CardHeader
-                title="Overview"
+                title="Summary"
                 titleTypographyProps={{
                   fontWeight: "bold",
                   fontSize: "x-large",

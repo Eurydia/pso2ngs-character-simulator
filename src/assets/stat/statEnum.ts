@@ -65,7 +65,7 @@ export const StatEnumString: { [K in StatEnum]: string } = {
   [StatEnum.ADV_OFF_CRIT_DAMAGE]: "Critical Damage",
   [StatEnum.ADV_OFF_PB_RECOVERY]: "PB Recovery",
   [StatEnum.ADV_OFF_PB_DAMAGE_UP]: "PB Potency",
-  [StatEnum.ADV_DEF_HEALING]: "Restasigne Healing",
+  [StatEnum.ADV_DEF_HEALING]: "Restasigne Healing Amount",
   [StatEnum.ADV_DEF_HEALING_UP]: "Restasigne Potency",
   [StatEnum.ADV_DEF_DAMAGE_RES]: "Damage Resistance",
   [StatEnum.ADV_DEF_AILMENT_DURATION]: "Ailment Duration",
