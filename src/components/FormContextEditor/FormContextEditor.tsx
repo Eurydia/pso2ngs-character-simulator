@@ -234,36 +234,50 @@ const ContextEditorTarget: FC<ContextEditorTargetProps> = (props) => {
         checked={isDowned}
         onClick={handleDownedChange}
       />
-      <ListItemForm
-        labelOn="is weak to FIRE"
-        checked={isWeakToFire}
-        onClick={handleWeakFireChange}
-      />
-      <ListItemForm
-        labelOn="is weak to ICE"
-        checked={isWeakToIce}
-        onClick={handleWeakIceChange}
-      />
-      <ListItemForm
-        labelOn="is weak to LIGHTNING"
-        checked={isWeakToLightning}
-        onClick={handleWeakLightningChange}
-      />
-      <ListItemForm
-        labelOn="is weak to WIND"
-        checked={isWeakToWind}
-        onClick={handleWeakWindChange}
-      />
-      <ListItemForm
-        labelOn="is weak to LIGHT"
-        checked={isWeakToLight}
-        onClick={handleWeakLightChange}
-      />
-      <ListItemForm
-        labelOn="is weak to DARK"
-        checked={isWeakToDark}
-        onClick={handleWeakDarkChange}
-      />
+      <Grid container columns={{ xs: 1, sm: 2 }}>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to FIRE"
+            checked={isWeakToFire}
+            onClick={handleWeakFireChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to ICE"
+            checked={isWeakToIce}
+            onClick={handleWeakIceChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to LIGHTNING"
+            checked={isWeakToLightning}
+            onClick={handleWeakLightningChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to WIND"
+            checked={isWeakToWind}
+            onClick={handleWeakWindChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to LIGHT"
+            checked={isWeakToLight}
+            onClick={handleWeakLightChange}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <ListItemForm
+            labelOn="is weak to DARK"
+            checked={isWeakToDark}
+            onClick={handleWeakDarkChange}
+          />
+        </Grid>
+      </Grid>
     </ListForm>
   );
 };
