@@ -16,4 +16,5 @@ export const enum GroupEnumAugment {
   DECOLD = "Decold",
   SEZUN = "Sezun",
   SUPER = "Super",
+  INALE = "Inale",
 }
