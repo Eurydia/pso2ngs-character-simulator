@@ -9,6 +9,7 @@ const makeAugmentFusia = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentFusia = (
     GroupEnumAugment.FUSIA,
     [GroupEnumAugment.FUSIA],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -33,5 +35,10 @@ G_FUSIA.push(
         [StatEnum.WEAPON_TECHNIQUE]: 1.01,
       });
     },
+    [
+      StatEnum.WEAPON_MELEE,
+      StatEnum.WEAPON_RANGED,
+      StatEnum.WEAPON_TECHNIQUE,
+    ],
   ),
 );
