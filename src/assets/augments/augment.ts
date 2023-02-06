@@ -37,7 +37,7 @@ export const Augment = {
     group: GroupEnumAugment,
     conflict: GroupEnumAugment[],
     getAwareStatObject: (ctx: ActionContext) => StatObject,
-    searchable_terms: string[] = [],
+    searchable_terms: string[],
   ): Augment => {
     const level = augment_level.toString();
     const level_roman = toRoman(augment_level);

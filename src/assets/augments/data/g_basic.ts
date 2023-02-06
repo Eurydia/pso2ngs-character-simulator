@@ -17,6 +17,7 @@ const makeAugmentBasic = (
     GroupEnumAugment.BASIC,
     [GroupEnumAugment.FUSED],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
