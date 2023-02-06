@@ -23,6 +23,7 @@ const termReducer = (options: Augment[], term: string): Augment[] => {
       (item) => item.group,
       (item) => item.level,
       (item) => item.level_roman,
+      (item) => item.searchable_terms,
     ],
   });
 };

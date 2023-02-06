@@ -9,6 +9,7 @@ const makeAugmentBasic = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ) => {
   return Augment.create(
     name,
@@ -27,16 +28,16 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: hp,
-      });
-    };
     const basic_augment: Augment = makeAugmentBasic(
       "Stamina",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: hp,
+        });
+      },
+      [StatEnum.CORE_HP],
     );
     G_BASIC.push(basic_augment);
   });
@@ -50,16 +51,16 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const pp: number = DATA_PP[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_PP]: pp,
-      });
-    };
     const basic_augment: Augment = makeAugmentBasic(
       "Spirit",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_PP]: pp,
+        });
+      },
+      [StatEnum.CORE_PP],
     );
     G_BASIC.push(basic_augment);
   });
@@ -80,16 +81,16 @@ const makeAugmentBasic = (
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [stat_weapon_up]: weapon_up,
-        });
-      };
       const basic_augment: Augment = makeAugmentBasic(
         name,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [stat_weapon_up]: weapon_up,
+          });
+        },
+        [stat_weapon_up],
       );
       G_BASIC.push(basic_augment);
     });
@@ -104,16 +105,16 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const floor_up: number = DATA_FLOOR_up[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.ADV_OFF_FLOOR]: floor_up,
-      });
-    };
     const basic_augment: Augment = makeAugmentBasic(
       "Deftness",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.ADV_OFF_FLOOR]: floor_up,
+        });
+      },
+      [StatEnum.ADV_OFF_FLOOR],
     );
     G_BASIC.push(basic_augment);
   });
@@ -127,16 +128,16 @@ const makeAugmentBasic = (
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      });
-    };
     const basic_augment: Augment = makeAugmentBasic(
       "Guard",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+        });
+      },
+      [StatEnum.ADV_DEF_DAMAGE_RES],
     );
     G_BASIC.push(basic_augment);
   });
@@ -153,22 +154,28 @@ const makeAugmentBasic = (
     const weapon_up = DATA_WEAPON_UP[level_index];
     const floor_up = DATA_FLOOR_UP[level_index];
     const damage_res = DATA_DAMAGE_RES[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_OFF_FLOOR]: floor_up,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      });
-    };
     const basic_augment = Augment.create(
       "Mastery",
       level_index + 1,
       GroupEnumAugment.BASIC,
       [],
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.WEAPON_MELEE]: weapon_up,
+          [StatEnum.WEAPON_RANGED]: weapon_up,
+          [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+          [StatEnum.ADV_OFF_FLOOR]: floor_up,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+        });
+      },
+      [
+        StatEnum.WEAPON_MELEE,
+        StatEnum.WEAPON_RANGED,
+        StatEnum.WEAPON_TECHNIQUE,
+        StatEnum.ADV_OFF_FLOOR,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+      ],
     );
     G_BASIC.push(basic_augment);
   });
