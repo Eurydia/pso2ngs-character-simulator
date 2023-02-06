@@ -1,2 +1,2 @@
-export * from "./statEnum";
+export * from "./StatEnum";
 export * from "./stat";

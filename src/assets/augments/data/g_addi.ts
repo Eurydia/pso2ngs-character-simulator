@@ -1,6 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
-import { Augment, augment } from "../augment";
+import { Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
 export const G_ADDI: Augment[] = [];
@@ -9,13 +9,15 @@ const makeAugmentAddi = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ) => {
-  return augment(
+  return Augment.create(
     name,
     level,
     GroupEnumAugment.ADDI,
     [GroupEnumAugment.ADDI],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -44,6 +46,7 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.025,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_OFF_FLOOR],
       ),
     );
 
@@ -58,6 +61,7 @@ const makeAugmentAddi = (
             [StatEnum.ADV_DEF_DAMAGE_RES]: 1.025,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_DEF_DAMAGE_RES],
       ),
     );
 
@@ -72,6 +76,7 @@ const makeAugmentAddi = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [stat_weapon_up, StatEnum.CORE_PP],
       ),
     );
 
@@ -86,6 +91,7 @@ const makeAugmentAddi = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [stat_weapon_up, StatEnum.CORE_HP],
       ),
     );
 
@@ -101,6 +107,7 @@ const makeAugmentAddi = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [stat_weapon_up, StatEnum.CORE_HP, StatEnum.CORE_PP],
       ),
     );
 
@@ -121,6 +128,16 @@ const makeAugmentAddi = (
             [StatEnum.AIL_SHOCK]: 1.2,
           });
         },
+        [
+          stat_weapon_up,
+          StatEnum.AIL_BLIND,
+          StatEnum.AIL_BURN,
+          StatEnum.AIL_FREEZE,
+          StatEnum.AIL_PANIC,
+          StatEnum.AIL_DOWN,
+          StatEnum.AIL_POISON,
+          StatEnum.AIL_SHOCK,
+        ],
       ),
     );
   }
@@ -152,6 +169,7 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.0275,
           });
         },
+        [stat_weapon_up_a, stat_weapon_up_b, StatEnum.ADV_OFF_FLOOR],
       ),
     );
 
@@ -168,6 +186,12 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.01,
           });
         },
+        [
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+          StatEnum.ADV_DEF_DAMAGE_RES,
+          StatEnum.ADV_OFF_FLOOR,
+        ],
       ),
     );
 
@@ -184,6 +208,12 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.01,
           });
         },
+        [
+          StatEnum.CORE_PP,
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+          StatEnum.ADV_OFF_FLOOR,
+        ],
       ),
     );
 
@@ -200,6 +230,12 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.01,
           });
         },
+        [
+          StatEnum.CORE_HP,
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+          StatEnum.ADV_OFF_FLOOR,
+        ],
       ),
     );
 
@@ -217,6 +253,13 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.01,
           });
         },
+        [
+          StatEnum.CORE_HP,
+          StatEnum.CORE_PP,
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+          StatEnum.ADV_OFF_FLOOR,
+        ],
       ),
     );
 
@@ -239,6 +282,18 @@ const makeAugmentAddi = (
             [StatEnum.ADV_OFF_FLOOR]: 1.01,
           });
         },
+        [
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+          StatEnum.AIL_BLIND,
+          StatEnum.AIL_BURN,
+          StatEnum.AIL_FREEZE,
+          StatEnum.AIL_PANIC,
+          StatEnum.AIL_DOWN,
+          StatEnum.AIL_POISON,
+          StatEnum.AIL_SHOCK,
+          StatEnum.ADV_OFF_FLOOR,
+        ],
       ),
     );
   }

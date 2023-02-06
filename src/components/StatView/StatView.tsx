@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Box, List, Typography } from "@mui/material";
 
-import { StatEnum, StatEnumString, StatObject } from "../../assets";
+import { StatEnum, StatEnumToString, StatObject } from "../../assets";
 import { Nullable } from "../../types";
 
 import { getIcon } from "./helper";
@@ -25,27 +25,27 @@ const CoreGroup: FC<CoreGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Core">
       <StatListItem
-        label={StatEnumString[StatEnum.CORE_BP]}
+        label={StatEnumToString[StatEnum.CORE_BP]}
         value={bp}
         icon={getIcon(bp)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.CORE_HP]}
+        label={StatEnumToString[StatEnum.CORE_HP]}
         value={hp}
         icon={getIcon(hp)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.CORE_PP]}
+        label={StatEnumToString[StatEnum.CORE_PP]}
         value={pp}
         icon={getIcon(pp)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.CORE_ATTACK]}
+        label={StatEnumToString[StatEnum.CORE_ATTACK]}
         value={attack}
         icon={getIcon(attack)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.CORE_DEFENSE]}
+        label={StatEnumToString[StatEnum.CORE_DEFENSE]}
         value={defense}
         icon={getIcon(defense)}
       />
@@ -69,22 +69,22 @@ const PotencyGroup: FC<PotencyGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Weapon up">
       <StatListItem
-        label={StatEnumString[StatEnum.WEAPON_MELEE]}
+        label={StatEnumToString[StatEnum.WEAPON_MELEE]}
         value={melee}
         icon={getIcon(melee)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.WEAPON_RANGED]}
+        label={StatEnumToString[StatEnum.WEAPON_RANGED]}
         value={ranged}
         icon={getIcon(ranged)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.WEAPON_TECHNIQUE]}
+        label={StatEnumToString[StatEnum.WEAPON_TECHNIQUE]}
         value={technique}
         icon={getIcon(technique)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.WEAPON_WEAKPOINT]}
+        label={StatEnumToString[StatEnum.WEAPON_WEAKPOINT]}
         value={weakpoint}
         icon={getIcon(weakpoint)}
       />
@@ -112,37 +112,37 @@ const AilmentGroup: FC<AilmentGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Ailment resistance">
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_BURN]}
+        label={StatEnumToString[StatEnum.AIL_BURN]}
         value={burn}
         icon={getIcon(burn)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_FREEZE]}
+        label={StatEnumToString[StatEnum.AIL_FREEZE]}
         value={freeze}
         icon={getIcon(freeze)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_SHOCK]}
+        label={StatEnumToString[StatEnum.AIL_SHOCK]}
         value={shock}
         icon={getIcon(shock)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_BLIND]}
+        label={StatEnumToString[StatEnum.AIL_BLIND]}
         value={blind}
         icon={getIcon(blind)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_PANIC]}
+        label={StatEnumToString[StatEnum.AIL_PANIC]}
         value={panic}
         icon={getIcon(panic)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_POISON]}
+        label={StatEnumToString[StatEnum.AIL_POISON]}
         value={poison}
         icon={getIcon(poison)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.AIL_DOWN]}
+        label={StatEnumToString[StatEnum.AIL_DOWN]}
         value={physicalDown}
         icon={getIcon(physicalDown)}
       />
@@ -163,7 +163,7 @@ const AdvHPGroup: FC<AdvHPGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Advanced: HP">
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_HP_BOOST]}
+        label={StatEnumToString[StatEnum.ADV_HP_BOOST]}
         value={boost}
         icon={getIcon(boost)}
       />
@@ -185,12 +185,12 @@ const AdvPPGroup: FC<AdvPPGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Advanced: PP">
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_PP_USAGE]}
+        label={StatEnumToString[StatEnum.ADV_PP_USAGE]}
         value={usage}
         icon={getIcon(usage, true)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_PP_RECOVERY]}
+        label={StatEnumToString[StatEnum.ADV_PP_RECOVERY]}
         value={recovery}
         icon={getIcon(recovery)}
       />
@@ -221,27 +221,27 @@ const AdvOffensiveGroup: FC<AdvOffensiveGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Advanced: Offensive">
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_OFF_FLOOR]}
+        label={StatEnumToString[StatEnum.ADV_OFF_FLOOR]}
         value={floorPotency}
         icon={getIcon(floorPotency)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_OFF_DAMAGE_UP]}
+        label={StatEnumToString[StatEnum.ADV_OFF_DAMAGE_UP]}
         value={damageUp}
         icon={getIcon(damageUp)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_OFF_CRIT_CHANCE]}
+        label={StatEnumToString[StatEnum.ADV_OFF_CRIT_CHANCE]}
         value={critChance}
         icon={getIcon(critChance)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_OFF_CRIT_DAMAGE]}
+        label={StatEnumToString[StatEnum.ADV_OFF_CRIT_DAMAGE]}
         value={critDamage}
         icon={getIcon(critDamage)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_OFF_PB_RECOVERY]}
+        label={StatEnumToString[StatEnum.ADV_OFF_PB_RECOVERY]}
         value={pbRecovery}
         icon={getIcon(pbRecovery)}
       />
@@ -265,22 +265,22 @@ const AdvDefensiveGroup: FC<AdvDefensiveGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Advanced: Defensive">
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_DEF_HEALING]}
+        label={StatEnumToString[StatEnum.ADV_DEF_HEALING]}
         value={healing}
         icon={getIcon(healing)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_DEF_DAMAGE_RES]}
+        label={StatEnumToString[StatEnum.ADV_DEF_DAMAGE_RES]}
         value={damageResist}
         icon={getIcon(damageResist)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_DEF_HEALING_UP]}
+        label={StatEnumToString[StatEnum.ADV_DEF_HEALING_UP]}
         value={healingUp}
         icon={getIcon(healingUp)}
       />
       <StatListItem
-        label={StatEnumString[StatEnum.ADV_DEF_AILMENT_DURATION]}
+        label={StatEnumToString[StatEnum.ADV_DEF_AILMENT_DURATION]}
         value={ailmentDuration}
         icon={getIcon(ailmentDuration, true)}
       />
@@ -301,7 +301,7 @@ const EnvironmentGroup: FC<EnvironmentGroupProps> = (props) => {
   return (
     <StatList hidden={hidden} subheader="Enviroment resistence">
       <StatListItem
-        label={StatEnumString[StatEnum.HARSH_COLD]}
+        label={StatEnumToString[StatEnum.HARSH_COLD]}
         value={harshEnvironment}
         icon={getIcon(harshEnvironment)}
       />

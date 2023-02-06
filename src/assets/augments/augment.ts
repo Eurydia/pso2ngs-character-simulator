@@ -27,9 +27,38 @@ export type Augment = Readonly<{
   group: GroupEnumAugment;
   conflict: GroupEnumAugment[];
   getAwareStatObject: (ctx: ActionContext) => StatObject;
+  searchable_terms: string[];
 }>;
 
 export const Augment = {
+  create: (
+    name: string,
+    augment_level: number,
+    group: GroupEnumAugment,
+    conflict: GroupEnumAugment[],
+    getAwareStatObject: (ctx: ActionContext) => StatObject,
+    searchable_terms: string[] = [],
+  ): Augment => {
+    const level = augment_level.toString();
+    const level_roman = toRoman(augment_level);
+    const label = `${name} ${level_roman}`.trimEnd();
+
+    const augment: Augment = {
+      name,
+      label,
+      level,
+      level_roman,
+      group,
+      conflict,
+      getAwareStatObject,
+      searchable_terms,
+    };
+
+    AUGMENT_LOOKUP[label] = augment;
+
+    return augment;
+  },
+
   toString: (augments: (Augment | null)[]): string => {
     const labels: (string | null)[] = [];
     for (const item of augments) {
@@ -130,30 +159,4 @@ export const Augment = {
     });
     return result;
   },
-};
-
-export const augment = (
-  name: string,
-  augment_level: number,
-  group: GroupEnumAugment,
-  conflict: GroupEnumAugment[],
-  getAwareStatObject: (ctx: ActionContext) => StatObject,
-): Augment => {
-  const level = augment_level.toString();
-  const level_roman = toRoman(augment_level);
-  const label = `${name} ${level_roman}`.trimEnd();
-
-  const result: Augment = {
-    name,
-    label,
-    level,
-    level_roman,
-    group,
-    conflict,
-    getAwareStatObject,
-  };
-
-  AUGMENT_LOOKUP[label] = result;
-
-  return result;
 };

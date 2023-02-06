@@ -1,4 +1,4 @@
-import { StatEnum, StatAdd, StatSpecial } from "./statEnum";
+import { StatEnum, StatAdd, StatSpecial } from "./StatEnum";
 import {
   formatStatAdd,
   formatStatPercent,

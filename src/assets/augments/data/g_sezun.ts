@@ -1,6 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
-import { augment, Augment } from "../augment";
+import { Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
 export const G_SEZUN: Augment[] = [];
@@ -10,7 +10,7 @@ const makeAugmentSezun = (
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ): Augment => {
-  return augment(
+  return Augment.create(
     name,
     level,
     GroupEnumAugment.SEZUN,

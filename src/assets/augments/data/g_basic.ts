@@ -1,6 +1,6 @@
 import { ActionContext } from "../../ContextAction";
 import { StatEnum, StatObject, statObject } from "../../stat";
-import { augment, Augment } from "../augment";
+import { Augment } from "../augment";
 import { GroupEnumAugment } from "../groupEnum";
 
 export const G_BASIC: Augment[] = [];
@@ -10,7 +10,7 @@ const makeAugmentBasic = (
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
 ) => {
-  return augment(
+  return Augment.create(
     name,
     level,
     GroupEnumAugment.BASIC,
@@ -163,7 +163,7 @@ const makeAugmentBasic = (
         [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
       });
     };
-    const basic_augment = augment(
+    const basic_augment = Augment.create(
       "Mastery",
       level_index + 1,
       GroupEnumAugment.BASIC,

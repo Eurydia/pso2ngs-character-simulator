@@ -38,7 +38,7 @@ export const enum StatEnum {
   ADV_DEF_AILMENT_DURATION = "defAilmentDuration",
 }
 
-export const StatEnumString: { [K in StatEnum]: string } = {
+export const StatEnumToString: { [K in StatEnum]: string } = {
   [StatEnum.CORE_BP]: "BP",
   [StatEnum.CORE_HP]: "HP",
   [StatEnum.CORE_PP]: "PP",
