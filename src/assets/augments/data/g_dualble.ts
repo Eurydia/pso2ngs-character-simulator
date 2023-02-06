@@ -9,6 +9,7 @@ const makeAugmentDualble = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentDualble = (
     GroupEnumAugment.DUALBLE,
     [GroupEnumAugment.DUALBLE],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -34,17 +36,17 @@ const makeAugmentDualble = (
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [stat_weapon_up_a]: weapon_up,
-          [stat_weapon_up_b]: weapon_up,
-        });
-      };
       const dualble_augment: Augment = makeAugmentDualble(
         `${name} Dualble`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [stat_weapon_up_a]: weapon_up,
+            [stat_weapon_up_b]: weapon_up,
+          });
+        },
+        [stat_weapon_up_a, stat_weapon_up_b],
       );
       G_DUALBLE.push(dualble_augment);
     });
@@ -65,5 +67,10 @@ G_DUALBLE.push(
         [StatEnum.WEAPON_TECHNIQUE]: 1.02,
       });
     },
+    [
+      StatEnum.WEAPON_MELEE,
+      StatEnum.WEAPON_RANGED,
+      StatEnum.WEAPON_TECHNIQUE,
+    ],
   ),
 );
