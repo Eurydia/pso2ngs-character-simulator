@@ -9,6 +9,7 @@ const makeAugmentFused = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentFused = (
     GroupEnumAugment.FUSED,
     [GroupEnumAugment.BASIC, GroupEnumAugment.FUSED],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -42,6 +44,7 @@ const makeAugmentFused = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_HP, stat_weapon_up],
       ),
     );
 
@@ -56,6 +59,7 @@ const makeAugmentFused = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_PP, stat_weapon_up],
       ),
     );
 
@@ -70,6 +74,7 @@ const makeAugmentFused = (
             [StatEnum.ADV_OFF_FLOOR]: 1.02,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_OFF_FLOOR],
       ),
     );
 
@@ -84,6 +89,7 @@ const makeAugmentFused = (
             [StatEnum.ADV_DEF_DAMAGE_RES]: 1.02,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_DEF_DAMAGE_RES],
       ),
     );
   }
