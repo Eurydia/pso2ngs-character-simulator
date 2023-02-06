@@ -9,6 +9,7 @@ const makeAugmentSuper = (
   name: string,
   level: number,
   getAwareStatObject: (_: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentSuper = (
     GroupEnumAugment.SUPER,
     [GroupEnumAugment.SUPER],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -27,15 +29,21 @@ const makeAugmentSuper = (
     ["Precision", StatEnum.WEAPON_RANGED],
     ["Technique", StatEnum.WEAPON_TECHNIQUE],
   ];
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: 8,
-        [stat_weapon_up]: 1.0225,
-      });
-    };
-    const super_augment: Augment = makeAugmentSuper(name, 1, _getter);
+
+    const super_augment: Augment = makeAugmentSuper(
+      name,
+      1,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: 8,
+          [stat_weapon_up]: 1.0225,
+        });
+      },
+      [stat_weapon_up],
+    );
     G_SUPER.push(super_augment);
   }
 })();
@@ -49,6 +57,7 @@ const makeAugmentSuper = (
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
   const WEAPON_UP: number = 1.02;
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
     G_SUPER.push(
@@ -62,6 +71,7 @@ const makeAugmentSuper = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_HP, stat_weapon_up],
       ),
     );
 
@@ -76,6 +86,7 @@ const makeAugmentSuper = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_PP, stat_weapon_up],
       ),
     );
   }
