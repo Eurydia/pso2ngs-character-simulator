@@ -243,7 +243,7 @@ const makeAugmentSoul = (
       const wepaon_up = DATA_WEAPON_UP[level_index];
 
       const soul_augment: Augment = makeAugmentSoul(
-        name,
+        `${name} Soul`,
         level,
         (_: ActionContext): StatObject => {
           return statObject({
