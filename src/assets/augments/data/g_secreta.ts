@@ -9,6 +9,7 @@ const makeAugmentSecreta = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentSecreta = (
     GroupEnumAugment.SECRETA,
     [GroupEnumAugment.SECRETA],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -33,21 +35,28 @@ const makeAugmentSecreta = (
     const weapon_up: number = DATA_WEAPON_UP[level_index];
     const floor_up: number = DATA_FLOOR_UP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: hp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-        [StatEnum.ADV_OFF_FLOOR]: floor_up,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      });
-    };
     const secreta_augment: Augment = makeAugmentSecreta(
       "Alts Secreta",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: hp,
+          [StatEnum.WEAPON_MELEE]: weapon_up,
+          [StatEnum.WEAPON_RANGED]: weapon_up,
+          [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+          [StatEnum.ADV_OFF_FLOOR]: floor_up,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+        });
+      },
+      [
+        StatEnum.CORE_HP,
+        StatEnum.WEAPON_MELEE,
+        StatEnum.WEAPON_RANGED,
+        StatEnum.WEAPON_TECHNIQUE,
+        StatEnum.ADV_OFF_FLOOR,
+        StatEnum.ADV_DEF_DAMAGE_RES,
+      ],
     );
     G_SECRETA.push(secreta_augment);
   });
