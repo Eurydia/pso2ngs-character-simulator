@@ -9,6 +9,7 @@ const makeAugmentSezun = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentSezun = (
     GroupEnumAugment.SEZUN,
     [GroupEnumAugment.SEZUN],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -37,7 +39,26 @@ const makeAugmentSezun = (
     return StatObject.merge(stat, stat_up);
   };
 
-  G_SEZUN.push(makeAugmentSezun("Sezun Lunafiv", 0, _getter));
-  G_SEZUN.push(makeAugmentSezun("Sezun Automfevre", 0, _getter));
-  G_SEZUN.push(makeAugmentSezun("Sezun Wintafiv", 0, _getter));
+  const searchable_terms: string[] = [
+    StatEnum.WEAPON_MELEE,
+    StatEnum.WEAPON_RANGED,
+    StatEnum.WEAPON_TECHNIQUE,
+    StatEnum.ADV_OFF_CRIT_CHANCE,
+    StatEnum.ADV_DEF_DAMAGE_RES,
+  ];
+
+  G_SEZUN.push(
+    makeAugmentSezun("Sezun Lunafiv", 0, _getter, searchable_terms),
+  );
+  G_SEZUN.push(
+    makeAugmentSezun(
+      "Sezun Automfevre",
+      0,
+      _getter,
+      searchable_terms,
+    ),
+  );
+  G_SEZUN.push(
+    makeAugmentSezun("Sezun Wintafiv", 0, _getter, searchable_terms),
+  );
 })();
