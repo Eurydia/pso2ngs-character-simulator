@@ -292,13 +292,37 @@ G_NOTE.push(
       [StatEnum.WEAPON_MELEE]: 1.02,
       [StatEnum.WEAPON_RANGED]: 1.02,
       [StatEnum.WEAPON_TECHNIQUE]: 1.02,
-      [StatEnum.AIL_BLIND]: 1.1,
-      [StatEnum.AIL_BURN]: 1.1,
-      [StatEnum.AIL_FREEZE]: 1.1,
-      [StatEnum.AIL_PANIC]: 1.1,
-      [StatEnum.AIL_DOWN]: 1.1,
-      [StatEnum.AIL_POISON]: 1.1,
-      [StatEnum.AIL_SHOCK]: 1.1,
+      [StatEnum.AIL_BLIND]: 0.9,
+      [StatEnum.AIL_BURN]: 0.9,
+      [StatEnum.AIL_FREEZE]: 0.9,
+      [StatEnum.AIL_PANIC]: 0.9,
+      [StatEnum.AIL_DOWN]: 0.9,
+      [StatEnum.AIL_POISON]: 0.9,
+      [StatEnum.AIL_SHOCK]: 0.9,
     });
   }),
+);
+
+// Noizel
+G_NOTE.push(
+  makeAugmentNote(
+    "Noizel Note",
+    0,
+    (_: ActionContext): StatObject => {
+      return statObject({
+        [StatEnum.CORE_BP]: 5,
+        [StatEnum.CORE_PP]: 3,
+        [StatEnum.WEAPON_MELEE]: 1.02,
+        [StatEnum.WEAPON_RANGED]: 1.02,
+        [StatEnum.WEAPON_TECHNIQUE]: 1.02,
+        [StatEnum.AIL_BLIND]: 0.9,
+        [StatEnum.AIL_BURN]: 0.9,
+        [StatEnum.AIL_FREEZE]: 0.9,
+        [StatEnum.AIL_PANIC]: 0.9,
+        [StatEnum.AIL_DOWN]: 0.9,
+        [StatEnum.AIL_POISON]: 0.9,
+        [StatEnum.AIL_SHOCK]: 0.9,
+      });
+    },
+  ),
 );
