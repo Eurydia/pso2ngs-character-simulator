@@ -9,6 +9,7 @@ const makeAugmentTria = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentTria = (
     GroupEnumAugment.TRIA,
     [GroupEnumAugment.TRIA],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -27,9 +29,9 @@ const makeAugmentTria = (
     ["tech", StatEnum.WEAPON_TECHNIQUE],
   ];
   const WEAPON_UP: number = 1.0225;
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
-
     G_TRIA.push(
       makeAugmentTria(
         `Tria Staro${name}`,
@@ -41,6 +43,7 @@ const makeAugmentTria = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_HP, stat_weapon_up],
       ),
     );
 
@@ -55,6 +58,7 @@ const makeAugmentTria = (
             [stat_weapon_up]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_PP, stat_weapon_up],
       ),
     );
 
@@ -69,6 +73,7 @@ const makeAugmentTria = (
             [StatEnum.ADV_OFF_FLOOR]: 0.99,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_OFF_FLOOR],
       ),
     );
 
@@ -83,6 +88,7 @@ const makeAugmentTria = (
             [StatEnum.ADV_DEF_DAMAGE_RES]: 0.99,
           });
         },
+        [stat_weapon_up, StatEnum.ADV_DEF_DAMAGE_RES],
       ),
     );
   }
