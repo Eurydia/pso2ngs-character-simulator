@@ -98,7 +98,7 @@ const makeAugmentSoul = (
         });
       };
       const soul_augment: Augment = makeAugmentSoul(
-        name,
+        `${name} Soul`,
         level,
         _getter,
       );
@@ -132,7 +132,7 @@ const makeAugmentSoul = (
         });
       };
       const soul_augment: Augment = makeAugmentSoul(
-        name,
+        `${name} Soul`,
         level,
         _getter,
       );
@@ -166,7 +166,7 @@ const makeAugmentSoul = (
         });
       };
       const soul_augment: Augment = makeAugmentSoul(
-        name,
+        `${name} Soul`,
         level,
         _getter,
       );
@@ -198,7 +198,7 @@ const makeAugmentSoul = (
       });
     };
     const soul_augment: Augment = makeAugmentSoul(
-      "Eradi",
+      "Eradi Soul",
       level,
       _getter,
     );
@@ -329,27 +329,56 @@ const makeAugmentSoul = (
       const pp: number = DATA_PP[level_index];
       const wepaon_up: number = DATA_WEAPON_UP[level_index];
       const ail_res: number = DATA_AIL_RES[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: hp,
-          [StatEnum.CORE_PP]: pp,
-          [stat_weapon_up]: wepaon_up,
-          [StatEnum.AIL_BLIND]: ail_res,
-          [StatEnum.AIL_BURN]: ail_res,
-          [StatEnum.AIL_FREEZE]: ail_res,
-          [StatEnum.AIL_PANIC]: ail_res,
-          [StatEnum.AIL_DOWN]: ail_res,
-          [StatEnum.AIL_POISON]: ail_res,
-          [StatEnum.AIL_SHOCK]: ail_res,
-        });
-      };
       const soul_augment: Augment = makeAugmentSoul(
-        name,
+        `${name} Soul`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.CORE_HP]: hp,
+            [StatEnum.CORE_PP]: pp,
+            [stat_weapon_up]: wepaon_up,
+            [StatEnum.AIL_BLIND]: ail_res,
+            [StatEnum.AIL_BURN]: ail_res,
+            [StatEnum.AIL_FREEZE]: ail_res,
+            [StatEnum.AIL_PANIC]: ail_res,
+            [StatEnum.AIL_DOWN]: ail_res,
+            [StatEnum.AIL_POISON]: ail_res,
+            [StatEnum.AIL_SHOCK]: ail_res,
+          });
+        },
       );
       G_SOUL.push(soul_augment);
     });
   }
+})();
+
+// --------------------------------------
+// Aegis
+(() => {
+  const DATA_BP: number[] = [0, 0, 0, 0];
+  const DATA_HP: number[] = [5, 5, 5, 5];
+  const DATA_PP: number[] = [2, 2, 2, 2];
+  const DATA_WEAPON_UP: number[] = [1.01, 1.02, 1.025, 1.03];
+  DATA_BP.forEach((bp, level_index) => {
+    const level: number = level_index + 1;
+    const hp: number = DATA_HP[level_index];
+    const pp: number = DATA_PP[level_index];
+    const wepaon_up: number = DATA_WEAPON_UP[level_index];
+    const soul_augment: Augment = makeAugmentSoul(
+      `${name} Soul`,
+      level,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: hp,
+          [StatEnum.CORE_PP]: pp,
+          [StatEnum.WEAPON_MELEE]: wepaon_up,
+          [StatEnum.WEAPON_RANGED]: wepaon_up,
+          [StatEnum.WEAPON_TECHNIQUE]: wepaon_up,
+        });
+      },
+    );
+    G_SOUL.push(soul_augment);
+  });
 })();
