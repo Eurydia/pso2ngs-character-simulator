@@ -16,7 +16,7 @@ import { G_WARD } from "./g_ward";
 import { G_DECOLD } from "./g_decold";
 import { G_SEZUN } from "./g_sezun";
 import { G_SUPER } from "./g_super";
-import { G_INALE } from "./inale";
+import { G_INALE } from "./g_inale";
 
 export const AssetAugments: Augment[] = [
   ...G_ADDI,
