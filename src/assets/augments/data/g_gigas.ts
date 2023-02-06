@@ -9,6 +9,7 @@ const makeAugmentGigas = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentGigas = (
     GroupEnumAugment.GIGAS,
     [GroupEnumAugment.GIGAS],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -36,17 +38,17 @@ const makeAugmentGigas = (
       const level: number = level_index + 1;
       const hp: number = DATA_HP[level_index];
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: hp,
-          [stat_weapon_up]: weapon_up,
-        });
-      };
       const gigas_augment: Augment = makeAugmentGigas(
         `Gigas ${name}`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.CORE_HP]: hp,
+            [stat_weapon_up]: weapon_up,
+          });
+        },
+        [StatEnum.CORE_HP, stat_weapon_up],
       );
       G_GIGAS.push(gigas_augment);
     });
@@ -64,18 +66,18 @@ const makeAugmentGigas = (
   const WEAPON_UP: number = 1.025;
   for (const entry of DATA_ENTRY) {
     const [name, [stat_weapon_up_a, stat_weapon_up_b]] = entry;
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: 11,
-        [StatEnum.CORE_HP]: 15,
-        [stat_weapon_up_a]: WEAPON_UP,
-        [stat_weapon_up_b]: WEAPON_UP,
-      });
-    };
     const gigas_augment: Augment = makeAugmentGigas(
       `Gigas ${name}`,
       0,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: 11,
+          [StatEnum.CORE_HP]: 15,
+          [stat_weapon_up_a]: WEAPON_UP,
+          [stat_weapon_up_b]: WEAPON_UP,
+        });
+      },
+      [StatEnum.CORE_HP, stat_weapon_up_a, stat_weapon_up_b],
     );
     G_GIGAS.push(gigas_augment);
   }
