@@ -9,6 +9,7 @@ const makeAugmentSoul = (
   name: string,
   level: number,
   getAwareStatObject: (ctx: ActionContext) => StatObject,
+  searchable_terms: string[],
 ): Augment => {
   return Augment.create(
     name,
@@ -16,6 +17,7 @@ const makeAugmentSoul = (
     GroupEnumAugment.SOUL,
     [GroupEnumAugment.SOUL],
     getAwareStatObject,
+    searchable_terms,
   );
 };
 
@@ -29,17 +31,17 @@ const makeAugmentSoul = (
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
     const damage_res: number = DATA_DAMAGE_RES[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: hp,
-        [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-      });
-    };
     const soul_augment: Augment = makeAugmentSoul(
       "Alt Soul",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: hp,
+          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+        });
+      },
+      [StatEnum.CORE_HP, StatEnum.ADV_DEF_DAMAGE_RES],
     );
     G_SOUL.push(soul_augment);
   });
@@ -56,17 +58,18 @@ const makeAugmentSoul = (
     const level: number = level_index + 1;
     const pp: number = DATA_PP[level_index];
     const floor_up: number = DATA_FLOOR_UP[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: pp,
-        [StatEnum.ADV_OFF_FLOOR]: floor_up,
-      });
-    };
+
     const soul_augment: Augment = makeAugmentSoul(
       "Dolz Soul",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: pp,
+          [StatEnum.ADV_OFF_FLOOR]: floor_up,
+        });
+      },
+      [StatEnum.CORE_PP, StatEnum.ADV_OFF_FLOOR],
     );
     G_SOUL.push(soul_augment);
   });
@@ -90,17 +93,18 @@ const makeAugmentSoul = (
       const level: number = level_index + 1;
       const weapon_up: number = DATA_WEAPON_UP[level_index];
       const damage_res: number = DATA_DAMAGE_RES[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [stat_weapon_up]: weapon_up,
-          [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
-        });
-      };
+
       const soul_augment: Augment = makeAugmentSoul(
         `${name} Soul`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [stat_weapon_up]: weapon_up,
+            [StatEnum.ADV_DEF_DAMAGE_RES]: damage_res,
+          });
+        },
+        [stat_weapon_up, StatEnum.ADV_DEF_DAMAGE_RES],
       );
       G_SOUL.push(soul_augment);
     });
@@ -113,29 +117,31 @@ const makeAugmentSoul = (
   const DATA_BP: number[] = [7, 8, 10, 11];
   const DATA_PP: number[] = [5, 5, 5, 5];
   const DATA_WEAPON_UP: number[] = [1.01, 1.02, 1.025, 1.03];
-  const DAT_ENTRY: [string, StatEnum][] = [
+  const DATA_ENTRY: [string, StatEnum][] = [
     ["Daityl", StatEnum.WEAPON_MELEE],
     ["Pettas", StatEnum.WEAPON_RANGED],
     ["Nex", StatEnum.WEAPON_TECHNIQUE],
   ];
-  for (const entry of DAT_ENTRY) {
+
+  for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const pp: number = DATA_PP[level_index];
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: pp,
-          [stat_weapon_up]: weapon_up,
-        });
-      };
       const soul_augment: Augment = makeAugmentSoul(
         `${name} Soul`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.CORE_HP]: pp,
+            [stat_weapon_up]: weapon_up,
+          });
+        },
+        [StatEnum.CORE_HP, stat_weapon_up],
       );
+
       G_SOUL.push(soul_augment);
     });
   }
@@ -152,23 +158,24 @@ const makeAugmentSoul = (
     ["Ragras", StatEnum.WEAPON_RANGED],
     ["Renus", StatEnum.WEAPON_TECHNIQUE],
   ];
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
     DATA_BP.forEach((bp, level_index) => {
       const level: number = level_index + 1;
       const hp: number = DATA_HP[level_index];
       const weapon_up: number = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: hp,
-          [stat_weapon_up]: weapon_up,
-        });
-      };
       const soul_augment: Augment = makeAugmentSoul(
         `${name} Soul`,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.CORE_HP]: hp,
+            [stat_weapon_up]: weapon_up,
+          });
+        },
+        [StatEnum.CORE_HP, stat_weapon_up],
       );
       G_SOUL.push(soul_augment);
     });
@@ -182,25 +189,33 @@ const makeAugmentSoul = (
   const DATA_HP: number[] = [10, 10, 10, 10];
   const DATA_PP: number[] = [4, 4, 4, 4];
   const DATA_WEAPON_UP: number[] = [1.0125, 1.0175, 1.0225, 1.0275];
+
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
     const pp: number = DATA_PP[level_index];
     const weapon_up: number = DATA_WEAPON_UP[level_index];
-    const _getter = (_: ActionContext): StatObject => {
-      return statObject({
-        [StatEnum.CORE_BP]: bp,
-        [StatEnum.CORE_HP]: hp,
-        [StatEnum.CORE_PP]: pp,
-        [StatEnum.WEAPON_MELEE]: weapon_up,
-        [StatEnum.WEAPON_RANGED]: weapon_up,
-        [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
-      });
-    };
+
     const soul_augment: Augment = makeAugmentSoul(
       "Eradi Soul",
       level,
-      _getter,
+      (_: ActionContext): StatObject => {
+        return statObject({
+          [StatEnum.CORE_BP]: bp,
+          [StatEnum.CORE_HP]: hp,
+          [StatEnum.CORE_PP]: pp,
+          [StatEnum.WEAPON_MELEE]: weapon_up,
+          [StatEnum.WEAPON_RANGED]: weapon_up,
+          [StatEnum.WEAPON_TECHNIQUE]: weapon_up,
+        });
+      },
+      [
+        StatEnum.CORE_HP,
+        StatEnum.CORE_PP,
+        StatEnum.WEAPON_MELEE,
+        StatEnum.WEAPON_RANGED,
+        StatEnum.WEAPON_TECHNIQUE,
+      ],
     );
     G_SOUL.push(soul_augment);
   });
@@ -218,6 +233,7 @@ const makeAugmentSoul = (
     ["Crocys", StatEnum.WEAPON_RANGED],
     ["Ams", StatEnum.WEAPON_TECHNIQUE],
   ];
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
     DATA_BP.forEach((bp, level_index) => {
@@ -225,18 +241,19 @@ const makeAugmentSoul = (
       const hp: number = DATA_HP[level_index];
       const pp: number = DATA_PP[level_index];
       const wepaon_up = DATA_WEAPON_UP[level_index];
-      const _getter = (_: ActionContext): StatObject => {
-        return statObject({
-          [StatEnum.CORE_BP]: bp,
-          [StatEnum.CORE_HP]: hp,
-          [StatEnum.CORE_PP]: pp,
-          [stat_weapon_up]: wepaon_up,
-        });
-      };
+
       const soul_augment: Augment = makeAugmentSoul(
         name,
         level,
-        _getter,
+        (_: ActionContext): StatObject => {
+          return statObject({
+            [StatEnum.CORE_BP]: bp,
+            [StatEnum.CORE_HP]: hp,
+            [StatEnum.CORE_PP]: pp,
+            [stat_weapon_up]: wepaon_up,
+          });
+        },
+        [StatEnum.CORE_HP, StatEnum.CORE_PP, stat_weapon_up],
       );
       G_SOUL.push(soul_augment);
     });
@@ -270,6 +287,7 @@ const makeAugmentSoul = (
             [stat_weapon_up_b]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_PP, stat_weapon_up_a, stat_weapon_up_b],
       ),
     );
 
@@ -286,6 +304,7 @@ const makeAugmentSoul = (
             [stat_weapon_up_b]: WEAPON_UP,
           });
         },
+        [StatEnum.CORE_HP, stat_weapon_up_a, stat_weapon_up_b],
       ),
     );
 
@@ -303,6 +322,12 @@ const makeAugmentSoul = (
             [stat_weapon_up_b]: WEAPON_UP,
           });
         },
+        [
+          StatEnum.CORE_HP,
+          StatEnum.CORE_PP,
+          stat_weapon_up_a,
+          stat_weapon_up_b,
+        ],
       ),
     );
   }
@@ -321,6 +346,7 @@ const makeAugmentSoul = (
     ["Doldor", StatEnum.WEAPON_RANGED],
     ["Nils", StatEnum.WEAPON_TECHNIQUE],
   ];
+
   for (const entry of DATA_ENTRY) {
     const [name, stat_weapon_up] = entry;
     DATA_BP.forEach((bp, level_index) => {
@@ -329,6 +355,7 @@ const makeAugmentSoul = (
       const pp: number = DATA_PP[level_index];
       const wepaon_up: number = DATA_WEAPON_UP[level_index];
       const ail_res: number = DATA_AIL_RES[level_index];
+
       const soul_augment: Augment = makeAugmentSoul(
         `${name} Soul`,
         level,
@@ -347,6 +374,18 @@ const makeAugmentSoul = (
             [StatEnum.AIL_SHOCK]: ail_res,
           });
         },
+        [
+          StatEnum.CORE_HP,
+          StatEnum.CORE_PP,
+          stat_weapon_up,
+          StatEnum.AIL_BLIND,
+          StatEnum.AIL_BURN,
+          StatEnum.AIL_FREEZE,
+          StatEnum.AIL_PANIC,
+          StatEnum.AIL_DOWN,
+          StatEnum.AIL_POISON,
+          StatEnum.AIL_SHOCK,
+        ],
       );
       G_SOUL.push(soul_augment);
     });
@@ -360,11 +399,13 @@ const makeAugmentSoul = (
   const DATA_HP: number[] = [5, 5, 5, 5];
   const DATA_PP: number[] = [2, 2, 2, 2];
   const DATA_WEAPON_UP: number[] = [1.01, 1.02, 1.025, 1.03];
+
   DATA_BP.forEach((bp, level_index) => {
     const level: number = level_index + 1;
     const hp: number = DATA_HP[level_index];
     const pp: number = DATA_PP[level_index];
     const wepaon_up: number = DATA_WEAPON_UP[level_index];
+
     const soul_augment: Augment = makeAugmentSoul(
       `${name} Soul`,
       level,
@@ -378,6 +419,13 @@ const makeAugmentSoul = (
           [StatEnum.WEAPON_TECHNIQUE]: wepaon_up,
         });
       },
+      [
+        StatEnum.CORE_HP,
+        StatEnum.CORE_PP,
+        StatEnum.WEAPON_MELEE,
+        StatEnum.WEAPON_RANGED,
+        StatEnum.WEAPON_TECHNIQUE,
+      ],
     );
     G_SOUL.push(soul_augment);
   });
