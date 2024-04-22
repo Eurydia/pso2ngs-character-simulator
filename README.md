@@ -1,2 +1,3 @@
-# pso2ngs-character-simulator
- A character simulator for PSO2NGS.
+# NGS character simulator
+
+A context-based character simulator for PSO2NGS.
